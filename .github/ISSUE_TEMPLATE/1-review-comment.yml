@@ -1,0 +1,84 @@
+name: Review comment
+description: Comment on a passage, a section or the whole paper (version 1.0).
+title: "[Review] "
+labels: ["review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reviewing. Please refer to version 1.0 section numbers and share only public or general information.
+  - type: dropdown
+    id: section
+    attributes:
+      label: Where in the paper
+      options:
+        - Abstract or whole paper
+        - 1. Introduction
+        - 2. Relationship to prior work
+        - 3. Deriving the specification from public evidence
+        - 4. From product activity to protective decisions
+        - 5. Records an investigator can reason from
+        - 6. How the agent investigates
+        - 7. Interpreting feedback after protective decisions
+        - 8. Two hypothetical investigations
+        - 9. Evaluating the specification
+        - 10. Conclusion
+        - Supplement (name the part below)
+        - Supplement data files (name the file below)
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: Subsection, table or file
+      placeholder: "e.g. 7.1, Table 4, S3_SIGNALS.csv"
+  - type: textarea
+    id: quote
+    attributes:
+      label: The sentence or passage you mean
+      description: Paste it, or link to the line (Code view, click the line number, Copy permalink).
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of comment
+      options:
+        - Does not match how teams actually work
+        - A record or signal is missing
+        - A requirement is wrong, too strong or too weak
+        - Unclear or hard to follow
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: comment
+    attributes:
+      label: Your comment
+      description: A short comment is fine.
+    validations:
+      required: true
+  - type: dropdown
+    id: basis
+    attributes:
+      label: What the comment is based on
+      options:
+        - Public sources (please link them above)
+        - Published research
+        - General practitioner experience
+        - My own reading of the paper
+  - type: dropdown
+    id: credit
+    attributes:
+      label: Credit in version 1.1 if your comment changes the paper
+      options:
+        - Credit me by name
+        - Acknowledge me anonymously
+        - No credit
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: This comment contains only public or general information, and no confidential or personal data.
+          required: true

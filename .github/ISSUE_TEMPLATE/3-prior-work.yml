@@ -1,0 +1,55 @@
+name: Prior work I should cite
+description: A paper, standard, product, patent or public engineering account the paper misses or describes wrongly.
+title: "[Prior work] "
+labels: ["prior-work"]
+body:
+  - type: input
+    id: reference
+    attributes:
+      label: Reference
+      placeholder: "Authors, title, venue or publisher, year"
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Link or DOI
+    validations:
+      required: true
+  - type: dropdown
+    id: requirement
+    attributes:
+      label: Which part of the paper it bears on
+      options:
+        - "Requirement 1: outcomes linked to the decisions that shaped them"
+        - "Requirement 2: query coverage and when facts were learned"
+        - "Requirement 3: human release before reuse, and links back to agent outputs"
+        - Several requirements together
+        - Another part of the paper (say which below)
+    validations:
+      required: true
+  - type: textarea
+    id: relation
+    attributes:
+      label: What it states and how it relates
+      description: Quote or point to the passage if you can. Does it state a requirement already, state it more completely, contradict it, or offer a better design?
+    validations:
+      required: true
+  - type: dropdown
+    id: misdescribed
+    attributes:
+      label: Is it already cited?
+      options:
+        - Not cited
+        - Cited, but described wrongly or incompletely
+        - Not sure
+  - type: dropdown
+    id: credit
+    attributes:
+      label: Credit in version 1.1 if this changes the paper
+      options:
+        - Credit me by name
+        - Acknowledge me anonymously
+        - No credit
+    validations:
+      required: true

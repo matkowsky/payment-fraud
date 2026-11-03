@@ -1,0 +1,56 @@
+name: Practitioner questions
+description: Five short questions about how your team works. Answer any you like; two lines each is plenty.
+title: "[Questions] "
+labels: ["practitioner-input"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Answer only the questions that apply. Share only public or general information; do not name an employer's internal systems or customers.
+  - type: textarea
+    id: q1
+    attributes:
+      label: "1. When a payment gets no dispute by the time the window closes, does your pipeline treat it as a final good label, or can a later event reopen it? (Section 7.1)"
+  - type: textarea
+    id: q2
+    attributes:
+      label: "2. When a search finds nothing, does your tooling record what the search actually covered? (Section 6.2)"
+  - type: textarea
+    id: q3
+    attributes:
+      label: "3. Do your investigation stores keep both when an event happened and when your system learned of it? (Section 5.3)"
+  - type: textarea
+    id: q4
+    attributes:
+      label: "4. If an AI agent's conclusion is reused in a later investigation, what stops it counting as independent evidence? (Section 6.4)"
+  - type: textarea
+    id: q5
+    attributes:
+      label: "5. Where does the paper not match how your team actually works?"
+  - type: dropdown
+    id: role
+    attributes:
+      label: Your vantage point (optional)
+      options:
+        - Fraud, risk or trust and safety practitioner
+        - Payments engineering or data
+        - Security or threat intelligence
+        - Research or academia
+        - Other
+  - type: dropdown
+    id: credit
+    attributes:
+      label: Credit in version 1.1 if your answers change the paper
+      options:
+        - Credit me by name
+        - Acknowledge me anonymously
+        - No credit
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmation
+      options:
+        - label: My answers contain only public or general information, and no confidential or personal data.
+          required: true

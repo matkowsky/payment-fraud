@@ -1,0 +1,53 @@
+name: Error report
+description: A factual, citation, arithmetic or reproduction error in version 1.0.
+title: "[Error] "
+labels: ["error"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Where
+      placeholder: "Section, table, figure, file and row, or page of the PDF"
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of error
+      options:
+        - A cited source does not say this
+        - Wrong fact, date, name or number
+        - Arithmetic or count does not match the data files
+        - A script or check fails
+        - Broken link or reference
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is wrong
+      description: Quote the text if you can.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: The source passage, your recomputation, or the command and its output.
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Suggested correction (optional)
+  - type: dropdown
+    id: credit
+    attributes:
+      label: Credit in version 1.1 for the correction
+      options:
+        - Credit me by name
+        - Acknowledge me anonymously
+        - No credit
+    validations:
+      required: true
