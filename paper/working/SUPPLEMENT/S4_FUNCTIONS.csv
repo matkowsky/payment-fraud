@@ -1,0 +1,25 @@
+component,responsibility,class,requirement,boundary
+1,Human tasking and scope control.,DI,"Task/tenant/outcome scope; SIG-54,60–67",No autonomous account/payment/control action granted
+2,Orchestrator / workflow and capability routing.,INH,Inherited; no payment-specific derivation asserted.,No autonomous account/payment/control action granted
+3,Retrieval over released intelligence.,INH,Inherited; no payment-specific derivation asserted.,No autonomous account/payment/control action granted
+4,Specialist analytical capabilities/skills; separate agent/model instances optional.,INH,Inherited; no payment-specific derivation asserted.,No autonomous account/payment/control action granted
+5,Telemetry schema discovery.,DI,Signal/schema discovery; S3/S5; partial representation versus required semantics,No autonomous account/payment/control action granted
+6,"Governed capability/tool interfaces, including telemetry/query, detection-engineering, product/control-knowledge, and environment-state services.",DI,"Governed query interface; authorization, budgets, scope, version and failure",No autonomous account/payment/control action granted
+7,Live telemetry/evidence store.,DI,Observation/label/assessment/control separation; manuscript Table 3,No autonomous account/payment/control action granted
+8,Iterative hypothesis-testing loop.,DI,Hypothesis and query-result-state loop; Figure 3,No autonomous account/payment/control action granted
+9,Entity extraction and normalization.,DI,Namespaced identifiers and as-of normalization,No autonomous account/payment/control action granted
+10,Relationship/correlation engine.,DI,"Versioned clusters and cohort attribution; SIG-04,20,24,32,62",No autonomous account/payment/control action granted
+11,Actor/activity-group knowledge.,DI,"External-knowledge store only; SIG-15,31,41,42,44,49,53",No autonomous account/payment/control action granted
+12,TTP/tool/infrastructure representation.,DI,"Pinned technique mappings; SIG-44, mapping not observation",No autonomous account/payment/control action granted
+13,"Vulnerability representation, using CVEs where applicable and keeping non-vulnerability abuse conditions separate.",INH,Inherited; no payment-specific derivation asserted.,No autonomous account/payment/control action granted
+14,Structured threat-knowledge store / ontology or graph where justified.,DI,Typed revisable graph and assessment provenance,No autonomous account/payment/control action granted
+15,Threat hunting.,DI,"Temporal/graph hunting candidates; SIG-16,20,23,24,52,59",No autonomous account/payment/control action granted
+16,Detection-development support.,DI,Detection/control/model engineering evaluation; E1–E7 and E9,No autonomous account/payment/control action granted
+17,Threat-model integration.,DI,Threat-model and adaptive validation; no live-execution authority,No autonomous account/payment/control action granted
+18,Defensive/customer recommendations grounded in authoritative product/control semantics and applicable environment state.,DI,Applicable control contracts and recommendation boundaries,No autonomous account/payment/control action granted
+19,Finished-intelligence synthesis.,DI,Lineaged intelligence drafts,No autonomous account/payment/control action granted
+20,Evidence lineage and provenance.,DI,"Lineage, source dependencies, corrections; SIG-45,46,58",No autonomous account/payment/control action granted
+21,Independent quality/evaluation functions and routine pre-release audit/stress-test gates; separate agents are optional.,INH,Inherited; no payment-specific derivation asserted.,Claim and evidence quality of all agent outputs; engineering validation stays in 16/17
+22,Human release gates.,INH,Inherited; no payment-specific derivation asserted.,Human release authority
+23,"Controlled memory/learning/optimization loop with candidate-signal queue, independent validation/red-team challenge, scoped propagation and withdrawal.",AGV,"Lesson quarantine, independent validation, scoped promotion, rollback; agent-security analogy",No autonomous account/payment/control action granted
+24,"Security controls: identity, least privilege, isolation, egress control, tool allowlists, query limits, logging, and separation of duties.",DI,Authorization enforced outside model; input/approval/egress ledger; SIG-34–40,No autonomous account/payment/control action granted
