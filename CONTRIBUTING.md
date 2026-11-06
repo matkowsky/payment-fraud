@@ -29,6 +29,12 @@ Thank you for reading the preprint. This page explains how to comment, how comme
 - Accepted changes go into version 1.1. The feedback window is planned to run until about 30 November 2026.
 - Factual errors may be corrected sooner in a correction version.
 
+## Tracking changes for the next version
+
+The [version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2) records author-originated proposals as well as contributor feedback. Open a focused issue when an item needs its own discussion and link it from the tracker. Include the affected version and passage, evidence, proposed revision and verification needed.
+
+Keep proposed, accepted, implemented and verified changes distinct, and record why an item was deferred or not adopted. AI-assisted review findings require evidence checks before adoption. Actual manuscript and supplement edits should use pull requests linked to the relevant issue so contributors can review the diff and checks. The published files under `paper/v1.0/` stay intact; the line-by-line review PR #1 is never merged.
+
 ## How contributions are credited in version 1.1
 
 - **Acknowledgment:** comments, corrections, answers to the questions, or pointers to prior work that change the text.
