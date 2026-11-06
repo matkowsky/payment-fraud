@@ -34,7 +34,7 @@ Please refer to version 1.0 section numbers, and quote the sentence you mean whe
 ## What happens to comments
 
 - Every comment gets a reply.
-- Author-originated proposals and contributor feedback are tracked publicly in the [version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2). Each item records its evidence, status and disposition; proposed manuscript edits use linked pull requests.
+- When the author decides to propose a change, it follows the same public review routes offered to contributors. Submitted proposals are linked in the [version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2), with their evidence, discussion and disposition; actual manuscript edits use linked pull requests. Personal working notes remain private until selected for submission.
 - Accepted changes go into version 1.1. The feedback window is planned to run until about 30 November 2026, with version 1.1 to follow on Zenodo and here.
 - Contributors whose input changes the paper are credited in version 1.1, in the acknowledgments or, for substantial contributions, as co-authors, always with their permission. The terms are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -43,7 +43,7 @@ Please refer to version 1.0 section numbers, and quote the sentence you mean whe
 - [`paper/v1.0/`](paper/v1.0/): the contents of `PACKAGE_v1.0_2026-10-29.zip` as published on Zenodo, unchanged. `MANIFEST_SHA256_2026-10-29.txt` lists the SHA-256 hash of the other 54 files.
   - Start with the [manuscript](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.md) ([PDF](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.pdf)) and the [supplement](paper/v1.0/SUPPLEMENT.md) ([PDF](paper/v1.0/SUPPLEMENT.pdf)).
   - The supplement's 19 data files are in [`paper/v1.0/SUPPLEMENT/`](paper/v1.0/SUPPLEMENT/). [REPRODUCE.md](paper/v1.0/REPRODUCE.md) explains how to rebuild the documents and run the checks.
-- [Version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2): proposals, documented working-copy corrections and review status. A proposal is not an accepted or published change; manuscript and supplement edits will be presented in pull requests. The released version 1.0 package stays unchanged.
+- [Version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2): submitted change proposals and their review status. Working notes and review recommendations are not automatically submitted proposals. The released version 1.0 package stays unchanged.
 
 ## How to cite
 
