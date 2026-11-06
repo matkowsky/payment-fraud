@@ -31,7 +31,9 @@ Thank you for reading the preprint. This page explains how to comment, how comme
 
 ## Tracking changes for the next version
 
-The [version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2) records author-originated proposals as well as contributor feedback. Open a focused issue when an item needs its own discussion and link it from the tracker. Include the affected version and passage, evidence, proposed revision and verification needed.
+Personal working notes, exploratory questions and review reports may remain private. When the author decides to propose a particular change, it follows the same issue or line-by-line review routes offered to other contributors. A review recommendation is not automatically a submitted proposal.
+
+The [version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2) links submitted proposals and their disposition. Open a focused issue when an item needs its own discussion and link it from the tracker. Include the affected version and passage, evidence, proposed revision and verification needed.
 
 Keep proposed, accepted, implemented and verified changes distinct, and record why an item was deferred or not adopted. AI-assisted review findings require evidence checks before adoption. Actual manuscript and supplement edits should use pull requests linked to the relevant issue so contributors can review the diff and checks. The published files under `paper/v1.0/` stay intact; the line-by-line review PR #1 is never merged.
 
