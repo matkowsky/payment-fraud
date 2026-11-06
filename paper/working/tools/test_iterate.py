@@ -8,7 +8,7 @@ import subprocess
 import tempfile
 
 HELPER = Path(__file__).with_name('iterate.sh')
-NAME = 'MANUSCRIPT_PROPOSED_v1.1_2026-11-06'
+NAME = 'MANUSCRIPT'
 
 
 def case(build_status, check_status, previous=None):

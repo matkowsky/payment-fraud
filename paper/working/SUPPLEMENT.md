@@ -2,9 +2,9 @@
 
 Jonathan Matkowsky
 
-6 November 2026 · Supplement to proposed version 1.1 revision · Not accepted or published · Not peer reviewed
+6 November 2026 · Proposed revision for version 1.1 · Not accepted or published · Not peer reviewed
 
-This supplement accompanies the [complete manuscript](MANUSCRIPT_PROPOSED_v1.1_2026-11-06.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 and S8 give the proposed evaluations. S9 extends the comparison with prior work. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package’s [BibLaTeX references](REFERENCES.bib).
+This supplement accompanies the [complete manuscript](MANUSCRIPT.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 and S8 give the proposed evaluations. S9 extends the comparison with prior work. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package’s [BibLaTeX references](REFERENCES.bib).
 
 ## S1. Sources and comparisons
 

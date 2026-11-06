@@ -7,7 +7,7 @@ lacks lmodern.sty, a stub is written to build/ (see REPRODUCE.md). No network ac
 from pathlib import Path
 import subprocess, shutil, os, re, sys
 B = Path(__file__).resolve().parent
-NAME = 'MANUSCRIPT_PROPOSED_v1.1_2026-11-06'
+NAME = 'MANUSCRIPT'
 REFS = 'REFERENCES.json'
 W = B / 'build'; W.mkdir(exist_ok=True)
 env = dict(os.environ)

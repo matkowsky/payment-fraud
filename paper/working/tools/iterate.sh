@@ -3,7 +3,7 @@
 # Usage: tools/iterate.sh [PREV_READER.md] (run from the package root)
 set -eu
 PREV=${1:-}
-NAME=MANUSCRIPT_PROPOSED_v1.1_2026-11-06
+NAME=MANUSCRIPT
 python3 BUILD.py
 if [ -n "$PREV" ]; then
     if [ ! -f "$PREV" ]; then

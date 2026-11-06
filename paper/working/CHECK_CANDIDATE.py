@@ -7,7 +7,7 @@ They do not prove source claims, novelty, implementation or system performance.
 from pathlib import Path
 import csv, json, re, collections, subprocess
 B = Path(__file__).resolve().parent; S = B / 'SUPPLEMENT'
-MS = 'MANUSCRIPT_PROPOSED_v1.1_2026-11-06.md'; REFJ = 'REFERENCES.json'; REFB = 'REFERENCES.bib'
+MS = 'MANUSCRIPT.md'; REFJ = 'REFERENCES.json'; REFB = 'REFERENCES.bib'
 def rows(n): return list(csv.DictReader((S / n).open(encoding='utf-8')))
 s = rows('S3_SIGNALS.csv'); p = rows('S3_MECHANISM_SIGNAL_PAIRS.csv'); d = rows('S3_SOURCE_DIRECTORY.csv')
 j = rows('S3_MAPPING_SOURCE_JOINS.csv'); a = rows('S2_MECHANISM_ALLOCATION.csv'); f = rows('S4_FUNCTIONS.csv')

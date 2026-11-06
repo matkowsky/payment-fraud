@@ -9,7 +9,7 @@ The [revision tracker](https://github.com/matkowsky/payment-fraud/issues/2) link
 | Published | Accepted work is included in a separately versioned release. | Release record, version tag and publication DOI. |
 | Deferred or not adopted | A proposal is left for later or closed without adoption, with a reason. | Discussion and recorded disposition. |
 
-Checks and reviews are separate evidence, not extra acceptance states. A successful build, an AI review or a human review does not itself accept or publish a change. Before an acceptance merge, update candidate status annotations and record who accepted which commit. Preserve the prior proposed candidate in commit history. Published `paper/v1.0/` remains unchanged; review-only PR #1 is never merged.
+Checks and reviews are separate evidence, not extra acceptance states. A successful build, an AI review or a human review does not itself accept or publish a change. Merging a proposal into main is the acceptance decision. The working-draft workflow then records the merge account, time and commit, updates the document status labels, rebuilds both documents and refreshes the checksum manifest. No manual relabeling is required. A failed automation run is visible in Actions; the merge record still establishes acceptance, while the files await synchronization. Preserve the prior proposed candidate in commit history. Published `paper/v1.0/` remains unchanged; review-only PR #1 is never merged.
 
 ## Who did what
 
@@ -29,7 +29,7 @@ A later contribution may be jointly drafted with Claude. Name the assistant used
 
 | Proposal | Drafting contribution | Checks performed | State |
 |---|---|---|---|
-| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. | Proposed; human acceptance and subsequent Claude review not yet recorded. |
+| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. | See [current status](paper/working/STATUS.md) and the linked PR merge record. Subsequent reviews must be recorded separately. |
 
 The candidate is in [paper/working/](paper/working/). The proposal explains what changed and what remains outside its scope. Its pull request is linked in the tracker.
 
@@ -47,3 +47,7 @@ Acceptance decision (pending, or person/date/commit):
 ```
 
 Private notes remain private until their author selects a concrete public proposal. Contributors can comment on the pull request, suggest source-line edits, or open a focused issue linked to the tracker.
+
+## Automatic synchronization
+
+The workflow in `.github/workflows/working-draft.yml` validates the configured proposal against GitHub and the exact merge commit before accepting any labels. Pull-request checks have read-only repository access. Only the main-branch synchronization job can commit generated updates. It has no release step and never edits `paper/v1.0/`. If a run fails, fix the reported cause and rerun it from Actions; do not manually claim that regeneration succeeded. A new proposal should set `REVISION_STATUS.json` to `proposed` with its own PR number and run `python3 tools/revision_status.py sync` before rebuilding.

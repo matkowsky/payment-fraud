@@ -4,13 +4,13 @@ The package contains a conceptual architecture and synthetic reasoning examples.
 
 ## Files
 
-- [Complete manuscript](MANUSCRIPT_PROPOSED_v1.1_2026-11-06.md) and [rendered manuscript](MANUSCRIPT_PROPOSED_v1.1_2026-11-06.pdf).
+- [Complete manuscript](MANUSCRIPT.md) and [rendered manuscript](MANUSCRIPT.pdf).
 - [Supplement](SUPPLEMENT.md) and [rendered supplement](SUPPLEMENT.pdf). The 19 CSV files are in `SUPPLEMENT/`.
 - [Citation-source manuscript](SOURCE/manuscript.md) and [citation-source supplement](SOURCE/supplement.md). Edit these sources before rebuilding; the reader-facing Markdown, TeX and PDFs are generated from them. `SOURCE/layout.lua`, `SOURCE/header.tex` and `SOURCE/references.csl` control layout and citation style.
 - [References in CSL JSON](REFERENCES.json) are the typesetting input. [BibLaTeX references](REFERENCES.bib) provide the same 122 identities for reuse; they are generated from the CSL JSON with Pandoc. Source inspection versions and limits are in the [source notes](SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv).
 - Figures are editable SVG files in `FIGURES/`. The PDF exports are used for typesetting; the PNG exports are readable alternates.
 - `BUILD.py` rebuilds the documents and `CHECK_CANDIDATE.py` runs the finite checks. `EXPORT_FIGURES.py` exports the figures when Inkscape is not installed. `tools/` holds optional Markdown round-trip helpers that convert reader-facing Markdown back to citation-key sources and confirm a byte-identical rebuild.
-- [Third-party notices](THIRD_PARTY_NOTICES.md) and `MANIFEST_SHA256_PROPOSED_2026-11-06.txt`.
+- [Third-party notices](THIRD_PARTY_NOTICES.md) and `MANIFEST_SHA256.txt`.
 
 The manuscript and the supplement each have a numbered bibliography listing the works their own text cites (104 and 56 works); those numbers are local to each document. Citation keys in the CSV files resolve against the complete CSL JSON and BibLaTeX set, and all 122 works are cited across the pair.
 
@@ -42,13 +42,13 @@ The build runs offline. Temporary compiler output goes in `build/`, which is not
 
 ## Verify the package files
 
-`MANIFEST_SHA256_PROPOSED_2026-11-06.txt` lists the SHA-256 hash of every package file except itself, sorted by path. It excludes the `build/` and `__pycache__/` directories, which are not part of the package. From the package directory, run:
+`MANIFEST_SHA256.txt` lists the SHA-256 hash of every package file except itself, sorted by path. It excludes the `build/`, `__pycache__/` and `.git/` directories and temporary `.log` files, which are not part of the package. From the package directory, run:
 
 ```sh
-sha256sum -c MANIFEST_SHA256_PROPOSED_2026-11-06.txt
+sha256sum -c MANIFEST_SHA256.txt
 ```
 
-The candidate manifest pins the proposed package bytes, not an accepted release; it does not claim bit-for-bit reproducibility on every system. Rebuilding may change PDF metadata and byte hashes across tool versions. Compare text, references, calculations and layout, then create a new hash manifest for any adopted revision.
+The manifest pins this working package's bytes, not a published release; it does not claim bit-for-bit reproducibility on every system. Rebuilding may change PDF metadata and byte hashes across tool versions. Compare text, references, calculations and layout, then create a new hash manifest for any adopted revision.
 
 ## Interpretation and release status
 
@@ -56,4 +56,8 @@ All 400 cohort rows and the timing schedule are hypothetical. Count distinct tra
 
 For licensing, see the manuscript's License declaration and, for the schema-derived material in `SUPPLEMENT/S5_EVENT_TYPES.csv` and `SUPPLEMENT/S5_SIGNAL_LOCATORS.csv`, [Third-party notices](THIRD_PARTY_NOTICES.md).
 
-This is a proposed revision for version 1.1, dated 6 November 2026, not an accepted or published version. It has not been peer reviewed. The author's declarations are in the manuscript.
+This is working text for version 1.1, dated 6 November 2026. See [STATUS.md](STATUS.md) for its proposed or accepted state. It is not a published version and has not been peer reviewed. The author's declarations are in the manuscript.
+
+## Revision status automation
+
+`REVISION_STATUS.json` identifies the proposal and current working-draft status. `STATUS.md` records its readable state. After a verified merge, GitHub Actions synchronizes source labels and README, runs the full build and checks, refreshes the manifest and commits the generated files. Accepted working draft does not mean published. For local reproduction, run `python3 tools/revision_status.py sync`, rebuild, run the checks, then run `python3 tools/revision_status.py manifest` and `python3 tools/revision_status.py check`. The acceptance command requires a real GitHub merge into main and will not mark an open or closed-unmerged PR accepted.
