@@ -1,0 +1,62 @@
+Entity,Signals that reference it
+Account,"SIG-01, SIG-04, SIG-05, SIG-06, SIG-50, SIG-13, SIG-14, SIG-18, SIG-19, SIG-20, SIG-21, SIG-23, SIG-24, SIG-26, SIG-27, SIG-29, SIG-30, SIG-32, SIG-33, SIG-51, SIG-47, SIG-54, SIG-57, SIG-58, SIG-71"
+Person,"SIG-01, SIG-02, SIG-04, SIG-06, SIG-24"
+BusinessEntity,"SIG-01, SIG-05"
+VerificationSession,"SIG-02, SIG-03"
+Device,"SIG-03, SIG-04, SIG-06, SIG-07, SIG-11, SIG-12, SIG-27, SIG-30, SIG-54, SIG-55, SIG-60, SIG-62"
+BankAccount,"SIG-04, SIG-06, SIG-18"
+OperatorUser,"SIG-50, SIG-07, SIG-08, SIG-09, SIG-10, SIG-14, SIG-17, SIG-36, SIG-37, SIG-48, SIG-52"
+Session,"SIG-07, SIG-09, SIG-10, SIG-11, SIG-12, SIG-37, SIG-38, SIG-52, SIG-53, SIG-55, SIG-56, SIG-60, SIG-63"
+NetworkEndpoint,"SIG-07, SIG-16, SIG-40, SIG-54, SIG-55, SIG-56, SIG-60, SIG-63, SIG-49"
+Credential,"SIG-08, SIG-15, SIG-16, SIG-48, SIG-53, SIG-56, SIG-71"
+StaffActor,SIG-10
+OnboardingLink,"SIG-11, SIG-55"
+IdentityProvider,SIG-13
+ExposureLocation,SIG-15
+Application,"SIG-17, SIG-37, SIG-52"
+Automation,"SIG-17, SIG-52"
+PayoutDestination,"SIG-18, SIG-20"
+PayoutSchedule,SIG-19
+FundsMovement,"SIG-21, SIG-22, SIG-23, SIG-26, SIG-57, SIG-58"
+Recipient,"SIG-22, SIG-57"
+Dispute,"SIG-23, SIG-25, SIG-58"
+Cluster,"SIG-24, SIG-62"
+ControlAction,"SIG-25, SIG-51, SIG-67, SIG-70, SIG-71"
+PaymentAttempt,"SIG-27, SIG-28, SIG-29, SIG-58, SIG-59, SIG-66, SIG-70"
+PaymentInstrument,"SIG-27, SIG-28, SIG-30, SIG-41, SIG-43, SIG-59, SIG-61, SIG-62"
+Storefront,"SIG-31, SIG-32"
+Domain,"SIG-31, SIG-49"
+Descriptor,SIG-32
+Assessment,"SIG-33, SIG-66"
+Agent,"SIG-34, SIG-38, SIG-39, SIG-40, SIG-47, SIG-56"
+ToolCall,"SIG-34, SIG-36"
+ContentSource,"SIG-34, SIG-39"
+Tool,SIG-35
+ToolManifest,SIG-35
+Approval,SIG-36
+MemoryItem,SIG-39
+DelegatedCredential,SIG-47
+EventDestination,"SIG-48, SIG-52"
+IntelItem,"SIG-49, SIG-41, SIG-42, SIG-53, SIG-59"
+Wallet,"SIG-42, SIG-43, SIG-68, SIG-69"
+OnrampSession,SIG-43
+Technique,SIG-44
+Mechanism,SIG-44
+EmulationRun,SIG-46
+EndCustomer,"SIG-54, SIG-58, SIG-60, SIG-61, SIG-62, SIG-63, SIG-64, SIG-65, SIG-66, SIG-67"
+Request,SIG-56
+LabelEvent,"SIG-58, SIG-64"
+Subscription,"SIG-61, SIG-65"
+Invoice,"SIG-61, SIG-65"
+SigningRequest,SIG-68
+Spender,"SIG-68, SIG-69"
+Allowance,"SIG-68, SIG-69"
+OutcomeChannelStatus,"SIG-58, SIG-70, SIG-71"
+QueryRun,none (requirement; manuscript Section 6.2)
+Hypothesis,none (requirement; manuscript Section 6.2)
+Inference,none (requirement; manuscript Section 4.2)
+IntelligenceProduct,none (requirement; manuscript Sections 4.2 and 7.3)
+ReleaseDecision,none (requirement; manuscript Section 6.4)
+Lesson,none (requirement; manuscript Section 7.3)
+AgentOutput,"SIG-34, SIG-39 (as ledger records); none (requirement; manuscript Section 4.2)"
+EvidenceRecord,"all evidence-plane records, including source observations and derived features (requirement; manuscript Section 4.2)"

@@ -50,3 +50,9 @@ The paper is licensed CC BY 4.0. By contributing text you agree that it may be p
 ## Conduct
 
 See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+
+## Contribution attribution and revision states
+
+Use [REVISIONS.md](REVISIONS.md) to distinguish proposed, accepted and published work and to record who did what. Commits on a proposal branch remain proposals. Acceptance requires an explicit maintainer decision and merge into `main`; publication requires a separate versioned release.
+
+Identify the human contributor and the assistant actually used, including ChatGPT or Claude when applicable. For Jonathan's revisions developed from his notes and direction, credit joint drafting by Jonathan and the named assistant. Record AI checks, AI-assisted reviews and human review separately, with the exact commit examined. Posting through a person's account does not establish that the person performed every action, reviewed the wording, or accepted the result.
