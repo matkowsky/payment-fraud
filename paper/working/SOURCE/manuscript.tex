@@ -144,7 +144,8 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-29 October 2026 · Preprint, version 1.0 · Not peer reviewed
+6 November 2026 · Proposed revision for version 1.1 · Not accepted or
+published · Not peer reviewed
 
 \FloatBarrier
 
@@ -2601,13 +2602,14 @@ monitoring. Its pass rule compares linked clusters with accounts as
 their reports are recorded, so a lead from clustering alone can pass it;
 only the third arm, which applies the rule to each account after
 linking, shows whether linkage contributes. E9 tests whether C1's
-channel states reduce the bias of an evaluation quantity that the
-platform computes today, judged against a randomized holdout and
-compared with the platform's current label rule. It reports how many
-labels the states change, but that share does not count as support. E9
-exercises C1's links from outcomes to control decisions, and its
-separation of late from unobservable outcomes, only jointly through the
-channel-state reading. No confirmatory evaluation tests the separate
+channel states reduce the absolute error of an evaluation quantity
+against a mature holdout reference, compared with the platform's current
+label rule. The reference concerns reported outcomes after sampled truth
+review; it does not establish the rate of unreported fraud. It reports
+how many labels the states change, but that share does not count as
+support. E9 exercises C1's links from outcomes to control decisions, and
+its separation of late from unobservable outcomes, only jointly through
+the channel-state reading. No confirmatory evaluation tests the separate
 field for false reports or the decision links' other uses, such as
 estimating outcomes under other decisions. The exploratory E2 bears on
 the decision links and, through its sensitivity analysis, on late and
@@ -2629,9 +2631,9 @@ power. At realistic prevalence and the volume assumed in Section 6.4,
 that can take many months of production drafts, so the tolerable rate,
 the assumed rate and the implied duration are stated together. The
 sizing assumptions must be recorded before main-study data are
-collected, and E2's interval settings and E9's negligible bias reduction
-fixed before any data are examined. The questions below state what each
-evaluation is intended to resolve.
+collected, and E2's interval settings and E9's negligible reduction in
+reference error fixed before any data are examined. The questions below
+state what each evaluation is intended to resolve.
 
 \textbf{E1. Coverage and learned time:} Do these records reduce
 unsupported conclusions in cases with incomplete history or links
@@ -2673,12 +2675,18 @@ and the cluster ratio can then exceed every defined account ratio.
 Examples are a closed account and, where the denominator is the previous
 month's captured payments, an account in its first month. Such cluster
 flags are reported separately. All arms use the same eligible
-transactions, outcome definition and reporting periods. Each account arm
-applies the rule to platform and connected accounts; where a network
-monitors a different unit, such as Visa's static statement descriptor
-and acquiring bank (Section 8.2), that arm also reports results for the
-network's unit. A broader measure, such as Section 8.2's
-chargeback-or-alert-resolution measure, needs a separate evaluation.
+transactions, outcome definition and reporting periods. Support also
+requires the one-sided 95 percent upper confidence bound on the increase
+in false-flag probability among legitimate multi-brand businesses,
+cluster arm minus account arm, to be below the prespecified margin, with
+business-level pairing and any additional clustering preserved. S7.1
+proposes a five-percentage-point margin and requires sizing for both
+criteria. Each account arm applies the rule to platform and connected
+accounts; where a network monitors a different unit, such as Visa's
+static statement descriptor and acquiring bank (Section 8.2), that arm
+also reports results for the network's unit. A broader measure, such as
+Section 8.2's chargeback-or-alert-resolution measure, needs a separate
+evaluation.
 
 \textbf{E4. Measuring user harm:} Can the records support a rate and
 interval for harm to legitimate users after a control change? E4 tests
@@ -2716,28 +2724,34 @@ limit on correct drafts that the gate returns or lets expire. Passing E8
 would show that the gate catches errors, not that it releases correct
 work at an acceptable rate; E5 bears on that cost.
 
-\textbf{E9. Channel states:} Do C1's channel states reduce the bias of
-evaluation results that a platform computes today under its current
-label rule? For a fixed historical cohort of payment attempts, payouts
-and account decisions, labels are built twice: once under the platform's
-current label rule, with its existing maturity period and its existing
-treatment of blocked or reversed items, recorded before any data are
-examined, and once under C1, which reads a missing report as a
-provisional negative only where its channel matured open under its
-original meaning. E9 reports the share of the existing rule's negatives
-that C1 classes as closed, delayed, changed in meaning, immature or
-without a defined window, and separately the share whose channel state
-is unknown. It also reports the reports that later arrive on the
-existing rule's negatives, and the change in an existing control's
-measured error rates and in the ranking of two candidate rules. On
-decisions with a randomized holdout, it compares the bias of an
-evaluation quantity that the platform computes today, such as a
-detection's precision, under both readings against the holdout's
-outcomes after the longest reporting window has closed, with report
-truth checked on a random sample. Because the share of items that C1
-reclassifies follows partly from its definitions and from the cohort's
-composition, E9 reports that share but does not count it as support;
-support requires a reduction in bias against the randomized holdout.
+\textbf{E9. Channel states:} Do C1's channel states reduce the absolute
+error of evaluation results against a mature holdout reference, compared
+with the platform's current label rule? For a fixed historical cohort of
+payment attempts, payouts and account decisions, labels are built twice:
+once under the platform's current label rule, with its existing maturity
+period and its existing treatment of blocked or reversed items, recorded
+before any data are examined, and once under C1, which reads a missing
+report as a provisional negative only where its channel matured open
+under its original meaning. E9 reports the share of the existing rule's
+negatives that C1 classes as closed, delayed, changed in meaning,
+immature or without a defined window, and separately the share whose
+channel state is unknown. It also reports the reports that later arrive
+on the existing rule's negatives, and the change in an existing
+control's measured error rates and in the ranking of two candidate
+rules. On decisions with a randomized holdout, it compares the absolute
+error of the same evaluation quantity under both readings against a
+reference constructed after the longest defined reporting window has
+closed, with report truth checked on a random sample. The target is the
+selected metric on matured reported outcomes after that sampled truth
+review, not underlying fraud that may never be reported. S7.1 defines
+the paired reduction in reference error and requires joint uncertainty
+for both readings and the holdout reference. Agreement with that
+reference is not itself an estimate of statistical bias or proof of
+accuracy against all underlying fraud. Because the share of items that
+C1 reclassifies follows partly from its definitions and from the
+cohort's composition, E9 reports that share but does not count it as
+support; support requires a reduction in reference error exceeding the
+prespecified negligible improvement, with uncertainty accounted for.
 
 Supplement S8 separately proposes practitioner review of whether the
 signals and responsibilities are available, useful and assigned to clear

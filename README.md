@@ -38,6 +38,10 @@ Please refer to version 1.0 section numbers, and quote the sentence you mean whe
 - Accepted changes go into version 1.1. The feedback window is planned to run until about 30 November 2026, with version 1.1 to follow on Zenodo and here.
 - Contributors whose input changes the paper are credited in version 1.1, in the acknowledgments or, for substantial contributions, as co-authors, always with their permission. The terms are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Proposed revisions and attribution
+
+The [revision record](REVISIONS.md) explains proposed, accepted and published states and identifies human and AI contributions. The current [statistical revision candidate](paper/working/) is proposed for review. It was jointly drafted by Jonathan Matkowsky and ChatGPT, based on Jonathan's notes and direction; checks are attributed separately. Later contributions name the assistant actually used, including Claude when applicable.
+
 ## What is in this repository
 
 - [`paper/v1.0/`](paper/v1.0/): the contents of `PACKAGE_v1.0_2026-10-29.zip` as published on Zenodo, unchanged. `MANIFEST_SHA256_2026-10-29.txt` lists the SHA-256 hash of the other 54 files.

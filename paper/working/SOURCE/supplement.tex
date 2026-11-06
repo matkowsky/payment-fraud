@@ -138,16 +138,17 @@ data}\label{supplement-signals-interfaces-and-worked-example-data}}
 
 Jonathan Matkowsky
 
-29 October 2026 · Supplement to preprint version 1.0 · Not peer reviewed
+6 November 2026 · Supplement to proposed version 1.1 revision · Not
+accepted or published · Not peer reviewed
 
 This supplement accompanies the
-\href{MANUSCRIPT_v1.0_2026-10-29.md}{complete manuscript}. S1 and S2
-explain the sources and selection. S3 to S5 specify the signals, records
-and interfaces. S6 supplies the hypothetical investigations and their
-arithmetic; S7 and S8 give the proposed evaluations. S9 extends the
-comparison with prior work. The 19 CSV files use \mbox{UTF-8} encoding
-and stable mechanism, source and signal identifiers. Citation labels
-match the package's \href{REFERENCES.bib}{BibLaTeX references}.
+\href{MANUSCRIPT_PROPOSED_v1.1_2026-11-06.md}{complete manuscript}. S1
+and S2 explain the sources and selection. S3 to S5 specify the signals,
+records and interfaces. S6 supplies the hypothetical investigations and
+their arithmetic; S7 and S8 give the proposed evaluations. S9 extends
+the comparison with prior work. The 19 CSV files use \mbox{UTF-8}
+encoding and stable mechanism, source and signal identifiers. Citation
+labels match the package's \href{REFERENCES.bib}{BibLaTeX references}.
 
 \FloatBarrier
 
@@ -1442,8 +1443,8 @@ methods and evidence of failures, not payment-platform results
 {[}\protect\hyperlink{ref-Dash2026}{9},
 \protect\hyperlink{ref-Xiong2026MemoryManagement}{10}{]}.
 
-\textbf{E9. Do channel states reduce bias relative to the platform's
-current labels?} Use decisions the platform already logs, with their
+\textbf{E9. Do channel states reduce error against a mature holdout
+reference?} Use decisions the platform already logs, with their
 disputes, early fraud warnings, returns and other reports. For a fixed
 cohort, build labels once under the platform's current label rule,
 including its maturity period and its treatment of blocked or reversed
@@ -1452,15 +1453,19 @@ Section 5.3). If the platform has no such rule, use for each rail one
 maturity period equal to that rail's standard window, with blocked
 attempts excluded. Compare the resulting labels, an existing control's
 measured error rates and the ranking of two candidate rules. On
-decisions with a randomized holdout, compare the bias of an evaluation
-quantity that the platform computes today under both readings against
-the holdout's outcomes after the longest reporting window has closed,
-with report truth reviewed on a random sample. Only that bias comparison
-counts toward E9's pass rule. Report, by channel, how often the records
-determine an affected item's channel state, clock start and window
-rather than recording them as unknown. Record and report any rule event
-that reopens a window during follow-up. The motivating theoretical
-preprint models reporting and maturity for one channel
+decisions with a randomized holdout, compare the absolute error of the
+same evaluation quantity under both readings against the holdout
+reference after the longest defined reporting window has closed, with
+report truth reviewed on a random sample. The target is the selected
+metric on matured reported outcomes after sampled truth review. Only the
+reduction in reference error, with joint uncertainty as specified in
+S7.1, counts toward E9's pass rule. This comparison does not by itself
+estimate statistical bias or reveal fraud that was never reported.
+Report, by channel, how often the records determine an affected item's
+channel state, clock start and window rather than recording them as
+unknown. Record and report any rule event that reopens a window during
+follow-up. The motivating theoretical preprint models reporting and
+maturity for one channel
 {[}\protect\hyperlink{ref-Dhama2026Causal}{2}{]}; E9 asks whether
 recording several channels' states matters on platform data.
 
@@ -1482,11 +1487,11 @@ part that bears on the three record requirements or, for E5, on the
 agent's added value. Thresholds and sample sizes are proposed defaults.
 E1's non-inferiority margin and E8's tolerable and assumed release rates
 are named parameters that a platform fixes and records before data
-collection, and E9's negligible bias reduction is one that it fixes
-before any data are examined; this section does not set them. A platform
-may change them before it starts, if it records the change before
-examining any data. No data have been collected, and whoever runs the
-plan can register it with a time stamp.
+collection, and E9's negligible reduction in reference error is one that
+it fixes before any data are examined; this section does not set them. A
+platform may change them before it starts, if it records the change
+before examining any data. No data have been collected, and whoever runs
+the plan can register it with a time stamp.
 
 Four rules apply to all nine. First, each evaluation freezes the
 information each method may use at an as-of cutoff and separates
@@ -1508,11 +1513,17 @@ Sizing must account for every pass criterion and case or reviewer
 clustering. The minimum counts below are not power calculations; the
 sizing assumptions must be recorded before main-study data are
 collected. E1, E3, E8 and E9 are confirmatory and the rest are
-exploratory. The specification is not supported in a setting if any
-confirmatory evaluation fails. A negative result removes support for a
-requirement, or for its cost, in that setting. It does not show that the
-underlying idea is wrong. Investigators cannot be blind to the added
-records, so the raters, not the investigators, are blind.
+exploratory. Support in a setting requires every confirmatory evaluation
+to pass its complete rule. Report separately a result that establishes
+support, evidence against a required benefit or harm limit, and an
+inconclusive result due to insufficient precision or an unidentified
+target. An interval crossing a decision boundary does not by itself
+establish harm or absence of benefit. A failure criterion below means
+that support was not established; the reported interval and
+identification limits determine which of these explanations applies. No
+result by itself shows that the underlying idea is wrong. Investigators
+cannot be blind to the added records, so the raters, not the
+investigators, are blind.
 
 \hypertarget{e1-tests-the-second-requirement-confirmatory.}{%
 \paragraph{E1 (tests the second requirement;
@@ -1557,7 +1568,7 @@ without the records, or the 95 percent interval on the paired difference
 includes zero. It also fails if, in those cases or in the
 complete-history stratum, the lower 95 percent bound on the difference
 in correct, supported conclusions per case (with the records minus
-without) lies below minus the non-inferiority margin.
+without) is at or below minus the non-inferiority margin.
 
 \hypertarget{e2-tests-the-first-requirement-exploratory.}{%
 \paragraph{E2 (tests the first requirement;
@@ -1615,7 +1626,11 @@ flagged by the end of follow-up is censored there for that method. A
 third arm computes the network's ratio for each account after linking.
 It separates the effect of linking from that of pooling accounts into a
 cluster. The failing result applies to the stated contrast, and the
-third arm attributes any lead.
+third arm attributes any lead. Estimate the difference in false-flag
+probabilities using the same legitimate businesses under both rules,
+preserving business-level pairing and any additional clustering.
+Prespecify the interval method and size the study for the complete
+lead-time and false-flag pass rule at the 93 percent power target.
 
 \textbf{Primary measures:} days from the adjudicated onset of evasion to
 the flag, and false flags. The lead time is the difference in restricted
@@ -1624,9 +1639,13 @@ before any data are examined.
 
 \textbf{Failure criteria:} Fails if the lower bound of the 95 percent
 interval on the lead time, estimated from the paired censored analysis,
-is zero or less. It also fails if the share of legitimate multi-brand
-businesses flagged is more than 5 percentage points above the share
-under the network's ratio for each account.
+is zero or less. It also fails unless the one-sided 95 percent upper
+confidence bound on the increase in the probability that a legitimate
+multi-brand business is flagged, cluster arm minus account arm, is below
+5 percentage points. The interval preserves business-level pairing and
+any additional clustering. An interval that crosses the margin is
+inconclusive about this guardrail; an observed difference below the
+margin alone does not establish support.
 
 \hypertarget{e4-tests-the-first-requirement-exploratory.}{%
 \paragraph{E4 (tests the first requirement;
@@ -1764,11 +1783,16 @@ are written independently. The number of planted false exonerations is
 sized for 93 percent power to show a release rate below the tolerable
 rate, given an assumed true release rate stated in advance, and the
 number of planted drafts is sized so that the complete rule, with the
-catch-rate criterion, reaches that power. With none released, showing a
-rate below 1 percent at one-sided 95 percent confidence needs at least
-299. If the true rate is 0.1 percent, 93 percent power to show a rate
-below 1 percent needs 628. If planted false exonerations made up 5
-percent of the drafts reaching review, 628 of them would take 12,560
+catch-rate criterion, reaches that power. The following counts
+illustrate the false-exoneration endpoint under independent Bernoulli
+trials with a common release probability and a fixed sample size. They
+do not account for reviewer or case dependence or the separate
+catch-rate criterion; the actual study must be sized for its complete
+rule under the prespecified clustered design. With none released,
+showing a rate below 1 percent at one-sided 95 percent confidence needs
+at least 299. If the true rate is 0.1 percent, 93 percent power to show
+a rate below 1 percent needs 628. If planted false exonerations made up
+5 percent of the drafts reaching review, 628 of them would take 12,560
 drafts, about 628 days at the 20 drafts a day assumed in manuscript
 Section 6.4. The plan states the tolerable rate, the assumed rate, the
 prevalence and the implied duration together.
@@ -1807,8 +1831,9 @@ a person still releases every draft.
 confirmatory).}\label{e9-tests-the-first-requirements-channel-states-confirmatory.}}
 
 \textbf{Hypothesis:} compared with the platform's current label rule,
-channel-state and maturity records reduce the bias of an evaluation
-quantity that the platform computes today.
+channel-state and maturity records reduce the absolute error of an
+evaluation quantity against a mature holdout reference for the same
+prespecified target.
 
 \textbf{Data and design:} two parts with one comparator. The comparator
 is the platform's current label rule, with its existing maturity period
@@ -1822,42 +1847,57 @@ the platform already holds. Labels are built twice, once under the
 comparator and once under C1, which reads a missing report as a
 provisional negative only where its channel matured open under its
 original meaning. The cohort, channels and read times are recorded
-before any data are examined. (b) Bias against a randomized holdout:
-decisions where the platform already randomizes traffic under its own
-authorization, as in E2. At operational read times, an evaluation
-quantity that the platform computes today, such as a detection's
-precision or a control's false-positive rate, is computed under both
-readings. Before any data are examined, the plan states how items that
-either rule leaves unlabeled enter the quantity, whether excluded,
-bounded or estimated under a stated delay model, and how channels
-without a defined reporting window enter the holdout comparison. The
-quantity, its population, denominator and read times, and the method
-applied to unlabeled items are the same under both readings, so that the
-comparison tests the records rather than a change of estimator. Each
-reading is compared with the holdout's outcomes after the longest
-defined reporting window has closed, with report truth reviewed on a
-random sample. Rule events that reopen a window during follow-up are
-recorded and reported. The main study will be sized for 93 percent power
-for part (b), which carries the pass rule, under stated effect
-assumptions.
+before any data are examined. (b) Error against a randomized holdout
+reference: decisions where the platform already randomizes traffic under
+its own authorization, as in E2. At operational read times, an
+evaluation quantity that the platform computes today, such as a
+detection's precision or a control's false-positive rate, is computed
+under both readings. Before any data are examined, the plan states how
+items that either rule leaves unlabeled enter the quantity, whether
+excluded, bounded or estimated under a stated delay model, and how
+channels without a defined reporting window enter the holdout
+comparison. The quantity, its population, denominator and read times,
+and the method applied to unlabeled items are the same under both
+readings, so that the comparison tests the records rather than a change
+of estimator. Each reading is compared with a reference for the same
+quantity and target population constructed from the holdout after the
+longest defined reporting window has closed, with report truth reviewed
+on a random sample. The target is the selected metric on matured
+reported outcomes after that sampled truth review. Prespecify how the
+truth-review sample contributes to the reference and its uncertainty.
+Checking reports does not reveal fraud that was never reported; a target
+of underlying fraud would require a separate ascertainment and
+identification design. Prespecify a joint uncertainty procedure for the
+two readings and the reference that preserves pairing, randomization,
+truth-review sampling and relevant clustering. Rule events that reopen a
+window during follow-up are recorded and reported. The main study will
+be sized for 93 percent power for part (b), which carries the pass rule,
+under stated effect assumptions.
 
-\textbf{Primary measures:} (b) the reduction in absolute bias of the
-stated quantity under C1, relative to the comparator, with its 95
-percent interval. Reported but not counted as support: (a) the share of
-the comparator's negatives that C1 classes as closed, delayed, changed
-in meaning, immature or without a defined window. Items whose channel
-state is unknown are excluded from that share and reported separately as
-a coverage shortfall, with, by channel, the share of affected items
-whose channel state, clock start and window can be determined rather
-than recorded as unknown. Also reported: the reports that later arrive
-on the comparator's negatives, and the change in an existing control's
-measured error rates and in the ranking of two candidate rules.
+\textbf{Primary measures:} (b) the reduction in absolute error against
+the holdout reference, with its 95 percent interval. For comparator
+estimate \(q_0\), C1 estimate \(q_1\) and holdout reference \(r\), the
+reduction is \(D=|q_0-r|-|q_1-r|\); positive values favor C1. The
+interval includes uncertainty in both readings and in the reference
+under the prespecified joint procedure. This endpoint measures agreement
+with that reference. Statistical bias instead concerns an expected
+estimate minus an identified target over a specified sampling process
+and is not estimated merely by this realized comparison. Reported but
+not counted as support: (a) the share of the comparator's negatives that
+C1 classes as closed, delayed, changed in meaning, immature or without a
+defined window. Items whose channel state is unknown are excluded from
+that share and reported separately as a coverage shortfall, with, by
+channel, the share of affected items whose channel state, clock start
+and window can be determined rather than recorded as unknown. Also
+reported: the reports that later arrive on the comparator's negatives,
+and the change in an existing control's measured error rates and in the
+ranking of two candidate rules.
 
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
-bias reduction is at or below the negligible bias reduction, a named
-parameter fixed before any data are examined. Measure (a) does not count
-toward passing, because the share that C1 reclassifies follows partly
-from its definitions and from the cohort's composition.
+reduction in reference error is at or below the negligible reduction, a
+named parameter fixed before any data are examined. Measure (a) does not
+count toward passing, because the share that C1 reclassifies follows
+partly from its definitions and from the cohort's composition.
 
 \FloatBarrier
 

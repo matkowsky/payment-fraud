@@ -1,11 +1,11 @@
-# Threat analytics across payment products: preprint version 1.0
+# Proposed version 1.1 revision
 
-29 October 2026. This is a synthesis and specification derived from public sources. No system implementation or empirical evaluation is claimed.
+**Status: proposed for review; not accepted, merged or published.**
 
-Start with the [complete manuscript](MANUSCRIPT_v1.0_2026-10-29.md) or its [PDF](MANUSCRIPT_v1.0_2026-10-29.pdf). The [supplement](SUPPLEMENT.md) and [supplement PDF](SUPPLEMENT.pdf) explain the 19 CSV files, the complete storage requirements (S4.1), the hypothetical examples and the extended comparison with prior work (S9). [Reproduction instructions](REPRODUCE.md) identify the editable sources, the build requirements and the finite checks.
+This candidate starts from the exact published version 1.0 package and proposes focused evaluation and reproducibility changes. It does not incorporate other private working-copy changes. The published baseline remains in `paper/v1.0/`.
 
-The 122 works are cited across the manuscript and supplement pair; each document's bibliography lists the works its own text cites (104 and 56 works).
+Read the [updated manuscript](MANUSCRIPT_PROPOSED_v1.1_2026-11-06.md) ([PDF](MANUSCRIPT_PROPOSED_v1.1_2026-11-06.pdf)) and [updated supplement](SUPPLEMENT.md) ([PDF](SUPPLEMENT.pdf)). [PROPOSAL.md](PROPOSAL.md) explains the changes, evidence, attribution and validation. [REPRODUCE.md](REPRODUCE.md) explains the build and checks.
 
-This is preprint version 1.0, dated 29 October 2026. It has not been peer reviewed. The author's declarations are in the manuscript.
+**Human author and submitter:** Jonathan Matkowsky. **Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction.** ChatGPT implemented the repository edits and performed the technical checks. This does not establish independent review or author acceptance. Future contributions should identify the assistant actually used, including Claude when applicable.
 
-For licensing, see the manuscript's License declaration and, for the Stripe schema-derived table components, [Third-party notices](THIRD_PARTY_NOTICES.md). `MANIFEST_SHA256_2026-10-29.txt` lists the SHA-256 hash of each package file.
+The candidate manifest is [MANIFEST_SHA256_PROPOSED_2026-11-06.txt](MANIFEST_SHA256_PROPOSED_2026-11-06.txt). Citation sources, figures and the 19 data tables retain their stated licensing; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

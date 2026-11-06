@@ -1,4 +1,4 @@
-"""Finite integrity and hypothetical-arithmetic checks for preprint version 1.0. No network or real activity.
+"""Finite integrity and hypothetical-arithmetic checks for a proposed version 1.1 revision. No network or real activity.
 
 Run from the extracted package directory: python3 CHECK_CANDIDATE.py
 These checks establish artifact consistency and the arithmetic of stipulated examples only.
@@ -7,7 +7,7 @@ They do not prove source claims, novelty, implementation or system performance.
 from pathlib import Path
 import csv, json, re, collections, subprocess
 B = Path(__file__).resolve().parent; S = B / 'SUPPLEMENT'
-MS = 'MANUSCRIPT_v1.0_2026-10-29.md'; REFJ = 'REFERENCES.json'; REFB = 'REFERENCES.bib'
+MS = 'MANUSCRIPT_PROPOSED_v1.1_2026-11-06.md'; REFJ = 'REFERENCES.json'; REFB = 'REFERENCES.bib'
 def rows(n): return list(csv.DictReader((S / n).open(encoding='utf-8')))
 s = rows('S3_SIGNALS.csv'); p = rows('S3_MECHANISM_SIGNAL_PAIRS.csv'); d = rows('S3_SOURCE_DIRECTORY.csv')
 j = rows('S3_MAPPING_SOURCE_JOINS.csv'); a = rows('S2_MECHANISM_ALLOCATION.csv'); f = rows('S4_FUNCTIONS.csv')

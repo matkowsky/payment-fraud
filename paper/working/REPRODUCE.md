@@ -4,15 +4,15 @@ The package contains a conceptual architecture and synthetic reasoning examples.
 
 ## Files
 
-- [Complete manuscript](MANUSCRIPT_v1.0_2026-10-29.md) and [rendered manuscript](MANUSCRIPT_v1.0_2026-10-29.pdf).
+- [Complete manuscript](MANUSCRIPT_PROPOSED_v1.1_2026-11-06.md) and [rendered manuscript](MANUSCRIPT_PROPOSED_v1.1_2026-11-06.pdf).
 - [Supplement](SUPPLEMENT.md) and [rendered supplement](SUPPLEMENT.pdf). The 19 CSV files are in `SUPPLEMENT/`.
 - [Citation-source manuscript](SOURCE/manuscript.md) and [citation-source supplement](SOURCE/supplement.md). Edit these sources before rebuilding; the reader-facing Markdown, TeX and PDFs are generated from them. `SOURCE/layout.lua`, `SOURCE/header.tex` and `SOURCE/references.csl` control layout and citation style.
 - [References in CSL JSON](REFERENCES.json) are the typesetting input. [BibLaTeX references](REFERENCES.bib) provide the same 122 identities for reuse; they are generated from the CSL JSON with Pandoc. Source inspection versions and limits are in the [source notes](SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv).
 - Figures are editable SVG files in `FIGURES/`. The PDF exports are used for typesetting; the PNG exports are readable alternates.
 - `BUILD.py` rebuilds the documents and `CHECK_CANDIDATE.py` runs the finite checks. `EXPORT_FIGURES.py` exports the figures when Inkscape is not installed. `tools/` holds optional Markdown round-trip helpers that convert reader-facing Markdown back to citation-key sources and confirm a byte-identical rebuild.
-- [Third-party notices](THIRD_PARTY_NOTICES.md) and `MANIFEST_SHA256_2026-10-29.txt`.
+- [Third-party notices](THIRD_PARTY_NOTICES.md) and `MANIFEST_SHA256_PROPOSED_2026-11-06.txt`.
 
-The manuscript and the supplement each have a numbered bibliography listing the works their own text cites (104 and 56 works); those numbers are local to each document. Citation keys in the CSV files resolve against the complete CSL JSON and BibLaTeX set, and all 120 works are cited across the pair.
+The manuscript and the supplement each have a numbered bibliography listing the works their own text cites (104 and 56 works); those numbers are local to each document. Citation keys in the CSV files resolve against the complete CSL JSON and BibLaTeX set, and all 122 works are cited across the pair.
 
 ## Run the finite checks
 
@@ -31,7 +31,7 @@ python3 BUILD.py
 python3 CHECK_CANDIDATE.py
 ```
 
-The build requires Pandoc with citeproc and XeLaTeX. This package was built with Pandoc 3.1.3 and TeX Live 2023/Debian. Required TeX packages include `fontspec`, `unicode-math`, `longtable`, `booktabs`, `array`, `calc`, `xurl`, `needspace`, `placeins`, `seqsplit` and `hyperref`. `SOURCE/layout.lua` sets captioned tables and figures as top-placed floats, except Figure 4, which is placed at the bottom of a page or on a float page so that it follows the Section 7 heading. Table S9.1 is taller than a page, so it is set as two floats: the caption and first row at the bottom of a page, then the other rows, headed "Table S9.1 (continued)", on the float page that follows, with no text between them. Table 6 directly follows its heading, so it prints there if it fits; otherwise it prints at the top of the next page and the Section 8.3 text fills the space before it. The S6 heading starts a new page, and Table S6.1, which is nearly a page tall, is a top-only float: it prints at the top of the page after its heading, and the S6 text before it fills the heading's page. Table 1 prints at the top of a page after the Section 2.4 heading and the paragraph that cites it. The Section 4.2 sentence that introduces the three planes is kept on one page with its list, and Figure 1 follows the list. The uncaptioned query-interface table in S4 and the uncaptioned SDK-file table in S5 are set in place after space reservations; the query-interface table may break between rows, with its header repeated. Inline code is not hyphenated, and short inline code containing spaces, such as the worked arithmetic, is kept on one line. Signal and mechanism identifiers, such as SIG-16, do not break at their hyphen. `SOURCE/header.tex` prevents a paragraph's first or last line from standing alone at a page break. Fonts are the TeX Live Latin Modern Roman, Sans, Mono and Math families, loaded by filename. Font files are not redistributed.
+The build requires Pandoc with citeproc and XeLaTeX. The version 1.0 baseline was built with Pandoc 3.1.3 and TeX Live 2023/Debian. The candidate build versions are recorded in PROPOSAL.md. Required TeX packages include `fontspec`, `unicode-math`, `longtable`, `booktabs`, `array`, `calc`, `xurl`, `needspace`, `placeins`, `seqsplit` and `hyperref`. `SOURCE/layout.lua` sets captioned tables and figures as top-placed floats, except Figure 4, which is placed at the bottom of a page or on a float page so that it follows the Section 7 heading. Table S9.1 is taller than a page, so it is set as two floats: the caption and first row at the bottom of a page, then the other rows, headed "Table S9.1 (continued)", on the float page that follows, with no text between them. Table 6 directly follows its heading, so it prints there if it fits; otherwise it prints at the top of the next page and the Section 8.3 text fills the space before it. The S6 heading starts a new page, and Table S6.1, which is nearly a page tall, is a top-only float: it prints at the top of the page after its heading, and the S6 text before it fills the heading's page. Table 1 prints at the top of a page after the Section 2.4 heading and the paragraph that cites it. The Section 4.2 sentence that introduces the three planes is kept on one page with its list, and Figure 1 follows the list. The uncaptioned query-interface table in S4 and the uncaptioned SDK-file table in S5 are set in place after space reservations; the query-interface table may break between rows, with its header repeated. Inline code is not hyphenated, and short inline code containing spaces, such as the worked arithmetic, is kept on one line. Signal and mechanism identifiers, such as SIG-16, do not break at their hyphen. `SOURCE/header.tex` prevents a paragraph's first or last line from standing alone at a page break. Fonts are the TeX Live Latin Modern Roman, Sans, Mono and Math families, loaded by filename. Font files are not redistributed.
 
 Three environment fallbacks are built in and reported when used:
 
@@ -42,13 +42,13 @@ The build runs offline. Temporary compiler output goes in `build/`, which is not
 
 ## Verify the package files
 
-`MANIFEST_SHA256_2026-10-29.txt` lists the SHA-256 hash of every package file except itself, sorted by path. It excludes the `build/` and `__pycache__/` directories, which are not part of the package. From the package directory, run:
+`MANIFEST_SHA256_PROPOSED_2026-11-06.txt` lists the SHA-256 hash of every package file except itself, sorted by path. It excludes the `build/` and `__pycache__/` directories, which are not part of the package. From the package directory, run:
 
 ```sh
-sha256sum -c MANIFEST_SHA256_2026-10-29.txt
+sha256sum -c MANIFEST_SHA256_PROPOSED_2026-11-06.txt
 ```
 
-The manifest pins the bytes of the package files as released; it does not claim bit-for-bit reproducibility on every system. Rebuilding may change PDF metadata and byte hashes across tool versions. Compare text, references, calculations and layout, then create a new hash manifest for any adopted revision.
+The candidate manifest pins the proposed package bytes, not an accepted release; it does not claim bit-for-bit reproducibility on every system. Rebuilding may change PDF metadata and byte hashes across tool versions. Compare text, references, calculations and layout, then create a new hash manifest for any adopted revision.
 
 ## Interpretation and release status
 
@@ -56,4 +56,4 @@ All 400 cohort rows and the timing schedule are hypothetical. Count distinct tra
 
 For licensing, see the manuscript's License declaration and, for the schema-derived material in `SUPPLEMENT/S5_EVENT_TYPES.csv` and `SUPPLEMENT/S5_SIGNAL_LOCATORS.csv`, [Third-party notices](THIRD_PARTY_NOTICES.md).
 
-This is preprint version 1.0, dated 29 October 2026. It has not been peer reviewed. The author's declarations are in the manuscript.
+This is a proposed revision for version 1.1, dated 6 November 2026, not an accepted or published version. It has not been peer reviewed. The author's declarations are in the manuscript.
