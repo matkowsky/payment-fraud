@@ -12,6 +12,7 @@ Commands, run from the package root:
 """
 from pathlib import Path
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 import os
@@ -32,6 +33,7 @@ LABELS = {
 }
 STATUS_LINE = (r'(?:Proposed revision for version \d+\.\d+ · Not accepted or published'
                r'|Accepted working draft for version \d+\.\d+ · Not published)')
+DATE = r'\d{1,2} (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4}'
 CREDIT_LINE = re.compile(r'^[ \t>*_-]*Drafting contribution:[ \t*_]*(\S[^\n]{0,298})$', re.M | re.I)
 
 
@@ -111,14 +113,26 @@ def cell(text):
     return str(text).replace('|', '\\|').replace('\n', ' ')
 
 
+def draft_date(state):
+    """Date of the latest accepted merge, as printed on the first page; None before any merge."""
+    if not state.get('accepted'):
+        return None
+    when = datetime.fromisoformat(state['accepted'][-1]['merged_at'].replace('Z', '+00:00')).astimezone(timezone.utc)
+    return str(when.day) + when.strftime(' %B %Y')
+
+
 def sync_labels(state, package=PACKAGE):
     label = LABELS[state['status']].format(**state)
+    date = draft_date(state)
     edits = {}
     for name in ('manuscript', 'supplement'):
         path = package / 'SOURCE' / (name + '.md')
-        text, count = re.subn(STATUS_LINE, lambda _: label, path.read_text())
+        if date is None:
+            text, count = re.subn(STATUS_LINE, lambda _: label, path.read_text())
+        else:
+            text, count = re.subn(DATE + ' · ' + STATUS_LINE, lambda _: date + ' · ' + label, path.read_text())
         if count != 1:
-            raise ValueError('Expected exactly one status line in ' + str(path))
+            raise ValueError('Expected exactly one dated status line in ' + str(path))
         edits[path] = text
     status = '**Status: ' + ('proposed for review; not accepted or published.' if state['status'] == 'proposed'
                              else 'accepted working draft; not published.') + '**'
@@ -174,9 +188,11 @@ def check_package(package=PACKAGE, baseline=None, sources_only=False):
     state = read_state(package)
     label = LABELS[state['status']].format(**state)
     for name in ('SOURCE/manuscript.md', 'SOURCE/supplement.md'):
-        found = re.findall(STATUS_LINE, (package / name).read_text())
-        if found != [label]:
+        text = (package / name).read_text()
+        if re.findall(STATUS_LINE, text) != [label]:
             raise ValueError('Stale or duplicated document status: ' + name)
+        if draft_date(state) and draft_date(state) + ' · ' + label not in text:
+            raise ValueError('Working-draft date is not the latest merge date: ' + name)
     if sources_only:
         print('State file and source status labels verified (sources only; generated files are rebuilt after merge)')
         return

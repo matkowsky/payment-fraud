@@ -18,7 +18,7 @@ REPO = 'matkowsky/payment-fraud'
 CREDIT = "Jointly drafted by the test contributor and Claude, from the contributor's notes."
 STATE = {'status': 'proposed', 'version': '1.1', 'accepted': [], 'drafting_credit': CREDIT}
 PR = {'number': 3, 'title': 'Test proposal', 'merged': True, 'merge_commit_sha': HEAD, 'body': '',
-      'merged_at': '2026-11-06T00:00:00Z', 'merged_by': {'login': 'test-reviewer'},
+      'merged_at': '2026-11-08T01:00:00Z', 'merged_by': {'login': 'test-reviewer'},
       'base': {'ref': 'main', 'repo': {'full_name': REPO}}}
 PROPOSED_LINE = '6 November 2026 · Proposed revision for version 1.1 · Not accepted or published · Not peer reviewed'
 BODY = '\n\n## Research\n\nUnchanged scientific content.\n'
@@ -176,13 +176,27 @@ class PackageCheckTests(unittest.TestCase):
         for name in ('manuscript', 'supplement'):
             text = (self.package / 'SOURCE' / (name + '.md')).read_text()
             self.assertTrue(text.endswith(BODY))
-            self.assertIn('Accepted working draft for version 1.1 · Not published', text)
+            self.assertIn('8 November 2026 · Accepted working draft for version 1.1 · Not published', text)
         self.assertIn(CREDIT, (self.package / 'STATUS.md').read_text())
         build(self.package, self.baseline)
         rs.check_package(self.package, self.baseline)
         (self.package / 'MANUSCRIPT.md').write_text((self.package / 'MANUSCRIPT.md').read_text() + 'unrecorded edit')
         with self.assertRaisesRegex(ValueError, 'Manifest mismatch'):
             rs.check_package(self.package, self.baseline)
+
+    def test_working_draft_date_follows_latest_merge(self):
+        first = rs.validate_merge(PR, STATE, REPO, HEAD, 'refs/heads/main')
+        second = rs.validate_merge({**PR, 'number': 9, 'merge_commit_sha': 'b' * 40, 'merged_at': '2026-12-01T23:30:00Z'},
+                                   first, REPO, 'b' * 40, 'refs/heads/main')
+        rs.sync_labels(second, self.package)
+        text = (self.package / 'SOURCE' / 'manuscript.md').read_text()
+        self.assertIn('1 December 2026 · Accepted working draft', text)
+        self.assertNotIn('8 November 2026', text)
+        self.assertEqual([e['pr'] for e in second['accepted']], [3, 9])
+        source = self.package / 'SOURCE' / 'supplement.md'
+        source.write_text(source.read_text().replace('1 December 2026', '6 November 2026'))
+        with self.assertRaisesRegex(ValueError, 'not the latest merge date'):
+            rs.check_package(self.package, self.baseline, sources_only=True)
 
     def test_stale_change_record_is_detected(self):
         build(self.package, self.baseline)

@@ -57,7 +57,7 @@ All 400 cohort rows and the timing schedule are hypothetical. Count distinct tra
 
 For licensing, see the manuscript's License declaration and, for the schema-derived material in `SUPPLEMENT/S5_EVENT_TYPES.csv` and `SUPPLEMENT/S5_SIGNAL_LOCATORS.csv`, [Third-party notices](THIRD_PARTY_NOTICES.md).
 
-This is working text for version 1.1, dated 6 November 2026. See [STATUS.md](STATUS.md) for its proposed or accepted state. It is not a published version and has not been peer reviewed. The author's declarations are in the manuscript.
+This is working text for version 1.1. The date on the first page of each document is the date of the latest accepted merge. See [STATUS.md](STATUS.md) for its accepted merges. It is not a published version and has not been peer reviewed. The author's declarations are in the manuscript.
 
 ## Revision status automation
 
