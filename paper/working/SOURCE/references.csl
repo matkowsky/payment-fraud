@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" version="1.0" class="in-text" default-locale="en-US">
+ <info><title>Threat Analytics numeric references</title><id>urn:ata:references:numeric:2026-09-28</id><updated>2026-10-22T00:00:00+00:00</updated></info>
+ <macro name="authors"><names variable="author"><name initialize-with=". " and="text" delimiter=", "/><substitute><text variable="publisher"/></substitute></names></macro>
+ <citation collapse="citation-number"><sort><key variable="citation-number"/></sort><layout prefix="[" suffix="]" delimiter=", "><text variable="citation-number"/></layout></citation>
+ <bibliography hanging-indent="true" entry-spacing="1" line-spacing="1">
+  <layout>
+   <text variable="citation-number" prefix="[" suffix="] "/>
+   <group delimiter=". " suffix=".">
+    <text macro="authors"/>
+    <date variable="issued"><date-part name="year"/></date>
+    <text variable="title"/>
+    <group delimiter=", ">
+     <choose>
+      <if type="article">
+       <!-- Preprints: repository, "preprint" and identifier, e.g. "arXiv preprint 2609.32495v1"; a repository version follows. -->
+       <group delimiter=" "><text variable="publisher"/><text variable="genre" text-case="lowercase"/><text variable="number"/></group>
+       <text variable="version" prefix="Version "/>
+      </if>
+      <else-if type="webpage">
+       <!-- Webpages: the site, from container-title where set and otherwise from publisher, in one style. -->
+       <choose><if variable="container-title"><text variable="container-title"/></if><else><text variable="publisher"/></else></choose>
+      </else-if>
+      <else>
+       <text variable="container-title" font-style="italic"/>
+       <group delimiter=""><text variable="volume"/><text variable="issue" prefix="(" suffix=")"/></group>
+       <choose><if type="article-journal"><text variable="number" prefix="Article "/></if><else><text variable="genre"/><text variable="number"/></else></choose>
+       <text variable="page" prefix="pp. "/>
+       <!-- Publisher: always for books; for other types only where no container-title is printed. -->
+       <choose><if type="book"><text variable="publisher-place"/><text variable="publisher"/></if><else-if variable="container-title" match="none"><text variable="publisher"/></else-if></choose>
+      </else>
+     </choose>
+    </group>
+    <text variable="note"/>
+    <!-- Preprints link to the versioned repository URL; other types to the DOI where one is given. -->
+    <choose><if type="article"><text variable="URL"/></if><else-if variable="DOI"><text variable="DOI" prefix="https://doi.org/"/></else-if><else><text variable="URL"/></else></choose>
+    <choose><if type="webpage"><date variable="accessed" prefix="Accessed "><date-part name="day" suffix=" "/><date-part name="month" form="long" suffix=" "/><date-part name="year"/></date></if></choose>
+   </group>
+  </layout>
+ </bibliography>
+</style>

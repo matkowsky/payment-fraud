@@ -38,11 +38,16 @@ Please refer to version 1.0 section numbers, and quote the sentence you mean whe
 - Accepted changes go into version 1.1. The feedback window is planned to run until about 30 November 2026, with version 1.1 to follow on Zenodo and here.
 - Contributors whose input changes the paper are credited in version 1.1, in the acknowledgments or, for substantial contributions, as co-authors, always with their permission. The terms are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Proposed revisions and attribution
+
+The [revision record](REVISIONS.md) explains proposed, accepted and published states and identifies human and AI contributions. The [working manuscript](paper/working/) has a [status record](paper/working/STATUS.md) that is synchronized automatically after merge. The changes proposed in PR #3 were jointly drafted by Jonathan Matkowsky and ChatGPT, based on Jonathan's notes and direction; review edits to them were drafted by Claude; checks are attributed separately. The version 1.0 text they revise carries its own declaration of AI use. Later contributions name the assistant actually used.
+
 ## What is in this repository
 
 - [`paper/v1.0/`](paper/v1.0/): the contents of `PACKAGE_v1.0_2026-10-29.zip` as published on Zenodo, unchanged. `MANIFEST_SHA256_2026-10-29.txt` lists the SHA-256 hash of the other 54 files.
   - Start with the [manuscript](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.md) ([PDF](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.pdf)) and the [supplement](paper/v1.0/SUPPLEMENT.md) ([PDF](paper/v1.0/SUPPLEMENT.pdf)).
   - The supplement's 19 data files are in [`paper/v1.0/SUPPLEMENT/`](paper/v1.0/SUPPLEMENT/). [REPRODUCE.md](paper/v1.0/REPRODUCE.md) explains how to rebuild the documents and run the checks.
+- [`paper/working/`](paper/working/): the version 1.1 working draft. Read the current [manuscript](paper/working/MANUSCRIPT.md) ([PDF](paper/working/MANUSCRIPT.pdf)) and [supplement](paper/working/SUPPLEMENT.md) ([PDF](paper/working/SUPPLEMENT.pdf)), and [what changed since version 1.0](paper/working/CHANGES_SINCE_v1.0.md), paragraph by paragraph. [STATUS.md](paper/working/STATUS.md) lists the accepted merges. Both documents and the change record are rebuilt automatically after each merge.
 - [Version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2): submitted change proposals and their review status. Working notes and review recommendations are not automatically submitted proposals. The released version 1.0 package stays unchanged.
 
 ## How to cite
