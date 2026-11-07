@@ -1,7 +1,7 @@
 # Version 1.1 working manuscript
 
 <!-- revision-status -->
-**Status: proposed for review; not accepted or published.**
+**Status: accepted working draft; not published.**
 <!-- /revision-status -->
 
 [STATUS.md](STATUS.md) records the current state and each accepted merge: pull request, merge account, time, commit and drafting credit. After every merge into main, GitHub Actions rebuilds both documents, regenerates [what changed since version 1.0](CHANGES_SINCE_v1.0.md), and updates the labels and checksums. Contributors edit only `SOURCE/` or the data files; see [CONTRIBUTING.md](https://github.com/matkowsky/payment-fraud/blob/main/CONTRIBUTING.md).

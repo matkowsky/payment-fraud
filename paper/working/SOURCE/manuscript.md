@@ -4,7 +4,7 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-6 November 2026 · Proposed revision for version 1.1 · Not accepted or published · Not peer reviewed
+6 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 ## Abstract
 
