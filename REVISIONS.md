@@ -25,13 +25,14 @@ For this author's revisions drafted with AI from his notes and direction, use **
 
 A later contribution may be jointly drafted with Claude. Name the assistant used for that contribution rather than copying an earlier assistant's attribution. Identify AI review as AI-assisted review; do not present it as independent human peer review. Do not claim that Claude or another reviewer has read a candidate until that review is recorded.
 
-## Current proposal
+## Proposals
 
 | Proposal | Drafting contribution | Checks performed | State |
 |---|---|---|---|
-| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. Review edits drafted by Claude (Anthropic) and applied at Jonathan's direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. Claude reviewed commit `4481a53`, updated the merge automation, then rebuilt both documents, reran the checks and inspected the changed pages. | See [current status](paper/working/STATUS.md) and the linked PR merge record. Subsequent reviews must be recorded separately. |
+| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. Review edits drafted by Claude (Anthropic) and applied at Jonathan's direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. Claude reviewed commit `4481a53`, updated the merge automation, then rebuilt both documents, reran the checks and inspected the changed pages. | Accepted: [PR #3](https://github.com/matkowsky/payment-fraud/pull/3) merged 7 November 2026 (`071f29c`). See [current status](paper/working/STATUS.md). |
+| [Source-reading corrections and working-draft records](https://github.com/matkowsky/payment-fraud/pull/4) | Source-reading verification by ChatGPT (OpenAI), 29 October 2026; corrections applied by Claude (Anthropic) at Jonathan Matkowsky's direction; README, record and date updates drafted by Claude. | Claude matched the three corrected tables byte for byte to the SHA-256 values recorded on 29 October, and ran the tests and source checks. | Proposed: [PR #4](https://github.com/matkowsky/payment-fraud/pull/4). |
 
-The candidate is in [paper/working/](paper/working/). The proposal explains what changed and what remains outside its scope. Its pull request is linked in the tracker.
+The working draft is in [paper/working/](paper/working/). Each proposal's pull request explains what it changes and is linked in the tracker; [what changed since version 1.0](paper/working/CHANGES_SINCE_v1.0.md) shows the accepted result.
 
 ## Suggested contribution record
 

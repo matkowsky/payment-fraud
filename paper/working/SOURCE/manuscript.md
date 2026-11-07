@@ -4,7 +4,7 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-6 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+7 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 ## Abstract
 
@@ -101,7 +101,7 @@ The resulting inventory contains 71 signals in 12 families. Sixty-eight connect 
 
 Three published schemas describe the platform's application programming interface (API), the interface through which software requests operations and receives data. Fixed at commit `18fa2cc768024b47789dc6fa243acd48478acac2`, they provide a reproducible check for partial public counterparts of the proposed records [@StripeOpenAPI2026]. Supplement S5 supplies the object, field or event supporting each match. The comparison concerns the published interface, not private telemetry.
 
-Across the manuscript and supplement, 122 cited works support the claims and comparisons. Supplement S1 records their versions, relevant passages and uses; its requirements matrix compares 50 sources against the three requirements. The design files contain 61 source records and 126 mechanism-to-source links. Of those sources, 27 are not among the 122 cited works and have no S1 note. All 61 were read in October 2026, 60 in full and one in part. For one of the 60, a vendor blog post, the cited passages were read verbatim and the other paragraphs only as a close paraphrase. The directory records the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
+Across the manuscript and supplement, 122 cited works support the claims and comparisons. Supplement S1 records their versions, relevant passages and uses; its requirements matrix compares 50 sources against the three requirements. The design files contain 61 source records and 126 mechanism-to-source links. Of those sources, 27 are not among the 122 cited works and have no S1 note. All 61 were read in full in October 2026. For one, a vendor blog post, the cited passages were read verbatim and the other paragraphs only as a close paraphrase. The directory records the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
 
 The synthesis distinguishes sourced findings, design choices and hypotheses (Supplement S2.1). One author, assisted by AI models, made the mappings and coverage judgments; agreement between independent human coders has not been measured. Section 9.2 explains the limits this focused selection places on coverage and transfer.
 

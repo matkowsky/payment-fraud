@@ -2,7 +2,7 @@
 
 Jonathan Matkowsky
 
-6 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+7 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 This supplement accompanies the [complete manuscript](../MANUSCRIPT.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 and S8 give the proposed evaluations. S9 extends the comparison with prior work. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package's [BibLaTeX references](../REFERENCES.bib).
 
@@ -73,7 +73,7 @@ SIG-44, SIG-45 and SIG-46 apply across mechanisms. They record technique-catalog
 
 Each input ID for the 24 derived features names another signal in the inventory. No feature depends, directly or indirectly, on itself. For example, SIG-24 uses SIG-27 to enumerate its eligible transaction cohort, including completed payments with no report. The separate chargeback-or-alert-resolution measure also uses SIG-25. Keeping these inputs explicit makes the denominator and the distinction between measures inspectable.
 
-The [source directory](../SUPPLEMENT/S3_SOURCE_DIRECTORY.csv) identifies 61 design sources. Of these, 27 are not among the 122 cited works and have no S1 source note. Each source was read in October 2026: 60 in full and one, an FTC complaint, in part. For one of the 60, a vendor blog post (L112), the cited passages were read verbatim and the other paragraphs only as a close paraphrase. The directory records each source's type, the depth and version of the read, with qualifiers such as the version read or pages not read, the access date and the scope. Where only a preprint or an author copy was read, the row says so. [Mechanism/source joins](../SUPPLEMENT/S3_MAPPING_SOURCE_JOINS.csv) supply 126 links, each with its source identifier, recorded depth and scope limit. These records preserve the premises behind the mappings, including limits on transferring evidence from another setting.
+The [source directory](../SUPPLEMENT/S3_SOURCE_DIRECTORY.csv) identifies 61 design sources. Of these, 27 are not among the 122 cited works and have no S1 source note. Each source was read in full in October 2026. For one, a vendor blog post (L112), the cited passages were read verbatim and the other paragraphs only as a close paraphrase. One FTC complaint (L127) was first read in part on 21 October; a complete copy was read on 29 October. The directory records each source's type, the depth and version of the read, with qualifiers such as the version read or pages not read, the access date and the scope. Where only a preprint or an author copy was read, the row says so. [Mechanism/source joins](../SUPPLEMENT/S3_MAPPING_SOURCE_JOINS.csv) supply 126 links, each with its source identifier, recorded depth and scope limit. These records preserve the premises behind the mappings, including limits on transferring evidence from another setting.
 
 The public-counterpart classification asks whether a pinned schema contains an object, field or event that supplies part of the required observation. Of the 71 signals, 32 have partial counterparts, the question does not apply to 32, and none was identified for seven. S5 gives the exact locators and explains the limits of partial counterparts; the inventory records each signal's classification.
 
