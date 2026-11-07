@@ -1485,13 +1485,13 @@ deployment-specific choices, to be fixed before any data are examined.
 Where a question in Section 9.1 is broader, the test below addresses the
 part that bears on the three record requirements or, for E5, on the
 agent's added value. Thresholds and sample sizes are proposed defaults.
-E1's non-inferiority margin and E8's tolerable and assumed release rates
-are named parameters that a platform fixes and records before data
-collection, and E9's negligible reduction in reference error is one that
-it fixes before any data are examined; this section does not set them. A
-platform may change them before it starts, if it records the change
-before examining any data. No data have been collected, and whoever runs
-the plan can register it with a time stamp.
+E1's non-inferiority margin, E3's false-flag margin and E8's tolerable
+and assumed release rates are named parameters that a platform fixes and
+records before data collection, and E9's negligible reduction in
+reference error is one that it fixes before any data are examined; this
+section does not set them. A platform may change them before it starts,
+if it records the change before examining any data. No data have been
+collected, and whoever runs the plan can register it with a time stamp.
 
 Four rules apply to all nine. First, each evaluation freezes the
 information each method may use at an as-of cutoff and separates
@@ -1514,16 +1514,17 @@ clustering. The minimum counts below are not power calculations; the
 sizing assumptions must be recorded before main-study data are
 collected. E1, E3, E8 and E9 are confirmatory and the rest are
 exploratory. Support in a setting requires every confirmatory evaluation
-to pass its complete rule. Report separately a result that establishes
-support, evidence against a required benefit or harm limit, and an
-inconclusive result due to insufficient precision or an unidentified
-target. An interval crossing a decision boundary does not by itself
-establish harm or absence of benefit. A failure criterion below means
-that support was not established; the reported interval and
-identification limits determine which of these explanations applies. No
-result by itself shows that the underlying idea is wrong. Investigators
-cannot be blind to the added records, so the raters, not the
-investigators, are blind.
+to pass its complete rule. Each criterion has three possible results.
+Support: its pass rule is met. Evidence against: a bound at the same
+confidence level, taken from the other side, lies on the failing side of
+its threshold; for example, E3 shows excess false flags if the lower
+one-sided 95 percent bound on the increase is at or above the margin.
+Inconclusive: neither holds, or the target cannot be identified from the
+data. A failure criterion below means only that support was not
+established; the interval and the identification limits decide which of
+the other two results applies. No result by itself shows that the
+underlying idea is wrong. Investigators cannot be blind to the added
+records, so the raters, not the investigators, are blind.
 
 \hypertarget{e1-tests-the-second-requirement-confirmatory.}{%
 \paragraph{E1 (tests the second requirement;
@@ -1642,10 +1643,11 @@ interval on the lead time, estimated from the paired censored analysis,
 is zero or less. It also fails unless the one-sided 95 percent upper
 confidence bound on the increase in the probability that a legitimate
 multi-brand business is flagged, cluster arm minus account arm, is below
-5 percentage points. The interval preserves business-level pairing and
-any additional clustering. An interval that crosses the margin is
-inconclusive about this guardrail; an observed difference below the
-margin alone does not establish support.
+the false-flag margin, proposed as 5 percentage points. The interval
+preserves business-level pairing and any additional clustering. An
+interval that crosses the margin is inconclusive about this guardrail;
+an observed difference below the margin alone does not establish
+support.
 
 \hypertarget{e4-tests-the-first-requirement-exploratory.}{%
 \paragraph{E4 (tests the first requirement;
@@ -1879,19 +1881,25 @@ the holdout reference, with its 95 percent interval. For comparator
 estimate \(q_0\), C1 estimate \(q_1\) and holdout reference \(r\), the
 reduction is \(D=|q_0-r|-|q_1-r|\); positive values favor C1. The
 interval includes uncertainty in both readings and in the reference
-under the prespecified joint procedure. This endpoint measures agreement
-with that reference. Statistical bias instead concerns an expected
-estimate minus an identified target over a specified sampling process
-and is not estimated merely by this realized comparison. Reported but
-not counted as support: (a) the share of the comparator's negatives that
-C1 classes as closed, delayed, changed in meaning, immature or without a
-defined window. Items whose channel state is unknown are excluded from
-that share and reported separately as a coverage shortfall, with, by
-channel, the share of affected items whose channel state, clock start
-and window can be determined rather than recorded as unknown. Also
-reported: the reports that later arrive on the comparator's negatives,
-and the change in an existing control's measured error rates and in the
-ranking of two candidate rules.
+under the prespecified joint procedure. Because \(D\) uses absolute
+values, it is not smooth where \(q_1=r\), which is where C1 succeeds.
+Standard delta-method and bootstrap intervals can miss their stated
+coverage there, and the observed \(|q_1-r|\) tends to overstate C1's
+error. Name the interval method before any data are examined, for
+example a paired bootstrap that resamples randomization units within
+truth-review strata, and size part (b) by simulating that same method.
+This endpoint measures agreement with that reference. Statistical bias
+instead concerns an expected estimate minus an identified target over a
+specified sampling process and is not estimated merely by this realized
+comparison. Reported but not counted as support: (a) the share of the
+comparator's negatives that C1 classes as closed, delayed, changed in
+meaning, immature or without a defined window. Items whose channel state
+is unknown are excluded from that share and reported separately as a
+coverage shortfall, with, by channel, the share of affected items whose
+channel state, clock start and window can be determined rather than
+recorded as unknown. Also reported: the reports that later arrive on the
+comparator's negatives, and the change in an existing control's measured
+error rates and in the ranking of two candidate rules.
 
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
 reduction in reference error is at or below the negligible reduction, a

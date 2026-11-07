@@ -29,7 +29,7 @@ A later contribution may be jointly drafted with Claude. Name the assistant used
 
 | Proposal | Drafting contribution | Checks performed | State |
 |---|---|---|---|
-| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. | See [current status](paper/working/STATUS.md) and the linked PR merge record. Subsequent reviews must be recorded separately. |
+| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. Review edits drafted by Claude (Anthropic) and applied at Jonathan's direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. Claude reviewed commit `4481a53`, then rebuilt after its edits, reran the checks and inspected the changed pages. | See [current status](paper/working/STATUS.md) and the linked PR merge record. Subsequent reviews must be recorded separately. |
 
 The candidate is in [paper/working/](paper/working/). The proposal explains what changed and what remains outside its scope. Its pull request is linked in the tracker.
 

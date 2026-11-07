@@ -40,7 +40,7 @@ Please refer to version 1.0 section numbers, and quote the sentence you mean whe
 
 ## Proposed revisions and attribution
 
-The [revision record](REVISIONS.md) explains proposed, accepted and published states and identifies human and AI contributions. The [working manuscript](paper/working/) has a [status record](paper/working/STATUS.md) that is synchronized automatically after merge. It was jointly drafted by Jonathan Matkowsky and ChatGPT, based on Jonathan's notes and direction; checks are attributed separately. Later contributions name the assistant actually used, including Claude when applicable.
+The [revision record](REVISIONS.md) explains proposed, accepted and published states and identifies human and AI contributions. The [working manuscript](paper/working/) has a [status record](paper/working/STATUS.md) that is synchronized automatically after merge. The changes proposed in PR #3 were jointly drafted by Jonathan Matkowsky and ChatGPT, based on Jonathan's notes and direction; review edits to them were drafted by Claude; checks are attributed separately. The version 1.0 text they revise carries its own declaration of AI use. Later contributions name the assistant actually used.
 
 ## What is in this repository
 
