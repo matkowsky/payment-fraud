@@ -9,7 +9,7 @@ The [revision tracker](https://github.com/matkowsky/payment-fraud/issues/2) link
 | Published | Accepted work is included in a separately versioned release. | Release record, version tag and publication DOI. |
 | Deferred or not adopted | A proposal is left for later or closed without adoption, with a reason. | Discussion and recorded disposition. |
 
-Checks and reviews are separate evidence, not extra acceptance states. A successful build, an AI review or a human review does not itself accept or publish a change. Merging a proposal into main is the acceptance decision. The working-draft workflow then records the merge account, time and commit, updates the document status labels, rebuilds both documents and refreshes the checksum manifest. No manual relabeling is required. A failed automation run is visible in Actions; the merge record still establishes acceptance, while the files await synchronization. Preserve the prior proposed candidate in commit history. Published `paper/v1.0/` remains unchanged; review-only PR #1 is never merged.
+Checks and reviews are separate evidence, not extra acceptance states. A successful build, an AI review or a human review does not itself accept or publish a change. Merging a proposal into main is the acceptance decision. The working-draft workflow then finds the merged pull request from the merge commit, records its number, merge account, time and commit, updates the document status labels, rebuilds both documents and the [change record](paper/working/CHANGES_SINCE_v1.0.md), and refreshes the checksum manifest. No manual relabeling is required. A failed automation run is visible in Actions; the merge record still establishes acceptance, while the files await synchronization. Preserve the prior proposed candidate in commit history. Published `paper/v1.0/` remains unchanged; review-only PR #1 is never merged.
 
 ## Who did what
 
@@ -29,7 +29,7 @@ A later contribution may be jointly drafted with Claude. Name the assistant used
 
 | Proposal | Drafting contribution | Checks performed | State |
 |---|---|---|---|
-| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. Review edits drafted by Claude (Anthropic) and applied at Jonathan's direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. Claude reviewed commit `4481a53`, then rebuilt after its edits, reran the checks and inspected the changed pages. | See [current status](paper/working/STATUS.md) and the linked PR merge record. Subsequent reviews must be recorded separately. |
+| [Statistical evaluation revisions](paper/working/PROPOSAL.md) | Jointly drafted by Jonathan Matkowsky and ChatGPT (OpenAI), based on Jonathan's notes and direction. Review edits drafted by Claude (Anthropic) and applied at Jonathan's direction. | ChatGPT ran the build, package checks, numerical cross-checks and helper tests, and inspected rendered pages. Claude reviewed commit `4481a53`, updated the merge automation, then rebuilt both documents, reran the checks and inspected the changed pages. | See [current status](paper/working/STATUS.md) and the linked PR merge record. Subsequent reviews must be recorded separately. |
 
 The candidate is in [paper/working/](paper/working/). The proposal explains what changed and what remains outside its scope. Its pull request is linked in the tracker.
 
@@ -50,4 +50,9 @@ Private notes remain private until their author selects a concrete public propos
 
 ## Automatic synchronization
 
-The workflow in `.github/workflows/working-draft.yml` validates the configured proposal against GitHub and the exact merge commit before accepting any labels. Pull-request checks have read-only repository access. Only the main-branch synchronization job can commit generated updates. It has no release step and never edits `paper/v1.0/`. If a run fails, fix the reported cause and rerun it from Actions; do not manually claim that regeneration succeeded. A new proposal should set `REVISION_STATUS.json` to `proposed` with its own PR number and run `python3 tools/revision_status.py sync` before rebuilding.
+The workflow in `.github/workflows/working-draft.yml` has two jobs.
+
+- **On a pull request** that changes `paper/working/`, it runs the tests and checks the sources and data only. Contributors edit `paper/working/SOURCE/` or the data files and do not rebuild PDFs, the change record or the manifest. The job has read-only repository access.
+- **After a merge into main**, it finds the merged pull request from the merge commit and verifies that the pull request was merged into main and produced exactly the checked-out commit. It records the merge in `REVISION_STATUS.json` and `STATUS.md`, rebuilds both documents and the change record, runs the full checks, refreshes the manifest and commits the result. A push to `paper/working/` that did not come from a merged pull request fails visibly instead of being recorded.
+
+Drafting credit for each merge comes from a `drafting_credit` entry in the merged branch's `REVISION_STATUS.json`, else a `Drafting contribution:` line in the pull request description, else a pointer to the pull request. Only the main-branch job can commit. It has no release step and never edits `paper/v1.0/`. If a run fails, fix the reported cause and rerun it from Actions; do not manually claim that regeneration succeeded. If a second merge lands before the first is synchronized, the first run stops rather than overwrite newer work, and the second run rebuilds the documents; the first merge then remains recorded in its pull request.

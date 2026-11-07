@@ -29,6 +29,13 @@ Thank you for reading the preprint. This page explains how to comment, how comme
 - Accepted changes go into version 1.1. The feedback window is planned to run until about 30 November 2026.
 - Factual errors may be corrected sooner in a correction version.
 
+## Proposing an edit
+
+- Edit the citation-source files in [`paper/working/SOURCE/`](paper/working/SOURCE/) or the data files in `paper/working/SUPPLEMENT/`, and open a pull request against `main`.
+- You do not need to rebuild the PDFs, the change record or the checksum manifest. That happens automatically after a merge.
+- To record credit, add a line to the pull request description that starts with `Drafting contribution:`.
+- The [current manuscript and supplement](paper/working/) and [what changed since version 1.0](paper/working/CHANGES_SINCE_v1.0.md) show the latest accepted text.
+
 ## Tracking changes for the next version
 
 Personal working notes, exploratory questions and review reports may remain private. When the author decides to propose a particular change, it follows the same issue or line-by-line review routes offered to other contributors. A review recommendation is not automatically a submitted proposal.

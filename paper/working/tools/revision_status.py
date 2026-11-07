@@ -1,4 +1,15 @@
-"""Synchronize draft labels after a verified merge; never publish a release."""
+"""Record merged pull requests and synchronize working-draft labels; never publish a release.
+
+Commands, run from the package root:
+  sync       rewrite labels, README status and STATUS.md from REVISION_STATUS.json
+  check      verify labels, the change record and the manifest (generated files included)
+  check --sources
+             verify the state file and source labels only; used on pull requests, where
+             generated files are not rebuilt
+  manifest   refresh MANIFEST_SHA256.txt
+  accept     on main after a merge: find the merged pull request from the merge commit,
+             verify it and record it (GitHub Actions only)
+"""
 from pathlib import Path
 import argparse
 import hashlib
@@ -6,14 +17,22 @@ import json
 import os
 import re
 import subprocess
+import sys
 import urllib.request
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import changes_since  # noqa: E402
 
 PACKAGE = Path(__file__).resolve().parents[1]
 MANIFEST = 'MANIFEST_SHA256.txt'
+REPO_URL = 'https://github.com/matkowsky/payment-fraud'
 LABELS = {
     'proposed': 'Proposed revision for version {version} · Not accepted or published',
     'accepted': 'Accepted working draft for version {version} · Not published',
 }
+STATUS_LINE = (r'(?:Proposed revision for version \d+\.\d+ · Not accepted or published'
+               r'|Accepted working draft for version \d+\.\d+ · Not published)')
+CREDIT_LINE = re.compile(r'^[ \t>*_-]*Drafting contribution:[ \t*_]*(\S[^\n]{0,298})$', re.M | re.I)
 
 
 def read_state(package=PACKAGE):
@@ -22,48 +41,87 @@ def read_state(package=PACKAGE):
         raise ValueError('Unknown revision status')
     if not re.fullmatch(r'\d+\.\d+', state['version']):
         raise ValueError('Invalid version')
-    if not isinstance(state.get('drafting_credit'), str) or not state['drafting_credit'].strip():
-        raise ValueError('The actual drafting contribution must be recorded')
-    if type(state['proposal_pr']) is not int or state['proposal_pr'] <= 1:
-        raise ValueError('A manuscript proposal PR is required; review-only PR #1 is excluded')
-    if state['status'] == 'accepted' and (not re.fullmatch(r'[0-9a-f]{40}', state.get('merge_commit_sha', ''))
-                                        or not state.get('merged_at') or not state.get('merged_by')):
-        raise ValueError('Accepted status requires merge attribution')
+    if 'drafting_credit' in state and (not isinstance(state['drafting_credit'], str)
+                                       or not state['drafting_credit'].strip()):
+        raise ValueError('A recorded drafting credit cannot be empty')
+    accepted = state.get('accepted', [])
+    if not isinstance(accepted, list):
+        raise ValueError('Accepted merges must be a list')
+    for entry in accepted:
+        if type(entry.get('pr')) is not int or entry['pr'] <= 1:
+            raise ValueError('Accepted merges must name a manuscript PR; review-only PR #1 is excluded')
+        if (not re.fullmatch(r'[0-9a-f]{40}', entry.get('merge_commit_sha', ''))
+                or not entry.get('merged_at') or not entry.get('merged_by') or not entry.get('credit')):
+            raise ValueError('Accepted status requires merge attribution')
+    if (state['status'] == 'accepted') != bool(accepted):
+        raise ValueError('Status must be accepted exactly when a merge is recorded')
     return state
 
 
+def credit_for(pr, state):
+    """Drafting credit: the merged branch's REVISION_STATUS.json, else the PR description, else a pointer."""
+    if state.get('drafting_credit'):
+        return state['drafting_credit'].strip()
+    match = CREDIT_LINE.search(pr.get('body') or '')
+    if match and match.group(1).strip('*_ ').strip():
+        return match.group(1).strip('*_ ').strip()
+    return 'Recorded in PR #' + str(pr['number']) + '.'
+
+
 def validate_merge(pr, state, repository, head, ref):
-    """Require the actual merged PR and exact checked-out merge commit."""
+    """Require the actual merged PR and exact checked-out merge commit, then record it."""
     if ref != 'refs/heads/main':
         raise ValueError('Acceptance automation runs only on main')
-    if pr.get('number') != state['proposal_pr'] or not pr.get('merged'):
-        raise ValueError('Configured proposal has not been merged')
+    if type(pr.get('number')) is not int or pr['number'] <= 1:
+        raise ValueError('Review-only PR #1 is never merged or accepted')
+    if not pr.get('merged'):
+        raise ValueError('Pull request has not been merged')
     if pr.get('base', {}).get('ref') != 'main' or pr['base']['repo']['full_name'] != repository:
         raise ValueError('Merge targets a different repository or branch')
     if pr.get('merge_commit_sha') != head:
-        raise ValueError('Checked-out commit is not the proposal merge commit')
+        raise ValueError('Checked-out commit is not the pull request merge commit')
     if not pr.get('merged_at') or not (pr.get('merged_by') or {}).get('login'):
         raise ValueError('Merge attribution is missing')
-    return {
-        **state,
-        'status': 'accepted',
+    entry = {
+        'pr': pr['number'],
+        'title': (pr.get('title') or '').strip()[:200],
         'merge_commit_sha': head,
         'merged_at': pr['merged_at'],
         'merged_by': pr['merged_by']['login'],
+        'credit': credit_for(pr, state),
     }
+    recorded = {k: v for k, v in state.items() if k != 'drafting_credit'}
+    recorded['status'] = 'accepted'
+    recorded['accepted'] = [*state.get('accepted', []), entry]
+    return recorded
+
+
+def find_merged_pr(pulls, head):
+    """The one pull request merged into main whose merge produced this commit."""
+    merged = [p['number'] for p in pulls
+              if p.get('merged_at') and p.get('merge_commit_sha') == head
+              and p.get('base', {}).get('ref') == 'main']
+    if len(merged) != 1:
+        raise ValueError('No single merged pull request produced this commit; '
+                         'changes to paper/working reach main only by merging a pull request')
+    return merged[0]
+
+
+def cell(text):
+    return str(text).replace('|', '\\|').replace('\n', ' ')
 
 
 def sync_labels(state, package=PACKAGE):
     label = LABELS[state['status']].format(**state)
     edits = {}
-    pattern = r'(?:Proposed revision for version \d+\.\d+ · Not accepted or published|Accepted working draft for version \d+\.\d+ · Not published)'
     for name in ('manuscript', 'supplement'):
         path = package / 'SOURCE' / (name + '.md')
-        text, count = re.subn(pattern, lambda _: label, path.read_text())
+        text, count = re.subn(STATUS_LINE, lambda _: label, path.read_text())
         if count != 1:
             raise ValueError('Expected exactly one status line in ' + str(path))
         edits[path] = text
-    status = '**Status: ' + ('proposed for review; not accepted or published.' if state['status'] == 'proposed' else 'accepted working draft; not published.') + '**'
+    status = '**Status: ' + ('proposed for review; not accepted or published.' if state['status'] == 'proposed'
+                             else 'accepted working draft; not published.') + '**'
     readme = package / 'README.md'
     text, count = re.subn(r'<!-- revision-status -->.*?<!-- /revision-status -->',
                          '<!-- revision-status -->\n' + status + '\n<!-- /revision-status -->',
@@ -71,19 +129,31 @@ def sync_labels(state, package=PACKAGE):
     if count != 1:
         raise ValueError('README status marker is missing or duplicated')
     edits[readme] = text
-    details = ('# Working manuscript status\n\n' + status + '\n\n'
-               'Proposal: [PR #' + str(state['proposal_pr']) + '](https://github.com/matkowsky/payment-fraud/pull/' + str(state['proposal_pr']) + ').\n\n')
-    if state['status'] == 'accepted':
-        details += ('Merged by GitHub account **' + state['merged_by'] + '** at ' + state['merged_at'] + '.\n\n'
-                    'Accepted merge commit: `' + state['merge_commit_sha'] + '`.\n\n')
-    details += (state['drafting_credit'] + ' '
-                'Technical checks are recorded separately in PROPOSAL.md. '
-                'This status does not establish independent review, empirical validation or publication.\n\n'
-                'After a verified merge into main, GitHub Actions synchronizes these labels, rebuilds both documents, '
-                'runs the checks and refreshes the package manifest. A failed run leaves the last committed files intact; '
-                'the PR merge record remains the authority for acceptance. A versioned publication is separate.\n')
-    edits[package / 'STATUS.md'] = details
-    edits[package / 'REVISION_STATUS.json'] = json.dumps(state, indent=2) + '\n'
+    details = ['# Working manuscript status', '', status, '',
+               'Read the current [manuscript](MANUSCRIPT.md) ([PDF](MANUSCRIPT.pdf)) and '
+               '[supplement](SUPPLEMENT.md) ([PDF](SUPPLEMENT.pdf)), and see '
+               '[what changed since version 1.0](' + changes_since.OUTPUT + ').', '']
+    if state.get('drafting_credit'):
+        details += ['Changes on this branch, not yet merged: ' + state['drafting_credit'], '']
+    details += ['## Accepted merges', '']
+    if state.get('accepted'):
+        details += ['| Pull request | Title | Merged by GitHub account | Merged at | Merge commit | Drafting credit |',
+                    '|---|---|---|---|---|---|']
+        for e in state['accepted']:
+            details.append('| [#' + str(e['pr']) + '](' + REPO_URL + '/pull/' + str(e['pr']) + ') | ' + cell(e['title'])
+                           + ' | ' + cell(e['merged_by']) + ' | ' + cell(e['merged_at']) + ' | `' + e['merge_commit_sha']
+                           + '` | ' + cell(e['credit']) + ' |')
+    else:
+        details.append('None yet. Open pull requests that change `paper/working/` are proposals until merged.')
+    details += ['',
+                'After a pull request that changes `paper/working/` is merged into main, GitHub Actions finds that pull '
+                'request from the merge commit, records it above, synchronizes these labels, rebuilds both documents and '
+                'the change record, runs the checks and refreshes the package manifest. A failed run leaves the last '
+                'committed files intact; the merge record remains the authority for acceptance. A versioned publication is '
+                'separate. Checks and reviews are recorded in each pull request. This status does not establish independent '
+                'review, empirical validation or publication.', '']
+    edits[package / 'STATUS.md'] = '\n'.join(details)
+    edits[package / 'REVISION_STATUS.json'] = json.dumps(state, indent=2, ensure_ascii=False) + '\n'
     for path, text in edits.items():
         path.write_text(text)
 
@@ -100,20 +170,28 @@ def refresh_manifest(package=PACKAGE):
         for p in package_files(package)))
 
 
-def check_package(package=PACKAGE):
+def check_package(package=PACKAGE, baseline=None, sources_only=False):
     state = read_state(package)
-    proposal = os.environ.get('PROPOSAL_NUMBER')
-    if proposal is not None and (state['status'] != 'proposed' or state['proposal_pr'] != int(proposal)):
-        raise ValueError('A proposal must identify its own PR and retain proposed status until merge')
     label = LABELS[state['status']].format(**state)
-    for name in ('SOURCE/manuscript.md', 'SOURCE/supplement.md', 'MANUSCRIPT.md', 'SUPPLEMENT.md'):
+    for name in ('SOURCE/manuscript.md', 'SOURCE/supplement.md'):
+        found = re.findall(STATUS_LINE, (package / name).read_text())
+        if found != [label]:
+            raise ValueError('Stale or duplicated document status: ' + name)
+    if sources_only:
+        print('State file and source status labels verified (sources only; generated files are rebuilt after merge)')
+        return
+    for name in ('MANUSCRIPT.md', 'SUPPLEMENT.md'):
         if label not in (package / name).read_text():
             raise ValueError('Stale document status: ' + name)
+    baseline = package.parent / 'v1.0' if baseline is None else baseline
+    record = package / changes_since.OUTPUT
+    if not record.is_file() or record.read_text(encoding='utf-8') != changes_since.render(package, baseline):
+        raise ValueError('Stale change record: run python3 tools/changes_since.py')
     expected = dict(line.split('  ', 1)[::-1] for line in (package / MANIFEST).read_text().splitlines())
     actual = {p.relative_to(package).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest() for p in package_files(package)}
     if expected != actual:
         raise ValueError('Manifest mismatch')
-    print('Status labels and ' + str(len(actual)) + ' manifest entries verified')
+    print('Status labels, change record and ' + str(len(actual)) + ' manifest entries verified')
 
 
 def github_get(path):
@@ -126,33 +204,41 @@ def github_get(path):
         return json.load(response)
 
 
-def accept():
-    state = read_state()
+def current_head():
+    return subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+
+
+def accept(package=PACKAGE):
+    """Record the pull request whose merge produced the checked-out commit. Returns True if files changed."""
     if os.environ.get('GITHUB_REF') != 'refs/heads/main':
         raise ValueError('Acceptance requires main')
-    if state['status'] == 'accepted':
+    state = read_state(package)
+    head = current_head()
+    if any(e['merge_commit_sha'] == head for e in state.get('accepted', [])):
         print('Already synchronized; no changes')
-        return
+        return False
     repository = os.environ['GITHUB_REPOSITORY']
-    head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
     if github_get('repos/' + repository + '/branches/main')['commit']['sha'] != head:
         raise ValueError('Main advanced; refusing to overwrite newer work')
-    pr = github_get('repos/' + repository + '/pulls/' + str(state['proposal_pr']))
-    accepted = validate_merge(pr, state, repository, head, os.environ['GITHUB_REF'])
-    sync_labels(accepted)
+    number = find_merged_pr(github_get('repos/' + repository + '/commits/' + head + '/pulls'), head)
+    pr = github_get('repos/' + repository + '/pulls/' + str(number))
+    sync_labels(validate_merge(pr, state, repository, head, os.environ['GITHUB_REF']), package)
     with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
         output.write('changed=true\n')
+    print('Recorded merge of PR #' + str(number))
+    return True
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('command', choices=['accept', 'sync', 'manifest', 'check'])
-    command = parser.parse_args().command
-    if command == 'accept':
+    parser.add_argument('--sources', action='store_true', help='with check: verify sources only')
+    args = parser.parse_args()
+    if args.command == 'accept':
         accept()
-    elif command == 'sync':
+    elif args.command == 'sync':
         sync_labels(read_state())
-    elif command == 'manifest':
+    elif args.command == 'manifest':
         refresh_manifest()
     else:
-        check_package()
+        check_package(sources_only=args.sources)

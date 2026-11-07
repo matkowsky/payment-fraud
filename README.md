@@ -47,6 +47,7 @@ The [revision record](REVISIONS.md) explains proposed, accepted and published st
 - [`paper/v1.0/`](paper/v1.0/): the contents of `PACKAGE_v1.0_2026-10-29.zip` as published on Zenodo, unchanged. `MANIFEST_SHA256_2026-10-29.txt` lists the SHA-256 hash of the other 54 files.
   - Start with the [manuscript](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.md) ([PDF](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.pdf)) and the [supplement](paper/v1.0/SUPPLEMENT.md) ([PDF](paper/v1.0/SUPPLEMENT.pdf)).
   - The supplement's 19 data files are in [`paper/v1.0/SUPPLEMENT/`](paper/v1.0/SUPPLEMENT/). [REPRODUCE.md](paper/v1.0/REPRODUCE.md) explains how to rebuild the documents and run the checks.
+- [`paper/working/`](paper/working/): the version 1.1 working draft. Read the current [manuscript](paper/working/MANUSCRIPT.md) ([PDF](paper/working/MANUSCRIPT.pdf)) and [supplement](paper/working/SUPPLEMENT.md) ([PDF](paper/working/SUPPLEMENT.pdf)), and [what changed since version 1.0](paper/working/CHANGES_SINCE_v1.0.md), paragraph by paragraph. [STATUS.md](paper/working/STATUS.md) lists the accepted merges. Both documents and the change record are rebuilt automatically after each merge.
 - [Version 1.1 revision tracker](https://github.com/matkowsky/payment-fraud/issues/2): submitted change proposals and their review status. Working notes and review recommendations are not automatically submitted proposals. The released version 1.0 package stays unchanged.
 
 ## How to cite

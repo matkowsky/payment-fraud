@@ -9,7 +9,6 @@ on:
     branches: [main]
     paths:
       - 'paper/working/**'
-      - '.github/workflows/working-draft.yml'
   workflow_dispatch:
 
 permissions:
@@ -20,6 +19,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Contributors edit sources and data only. Generated documents, the change
+  # record and the manifest are rebuilt after merge, so they are not checked here.
   check-proposal:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
@@ -29,13 +30,13 @@ jobs:
           persist-credentials: false
       - run: python3 tools/test_revision_status.py
         working-directory: paper/working
+      - run: python3 tools/test_changes_since.py
+        working-directory: paper/working
       - run: python3 tools/test_iterate.py
         working-directory: paper/working
-      - run: python3 CHECK_CANDIDATE.py
+      - run: python3 CHECK_CANDIDATE.py --sources
         working-directory: paper/working
-      - run: python3 tools/revision_status.py check
-        env:
-          PROPOSAL_NUMBER: ${{ github.event.pull_request.number }}
+      - run: python3 tools/revision_status.py check --sources
         working-directory: paper/working
 
   synchronize-accepted-draft:
@@ -48,7 +49,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
-      - name: Verify merge and prepare status
+      - name: Find the merged pull request and record it
         id: status
         env:
           GH_TOKEN: ${{ github.token }}
@@ -59,14 +60,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern inkscape
-      - name: Rebuild and check accepted documents
+      - name: Rebuild both documents and the change record, then check
         if: steps.status.outputs.changed == 'true'
         working-directory: paper/working
         run: |
           python3 BUILD.py
+          python3 tools/changes_since.py
           python3 CHECK_CANDIDATE.py
-          python3 tools/test_iterate.py
           python3 tools/test_revision_status.py
+          python3 tools/test_changes_since.py
+          python3 tools/test_iterate.py
           python3 tools/revision_status.py manifest
           python3 tools/revision_status.py check
       - name: Commit generated status and document updates
@@ -76,5 +79,5 @@ jobs:
           git diff --cached --exit-code -- paper/v1.0
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'Synchronize accepted working draft after merge' -m 'Automatic status, document build and manifest update. Acceptance is the separately recorded maintainer merge; this is not a publication.'
+          git commit -m 'Synchronize accepted working draft after merge' -m 'Automatic status, document build, change record and manifest update. Acceptance is the separately recorded maintainer merge; this is not a publication.'
           git push origin HEAD:main

@@ -1,11 +1,14 @@
 """Finite integrity and hypothetical-arithmetic checks for a proposed version 1.1 revision. No network or real activity.
 
 Run from the extracted package directory: python3 CHECK_CANDIDATE.py
+Pull-request checks run python3 CHECK_CANDIDATE.py --sources, which skips the comparison with
+generated bibliographies because generated files are rebuilt only after merge.
 These checks establish artifact consistency and the arithmetic of stipulated examples only.
 They do not prove source claims, novelty, implementation or system performance.
 """
 from pathlib import Path
-import csv, json, re, collections, subprocess
+import csv, json, re, collections, subprocess, sys
+SOURCES_ONLY = '--sources' in sys.argv[1:]
 B = Path(__file__).resolve().parent; S = B / 'SUPPLEMENT'
 MS = 'MANUSCRIPT.md'; REFJ = 'REFERENCES.json'; REFB = 'REFERENCES.bib'
 def rows(n): return list(csv.DictReader((S / n).open(encoding='utf-8')))
@@ -52,8 +55,9 @@ assert public == {'partial': 32, 'na': 32, 'unlocated': 7}, public
 mkeys = set(re.findall(r'(?<!\w)@([\w]+)', body)); skeys = set(re.findall(r'(?<!\w)@([\w]+)', sbody)); refkeys = {x['id'] for x in r}
 keys = mkeys | skeys
 assert len(keys) == 122 and keys == refkeys, sorted(refkeys ^ keys)
-assert set(re.findall(r'<div id="ref-([^"]+)"', t)) == mkeys
-assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
+if not SOURCES_ONLY:
+    assert set(re.findall(r'<div id="ref-([^"]+)"', t)) == mkeys
+    assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
 assert {x['citation_key'] for x in rows('S1_CITED_SOURCE_NOTES.csv')} == refkeys
 assert set(re.findall(r'\*\*Table (\d+)\.', body)) == set(map(str, range(1, 7)))
 assert set(re.findall(r'\*\*Figure (\d+)\.', body)) == set(map(str, range(1, 5)))
@@ -159,6 +163,7 @@ except FileNotFoundError:
 private = r'jonathanmatkowsky|jonathan_matkowsky|sharepoint\.com|onedrive|REVIEW_REPORT|PURPOSE_CONTEXT|PRIVATE_RECORDS|supervisory|job search|job application|interview prep|sk-[A-Za-z0-9]{20,}'
 screened = 0
 for path in [B / MS, B / 'SUPPLEMENT.md', B / 'README.md', B / 'REPRODUCE.md', B / REFB, B / REFJ,
+             *[p for p in [B / 'CHANGES_SINCE_v1.0.md'] if p.is_file()],
              *(B / 'SOURCE').glob('*.md'), *(B / 'FIGURES').rglob('*.svg'), *(B / 'SUPPLEMENT').rglob('*.csv')]:
     z = path.read_text(encoding='utf-8')
     assert not re.search(private, z, re.I), path
@@ -178,5 +183,6 @@ result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs
           'as_of_example': 'later-known edge excluded; earlier onset unresolved',
           'evaluation_sizing': {'evaluations': 9, 'confirmatory': 4, 'all_confirmatory_pass_at_least': 0.72, 'e8_false_exonerations_for_1_percent': n_fe,
                                 'e8_for_93_percent_power_at_0.1_percent': n_pow, 'e8_drafts_at_5_percent': e8_drafts, 'e8_days_at_20_a_day': e8_days},
+          'mode': 'sources only; generated bibliographies not compared' if SOURCES_ONLY else 'full',
           'scope': 'Artifact integrity and hypothetical arithmetic only; not source proof or system evaluation.'}
 print(json.dumps(result, indent=2))
