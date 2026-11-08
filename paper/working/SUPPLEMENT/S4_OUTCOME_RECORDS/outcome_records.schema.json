@@ -179,6 +179,30 @@
         }
       ]
     },
+    "report_amount": {
+      "description": "The report's own amount in minor units, which can differ from the payment's, for example when only part of an order is disputed. Unknown is stated with a reason, never omitted.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value_minor", "currency"],
+          "properties": {
+            "status": {"const": "known"},
+            "value_minor": {"type": "integer", "minimum": 0},
+            "currency": {"type": "string", "pattern": "^[A-Z]{3}$"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "reason"],
+          "properties": {
+            "status": {"const": "unknown"},
+            "reason": {"type": "string", "minLength": 1}
+          }
+        }
+      ]
+    },
     "channel_state": {
       "enum": [
         "open",
@@ -479,6 +503,7 @@
         "channel_id",
         "item",
         "attribution",
+        "amount",
         "occurred_at",
         "reported_at",
         "arrived_at",
@@ -593,6 +618,9 @@
           "items": {
             "$ref": "#/$defs/id"
           }
+        },
+        "amount": {
+          "$ref": "#/$defs/report_amount"
         },
         "recorded_at_account": {
           "description": "The account where the platform recorded or debited the report, which can differ from the account the report's item settled to.",
