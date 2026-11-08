@@ -659,7 +659,7 @@ The next test is operational value. Evaluations must determine whether these rec
 
 ## Author and publication declarations
 
-**Acknowledgments.** Oleg Solozobov, author of the Decision Event Schema, reviewed how the first requirement maps onto that schema. His comments led to three refinements: outcome reports as appended records with three times, channel effects fixed with the decision, and typed links from each report to every decision that may have shaped it. Xuwei Tan, first author of SR-Fraud, pointed out that SR-Fraud's gains grow with users' prior history and advised on E5's matched comparison.
+**Acknowledgments.** Thanks to Oleg Solozobov (Sections 2.1, 2.4, 5.2, 5.3 and 7.1) and Xuwei Tan (Sections 2.4 and 9.1) for feedback.
 
 **Use of generative AI.** The author used Anthropic Claude and OpenAI ChatGPT/Codex for research assistance, drafting, substantive revision, figures, calculations and document preparation. Source-checking depths and limits are documented in the supplement. Model-assisted reviews were not independent human peer review. The author takes responsibility for the content.
 
