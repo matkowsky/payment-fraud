@@ -87,7 +87,7 @@ The [functional responsibilities](../SUPPLEMENT/S4_FUNCTIONS.csv) file defines 2
 
 Responsibilities 16 and 17 cover engineering validation and adaptive testing of detections, controls and models. Responsibility 21 independently reviews all agent outputs, including intelligence drafts, hunting and detection candidates, and recommendations; responsibility 22 provides human release. Permission to investigate grants no authority over accounts, payments or controls. An authorized human may decide urgent containment before quality review (manuscript Section 6.4), without releasing the draft into organizational memory.
 
-The [entity inventory](../SUPPLEMENT/S4_ENTITIES.csv) and [entity relationships](../SUPPLEMENT/S4_ENTITY_RELATIONS.csv) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders (other explanations for the link), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel's status; it does not invent an outcome report. [S4.1](#complete-storage-requirements) gives the complete storage requirements.
+The [entity inventory](../SUPPLEMENT/S4_ENTITIES.csv) and [entity relationships](../SUPPLEMENT/S4_ENTITY_RELATIONS.csv) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders (other explanations for the link), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel's status; it does not invent an outcome report. [S4.1](#complete-storage-requirements) gives the complete storage requirements, and [S4.2](#outcome-record-schemas) gives field-level schemas for the outcome records.
 
 The query interface must show what each query actually covered and what its result means:
 
@@ -218,6 +218,38 @@ Manuscript Table 3 summarizes this complete storage contract; manuscript Section
 - Link closed accounts to suspected successor accounts, and storefronts to merchants.
 - Link each outcome report to the transaction, payout or account application it concerns, with the basis for the link and whether it is verified. Attribute outcomes through that link to the platform account, connected account and end customer, so that a measure counts each affected transaction once. A report's links to the decisions that may have shaped it do not change this count. Keep each transaction's acquiring bank and the static part of its statement descriptor, so that a network's monitored unit can be reconstructed.
 - Link each wallet to every party it has allowed to spend its funds.
+
+### S4.2 Field-level schemas for outcome records {#outcome-record-schemas}
+
+The [outcome-record schema](../SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json) defines, in JSON Schema, the fields of the records that the first requirement needs. It covers six record types:
+
+| Record | What it holds |
+|---|---|
+| OutcomeChannel | A route for reporting outcomes: its rail, clock-start event, reporting window with source and rule version, the attributes the window depends on, and whether the channel adjudicates report truth |
+| ControlAction | A decision's targets, time, authority and version, and its effect on each channel: closed, delayed, changed in meaning, none or unknown |
+| ChannelStateTransition | One change in a channel's state for one item, with its effective interval and the decision or rule event that caused it |
+| LabelEvent | An outcome report or one revision of it, with when the outcome occurred, when it was reported at its source, when it arrived and when it became queryable |
+| LabelEventDecisionLink | A link from a report to one decision that may have shaped it, with the decision's role, the basis for the link and whether it is verified |
+| ChannelStatusReading | Report presence, channel state, query access and no-report status for one item and channel at one read time, stored when a draft cites it |
+
+Every record is append-only: a correction is a new record that references the earlier one. A time that is not known is recorded as unknown, with a reason, and is never left out. The schema checks each record on its own. Twelve rules check records against each other:
+
+1. OR-01: a record identifier is used once, so no record is changed in place.
+2. OR-02: a correction or revision references an earlier record of the same type and, for a report, of the same report.
+3. OR-03: every channel, decision and report that a record cites exists.
+4. OR-04: a report's times are in order where they are known: occurred, reported, arrived, learned.
+5. OR-05: a won or lost report states whether that result followed adjudication.
+6. OR-06: a decision gives one effect per channel. A delay gives its expected clock start, and a change in meaning says what changed.
+7. OR-07: a permanent closure cites the decision that caused it, and a reopening or extension cites the rule event. A cited decision must target the item, record the matching effect and precede the transition.
+8. OR-08: no report can arrive through a channel that a decision closed for that item. Such a report means the item link or the closure is wrong.
+9. OR-09: a link's role fits the decision: a decision on the reported item, on an earlier related attempt, or on an account or payout that contains the item.
+10. OR-10: a reading's channel state is computed only from the transitions the system had learned by the read time.
+11. OR-11: a reading's report presence matches the reports learned by the read time. Presence is unavailable only when query access was denied or unavailable, and it does not overwrite channel state.
+12. OR-12: a no-report status follows from the channel's state and window. An absence matures only if the window is defined and has ended, the channel was open throughout it and query access was full. A matured absence records the rule version it matured under and cites any decision that changed the channel's meaning.
+
+The [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json) builds one synthetic history: a blocked card attempt, an approved retry that draws a fraud chargeback the merchant later wins, a hold on the account that received the payment, and a payment that draws no report. Its 22 records pass. Each of the 18 [invalid cases](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json) changes that history in one way and must fail exactly one check; together they exercise the schema check and all twelve rules. `tools/outcome_conformance.py` runs the cases using only the Python standard library, and `CHECK_CANDIDATE.py` runs it as well. The same tool checks any records file in this format.
+
+Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. The schema for query runs (QueryRun), which the second requirement needs, is not yet specified.
 
 ## S5. Pinned public schemas
 

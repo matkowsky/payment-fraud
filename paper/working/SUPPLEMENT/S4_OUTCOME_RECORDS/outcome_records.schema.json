@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "outcome_records.schema.json",
+  "title": "Field-level schema for the first requirement's outcome records (draft)",
+  "description": "Six record types: the outcome channel, a control decision's channel effects, channel-state transitions, outcome reports and their revisions, report-to-decision links, and a channel-status reading stored when a draft cites it. Every record is append-only: a correction is a new record that references the earlier one. Unknown values are explicit and never default to low risk or to absence. Cross-record rules OR-01 to OR-13 are stated in Supplement S4.2 and checked by tools/outcome_conformance.py. A schema and passing synthetic cases do not establish operational effectiveness.",
+  "oneOf": [
+    {"$ref": "#/$defs/OutcomeChannel"},
+    {"$ref": "#/$defs/ControlAction"},
+    {"$ref": "#/$defs/ChannelStateTransition"},
+    {"$ref": "#/$defs/LabelEvent"},
+    {"$ref": "#/$defs/LabelEventDecisionLink"},
+    {"$ref": "#/$defs/ChannelStatusReading"}
+  ],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9._:-]+$"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "time_estimate": {
+      "description": "A time that may be exact, known only within an interval, or unknown. Unknown is stated with a reason, never omitted.",
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["status", "value"],
+         "properties": {"status": {"const": "exact"}, "value": {"$ref": "#/$defs/timestamp"}}},
+        {"type": "object", "additionalProperties": false, "required": ["status", "earliest", "latest"],
+         "properties": {"status": {"const": "interval"}, "earliest": {"$ref": "#/$defs/timestamp"}, "latest": {"$ref": "#/$defs/timestamp"}}},
+        {"type": "object", "additionalProperties": false, "required": ["status", "reason"],
+         "properties": {"status": {"const": "unknown"}, "reason": {"type": "string", "minLength": 1}}}
+      ]
+    },
+    "item_ref": {
+      "description": "The transaction, payout or account application a record concerns, or the account that contains it.",
+      "type": "object", "additionalProperties": false, "required": ["item_type", "item_id"],
+      "properties": {
+        "item_type": {"enum": ["payment_attempt", "funds_movement", "payout", "account_application", "account"]},
+        "item_id": {"$ref": "#/$defs/id"}
+      }
+    },
+    "cause": {
+      "description": "What caused a channel-state transition: a recorded decision, a recorded rule event, or unknown.",
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["kind", "decision_id"],
+         "properties": {"kind": {"const": "decision"}, "decision_id": {"$ref": "#/$defs/id"}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "source", "rule_version"],
+         "properties": {"kind": {"const": "rule_event"}, "source": {"type": "string", "minLength": 1}, "rule_version": {"type": "string", "minLength": 1}}},
+        {"type": "object", "additionalProperties": false, "required": ["kind", "reason"],
+         "properties": {"kind": {"const": "unknown"}, "reason": {"type": "string", "minLength": 1}}}
+      ]
+    },
+    "channel_state": {"enum": ["open", "delayed_or_not_opened", "closed", "reopened_or_extended", "unknown"]},
+    "OutcomeChannel": {
+      "description": "A route through which an outcome can be reported, such as a fraud chargeback, with its rail, clock-start event, reporting window and source.",
+      "type": "object", "additionalProperties": false,
+      "required": ["record_type", "record_id", "channel_id", "name", "rail", "clock_start_event", "reporting_window", "window_depends_on", "adjudicates_truth", "learned_at"],
+      "properties": {
+        "record_type": {"const": "OutcomeChannel"},
+        "record_id": {"$ref": "#/$defs/id"},
+        "corrects": {"$ref": "#/$defs/id"},
+        "channel_id": {"$ref": "#/$defs/id"},
+        "name": {"type": "string", "minLength": 1},
+        "rail": {"enum": ["card", "ach", "sepa_direct_debit", "bank_transfer", "wallet", "payout", "platform", "other"]},
+        "clock_start_event": {"type": "string", "minLength": 1},
+        "reporting_window": {
+          "oneOf": [
+            {"type": "object", "additionalProperties": false, "required": ["status", "days", "source", "rule_version"],
+             "properties": {"status": {"const": "defined"}, "days": {"type": "integer", "minimum": 1}, "source": {"type": "string", "minLength": 1}, "rule_version": {"type": "string", "minLength": 1}}},
+            {"type": "object", "additionalProperties": false, "required": ["status"],
+             "properties": {"status": {"const": "none_defined"}}},
+            {"type": "object", "additionalProperties": false, "required": ["status", "reason"],
+             "properties": {"status": {"const": "unknown"}, "reason": {"type": "string", "minLength": 1}}}
+          ]
+        },
+        "window_depends_on": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "adjudicates_truth": {"enum": ["yes", "no", "unknown"]},
+        "learned_at": {"$ref": "#/$defs/timestamp"}
+      }
+    },
+    "ControlAction": {
+      "description": "The outcome-side fields of a control decision. Its channel effects are fixed when it is recorded; later transitions are separate ChannelStateTransition records.",
+      "type": "object", "additionalProperties": false,
+      "required": ["record_type", "record_id", "decision_id", "decision_kind", "targets", "decided_at", "learned_at", "authority", "rule_or_model_version", "channel_effects"],
+      "properties": {
+        "record_type": {"const": "ControlAction"},
+        "record_id": {"$ref": "#/$defs/id"},
+        "corrects": {"$ref": "#/$defs/id"},
+        "decision_id": {"$ref": "#/$defs/id"},
+        "decision_kind": {"enum": ["block", "allow", "review", "challenge", "decline", "hold", "restriction", "release", "other"]},
+        "targets": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/item_ref"}},
+        "decided_at": {"$ref": "#/$defs/timestamp"},
+        "learned_at": {"$ref": "#/$defs/timestamp"},
+        "authority": {"type": "string", "minLength": 1},
+        "rule_or_model_version": {"type": "string", "minLength": 1},
+        "channel_effects": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["channel_id", "effect"],
+            "properties": {
+              "channel_id": {"$ref": "#/$defs/id"},
+              "effect": {"enum": ["closed", "delayed", "changed_meaning", "none", "unknown"]},
+              "expected_clock_start": {"$ref": "#/$defs/time_estimate"},
+              "meaning_change": {"type": "string", "minLength": 1}
+            }
+          }
+        }
+      }
+    },
+    "ChannelStateTransition": {
+      "description": "One transition in a channel's state history for one item, with its effective interval and the decision or rule event that caused it.",
+      "type": "object", "additionalProperties": false,
+      "required": ["record_type", "record_id", "item", "channel_id", "state", "effective_from", "cause", "learned_at"],
+      "properties": {
+        "record_type": {"const": "ChannelStateTransition"},
+        "record_id": {"$ref": "#/$defs/id"},
+        "corrects": {"$ref": "#/$defs/id"},
+        "item": {"$ref": "#/$defs/item_ref"},
+        "channel_id": {"$ref": "#/$defs/id"},
+        "state": {"$ref": "#/$defs/channel_state"},
+        "effective_from": {"$ref": "#/$defs/timestamp"},
+        "effective_to": {"$ref": "#/$defs/timestamp"},
+        "cause": {"$ref": "#/$defs/cause"},
+        "clock_start": {"$ref": "#/$defs/time_estimate"},
+        "learned_at": {"$ref": "#/$defs/timestamp"}
+      }
+    },
+    "LabelEvent": {
+      "description": "An outcome report or one revision of it. Each status change, reversal or correction is a new record that references the earlier one.",
+      "type": "object", "additionalProperties": false,
+      "required": ["record_type", "record_id", "report_id", "revision_kind", "report_type", "source", "channel_id", "item", "attribution", "occurred_at", "reported_at", "arrived_at", "learned_at", "status", "adjudicated", "truth_assessment_ids"],
+      "properties": {
+        "record_type": {"const": "LabelEvent"},
+        "record_id": {"$ref": "#/$defs/id"},
+        "report_id": {"$ref": "#/$defs/id"},
+        "revision_of": {"$ref": "#/$defs/id"},
+        "revision_kind": {"enum": ["initial", "status_change", "correction", "reversal", "withdrawal"]},
+        "report_type": {"enum": ["dispute", "early_fraud_warning", "refund", "payout_return", "recall", "charge_off", "complaint", "victim_report", "incident_finding", "investigator_label", "platform_abuse_label", "business_reported_outcome"]},
+        "source": {"type": "string", "minLength": 1},
+        "reason": {"type": "string"},
+        "channel_id": {"$ref": "#/$defs/id"},
+        "item": {"$ref": "#/$defs/item_ref"},
+        "attribution": {
+          "type": "object", "additionalProperties": false, "required": ["basis", "verified"],
+          "properties": {"basis": {"type": "string", "minLength": 1}, "verified": {"type": "boolean"}}
+        },
+        "occurred_at": {"$ref": "#/$defs/time_estimate"},
+        "reported_at": {"$ref": "#/$defs/time_estimate"},
+        "arrived_at": {"$ref": "#/$defs/timestamp"},
+        "learned_at": {"$ref": "#/$defs/timestamp"},
+        "status": {"enum": ["filed", "answered", "under_review", "won", "lost", "accepted", "withdrawn", "reversed", "unknown"]},
+        "adjudicated": {"enum": ["yes", "no", "unknown", "not_applicable"]},
+        "truth_assessment_ids": {"type": "array", "items": {"$ref": "#/$defs/id"}}
+      }
+    },
+    "LabelEventDecisionLink": {
+      "description": "A typed link from a report to one decision that may have shaped it. Links are many-to-many and do not change how a measure counts reports.",
+      "type": "object", "additionalProperties": false,
+      "required": ["record_type", "record_id", "report_id", "decision_id", "role", "basis", "verified", "learned_at"],
+      "properties": {
+        "record_type": {"const": "LabelEventDecisionLink"},
+        "record_id": {"$ref": "#/$defs/id"},
+        "corrects": {"$ref": "#/$defs/id"},
+        "report_id": {"$ref": "#/$defs/id"},
+        "decision_id": {"$ref": "#/$defs/id"},
+        "role": {"enum": ["decision_on_reported_item", "decision_on_earlier_related_attempt", "decision_on_containing_entity", "other"]},
+        "role_note": {"type": "string", "minLength": 1},
+        "basis": {"type": "string", "minLength": 1},
+        "verified": {"type": "boolean"},
+        "learned_at": {"$ref": "#/$defs/timestamp"}
+      }
+    },
+    "ChannelStatusReading": {
+      "description": "Report presence, channel state, query access and no-report status for one item and channel at one read time, stored with an identifier when a draft cites it.",
+      "type": "object", "additionalProperties": false,
+      "required": ["record_type", "record_id", "item", "channel_id", "read_time", "report_presence", "channel_state", "query_access", "no_report_status", "clock_start"],
+      "properties": {
+        "record_type": {"const": "ChannelStatusReading"},
+        "record_id": {"$ref": "#/$defs/id"},
+        "item": {"$ref": "#/$defs/item_ref"},
+        "channel_id": {"$ref": "#/$defs/id"},
+        "read_time": {"$ref": "#/$defs/timestamp"},
+        "report_presence": {"enum": ["present", "none_arrived", "unavailable"]},
+        "channel_state": {"$ref": "#/$defs/channel_state"},
+        "query_access": {"enum": ["full", "partial", "denied", "unavailable"]},
+        "no_report_status": {"enum": ["not_applicable", "pending", "matured_absent", "channel_closed", "no_defined_window", "unknown"]},
+        "clock_start": {"$ref": "#/$defs/time_estimate"},
+        "matured_under_rule_version": {"type": "string", "minLength": 1},
+        "read_under_change": {"$ref": "#/$defs/cause"}
+      }
+    }
+  }
+}
