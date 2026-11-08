@@ -351,7 +351,7 @@ Each evaluation is judged separately, without correction for multiple tests, bec
 
 **Hypothesis:** the agent with human review matches or improves confirmed findings per reviewer hour compared with a person using tools. Case error rates are no more than 2 percentage points higher than either comparator arm's.
 
-**Data and design:** at least 700 frozen cases and three arms: threshold rules, a person with tools, and a person with the agent. Errors are counted per case. Both human arms see the same records. In E5, reviewer time covers human investigation, tool or agent operation, checking, release and rework. Measure these activities on the same basis in both human arms. Include work on cases that produce no correct finding.
+**Data and design:** at least 700 frozen cases and three arms: threshold rules, a person with tools, and a person with the agent. Errors are counted per case. Both human arms see the same records. In E5, reviewer time covers human investigation, tool or agent operation, checking, release and rework. Measure these activities on the same basis in both human arms. Include work on cases that produce no correct finding. As a supplementary analysis, set the threshold-rules arm to act on as many cases as the agent arm, and report results by depth of prior history and for fraud bursts.
 
 **Primary measures:** correct findings, errors, abstentions, reviewer minutes per correct finding, cost and latency.
 
