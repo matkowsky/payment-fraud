@@ -236,7 +236,7 @@ The [outcome-record schema](../SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.sch
 
 Every record is append-only: a correction is a new record that references the earlier one. A time that is not known is recorded as unknown, with a reason, and is never left out. The schema checks each record on its own. Fourteen rules check records against each other:
 
-1. OR-01: a record identifier is used once, so no record is changed in place.
+1. OR-01: a record identifier is used once. A record changed in place under its own identifier passes every rule, so the store must prevent edits.
 2. OR-02: a correction or revision references an earlier record of the same type and, for a report, of the same report.
 3. OR-03: every channel, decision and report that a record cites exists.
 4. OR-04: a report's times are in order where they are known: occurred, reported, arrived, learned.

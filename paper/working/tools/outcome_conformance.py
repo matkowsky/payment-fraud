@@ -116,7 +116,7 @@ def check(records, schema):
     for r in records:
         by_type.setdefault(r['record_type'], []).append(r)
     seen = {}
-    for r in records:  # OR-01 records are never edited in place
+    for r in records:  # OR-01 an identifier is used once (an edit under the same identifier is not detectable here)
         if r['record_id'] in seen:
             add('OR-01', r['record_id'], 'record identifier used twice; a change must be a new record')
         seen[r['record_id']] = r
