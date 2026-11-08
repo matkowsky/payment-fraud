@@ -175,7 +175,7 @@ for path in [B / MS, B / 'SUPPLEMENT.md', B / 'README.md', B / 'REPRODUCE.md', B
 sys.path.insert(0, str(B / 'tools'))
 from outcome_conformance import run_conformance
 outcome = run_conformance()
-assert outcome == {'valid_records': 22, 'invalid_cases': 18, 'rules_exercised': 13}, outcome
+assert outcome == {'valid_records': 27, 'invalid_cases': 22, 'rules_exercised': 15}, outcome
 
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),

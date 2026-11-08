@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check outcome records against the field-level schema and rules OR-01 to OR-12 (Supplement S4.2).
+"""Check outcome records against the field-level schema and rules OR-01 to OR-14 (Supplement S4.2).
 
 Usage:
   python3 tools/outcome_conformance.py              run the conformance cases
@@ -222,6 +222,31 @@ def check(records, schema):
         if k['role'] == 'other' and 'role_note' not in k:
             add('OR-09', k['record_id'], 'role other needs role_note')
 
+    corrected_ids = {r['corrects'] for r in records if 'corrects' in r}
+    attributions = {}
+    for ia in by_type.get('ItemAttribution', []):  # OR-13 each item is attributed once
+        if ia['record_id'] not in corrected_ids:
+            attributions.setdefault(key(ia['item']), []).append(ia)
+    for item, live_ia in attributions.items():
+        if len(live_ia) > 1:
+            add('OR-13', live_ia[1]['record_id'], 'an item has more than one live attribution')
+    for le in labels:
+        if key(le['item']) not in attributions:
+            add('OR-13', le['record_id'], 'a reported item has no attribution to its accounts')
+
+    closed_accounts = {x['item_id']: d for d in decisions.values() if d['decision_kind'] == 'close_account'
+                       for x in d['targets'] if x['item_type'] == 'account'}
+    for el in by_type.get('EntityLink', []):  # OR-14 entity links do not overstate their basis
+        if el['basis_kind'] == 'shared_attribute' and (el['verified'] or el['confidence'] == 'high'):
+            add('OR-14', el['record_id'], 'a shared attribute alone cannot verify a link or give it high confidence')
+        if 'effective_to' in el and ts(el['effective_to']) <= ts(el['effective_from']):
+            add('OR-14', el['record_id'], 'effective interval ends before it starts')
+        if el['link_type'] == 'suspected_successor_account':
+            closure = closed_accounts.get(el['from']['entity_id'])
+            if el['from']['entity_type'] != 'account' or closure is None or \
+                    ts(closure['learned_at']) > ts(el['learned_at']):
+                add('OR-14', el['record_id'], 'a successor link starts from an account with a recorded closure')
+
     def known_transitions(item, channel, at):
         return [t for t in live if key(t['item']) == item and t['channel_id'] == channel and ts(t['learned_at']) <= at]
 
@@ -309,7 +334,7 @@ def run_conformance():
         got = {f[0] for f in check(apply_patch(valid, case), schema)}
         assert got == {case['rule']}, (case['case_id'], case['rule'], sorted(got))
         rules.add(case['rule'])
-    expected_rules = {'SCHEMA'} | {f'OR-{n:02d}' for n in range(1, 13)}
+    expected_rules = {'SCHEMA'} | {f'OR-{n:02d}' for n in range(1, 15)}
     assert rules == expected_rules, ('rules without a failing case', sorted(expected_rules - rules))
     return {'valid_records': len(valid), 'invalid_cases': len(cases), 'rules_exercised': len(rules)}
 

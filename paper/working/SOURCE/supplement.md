@@ -221,7 +221,7 @@ Manuscript Table 3 summarizes this complete storage contract; manuscript Section
 
 ### S4.2 Field-level schemas for outcome records {#outcome-record-schemas}
 
-The [outcome-record schema](../SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json) defines, in JSON Schema, the fields of the records that the first requirement needs. It covers six record types:
+The [outcome-record schema](../SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json) defines, in JSON Schema, the fields of the records that the first requirement needs. It covers eight record types:
 
 | Record | What it holds |
 |---|---|
@@ -231,8 +231,10 @@ The [outcome-record schema](../SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.sch
 | LabelEvent | An outcome report or one revision of it, with when the outcome occurred, when it was reported at its source, when it arrived and when it became queryable |
 | LabelEventDecisionLink | A link from a report to one decision that may have shaped it, with the decision's role, the basis for the link and whether it is verified |
 | ChannelStatusReading | Report presence, channel state, query access and no-report status for one item and channel at one read time, stored when a draft cites it |
+| ItemAttribution | The accounts an item belongs to, and the acquiring bank and static statement descriptor from which a network's monitored unit can be rebuilt |
+| EntityLink | A link between entities, such as a closed account and a suspected successor, with its basis, confidence and other possible explanations |
 
-Every record is append-only: a correction is a new record that references the earlier one. A time that is not known is recorded as unknown, with a reason, and is never left out. The schema checks each record on its own. Twelve rules check records against each other:
+Every record is append-only: a correction is a new record that references the earlier one. A time that is not known is recorded as unknown, with a reason, and is never left out. The schema checks each record on its own. Fourteen rules check records against each other:
 
 1. OR-01: a record identifier is used once, so no record is changed in place.
 2. OR-02: a correction or revision references an earlier record of the same type and, for a report, of the same report.
@@ -246,8 +248,10 @@ Every record is append-only: a correction is a new record that references the ea
 10. OR-10: a reading's channel state is computed only from the transitions the system had learned by the read time.
 11. OR-11: a reading's report presence matches the reports learned by the read time. Presence is unavailable only when query access was denied or unavailable, and it does not overwrite channel state.
 12. OR-12: a no-report status follows from the channel's state and window. An absence matures only if the window is defined and has ended, the channel was open throughout it and query access was full. A matured absence records the rule version it matured under and cites any decision that changed the channel's meaning.
+13. OR-13: each reported item has exactly one live attribution to its accounts, so a measure counts it once.
+14. OR-14: a link resting only on a shared attribute is neither verified nor high-confidence, and a suspected-successor link starts from an account with a recorded closure.
 
-The [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json) builds one synthetic history: a blocked card attempt, an approved retry that draws a fraud chargeback the merchant later wins, a hold on the account that received the payment, and a payment that draws no report. Its 22 records pass. Each of the 18 [invalid cases](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json) changes that history in one way and must fail exactly one check; together they exercise the schema check and all twelve rules. `tools/outcome_conformance.py` runs the cases using only the Python standard library, and `CHECK_CANDIDATE.py` runs it as well. The same tool checks any records file in this format.
+The [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json) builds one synthetic history: a blocked card attempt, an approved retry that draws a fraud chargeback the merchant later wins, a hold on the account that received the payment, and a payment that draws no report. An earlier account with the same principal name was closed; the new account is linked to it as a suspected successor on that name alone, and a storefront is linked to the new account by its checkout identifier. Its 27 records pass. Each of the 22 [invalid cases](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json) changes that history in one way and must fail exactly one check; together they exercise the schema check and all fourteen rules. `tools/outcome_conformance.py` runs the cases using only the Python standard library, and `CHECK_CANDIDATE.py` runs it as well. The same tool checks any records file in this format.
 
 Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. The schema for query runs (QueryRun), which the second requirement needs, is not yet specified.
 
