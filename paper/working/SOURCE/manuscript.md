@@ -663,7 +663,7 @@ The next test is operational value. Evaluations must determine whether these rec
 
 **Use of generative AI.** The author used Anthropic Claude and OpenAI ChatGPT/Codex for research assistance, drafting, substantive revision, figures, calculations and document preparation. Source-checking depths and limits are documented in the supplement. Model-assisted reviews were not independent human peer review. The author takes responsibility for the content.
 
-**Data and code availability.** The accompanying supplement provides the signal inventory, mappings, entity and interface records, source locators, schema pins and synthetic worked-example data. Reproduction scripts check the included counts, lineage and arithmetic and rebuild the documents. No private platform data, implementation of the proposed architecture or empirical system-evaluation code is supplied. External source texts remain with their publishers or authors. The accompanying files are proposed release materials, not a claim that a repository has already been made public.
+**Data and code availability.** The accompanying supplement provides the signal inventory, mappings, entity and interface records, source locators, schema pins and synthetic worked-example data. Reproduction scripts check the included counts, lineage and arithmetic and rebuild the documents. No private platform data, implementation of the proposed architecture or empirical system-evaluation code is supplied. External source texts remain with their publishers or authors. These files are published with this preprint (https://doi.org/10.5281/zenodo.23772005), and the working draft and review record are at https://github.com/matkowsky/payment-fraud.
 
 **Funding.** This work received no funding.
 
