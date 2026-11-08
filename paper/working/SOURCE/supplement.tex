@@ -138,7 +138,7 @@ data}\label{supplement-signals-interfaces-and-worked-example-data}}
 
 Jonathan Matkowsky
 
-7 November 2026 · Accepted working draft for version 1.1 · Not published
+8 November 2026 · Accepted working draft for version 1.1 · Not published
 · Not peer reviewed
 
 This supplement accompanies the \href{MANUSCRIPT.md}{complete
@@ -710,10 +710,15 @@ record meanings and need not be separate databases.
 \tightlist
 \item
   \textbf{Report history:} retain report type, source, attributed
-  transaction or entity, arrival time and lag. Preserve each value and
-  its learned time, such as a dispute being filed, answered, then won or
-  lost, and record whether each won or lost status followed
-  adjudication.
+  transaction or entity and lag. Keep three times: when the reported
+  outcome occurred, where known, with its uncertainty; when the report
+  was made at its source; and when it arrived at the platform. Preserve
+  each value and its learned time, such as a dispute being filed,
+  answered, then won or lost, and record whether each won or lost status
+  followed adjudication. Append each status change, reversal or
+  correction as a new record that references the earlier one. Never edit
+  an earlier record, so that what the platform believed at each time can
+  be reconstructed.
 \item
   \textbf{Truth assessment:} link any assessment that the report is
   mistaken or deliberately false. Keep that assessment in the assessment
@@ -721,12 +726,18 @@ record meanings and need not be separate databases.
   was selected for review and, for a sampled review, its selection
   probability.
 \item
-  \textbf{Dependencies:} link decisions that affect whether reports can
-  arrive through each outcome channel, and any agent output or released
-  organizational-memory item that informed the label. An outcome channel
-  is a route, such as a chargeback, through which an outcome can be
-  reported. Record the writer's case or session and the agent outputs
-  and released items open in it when the record was written.
+  \textbf{Dependencies:} link every decision that may have shaped the
+  report, and any agent output or released organizational-memory item
+  that informed the label. An outcome channel is a route, such as a
+  chargeback, through which an outcome can be reported. A report may
+  link to several decisions, such as a blocked attempt, a retry and the
+  approval of the paid attempt, and one decision, such as an account
+  restriction, may link to many reports. Each link states the decision's
+  role, such as a decision on the reported item, on an earlier related
+  attempt, or on an account or payout that contains it, and the basis
+  for the link. These links do not change how a measure counts reports
+  (Graph semantics). Record the writer's case or session and the agent
+  outputs and released items open in it when the record was written.
 \item
   \textbf{Channel status:} for each affected transaction, payout or
   account application, keep report presence, channel state and query
@@ -833,7 +844,10 @@ record meanings and need not be separate databases.
   covers.
 \item
   \textbf{Channel effects:} record the decision's effect on each outcome
-  channel as closed, delayed, changed in meaning, none or unknown.
+  channel as closed, delayed, changed in meaning, none or unknown. Fix
+  these effects when the decision is recorded. Record later state
+  transitions, including rule events, as separate records that never
+  edit the decision.
 \item
   \textbf{Restrictions:} distinguish allowing and blocking from
   restrictions, such as a hold that may later be released.
@@ -1066,9 +1080,10 @@ record meanings and need not be separate databases.
   application it concerns, with the basis for the link and whether it is
   verified. Attribute outcomes through that link to the platform
   account, connected account and end customer, so that a measure counts
-  each affected transaction once. Keep each transaction's acquiring bank
-  and the static part of its statement descriptor, so that a network's
-  monitored unit can be reconstructed.
+  each affected transaction once. A report's links to the decisions that
+  may have shaped it do not change this count. Keep each transaction's
+  acquiring bank and the static part of its statement descriptor, so
+  that a network's monitored unit can be reconstructed.
 \item
   Link each wallet to every party it has allowed to spend its funds.
 \end{itemize}
@@ -2021,11 +2036,13 @@ blocked transactions' outcomes are not observed
 outcome channels per decision, each with its own clock-start event and
 reporting window; a record of what each decision closed, delayed or
 changed in each channel, and a status for each channel at each read
-time; separate fields for delay, unobservability and report truth, so
-the evaluation states joint assumptions; the recorded policy
-probability, inputs and case assignment that those assumptions need
-(manuscript Section 7.1). A platform that already joins decision logs to
-dispute records can use C1 to specify what the join must preserve. \\
+time; outcome reports as separate appended records with typed links to
+every decision that may have shaped them; separate fields for delay,
+unobservability and report truth, so the evaluation states joint
+assumptions; the recorded policy probability, inputs and case assignment
+that those assumptions need (manuscript Section 7.1). A platform that
+already joins decision logs to dispute records can use C1 to specify
+what the join must preserve. \\
 
 \bottomrule\noalign{}
 \end{tabular}
@@ -2181,13 +2198,16 @@ authority. Deng treats fraud automation as an authorization decision
 because its evaluation labels are selective and delayed
 {[}\protect\hyperlink{ref-Deng2026FCAC}{18}{]}. Solozobov specifies
 decision-linked records for facts learned later, including the arrival
-of ground truth
+of ground truth; the schema seals each decision record and types the
+links between decisions
 {[}\protect\hyperlink{ref-Solozobov2026DecisionTrace}{19}{]}. C1 applies
-that linkage to several outcome channels. It records what a control
-closed, delayed or changed in each channel, alongside reports and
-assessments of their truth. Its contribution is this
-payment-investigation record contract, not a new estimator of missing
-outcomes.
+that linkage to several outcome channels. It keeps the decision as the
+unit of record and adds each outcome report as a separate appended
+record, linked to every decision that may have shaped it with that
+decision's role. It records what a control closed, delayed or changed in
+each channel, alongside reports and assessments of their truth. Its
+contribution is this payment-investigation record contract, not a new
+estimator of missing outcomes.
 
 \hypertarget{s9.2-intelligence-production-and-investigation}{%
 \subsubsection{S9.2 Intelligence production and

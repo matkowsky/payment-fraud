@@ -144,7 +144,7 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-7 November 2026 · Accepted working draft for version 1.1 · Not published
+8 November 2026 · Accepted working draft for version 1.1 · Not published
 · Not peer reviewed
 
 \FloatBarrier
@@ -366,10 +366,12 @@ precision and recall can be estimated from production data
 evaluates a new policy for suggesting payment-time interventions, aimed
 at authorization rates rather than fraud, from transactions logged under
 the existing policy {[}\protect\hyperlink{ref-Egg2025AdyenOPE}{14}{]}.
-Two recent design preprints come closest to C1's record. One records
-facts learned after a decision, such as the arrival of ground truth, as
-linked records that reference the decision
-{[}\protect\hyperlink{ref-Solozobov2026DecisionTrace}{15}{]}; the other,
+Two recent design preprints come closest to C1's record. One, the
+Decision Event Schema, seals each decision record once its hash is
+computed. Facts learned later, such as the arrival of ground truth, are
+appended as linked records that reference the decision, and links
+between decisions carry a type
+{[}\protect\hyperlink{ref-Solozobov2026DecisionTrace}{15}{]}. The other,
 an execution-coverage model, links records to decisions and
 distinguishes refused execution branches from late reports
 {[}\protect\hyperlink{ref-Wu2026EvidenceCoverage}{16}{]}.
@@ -377,8 +379,13 @@ distinguishes refused execution branches from late reports
 C1 applies these ideas to several outcome channels at once. It records
 what each decision closed, delayed or changed, separately for each
 channel and read time. A blocked card payment cannot produce a
-chargeback on that attempt, but an incident finding remains possible.
-The proposed records expose the assumptions needed to interpret such
+chargeback on that attempt, but an incident finding remains possible. C1
+keeps the decision as the unit of record, as the Decision Event Schema
+does. Each outcome report is a separate appended record. It links to
+every decision that may have shaped it, and each link states that
+decision's role. The schema has no field for outcome channels, but C1's
+fields could extend it rather than replace it (Section 5.2). The
+proposed records expose the assumptions needed to interpret such
 outcomes; they do not supply a validated estimator. Section 7 develops
 this distinction.
 
@@ -1154,18 +1161,25 @@ proposes estimation methods under assumptions
 those distinctions to define records, without assuming that an estimator
 recovers hidden platform outcomes.
 
-Each report retains its type, source, arrival time, lag and attributed
-transaction or entity. Its channel supplies a reporting window and
-clock-start event. The evaluation separately records its chosen maturity
-period, how long it waits before reading a missing report as a negative.
-A period shorter than the channel's window, or any period for a channel
-without one, rests on a delay model (Section 7.1). Decisions that affect
-observability remain linked. The report's later status, such as
-withdrawn, reversed, won or lost, has its own history, which records
-whether each won or lost status followed adjudication. Some channels
-never adjudicate a report, yet a provider may still record it as lost:
-Stripe's dispute guide says disputes that network rules or local
-regulations make unchallengeable are closed as lost when they open
+Each report retains its type, source, lag and attributed transaction or
+entity. It keeps three times: when the reported outcome occurred, where
+known; when the report was made at its source; and when it arrived at
+the platform. Its channel supplies a reporting window and clock-start
+event. The evaluation separately records its chosen maturity period, how
+long it waits before reading a missing report as a negative. A period
+shorter than the channel's window, or any period for a channel without
+one, rests on a delay model (Section 7.1). Every decision that may have
+shaped the report remains linked, and there can be several. A dispute
+can follow a blocked attempt, a retry and an approval, and one account
+restriction can affect many payments. Each link therefore states the
+decision's role. The report's later status, such as withdrawn, reversed,
+won or lost, has its own history, which records whether each won or lost
+status followed adjudication. A status change or correction is a new
+record that references the earlier one, so what the platform believed at
+each time can be reconstructed. Some channels never adjudicate a report,
+yet a provider may still record it as lost: Stripe's dispute guide says
+disputes that network rules or local regulations make unchallengeable
+are closed as lost when they open
 {[}\protect\hyperlink{ref-Stripe2026Disputes}{74}{]} (Section 7.1).
 
 An estimate that a report is false belongs to the assessment store,
@@ -1238,10 +1252,11 @@ Feature store & Recomputable inputs and versions; decision-time features
 exclude later information; later labels use the evaluation's outcome
 window and maturity; features inherit their inputs' agent-output and
 released-item links \\
-Label store & Report source, type, attributed entity, arrival and value
-history; links to decisions, separate truth assessments and any
-informing agent output or released item; report presence, channel state
-and query access kept apart \\
+Label store & Report source, type and attributed entity; occurrence,
+report and arrival times; appended value history; typed links to every
+decision that may have shaped the report; links to separate truth
+assessments and any informing agent output or released item; report
+presence, channel state and query access kept apart \\
 Assessment store & Model or reviewer identity and version; review
 selection route and probability; links to any informing agent output or
 released item; unknown, not-assessed and failed-open states kept
@@ -1251,9 +1266,9 @@ Control-outcome store & Decision, authority, reason and version;
 reproducible available inputs; alternative-decision probabilities where
 applicable; human assignment and what the decider was shown; links to
 any informing agent output or released item; effects on each outcome
-channel; for action before review, the urgent route, impact class and
-later review outcome; correctness reviews with their selection route,
-separate from population error estimates \\
+channel, fixed with the decision; for action before review, the urgent
+route, impact class and later review outcome; correctness reviews with
+their selection route, separate from population error estimates \\
 Structured threat-knowledge store & Revisable relationships and
 conclusions with confidence, input and rule versions, writer and status;
 agent proposals marked as unreleased context; links to informing agent
@@ -1345,6 +1360,8 @@ or banks accept a late return
 {[}\protect\hyperlink{ref-Stripe2026ACHTerms}{81}{]}. Each such rule
 event is recorded as a channel-state transition with its source, rule
 version and learned time, although no platform decision caused it. A
+decision's effect on each channel is fixed when the decision is
+recorded; later transitions are separate records that never edit it. A
 negative read from a matured absence cites the rule version and read
 time under which it matured and is revised when a later transition
 reopens the channel. A report's resolution is not always final either:
@@ -2061,7 +2078,8 @@ Repeated decisions require the relevant conditions at each step because
 earlier decisions can change later inputs
 {[}\protect\hyperlink{ref-HernanRobins2020}{4}{]}. Interference is
 especially consequential when blocked actors move to sibling accounts or
-other merchants.
+other merchants. Links from each report to every decision that may have
+shaped it make these dependencies visible; they do not remove them.
 
 Delay and false reports add assumptions of their own. For delay, an
 evaluation specifies a distribution and period of stability. It assumes
@@ -2912,6 +2930,12 @@ without presuming their result.
 declarations}\label{author-and-publication-declarations}}
 
 \suppressfloats[t]
+
+\textbf{Acknowledgments.} Oleg Solozobov, author of the Decision Event
+Schema, reviewed how the first requirement maps onto that schema. His
+comments led to three refinements: outcome reports as appended records
+with three times, channel effects fixed with the decision, and typed
+links from each report to every decision that may have shaped it.
 
 \textbf{Use of generative AI.} The author used Anthropic Claude and
 OpenAI ChatGPT/Codex for research assistance, drafting, substantive
