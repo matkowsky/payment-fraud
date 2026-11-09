@@ -107,10 +107,10 @@ The synthesis distinguishes sourced findings, design choices and hypotheses (Sup
 
 The author used Anthropic Claude and OpenAI ChatGPT/Codex throughout the research and decided what entered the paper:
 
-- **Sources.** The models searched for sources, read each cited work and wrote its Supplement S1 note: the version, the passages relied on and the reading depth. A work is recorded as read in full only when all of it was read. Works the models could not reach were read from files the author supplied. Quoted passages were checked against the source text.
+- **Sources.** The models searched for sources and read each cited work to the depth its Supplement S1 note records; the note gives the version and the passages relied on and names any unread part. Works the models could not reach were read from files the author supplied. Quoted passages were checked against the source text.
 - **Synthesis.** The models proposed the mechanisms, signals, links and the comparison codes in Supplement S1; the author accepted or changed them.
-- **Prior work.** Model searchers that were given only the three requirements, not the related-work section, looked for closer precedents.
-- **Calculations, data and figures.** The models wrote the scripts, the synthetic data and the figures. A check script recomputes the counts, lineage and arithmetic at every build.
+- **Prior work.** On 29 October 2026, model searchers that were given only the three requirements, not the related-work section, looked for closer precedents.
+- **Calculations, data and figures.** The models wrote the scripts, the synthetic data and the figures. A check script recomputes the counts, lineage and arithmetic on every proposed change.
 - **Review.** Separate model sessions reviewed drafts and checked changes against their sources. Since version 1.0, each change is a pull request that names the model that drafted it and is accepted by the author.
 
 Model review is not independent human peer review, and models can share errors (Section 6.4).
