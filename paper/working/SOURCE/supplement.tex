@@ -1409,11 +1409,12 @@ Compelling Evidence 3.0. State whose report view each arm uses: the
 programs also count disputes that the provider handles on a business's
 behalf and that do not appear in that business's data
 {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{3}{]}. Report
-the share of reports linked to transactions and how duplicate reports
-were removed. Measure false flags on legitimate multi-brand businesses.
-Report erroneous links between unrelated accounts sharing IP addresses,
-such as through a common proxy, as a secondary measure; S7.1's failure
-criteria do not include it {[}\protect\hyperlink{ref-Liu2018GEM}{4}{]}.
+the share of reports linked to transactions, the share whose link is
+unverified and how duplicate reports were removed. Measure false flags
+on legitimate multi-brand businesses. Report erroneous links between
+unrelated accounts sharing IP addresses, such as through a common proxy,
+as a secondary measure; S7.1's failure criteria do not include it
+{[}\protect\hyperlink{ref-Liu2018GEM}{4}{]}.
 
 \textbf{E4. Can the records measure harm to legitimate users?} The
 feasibility test in S7.1 asks whether control changes have computable
@@ -1642,12 +1643,16 @@ right-censored time-to-event data: a cluster that a method has not
 flagged by the end of follow-up is censored there for that method. A
 third arm computes the network's ratio for each account after linking.
 It separates the effect of linking from that of pooling accounts into a
-cluster. The failing result applies to the stated contrast, and the
-third arm attributes any lead. Estimate the difference in false-flag
-probabilities using the same legitimate businesses under both rules,
-preserving business-level pairing and any additional clustering.
-Prespecify the interval method and size the study for the complete
-lead-time and false-flag pass rule at the 93 percent power target.
+cluster. The cluster and third arms count only reports with verified
+links, such as a match on the network's transaction identifier. Flags
+that need reports linked otherwise, such as by card number and amount
+alone, are reported separately. The failing result applies to the stated
+contrast, and the third arm attributes any lead. Estimate the difference
+in false-flag probabilities using the same legitimate businesses under
+both rules, preserving business-level pairing and any additional
+clustering. Prespecify the interval method and size the study for the
+complete lead-time and false-flag pass rule at the 93 percent power
+target, given the expected share of verified report links.
 
 \textbf{Primary measures:} days from the adjudicated onset of evasion to
 the flag, and false flags. The lead time is the difference in restricted
@@ -1697,7 +1702,9 @@ Errors are counted per case. Both human arms see the same records. In
 E5, reviewer time covers human investigation, tool or agent operation,
 checking, release and rework. Measure these activities on the same basis
 in both human arms. Include work on cases that produce no correct
-finding.
+finding. As a supplementary analysis, set the threshold-rules arm to act
+on as many cases as the person-with-agent arm, reporting its results by
+depth of prior history and for fraud bursts defined in advance.
 
 \textbf{Primary measures:} correct findings, errors, abstentions,
 reviewer minutes per correct finding, cost and latency.

@@ -638,10 +638,16 @@ other two, some fall below the periodically retrained classifier. For
 that model, against the periodically retrained classifier at that
 classifier's 5 percent operating point, its recall and dollar-weighted
 recall gains are significant, but when both block the same number of
-transactions none of the differences is significant
-{[}\protect\hyperlink{ref-Tan2026SRFraud}{53}{]}. On 60 balanced
-synthetic cases that its classifier scored between 0.2 and 0.8, Sharma's
-agent was correct in 65.0 percent, below the 71.7 percent from
+transactions none of the differences is significant. Its point-estimate
+gains grow with users' prior history. On the 64 percent of transactions
+with any prior history, its recall, F1 and dollar-weighted recall gains
+are significant at that classifier's 5 percent operating point, where
+SR-Fraud blocks 6.08 percent of all transactions; matched results are
+not reported by history. At the matched block count, its recall in the
+week-8 fraud burst is about 24 percentage points higher, without an
+interval {[}\protect\hyperlink{ref-Tan2026SRFraud}{53}{]}. On 60
+balanced synthetic cases that its classifier scored between 0.2 and 0.8,
+Sharma's agent was correct in 65.0 percent, below the 71.7 percent from
 thresholding the same classifier score at 0.5. Six of its eight
 overrides turned a correct decision into an error
 {[}\protect\hyperlink{ref-Sharma2026AuditableFraud}{54}{]}. Neither
@@ -2682,28 +2688,29 @@ the pass rule is judged only on clusters selected by a route that does
 not depend on either rule; clusters from other routes are reported
 separately. A third arm applies the same rule to each account after
 linking, separating the contribution of linkage from that of clustering.
-When every account in a cluster has captured payments in the rule's
-denominator period, a pooled ratio cannot exceed the highest account
-ratio (Section 8.2), so any lead from clustering must come from a
-condition on totals, such as the minimum count or, where the network
-sets one, a minimum value. An account with no captured payments in the
-rule's denominator period has no defined ratio when it receives reports,
-and the cluster ratio can then exceed every defined account ratio.
-Examples are a closed account and, where the denominator is the previous
-month's captured payments, an account in its first month. Such cluster
-flags are reported separately. All arms use the same eligible
-transactions, outcome definition and reporting periods. Support also
-requires the one-sided 95 percent upper confidence bound on the increase
-in false-flag probability among legitimate multi-brand businesses,
-cluster arm minus account arm, to be below the prespecified margin, with
-business-level pairing and any additional clustering preserved. S7.1
-proposes a five-percentage-point margin and requires sizing for both
-criteria. Each account arm applies the rule to platform and connected
-accounts; where a network monitors a different unit, such as Visa's
-static statement descriptor and acquiring bank (Section 8.2), that arm
-also reports results for the network's unit. A broader measure, such as
-Section 8.2's chargeback-or-alert-resolution measure, needs a separate
-evaluation.
+The cluster and third arms count only reports with verified transaction
+links; flags that need others are reported separately. When every
+account in a cluster has captured payments in the rule's denominator
+period, a pooled ratio cannot exceed the highest account ratio (Section
+8.2), so any lead from clustering must come from a condition on totals,
+such as the minimum count or, where the network sets one, a minimum
+value. An account with no captured payments in the rule's denominator
+period has no defined ratio when it receives reports, and the cluster
+ratio can then exceed every defined account ratio. Examples are a closed
+account and, where the denominator is the previous month's captured
+payments, an account in its first month. Such cluster flags are reported
+separately. All arms use the same eligible transactions, outcome
+definition and reporting periods. Support also requires the one-sided 95
+percent upper confidence bound on the increase in false-flag probability
+among legitimate multi-brand businesses, cluster arm minus account arm,
+to be below the prespecified margin, with business-level pairing and any
+additional clustering preserved. S7.1 proposes a five-percentage-point
+margin and requires sizing for both criteria. Each account arm applies
+the rule to platform and connected accounts; where a network monitors a
+different unit, such as Visa's static statement descriptor and acquiring
+bank (Section 8.2), that arm also reports results for the network's
+unit. A broader measure, such as Section 8.2's
+chargeback-or-alert-resolution measure, needs a separate evaluation.
 
 \textbf{E4. Measuring user harm:} Can the records support a rate and
 interval for harm to legitimate users after a control change? E4 tests
@@ -2931,11 +2938,9 @@ declarations}\label{author-and-publication-declarations}}
 
 \suppressfloats[t]
 
-\textbf{Acknowledgments.} Oleg Solozobov, author of the Decision Event
-Schema, reviewed how the first requirement maps onto that schema. His
-comments led to three refinements: outcome reports as appended records
-with three times, channel effects fixed with the decision, and typed
-links from each report to every decision that may have shaped it.
+\textbf{Acknowledgments.} Thanks to Jiahong Dai (Sections 2.2 and 6.2),
+Oleg Solozobov (Sections 2.1, 2.4, 5.2, 5.3 and 7.1) and Xuwei Tan
+(Sections 2.4 and 9.1) for feedback.
 
 \textbf{Use of generative AI.} The author used Anthropic Claude and
 OpenAI ChatGPT/Codex for research assistance, drafting, substantive
