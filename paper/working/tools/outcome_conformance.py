@@ -194,11 +194,14 @@ def check(records, schema):
 
     corrected = {r['corrects'] for r in records if 'corrects' in r}
     live = [t for t in transitions if t['record_id'] not in corrected]
-    states = {}
+    states, first_arrival = {}, {}
     for t in live:
         states.setdefault((key(t['item']), t['channel_id']), []).append(t)
-    for le in labels:  # OR-08 no report arrives through a channel a decision had closed for that item
-        arr = ts(le['arrived_at'])
+    for le in labels:
+        a = ts(le['arrived_at'])
+        first_arrival[le['report_id']] = min(a, first_arrival.get(le['report_id'], a))
+    for le in labels:  # OR-08 no report arrives while a closure of its channel for that item is in force
+        arr = first_arrival[le['report_id']]  # a revision is judged by when its report first arrived
         prior = [t for t in states.get((key(le['item']), le['channel_id']), []) if ts(t['effective_from']) <= arr]
         last = max(prior, key=lambda t: ts(t['effective_from'])) if prior else None
         if (last and last['state'] == 'closed'
@@ -330,12 +333,17 @@ def apply_patch(records, case):
 
 
 def closure_after_report(valid):
-    """A decision that closes a reported item's channel after the report arrived, with its transition."""
+    """A decision closing a reported item's channel after the report arrived, its transition, and a later revision."""
     le = next(r for r in valid if r['record_type'] == 'LabelEvent' and r['revision_kind'] == 'initial')
     last = max(ts(r[f]) for r in valid for f in ('learned_at', 'read_time') if f in r)
     when = (last + timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%SZ')
+    after = (last + timedelta(days=2)).strftime('%Y-%m-%dT%H:%M:%SZ')
+    rev = next(r for r in valid if r['record_type'] == 'LabelEvent' and r['report_id'] == le['report_id']
+               and r['record_id'] != le['record_id'] and not any(x.get('revision_of') == r['record_id'] for x in valid))
+    update = dict(copy.deepcopy(rev), record_id='LE-LATE', revision_of=rev['record_id'], arrived_at=after, learned_at=after,
+                  reported_at={'status': 'exact', 'value': after})
     effects = [{'channel_id': le['channel_id'], 'effect': 'closed'}]
-    return [{'record_type': 'ControlAction', 'record_id': 'CA-LATE', 'decision_id': 'D-LATE', 'decision_kind': 'other',
+    return [update, {'record_type': 'ControlAction', 'record_id': 'CA-LATE', 'decision_id': 'D-LATE', 'decision_kind': 'other',
              'targets': [copy.deepcopy(le['item'])], 'decided_at': when, 'learned_at': when,
              'authority': 'business accepts the dispute (synthetic)', 'rule_or_model_version': 'SYN-1',
              'channel_effects': effects},
@@ -355,8 +363,11 @@ def run_conformance():
         got = {f[0] for f in check(apply_patch(valid, case), schema)}
         assert got == {case['rule']}, (case['case_id'], case['rule'], sorted(got))
         rules.add(case['rule'])
-    late = closure_after_report(valid)  # a closure after a report arrived leaves that report valid
+    late = closure_after_report(valid)  # a closure after a report arrived leaves that report and its revisions valid
     assert not check(valid + late, schema), ('closure after a report fails', check(valid + late, schema))
+    undecided = late[:2] + [dict(late[2], cause={'kind': 'rule_event', 'source': 'synthetic', 'rule_version': 'SYN-1'})]
+    got = {f[0] for f in check(valid + undecided, schema)}
+    assert got == {'OR-07'}, ('closure without a decision', sorted(got))
     expected_rules = {'SCHEMA'} | {f'OR-{n:02d}' for n in range(1, 15)}
     assert rules == expected_rules, ('rules without a failing case', sorted(expected_rules - rules))
     return {'valid_records': len(valid), 'invalid_cases': len(cases), 'rules_exercised': len(rules)}

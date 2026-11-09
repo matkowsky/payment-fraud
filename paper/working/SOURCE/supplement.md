@@ -243,7 +243,7 @@ Every record is append-only: a correction is a new record that references the ea
 5. OR-05: a won or lost report states whether that result followed adjudication.
 6. OR-06: a decision gives one effect per channel. A delay gives its expected clock start, and a change in meaning says what changed.
 7. OR-07: a permanent closure cites the decision that caused it, and a reopening or extension cites the rule event. A cited decision must target the item, record the matching effect and precede the transition.
-8. OR-08: no report can arrive through a channel that a decision closed for that item. Such a report means the item link or the closure is wrong.
+8. OR-08: no report can arrive through a channel while a closure of that channel for that item is in force; a revision counts from its report's first arrival. Such a report means the item link or the closure is wrong.
 9. OR-09: a link's role fits the decision: a decision on the reported item, on an earlier related attempt, or on an account or payout that contains the item.
 10. OR-10: a reading's channel state is computed only from the transitions the system had learned by the read time.
 11. OR-11: a reading's report presence matches the reports learned by the read time. Presence is unavailable only when query access was denied or unavailable, and it does not overwrite channel state.
