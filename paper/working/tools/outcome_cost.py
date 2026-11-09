@@ -127,7 +127,7 @@ def generate(n, a, emit):
 
 def sample_conformance(a):
     out = []
-    generate(300, dict(a, block_rate=0.2, chargeback_rate_of_allowed=0.2, payments_per_account=30), out.append)
+    generate(300, dict(a, block_rate=0.2, chargeback_rate_of_allowed=0.2, payments_per_account=1), out.append)
     schema = json.loads(oc.SCHEMA.read_text(encoding='utf-8'))
     found = oc.check(out, schema)
     return len(out), found
