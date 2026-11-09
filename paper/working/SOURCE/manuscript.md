@@ -479,6 +479,8 @@ Account structure affects where a report is recorded and which transactions a ra
 
 The same outcome definition, cohort and window must be retained when comparing account and cluster ratios. A pooled cohort ratio is a weighted average and cannot exceed the highest account ratio merely through pooling (Section 8.2). It can conceal a high account ratio among lower ones.
 
+Sales can also be inflated or moved. One FTC complaint alleges plans to add stored-value card “purchases” to a merchant's sales, and continued processing of a merchant's transactions through a linked account after its account was closed [@FTC2019Allied]. Payments known to be funded by instruments the business or platform controls are therefore kept out of a ratio's denominator and counted separately, and a closure's effect is measured across linked accounts.
+
 Resolution also changes what becomes a chargeback. One FTC complaint alleges refunding on pre-dispute alerts to avoid chargeback recording; the resulting order was stipulated [@FTC2025Paddle]. Stripe's dispute guide says a business can proactively refund a payment flagged by an early fraud warning to prevent a dispute, while advising against refunding every flagged payment. It adds that such a refund does not affect the fraud warning [@Stripe2026Disputes]. A lower chargeback ratio after alert resolution therefore does not establish less abuse.
 
 The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. Table 5 summarizes the resulting requirements.
@@ -493,9 +495,10 @@ The records retain each alert, its resolution and any later chargeback. Transact
 | 4 | Controls can wrongly restrict or block legitimate users | Peer-reviewed evaluations | Keep decisions, reviews of their correctness and population-level error estimates separate; weigh detection gain against the cost to legitimate users |
 | 5 | Adversaries can adapt to controls and testing | Platform publication, peer-reviewed measurement and preprint | Test adaptively within responsibilities 16 and 17; keep test traffic hard for adversaries to recognize but identifiable within the system |
 | 6 | Decisions a business reports to the platform may carry the business’s errors into platform labels | Platform documentation of business-reported decisions (Section 7.1); inference that they may carry errors | Keep decisions and outcomes reported by businesses distinct from platform labels |
-| 7 | Account structures can hide which transactions and entities a report concerns | Enforcement allegations | Keep the links from each report to its transaction and entities; compute defined metrics for each cluster of related accounts |
-| 8 | Resolving a pre-dispute alert may avert a later chargeback | Platform documentation that a refund can prevent a dispute; enforcement allegations for the misuse | Record alert resolutions separately; do not read a lower chargeback ratio, by itself, as less abuse |
-| 9 | A risk assessment may return a not-assessed result or fail open (let the activity proceed) | Platform documentation | Keep unknown and failure states distinct; do not convert either into low risk |
+| 7 | Account structures can hide which transactions and entities a report concerns | Enforcement allegations | Keep the links from each report to its transaction and entities; compute defined metrics for each cluster of related accounts; measure a closure's effect across the cluster |
+| 8 | Payments a business or platform funds itself can inflate a ratio's denominator | Enforcement allegations | Exclude them from the denominator; count them separately |
+| 9 | Resolving a pre-dispute alert may avert a later chargeback | Platform documentation that a refund can prevent a dispute; enforcement allegations for the misuse | Record alert resolutions separately; do not read a lower chargeback ratio, by itself, as less abuse |
+| 10 | A risk assessment may return a not-assessed result or fail open (let the activity proceed) | Platform documentation | Keep unknown and failure states distinct; do not convert either into low risk |
 
 ### 7.2 Measure control errors and user costs separately
 
