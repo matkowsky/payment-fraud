@@ -638,10 +638,16 @@ other two, some fall below the periodically retrained classifier. For
 that model, against the periodically retrained classifier at that
 classifier's 5 percent operating point, its recall and dollar-weighted
 recall gains are significant, but when both block the same number of
-transactions none of the differences is significant
-{[}\protect\hyperlink{ref-Tan2026SRFraud}{53}{]}. On 60 balanced
-synthetic cases that its classifier scored between 0.2 and 0.8, Sharma's
-agent was correct in 65.0 percent, below the 71.7 percent from
+transactions none of the differences is significant. Its point-estimate
+gains grow with users' prior history. On the 64 percent of transactions
+with any prior history, its recall, F1 and dollar-weighted recall gains
+are significant at that classifier's 5 percent operating point, where
+SR-Fraud blocks 6.08 percent of all transactions; matched results are
+not reported by history. At the matched block count, its recall in the
+week-8 fraud burst is about 24 percentage points higher, without an
+interval {[}\protect\hyperlink{ref-Tan2026SRFraud}{53}{]}. On 60
+balanced synthetic cases that its classifier scored between 0.2 and 0.8,
+Sharma's agent was correct in 65.0 percent, below the 71.7 percent from
 thresholding the same classifier score at 0.5. Six of its eight
 overrides turned a correct decision into an error
 {[}\protect\hyperlink{ref-Sharma2026AuditableFraud}{54}{]}. Neither
@@ -2932,11 +2938,9 @@ declarations}\label{author-and-publication-declarations}}
 
 \suppressfloats[t]
 
-\textbf{Acknowledgments.} Oleg Solozobov, author of the Decision Event
-Schema, reviewed how the first requirement maps onto that schema. His
-comments led to three refinements: outcome reports as appended records
-with three times, channel effects fixed with the decision, and typed
-links from each report to every decision that may have shaped it.
+\textbf{Acknowledgments.} Thanks to Jiahong Dai (Sections 2.2 and 6.2),
+Oleg Solozobov (Sections 2.1, 2.4, 5.2, 5.3 and 7.1) and Xuwei Tan
+(Sections 2.4 and 9.1) for feedback.
 
 \textbf{Use of generative AI.} The author used Anthropic Claude and
 OpenAI ChatGPT/Codex for research assistance, drafting, substantive
