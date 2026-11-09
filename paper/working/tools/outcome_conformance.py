@@ -368,6 +368,10 @@ def run_conformance():
     undecided = late[:2] + [dict(late[2], cause={'kind': 'rule_event', 'source': 'synthetic', 'rule_version': 'SYN-1'})]
     got = {f[0] for f in check(valid + undecided, schema)}
     assert got == {'OR-07'}, ('closure without a decision', sorted(got))
+    early = min(r['arrived_at'] for r in valid if r['record_type'] == 'LabelEvent')
+    before = (ts(early) - timedelta(days=1)).strftime('%Y-%m-%dT%H:%M:%SZ')
+    undecided_early = [dict(late[2], cause=undecided[2]['cause'], effective_from=before, learned_at=before)]
+    assert 'OR-08' in {f[0] for f in check(valid + undecided_early, schema)}, 'closure without a decision before a report'
     expected_rules = {'SCHEMA'} | {f'OR-{n:02d}' for n in range(1, 15)}
     assert rules == expected_rules, ('rules without a failing case', sorted(expected_rules - rules))
     return {'valid_records': len(valid), 'invalid_cases': len(cases), 'rules_exercised': len(rules)}
