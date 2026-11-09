@@ -253,7 +253,7 @@ Every record is append-only: a correction is a new record that references the ea
 
 The [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json) builds one synthetic history: a blocked card attempt, an approved retry that draws a fraud chargeback the merchant later wins, a hold on the account that received the payment, and a payment that draws no report. An earlier account with the same principal name was closed; the new account is linked to it as a suspected successor on that name alone, and a storefront is linked to the new account by its checkout identifier. Its 27 records pass. Each of the 22 [invalid cases](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json) changes that history in one way and must fail exactly one check; together they exercise the schema check and all fourteen rules. `tools/outcome_conformance.py` runs the cases using only the Python standard library, and `CHECK_CANDIDATE.py` runs it as well. The same tool checks any records file in this format.
 
-Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. The schema for query runs (QueryRun), which the second requirement needs, is not yet specified. Denominators are outside these records: which payments a measure counts, their amounts and their capture or settlement times come from the payment ledger, which this section does not specify. Whether a denominator read was complete is a query-coverage record.
+Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. [S4.4](#investigation-record-schemas) gives the schemas for query runs, which the second requirement needs, and for release records. Denominators are outside these records: which payments a measure counts, their amounts and their capture or settlement times come from the payment ledger, which this section does not specify. Whether a denominator read was complete is a query-coverage record.
 
 ### S4.3 Cost of the outcome records on synthetic data {#outcome-record-cost}
 
@@ -275,6 +275,51 @@ Assumptions, illustrative and not any platform's values: payments spread over 90
 Per million payments: 4.03 records per payment; 1,656 MB as JSON lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1, storing each record's JSON with one index on item, channel, record type, learned time and effective time. On a two-core x86-64 virtual machine with Python 3.13.18: 10,000 random as-of reads of one payment's fraud-chargeback state and report count took a median of 17 microseconds and a 99th percentile of 57; one day's cohort of 11,052 payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
 
 Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are not included.
+
+### S4.4 Field-level schemas for query runs and release {#investigation-record-schemas}
+
+The [investigation-record schema](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/investigation_records.schema.json) defines the records the second and third requirements need. It covers eight record types:
+
+| Record | What it holds |
+|---|---|
+| Actor | A party that writes records: an agent, the gateway, a checker or a person |
+| QueryRun | One query and the coverage record the gateway attached: requested and evaluated entities and intervals, the as-of cutoff, each source's watermarks, known gaps, retention horizon and sampling, filtering, limits reached, the records returned and the derived statuses |
+| Observation | A stored record with its class, event interval, learned time, root observations, inputs and links to any agent output that informed it |
+| DraftOutput | An agent draft: its exact version, expiry, the task's current period, and each claim with its supporting and contradicting records, query runs and context |
+| OutputExposure | A period in which a person had an agent output open about an entity |
+| ReleaseDecision | A person's decision on one exact draft version: the claims released with their confidence, scope, expiry and reviewer findings |
+| ReleasedItem | A released conclusion in organizational memory, usable as context only |
+| MemoryRead | One read of a released item |
+
+Fourteen rules check records against each other:
+
+1. IR-01: a record identifier is used once.
+2. IR-02: every record a record cites exists.
+3. IR-03: a gateway that is not the requester records a query run's coverage.
+4. IR-04: the evaluated entities and interval lie within those requested, and the as-of cutoff is not after the query.
+5. IR-05: a run's statuses follow from its coverage fields by the fixed rules of Section 6.2. It is partial when the evaluated scope is narrower than requested, when access filtering removed rows, or when a source was sampled, has a known gap in the requested interval, or does not reach from its retention horizon to its event watermark across that interval. It is truncated when a limit was reached, and complete only when nothing else applies.
+6. IR-06: a run returns only records learned by its as-of cutoff whose event intervals overlap the evaluated interval.
+7. IR-07: a derived record is learned no earlier than its inputs, and its root observations are exactly its inputs' roots.
+8. IR-08: an absence claim cites at least one query run, and each cited run is complete, not scope-limited and covers the claim's entities and interval.
+9. IR-09: a claim's support consists of observation records, and its count of independent roots equals the number of distinct root observations among them. A released conclusion or a draft is never support.
+10. IR-10: a current-conduct claim cites an observation or derived feature whose event interval falls within the current period. A score or decision does not count, and a feature linked to an agent output counts only through an unlinked current-period input.
+11. IR-11: a person releases the exact draft version, before the draft expires, without raising any claim's confidence.
+12. IR-12: a conclusion enters memory only after a decision that released that claim.
+13. IR-13: memory is read only from a released item, between its creation and its release's expiry.
+14. IR-14: a record its author wrote about an entity while an agent output about that entity was open links to that output, and a record derived from a linked record keeps the link.
+
+The [valid conformance case](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json) builds one synthetic history: an investigation with three query runs, a draft with a current-conduct claim and an absence claim, a note written while the draft was open, a release by a second person, and a later case that reads the released conclusion as context and cites a new observation. Its 22 records pass. Each of the 29 [invalid cases](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json) changes that history in one way and fails exactly one check; together they exercise the schema and all fourteen rules. Run [`tools/investigation_conformance.py`](../tools/investigation_conformance.py) to repeat the checks.
+
+The same script checks four necessity pairs. Each pair is two histories that are identical once one requirement's fields are removed, although the conclusion the rules permit differs:
+
+| Fields removed | The two histories | What differs |
+|---|---|---|
+| Query coverage (C2) | The same empty result, from a complete run and from a run reaching past its source's event watermark | Whether absence is supported |
+| Learned time (C2) | The same observation, learned before a run's cutoff and after it | Whether the fact was known at the cutoff |
+| Roots, inputs and agent-output links (C3) | A second supporting record that is an independent observation, and one that is a note written from the first | Two root observations or one |
+| Release decision (C3) | The same stored conclusion, released by a person and never released | Whether reuse is permitted |
+
+A store without those fields cannot tell the two histories apart, so no rule applied to it can be right in both. The pairs show that each field group is needed; they do not show that the records are sufficient or that they improve investigations. Identifiers, dates and versions in the cases are illustrative.
 
 ## S5. Pinned public schemas
 

@@ -1,0 +1,552 @@
+{
+ "description": "One synthetic history: an investigation of an account (case K-1) with three query runs, a draft with a current-conduct claim and an absence claim, a note written while the draft was open, a release by a second person, and a later case (K-2) that reads the released conclusion as context and cites a new observation. Identifiers, dates and versions are illustrative.",
+ "records": [
+  {
+   "record_type": "Actor",
+   "record_id": "AG-1",
+   "kind": "agent"
+  },
+  {
+   "record_type": "Actor",
+   "record_id": "GW-1",
+   "kind": "gateway"
+  },
+  {
+   "record_type": "Actor",
+   "record_id": "CK-1",
+   "kind": "checker"
+  },
+  {
+   "record_type": "Actor",
+   "record_id": "H-1",
+   "kind": "human"
+  },
+  {
+   "record_type": "Actor",
+   "record_id": "H-2",
+   "kind": "human"
+  },
+  {
+   "record_type": "Observation",
+   "record_id": "O-1",
+   "record_class": "source_observation",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "event_interval": {
+    "from": "2026-05-01T00:00:00Z",
+    "to": "2026-05-02T00:00:00Z"
+   },
+   "learned_at": "2026-05-02T06:00:00Z",
+   "root_ids": [
+    "O-1"
+   ],
+   "inputs": [],
+   "agent_output_links": []
+  },
+  {
+   "record_type": "Observation",
+   "record_id": "O-2",
+   "record_class": "source_observation",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "event_interval": {
+    "from": "2026-05-03T00:00:00Z",
+    "to": "2026-05-03T12:00:00Z"
+   },
+   "learned_at": "2026-05-04T06:00:00Z",
+   "root_ids": [
+    "O-2"
+   ],
+   "inputs": [],
+   "agent_output_links": []
+  },
+  {
+   "record_type": "Observation",
+   "record_id": "O-3",
+   "record_class": "derived_feature",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "event_interval": {
+    "from": "2026-05-01T00:00:00Z",
+    "to": "2026-05-03T12:00:00Z"
+   },
+   "learned_at": "2026-05-04T07:00:00Z",
+   "root_ids": [
+    "O-1",
+    "O-2"
+   ],
+   "inputs": [
+    "O-1",
+    "O-2"
+   ],
+   "agent_output_links": []
+  },
+  {
+   "record_type": "Observation",
+   "record_id": "O-4",
+   "record_class": "score",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "event_interval": {
+    "from": "2026-05-03T12:00:00Z",
+    "to": "2026-05-03T12:00:00Z"
+   },
+   "learned_at": "2026-05-04T07:00:00Z",
+   "root_ids": [
+    "O-4"
+   ],
+   "inputs": [],
+   "agent_output_links": []
+  },
+  {
+   "record_type": "QueryRun",
+   "record_id": "Q-1",
+   "case_id": "K-1",
+   "requested_by": "AG-1",
+   "recorded_by": "GW-1",
+   "issued_at": "2026-05-06T01:00:00Z",
+   "as_of": "2026-05-06T00:00:00Z",
+   "requested_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "evaluated_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "requested_interval": {
+    "from": "2026-05-01T00:00:00Z",
+    "to": "2026-05-05T00:00:00Z"
+   },
+   "evaluated_interval": {
+    "from": "2026-05-01T00:00:00Z",
+    "to": "2026-05-05T00:00:00Z"
+   },
+   "sources": [
+    {
+     "source_id": "S-PAY",
+     "schema_version": "pay-events-7",
+     "access": "evaluated",
+     "event_watermark": "2026-05-06T00:00:00Z",
+     "ingestion_watermark": "2026-05-06T00:00:00Z",
+     "retention_horizon": "2025-05-01T00:00:00Z",
+     "known_gaps": [],
+     "sampled": false
+    }
+   ],
+   "access_filter_removed_rows": false,
+   "limits_reached": [],
+   "scope_limited": false,
+   "returned": [
+    "O-1",
+    "O-2",
+    "O-3"
+   ],
+   "statuses": [
+    "complete"
+   ]
+  },
+  {
+   "record_type": "QueryRun",
+   "record_id": "Q-2",
+   "case_id": "K-1",
+   "requested_by": "AG-1",
+   "recorded_by": "GW-1",
+   "issued_at": "2026-05-06T01:10:00Z",
+   "as_of": "2026-05-06T00:00:00Z",
+   "requested_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "evaluated_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "requested_interval": {
+    "from": "2026-04-01T00:00:00Z",
+    "to": "2026-04-30T00:00:00Z"
+   },
+   "evaluated_interval": {
+    "from": "2026-04-01T00:00:00Z",
+    "to": "2026-04-30T00:00:00Z"
+   },
+   "sources": [
+    {
+     "source_id": "S-PAY",
+     "schema_version": "pay-events-7",
+     "access": "evaluated",
+     "event_watermark": "2026-05-06T00:00:00Z",
+     "ingestion_watermark": "2026-05-06T00:00:00Z",
+     "retention_horizon": "2025-05-01T00:00:00Z",
+     "known_gaps": [],
+     "sampled": false
+    }
+   ],
+   "access_filter_removed_rows": false,
+   "limits_reached": [],
+   "scope_limited": false,
+   "returned": [],
+   "statuses": [
+    "complete"
+   ]
+  },
+  {
+   "record_type": "QueryRun",
+   "record_id": "Q-3",
+   "case_id": "K-1",
+   "requested_by": "AG-1",
+   "recorded_by": "GW-1",
+   "issued_at": "2026-05-06T01:20:00Z",
+   "as_of": "2026-05-06T00:00:00Z",
+   "requested_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "evaluated_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "requested_interval": {
+    "from": "2026-05-01T00:00:00Z",
+    "to": "2026-05-10T00:00:00Z"
+   },
+   "evaluated_interval": {
+    "from": "2026-05-01T00:00:00Z",
+    "to": "2026-05-10T00:00:00Z"
+   },
+   "sources": [
+    {
+     "source_id": "S-PAY",
+     "schema_version": "pay-events-7",
+     "access": "evaluated",
+     "event_watermark": "2026-05-06T00:00:00Z",
+     "ingestion_watermark": "2026-05-06T00:00:00Z",
+     "retention_horizon": "2025-05-01T00:00:00Z",
+     "known_gaps": [],
+     "sampled": false
+    }
+   ],
+   "access_filter_removed_rows": false,
+   "limits_reached": [],
+   "scope_limited": false,
+   "returned": [
+    "O-1"
+   ],
+   "statuses": [
+    "partial"
+   ]
+  },
+  {
+   "record_type": "DraftOutput",
+   "record_id": "DR-1",
+   "case_id": "K-1",
+   "agent": "AG-1",
+   "version_hash": "3f9a1c7e22b04d15",
+   "created_at": "2026-05-06T02:00:00Z",
+   "expires_at": "2026-05-13T02:00:00Z",
+   "current_period": {
+    "from": "2026-05-01T00:00:00Z",
+    "to": "2026-05-07T00:00:00Z"
+   },
+   "claims": [
+    {
+     "claim_id": "CL-1",
+     "claim_type": "current_conduct",
+     "material": true,
+     "entities": [
+      {
+       "tenant": "T1",
+       "namespace": "account",
+       "id": "ACC-1"
+      }
+     ],
+     "interval": {
+      "from": "2026-05-01T00:00:00Z",
+      "to": "2026-05-03T12:00:00Z"
+     },
+     "confidence": "moderate",
+     "supporting": [
+      "O-1",
+      "O-2",
+      "O-3"
+     ],
+     "contradicting": [],
+     "query_runs": [
+      "Q-1"
+     ],
+     "context": [],
+     "independent_roots": 2
+    },
+    {
+     "claim_id": "CL-2",
+     "claim_type": "absence",
+     "material": true,
+     "entities": [
+      {
+       "tenant": "T1",
+       "namespace": "account",
+       "id": "ACC-1"
+      }
+     ],
+     "interval": {
+      "from": "2026-04-01T00:00:00Z",
+      "to": "2026-04-30T00:00:00Z"
+     },
+     "confidence": "moderate",
+     "supporting": [],
+     "contradicting": [],
+     "query_runs": [
+      "Q-2"
+     ],
+     "context": [],
+     "independent_roots": 0
+    }
+   ]
+  },
+  {
+   "record_type": "OutputExposure",
+   "record_id": "X-1",
+   "output_id": "DR-1",
+   "viewer": "H-1",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "opened_at": "2026-05-06T03:00:00Z",
+   "closed_at": "2026-05-06T05:00:00Z"
+  },
+  {
+   "record_type": "Observation",
+   "record_id": "O-5",
+   "record_class": "human_note",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "event_interval": {
+    "from": "2026-05-06T04:00:00Z",
+    "to": "2026-05-06T04:00:00Z"
+   },
+   "learned_at": "2026-05-06T04:00:00Z",
+   "root_ids": [
+    "O-1"
+   ],
+   "inputs": [
+    "O-1"
+   ],
+   "agent_output_links": [
+    "DR-1"
+   ],
+   "author": "H-1"
+  },
+  {
+   "record_type": "ReleaseDecision",
+   "record_id": "RL-1",
+   "draft_id": "DR-1",
+   "version_hash": "3f9a1c7e22b04d15",
+   "decided_by": "H-2",
+   "decided_at": "2026-05-07T09:00:00Z",
+   "decision": "released",
+   "claims": [
+    {
+     "claim_id": "CL-1",
+     "confidence": "moderate"
+    },
+    {
+     "claim_id": "CL-2",
+     "confidence": "moderate"
+    }
+   ],
+   "scope": "fraud investigations of tenant T1",
+   "expires_at": "2026-08-07T09:00:00Z",
+   "reviewer_findings": [
+    "No contradicting record found in the cited runs."
+   ]
+  },
+  {
+   "record_type": "ReleasedItem",
+   "record_id": "M-1",
+   "release_id": "RL-1",
+   "draft_id": "DR-1",
+   "claim_id": "CL-1",
+   "created_at": "2026-05-07T09:05:00Z",
+   "usable_as": "context"
+  },
+  {
+   "record_type": "MemoryRead",
+   "record_id": "MR-1",
+   "case_id": "K-2",
+   "reader": "AG-1",
+   "item_id": "M-1",
+   "read_at": "2026-05-20T10:00:00Z"
+  },
+  {
+   "record_type": "Observation",
+   "record_id": "O-6",
+   "record_class": "source_observation",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "event_interval": {
+    "from": "2026-05-18T00:00:00Z",
+    "to": "2026-05-18T06:00:00Z"
+   },
+   "learned_at": "2026-05-19T06:00:00Z",
+   "root_ids": [
+    "O-6"
+   ],
+   "inputs": [],
+   "agent_output_links": []
+  },
+  {
+   "record_type": "Observation",
+   "record_id": "O-7",
+   "record_class": "score",
+   "entity": {
+    "tenant": "T1",
+    "namespace": "account",
+    "id": "ACC-1"
+   },
+   "event_interval": {
+    "from": "2026-05-18T06:00:00Z",
+    "to": "2026-05-18T06:00:00Z"
+   },
+   "learned_at": "2026-05-19T07:00:00Z",
+   "root_ids": [
+    "O-7"
+   ],
+   "inputs": [],
+   "agent_output_links": []
+  },
+  {
+   "record_type": "QueryRun",
+   "record_id": "Q-4",
+   "case_id": "K-2",
+   "requested_by": "AG-1",
+   "recorded_by": "GW-1",
+   "issued_at": "2026-05-20T10:30:00Z",
+   "as_of": "2026-05-20T10:00:00Z",
+   "requested_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "evaluated_entities": [
+    {
+     "tenant": "T1",
+     "namespace": "account",
+     "id": "ACC-1"
+    }
+   ],
+   "requested_interval": {
+    "from": "2026-05-15T00:00:00Z",
+    "to": "2026-05-19T00:00:00Z"
+   },
+   "evaluated_interval": {
+    "from": "2026-05-15T00:00:00Z",
+    "to": "2026-05-19T00:00:00Z"
+   },
+   "sources": [
+    {
+     "source_id": "S-PAY",
+     "schema_version": "pay-events-7",
+     "access": "evaluated",
+     "event_watermark": "2026-05-20T00:00:00Z",
+     "ingestion_watermark": "2026-05-20T00:00:00Z",
+     "retention_horizon": "2025-05-01T00:00:00Z",
+     "known_gaps": [],
+     "sampled": false
+    }
+   ],
+   "access_filter_removed_rows": false,
+   "limits_reached": [],
+   "scope_limited": false,
+   "returned": [
+    "O-6",
+    "O-7"
+   ],
+   "statuses": [
+    "complete"
+   ]
+  },
+  {
+   "record_type": "DraftOutput",
+   "record_id": "DR-2",
+   "case_id": "K-2",
+   "agent": "AG-1",
+   "version_hash": "77c0de41aa9b3e02",
+   "created_at": "2026-05-20T11:00:00Z",
+   "expires_at": "2026-05-27T11:00:00Z",
+   "current_period": {
+    "from": "2026-05-15T00:00:00Z",
+    "to": "2026-05-21T00:00:00Z"
+   },
+   "claims": [
+    {
+     "claim_id": "CL-3",
+     "claim_type": "current_conduct",
+     "material": true,
+     "entities": [
+      {
+       "tenant": "T1",
+       "namespace": "account",
+       "id": "ACC-1"
+      }
+     ],
+     "interval": {
+      "from": "2026-05-18T00:00:00Z",
+      "to": "2026-05-18T06:00:00Z"
+     },
+     "confidence": "moderate",
+     "supporting": [
+      "O-6"
+     ],
+     "contradicting": [],
+     "query_runs": [
+      "Q-4"
+     ],
+     "context": [
+      "M-1"
+     ],
+     "independent_roots": 1
+    }
+   ]
+  }
+ ]
+}

@@ -176,6 +176,11 @@ sys.path.insert(0, str(B / 'tools'))
 from outcome_conformance import run_conformance
 outcome = run_conformance()
 assert outcome == {'valid_records': 27, 'invalid_cases': 22, 'rules_exercised': 15}, outcome
+# Query-run and release schema (Supplement S4.4): the same test, plus four necessity pairs.
+from investigation_conformance import run_conformance as run_investigation
+investigation = run_investigation()
+assert investigation == {'valid_records': 22, 'invalid_cases': 29, 'rules_exercised': 15, 'necessity_pairs': 4}, investigation
+assert 'Its 22 records pass. Each of the 29' in sbody
 
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),

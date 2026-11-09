@@ -583,7 +583,7 @@ The enforcement sources remain allegations [@FTC2019Allied; @FTC2020FirstData; @
 
 ### 8.3 What retaining the context changes
 
-**Table 6. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline.
+**Table 6. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline. Supplement S4.4 gives four such dependencies as pairs of record histories that differ in the permitted conclusion and are identical once one requirement's fields are removed.
 
 | Question and fixed observations | If context is omitted | If context is retained |
 |---|---|---|
