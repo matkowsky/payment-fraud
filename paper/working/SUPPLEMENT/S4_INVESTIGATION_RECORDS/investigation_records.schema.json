@@ -138,7 +138,7 @@
     "contradicting",
     "query_runs",
     "context",
-    "independent_roots"
+    "distinct_roots"
    ],
    "properties": {
     "claim_id": {
@@ -195,7 +195,7 @@
       "$ref": "#/$defs/id"
      }
     },
-    "independent_roots": {
+    "distinct_roots": {
      "type": "integer",
      "minimum": 0
     }

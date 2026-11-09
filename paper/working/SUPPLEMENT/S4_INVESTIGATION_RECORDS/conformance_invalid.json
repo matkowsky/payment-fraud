@@ -83,7 +83,7 @@
         "Q-1"
        ],
        "context": [],
-       "independent_roots": 2
+       "distinct_roots": 2
       },
       {
        "claim_id": "CL-2",
@@ -107,7 +107,7 @@
         "Q-2"
        ],
        "context": [],
-       "independent_roots": 0
+       "distinct_roots": 0
       }
      ]
     }
@@ -261,7 +261,7 @@
         "Q-1"
        ],
        "context": [],
-       "independent_roots": 2
+       "distinct_roots": 2
       },
       {
        "claim_id": "CL-2",
@@ -285,7 +285,7 @@
         "Q-3"
        ],
        "context": [],
-       "independent_roots": 0
+       "distinct_roots": 0
       }
      ]
     }
@@ -324,7 +324,7 @@
         "Q-1"
        ],
        "context": [],
-       "independent_roots": 2
+       "distinct_roots": 2
       },
       {
        "claim_id": "CL-2",
@@ -346,7 +346,7 @@
        "contradicting": [],
        "query_runs": [],
        "context": [],
-       "independent_roots": 0
+       "distinct_roots": 0
       }
      ]
     }
@@ -385,7 +385,7 @@
         "Q-1"
        ],
        "context": [],
-       "independent_roots": 2
+       "distinct_roots": 2
       },
       {
        "claim_id": "CL-2",
@@ -409,7 +409,7 @@
         "Q-1"
        ],
        "context": [],
-       "independent_roots": 0
+       "distinct_roots": 0
       }
      ]
     }
@@ -447,7 +447,7 @@
         "Q-4"
        ],
        "context": [],
-       "independent_roots": 1
+       "distinct_roots": 1
       }
      ]
     }
@@ -486,7 +486,7 @@
         "Q-1"
        ],
        "context": [],
-       "independent_roots": 3
+       "distinct_roots": 3
       },
       {
        "claim_id": "CL-2",
@@ -510,7 +510,7 @@
         "Q-2"
        ],
        "context": [],
-       "independent_roots": 0
+       "distinct_roots": 0
       }
      ]
     }
@@ -549,7 +549,7 @@
        "context": [
         "M-1"
        ],
-       "independent_roots": 1
+       "distinct_roots": 1
       }
      ]
     }
@@ -588,7 +588,7 @@
        "context": [
         "M-1"
        ],
-       "independent_roots": 1
+       "distinct_roots": 1
       }
      ]
     }
@@ -688,6 +688,251 @@
   },
   {
    "case_id": "D29",
+   "rule": "IR-02",
+   "description": "A claim cites an observation as a query run.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "O-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D30",
+   "rule": "IR-07",
+   "description": "A note with no inputs is counted as its own root observation.",
+   "set_fields": {
+    "O-5": {
+     "inputs": [],
+     "root_ids": [
+      "O-5"
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D31",
+   "rule": "IR-08",
+   "description": "An absence claim cites a complete run that returned a record in its scope.",
+   "add_records": [
+    {
+     "record_type": "Observation",
+     "record_id": "O-9",
+     "record_class": "source_observation",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-1"
+     },
+     "event_interval": {
+      "from": "2026-04-10T00:00:00Z",
+      "to": "2026-04-10T06:00:00Z"
+     },
+     "learned_at": "2026-04-11T06:00:00Z",
+     "root_ids": [
+      "O-9"
+     ],
+     "inputs": [],
+     "agent_output_links": []
+    }
+   ],
+   "set_fields": {
+    "Q-2": {
+     "returned": [
+      "O-9"
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D32",
+   "rule": "IR-09",
+   "description": "A claim about one account is supported by an observation of another.",
+   "add_records": [
+    {
+     "record_type": "Observation",
+     "record_id": "O-10",
+     "record_class": "source_observation",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-2"
+     },
+     "event_interval": {
+      "from": "2026-05-18T00:00:00Z",
+      "to": "2026-05-18T06:00:00Z"
+     },
+     "learned_at": "2026-05-19T06:00:00Z",
+     "root_ids": [
+      "O-10"
+     ],
+     "inputs": [],
+     "agent_output_links": []
+    }
+   ],
+   "set_fields": {
+    "DR-2": {
+     "claims": [
+      {
+       "claim_id": "CL-3",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-18T00:00:00Z",
+        "to": "2026-05-18T06:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-10"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-4"
+       ],
+       "context": [
+        "M-1"
+       ],
+       "distinct_roots": 1
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D33",
+   "rule": "IR-09",
+   "description": "A claim cites support the system learned after the draft was written.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3",
+        "O-6"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 3
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D34",
+   "rule": "IR-14",
+   "description": "A note names no author.",
+   "remove_fields": {
+    "O-5": [
+     "author"
+    ]
+   }
+  },
+  {
+   "case_id": "D35",
    "rule": "IR-14",
    "description": "A record derived from a linked note drops the link.",
    "add_records": [
