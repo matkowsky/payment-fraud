@@ -272,7 +272,7 @@ Assumptions, illustrative and not any platform's values: payments spread over 90
 | EntityLink | 100 | 558 |
 | OutcomeChannel | 2 | 361 |
 
-Per million payments: 4.03 records per payment; 1,656 MB as JSON lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1, storing each record's JSON with one index on item, channel, record type, learned time and effective time. On a two-core x86-64 virtual machine with Python 3.13.18: 10,000 random as-of reads of one payment's fraud-chargeback state and report count took a median of 17 microseconds and a 99th percentile of 57; one day's cohort of 11,052 payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
+Each payment needs 4.03 records. Per million payments: 1,656 MB as JSON lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1, storing each record's JSON with one index on item, channel, record type, learned time and effective time. On a two-core x86-64 virtual machine with Python 3.13.18: 10,000 reads of one payment's fraud-chargeback state and report count, at a cutoff after all records, took a median of 17 microseconds and a 99th percentile of 57; one day's cohort of 11,052 payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
 
 Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are measured in S4.4.
 
@@ -294,34 +294,34 @@ The [investigation-record schema](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/investi
 Fourteen rules check records against each other:
 
 1. IR-01: a record identifier is used once.
-2. IR-02: every record a record cites exists.
+2. IR-02: every record a record cites exists, and a cited query run is a query run.
 3. IR-03: a gateway that is not the requester records a query run's coverage.
 4. IR-04: the evaluated entities and interval lie within those requested, and the as-of cutoff is not after the query.
-5. IR-05: a run's statuses follow from its coverage fields by the fixed rules of Section 6.2. It is partial when the evaluated scope is narrower than requested, when access filtering removed rows, or when a source was sampled, has a known gap in the requested interval, or does not reach from its retention horizon to its event watermark across that interval. It is truncated when a limit was reached, and complete only when nothing else applies.
+5. IR-05: a run's statuses follow from its coverage fields. By Section 6.2's source rules, a run is partial when a source was sampled, has a known gap in the requested interval, or does not reach from its retention horizon to its event watermark across that interval, and truncated when a limit was reached. Two rules are added here: a narrower evaluated scope or access filtering also gives partial. A denied or unavailable source gives that status. A run is complete only when nothing else applies.
 6. IR-06: a run returns only records learned by its as-of cutoff whose event intervals overlap the evaluated interval.
-7. IR-07: a derived record is learned no earlier than its inputs, and its root observations are exactly its inputs' roots.
-8. IR-08: an absence claim cites at least one query run, and each cited run is complete, not scope-limited and covers the claim's entities and interval.
-9. IR-09: a claim's support consists of observation records, and its count of independent roots equals the number of distinct root observations among them. A released conclusion or a draft is never support.
+7. IR-07: a derived record is learned no earlier than its inputs, and its root observations are exactly its inputs' roots. Only a source observation, score or decision can be its own root.
+8. IR-08: an absence claim cites at least one query run, and each cited run is complete, not scope-limited, returned nothing and covers the claim's entities and interval.
+9. IR-09: a claim's support consists of observation records about the claim's entities, learned by the time the draft was written, and its count of distinct roots equals the number of distinct root observations among them. A released conclusion or a draft is never support.
 10. IR-10: a current-conduct claim cites an observation or derived feature whose event interval falls within the current period. A score or decision does not count, and a feature linked to an agent output counts only through an unlinked current-period input.
 11. IR-11: a person releases the exact draft version, before the draft expires, without raising any claim's confidence.
 12. IR-12: a conclusion enters memory only after a decision that released that claim.
 13. IR-13: memory is read only from a released item, between its creation and its release's expiry.
-14. IR-14: a record its author wrote about an entity while an agent output about that entity was open links to that output, and a record derived from a linked record keeps the link.
+14. IR-14: a note names its author. A record its author wrote about an entity while an agent output about that entity was open links to that output, and a record derived from a linked record keeps the link.
 
-The [valid conformance case](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json) builds one synthetic history: an investigation with three query runs, a draft with a current-conduct claim and an absence claim, a note written while the draft was open, a release by a second person, and a later case that reads the released conclusion as context and cites a new observation. Its 22 records pass. Each of the 29 [invalid cases](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json) changes that history in one way and fails exactly one check; together they exercise the schema and all fourteen rules. Run [`tools/investigation_conformance.py`](../tools/investigation_conformance.py) to repeat the checks.
+The [valid conformance case](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json) builds one synthetic history: an investigation with three query runs, a draft with a current-conduct claim and an absence claim, a note written while the draft was open, a release by a second person, and a later case that reads the released conclusion as context and cites a new observation. Its 22 records pass. Each of the 35 [invalid cases](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json) changes that history in one way and fails exactly one check; together they exercise the schema and all fourteen rules. Run [`tools/investigation_conformance.py`](../tools/investigation_conformance.py) to repeat the checks.
 
-The same script checks four necessity pairs. Each pair is two histories that are identical once one requirement's fields are removed, although the conclusion the rules permit differs:
+The same script checks four necessity pairs. Each pair is two histories that permit different conclusions but are identical once one group of fields is removed. In the first three pairs both histories pass the rules; in the fourth, the rules reject the history with no release decision.
 
 | Fields removed | The two histories | What differs |
 |---|---|---|
 | Query coverage (C2) | The same empty result, from a complete run and from a run reaching past its source's event watermark | Whether absence is supported |
 | Learned time (C2) | The same observation, learned before a run's cutoff and after it | Whether the fact was known at the cutoff |
-| Roots, inputs and agent-output links (C3) | A second supporting record that is an independent observation, and one that is a note written from the first | Two root observations or one |
-| Release decision (C3) | The same stored conclusion, released by a person and never released | Whether reuse is permitted |
+| Roots and inputs (C3) | A second supporting record derived from a different observation, and one derived from the first | Two root observations or one |
+| Release decision (C3) | The same stored conclusion, with a person's release decision and with none | Whether reuse is permitted |
 
-A store without those fields cannot tell the two histories apart, so no rule applied to it can be right in both. The pairs show that each field group is needed; they do not show that the records are sufficient or that they improve investigations. Identifiers, dates and versions in the cases are illustrative.
+A store without those fields cannot tell the two histories apart, so no rule applied to it can be right in both. The pairs show that each field group is needed; they do not show that the records are sufficient or that they improve investigations. The rules do not check released-item links on records written after a memory read, the lag between a run's cutoff and a source's ingestion watermark, or whether a returned record bears on a claim. Identifiers, dates and versions in the cases are illustrative.
 
-**Cost.** [`tools/investigation_cost.py`](../tools/investigation_cost.py) copies the valid case 100,000 times, each copy with its four query runs, seven stored records, two drafts, one release and one memory read, and checks a sample against the rules. Per copy, the records take 8.5 KB as JSON: 3.5 KB for query runs, about 900 bytes each, and 2.6 KB for drafts, release and memory records. A thousand copies take 0.26 MB compressed and 9.7 MB in SQLite; repeated text makes the compressed figure a best case. On the two-core machine of S4.3, checking that an absence claim's runs are complete and cover it took a median of 30 microseconds (99th percentile 74), and checking that a memory read used a released, unexpired item took 25 (64). [The results](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json) come from one run. Real coverage records list more sources per run, and reviewer time is not measured.
+**Cost.** [`tools/investigation_cost.py`](../tools/investigation_cost.py) copies the valid case 100,000 times, each copy with its four query runs, seven stored records, two drafts, one exposure, one release decision, one released item and one memory read, and checks a sample against the rules. Per copy, the records take 8.5 KB as JSON: 3.5 KB for query runs, about 900 bytes each, and 2.6 KB for drafts, release and memory records. A thousand copies take 0.26 MB compressed and 9.7 MB in SQLite; repeated text makes the compressed figure a best case. On the two-core machine of S4.3, checking that an absence claim's runs are complete and cover it took a median of 30 microseconds (99th percentile 74), and checking that a memory read used a released, unexpired item took 25 (64). [The results](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json) come from one run. Real coverage records list more sources per run, and reviewer time is not measured.
 
 ## S5. Pinned public schemas
 

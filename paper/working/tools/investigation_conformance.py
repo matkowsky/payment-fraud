@@ -60,8 +60,8 @@ def derive_statuses(run):
 
 
 def supports_absence(run, claim):
-    """A run supports an absence claim only if it is complete, unfiltered and covers the claim."""
-    return (run['statuses'] == ['complete'] and not run['scope_limited']
+    """A run supports an absence claim only if it is complete, unfiltered, returned nothing and covers the claim."""
+    return (run['statuses'] == ['complete'] and not run['scope_limited'] and not run['returned']
             and {ent(e) for e in claim['entities']} <= {ent(e) for e in run['evaluated_entities']}
             and within(claim['interval'], run['evaluated_interval']))
 
@@ -110,6 +110,10 @@ def check(records, schema):
         for x in refs(r):
             if x not in by:
                 found.append(('IR-02', r['record_id'], f'cites {x}, which does not exist'))
+        for c in r.get('claims', []) if r['record_type'] == 'DraftOutput' else []:
+            for q in c['query_runs']:
+                if q in by and by[q]['record_type'] != 'QueryRun':
+                    found.append(('IR-02', r['record_id'], f'cites {q} as a query run'))
     if found:
         return found
 
@@ -138,7 +142,7 @@ def check(records, schema):
             elif ins:
                 roots_ok = set(r['root_ids']) == {x for i in ins for x in i['root_ids']}
             else:
-                roots_ok = r['root_ids'] == [rid]
+                roots_ok = r['root_ids'] == [rid] and r['record_class'] in ('score', 'control_decision')
             if not roots_ok or any(ts(r['learned_at']) < ts(i['learned_at']) for i in ins):
                 found.append(('IR-07', rid, 'roots or learned time do not follow from the inputs'))
             owed = {x for i in ins for x in i['agent_output_links']}
@@ -146,7 +150,9 @@ def check(records, schema):
                 if x['record_type'] == 'OutputExposure' and x['viewer'] == r.get('author') and ent(x['entity']) == ent(r['entity']) \
                         and ts(x['opened_at']) <= ts(r['learned_at']) <= ts(x['closed_at']):
                     owed.add(x['output_id'])
-            if not owed <= set(r['agent_output_links']):
+            if r['record_class'] == 'human_note' and 'author' not in r:
+                found.append(('IR-14', rid, 'a note must name its author'))
+            elif not owed <= set(r['agent_output_links']):
                 found.append(('IR-14', rid, f'missing link to agent output {sorted(owed - set(r["agent_output_links"]))}'))
         if t == 'DraftOutput':
             for c in r['claims']:
@@ -154,9 +160,11 @@ def check(records, schema):
                 if c['claim_type'] == 'absence' and not (c['query_runs'] and all(
                         by[q]['record_type'] == 'QueryRun' and supports_absence(by[q], c) for q in c['query_runs'])):
                     found.append(('IR-08', cid, 'an absence claim needs complete query runs that cover it'))
-                if any(by[s]['record_type'] != 'Observation' for s in c['supporting']) \
-                        or c['independent_roots'] != len(distinct_roots(c['supporting'], by)):
-                    found.append(('IR-09', cid, 'support must be observation records, counted once per root observation'))
+                named = {ent(e) for e in c['entities']}
+                if any(by[s]['record_type'] != 'Observation' or ent(by[s]['entity']) not in named
+                       or ts(by[s]['learned_at']) > ts(r['created_at']) for s in c['supporting']) \
+                        or c['distinct_roots'] != len(distinct_roots(c['supporting'], by)):
+                    found.append(('IR-09', cid, 'support must be observations of the named entities, learned by the draft, counted once per root'))
                 elif c['claim_type'] == 'current_conduct':
                     def current(o):
                         return o['record_class'] in OBSERVED and within(o['event_interval'], r['current_period'])
@@ -216,13 +224,14 @@ def necessity_pairs(valid, schema):
     assert strip([early], ('learned_at',)) == strip([late], ('learned_at',))
     assert ts(early['learned_at']) <= ts(run['as_of']) < ts(late['learned_at'])
     out['C2 learned time'] = 'known at the cutoff in one history only'
-    # C3 dependence: a second supporting record that is an independent observation, or a note written from the first.
-    first = by['O-1']
-    indep = dict(copy.deepcopy(by['O-2']), record_id='N-1')
-    note = dict(copy.deepcopy(indep), inputs=[first['record_id']], root_ids=list(first['root_ids']), agent_output_links=['DR-1'])
-    assert strip([indep], DEPENDENCE_FIELDS) == strip([note], DEPENDENCE_FIELDS)
-    roots_a = len(distinct_roots([first['record_id'], 'N-1'], dict(by, **{'N-1': indep})))
-    roots_b = len(distinct_roots([first['record_id'], 'N-1'], dict(by, **{'N-1': note})))
+    # C3 dependence: a second supporting record derived from a different observation, or derived from the first.
+    base = dict(copy.deepcopy(by['O-3']), record_id='N-1', learned_at='2026-05-05T00:00:00Z')
+    indep = dict(copy.deepcopy(base), inputs=['O-2'], root_ids=['O-2'])
+    echo = dict(copy.deepcopy(base), inputs=['O-1'], root_ids=['O-1'], agent_output_links=[])
+    assert strip([indep], DEPENDENCE_FIELDS) == strip([echo], DEPENDENCE_FIELDS)
+    assert not check(valid + [indep], schema) and not check(valid + [echo], schema)
+    roots_a = len(distinct_roots(['O-1', 'N-1'], dict(by, **{'N-1': indep})))
+    roots_b = len(distinct_roots(['O-1', 'N-1'], dict(by, **{'N-1': echo})))
     assert (roots_a, roots_b) == (2, 1)
     out['C3 dependence'] = 'two root observations in one history, one in the other'
     # C3 release: the same stored conclusion, released by a person in one history and never released in the other.
