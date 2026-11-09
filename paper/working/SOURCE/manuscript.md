@@ -105,15 +105,7 @@ Supplement S1 records the version, relevant passages and use of each of the 122 
 
 The synthesis distinguishes sourced findings, design choices and hypotheses (Supplement S2.1). One author, assisted by AI models, made the mappings and coverage judgments; agreement between independent human coders has not been measured. Section 9.2 explains the limits this focused selection places on coverage and transfer.
 
-The author used Anthropic Claude and OpenAI ChatGPT/Codex throughout the research and decided what entered the paper:
-
-- **Sources.** The models searched for sources and read each cited work to the depth its Supplement S1 note records; the note gives the version and the passages relied on and names any unread part. Works the models could not reach were read from files the author supplied. Quoted passages were checked against the source text.
-- **Synthesis.** The models proposed the mechanisms, signals, links and the comparison codes in Supplement S1; the author accepted or changed them.
-- **Prior work.** On 29 October 2026, model searchers that were given only the three requirements, not the related-work section, looked for closer precedents.
-- **Calculations, data and figures.** The models wrote the scripts, the synthetic data and the figures. A check script recomputes the counts, lineage and arithmetic on every proposed change.
-- **Review.** Separate model sessions reviewed drafts and checked changes against their sources. Since version 1.0, each change is a pull request that names the model that drafted it and is accepted by the author.
-
-Model review is not independent human peer review, and models can share errors (Section 6.4).
+The author used Anthropic Claude and OpenAI ChatGPT/Codex in the research. The models searched for and read the sources, proposed the mappings and comparison codes, ran the prior-work search, wrote the scripts, synthetic data and figures, and reviewed drafts. Every cited work was read in full, or, for a book or standard, the cited chapters; Supplement S1 records the version and passages for each and names the few parts not read, such as reference pages. A check script recomputes the counts, lineage and arithmetic on every proposed change. The author decided what entered the paper. Model review is not independent human peer review.
 
 ## 4. From product activity to protective decisions
 
