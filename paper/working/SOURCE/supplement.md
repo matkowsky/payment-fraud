@@ -274,7 +274,7 @@ Assumptions, illustrative and not any platform's values: payments spread over 90
 
 Per million payments: 4.03 records per payment; 1,656 MB as JSON lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1, storing each record's JSON with one index on item, channel, record type, learned time and effective time. On a two-core x86-64 virtual machine with Python 3.13.18: 10,000 random as-of reads of one payment's fraud-chargeback state and report count took a median of 17 microseconds and a 99th percentile of 57; one day's cohort of 11,052 payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
 
-Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are not included.
+Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are measured in S4.4.
 
 ### S4.4 Field-level schemas for query runs and release {#investigation-record-schemas}
 
@@ -320,6 +320,8 @@ The same script checks four necessity pairs. Each pair is two histories that are
 | Release decision (C3) | The same stored conclusion, released by a person and never released | Whether reuse is permitted |
 
 A store without those fields cannot tell the two histories apart, so no rule applied to it can be right in both. The pairs show that each field group is needed; they do not show that the records are sufficient or that they improve investigations. Identifiers, dates and versions in the cases are illustrative.
+
+**Cost.** [`tools/investigation_cost.py`](../tools/investigation_cost.py) copies the valid case 100,000 times, each copy with its four query runs, seven stored records, two drafts, one release and one memory read, and checks a sample against the rules. Per copy, the records take 8.5 KB as JSON: 3.5 KB for query runs, about 900 bytes each, and 2.6 KB for drafts, release and memory records. A thousand copies take 0.26 MB compressed and 9.7 MB in SQLite; repeated text makes the compressed figure a best case. On the two-core machine of S4.3, checking that an absence claim's runs are complete and cover it took a median of 30 microseconds (99th percentile 74), and checking that a memory read used a released, unexpired item took 25 (64). [The results](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json) come from one run. Real coverage records list more sources per run, and reviewer time is not measured.
 
 ## S5. Pinned public schemas
 
