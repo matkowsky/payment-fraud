@@ -144,7 +144,7 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-8 November 2026 · Accepted working draft for version 1.1 · Not published
+9 November 2026 · Accepted working draft for version 1.1 · Not published
 · Not peer reviewed
 
 \FloatBarrier
@@ -260,10 +260,11 @@ of which may depend on the decision (Section 7).
 
 \textbf{C2} records query coverage and learned time. Query coverage is
 what a query actually covered: the data and period it examined, and
-whether its result was complete. Learned time is when the system learned
-a fact. Every query passes through a gateway, a checkpoint outside the
-agent, which records its coverage. Every fact keeps both when it
-happened and when the system learned it (Sections 5.1, 5.3 and 6.2).
+whether its result was complete. Learned time is when a fact became
+available to the system's queries. Every query passes through a gateway,
+a checkpoint outside the agent, which records its coverage. Every fact
+keeps both when it happened and when the system learned it (Sections
+5.1, 5.3 and 6.2).
 
 \textbf{C3} requires human release before promotion into organizational
 memory. No agent output enters the evidence plane, which stores
@@ -474,11 +475,11 @@ requires human approval only under some policies
 preprint is closer on authorization: no agent-proposed metadata decision
 is committed before a steward reviews it, and a proposed gate admits
 only verified records as precedent, records each promotion and lets a
-reviewer demote a record, flagging the decisions that relied on it;
-verified precedents then serve as evidence for later proposals
-{[}\protect\hyperlink{ref-Akhtar2026Contestable}{36}{]}. AgenticCyOps
-provides analyst oversight and an audited memory-write path, without
-specifying human release for every reused item
+reviewer demote a record, flagging the decisions that relied on it. It
+does not say who authorizes promotion or what a retrieved precedent may
+establish {[}\protect\hyperlink{ref-Akhtar2026Contestable}{36}{]}.
+AgenticCyOps provides analyst oversight and an audited memory-write
+path, without specifying human release for every reused item
 {[}\protect\hyperlink{ref-Mitra2026AgenticCyOps}{37}{]}. A
 threat-intelligence architecture requires human approval before
 operational action or dissemination, but does not state that analyses
@@ -638,10 +639,16 @@ other two, some fall below the periodically retrained classifier. For
 that model, against the periodically retrained classifier at that
 classifier's 5 percent operating point, its recall and dollar-weighted
 recall gains are significant, but when both block the same number of
-transactions none of the differences is significant
-{[}\protect\hyperlink{ref-Tan2026SRFraud}{53}{]}. On 60 balanced
-synthetic cases that its classifier scored between 0.2 and 0.8, Sharma's
-agent was correct in 65.0 percent, below the 71.7 percent from
+transactions none of the differences is significant. Its point-estimate
+gains grow with users' prior history. On the 64 percent of transactions
+with any prior history, its recall, F1 and dollar-weighted recall gains
+are significant at that classifier's 5 percent operating point, where
+SR-Fraud blocks 6.08 percent of all transactions; matched results are
+not reported by history. At the matched block count, its recall in the
+week-8 fraud burst is about 24 percentage points higher, without an
+interval {[}\protect\hyperlink{ref-Tan2026SRFraud}{53}{]}. On 60
+balanced synthetic cases that its classifier scored between 0.2 and 0.8,
+Sharma's agent was correct in 65.0 percent, below the 71.7 percent from
 thresholding the same classifier score at 0.5. Six of its eight
 overrides turned a correct decision into an error
 {[}\protect\hyperlink{ref-Sharma2026AuditableFraud}{54}{]}. Neither
@@ -676,33 +683,24 @@ and documentation define the illustrative scope; research, engineering
 accounts, incident reports and guidance supply the design premises.
 
 The scope, read on 27 September 2026, contains 88 product and feature
-entries. They list 85 of the 99 candidate mechanisms; the other 14
-appear only in the Supplement S2 allocation. A retained mechanism must
-target a documented capability, serve a plausible adversary goal and
-have supporting public evidence. Four public job postings from the
-illustrative provider, Stripe, for abuse, risk and machine-learning
-roles, helped prioritize topics as a statement of the provider's current
-priorities, not as evidence of incidents. Two are cited
+entries. A retained mechanism must target a documented capability, serve
+a plausible adversary goal and have supporting public evidence. Public
+job postings from the illustrative provider, Stripe, for abuse, risk and
+machine-learning roles helped prioritize topics as a statement of its
+current priorities, not as evidence of incidents
 {[}\protect\hyperlink{ref-Stripe2026}{55},
-\protect\hyperlink{ref-StripeARE2026}{56}{]}, and the Supplement S2
-allocation keys record the other two. The stated priority basis names a
-posting topic for 24 candidates. Twenty-three of them are among the 26
-candidates allocated the deeper review (Tier 1 in Supplement S2); all 23
-are mapped and carry 65 of the 163 links. The 24th, \mbox{EC-06}, is
-unmapped. Every mapped mechanism also has supporting sources beyond
-postings. Supplement S2 records the nine search paths and each
-candidate's final disposition.
+\protect\hyperlink{ref-StripeARE2026}{56}{]}. Supplement S2 records the
+99 candidate mechanisms, how postings set priorities, the nine search
+paths and each candidate's final disposition; every mapped mechanism
+also has supporting sources beyond postings.
 
 The resulting inventory contains 71 signals in 12 families. Sixty-eight
 connect to 61 mechanisms through 163 links, and three apply across
 mechanisms. Nine links are explicitly inferential; the others use
 sourced premises to motivate record design without validating a
 detector. Each derived feature, a value computed from other records,
-identifies its inputs. Of the remaining 38 candidate mechanisms, 20
-low-priority candidates were not reviewed, 13 were judged covered by
-existing records, four were screened without identified supporting
-evidence and logged as low-priority gaps, and one was reviewed as a
-distinct mechanism but received no signal mapping.
+identifies its inputs. Supplement S2 gives the disposition of the other
+38 candidates.
 
 Three published schemas describe the platform's application programming
 interface (API), the interface through which software requests
@@ -713,16 +711,11 @@ proposed records {[}\protect\hyperlink{ref-StripeOpenAPI2026}{57}{]}.
 Supplement S5 supplies the object, field or event supporting each match.
 The comparison concerns the published interface, not private telemetry.
 
-Across the manuscript and supplement, 122 cited works support the claims
-and comparisons. Supplement S1 records their versions, relevant passages
-and uses; its requirements matrix compares 50 sources against the three
-requirements. The design files contain 61 source records and 126
-mechanism-to-source links. Of those sources, 27 are not among the 122
-cited works and have no S1 note. All 61 were read in full in October
-2026. For one, a vendor blog post, the cited passages were read verbatim
-and the other paragraphs only as a close paraphrase. The directory
-records the depth of each read. These records let readers inspect the
-synthesis; their counts do not measure evidence quality.
+Supplement S1 records the version, relevant passages and use of each of
+the 122 cited works, and compares 50 sources against the three
+requirements. Supplement S3 lists the 61 design sources and the depth of
+each read. These records let readers inspect the synthesis; their counts
+do not measure evidence quality.
 
 The synthesis distinguishes sourced findings, design choices and
 hypotheses (Supplement S2.1). One author, assisted by AI models, made
@@ -1352,11 +1345,12 @@ does not say whether the loss reaches payments authenticated before the
 merchant entered the program. A later program entry is recorded as a
 rule event, and the liability status of payments authenticated before it
 remains unknown. A channel without a defined window never supports a
-negative. A matured absence is provisional, not final. Network and bank
-rules can reopen or extend a window after it has elapsed, as when a
-monitoring program lets issuers submit fraud disputes past the standard
-deadline {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{80}{]}
-or banks accept a late return
+negative by maturity alone. A matured absence is provisional, not final.
+Network and bank rules can reopen or extend a window after it has
+elapsed, as when a monitoring program lets issuers submit fraud disputes
+past the standard deadline
+{[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{80}{]} or banks
+accept a late return
 {[}\protect\hyperlink{ref-Stripe2026ACHTerms}{81}{]}. Each such rule
 event is recorded as a channel-state transition with its source, rule
 version and learned time, although no platform decision caused it. A
@@ -1656,15 +1650,18 @@ count. Reviewers and the releaser see both beside the claim. Full checks
 of claims about named entities examine every marked record and a
 recorded random sample of the rest, whose size is fixed in advance for
 each claim type, and E8 reports how often that sample contained a record
-that counted against the claim. A claim that something is absent also
-cites the query runs whose coverage records support it. A claim that
-states or relies on an outcome that was not reported also cites, for
-each affected item, the state of each relevant outcome channel at the
-read time. The absence counts as a negative only where the channel
-matured with no report under its original meaning, and that negative
-remains provisional (Section 5.3). Claims about current conduct cite at
-least one source observation, normalized observation or derived feature
-whose event interval lies in the task's current period. A score or
+that counted against the claim. If a share \(q\) of the unmarked records
+count against the claim, a random sample of \(m\) finds at least one
+with probability at least \(1-(1-q)^m\): 59 records give 95 percent when
+\(q\) is 5 percent. A claim that something is absent also cites the
+query runs whose coverage records support it. A claim that states or
+relies on an outcome that was not reported also cites, for each affected
+item, the state of each relevant outcome channel at the read time. The
+absence counts as a negative only where the channel matured with no
+report under its original meaning, and that negative remains provisional
+(Section 5.3). Claims about current conduct cite at least one source
+observation, normalized observation or derived feature whose event
+interval falls entirely within the task's current period. A score or
 control decision from that period does not meet this rule by itself,
 because it records an assessment or an action, not the conduct. A
 derived feature that carries an agent-output or released-item link does
@@ -2682,28 +2679,29 @@ the pass rule is judged only on clusters selected by a route that does
 not depend on either rule; clusters from other routes are reported
 separately. A third arm applies the same rule to each account after
 linking, separating the contribution of linkage from that of clustering.
-When every account in a cluster has captured payments in the rule's
-denominator period, a pooled ratio cannot exceed the highest account
-ratio (Section 8.2), so any lead from clustering must come from a
-condition on totals, such as the minimum count or, where the network
-sets one, a minimum value. An account with no captured payments in the
-rule's denominator period has no defined ratio when it receives reports,
-and the cluster ratio can then exceed every defined account ratio.
-Examples are a closed account and, where the denominator is the previous
-month's captured payments, an account in its first month. Such cluster
-flags are reported separately. All arms use the same eligible
-transactions, outcome definition and reporting periods. Support also
-requires the one-sided 95 percent upper confidence bound on the increase
-in false-flag probability among legitimate multi-brand businesses,
-cluster arm minus account arm, to be below the prespecified margin, with
-business-level pairing and any additional clustering preserved. S7.1
-proposes a five-percentage-point margin and requires sizing for both
-criteria. Each account arm applies the rule to platform and connected
-accounts; where a network monitors a different unit, such as Visa's
-static statement descriptor and acquiring bank (Section 8.2), that arm
-also reports results for the network's unit. A broader measure, such as
-Section 8.2's chargeback-or-alert-resolution measure, needs a separate
-evaluation.
+The cluster and third arms count only reports with verified transaction
+links; flags that need others are reported separately. When every
+account in a cluster has captured payments in the rule's denominator
+period, a pooled ratio cannot exceed the highest account ratio (Section
+8.2), so any lead from clustering must come from a condition on totals,
+such as the minimum count or, where the network sets one, a minimum
+value. An account with no captured payments in the rule's denominator
+period has no defined ratio when it receives reports, and the cluster
+ratio can then exceed every defined account ratio. Examples are a closed
+account and, where the denominator is the previous month's captured
+payments, an account in its first month. Such cluster flags are reported
+separately. All arms use the same eligible transactions, outcome
+definition and reporting periods. Support also requires the one-sided 95
+percent upper confidence bound on the increase in false-flag probability
+among legitimate multi-brand businesses, cluster arm minus account arm,
+to be below the prespecified margin, with business-level pairing and any
+additional clustering preserved. S7.1 proposes a five-percentage-point
+margin and requires sizing for both criteria. Each account arm applies
+the rule to platform and connected accounts; where a network monitors a
+different unit, such as Visa's static statement descriptor and acquiring
+bank (Section 8.2), that arm also reports results for the network's
+unit. A broader measure, such as Section 8.2's
+chargeback-or-alert-resolution measure, needs a separate evaluation.
 
 \textbf{E4. Measuring user harm:} Can the records support a rate and
 interval for harm to legitimate users after a control change? E4 tests
@@ -2842,10 +2840,10 @@ standards and regulators, code repositories, journals and recent
 preprints. It found no source stating the three requirements together;
 the two sources it added are discussed in Section 2.3. The illustrative
 provider's public hiring priorities influenced selection and set most of
-the deeper reviews (Section 3). A crosswalk to MITRE's Fight Fraud
-Framework finds that 18 of its 92 in-scope techniques have no retained
-mechanism; fourteen of them are covered only by candidates outside the
-signal map (Supplement S2.2)
+the deeper reviews (Section 3; Supplement S2). A crosswalk to MITRE's
+Fight Fraud Framework finds that 18 of its 92 in-scope techniques have
+no retained mechanism; fourteen of them are covered only by candidates
+outside the signal map (Supplement S2.2)
 {[}\protect\hyperlink{ref-MITRE2026F3}{104}{]}. At the volume assumed in
 Section 6.4, the confirmatory release-gate test could run for more than
 a year and a half before it reaches its planned size (Supplement S7.1).
@@ -2931,11 +2929,9 @@ declarations}\label{author-and-publication-declarations}}
 
 \suppressfloats[t]
 
-\textbf{Acknowledgments.} Oleg Solozobov, author of the Decision Event
-Schema, reviewed how the first requirement maps onto that schema. His
-comments led to three refinements: outcome reports as appended records
-with three times, channel effects fixed with the decision, and typed
-links from each report to every decision that may have shaped it.
+\textbf{Acknowledgments.} Thanks to Jiahong Dai (Sections 2.2 and 6.2),
+Brian Freeman (Section 2.3), Oleg Solozobov (Sections 2.1, 2.4, 5.2, 5.3
+and 7.1) and Xuwei Tan (Sections 2.4 and 9.1) for feedback.
 
 \textbf{Use of generative AI.} The author used Anthropic Claude and
 OpenAI ChatGPT/Codex for research assistance, drafting, substantive
@@ -2951,8 +2947,9 @@ Reproduction scripts check the included counts, lineage and arithmetic
 and rebuild the documents. No private platform data, implementation of
 the proposed architecture or empirical system-evaluation code is
 supplied. External source texts remain with their publishers or authors.
-The accompanying files are proposed release materials, not a claim that
-a repository has already been made public.
+These files are published with this preprint
+(https://doi.org/10.5281/zenodo.23772005), and the working draft and
+review record are at https://github.com/matkowsky/payment-fraud.
 
 \textbf{Funding.} This work received no funding.
 
