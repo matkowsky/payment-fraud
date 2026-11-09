@@ -51,10 +51,10 @@ public = collections.Counter('partial' if x['public_representation_label'].start
 assert public == {'partial': 32, 'na': 32, 'unlocated': 7}, public
 
 # Citations, references and numbering
-# All 122 works are cited across the manuscript and supplement pair; each generated bibliography lists the works its text cites.
+# All 125 works are cited across the manuscript and supplement pair; each generated bibliography lists the works its text cites.
 mkeys = set(re.findall(r'(?<!\w)@([\w]+)', body)); skeys = set(re.findall(r'(?<!\w)@([\w]+)', sbody)); refkeys = {x['id'] for x in r}
 keys = mkeys | skeys
-assert len(keys) == 122 and keys == refkeys, sorted(refkeys ^ keys)
+assert len(keys) == 125 and keys == refkeys, sorted(refkeys ^ keys)
 if not SOURCES_ONLY:
     assert set(re.findall(r'<div id="ref-([^"]+)"', t)) == mkeys
     assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
@@ -173,7 +173,7 @@ for path in [B / MS, B / 'SUPPLEMENT.md', B / 'README.md', B / 'REPRODUCE.md', B
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),
           'posting_priority': {'candidates': 24, 'tier1': 26, 'tier1_with_posting_topic': 23, 'their_links': 65}, 'functions': 24,
-          'public_counterparts': dict(public), 'cited_works': 122, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 6, 'figures': 4,
+          'public_counterparts': dict(public), 'cited_works': 125, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 6, 'figures': 4,
           'synthetic': {'transactions': 400, 'chargebacks': 8, 'alerts': 14, 'overlap': 2, 'union': 20,
                         'chargeback_ratio': .02, 'broader_report_ratio': .05, 'undeduplicated_sum_rejected': .055,
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
