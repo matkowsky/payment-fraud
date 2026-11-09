@@ -2682,28 +2682,29 @@ the pass rule is judged only on clusters selected by a route that does
 not depend on either rule; clusters from other routes are reported
 separately. A third arm applies the same rule to each account after
 linking, separating the contribution of linkage from that of clustering.
-When every account in a cluster has captured payments in the rule's
-denominator period, a pooled ratio cannot exceed the highest account
-ratio (Section 8.2), so any lead from clustering must come from a
-condition on totals, such as the minimum count or, where the network
-sets one, a minimum value. An account with no captured payments in the
-rule's denominator period has no defined ratio when it receives reports,
-and the cluster ratio can then exceed every defined account ratio.
-Examples are a closed account and, where the denominator is the previous
-month's captured payments, an account in its first month. Such cluster
-flags are reported separately. All arms use the same eligible
-transactions, outcome definition and reporting periods. Support also
-requires the one-sided 95 percent upper confidence bound on the increase
-in false-flag probability among legitimate multi-brand businesses,
-cluster arm minus account arm, to be below the prespecified margin, with
-business-level pairing and any additional clustering preserved. S7.1
-proposes a five-percentage-point margin and requires sizing for both
-criteria. Each account arm applies the rule to platform and connected
-accounts; where a network monitors a different unit, such as Visa's
-static statement descriptor and acquiring bank (Section 8.2), that arm
-also reports results for the network's unit. A broader measure, such as
-Section 8.2's chargeback-or-alert-resolution measure, needs a separate
-evaluation.
+The cluster and third arms count only reports with verified transaction
+links; flags that need others are reported separately. When every
+account in a cluster has captured payments in the rule's denominator
+period, a pooled ratio cannot exceed the highest account ratio (Section
+8.2), so any lead from clustering must come from a condition on totals,
+such as the minimum count or, where the network sets one, a minimum
+value. An account with no captured payments in the rule's denominator
+period has no defined ratio when it receives reports, and the cluster
+ratio can then exceed every defined account ratio. Examples are a closed
+account and, where the denominator is the previous month's captured
+payments, an account in its first month. Such cluster flags are reported
+separately. All arms use the same eligible transactions, outcome
+definition and reporting periods. Support also requires the one-sided 95
+percent upper confidence bound on the increase in false-flag probability
+among legitimate multi-brand businesses, cluster arm minus account arm,
+to be below the prespecified margin, with business-level pairing and any
+additional clustering preserved. S7.1 proposes a five-percentage-point
+margin and requires sizing for both criteria. Each account arm applies
+the rule to platform and connected accounts; where a network monitors a
+different unit, such as Visa's static statement descriptor and acquiring
+bank (Section 8.2), that arm also reports results for the network's
+unit. A broader measure, such as Section 8.2's
+chargeback-or-alert-resolution measure, needs a separate evaluation.
 
 \textbf{E4. Measuring user harm:} Can the records support a rate and
 interval for harm to legitimate users after a control change? E4 tests
