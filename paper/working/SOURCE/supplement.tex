@@ -765,9 +765,9 @@ record meanings and need not be separate databases.
   matured absence carries that decision's ID, or the rule event's source
   and version, and is read under the changed meaning, not as a negative
   for the original outcome. A channel with no defined window never
-  supports a negative. A matured absence is provisional: it records the
-  rule version under which it matured and returns to pending if a later
-  rule event reopens the window.
+  supports a negative by maturity alone. A matured absence is
+  provisional: it records the rule version under which it matured and
+  returns to pending if a later rule event reopens the window.
 \item
   \textbf{Unavailable records:} mark inaccessible records unavailable
   without overwriting known channel state or earlier reports.
@@ -1531,11 +1531,12 @@ Each evaluation is judged separately, without correction for multiple
 tests, because support requires every confirmatory evaluation to pass.
 Each confirmatory evaluation targets 93 percent power: the chance of
 passing its complete rule under stated effect assumptions. If each
-reaches that target, all four pass with probability at least 72 percent.
-Sizing must account for every pass criterion and case or reviewer
-clustering. The minimum counts below are not power calculations; the
-sizing assumptions must be recorded before main-study data are
-collected. E1, E3, E8 and E9 are confirmatory and the rest are
+reaches that target, all four pass with probability at least 72 percent
+by the union bound, \(1-4\times0.07\), or about 75 percent if their
+results are independent. Sizing must account for every pass criterion
+and case or reviewer clustering. The minimum counts below are not power
+calculations; the sizing assumptions must be recorded before main-study
+data are collected. E1, E3, E8 and E9 are confirmatory and the rest are
 exploratory. Support in a setting requires every confirmatory evaluation
 to pass its complete rule. Each criterion has three possible results.
 Support: its pass rule is met. Evidence against: a bound at the same
@@ -1547,7 +1548,9 @@ data. A failure criterion below means only that support was not
 established; the interval and the identification limits decide which of
 the other two results applies. No result by itself shows that the
 underlying idea is wrong. Investigators cannot be blind to the added
-records, so the raters, not the investigators, are blind.
+records, so the raters, not the investigators, are blind. A lower or
+upper 95 percent bound is an end of a two-sided 95 percent interval
+unless it is marked one-sided.
 
 \hypertarget{e1-tests-the-second-requirement-confirmatory.}{%
 \paragraph{E1 (tests the second requirement;
@@ -1609,9 +1612,7 @@ outcomes: holdout rates count the reports received once each channel's
 window has closed, and report truth is reviewed on a random sample. A
 usable probability is one logged with the feature values and model
 version that produced it. The deployment chooses the intended coverage
-defined under the primary measures, but it must be at least 95 percent,
-because the failure criteria allow no more than 10 percent of overlap
-populations outside their intervals.
+defined under the primary measures; it must be at least 95 percent.
 
 \textbf{Primary measures:} the share of randomized decisions logged with
 a usable probability, feature values and model version. Also, the share
@@ -1624,8 +1625,10 @@ holdout rates the intervals contain. These deployment-specific settings
 are not selected here.
 
 \textbf{Failure criteria:} Fails if fewer than 95 percent of randomized
-decisions carry a usable probability, or more than 10 percent of overlap
-populations fall outside the predicted interval.
+decisions carry a usable probability, or more overlap populations fall
+outside their predicted intervals than the intended coverage plausibly
+allows: a one-sided binomial test, treating the populations as
+independent, gives p below 0.05.
 
 \hypertarget{e3-tests-report-linkage-which-the-first-requirement-depends-on-together-with-cluster-monitoring-confirmatory.}{%
 \paragraph{E3 (tests report linkage, which the first requirement depends
@@ -1661,9 +1664,10 @@ complete lead-time and false-flag pass rule at the 93 percent power
 target, given the expected share of verified report links.
 
 \textbf{Primary measures:} days from the adjudicated onset of evasion to
-the flag, and false flags. The lead time is the difference in restricted
-mean time to flag, account arm minus cluster arm, up to a horizon fixed
-before any data are examined.
+the flag, counting a flag on or before the onset as day 0, and false
+flags. The lead time is the difference in restricted mean time to flag,
+account arm minus cluster arm, up to a horizon fixed before any data are
+examined.
 
 \textbf{Failure criteria:} Fails if the lower bound of the 95 percent
 interval on the lead time, estimated from the paired censored analysis,
@@ -1821,12 +1825,16 @@ do not account for reviewer or case dependence or the separate
 catch-rate criterion; the actual study must be sized for its complete
 rule under the prespecified clustered design. With none released,
 showing a rate below 1 percent at one-sided 95 percent confidence needs
-at least 299. If the true rate is 0.1 percent, 93 percent power to show
-a rate below 1 percent needs 628. If planted false exonerations made up
-5 percent of the drafts reaching review, 628 of them would take 12,560
-drafts, about 628 days at the 20 drafts a day assumed in manuscript
-Section 6.4. The plan states the tolerable rate, the assumed rate, the
-prevalence and the implied duration together.
+at least 299, the smallest \(n\) with \(0.99^n<0.05\). If the true rate
+is 0.1 percent, 93 percent power to show a rate below 1 percent needs
+628, the smallest such number. With 628, two or fewer releases show it,
+because at a true 1 percent rate that many occur with probability 4.98
+percent; at 0.1 percent they occur with probability 97.4 percent. If
+planted false exonerations made up 5 percent of the drafts reaching
+review, 628 of them would take 12,560 drafts, about 628 days at the 20
+drafts a day assumed in manuscript Section 6.4. The plan states the
+tolerable rate, the assumed rate, the prevalence and the implied
+duration together.
 
 \textbf{Primary measures:} the catch rate, overall and by error type
 (false exonerations, other wrong claims, omissions of retrieved contrary
