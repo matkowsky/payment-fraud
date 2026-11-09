@@ -277,6 +277,8 @@ Trace A uses a separate hypothetical timeline (manuscript Sections 8.1 and 8.3).
 [CHECK_CANDIDATE.py](../CHECK_CANDIDATE.py) checks these calculations and excludes the +1-day destination-reuse link from the +30-minute assessment. It also checks identifiers, counts, feature lineage, citation-reference agreement and links between files. [REPRODUCE.md](../REPRODUCE.md) gives build and verification instructions. These are checks of the supplied artifacts and arithmetic, not an evaluation of the proposed system.
 
 
+Manuscript Table 6 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.
+
 ## S7. Evaluation conditions
 
 These conditions explain the scope and comparisons behind the tests in S7.1. E8's release-gate test appears there alongside the other eight; S8 adds practitioner judgments of availability and usefulness.
