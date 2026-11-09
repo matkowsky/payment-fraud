@@ -609,6 +609,14 @@ A platform that already logs decisions, payments and disputes can start with the
 
 To estimate C1's cost, one million synthetic payments with two outcome channels each were built from the conformance case (Supplement S4.3). Each payment needed about four records: its decision, its attribution to accounts and one channel-state record per channel. Decision and attribution records may already exist as decision logs and ledger entries; the channel-state records are new. At a 0.5 percent chargeback rate, reports and their links added little. The records took 1.7 GB per million payments as uncompressed JSON and 79 MB compressed; synthetic records repeat text, so real records would compress less. A single-file SQLite store with an index for as-of reads took 2.6 GB. On a two-core virtual machine, reading one payment's channel state and reports as of a given time took 17 microseconds (median; 99th percentile 57), and one day's cohort of 11,052 payments took 0.3 seconds. C2's coverage records grow with queries and C3's release records with released conclusions; neither is measured yet. Measuring reviewer time needs a deployment.
 
+### 8.5 Two documented cases replayed
+
+Two FTC complaints were rebuilt as synthetic outcome records, using the rules and rates the complaints allege and assumed volumes and reporting delays (Supplement S10) [@FTC2020FirstData; @FTC2019Allied]. Complaint content is allegation, and the replays test record design, not detection performance.
+
+Four results bear on the specification. First, eight related accounts that each stayed below a chargeback count floor were never flagged by an account view; a view over recorded links flagged them in 92 percent of runs, and flagged 40 merchants assumed legitimate that shared a call center in 77 percent. The records make the pattern measurable but cannot tell evasion from a shared service, so a linked view belongs beside the account view, not in its place. Second, at the smaller merchant's alleged scale the chargeback rule the complaint describes never applied, while the separate fraud-report channel, counted by value, flagged each account in at least 99.8 percent of runs. Third, a fifth of reported payments were refunded before a dispute; a store keeping only chargebacks reads them as unreported. Fourth, reports linked to payments only by card number and amount caused false flags near the count floor, and counting only verified links replaced those errors with stated uncertainty.
+
+The replays also found limits. Sales padded with self-funded purchases look like clean payments, so outcome records cannot expose them. A record rewritten in place under its own identifier passes every conformance rule, so the store itself must prevent edits. Accounts with no recorded shared attribute leave nothing to link.
+
 ## 9. Evaluating the specification
 
 ### 9.1 Questions, comparisons and failure criteria

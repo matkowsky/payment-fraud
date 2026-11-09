@@ -1,0 +1,266 @@
+{
+ "conformance_findings_seed1": [],
+ "displacement_seed1": {
+  "1": {
+   "AT": 185,
+   "RP": 185,
+   "S": 185,
+   "group": 555
+  },
+  "2": {
+   "AT": 185,
+   "RP": 185,
+   "S": 185,
+   "group": 555
+  },
+  "3": {
+   "AT": 185,
+   "RP": 185,
+   "S": 185,
+   "group": 555
+  },
+  "4": {
+   "AT": 185,
+   "RP": 191,
+   "S": 179,
+   "group": 555
+  },
+  "5": {
+   "AT": 185,
+   "RP": 370,
+   "S": 0,
+   "group": 555
+  },
+  "6": {
+   "AT": 12,
+   "RP": 543,
+   "S": 0,
+   "group": 555
+  },
+  "7": {
+   "AT": 0,
+   "RP": 555,
+   "S": 0,
+   "group": 555
+  },
+  "8": {
+   "AT": 0,
+   "RP": 111,
+   "S": 0,
+   "group": 111
+  }
+ },
+ "label_errors_seed1": {
+  "chargebacks": 89,
+  "fraud_report_arrived_after_refund": 16,
+  "fraud_reports": 108,
+  "of_which_dispute_channel_closed_by_refund": 19,
+  "reported_without_chargeback": 19
+ },
+ "monte_carlo": {
+  "account:AT:first_FR_flag": {
+   "counts": {
+    "1": 103,
+    "2": 562,
+    "3": 296,
+    "4": 37,
+    "5": 2
+   },
+   "share": 1.0
+  },
+  "account:AT:flagged_periods": 4.5,
+  "account:RP:first_FR_flag": {
+   "counts": {
+    "1": 97,
+    "2": 611,
+    "3": 263,
+    "4": 28,
+    "5": 1
+   },
+   "share": 1.0
+  },
+  "account:RP:flagged_periods": 6.25,
+  "account:S:first_FR_flag": {
+   "counts": {
+    "1": 86,
+    "2": 576,
+    "3": 301,
+    "4": 35
+   },
+   "share": 0.998
+  },
+  "account:S:flagged_periods": 2.53,
+  "cb_program_ever_flags_share": 0.0,
+  "fr_account_periods_with_reports_but_no_sales_per_run": 4.89,
+  "fraud_reports_after_day_240_per_run": {
+   "count": 15.5,
+   "usd": 4662
+  },
+  "fraud_reports_on_closed_accounts_by_day_240_per_run": {
+   "count": 13.5,
+   "usd": 4027
+  },
+  "group:group:first_FR_flag": {
+   "counts": {
+    "1": 30,
+    "2": 774,
+    "3": 190,
+    "4": 6
+   },
+   "share": 1.0
+  },
+  "group:group:flagged_periods": 6.81,
+  "max_monthly_chargebacks_any_account": {
+   "max": 24,
+   "mean": 13.6
+  },
+  "refunded_reported_payments_per_run": 25.0
+ },
+ "padding": [
+  {
+   "cb_program_flags_unpadded": false,
+   "chargebacks": 14,
+   "count_padding_cost_pct_of_sales": 0.0,
+   "count_padding_purchases": 0,
+   "dollar_padding_cost_pct_of_sales": 10.1,
+   "dollar_padding_usd": 415644,
+   "fraud_dollars_reach_75k_either_reading": false,
+   "fraud_report_usd": 5244,
+   "merchant": "Stark group (par. 103)",
+   "sales_count": 557,
+   "sales_usd_per_month": 167000
+  },
+  {
+   "cb_program_flags_unpadded": false,
+   "chargebacks": 50,
+   "count_padding_cost_pct_of_sales": 0.0,
+   "count_padding_purchases": 0,
+   "dollar_padding_cost_pct_of_sales": 10.1,
+   "dollar_padding_usd": 1493333,
+   "fraud_dollars_reach_75k_either_reading": false,
+   "fraud_report_usd": 18840,
+   "merchant": "Digital Altitude first month (par. 144)",
+   "sales_count": 2000,
+   "sales_usd_per_month": 600000
+  },
+  {
+   "cb_program_flags_unpadded": true,
+   "chargebacks": 917,
+   "count_padding_cost_pct_of_sales": 0.2,
+   "count_padding_purchases": 65185,
+   "dollar_padding_cost_pct_of_sales": 10.1,
+   "dollar_padding_usd": 27377778,
+   "fraud_dollars_reach_75k_either_reading": true,
+   "fraud_report_usd": 345400,
+   "merchant": "TelexFree peak month (par. 108)",
+   "sales_count": 36667,
+   "sales_usd_per_month": 11000000
+  },
+  {
+   "cb_program_flags_unpadded": true,
+   "chargebacks": 5833,
+   "count_padding_cost_pct_of_sales": 0.2,
+   "count_padding_purchases": 414815,
+   "dollar_padding_cost_pct_of_sales": 10.1,
+   "dollar_padding_usd": 174222222,
+   "fraud_dollars_reach_75k_either_reading": true,
+   "fraud_report_usd": 2198000,
+   "merchant": "opportunity Wells described (par. 83)",
+   "sales_count": 233333,
+   "sales_usd_per_month": 70000000
+  }
+ ],
+ "parameters": {
+  "CB_MIN": 100,
+  "CB_RATIO": 0.01,
+  "FR_DOLLARS": 75000,
+  "FR_RATIO": 0.01,
+  "Q_REFUND": 0.2,
+  "R_REPORT": 0.0314,
+  "VOL": 185,
+  "closures": [
+   119,
+   152,
+   216
+  ],
+  "lag": [
+   [
+    0.35,
+    5,
+    30
+   ],
+   [
+    0.4,
+    30,
+    60
+   ],
+   [
+    0.18,
+    60,
+    90
+   ],
+   [
+    0.07,
+    90,
+    118
+   ]
+  ],
+  "period_days": 30,
+  "seeds": [
+   1,
+   1000
+  ]
+ },
+ "record_counts": {
+  "ChannelStateTransition": 19,
+  "ControlAction": 22,
+  "EntityLink": 4,
+  "ItemAttribution": 3996,
+  "LabelEvent": 197,
+  "OutcomeChannel": 2
+ },
+ "records_sha256": "c4167320a3f7bba7f28ae12eb20bb5755784428027011d9dd835727c02953f52",
+ "wrong_stores": {
+  "refund_closures_omitted": {
+   "findings": 0,
+   "first": [],
+   "rules": []
+  },
+  "refund_recorded_as_closing_both_channels": {
+   "findings": 16,
+   "first": [
+    [
+     "OR-08",
+     "LE-EFW-00005",
+     "channel closed for this item by D-REF-00005 before the report arrived; correct the item link or the closure"
+    ],
+    [
+     "OR-08",
+     "LE-EFW-00011",
+     "channel closed for this item by D-REF-00011 before the report arrived; correct the item link or the closure"
+    ]
+   ],
+   "rules": [
+    "OR-08"
+   ]
+  },
+  "template_link_marked_verified": {
+   "findings": 2,
+   "first": [
+    [
+     "OR-14",
+     "EL-WEB-AT-RP",
+     "a shared attribute alone cannot verify a link or give it high confidence"
+    ],
+    [
+     "OR-14",
+     "EL-WEB-S-RP",
+     "a shared attribute alone cannot verify a link or give it high confidence"
+    ]
+   ],
+   "rules": [
+    "OR-14"
+   ]
+  }
+ }
+}
