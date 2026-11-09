@@ -39,7 +39,7 @@ assert sid - {x['signal_id'] for x in p} == {'SIG-44', 'SIG-45', 'SIG-46'}
 assert len(a) == len({x['ID'] for x in a}) == 99
 counts = collections.Counter(x['disposition'] for x in a)
 assert dict(counts) == {'dedicated': 53, 'targeted': 8, 'unreviewed': 20, 'covered': 13, 'screened gap': 4, 'adjacent logged': 1}, counts
-# Job-posting topics in the priority basis (manuscript Section 3): 24 candidates, 23 of the 26 Tier 1, all mapped, 65 links.
+# Job-posting topics in the priority basis (Supplement S2): 24 candidates, 23 of the 26 Tier 1, all mapped, 65 links.
 posting = {x['ID'] for x in a if re.search(r'(?<![\w:])r:', x['Priority (basis)'])}
 tier1 = {x['ID'] for x in a if x['Depth'] == 'Tier 1'}; mapped = {x['mechanism'] for x in p}
 assert len(posting) == 24 and len(tier1) == 26 and len(posting & tier1) == 23, (len(posting), len(tier1))
