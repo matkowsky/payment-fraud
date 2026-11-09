@@ -255,6 +255,27 @@ The [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.
 
 Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. The schema for query runs (QueryRun), which the second requirement needs, is not yet specified. Denominators are outside these records: which payments a measure counts, their amounts and their capture or settlement times come from the payment ledger, which this section does not specify. Whether a denominator read was complete is a query-coverage record.
 
+### S4.3 Cost of the outcome records on synthetic data {#outcome-record-cost}
+
+[`tools/outcome_cost.py`](../tools/outcome_cost.py) builds one million synthetic payments from the [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json), replacing identifiers and shifting times, so each record has its template's fields. Before measuring, it checks a sample of generated records against the schema and OR-01 to OR-14. [The results](../SUPPLEMENT/S4_OUTCOME_RECORDS/cost_results.json) come from one run on the machine below.
+
+Assumptions, illustrative and not any platform's values: payments spread over 90 days; 100 payments per account; two outcome channels per payment, fraud chargeback and early fraud warning; 1 percent of payments blocked; 0.5 percent of allowed payments draw a fraud chargeback with three report events and one decision link; 1 percent of accounts held and 1 percent linked to a suspected predecessor; one cited channel reading per blocked payment.
+
+| Record | Records | Mean size (bytes, JSON) |
+|---|---:|---:|
+| ChannelStateTransition | 2,000,000 | 411 |
+| ControlAction | 1,000,200 | 422 |
+| ItemAttribution | 1,000,000 | 397 |
+| LabelEvent | 15,372 | 718 |
+| ChannelStatusReading | 9,947 | 378 |
+| LabelEventDecisionLink | 5,124 | 230 |
+| EntityLink | 100 | 558 |
+| OutcomeChannel | 2 | 361 |
+
+Per million payments: 4.03 records per payment; 1,656 MB as JSON lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1, storing each record's JSON with one index on item, channel, record type, learned time and effective time. On a two-core x86-64 virtual machine with Python 3.13.18: 10,000 random as-of reads of one payment's fraud-chargeback state and report count took a median of 17 microseconds and a 99th percentile of 57; one day's cohort of 11,052 payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
+
+Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are not included.
+
 ## S5. Pinned public schemas
 
 [Schema versions](../SUPPLEMENT/S5_SCHEMA_VERSIONS.csv) records the filenames, hashes, versions and counts at repository commit `18fa2cc768024b47789dc6fa243acd48478acac2`, dated 25 September 2026. All three files come from the public `stripe/openapi` repository. The commit message reads "Update OpenAPI for 2026-09-30.endive": the version strings name the API release the files describe, which postdates the commit. The `private_preview` in file C's name does not indicate access to private systems. Stripe publishes these files under the MIT License. That license governs the schema-derived identifiers and locators in the event-type and signal-locator files; the package's third-party notice reproduces it.
