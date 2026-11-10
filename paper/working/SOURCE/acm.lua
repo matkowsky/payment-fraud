@@ -159,7 +159,7 @@ function Pandoc(doc)
    widths_for(nxt)
    nxt.caption.long={pandoc.Plain(b.content)}
    nxt.attr.attributes['typed-number']=num
-   local size=(#nxt.colspecs==10) and [[\begingroup\footnotesize]] or [[\begingroup\small]]
+   local size=[[\begingroup\footnotesize]]
    out:insert(pandoc.RawBlock('latex',size)); out:insert(nxt); out:insert(pandoc.RawBlock('latex',[[\endgroup]]))
    i=i+2
   elseif text:match('^Figure %d+%. ') and nxt and nxt.t=='Para' and #nxt.content==1 and nxt.content[1].t=='Image' then
@@ -168,12 +168,15 @@ function Pandoc(doc)
    local img=nxt.content[1]
    img.src=img.src:gsub('%.svg$','.pdf'); img.attributes['width']='100%'
    local alt=plain(img.caption)
-   -- In LaTeX the image is capped at three quarters of the text height, keeping its proportions.
-   local pic=FORMAT:match('latex') and pandoc.RawBlock('latex','\\includegraphics[width=\\linewidth,height=0.75\\textheight,keepaspectratio]{'..img.src..'}')
-             or pandoc.Plain({img})
-   local fig=pandoc.Figure({pic,pandoc.RawBlock('latex','\\Description{'..tex_escape(alt)..'}')},
-                           {long={pandoc.Plain(b.content)}},pandoc.Attr('',{},{{'typed-number',num}}))
-   out:insert(fig)
+   if FORMAT:match('latex') then
+    -- Written out in full: with two blocks in a figure, Pandoc would set each in a half-width box
+    -- and the image would print at under half the text width.
+    local cap=pandoc.write(pandoc.Pandoc({pandoc.Plain(b.content)}),'latex'):gsub('%s+$','')
+    out:insert(pandoc.RawBlock('latex','\\begin{figure}\n\\centering\n\\includegraphics[width=\\linewidth,height=0.5\\textheight,keepaspectratio]{'
+      ..img.src..'}\n\\Description{'..tex_escape(alt)..'}\n\\caption{'..cap..'}\n\\end{figure}'))
+   else
+    out:insert(pandoc.Figure({pandoc.Plain({img})},{long={pandoc.Plain(b.content)}},pandoc.Attr('',{},{{'typed-number',num}})))
+   end
    i=i+2
   else
    local r=anonymize(b)
