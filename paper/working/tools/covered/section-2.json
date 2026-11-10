@@ -1,0 +1,39 @@
+[
+ {
+  "removed": "Quipu gates writes to a knowledge graph while retaining both kinds of time [@Brown2026Quipu].",
+  "covered_by": [
+   "Quipu controls graph writes while retaining validity and recording times; some policies require human approval bound to the evidence [@Brown2026Quipu]."
+  ]
+ },
+ {
+  "removed": "PROVSEEK's agent cites audit-event identifiers for its claims and reports artifacts it searched for and did not find, but that report is the agent's own account of its search [@Mukherjee2025PROVSEEK].",
+  "covered_by": [
+   "Its agent cites audit-event identifiers for claims and reports searched-for artifacts it did not find [@Mukherjee2025PROVSEEK].",
+   "A missing artifact then has an explicit search scope, rather than relying on the agent's description of what it searched."
+  ]
+ },
+ {
+  "removed": "It also separates a record missing from one retrieval from a record missing from a verifier view whose closure is justified.",
+  "covered_by": [
+   "It also separates absence from one retrieval from absence in a verifier view whose closure, including retrieval coverage and retention, is justified, and it specifies that basis without designing its implementation."
+  ]
+ },
+ {
+  "removed": "The basis for that closure includes retrieval coverage and retention, and the model specifies it without designing its implementation.",
+  "covered_by": [
+   "It also separates absence from one retrieval from absence in a verifier view whose closure, including retrieval coverage and retention, is justified, and it specifies that basis without designing its implementation."
+  ]
+ },
+ {
+  "removed": "Agile-V binds evidence to the exact artifact and links effects to authorization records; its governing profile can require human authority [@Koch2026AgileV].",
+  "covered_by": [
+   "Agile-V binds evidence to an exact artifact and links effects to authorization records; its governing profile can require human authority [@Koch2026AgileV]."
+  ]
+ },
+ {
+  "removed": "A formal study distinguishes independent observations from reports derived from shared evidence and requires a dependence model as well as ancestry [@Bara2026EpistemicSybil].",
+  "covered_by": [
+   "A formal study distinguishes independent observations from reports derived from shared evidence and requires a dependence model as well as ancestry [@Bara2026EpistemicSybil]"
+  ]
+ }
+]
