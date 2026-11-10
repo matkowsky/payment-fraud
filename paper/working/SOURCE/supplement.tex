@@ -332,14 +332,19 @@ beyond postings in the mechanism-to-source links.
 records all 99 candidates and their final dispositions. The signal map
 retains 61 mechanisms: 52 of the 53 dedicated candidates, all eight
 targeted candidates and the one adjacent-logged candidate, \mbox{ID-18},
-insider access abuse by platform or partner staff. Of the other 38,
-thirteen were judged covered by existing records, four were screened
-without identified supporting evidence and logged as low-priority gaps,
-twenty low-priority candidates were not reviewed, and one reviewed
-candidate, \mbox{PAY-12}, has no signal mapping. It concerns
-triangulation fraud: filling real customers' orders through another
-seller using stolen payment credentials. Its review record notes
-framework evidence only.
+insider access abuse by platform or partner staff. Of the other 38, nine
+were judged covered by existing records, four were first judged covered
+and are now recorded as record gaps, four were screened without
+identified supporting evidence and logged as low-priority gaps, twenty
+low-priority candidates were not reviewed, and one reviewed candidate,
+\mbox{PAY-12}, has no signal mapping. The four record gaps are fake
+reviews (\mbox{MP-08}), e-skimming on merchant checkout pages
+(\mbox{API-09}), supply-chain compromise of commerce plugins and
+packages (\mbox{API-10}) and business stablecoin issuance abuse
+(\mbox{MP-11}). A second rater named a record each would need, and the
+inventory holds no such record (S3). It concerns triangulation fraud:
+filling real customers' orders through another seller using stolen
+payment credentials. Its review record notes framework evidence only.
 \href{SUPPLEMENT/S2_ALLOCATION_KEYS.csv}{Allocation keys} decode the
 source abbreviations. The \texttt{Class} code, also the prefix before
 each key's colon, gives the source type: a for law-enforcement
@@ -384,6 +389,8 @@ targeted & Received a focused review of its implications for the
 design \\
 covered & Judged covered by existing records rather than retained as a
 separate mapped mechanism \\
+record gap & Reviewed and first judged covered; a second-rater check
+found that no record in the inventory covers it \\
 screened gap & Screened without identified supporting evidence and
 logged as a low-priority gap \\
 unreviewed & Not reviewed; all twenty such candidates have low
@@ -486,10 +493,13 @@ maps each of its 138 techniques and sub-techniques to the candidate
 mechanisms that cover it, with a reason for each scope decision. Of the
 105 within the product scope, a retained mechanism covers 35 fully and
 49 in part. Of the other 21, fourteen are covered only by candidates
-outside the signal map. Five of the fourteen rest only on candidates
+outside the signal map. Two of the fourteen rest only on candidates
 judged covered by existing records, among them device fingerprint
-spoofing; six rest only on unreviewed candidates, among them 3-D Secure
-bypass; and three rest on candidates of both kinds. None rests on a
+spoofing. Three rest only on candidates recorded as record gaps: the
+adversary-in-the-browser technique and two of its sub-techniques, which
+the candidates describe but no record in the inventory covers. Six rest
+only on unreviewed candidates, among them 3-D Secure bypass, and three
+rest on covered and unreviewed candidates together. None rests on a
 screened gap. Seven are covered by no candidate: DLL injection in the
 browser, compromise of point-of-sale systems, coercion, keylogging,
 abuse of accessibility features, theft from password managers and SEO
@@ -606,24 +616,30 @@ the record, and a listed source describes behaviour the record would
 capture. A rater that took no part in the mapping, OpenAI's \mbox{GPT-6}
 in a session without memory, project files or web access, applied the
 rule to a seeded random sample of 20 of the 61 mapped mechanisms and 5
-of the 13 judged covered. It saw the 68 mechanism-specific signals and
-the recorded scope of each mechanism's sources, not the sources and not
-the links. Claude models had proposed the links; ChatGPT models assisted
-with other parts of the paper. Over the 1,360 mechanism-signal pairs for
-the 20 mapped mechanisms, the rater made 49 of the paper's 52 links and
-70 that the paper lacks (Cohen's kappa 0.55); two mechanisms matched
-exactly. Of the three links it did not make, the paper marks two as
-inference. Thirty-two of the 70 added links attach six general-purpose
-signals, such as request context and funds movement, to further
-mechanisms. The links are therefore a sourced subset: each gives a
-reason for a record, and other mechanisms may need the same record.
+of the 13 then judged covered. It saw the 68 mechanism-specific signals
+and the recorded scope of each mechanism's sources, not the sources and
+not the links. Claude models had proposed the links; ChatGPT models
+assisted with other parts of the paper. Over the 1,360 mechanism-signal
+pairs for the 20 mapped mechanisms, the rater made 49 of the paper's 52
+links and 70 that the paper lacks (Cohen's kappa 0.55); two mechanisms
+matched exactly. Of the three links it did not make, the paper marks two
+as inference. Thirty-two of the 70 added links attach six
+general-purpose signals, such as request context and funds movement, to
+further mechanisms. The links are therefore a sourced subset: each gives
+a reason for a record, and other mechanisms may need the same record.
 Counts of links describe this subset, not a complete map. For four of
 the five covered mechanisms the rater named no missing record; for fake
 reviews (\mbox{MP-08}) it named review content, reviewer identities and
-posting histories. The check tests whether the rule reproduces the links
-from recorded source scopes. It is not a human coder and does not test
-the sources. The \href{tools/second_coder/real_run/RUN_RECORD.md}{run
-record}, answers and score are in the package.
+posting histories. A second packet on 11 November gave the same rater
+the other eight covered mechanisms; it named no missing record for five
+and a missing record for three (\mbox{API-09}, \mbox{API-10} and
+\mbox{MP-11}). The inventory was searched for each named record and none
+was found, so these four are now recorded as record gaps (S2) and the
+other nine remain covered. The check tests whether the rule reproduces
+the links from recorded source scopes. It is not a human coder and does
+not test the sources. The
+\href{tools/second_coder/real_run/RUN_RECORD.md}{run record}, answers
+and score are in the package.
 
 Each input ID for the 24 derived features names another signal in the
 inventory. No feature depends, directly or indirectly, on itself. For
