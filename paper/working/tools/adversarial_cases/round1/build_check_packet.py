@@ -96,7 +96,9 @@ def main():
     for c in cases:
         result, ruling, reason, action = RULINGS[c['case_id']]
         out += [f"### {c['case_id']}", '',
-                f"- Tester expected the rules to **{c['expect']}** it. Tier: {c['tier']}. Requirement said to be broken: {c['breaks']}.",
+                (f"- The tester says this history should be **rejected** because it breaks {c['breaks']}, and predicted the rules would pass it. Tier: {c['tier']}."
+                 if c['expect'] == 'reject' else
+                 f"- The tester says this history is **legitimate** and predicted the rules would wrongly reject it. Tier: {c['tier']}."),
                 f"- Tester's reason: {c['why']}", f"- Checker: {result}.", f"- Ruling: **{ruling}**. {reason}",
                 f"- Proposed action: {action}", '']
     text = '\n'.join(out)
