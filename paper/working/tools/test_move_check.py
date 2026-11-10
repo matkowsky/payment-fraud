@@ -36,4 +36,8 @@ no_number = [{'removed': ok[0]['removed'], 'covered_by': ['Alpha is often true [
 assert any('number' in x for x in mc.compare(ms, kept, sup, sup3, no_number)[3])
 not_removed = [{'removed': 'Gamma stays here.', 'covered_by': ['Old supplement text [@Bb2021].']}]
 assert any('not removed' in x for x in mc.compare(ms, kept, sup, sup2, ok + not_removed)[3])
+# Renumbering: labels change all at once, without chaining, and a moved caption matches its new label.
+m = {'Table 1': 'Supplement Table S1.1', 'Table 4': 'Table 1'}
+assert mc.renumber('Table 4 and Table 1, not Table 12.', m) == 'Table 1 and Supplement Table S1.1, not Table 12.'
+assert mc.as_supplement('**Supplement Table S1.1. Title.**') == '**Table S1.1. Title.**'
 print('OK')

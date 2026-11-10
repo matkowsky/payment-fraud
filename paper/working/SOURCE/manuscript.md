@@ -44,7 +44,7 @@ The requirements work together. C1 identifies which outcomes the platform's deci
 
 Two artifacts make the specification inspectable: an inventory of 71 signals and an architecture of 24 responsibilities. Sixty-eight signals map to abuse mechanisms, meaning ways abuse can occur; three apply across mechanisms. The responsibilities cover investigation, review, release, tested reuse of lessons and security of the investigation system. Two hypothetical investigations then show which conclusions survive when particular records are missing.
 
-The intended readers design, audit or evaluate investigation systems. Stripe's public product pages and documentation supply an illustrative product scope, not a description of its internal systems. The paper synthesizes public evidence and proposes a design; it reports no implementation or measurement. Section 2 establishes its relationship to prior work and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1, with Table 4 in Section 6.3 adding the agent's analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences of the design in two hypothetical investigations, and Section 9 states how its value would be tested.
+The intended readers design, audit or evaluate investigation systems. Stripe's public product pages and documentation supply an illustrative product scope, not a description of its internal systems. The paper synthesizes public evidence and proposes a design; it reports no implementation or measurement. Section 2 establishes its relationship to prior work and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1, with Table 1 in Section 6.3 adding the agent's analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences of the design in two hypothetical investigations, and Section 9 states how its value would be tested.
 
 ## 2. Relationship to prior work
 
@@ -76,20 +76,11 @@ C3 adopts human release for every conclusion entering organizational memory. A r
 
 ### 2.4 What the combined specification contributes
 
-Industrial payment systems supply examples of fast decisions and relationships between accounts [@Cao2019TitAnt; @Liu2018GEM]. Payment providers' public documentation already exposes parts of the first two requirements. The illustrative provider lets businesses query which rules affected each charge and join disputes to charges [@Stripe2026QueryDisputes]. Its dispute analytics warns that rates by payment date can look lower for recent payments because customers can wait weeks to dispute [@Stripe2026DisputeAnalytics], and each scheduled query run records the as-of time of the data snapshot it queried [@Stripe2026SigmaRun]. Another provider's risk dashboard shows whether transactions its risk engine allowed later resulted in a chargeback, and lists separately those it blocked [@Adyen2026RiskMonitoring]. The specification states what such joins, labels and timestamps must preserve for an investigation: which outcomes each decision closed, delayed or changed, and which reports are late or false. A governance synthesis for fraud risk decision systems combines decision traces, measures of evidence sufficiency under delayed labels and monitoring without labels, and extends them analytically to multi-agent systems [@Solozobov2026Synthesis]. It rates architectures by how many decision-record properties they fill by construction; it specifies no outcome channels, query coverage record or release rule for reuse. Table 1 locates these capabilities across research families.
+Industrial payment systems supply examples of fast decisions and relationships between accounts [@Cao2019TitAnt; @Liu2018GEM]. Payment providers' public documentation already exposes parts of the first two requirements. The illustrative provider lets businesses query which rules affected each charge and join disputes to charges [@Stripe2026QueryDisputes]. Its dispute analytics warns that rates by payment date can look lower for recent payments because customers can wait weeks to dispute [@Stripe2026DisputeAnalytics], and each scheduled query run records the as-of time of the data snapshot it queried [@Stripe2026SigmaRun]. Another provider's risk dashboard shows whether transactions its risk engine allowed later resulted in a chargeback, and lists separately those it blocked [@Adyen2026RiskMonitoring]. The specification states what such joins, labels and timestamps must preserve for an investigation: which outcomes each decision closed, delayed or changed, and which reports are late or false. A governance synthesis for fraud risk decision systems combines decision traces, measures of evidence sufficiency under delayed labels and monitoring without labels, and extends them analytically to multi-agent systems [@Solozobov2026Synthesis]. It rates architectures by how many decision-record properties they fill by construction; it specifies no outcome channels, query coverage record or release rule for reuse. Supplement Table S1.1 locates these capabilities across research families.
 
 Two payment-agent preprints show why specification and operational benefit must be kept apart. SR-Fraud separates scoring from reflection and tests proposed rules before reuse. On one replay benchmark it reports better detection than its scoring agent alone [@Tan2026SRFraud]; Supplement S9.2 gives its comparisons with classifiers. On 60 balanced synthetic cases that its classifier scored between 0.2 and 0.8, Sharma's agent was correct in 65.0 percent, below the 71.7 percent from thresholding the same classifier score at 0.5. Six of its eight overrides turned a correct decision into an error [@Sharma2026AuditableFraud]. Neither result establishes general agent performance: one rests on a single non-public replay benchmark, and the other on a small, balanced synthetic sample. Together they motivate comparing an agent with simpler alternatives given the same information.
 
 This paper connects decision-shaped outcomes, query coverage and controlled reuse in one payment-investigation specification. The 71 signals identify candidate records, the 24 responsibilities assign investigation and review functions, and the interfaces preserve the meaning of what passes between them. The traces show which inferences lose support when that context is removed; they establish logical consequences within hypothetical cases, not improved detection. The focused comparison does not establish uniqueness or exhaustive coverage, and operational value depends on the evaluations in Section 9.
-
-**Table 1. Stages described in the cited research.** E means explicitly described; P means partial coverage or a different scope; a dot means not established by the cited material. Each family receives the strongest source-level code in Supplement S1, so one row may combine several systems. L1: signal sources; L2: ingestion and stores; L3: entities, correlation and knowledge; L4: investigation; L5: outputs; L6: feedback; L7: governance; L8: learning and correction.
-
-| Research family and inspected examples | L1 | L2 | L3 | L4 | L5 | L6 | L7 | L8 | Payment domain |
-|---|---|---|---|---|---|---|---|---|---|
-| Industrial payment and risk systems: TitAnt, GEM | P | E | P | . | P | P | . | P | yes |
-| Illustrative platform’s (Stripe’s) engineering publications, 2019 to 2025 | P | E | P | P | P | E | . | P | yes |
-| Threat-intelligence and security-operations architectures: reference models, intelligence lifecycle and agent benchmarks | P | P | E | E | E | P | E | E | no |
-| Preprints on agents making fraud decisions: SR-Fraud and Sharma’s auditable agent | P | P | P | E | P | E | P | E | yes |
 
 ## 3. Deriving the specification from public evidence
 
@@ -109,7 +100,7 @@ The author used Anthropic Claude and OpenAI ChatGPT/Codex in the research. The m
 
 ## 4. From product activity to protective decisions
 
-This section identifies the parties whose activity the records describe, the path from records to protective decisions along which meaning must be preserved, and the responsibilities that path requires. It begins the answer to RQ1, which Section 5 continues and Table 4 in Section 6.3 completes.
+This section identifies the parties whose activity the records describe, the path from records to protective decisions along which meaning must be preserved, and the responsibilities that path requires. It begins the answer to RQ1, which Section 5 continues and Table 1 in Section 6.3 completes.
 
 ### 4.1 The platform and its participants
 
@@ -155,7 +146,7 @@ The investigating agent may query permitted records and prepare intelligence, hu
 
 ## 5. Records an investigator can reason from
 
-This section answers the records part of RQ1 in four steps: record classes that state what each record can establish (5.1), the abuse mechanisms that motivate particular records (5.2), the properties each store must preserve (5.3), and what published schemas already supply and privacy obligations permit (5.4 and 5.5). Table 4 in Section 6.3 adds the capabilities.
+This section answers the records part of RQ1 in four steps: record classes that state what each record can establish (5.1), the abuse mechanisms that motivate particular records (5.2), the properties each store must preserve (5.3), and what published schemas already supply and privacy obligations permit (5.4 and 5.5). Table 1 in Section 6.3 adds the capabilities.
 
 ### 5.1 Separate observations from conclusions
 
@@ -163,7 +154,7 @@ A payment log, risk score and fraud report may concern the same transaction but 
 
 The same principle applies to relationships. A shared payout destination is observed; common control is inferred. Attribution, identifying a particular actor behind the activity, is a stronger claim requiring further support. An earlier attribution remains historical context when retrieved in a new case.
 
-The specification uses seven record classes (Figure 2):
+The specification uses seven record classes (Supplement Figure S3.1):
 
 - **Source observations** record events or reports at their source.
 - **Normalized observations** map source records to common entity and field definitions while retaining provenance.
@@ -177,30 +168,9 @@ External knowledge is identified separately by source and type. It may be an obs
 
 A class describes meaning, not reliability. A derived feature is only as reliable as its inputs and computation. An outcome label records who reported what and when; any separately established finding remains distinct.
 
-**Figure 2. What each record class can establish.** Counts refer to the 71 signals. Analytical inferences and finished intelligence are outputs, so neither appears among those input signals. Test, replay and emulation records are marked when created to distinguish them from production activity.
-
-![Figure 2: Record classes and their evidentiary limits](../FIGURES/FIG2_SIGNAL_CLASSES.svg)
-
 Each normalized observation preserves its source and event identifiers, schema version, entities and lineage. It records event time and learned time, plus actor and request identifiers where available. Its environment distinguishes production from tests, synthetic data, replay or emulation. Its *tenant scope* identifies the business or other boundary within which the data may be accessed and used. Delivery identifiers prevent repeated delivery from counting or acting on one event twice.
 
-Table 2 organizes the signals by family and class. Supplement S3 defines each signal and the inputs of every derived feature.
-
-**Table 2. The 71 signals by family.** SO: source observation; NO: normalized observation; DF: derived feature; MO: model or risk output; CO: control outcome; XK: external knowledge. The final column counts partial public counterparts, cases where that comparison does not apply, and signals with no counterpart identified in the pinned schemas (Section 5.4). Token allowances permit another party to spend from a crypto wallet.
-
-| Family | Signals | Classes | Partial / n/a / none identified |
-|------------------------------------------|--------|--------------------|-------------------|
-| Identity and onboarding | 8 | SO 3, DF 4, CO 1 | 3 / 4 / 1 |
-| Authentication, session and operator administration | 10 | SO 5, DF 4, CO 1 | 6 / 4 / 0 |
-| Credentials, API keys and request context | 5 | SO 3, DF 1, XK 1 | 2 / 2 / 1 |
-| Funds movement and payout destinations | 11 | SO 4, DF 5, CO 2 | 6 / 5 / 0 |
-| Payment attempts, authorization and payment controls | 7 | SO 2, DF 4, CO 1 | 3 / 4 / 0 |
-| End-customer lifecycle and entitlement | 7 | SO 2, DF 4, CO 1 | 3 / 4 / 0 |
-| Merchant storefront and business claims | 2 | DF 1, XK 1 | 0 / 2 / 0 |
-| Platform outputs and labels | 4 | SO 1, MO 2, CO 1 | 4 / 0 / 0 |
-| Agents, tools and approvals | 8 | SO 5, CO 3 | 4 / 0 / 4 |
-| Wallet signing and token allowances | 2 | SO 1, DF 1 | 0 / 1 / 1 |
-| External threat knowledge | 5 | XK 5 | 0 / 5 / 0 |
-| Provenance classes | 2 | NO 2 | 1 / 1 / 0 |
+Supplement Table S3.1 organizes the signals by family and class. Supplement S3 defines each signal and the inputs of every derived feature.
 
 ### 5.2 How abuse mechanisms motivate the records
 
@@ -246,7 +216,7 @@ The specification records end-customer registration and billing histories, reuse
 
 ### 5.3 Preserve meaning across stores, time and relationships
 
-The investigation must be able to retrieve an observation, its interpretation and the decision it informed separately. These distinctions concern logical records; they do not require separate database products. Table 3 lists the properties each store must preserve.
+The investigation must be able to retrieve an observation, its interpretation and the decision it informed separately. These distinctions concern logical records; they do not require separate database products. Supplement Table S4.1 lists the properties each store must preserve.
 
 **Write authority follows the record's meaning.** Ingestion appends to the evidence plane. Correlation software and the agent may propose threat-knowledge items; a person or accountable process accepts them. Agent proposals remain marked context and cannot support current-conduct claims without their underlying observations. Only a person releasing a reviewed draft or a tested, reviewed lesson adds or changes a claim in organizational memory. Later status records for a released item, such as monitoring findings, expiry and withdrawal, add no claim and record who or what wrote them. Rule checkers and quality reviewers write their findings on each draft version to the agent-and-approval ledger.
 
@@ -259,23 +229,6 @@ A decision's reproducible snapshot need not copy the entire store. The system lo
 **Channel state differs from report presence and access.** For each affected item, channel and read time, the records distinguish an open channel, a temporary delay, a permanent closure and unknown state. A missing report matures only after a defined window that remained open and was fully covered. If a decision changed the channel's meaning, as a liability shift after successful authentication does (Section 7.1), a matured absence is read under that changed meaning and does not by itself support a negative for the original outcome. A channel without a defined window never supports a negative by maturity alone. A matured absence is provisional, not final. Network and bank rules can reopen or extend a window after it has elapsed, as when a monitoring program lets issuers submit fraud disputes past the standard deadline [@Stripe2026MonitoringPrograms] or banks accept a late return [@Stripe2026ACHTerms]. Each such rule event is recorded as a channel-state transition with its source, rule version and learned time, although no platform decision caused it. A decision's effect on each channel is fixed when the decision is recorded; later transitions are separate records that never edit it. Inaccessible records remain unavailable without erasing a known channel state or an earlier report. Supplement S4.1 specifies the clock-start and transition fields, with further rules on program status, revised negatives and reopened reports.
 
 **An entity link is not a claim of common control.** A verified identifier from the same namespace and relevant interval supports a stronger, or hard, link. A weaker, or soft, link may have several explanations: benign accounts can share a proxy IP address [@Liu2018GEM]. Both retain source and confounders, meaning plausible alternative explanations. Account-age records address aged accounts sold for abuse [@Thomas2013]. Where crypto products are in scope, wallet-to-spender links record permissions motivated by phishing that induces harmful transactions [@Chen2025Phishing]. Supplement S4 defines each relationship's fields.
-
-**Table 3. What each analytical store preserves.** The full contract is in Supplement S4.1. These are requirements for the proposed platform, not claims about an existing provider. The structured threat-knowledge and organizational-memory stores form their own planes, and the other stores hold evidence-plane records. Clusters in the entity-relation graph remain threat-knowledge items. External-knowledge records support only what their source observed or described, and ledger entries only what happened during the investigation itself.
-
-| Store or shared requirement | Required properties |
-|---|---|
-| Observation log | Source records and revisions, identifiers, environment, tenant scope and lineage; separate event, source-recording, ingestion and query-availability times; repeated delivery does not duplicate the event |
-| Entity-relation graph | Typed identifier links with source, namespace, effective interval, learned time, version, confidence, benign explanations, and permitted purpose and scope; versioned cluster membership; end customers scoped to a business |
-| Feature store | Recomputable inputs and versions; decision-time features exclude later information; later labels use the evaluation's outcome window and maturity; features inherit their inputs' agent-output and released-item links |
-| Label store | Report source, type and attributed entity; occurrence, report and arrival times; appended value history; typed links to every decision that may have shaped the report; links to separate truth assessments and any informing agent output or released item; report presence, channel state and query access kept apart |
-| Assessment store | Model or reviewer identity and version; review selection route and probability; links to any informing agent output or released item; unknown, not-assessed and failed-open states kept distinct from low risk; failed-open means an assessment failed and activity continued |
-| Control-outcome store | Decision, authority, reason and version; reproducible available inputs; alternative-decision probabilities where applicable; human assignment and what the decider was shown; links to any informing agent output or released item; effects on each outcome channel, fixed with the decision; for action before review, the urgent route, impact class and later review outcome; correctness reviews with their selection route, separate from population error estimates |
-| Structured threat-knowledge store | Revisable relationships and conclusions with confidence, input and rule versions, writer and status; agent proposals marked as unreleased context; links to informing agent outputs and released items |
-| Organizational-memory store | Human-released items with approved claims and their stated confidence, version, scope, expiry, reviewer findings, lineage and correction links; exonerating items have independent counterexamples, a re-test date and the evidence and cluster versions whose change expires them early; proposed lessons wait outside it with their counterexample tests, and released lessons keep monitoring and withdrawal records |
-| External-knowledge store | Source, type, times observed and published, validity period, retrieval time and license; a link to the released item whose identifier the returning content bears |
-| Agent-and-approval ledger | Model, instructions, inputs, tool calls; approver, binding, expiry and reuse rule of each approval; approved and executed payloads, tool-manifest version and hash at approval and at execution, memory writes, outbound-traffic decisions; rule-checker and reviewer findings per draft version; marked untrusted content and exposed agent output; logged agent-output and released-item link removals |
-| Query coverage record | Gateway-written entities and intervals, requested and evaluated; as-of cutoff, schema versions, sampling, per-source watermarks, known gaps and retention horizon, access filtering and limits reached; derived result status; not writable by the agent |
-| Shared time and graph requirements | Reconstruct what was available at each decision; preserve reporting clocks and delays, retention limits, account histories and report-to-transaction links |
 
 ### 5.4 What public schemas reveal
 
@@ -297,7 +250,7 @@ Cross-business linking requires a stated purpose and authorization for each iden
 
 ## 6. How the agent investigates
 
-This section answers RQ2. It follows one investigation from its assignment to the release of its outputs, then addresses the inputs that could subvert it. Table 4 also completes the answer to RQ1 by listing the agent's analytical capabilities with the limit on what each can establish.
+This section answers RQ2. It follows one investigation from its assignment to the release of its outputs, then addresses the inputs that could subvert it. Table 1 also completes the answer to RQ1 by listing the agent's analytical capabilities with the limit on what each can establish.
 
 ### 6.1 Set the question and scope
 
@@ -326,13 +279,9 @@ Fixed rules derive complete, partial, truncated, denied or unavailable status fr
 
 The rule checker (Section 6.4) and the quality reviewer read the full coverage record. The agent sees only information allowed by its scope, including counts only when disclosure is authorized. A scope-limited flag identifies when authorized scope is narrower than the task's named entities, without disclosing outside records. The checker restricts absence claims accordingly. An unassessable hypothesis remains distinct from a query's status.
 
-**Figure 3. Investigation as a sequence of tests.** Each query tests competing explanations within authorized scope. A gateway outside the agent attaches the query's coverage, which determines which interpretations remain supported. Draft outputs follow review and release under Section 6.4.
-
-![Figure 3: Hypotheses, governed queries, interpretation and draft outputs](../FIGURES/FIG3_INVESTIGATION.svg)
-
 ### 6.3 Capabilities and their boundaries
 
-Table 4 lists the agent's permitted capabilities. Every use is scoped, limited and logged; none grants operational authority.
+Table 1 lists the agent's permitted capabilities. Every use is scoped, limited and logged; none grants operational authority.
 
 Entity links and labels require particular care. The agent retrieves each cluster's membership rule and version and tests benign explanations, including shared proxies [@Liu2018GEM].
 
@@ -340,7 +289,7 @@ Likewise, no chargebacks may mean no abusive completed payments, blocked attempt
 
 A detection candidate states the behavior to detect, its inputs and an evaluation plan. That plan covers label provenance and how an adversary might adapt.
 
-**Table 4. Permitted capabilities and their evidential limits.** Task scope, permissions and resource limits apply throughout.
+**Table 1. Permitted capabilities and their evidential limits.** Task scope, permissions and resource limits apply throughout.
 
 | Capability | Information used | Boundary |
 |---|---|---|
@@ -408,11 +357,11 @@ This section answers RQ3. Section 4.2 distinguished three feedback loops. This s
 
 A control changes both activity and the evidence later available about it. Blocking a payment prevents that attempt from completing; holding a payout may delay it. The absence of a later outcome therefore cannot be interpreted without the decision that shaped its channel.
 
-C1 keeps three questions separate (Figure 4): **Could a report still arrive? Could this outcome occur under the decision taken? Is the report true?** Their answers can depend on one another. A report may be late and false, while a control may close one channel and leave another open.
+C1 keeps three questions separate (Figure 2): **Could a report still arrive? Could this outcome occur under the decision taken? Is the report true?** Their answers can depend on one another. A report may be late and false, while a control may close one channel and leave another open.
 
-**Figure 4. How decisions shape later evidence.** Delay concerns report arrival; unobservability concerns outcomes a decision prevents; false reports concern truth. Separate fields preserve these distinctions, while evaluation must justify their joint assumptions. Corrected intelligence and tested lessons return through review and release.
+**Figure 2. How decisions shape later evidence.** Delay concerns report arrival; unobservability concerns outcomes a decision prevents; false reports concern truth. Separate fields preserve these distinctions, while evaluation must justify their joint assumptions. Corrected intelligence and tested lessons return through review and release.
 
-![Figure 4: Decisions, delayed reports, outcomes made unobservable by controls and false reports](../FIGURES/FIG4_FEEDBACK.svg)
+![Figure 2: Decisions, delayed reports, outcomes made unobservable by controls and false reports](../FIGURES/FIG4_FEEDBACK.svg)
 
 #### Delay: a report has not arrived yet
 
@@ -471,9 +420,9 @@ The same outcome definition, cohort and window must be retained when comparing a
 
 Resolution also changes what becomes a chargeback. One FTC complaint alleges refunding on pre-dispute alerts to avoid chargeback recording; the resulting order was stipulated [@FTC2025Paddle]. Stripe's dispute guide says a business can proactively refund a payment flagged by an early fraud warning to prevent a dispute, while advising against refunding every flagged payment. It adds that such a refund does not affect the fraud warning [@Stripe2026Disputes]. A lower chargeback ratio after alert resolution therefore does not establish less abuse.
 
-The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. Table 5 summarizes the resulting requirements.
+The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. Table 2 summarizes the resulting requirements.
 
-**Table 5. Requirements for interpreting feedback.** Each response follows from the stated problem and evidence basis.
+**Table 2. Requirements for interpreting feedback.** Each response follows from the stated problem and evidence basis.
 
 | \# | Problem | Evidence basis | Required response |
 |---|---|---|---|
@@ -565,7 +514,7 @@ The enforcement sources remain allegations [@FTC2019Allied; @FTC2020FirstData; @
 
 ### 8.3 What retaining the context changes
 
-**Table 6. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline.
+**Table 3. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline.
 
 | Question and fixed observations | If context is omitted | If context is retained |
 |---|---|---|
@@ -575,15 +524,15 @@ The enforcement sources remain allegations [@FTC2019Allied; @FTC2020FirstData; @
 | Which transactions do reports concern? Four cohorts contain 400 transactions, eight with chargebacks; D001 and D002 are recorded at account-X. Two of fourteen alert resolutions overlap. | Recording-account counts show D at 0/100. Adding report flags gives 22/400 and changes the outcome definition. | Transaction links restore D to 2/100 and remove double counting. Chargebacks are 8/400 = 2%; the broader measure is 20/400 = 5%, with A and B at 8/100 and C and D at 2/100. Neither establishes fraud. |
 | Does an earlier released assessment corroborate the cluster finding? It concerns the same descriptor pattern. | The conclusion can become apparent independent support for itself. | The assessment supplies a hypothesis or context. It adds no root observation and no independent corroboration. |
 
-Two rows of Table 6 add explicit hypothetical conditions: Trace A's payout is permanently blocked, and Trace B retrieves an earlier assessment of the same descriptor pattern. Omission does not force an error; it removes information needed to rule the error out.
+Two rows of Table 3 add explicit hypothetical conditions: Trace A's payout is permanently blocked, and Trace B retrieves an earlier assessment of the same descriptor pattern. Omission does not force an error; it removes information needed to rule the error out.
 
 For the blocked payout, excluding the case is valid only for a rate explicitly restricted to completed transfers. Estimating outcomes over all attempted payouts retains it in the target population and must address its unobserved outcome.
 
-The examples identify a starting subset of records: the eleven signals behind Table 6, their lineage inputs and the storage requirements (Supplement S6).
+The examples identify a starting subset of records: the eleven signals behind Table 3, their lineage inputs and the storage requirements (Supplement S6).
 
 The first two rows need request coverage, credential exposure, destination history and learned times. The second row also needs the frozen assessment and its freeze time, which the assessment store holds; none of the eleven signals records it. The third needs the control's effect on each channel. The fourth needs verified report-to-transaction links, deduplication and versioned cluster membership, which Trace B builds from storefront-to-merchant links. The fifth needs the separation between observations and organizational memory. These examples explain the required context without claiming that each named signal is uniquely necessary.
 
-That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 6, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports (Section 9.1). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires (Section 9.1).
+That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 3, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports (Section 9.1). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires (Section 9.1).
 
 ## 9. Evaluating the specification
 
@@ -619,7 +568,7 @@ Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, a
 
 The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs and investigator workload remain unmeasured. The practitioner protocol would assess availability and usefulness of the proposed records; it has not been run. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules (Section 7.1). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program (Section 8.2). Bank debits were compared only with two of the provider's pages and one bank's return-code table (Section 7.1); of the bank-debit candidates in Supplement S2, PAY-07 was judged covered and MM-03 was not reviewed. Instant push payments and stablecoin payments, which are also in the product scope, were not reviewed rail by rail; their mechanisms MM-07 and MM-12 were reviewed, but not their reporting channels (Supplement S2).
 
-The product scope comes from one provider's public product catalog, roadmap and documentation, including roadmap items in public preview. Other platforms may combine products differently or face other mechanisms. Public interfaces expose only part of a provider's records, so “none identified” in Table 2 refers only to the pinned schemas and the terms searched. Collection ownership, retention and budgets remain deployment decisions.
+The product scope comes from one provider's public product catalog, roadmap and documentation, including roadmap items in public preview. Other platforms may combine products differently or face other mechanisms. Public interfaces expose only part of a provider's records, so “none identified” in Supplement Table S3.1 refers only to the pinned schemas and the terms searched. Collection ownership, retention and budgets remain deployment decisions.
 
 The focused search and author-assigned mappings do not establish exhaustive coverage or the absence of equivalent systems. Bank case-management systems, card-network risk systems, vendor architectures and non-English literature were not reviewed as complete families. A second search on 28 and 29 October 2026 started from the paper's problem statement and the three requirement statements, without the related-work section, and logged 388 searches and page reads across patents, payment and fraud vendors, agent-governance and security-investigation products, standards and regulators, code repositories, journals and recent preprints. It found no source stating the three requirements together; the two sources it added are discussed in Section 2.3. The illustrative provider's public hiring priorities influenced selection and set most of the deeper reviews (Section 3; Supplement S2). A crosswalk to MITRE's Fight Fraud Framework finds that 18 of its 92 in-scope techniques have no retained mechanism; fourteen of them are covered only by candidates outside the signal map (Supplement S2.2) [@MITRE2026F3]. At the volume assumed in Section 6.4, the confirmatory release-gate test could run for more than a year and a half before it reaches its planned size (Supplement S7.1). The comparison supports the specified distinctions, not priority for their individual components.
 
