@@ -464,6 +464,15 @@ These conditions explain the scope and comparisons behind the tests in S7.1. E8'
 
 **E2. When can missing outcomes be estimated?** Define the outcome channel, population and assumptions before selecting an estimator. Simulation can test behavior under known assumptions, including cases without overlap, where no comparable cases received another decision. It cannot verify those assumptions or recover unknown real outcomes. Later observational comparisons must separate populations with supported overlap from those whose outcomes cannot be estimated. Test sensitivity to late, mistaken and deliberately false reports. Allowing attempts that a policy would otherwise block requires separate ethical, human and operational authorization. The motivating theoretical preprint proposes methods; this paper claims no recovery of missing outcomes on platform data [@Dhama2026Causal].
 
+**The four assumptions (manuscript Section 7.1).** An observational evaluation justifies four assumptions linking observed decisions to alternatives [@HernanRobins2020]:
+
+- **Consistency:** each compared decision is precisely defined, and a case's observed outcome equals its outcome under the decision actually taken.
+- **Conditional exchangeability:** after conditioning on logged history, cases receiving different decisions have no remaining differences that bias the comparison.
+- **Overlap:** comparable cases had a nonzero chance of each relevant alternative decision.
+- **No interference:** changing one attempt's decision does not change other attempts' outcomes, including retries.
+
+If all decision inputs are logged and remaining decision variation is independent randomization, conditional exchangeability holds given those inputs. In practical terms, the logged history must account for variables influencing both decision and outcome [@HernanRobins2020]. Unlogged inputs used by a decider break that guarantee and must be identified. Repeated decisions require the relevant conditions at each step because earlier decisions can change later inputs [@HernanRobins2020].
+
 **Examining assumptions is not validating an estimator (manuscript Section 7.1).** Three target quantities illustrate the distinction:
 
 - **Candidate-policy value:** the average outcome a proposed decline policy would produce on a stated measure. Estimation from another policy's logs needs decision inputs, probabilities and overlap for the decisions the candidate would take.

@@ -351,18 +351,11 @@ Report type and source therefore remain attached to the label. Any judgment that
 
 Selective-label methods and causal analysis require more than the outcome field [@Lakkaraju2017Selective; @Kilbertus2020Fair; @HernanRobins2020].
 
-If all decision inputs are logged and remaining decision variation is independent randomization, conditional exchangeability holds given those inputs. In practical terms, the logged history must account for variables influencing both decision and outcome [@HernanRobins2020]. Unlogged inputs used by a decider break that guarantee and must be identified. The records support examining assumptions; they do not validate an estimator or the bounds in theoretical payment models [@Dhama2026Causal; @Dhama2026Limits]. Supplement S7 illustrates the distinction with three target quantities.
+An observational evaluation must define its target population, the decisions it compares and the outcome, then justify the assumptions linking observed decisions to alternatives: consistency, conditional exchangeability, overlap and no interference [@HernanRobins2020]. The records support examining assumptions; they do not validate an estimator or the bounds in theoretical payment models [@Dhama2026Causal; @Dhama2026Limits]. Supplement S7 defines the four assumptions and illustrates the distinction with three target quantities.
 
 Without further assumptions, outcomes hidden by deterministic blocks support ranges rather than a recovered comparison.
 
-An observational evaluation must define its target population, the decisions it compares and the outcome, then justify the assumptions linking observed decisions to alternatives [@HernanRobins2020]:
-
-- **Consistency:** each compared decision is precisely defined, and a case's observed outcome equals its outcome under the decision actually taken.
-- **Conditional exchangeability:** after conditioning on logged history, cases receiving different decisions have no remaining differences that bias the comparison.
-- **Overlap:** comparable cases had a nonzero chance of each relevant alternative decision.
-- **No interference:** changing one attempt's decision does not change other attempts' outcomes, including retries.
-
-Repeated decisions require the relevant conditions at each step because earlier decisions can change later inputs [@HernanRobins2020]. Interference is especially consequential when blocked actors move to sibling accounts or other merchants. Links from each report to every decision that may have shaped it make these dependencies visible; they do not remove them.
+Interference is especially consequential when blocked actors move to sibling accounts or other merchants. Links from each report to every decision that may have shaped it make these dependencies visible; they do not remove them.
 
 Delay and false reports add assumptions of their own (Supplement S7).
 
