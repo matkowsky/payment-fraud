@@ -1,6 +1,7 @@
 -- Numbering (10 November 2026): manuscript Tables 1 to 3 and Figures 2 and 3 moved to the supplement as Tables
 -- S1.1, S3.1, S4.1 and Figures S3.1, S4.1. Manuscript Table 3 below is the Section 8.3 table (formerly 6) and
--- Figure 2 the Section 7 figure (formerly 4). Comments below use the current numbers.
+-- Figure 2 the Section 7 figure (formerly 4). Later the same day the Section 7 table moved to the supplement as
+-- Table S7.1, so the Section 8.3 table is now manuscript Table 2; comments that say Table 3 mean that table.
 -- Presentation only. Scientific text, citations and table values are unchanged.
 -- Captioned tables and figures are set as top-placed floats, so following text fills the page and each
 -- caption stays with its table or image. Figure 2 is the exception: it is placed at the bottom of a page
@@ -130,7 +131,7 @@ function Blocks(bs)
    else
     -- Captioned table: a top-placed float with its caption above the rows.
     -- Table S6.1 is top-only ([t]) so that it never forms a float page of its own.
-    local place=(key=='S2.1') and '[htp]' or (key=='S6.1') and '[t]' or (key=='3') and '[!ht]' or '[tp]'
+    local place=(key=='S2.1') and '[htp]' or (key=='S6.1') and '[t]' or (key=='2') and '[!ht]' or '[tp]'
     -- Table S4.1 fills a float page exactly, so it omits the small skip below its caption and, in Table(),
     -- sets its rows with a slightly smaller array stretch (1.04) than the other tables.
     local skip=(key=='S4.1') and '' or '\\smallskip'
@@ -141,7 +142,7 @@ function Blocks(bs)
     -- the Section 3 barrier once Section 2.3 grew (29 October 2026).
     -- Table 3 ([!ht]) prints directly below its heading if it fits there; the same suppression keeps it
     -- from the top of the heading's page, so otherwise it moves to the top of the next page.
-    local pre=(key=='3') and '\\suppressfloats[t]\n' or ''
+    local pre=(key=='2') and '\\suppressfloats[t]\n' or ''
     out:insert(pandoc.RawBlock('latex',pre..'\\begin{table}'..place..'\n'..latex_of(b)..'\\par'..skip..'\n{'..size..'\n'..to_tabular(bs[i+2])..'\n}\n\\end{table}'))
    end
    i=i+4
