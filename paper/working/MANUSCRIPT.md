@@ -10,7 +10,7 @@ New York, New York. Correspondence: Jonathan@matkowsky.com
 
 Abuse of a payment platform can cross products and accounts, and the platform’s own protective decisions change which outcomes can later be observed. A blocked payment cannot produce a chargeback; an incomplete search cannot establish absence; a reused conclusion cannot corroborate itself. This paper specifies the records an AI agent needs in order to investigate such cases under human authority. The specification rests on three requirements. First, each outcome record links to the control decision that may have shaped it, with separate fields for reporting delay, outcomes the decision made unobservable, and false reports. Second, a gateway outside the agent records what each query actually covered, and every fact retains both the time it happened and the time the system learned it. Third, a person must release a conclusion before it enters organizational memory for reuse by later investigations; a released conclusion serves only as a hypothesis or context, and any record that an agent output informed must link back to that output.
 
-The specification connects these requirements to 71 signals, the kinds of records an investigator can check, and 24 responsibilities for investigation, review and reuse. Public sources supply the design premises, and Stripe’s public product pages and documentation provide an illustrative product scope. Two hypothetical investigations show how missing context changes the conclusions that the same observations can support, and an evaluation plan proposes tests of evidential quality, operational cost and agent benefit. The contribution is a joint specification for investigation across payment products, built on established methods and recent agent-governance designs. It is a synthesis, not a new method or a measured result: the specification has not been built or evaluated, and no practitioner has reviewed it.
+The specification connects these requirements to 71 signals, the kinds of records an investigator can check, and 24 responsibilities for investigation, review and reuse. Public sources supply the design premises, and Stripe’s public product pages and documentation provide an illustrative product scope. Two hypothetical investigations show how missing context changes the conclusions that the same observations can support, and an evaluation plan proposes tests of evidential quality, operational cost and agent benefit. The contribution is a joint specification for investigation across payment products, built on established methods and recent agent-governance designs. It is a synthesis, not a new method. The architecture has not been built, no platform data were used, its only experiments run the record schemas on synthetic records, and no practitioner has reviewed it.
 
 **Keywords:** payment fraud, abuse investigation, threat intelligence, selective labels, agent memory, provenance, human oversight
 
@@ -44,7 +44,7 @@ The requirements work together. C1 identifies which outcomes the platform’s de
 
 Two artifacts make the specification inspectable: an inventory of 71 signals and an architecture of 24 responsibilities. Sixty-eight signals map to abuse mechanisms, meaning ways abuse can occur; three apply across mechanisms. The responsibilities cover investigation, review, release, tested reuse of lessons and security of the investigation system. Two hypothetical investigations then show which conclusions survive when particular records are missing.
 
-The intended readers design, audit or evaluate investigation systems. Stripe’s public product pages and documentation supply an illustrative product scope, not a description of its internal systems. The paper synthesizes public evidence and proposes a design; it reports no implementation or measurement. Section 2 establishes its relationship to prior work and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1, with Table 1 in Section 6.3 adding the agent’s analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences of the design in two hypothetical investigations, and Section 9 states how its value would be tested.
+The intended readers design, audit or evaluate investigation systems. Stripe’s public product pages and documentation supply an illustrative product scope, not a description of its internal systems. The paper synthesizes public evidence and proposes a design. It reports no implementation of the architecture and no measurement on platform data; its only experiments run the record schemas on synthetic records (Sections 8.4 and 8.5). Section 2 establishes its relationship to prior work and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1, with Table 1 in Section 6.3 adding the agent’s analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences of the design in two hypothetical investigations, and Section 9 states how its value would be tested.
 
 ## 2. Relationship to prior work
 
@@ -78,7 +78,11 @@ C3 adopts human release for every conclusion entering organizational memory. A r
 
 Industrial payment systems supply examples of fast decisions and relationships between accounts \[[5](#ref-Cao2019TitAnt), [33](#ref-Liu2018GEM)\]. Payment providers’ public documentation already exposes parts of the first two requirements. The illustrative provider lets businesses query which rules affected each charge and join disputes to charges \[[34](#ref-Stripe2026QueryDisputes)\]. Its dispute analytics warns that rates by payment date can look lower for recent payments because customers can wait weeks to dispute \[[35](#ref-Stripe2026DisputeAnalytics)\], and each scheduled query run records the as-of time of the data snapshot it queried \[[36](#ref-Stripe2026SigmaRun)\]. Another provider’s risk dashboard shows whether transactions its risk engine allowed later resulted in a chargeback, and lists separately those it blocked \[[37](#ref-Adyen2026RiskMonitoring)\]. The specification states what such joins, labels and timestamps must preserve for an investigation: which outcomes each decision closed, delayed or changed, and which reports are late or false. A governance synthesis for fraud risk decision systems combines decision traces, measures of evidence sufficiency under delayed labels and monitoring without labels, and extends them analytically to multi-agent systems \[[38](#ref-Solozobov2026Synthesis)\]. It rates architectures by how many decision-record properties they fill by construction; it specifies no outcome channels, query coverage record or release rule for reuse. Supplement Table S1.1 locates these capabilities across research families.
 
-Two payment-agent preprints show why specification and operational benefit must be kept apart. SR-Fraud separates scoring from reflection and tests proposed rules before reuse. On one replay benchmark it reports better detection than its scoring agent alone \[[39](#ref-Tan2026SRFraud)\]; Supplement S9.2 gives its comparisons with classifiers. On 60 balanced synthetic cases that its classifier scored between 0.2 and 0.8, Sharma’s agent was correct in 65.0 percent, below the 71.7 percent from thresholding the same classifier score at 0.5. Six of its eight overrides turned a correct decision into an error \[[40](#ref-Sharma2026AuditableFraud)\]. Neither result establishes general agent performance: one rests on a single non-public replay benchmark, and the other on a small, balanced synthetic sample. Together they motivate comparing an agent with simpler alternatives given the same information.
+Financial-sector and audit documents on AI, including agents, address adjacent questions. They include a handbook from Project MindForge, an industry initiative led by the Monetary Authority of Singapore \[[39](#ref-MindForge2026Operationalisation)\], a white paper on runtime safeguards for agentic finance \[[40](#ref-MAS2026SAFR)\] and guidelines from India’s computer emergency response team for auditing AI systems \[[41](#ref-CERTIn2026AIAudit)\]. Their provisions on logging tool calls, on AI analysis as a working aid and on measuring human review partly parallel C2, C3 and E8 (Supplement S9.3). None of the three documents asks for outcome records by channel (C1), separates when a fact held from when it became available to queries (C2), or requires human release before a conclusion is reused from memory (C3).
+
+Two runtime-governance designs for financial agents bar context from authorizing actions and limit what counts as evidence; neither requires human release before reuse \[[42](#ref-Tang2026SAGEFin), [43](#ref-Szpruch2026RuntimeGovernance)\].
+
+Two payment-agent preprints show why specification and operational benefit must be kept apart. SR-Fraud separates scoring from reflection and tests proposed rules before reuse. On one replay benchmark it reports better detection than its scoring agent alone \[[44](#ref-Tan2026SRFraud)\]; Supplement S9.2 gives its comparisons with classifiers. On 60 balanced synthetic cases that its classifier scored between 0.2 and 0.8, Sharma’s agent was correct in 65.0 percent, below the 71.7 percent from thresholding the same classifier score at 0.5. Six of its eight overrides turned a correct decision into an error \[[45](#ref-Sharma2026AuditableFraud)\]. Neither result establishes general agent performance: one rests on a single non-public replay benchmark, and the other on a small, balanced synthetic sample. Together they motivate comparing an agent with simpler alternatives given the same information.
 
 This paper connects decision-shaped outcomes, query coverage and controlled reuse in one payment-investigation specification. The 71 signals identify candidate records, the 24 responsibilities assign investigation and review functions, and the interfaces preserve the meaning of what passes between them. The traces show which inferences lose support when that context is removed; they establish logical consequences within hypothetical cases, not improved detection. The focused comparison does not establish uniqueness or exhaustive coverage, and operational value depends on the evaluations in Section 9.
 
@@ -86,13 +90,13 @@ This paper connects decision-shaped outcomes, query coverage and controlled reus
 
 The design starts from documented product capabilities and asks how an adversary could misuse each one. For each abuse mechanism it then identifies the records needed to distinguish the malicious explanation from plausible alternatives. Stripe’s public product catalog, roadmap and documentation define the illustrative scope; research, engineering accounts, incident reports and guidance supply the design premises.
 
-The scope, read on 27 September 2026, contains 88 product and feature entries. A retained mechanism must target a documented capability, serve a plausible adversary goal and have supporting public evidence. Public job postings from the illustrative provider, Stripe, for abuse, risk and machine-learning roles helped prioritize topics as a statement of its current priorities, not as evidence of incidents \[[41](#ref-Stripe2026), [42](#ref-StripeARE2026)\]. Supplement S2 records the 99 candidate mechanisms, how postings set priorities, the nine search paths and each candidate’s final disposition; every mapped mechanism also has supporting sources beyond postings.
+The scope, read on 27 September 2026, contains 88 product and feature entries. A retained mechanism must target a documented capability, serve a plausible adversary goal and have supporting public evidence. Public job postings from the illustrative provider, Stripe, for abuse, risk and machine-learning roles helped prioritize topics as a statement of its current priorities, not as evidence of incidents \[[46](#ref-Stripe2026), [47](#ref-StripeARE2026)\]. Supplement S2 records the 99 candidate mechanisms, how postings set priorities, the nine search paths and each candidate’s final disposition; every mapped mechanism also has supporting sources beyond postings.
 
 The resulting inventory contains 71 signals in 12 families. Sixty-eight connect to 61 mechanisms through 163 links, and three apply across mechanisms. Nine links are explicitly inferential; the others use sourced premises to motivate record design without validating a detector. Each derived feature, a value computed from other records, identifies its inputs. Supplement S2 gives the disposition of the other 38 candidates.
 
 Three published schemas describe the platform’s application programming interface (API), the interface through which software requests operations and receives data. Supplement S5 supplies the object, field or event supporting each match.
 
-Supplement S1 records the version, relevant passages and use of each of the 122 cited works, and compares 50 sources against the three requirements. Supplement S3 lists the 61 design sources and the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
+Supplement S1 records the version, relevant passages and use of each of the 127 cited works, and compares 50 sources against the three requirements. Supplement S3 lists the 61 design sources and the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
 
 The synthesis distinguishes sourced findings, design choices and hypotheses (Supplement S2.1). One author, assisted by AI models, made the mappings and coverage judgments; agreement between independent human coders has not been measured. Section 9.2 explains the limits this focused selection places on coverage and transfer.
 
@@ -124,7 +128,7 @@ The architecture separates three logical layers, called planes. They need not us
 
 ![Figure 1: Product records, investigation, review, authorized decisions and feedback](FIGURES/FIG1_LOOP.svg)
 
-For example, two accounts using the same device is an observation. Common control is an inference. A released report retaining that qualified inference becomes organizational memory; retrieving it creates no new observation. An investigator may follow its lineage to cite the original observations at their original times and sources. A threat-intelligence reference model likewise traces the creator and modifiers of each intelligence product \[[43](#ref-Sakellariou2022CTIReferenceModel)\].
+For example, two accounts using the same device is an observation. Common control is an inference. A released report retaining that qualified inference becomes organizational memory; retrieving it creates no new observation. An investigator may follow its lineage to cite the original observations at their original times and sources. A threat-intelligence reference model likewise traces the creator and modifiers of each intelligence product \[[48](#ref-Sakellariou2022CTIReferenceModel)\].
 
 Dependence must also survive indirect reuse. A human label, assessment, control decision, detection or threat-knowledge item informed by an agent output links back to that output. Labeling, assessment, control, detection and threat-knowledge interfaces automatically attach every agent output and every released organizational-memory item open in the writer’s case or session. Only a person with release authority may remove a link, and removal is logged. Intelligence sent outside the platform carries an identifier. When content bearing that identifier returns through an external feed, the external-knowledge record links to the released item and counts as dependent on it.
 
@@ -178,9 +182,9 @@ Each group of abuse mechanisms motivates particular records; Supplement S3.1 giv
 
 An outcome label can be missing because its report is late or because a control prevented the outcome. It can also be present and false. Payment-specific theoretical work distinguishes these problems and proposes estimation methods under assumptions \[[8](#ref-Dhama2026Causal)\]. The specification uses those distinctions to define records, without assuming that an estimator recovers hidden platform outcomes.
 
-Each report retains its type, source, lag and attributed transaction or entity. It keeps three times: when the reported outcome occurred, where known; when the report was made at its source; and when it arrived at the platform. Its channel supplies a reporting window and clock-start event. The evaluation separately records its chosen maturity period, how long it waits before reading a missing report as a negative. A period shorter than the channel’s window, or any period for a channel without one, rests on a delay model (Section 7.1). Every decision that may have shaped the report remains linked, and there can be several. A dispute can follow a blocked attempt, a retry and an approval, and one account restriction can affect many payments. Each link therefore states the decision’s role. The report’s later status, such as withdrawn, reversed, won or lost, has its own history, which records whether each won or lost status followed adjudication. A status change or correction is a new record that references the earlier one, so what the platform believed at each time can be reconstructed. Some channels never adjudicate a report, yet a provider may still record it as lost: Stripe’s dispute guide says disputes that network rules or local regulations make unchallengeable are closed as lost when they open \[[44](#ref-Stripe2026Disputes)\] (Section 7.1).
+Each report retains its type, source, lag and attributed transaction or entity. It keeps three times: when the reported outcome occurred, where known; when the report was made at its source; and when it arrived at the platform. Its channel supplies a reporting window and clock-start event. The evaluation separately records its chosen maturity period, how long it waits before reading a missing report as a negative. A period shorter than the channel’s window, or any period for a channel without one, rests on a delay model (Section 7.1). Every decision that may have shaped the report remains linked, and there can be several. A dispute can follow a blocked attempt, a retry and an approval, and one account restriction can affect many payments. Each link therefore states the decision’s role. The report’s later status, such as withdrawn, reversed, won or lost, has its own history, which records whether each won or lost status followed adjudication. A status change or correction is a new record that references the earlier one, so what the platform believed at each time can be reconstructed. Some channels never adjudicate a report, yet a provider may still record it as lost: Stripe’s dispute guide says disputes that network rules or local regulations make unchallengeable are closed as lost when they open \[[49](#ref-Stripe2026Disputes)\] (Section 7.1).
 
-An estimate that a report is false belongs to the assessment store, linked to the report with the responsible model or reviewer and version. This matters when supporting material itself may be fabricated, as participants describe for refund fraud involving generative AI \[[45](#ref-Zhang2026Refund)\]. A report may be both late and false, so one status cannot replace the other.
+An estimate that a report is false belongs to the assessment store, linked to the report with the responsible model or reviewer and version. This matters when supporting material itself may be fabricated, as participants describe for refund fraud involving generative AI \[[50](#ref-Zhang2026Refund)\]. A report may be both late and false, so one status cannot replace the other.
 
 ### 5.3 Preserve meaning across stores, time and relationships
 
@@ -194,9 +198,9 @@ A decision’s reproducible snapshot need not copy the entire store. The system 
 
 **Evaluation time differs from decision time.** Later outcomes may evaluate an earlier prediction whose features remain fixed. The evaluation declares its outcome window and maturity period. Training and model selection use a separate cutoff: labels unavailable then cannot enter them. Applying the decision-time cutoff to evaluation labels would wrongly exclude the late outcomes being measured.
 
-**Channel state differs from report presence and access.** For each affected item, channel and read time, the records distinguish an open channel, a temporary delay, a permanent closure and unknown state. A missing report matures only after a defined window that remained open and was fully covered. If a decision changed the channel’s meaning, as a liability shift after successful authentication does (Section 7.1), a matured absence is read under that changed meaning and does not by itself support a negative for the original outcome. A channel without a defined window never supports a negative by maturity alone. A matured absence is provisional, not final. Network and bank rules can reopen or extend a window after it has elapsed, as when a monitoring program lets issuers submit fraud disputes past the standard deadline \[[46](#ref-Stripe2026MonitoringPrograms)\] or banks accept a late return \[[47](#ref-Stripe2026ACHTerms)\]. Each such rule event is recorded as a channel-state transition with its source, rule version and learned time, although no platform decision caused it. A decision’s effect on each channel is fixed when the decision is recorded; later transitions are separate records that never edit it. Inaccessible records remain unavailable without erasing a known channel state or an earlier report. Supplement S4.1 specifies the clock-start and transition fields, with further rules on program status, revised negatives and reopened reports.
+**Channel state differs from report presence and access.** For each affected item, channel and read time, the records distinguish an open channel, a temporary delay, a permanent closure and unknown state. A missing report matures only after a defined window that remained open and was fully covered. If a decision changed the channel’s meaning, as a liability shift after successful authentication does (Section 7.1), a matured absence is read under that changed meaning and does not by itself support a negative for the original outcome. A channel without a defined window never supports a negative by maturity alone. A matured absence is provisional, not final. Network and bank rules can reopen or extend a window after it has elapsed, as when a monitoring program lets issuers submit fraud disputes past the standard deadline \[[51](#ref-Stripe2026MonitoringPrograms)\] or banks accept a late return \[[52](#ref-Stripe2026ACHTerms)\]. Each such rule event is recorded as a channel-state transition with its source, rule version and learned time, although no platform decision caused it. A decision’s effect on each channel is fixed when the decision is recorded; later transitions are separate records that never edit it. Inaccessible records remain unavailable without erasing a known channel state or an earlier report. Supplement S4.1 specifies the clock-start and transition fields, with further rules on program status, revised negatives and reopened reports.
 
-**An entity link is not a claim of common control.** A verified identifier from the same namespace and relevant interval supports a stronger, or hard, link. A weaker, or soft, link may have several explanations: benign accounts can share a proxy IP address \[[33](#ref-Liu2018GEM)\]. Both retain source and confounders, meaning plausible alternative explanations. Account-age records address aged accounts sold for abuse \[[48](#ref-Thomas2013)\]. Where crypto products are in scope, wallet-to-spender links record permissions motivated by phishing that induces harmful transactions \[[49](#ref-Chen2025Phishing)\]. Supplement S4 defines each relationship’s fields.
+**An entity link is not a claim of common control.** A verified identifier from the same namespace and relevant interval supports a stronger, or hard, link. A weaker, or soft, link may have several explanations: benign accounts can share a proxy IP address \[[33](#ref-Liu2018GEM)\]. Both retain source and confounders, meaning plausible alternative explanations. Account-age records address aged accounts sold for abuse \[[53](#ref-Thomas2013)\]. Where crypto products are in scope, wallet-to-spender links record permissions motivated by phishing that induces harmful transactions \[[54](#ref-Chen2025Phishing)\]. Supplement S4 defines each relationship’s fields.
 
 ### 5.4 What public schemas reveal
 
@@ -275,7 +279,7 @@ When realistic volume forces reviewers to sample the cited records, sampling is 
 
 Independence is a hypothesis, not a property guaranteed by a model name. E6 and E8 measure whether review catches attacks and planted errors. E8 plants errors taken from the agent’s own earlier runs alongside independently written errors and reports the catch rate for each. Separate sessions may share errors through common weights, and different models may share training data. A distinct method and organizational role can provide separation, but the reviewer must still examine the evidence.
 
-Normal release follows quality review. The release decision records the person, exact version hash, claims with the confidence stated for each, scope, expiry and reviewer findings. The releaser sees supporting and contradicting records beside each material claim. Release preserves the assessment’s uncertainty. Human release is itself exposed to automation bias, in which people follow an automated aid’s incorrect advice or miss problems it fails to flag, and to the fall in detection when errors are rare \[[50](#ref-ParasuramanManzey2010), [51](#ref-Wolfe2005Rare)\].
+Normal release follows quality review. The release decision records the person, exact version hash, claims with the confidence stated for each, scope, expiry and reviewer findings. The releaser sees supporting and contradicting records beside each material claim. Release preserves the assessment’s uncertainty. Human release is itself exposed to automation bias, in which people follow an automated aid’s incorrect advice or miss problems it fails to flag, and to the fall in detection when errors are rare \[[55](#ref-ParasuramanManzey2010), [56](#ref-Wolfe2005Rare)\].
 
 Urgent containment has a narrower route. A recommendation for a reversible action, such as a payout pause or API-key restriction, goes to an authorized on-call human with a decision target in minutes. Quality review follows within a set period, and an authorized human or accountable system decides whether to reverse the action. The draft does not enter organizational memory through this exception. Existing automatic controls remain in place.
 
@@ -285,13 +289,13 @@ Human review also creates a capacity limit. With assumed values of 20 drafts a d
 
 ### 6.5 Protect the investigation from its inputs
 
-Businesses, customers and outside sources can supply content the agent reads: storefront pages, descriptions, refund evidence, retrieved documents and tool results. Indirect prompt injection uses such content to introduce instructions. Research demonstrates these attacks through external content and tool outputs \[[52](#ref-Greshake2023), [53](#ref-Debenedetti2024)\].
+Businesses, customers and outside sources can supply content the agent reads: storefront pages, descriptions, refund evidence, retrieved documents and tool results. Indirect prompt injection uses such content to introduce instructions. Research demonstrates these attacks through external content and tool outputs \[[57](#ref-Greshake2023), [58](#ref-Debenedetti2024)\].
 
 The architecture treats this material as data with no authority over instructions or tools. The gateway enforces task and tenant scope, least privilege, the allowed tools, query limits and outbound-traffic restrictions. These boundaries constrain access and action even if hostile input influences reasoning.
 
-**Approval binds to the operation actually reviewed.** It identifies the exact payload, target, task, tenant, tool and tool-manifest version, plus expiry and permitted reuse. At execution, the gateway checks both the match and current permission. This addresses altered operations and changed tool descriptions \[[54](#ref-Kumar2026), [55](#ref-InvariantLabs2025)\]. Approval of an investigative operation cannot grant the agent authority over accounts, payments or controls.
+**Approval binds to the operation actually reviewed.** It identifies the exact payload, target, task, tenant, tool and tool-manifest version, plus expiry and permitted reuse. At execution, the gateway checks both the match and current permission. This addresses altered operations and changed tool descriptions \[[59](#ref-Kumar2026), [60](#ref-InvariantLabs2025)\]. Approval of an investigative operation cannot grant the agent authority over accounts, payments or controls.
 
-**Memory and outbound traffic have separate controls.** Proposed lessons remain outside organizational memory until testing, quality review and human release. This responds to documented memory-poisoning routes \[[56](#ref-Dash2026)\]. Traffic restrictions respond to demonstrated exfiltration, in which injected instructions passed user data to an attacker through search queries or links \[[52](#ref-Greshake2023)\]. Testing includes adaptive attackers because fixed-test success can overstate resistance \[[57](#ref-Nasr2025)\].
+**Memory and outbound traffic have separate controls.** Proposed lessons remain outside organizational memory until testing, quality review and human release. This responds to documented memory-poisoning routes \[[61](#ref-Dash2026)\]. Traffic restrictions respond to demonstrated exfiltration, in which injected instructions passed user data to an attacker through search queries or links \[[57](#ref-Greshake2023)\]. Testing includes adaptive attackers because fixed-test success can overstate resistance \[[62](#ref-Nasr2025)\].
 
 The threat model includes four attacker positions: an external abuser controlling retrieved content; a merchant also supplying decisions and refund evidence; a compromised operator; and an insider with approval or release authority. Each plane’s write rules must be evaluated against all four. No control in this design stops the fourth position from releasing a false claim or removing an agent-output or released-item link, because its authority permits both. Against that position the safeguards are the release record, the logged link removal, expiry and re-testing of exonerating items, and correction (Section 7.3). They can detect and limit such actions, but they do not prevent them.
 
@@ -331,19 +335,19 @@ The records preserve arrival time, channel clocks and the evaluation’s maturit
 
 A payment permanently declined before completion cannot generate a chargeback on that attempt. It may still produce a complaint or incident finding. A payout hold changes when funds move, not when a dispute can arrive.
 
-Stripe’s dispute guide says card networks typically allow cardholders to dispute within 120 days of the original payment, sometimes longer, and that for a future event or service the window generally starts on the event date \[[44](#ref-Stripe2026Disputes)\]. Rules vary by network and version. The records therefore distinguish authorization, capture and processing times and use the clock-start event specified by the applicable channel rule. Missing rules or timestamps leave maturity unknown.
+Stripe’s dispute guide says card networks typically allow cardholders to dispute within 120 days of the original payment, sometimes longer, and that for a future event or service the window generally starts on the event date \[[49](#ref-Stripe2026Disputes)\]. Rules vary by network and version. The records therefore distinguish authorization, capture and processing times and use the clock-start event specified by the applicable channel rule. Missing rules or timestamps leave maturity unknown.
 
-Capture may also gate possible-fraud reporting. Stripe’s monitoring guide says issuers must report possible fraud on captured payments, even after refund, but are not required to report it on authorizations. It adds that an authorization reversed before capture is not reported \[[46](#ref-Stripe2026MonitoringPrograms)\]. Stripe’s dispute guide adds that a refund processed as a reversal, which usually happens within about 2 hours of capture, can also prevent a fraud report \[[44](#ref-Stripe2026Disputes)\]. Capture alone therefore does not fix that channel’s state. Thus a review ending in reversal can close that channel while other incident reports remain possible.
+Capture may also gate possible-fraud reporting. Stripe’s monitoring guide says issuers must report possible fraud on captured payments, even after refund, but are not required to report it on authorizations. It adds that an authorization reversed before capture is not reported \[[51](#ref-Stripe2026MonitoringPrograms)\]. Stripe’s dispute guide adds that a refund processed as a reversal, which usually happens within about 2 hours of capture, can also prevent a fraud report \[[49](#ref-Stripe2026Disputes)\]. Capture alone therefore does not fix that channel’s state. Thus a review ending in reversal can close that channel while other incident reports remain possible.
 
-A control can change a channel’s meaning without closing it. Stripe’s 3-D Secure guide says liability for eligible fraud disputes can be expected to shift to the issuer after successful authentication, but is not guaranteed. It adds that an early fraud warning, a network report of suspected fraud, may still arrive \[[58](#ref-Stripe2026ThreeDS)\]. Authentication result, reported liability status and each channel’s state must therefore remain separate.
+A control can change a channel’s meaning without closing it. Stripe’s 3-D Secure guide says liability for eligible fraud disputes can be expected to shift to the issuer after successful authentication, but is not guaranteed. It adds that an early fraud warning, a network report of suspected fraud, may still arrive \[[63](#ref-Stripe2026ThreeDS)\]. Authentication result, reported liability status and each channel’s state must therefore remain separate.
 
 Payout timing is recorded against the relevant reporting windows because funds may leave before reports arrive. The effect is recorded per channel: closed, delayed, changed in meaning, none or unknown.
 
-These channel properties come from card-network rules, and other rails differ. On the illustrative provider’s bank-debit rails, a payer’s dispute or return is honored without network adjudication or appeal \[[47](#ref-Stripe2026ACHTerms), [59](#ref-Stripe2026SEPADebit)\]; Supplement S4.1 gives the windows and rules read. A report honored without question is never adjudicated, so any won or lost status recorded for it says nothing about its truth, which rests entirely on a separate assessment. Each channel record therefore names its rail, the attributes its window depends on and whether the channel adjudicates report truth.
+These channel properties come from card-network rules, and other rails differ. On the illustrative provider’s bank-debit rails, a payer’s dispute or return is honored without network adjudication or appeal \[[52](#ref-Stripe2026ACHTerms), [64](#ref-Stripe2026SEPADebit)\]; Supplement S4.1 gives the windows and rules read. A report honored without question is never adjudicated, so any won or lost status recorded for it says nothing about its truth, which rests entirely on a separate assessment. Each channel record therefore names its rail, the attributes its window depends on and whether the channel adjudicates report truth.
 
 #### Truth: the report may be wrong
 
-Bad-faith disputes and fabricated refund evidence can make the adversary a source of outcome labels \[[8](#ref-Dhama2026Causal), [45](#ref-Zhang2026Refund)\]. One evaluation interface accepts the business’s decision on each evaluation (allowed, restricted or blocked) and says these reports train its models \[[60](#ref-Stripe2026CAE)\]. Such reports may also carry that business’s errors. Models trained on these labels predict reported outcomes unless the reports’ relationship to truth is separately established.
+Bad-faith disputes and fabricated refund evidence can make the adversary a source of outcome labels \[[8](#ref-Dhama2026Causal), [50](#ref-Zhang2026Refund)\]. One evaluation interface accepts the business’s decision on each evaluation (allowed, restricted or blocked) and says these reports train its models \[[65](#ref-Stripe2026CAE)\]. Such reports may also carry that business’s errors. Models trained on these labels predict reported outcomes unless the reports’ relationship to truth is separately established.
 
 Report type and source therefore remain attached to the label. Any judgment that it is false is a separate assessment with its own provenance. This preserves both the report and the uncertainty about its truth.
 
@@ -365,23 +369,25 @@ Obtaining missing comparisons through prospective exploration would mean allowin
 
 #### Attribution and resolution change measured ratios
 
-Account structure affects where a report is recorded and which transactions a ratio describes. FTC complaints allege pooling or spreading activity to evade monitoring \[[61](#ref-FTC2020FirstData), [62](#ref-FTC2025Paddle)\]. These allegations motivate transaction links and cluster-level measures, without establishing erroneous attribution in a new case.
+Account structure affects where a report is recorded and which transactions a ratio describes. FTC complaints allege pooling or spreading activity to evade monitoring \[[66](#ref-FTC2020FirstData), [67](#ref-FTC2025Paddle)\]. These allegations motivate transaction links and cluster-level measures, without establishing erroneous attribution in a new case.
 
 The same outcome definition, cohort and window must be retained when comparing account and cluster ratios. A pooled cohort ratio is a weighted average and cannot exceed the highest account ratio merely through pooling (Section 8.2). It can conceal a high account ratio among lower ones.
 
-Resolution also changes what becomes a chargeback. One FTC complaint alleges refunding on pre-dispute alerts to avoid chargeback recording; the resulting order was stipulated \[[62](#ref-FTC2025Paddle)\]. Stripe’s dispute guide says a business can proactively refund a payment flagged by an early fraud warning to prevent a dispute, while advising against refunding every flagged payment. It adds that such a refund does not affect the fraud warning \[[44](#ref-Stripe2026Disputes)\]. A lower chargeback ratio after alert resolution therefore does not establish less abuse.
+Sales can also be inflated or moved. One FTC complaint alleges plans to add stored-value card “purchases” to a merchant’s sales, and continued processing of a merchant’s transactions through a linked account after its account was closed \[[68](#ref-FTC2019Allied)\]. Payments known to be funded by instruments the business or platform controls are therefore kept out of a ratio’s denominator and counted separately, and a closure’s effect is measured across linked accounts.
+
+Resolution also changes what becomes a chargeback. One FTC complaint alleges refunding on pre-dispute alerts to avoid chargeback recording; the resulting order was stipulated \[[67](#ref-FTC2025Paddle)\]. Stripe’s dispute guide says a business can proactively refund a payment flagged by an early fraud warning to prevent a dispute, while advising against refunding every flagged payment. It adds that such a refund does not affect the fraud warning \[[49](#ref-Stripe2026Disputes)\]. A lower chargeback ratio after alert resolution therefore does not establish less abuse.
 
 The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. Supplement Table S7.1 summarizes the resulting requirements.
 
 ### 7.2 Measure control errors and user costs separately
 
-A known control decision can have unknown correctness. A study of five commercial identity-verification products reported false negative rates of 10.5 to 53.1 percent, the share of genuine participants’ verification attempts that were rejected \[[63](#ref-Fatima2024)\]. It did not report fraud-detection results. Those cohort results cannot become probabilities that an individual platform decision is wrong.
+A known control decision can have unknown correctness. A study of five commercial identity-verification products reported false negative rates of 10.5 to 53.1 percent, the share of genuine participants’ verification attempts that were rejected \[[69](#ref-Fatima2024)\]. It did not report fraud-detection results. Those cohort results cannot become probabilities that an individual platform decision is wrong.
 
-Denominators matter as much as percentages: Supplement S1 works through one login-challenge study’s rates \[[64](#ref-Doerfler2019)\].
+Denominators matter as much as percentages: Supplement S1 works through one login-challenge study’s rates \[[70](#ref-Doerfler2019)\].
 
-The specification links a control decision to a correctness review where available and separately to applicable population error estimates. Each estimate retains its version, cohort, outcome window, denominator, uncertainty and scope. Evaluation weighs detection gain against legitimate-user cost. Unknown, not-assessed and failed-open states remain distinct from low risk \[[65](#ref-Stripe2026PAYG)\].
+The specification links a control decision to a correctness review where available and separately to applicable population error estimates. Each estimate retains its version, cohort, outcome window, denominator, uncertainty and scope. Evaluation weighs detection gain against legitimate-user cost. Unknown, not-assessed and failed-open states remain distinct from low risk \[[71](#ref-Stripe2026PAYG)\].
 
-Controls also need retesting as adversaries adapt. Published examples include changed card-testing methods, aged accounts, banks changed after payment disruption, and filtering of recognizable test transactions \[[48](#ref-Thomas2013), [66](#ref-Meltzer2025), [67](#ref-Tian2018)\]. Responsibilities 16 and 17 own this evaluation.
+Controls also need retesting as adversaries adapt. Published examples include changed card-testing methods, aged accounts, banks changed after payment disruption, and filtering of recognizable test transactions \[[53](#ref-Thomas2013), [72](#ref-Meltzer2025), [73](#ref-Tian2018)\]. Responsibilities 16 and 17 own this evaluation.
 
 Test, replay and emulation records are marked when created and excluded from production labels, intelligence and lessons unless their evaluation use is explicitly authorized. The mark remains internal so it does not help adversaries identify test traffic.
 
@@ -393,7 +399,7 @@ A reusable procedure follows a different path. A productive query, a useful move
 
 After testing, quality review and human release, a lesson may be reused within a defined scope and version. It remains monitored and can be withdrawn. This is controlled learning, responsibility 23.
 
-Memory-poisoning and experience-reuse studies show how planted or mistaken entries can steer later work \[[56](#ref-Dash2026), [68](#ref-Xiong2026MemoryManagement)\]. A validated lesson therefore guides procedure; it is never evidence that the suspected activity occurred in the current case.
+Memory-poisoning and experience-reuse studies show how planted or mistaken entries can steer later work \[[61](#ref-Dash2026), [74](#ref-Xiong2026MemoryManagement)\]. A validated lesson therefore guides procedure; it is never evidence that the suspected activity occurred in the current case.
 
 ## 8. Two hypothetical investigations
 
@@ -415,13 +421,13 @@ A risk assessment and a rejected application identify similar storefronts, and a
 
 **Observations.** The hypothetical investigation links eleven storefronts that share two templates and a descriptor pattern and settle through four merchant accounts. A principal also appears on a closed account and the rejected application. In a synthetic cohort of 100 completed transactions per account, every account has a chargeback ratio of 2 percent once reports are linked to transactions. A separate chargeback-or-alert-resolution measure, counting each transaction once, is 5 percent pooled: 8 percent at accounts A and B and 2 percent at C and D.
 
-**What the recorded context changes.** Two chargebacks on account D’s transactions are recorded at another account, so counting where reports were recorded shows D at zero; verified transaction links restore D to 2 percent without changing the denominator. A pooled ratio is a transaction-weighted average of the account ratios, so it lies between the lowest and highest. The pooled 5 percent conceals the higher values at A and B. Network programs compute monthly ratios by the month a report is received, apply minimum counts, and in one program count early fraud warnings and exclude disputes resolved through pre-dispute products \[[46](#ref-Stripe2026MonitoringPrograms)\]; Supplement S6 gives the rules as read and where Visa’s own overview differs \[[69](#ref-Visa2025VAMP)\]. Splitting activity can also keep accounts below a count threshold even when their ratios are identical. Detecting that pattern requires cluster-level counts, not merely a pooled cohort ratio. Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent. Neither measure is a fraud rate, and a report recorded at another account can be legitimate.
+**What the recorded context changes.** Two chargebacks on account D’s transactions are recorded at another account, so counting where reports were recorded shows D at zero; verified transaction links restore D to 2 percent without changing the denominator. A pooled ratio is a transaction-weighted average of the account ratios, so it lies between the lowest and highest. The pooled 5 percent conceals the higher values at A and B. Network programs compute monthly ratios by the month a report is received, apply minimum counts, and in one program count early fraud warnings and exclude disputes resolved through pre-dispute products \[[51](#ref-Stripe2026MonitoringPrograms)\]; Supplement S6 gives the rules as read and where Visa’s own overview differs \[[75](#ref-Visa2025VAMP)\]. Splitting activity can also keep accounts below a count threshold even when their ratios are identical. Detecting that pattern requires cluster-level counts, not merely a pooled cohort ratio. Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent. Neither measure is a fraud rate, and a report recorded at another account can be legitimate.
 
 **Outputs.** Shared templates and descriptors may reflect a legitimate multi-brand business or aggregator. The agent may produce a qualified cluster assessment, an inconclusive finding, a proposed account review or a detection candidate. It cannot reject or terminate accounts.
 
 ### 8.3 What retaining the context changes
 
-**Table 2. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline.
+**Table 2. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline. Supplement S4.4 gives four C2 and C3 dependencies as pairs of record histories that permit different conclusions but are identical once one group of fields is removed.
 
 | Question and fixed observations                                                                                                                                                           | If context is omitted                                                                                          | If context is retained                                                                                                                                                                                  |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -435,7 +441,17 @@ Two rows of Table 2 add explicit hypothetical conditions: Trace A’s payout is 
 
 The examples identify a starting subset of records: the eleven signals behind Table 2, their lineage inputs and the storage requirements (Supplement S6). Supplement S6 also lists the context each row needs. These examples explain the required context without claiming that each named signal is uniquely necessary.
 
-That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 2, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1’s decision links, and E2 also on late and false reports (Section 9.1). E8’s planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires (Section 9.1).
+That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 2, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1’s decision links, and E2 also on late and false reports (Section 9.1). E8’s planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires (Section 9.1). Section 8.4 estimates the records’ storage and query work on synthetic data.
+
+### 8.4 Where to start and what it costs
+
+A platform that already logs decisions, payments and disputes can start with the records behind Table 2: each decision’s effect on each outcome channel and each channel’s state for each payment (C1), a gateway record of what each query covered and when each fact became known (C2), and a release step before an agent conclusion enters reusable memory (C3). The illustrative provider already exposes parts of the first two (Section 2.4).
+
+To estimate C1’s cost, one million synthetic payments with two outcome channels each were built from the conformance case (Supplement S4.3). Each payment needed about four records. Its decision and attribution records may already exist as decision logs and ledger entries; its two channel-state records are new. The records took 1.7 GB per million payments as uncompressed JSON and 2.6 GB in a single-file SQLite store with an index for as-of reads. On a two-core virtual machine, reading one payment’s channel state and reports took a median of 17 microseconds, and one day’s cohort of 11,052 payments took 0.3 seconds. In the same kind of test, a query run’s coverage record took about 900 bytes with one source, and checking an absence claim against its runs took 30 microseconds (Supplement S4.4). Reviewer time is not measured.
+
+### 8.5 Two documented cases replayed
+
+Two FTC complaints were rebuilt as synthetic outcome records from the patterns and rates they allege, with illustrative monitoring rules and assumed volumes and delays (Supplement S10) \[[66](#ref-FTC2020FirstData), [68](#ref-FTC2019Allied)\]. Complaint content is allegation; the replays test record design, not detection. Eight related accounts, each below a chargeback count floor, were never flagged alone. A view over recorded links flagged them in 92 percent of runs, and 40 legitimate merchants sharing a call center, set just above the ratio threshold, in 77 percent; a linked view belongs beside the account view, not in its place. At the smaller merchant’s alleged scale the chargeback rule never flagged an account, while fraud reports counted by value flagged each account in at least 99.8 percent of runs. A chargeback-only store reads payments refunded before a dispute as unreported. Counting only verified links between reports and payments replaced false flags near the floor with stated uncertainty. The records have limits: padded sales look like clean payments, a record rewritten in place passes every rule, so the store must prevent edits, and accounts with no recorded shared attribute cannot be linked.
 
 ## 9. Evaluating the specification
 
@@ -469,11 +485,11 @@ Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, a
 
 ### 9.2 What the evidence can support
 
-The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs and investigator workload remain unmeasured. The practitioner protocol would assess availability and usefulness of the proposed records; it has not been run. C1’s channel fields were derived from, and checked against, the illustrative provider’s descriptions of card-network rules (Section 7.1). The networks’ own rules were not read; the one network document cited is Visa’s overview of its acquirer monitoring program (Section 8.2). Bank debits, instant push payments and stablecoin payments, which are also in the product scope, were reviewed less fully (Supplement S4.1).
+The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs on platform data and investigator workload remain unmeasured. The practitioner protocol would assess availability and usefulness of the proposed records; it has not been run. C1’s channel fields were derived from, and checked against, the illustrative provider’s descriptions of card-network rules (Section 7.1). The networks’ own rules were not read; the one network document cited is Visa’s overview of its acquirer monitoring program (Section 8.2). Bank debits, instant push payments and stablecoin payments, which are also in the product scope, were reviewed less fully (Supplement S4.1).
 
 The product scope comes from one provider’s public product catalog, roadmap and documentation, including roadmap items in public preview. Other platforms may combine products differently or face other mechanisms. Public interfaces expose only part of a provider’s records, so “none identified” in Supplement Table S3.1 refers only to the pinned schemas and the terms searched. Collection ownership, retention and budgets remain deployment decisions.
 
-The focused search and author-assigned mappings do not establish exhaustive coverage or the absence of equivalent systems. Bank case-management systems, card-network risk systems, vendor architectures and non-English literature were not reviewed as complete families. A second search on 28 and 29 October 2026 started from the paper’s problem statement and the three requirement statements, without the related-work section, and logged 388 searches and page reads across patents, payment and fraud vendors, agent-governance and security-investigation products, standards and regulators, code repositories, journals and recent preprints. It found no source stating the three requirements together; the two sources it added are discussed in Section 2.3. The illustrative provider’s public hiring priorities influenced selection and set most of the deeper reviews (Section 3; Supplement S2). A crosswalk to MITRE’s Fight Fraud Framework finds that 18 of its 92 in-scope techniques have no retained mechanism; fourteen of them are covered only by candidates outside the signal map (Supplement S2.2) \[[70](#ref-MITRE2026F3)\]. At the volume assumed in Section 6.4, the confirmatory release-gate test could run for more than a year and a half before it reaches its planned size (Supplement S7.1). The comparison supports the specified distinctions, not priority for their individual components.
+The focused search and author-assigned mappings do not establish exhaustive coverage or the absence of equivalent systems. Bank case-management systems, card-network risk systems, vendor architectures and non-English literature were not reviewed as complete families. A second search on 28 and 29 October 2026 started from the paper’s problem statement and the three requirement statements, without the related-work section, and logged 388 searches and page reads across patents, payment and fraud vendors, agent-governance and security-investigation products, standards and regulators, code repositories, journals and recent preprints. It found no source stating the three requirements together; the two sources it added are discussed in Section 2.3. The illustrative provider’s public hiring priorities influenced selection and set most of the deeper reviews (Section 3; Supplement S2). A crosswalk to MITRE’s Fight Fraud Framework finds that 21 of its 105 in-scope techniques have no retained mechanism; fourteen of them are covered only by candidates outside the signal map (Supplement S2.2) \[[76](#ref-MITRE2026F3)\]. At the volume assumed in Section 6.4, the confirmatory release-gate test could run for more than a year and a half before it reaches its planned size (Supplement S7.1). The comparison supports the specified distinctions, not priority for their individual components.
 
 Evidence strength varies by premise. Dhama’s payment models are theoretical preprints \[[8](#ref-Dhama2026Causal), [9](#ref-Dhama2026Limits)\]. The general selective-label problem has broader support \[[1](#ref-Lakkaraju2017Selective), [2](#ref-Kilbertus2020Fair)\], and the specification does not depend on those preprints’ estimators or bounds being correct. Estimating a decision’s effect still requires identifying assumptions \[[4](#ref-HernanRobins2020)\]. Enforcement complaints motivate alleged mechanisms; vendor accounts support attributed observations within their stated settings.
 
@@ -739,195 +755,231 @@ The next test is operational value. Evaluations must determine whether these rec
 
 </div>
 
+<div id="ref-MindForge2026Operationalisation" class="csl-entry">
+
+\[39\] MindForge Consortium. 2026. AI Risk Management: Operationalisation Handbook. Handbook, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/schemes-and-initiatives/ftig/project-mindforge/mindforge-ai-risk-management-operationalisation-handbook.pdf>.
+
+</div>
+
+<div id="ref-MAS2026SAFR" class="csl-entry">
+
+\[40\] Monetary Authority of Singapore. 2026. Safeguards for Agentic Finance at Runtime (SAFR). White paper, version 1.1, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf>.
+
+</div>
+
+<div id="ref-CERTIn2026AIAudit" class="csl-entry">
+
+\[41\] Indian Computer Emergency Response Team. 2026. AI Security Auditing Guidelines. Guidelines, version 1.0, CERT-In. <https://www.cert-in.org.in/PDF/AI_Security_Auditing_Guidelines.pdf>.
+
+</div>
+
+<div id="ref-Tang2026SAGEFin" class="csl-entry">
+
+\[42\] R. Tang, Q. Liu, Y. Zhang, Y. Yang, X. Chen, and C. Dong. 2026. Context Is Not Authority: Structured Runtime Governance for Financial Market Agents. arXiv preprint 2608.09025v2. <https://arxiv.org/abs/2608.09025v2>.
+
+</div>
+
+<div id="ref-Szpruch2026RuntimeGovernance" class="csl-entry">
+
+\[43\] L. Szpruch, A. Sudjianto, T. Bhatti, and G. Ang. 2026. Scalable Runtime Governance for Agentic AI in Financial Services. Working paper, SSRN. <https://papers.ssrn.com/abstract=6567199>.
+
+</div>
+
 <div id="ref-Tan2026SRFraud" class="csl-entry">
 
-\[39\] X. Tan, Y. Ma, and X. Zhang. 2026. SR-Fraud: An Outcome-Supervised Reflective LLM Agent Framework for Non-Stationary Payment Fraud Detection. arXiv preprint 2609.27287v1. <https://arxiv.org/abs/2609.27287v1>.
+\[44\] X. Tan, Y. Ma, and X. Zhang. 2026. SR-Fraud: An Outcome-Supervised Reflective LLM Agent Framework for Non-Stationary Payment Fraud Detection. arXiv preprint 2609.27287v1. <https://arxiv.org/abs/2609.27287v1>.
 
 </div>
 
 <div id="ref-Sharma2026AuditableFraud" class="csl-entry">
 
-\[40\] R. Sharma. 2026. Toward Auditable Fraud Detection: Combining Graph Features, Model Explanations, and Agentic Case Investigation. arXiv preprint 2607.19266v1. <https://arxiv.org/abs/2607.19266v1>.
+\[45\] R. Sharma. 2026. Toward Auditable Fraud Detection: Combining Graph Features, Model Explanations, and Agentic Case Investigation. arXiv preprint 2607.19266v1. <https://arxiv.org/abs/2607.19266v1>.
 
 </div>
 
 <div id="ref-Stripe2026" class="csl-entry">
 
-\[41\] Stripe. 2026. ARG Engineering Manager. Stripe Careers. <https://stripe.com/careers/listing/arg-engineering-manager/8113337>. Accessed 21 October 2026.
+\[46\] Stripe. 2026. ARG Engineering Manager. Stripe Careers. <https://stripe.com/careers/listing/arg-engineering-manager/8113337>. Accessed 21 October 2026.
 
 </div>
 
 <div id="ref-StripeARE2026" class="csl-entry">
 
-\[42\] Stripe. 2026. Abuse Research Engineer. Stripe Careers. <https://stripe.com/careers/listing/abuse-research-engineer/8172503>. Accessed 21 October 2026.
+\[47\] Stripe. 2026. Abuse Research Engineer. Stripe Careers. <https://stripe.com/careers/listing/abuse-research-engineer/8172503>. Accessed 21 October 2026.
 
 </div>
 
 <div id="ref-Sakellariou2022CTIReferenceModel" class="csl-entry">
 
-\[43\] G. Sakellariou, P. Fouliras, I. Mavridis, and P. Sarigiannidis. 2022. A Reference Model for Cyber Threat Intelligence (CTI) Systems. *Electronics*, 11(9), Article 1401. <https://doi.org/10.3390/electronics11091401>.
+\[48\] G. Sakellariou, P. Fouliras, I. Mavridis, and P. Sarigiannidis. 2022. A Reference Model for Cyber Threat Intelligence (CTI) Systems. *Electronics*, 11(9), Article 1401. <https://doi.org/10.3390/electronics11091401>.
 
 </div>
 
 <div id="ref-Stripe2026Disputes" class="csl-entry">
 
-\[44\] Stripe. 2026. How disputes work. Stripe documentation. <https://docs.stripe.com/disputes/how-disputes-work>. Accessed 25 October 2026.
+\[49\] Stripe. 2026. How disputes work. Stripe documentation. <https://docs.stripe.com/disputes/how-disputes-work>. Accessed 25 October 2026.
 
 </div>
 
 <div id="ref-Zhang2026Refund" class="csl-entry">
 
-\[45\] S. Zhang, E. He, X. Zhan, S. He, R. Xiao, X. Yi, and H. Li. 2026. Generative AI-Enabled Refund Fraud in Chinese E-Commerce: Investigation on Merchants and Platform Workers. arXiv preprint 2606.03215v1. <https://arxiv.org/abs/2606.03215v1>.
+\[50\] S. Zhang, E. He, X. Zhan, S. He, R. Xiao, X. Yi, and H. Li. 2026. Generative AI-Enabled Refund Fraud in Chinese E-Commerce: Investigation on Merchants and Platform Workers. arXiv preprint 2606.03215v1. <https://arxiv.org/abs/2606.03215v1>.
 
 </div>
 
 <div id="ref-Stripe2026MonitoringPrograms" class="csl-entry">
 
-\[46\] Stripe. 2026. Dispute and fraud card monitoring programs. Stripe documentation. <https://docs.stripe.com/disputes/monitoring-programs>. Accessed 25 October 2026.
+\[51\] Stripe. 2026. Dispute and fraud card monitoring programs. Stripe documentation. <https://docs.stripe.com/disputes/monitoring-programs>. Accessed 25 October 2026.
 
 </div>
 
 <div id="ref-Stripe2026ACHTerms" class="csl-entry">
 
-\[47\] Stripe. 2026. ACH Payment Terms. Stripe Legal. <https://stripe.com/legal/ACH>. Accessed 25 October 2026.
+\[52\] Stripe. 2026. ACH Payment Terms. Stripe Legal. <https://stripe.com/legal/ACH>. Accessed 25 October 2026.
 
 </div>
 
 <div id="ref-Thomas2013" class="csl-entry">
 
-\[48\] K. Thomas, D. McCoy, C. Grier, A. Kolcz, and V. Paxson. 2013. Trafficking Fraudulent Accounts: The Role of the Underground Market in Twitter Spam and Abuse. *Proceedings of the 22nd USENIX Security Symposium*, pp. 195–210. <https://www.usenix.org/conference/usenixsecurity13/technical-sessions/paper/thomas>.
+\[53\] K. Thomas, D. McCoy, C. Grier, A. Kolcz, and V. Paxson. 2013. Trafficking Fraudulent Accounts: The Role of the Underground Market in Twitter Spam and Abuse. *Proceedings of the 22nd USENIX Security Symposium*, pp. 195–210. <https://www.usenix.org/conference/usenixsecurity13/technical-sessions/paper/thomas>.
 
 </div>
 
 <div id="ref-Chen2025Phishing" class="csl-entry">
 
-\[49\] Z. Chen, D. Luo, Y. Hu, L. Wu, B. He, and Y. Zhou. 2025. Dissecting Payload-based Transaction Phishing on Ethereum. *Network and Distributed System Security (NDSS) Symposium 2025*. <https://doi.org/10.14722/ndss.2025.230311>.
+\[54\] Z. Chen, D. Luo, Y. Hu, L. Wu, B. He, and Y. Zhou. 2025. Dissecting Payload-based Transaction Phishing on Ethereum. *Network and Distributed System Security (NDSS) Symposium 2025*. <https://doi.org/10.14722/ndss.2025.230311>.
 
 </div>
 
 <div id="ref-ParasuramanManzey2010" class="csl-entry">
 
-\[50\] R. Parasuraman and D. H. Manzey. 2010. Complacency and Bias in Human Use of Automation: An Attentional Integration. *Human Factors*, 52(3), pp. 381–410. <https://doi.org/10.1177/0018720810376055>.
+\[55\] R. Parasuraman and D. H. Manzey. 2010. Complacency and Bias in Human Use of Automation: An Attentional Integration. *Human Factors*, 52(3), pp. 381–410. <https://doi.org/10.1177/0018720810376055>.
 
 </div>
 
 <div id="ref-Wolfe2005Rare" class="csl-entry">
 
-\[51\] J. M. Wolfe, T. S. Horowitz, and N. M. Kenner. 2005. Rare Items Often Missed in Visual Searches. *Nature*, 435, pp. 439–440. <https://doi.org/10.1038/435439a>.
+\[56\] J. M. Wolfe, T. S. Horowitz, and N. M. Kenner. 2005. Rare Items Often Missed in Visual Searches. *Nature*, 435, pp. 439–440. <https://doi.org/10.1038/435439a>.
 
 </div>
 
 <div id="ref-Greshake2023" class="csl-entry">
 
-\[52\] K. Greshake, S. Abdelnabi, S. Mishra, C. Endres, T. Holz, and M. Fritz. 2023. Not What You’ve Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. *Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security*, pp. 79–90. Cited version: arXiv 2302.12173v2 (5 May 2023). <https://doi.org/10.1145/3605764.3623985>.
+\[57\] K. Greshake, S. Abdelnabi, S. Mishra, C. Endres, T. Holz, and M. Fritz. 2023. Not What You’ve Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. *Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security*, pp. 79–90. Cited version: arXiv 2302.12173v2 (5 May 2023). <https://doi.org/10.1145/3605764.3623985>.
 
 </div>
 
 <div id="ref-Debenedetti2024" class="csl-entry">
 
-\[53\] E. Debenedetti, J. Zhang, M. Balunovic, L. Beurer-Kellner, M. Fischer, and F. Tramèr. 2024. AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents. *Advances in Neural Information Processing Systems 37, Datasets and Benchmarks Track*, pp. 82895–82920. <https://doi.org/10.52202/079017-2636>.
+\[58\] E. Debenedetti, J. Zhang, M. Balunovic, L. Beurer-Kellner, M. Fischer, and F. Tramèr. 2024. AgentDojo: A Dynamic Environment to Evaluate Prompt Injection Attacks and Defenses for LLM Agents. *Advances in Neural Information Processing Systems 37, Datasets and Benchmarks Track*, pp. 82895–82920. <https://doi.org/10.52202/079017-2636>.
 
 </div>
 
 <div id="ref-Kumar2026" class="csl-entry">
 
-\[54\] A. A. Kumar. 2026. Loopjacking: Hijacking Human-in-the-Loop Approval. arXiv preprint 2609.21081v1. <https://arxiv.org/abs/2609.21081v1>.
+\[59\] A. A. Kumar. 2026. Loopjacking: Hijacking Human-in-the-Loop Approval. arXiv preprint 2609.21081v1. <https://arxiv.org/abs/2609.21081v1>.
 
 </div>
 
 <div id="ref-InvariantLabs2025" class="csl-entry">
 
-\[55\] L. Beurer-Kellner and M. Fischer. 2025. MCP Security Notification: Tool Poisoning Attacks. Invariant Labs. <https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks>. Accessed 19 October 2026.
+\[60\] L. Beurer-Kellner and M. Fischer. 2025. MCP Security Notification: Tool Poisoning Attacks. Invariant Labs. <https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks>. Accessed 19 October 2026.
 
 </div>
 
 <div id="ref-Dash2026" class="csl-entry">
 
-\[56\] P. Dash, T. Ge, A. Jain, T. Shah, and Z. Shang. 2026. From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents. arXiv preprint 2606.04329v2. <https://arxiv.org/abs/2606.04329v2>.
+\[61\] P. Dash, T. Ge, A. Jain, T. Shah, and Z. Shang. 2026. From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents. arXiv preprint 2606.04329v2. <https://arxiv.org/abs/2606.04329v2>.
 
 </div>
 
 <div id="ref-Nasr2025" class="csl-entry">
 
-\[57\] M. Nasr, N. Carlini, C. Sitawarin, S. V. Schulhoff, J. Hayes, M. Ilie, J. Pluto, S. Song, H. Chaudhari, I. Shumailov, A. Thakurta, K. Y. Xiao, A. Terzis, and F. Tramèr. 2025. The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against LLM Jailbreaks and Prompt Injections. arXiv preprint 2510.09023v1. <https://arxiv.org/abs/2510.09023v1>.
+\[62\] M. Nasr, N. Carlini, C. Sitawarin, S. V. Schulhoff, J. Hayes, M. Ilie, J. Pluto, S. Song, H. Chaudhari, I. Shumailov, A. Thakurta, K. Y. Xiao, A. Terzis, and F. Tramèr. 2025. The Attacker Moves Second: Stronger Adaptive Attacks Bypass Defenses Against LLM Jailbreaks and Prompt Injections. arXiv preprint 2510.09023v1. <https://arxiv.org/abs/2510.09023v1>.
 
 </div>
 
 <div id="ref-Stripe2026ThreeDS" class="csl-entry">
 
-\[58\] Stripe. 2026. Authenticate with 3D Secure. Stripe documentation. <https://docs.stripe.com/payments/3d-secure/authentication-flow>. Accessed 19 October 2026.
+\[63\] Stripe. 2026. Authenticate with 3D Secure. Stripe documentation. <https://docs.stripe.com/payments/3d-secure/authentication-flow>. Accessed 19 October 2026.
 
 </div>
 
 <div id="ref-Stripe2026SEPADebit" class="csl-entry">
 
-\[59\] Stripe. 2026. SEPA Direct Debit payments. Stripe documentation. <https://docs.stripe.com/payments/sepa-debit>. Accessed 25 October 2026.
+\[64\] Stripe. 2026. SEPA Direct Debit payments. Stripe documentation. <https://docs.stripe.com/payments/sepa-debit>. Accessed 25 October 2026.
 
 </div>
 
 <div id="ref-Stripe2026CAE" class="csl-entry">
 
-\[60\] Stripe. 2026. Customer account evaluations. Stripe documentation. <https://docs.stripe.com/radar/customer-account-evaluations>. Accessed 19 October 2026.
+\[65\] Stripe. 2026. Customer account evaluations. Stripe documentation. <https://docs.stripe.com/radar/customer-account-evaluations>. Accessed 19 October 2026.
 
 </div>
 
 <div id="ref-FTC2020FirstData" class="csl-entry">
 
-\[61\] Federal Trade Commission. 2020. FTC v. First Data Merchant Services LLC, No. 1:20-cv-03867 (S.D.N.Y.), Complaint, ECF 1. US District Court, Southern District of New York. Filed complaint; related stipulated order and nonadmission terms identified in S1. <https://www.ftc.gov/system/files/documents/cases/first_data_filed_complaint.pdf>. Accessed 22 October 2026.
+\[66\] Federal Trade Commission. 2020. FTC v. First Data Merchant Services LLC, No. 1:20-cv-03867 (S.D.N.Y.), Complaint, ECF 1. US District Court, Southern District of New York. Filed complaint; related stipulated order and nonadmission terms identified in S1. <https://www.ftc.gov/system/files/documents/cases/first_data_filed_complaint.pdf>. Accessed 22 October 2026.
 
 </div>
 
 <div id="ref-FTC2025Paddle" class="csl-entry">
 
-\[62\] Federal Trade Commission. 2025. FTC v. Paddle.com Market Limited, No. 1:25-cv-01886 (D.D.C.), Complaint, ECF 1. US District Court, District of Columbia. Filed complaint; related stipulated order and nonadmission terms identified in S1. <https://www.ftc.gov/system/files/ftc_gov/pdf/PaddleComplaintForPermanentInjunction,MonetaryJudgment,andOtherRelief.pdf>. Accessed 21 October 2026.
+\[67\] Federal Trade Commission. 2025. FTC v. Paddle.com Market Limited, No. 1:25-cv-01886 (D.D.C.), Complaint, ECF 1. US District Court, District of Columbia. Filed complaint; related stipulated order and nonadmission terms identified in S1. <https://www.ftc.gov/system/files/ftc_gov/pdf/PaddleComplaintForPermanentInjunction,MonetaryJudgment,andOtherRelief.pdf>. Accessed 21 October 2026.
+
+</div>
+
+<div id="ref-FTC2019Allied" class="csl-entry">
+
+\[68\] Federal Trade Commission. 2019. FTC v. AlliedWallet, Inc., No. 2:19-cv-04355 (C.D. Cal.), Complaint, ECF 24. US District Court, Central District of California. Filed complaint; related stipulated order and nonadmission terms identified in S1. <https://www.ftc.gov/system/files/documents/cases/alliedwallet_complaint_7-3-19.pdf>. Accessed 21 October 2026.
 
 </div>
 
 <div id="ref-Fatima2024" class="csl-entry">
 
-\[63\] K. Fatima, M. Schuckers, G. Cruz-Ortiz, D. Hou, S. Purnapatra, T. Andrews, A. Neupane, B. Marshall, and S. Schuckers. 2024. A Large-Scale Study of Performance and Equity of Commercial Remote Identity Verification Technologies Across Demographics. *2024 IEEE International Joint Conference on Biometrics*, pp. 1–8. <https://doi.org/10.1109/IJCB62174.2024.10744432>.
+\[69\] K. Fatima, M. Schuckers, G. Cruz-Ortiz, D. Hou, S. Purnapatra, T. Andrews, A. Neupane, B. Marshall, and S. Schuckers. 2024. A Large-Scale Study of Performance and Equity of Commercial Remote Identity Verification Technologies Across Demographics. *2024 IEEE International Joint Conference on Biometrics*, pp. 1–8. <https://doi.org/10.1109/IJCB62174.2024.10744432>.
 
 </div>
 
 <div id="ref-Doerfler2019" class="csl-entry">
 
-\[64\] P. Doerfler, M. Marincenko, J. Ranieri, Y. Jiang, A. Moscicki, D. McCoy, and K. Thomas. 2019. Evaluating Login Challenges as a Defense Against Account Takeover. *Proceedings of the 2019 World Wide Web Conference*, pp. 372–382. <https://doi.org/10.1145/3308558.3313481>.
+\[70\] P. Doerfler, M. Marincenko, J. Ranieri, Y. Jiang, A. Moscicki, D. McCoy, and K. Thomas. 2019. Evaluating Login Challenges as a Defense Against Account Takeover. *Proceedings of the 2019 World Wide Web Conference*, pp. 372–382. <https://doi.org/10.1145/3308558.3313481>.
 
 </div>
 
 <div id="ref-Stripe2026PAYG" class="csl-entry">
 
-\[65\] Stripe. 2026. Pay-as-you-go abuse evaluation. Stripe documentation. <https://docs.stripe.com/radar/pay-as-you-go-abuse>. Accessed 19 October 2026.
+\[71\] Stripe. 2026. Pay-as-you-go abuse evaluation. Stripe documentation. <https://docs.stripe.com/radar/pay-as-you-go-abuse>. Accessed 19 October 2026.
 
 </div>
 
 <div id="ref-Meltzer2025" class="csl-entry">
 
-\[66\] J. Meltzer and V. Chadalapaka. 2025. How Stripe Radar responded to a new wave of card testing. Stripe blog. <https://stripe.com/blog/how-stripe-radar-responded-to-a-new-wave-of-card-testing>. Accessed 21 October 2026.
+\[72\] J. Meltzer and V. Chadalapaka. 2025. How Stripe Radar responded to a new wave of card testing. Stripe blog. <https://stripe.com/blog/how-stripe-radar-responded-to-a-new-wave-of-card-testing>. Accessed 21 October 2026.
 
 </div>
 
 <div id="ref-Tian2018" class="csl-entry">
 
-\[67\] H. Tian, S. M. Gaffigan, D. S. West, and D. McCoy. 2018. Bullet-Proof Payment Processors. *2018 APWG Symposium on Electronic Crime Research*, pp. 1–11. <https://doi.org/10.1109/eCrime.2018.8376208>.
+\[73\] H. Tian, S. M. Gaffigan, D. S. West, and D. McCoy. 2018. Bullet-Proof Payment Processors. *2018 APWG Symposium on Electronic Crime Research*, pp. 1–11. <https://doi.org/10.1109/eCrime.2018.8376208>.
 
 </div>
 
 <div id="ref-Xiong2026MemoryManagement" class="csl-entry">
 
-\[68\] Z. Xiong, Y. Lin, W. Xie, P. He, Z. Liu, J. Tang, H. Lakkaraju, and Z. Xiang. 2026. How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior. *Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)*, pp. 623–645. <https://doi.org/10.18653/v1/2026.acl-long.27>.
+\[74\] Z. Xiong, Y. Lin, W. Xie, P. He, Z. Liu, J. Tang, H. Lakkaraju, and Z. Xiang. 2026. How Memory Management Impacts LLM Agents: An Empirical Study of Experience-Following Behavior. *Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)*, pp. 623–645. <https://doi.org/10.18653/v1/2026.acl-long.27>.
 
 </div>
 
 <div id="ref-Visa2025VAMP" class="csl-entry">
 
-\[69\] Visa. 2025. Visa Acquirer Monitoring Program Overview. Visa. <https://corporate.visa.com/content/dam/VCOM/corporate/visa-perspectives/security-and-trust/documents/visa-acquirer-monitoring-program-fact-sheet-2025.pdf>. Accessed 25 October 2026.
+\[75\] Visa. 2025. Visa Acquirer Monitoring Program Overview. Visa. <https://corporate.visa.com/content/dam/VCOM/corporate/visa-perspectives/security-and-trust/documents/visa-acquirer-monitoring-program-fact-sheet-2025.pdf>. Accessed 25 October 2026.
 
 </div>
 
 <div id="ref-MITRE2026F3" class="csl-entry">
 
-\[70\] MITRE Center for Threat-Informed Defense. 2026. Fight Fraud Framework (F3), version 1.1. GitHub, center-for-threat-informed-defense/fight-fraud-framework. Cited version: commit cb186c2 (18 September 2026). <https://github.com/center-for-threat-informed-defense/fight-fraud-framework/tree/cb186c2b3372164e0b7def0d4f09531b6acc16e5>. Accessed 25 October 2026.
+\[76\] MITRE Center for Threat-Informed Defense. 2026. Fight Fraud Framework (F3), version 1.2. GitHub, center-for-threat-informed-defense/fight-fraud-framework. Cited version: commit e03c3dc (5 November 2026); version 1.2 released 29 September 2026. <https://github.com/center-for-threat-informed-defense/fight-fraud-framework/tree/e03c3dc0fd765e782f35a6293cc8bb340aa14842>. Accessed 9 November 2026.
 
 </div>
 

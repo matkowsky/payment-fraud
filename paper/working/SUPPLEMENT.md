@@ -8,7 +8,7 @@ This supplement accompanies the [complete manuscript](MANUSCRIPT.md). S1 and S2 
 
 ## S1. Sources and comparisons
 
-[Source notes](SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv) identify the version, supporting passages, publication status and supported claim for each of the 122 cited works. The [requirements matrix](SUPPLEMENT/S1_REQUIREMENTS_MATRIX.csv) compares 50 sources against C1 to C3. It codes two parts of C1 and C2 and three of C3: an outcome linked to its decision, and late, unobservable and false reports kept apart (C1); query coverage and learned time (C2); typed separation of observations, inferences and memory, a human principal before reuse, and links from records an agent output informed back to that output (C3). E means explicit support, P partial or adjacent support, and a dot means the cited material does not establish the requirement. The `payment_setting` column records yes for a payment or payment-fraud setting, P for a setting partly in payments or adjacent to payment fraud, and no otherwise. It marks two cyber threat intelligence sources, STIX 2.1 and Hettema’s belief-revision paper, as cyber; other security and threat-intelligence sources are coded no. The source notes provide passage locators, linked to the matrix by citation key. Their inspection dates are in UTC.
+[Source notes](SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv) identify the version, supporting passages, publication status and supported claim for each of the 127 cited works. The [requirements matrix](SUPPLEMENT/S1_REQUIREMENTS_MATRIX.csv) compares 50 sources against C1 to C3. It codes two parts of C1 and C2 and three of C3: an outcome linked to its decision, and late, unobservable and false reports kept apart (C1); query coverage and learned time (C2); typed separation of observations, inferences and memory, a human principal before reuse, and links from records an agent output informed back to that output (C3). E means explicit support, P partial or adjacent support, and a dot means the cited material does not establish the requirement. The `payment_setting` column records yes for a payment or payment-fraud setting, P for a setting partly in payments or adjacent to payment fraud, and no otherwise. It marks two cyber threat intelligence sources, STIX 2.1 and Hettema’s belief-revision paper, as cyber; other security and threat-intelligence sources are coded no. The source notes provide passage locators, linked to the matrix by citation key. Their inspection dates are in UTC.
 
 [Stage coverage](SUPPLEMENT/S1_STAGE_COVERAGE.csv) supplies the source-level codes behind Table S1.1. Each family receives the strongest code among its sources, so a family row may combine capabilities from several systems. Source notes record bibliographic and access issues separately from claims about a method.
 
@@ -70,7 +70,7 @@ Research can propose an untested design, while documentation can directly establ
 
 ### S2.2 External coverage check
 
-An external check compares the candidates with MITRE’s Fight Fraud Framework (F3), version 1.1 \[[1](#ref-MITRE2026F3)\]. The [F3 crosswalk](SUPPLEMENT/S2_F3_CROSSWALK.csv) maps each of its 123 techniques and sub-techniques to the candidate mechanisms that cover it, with a reason for each scope decision. Of the 92 within the product scope, a retained mechanism covers 34 fully and 40 in part. Of the other 18, fourteen are covered only by candidates outside the signal map. Five of the fourteen rest only on candidates judged covered by existing records, among them device fingerprint spoofing; six rest only on unreviewed candidates, among them 3-D Secure bypass; and three rest on candidates of both kinds. None rests on a screened gap. Four are covered by no candidate: DLL injection in the browser, abuse of accessibility features, theft from password managers and SEO poisoning. Scope and coverage are one reviewer’s judgments, recorded for each row.
+An external check compares the candidates with MITRE’s Fight Fraud Framework (F3), version 1.2 \[[1](#ref-MITRE2026F3)\]. Mechanism selection used version 1.1 (allocation key c:F3); version 1.2 adds 16 techniques and removes one. The [F3 crosswalk](SUPPLEMENT/S2_F3_CROSSWALK.csv) maps each of its 138 techniques and sub-techniques to the candidate mechanisms that cover it, with a reason for each scope decision. Of the 105 within the product scope, a retained mechanism covers 35 fully and 49 in part. Of the other 21, fourteen are covered only by candidates outside the signal map. Five of the fourteen rest only on candidates judged covered by existing records, among them device fingerprint spoofing; six rest only on unreviewed candidates, among them 3-D Secure bypass; and three rest on candidates of both kinds. None rests on a screened gap. Seven are covered by no candidate: DLL injection in the browser, compromise of point-of-sale systems, coercion, keylogging, abuse of accessibility features, theft from password managers and SEO poisoning. Scope and coverage are one reviewer’s judgments, recorded for each row.
 
 ## S3. Signals, mappings and lineage
 
@@ -105,7 +105,7 @@ SIG-44, SIG-45 and SIG-46 apply across mechanisms. They record technique-catalog
 
 Each input ID for the 24 derived features names another signal in the inventory. No feature depends, directly or indirectly, on itself. For example, SIG-24 uses SIG-27 to enumerate its eligible transaction cohort, including completed payments with no report. The separate chargeback-or-alert-resolution measure also uses SIG-25. Keeping these inputs explicit makes the denominator and the distinction between measures inspectable.
 
-The [source directory](SUPPLEMENT/S3_SOURCE_DIRECTORY.csv) identifies 61 design sources. Of these, 27 are not among the 122 cited works and have no S1 source note. Each source was read in full in October 2026. For one, a vendor blog post (L112), the cited passages were read verbatim and the other paragraphs only as a close paraphrase. One FTC complaint (L127) was first read in part on 21 October; a complete copy was read on 29 October. The directory records each source’s type, the depth and version of the read, with qualifiers such as the version read or pages not read, the access date and the scope. Where only a preprint or an author copy was read, the row says so. [Mechanism/source joins](SUPPLEMENT/S3_MAPPING_SOURCE_JOINS.csv) supply 126 links, each with its source identifier, recorded depth and scope limit. These records preserve the premises behind the mappings, including limits on transferring evidence from another setting.
+The [source directory](SUPPLEMENT/S3_SOURCE_DIRECTORY.csv) identifies 61 design sources. Of these, 27 are not among the 127 cited works and have no S1 source note. Each source was read in full in October 2026. For one, a vendor blog post (L112), the cited passages were read verbatim and the other paragraphs only as a close paraphrase. One FTC complaint (L127) was first read in part on 21 October; a complete copy was read on 29 October. The directory records each source’s type, the depth and version of the read, with qualifiers such as the version read or pages not read, the access date and the scope. Where only a preprint or an author copy was read, the row says so. [Mechanism/source joins](SUPPLEMENT/S3_MAPPING_SOURCE_JOINS.csv) supply 126 links, each with its source identifier, recorded depth and scope limit. These records preserve the premises behind the mappings, including limits on transferring evidence from another setting.
 
 The public-counterpart classification asks whether a pinned schema contains an object, field or event that supplies part of the required observation. Of the 71 signals, 32 have partial counterparts, the question does not apply to 32, and none was identified for seven. S5 gives the exact locators and explains the limits of partial counterparts; the inventory records each signal’s classification.
 
@@ -159,7 +159,7 @@ Responsibilities 16 and 17 cover engineering validation and adaptive testing of 
 
 Responsibilities 1 to 10 scope and conduct an investigation. They include human tasking, governed tools, the evidence store, hypothesis testing and entity relationships. Responsibilities 11 to 20 represent threat knowledge and turn findings into usable outputs: actor, technique and vulnerability knowledge, the structured threat-knowledge store, hunting for undetected abuse, detection development, threat-model integration, recommendations, finished-intelligence synthesis and evidence lineage. Responsibilities 21 to 24 govern use and reuse: independent quality review, human release, controlled learning and security of the investigation system.
 
-The [entity inventory](SUPPLEMENT/S4_ENTITIES.csv) and [entity relationships](SUPPLEMENT/S4_ENTITY_RELATIONS.csv) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders (other explanations for the link), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel’s status; it does not invent an outcome report. [S4.1](#complete-storage-requirements) gives the complete storage requirements.
+The [entity inventory](SUPPLEMENT/S4_ENTITIES.csv) and [entity relationships](SUPPLEMENT/S4_ENTITY_RELATIONS.csv) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders (other explanations for the link), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel’s status; it does not invent an outcome report. [S4.1](#complete-storage-requirements) gives the complete storage requirements, and [S4.2](#outcome-record-schemas) gives field-level schemas for the outcome records.
 
 **Figure S4.1. Investigation as a sequence of tests.** Each query tests competing explanations within authorized scope. A gateway outside the agent attaches the query’s coverage, which determines which interpretations remain supported. Draft outputs follow review and release under manuscript Section 6.4.
 
@@ -332,6 +332,110 @@ Cross-business linking requires a stated purpose and authorization for each iden
 - Link each outcome report to the transaction, payout or account application it concerns, with the basis for the link and whether it is verified. Attribute outcomes through that link to the platform account, connected account and end customer, so that a measure counts each affected transaction once. A report’s links to the decisions that may have shaped it do not change this count. Keep each transaction’s acquiring bank and the static part of its statement descriptor, so that a network’s monitored unit can be reconstructed.
 - Link each wallet to every party it has allowed to spend its funds.
 
+### S4.2 Field-level schemas for outcome records
+
+The [outcome-record schema](SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json) defines, in JSON Schema, the fields of the records that the first requirement needs. It covers eight record types:
+
+| Record                 | What it holds                                                                                                                                                                                      |
+|------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OutcomeChannel         | A route for reporting outcomes: its rail, clock-start event, reporting window with source and rule version, the attributes the window depends on, and whether the channel adjudicates report truth |
+| ControlAction          | A decision’s targets, time, authority and version, and its effect on each channel: closed, delayed, changed in meaning, none or unknown                                                            |
+| ChannelStateTransition | One change in a channel’s state for one item, with its effective interval and the decision or rule event that caused it                                                                            |
+| LabelEvent             | An outcome report or one revision of it, with its amount, when the outcome occurred, when it was reported at its source, when it arrived and when it became queryable                              |
+| LabelEventDecisionLink | A link from a report to one decision that may have shaped it, with the decision’s role, the basis for the link and whether it is verified                                                          |
+| ChannelStatusReading   | Report presence, channel state, query access and no-report status for one item and channel at one read time, stored when a draft cites it                                                          |
+| ItemAttribution        | The accounts an item belongs to, and the acquiring bank and static statement descriptor from which a network’s monitored unit can be rebuilt                                                       |
+| EntityLink             | A link between entities, such as a closed account and a suspected successor, with its basis, confidence and other possible explanations                                                            |
+
+Every record is append-only: a correction is a new record that references the earlier one. A time that is not known is recorded as unknown, with a reason, and is never left out. The schema checks each record on its own. Fourteen rules check records against each other:
+
+1.  OR-01: a record identifier is used once. A record changed in place under its own identifier passes every rule, so the store must prevent edits.
+2.  OR-02: a correction or revision references an earlier record of the same type and, for a report, of the same report.
+3.  OR-03: every channel, decision and report that a record cites exists.
+4.  OR-04: a report’s times are in order where they are known: occurred, reported, arrived, learned.
+5.  OR-05: a won or lost report states whether that result followed adjudication.
+6.  OR-06: a decision gives one effect per channel. A delay gives its expected clock start, and a change in meaning says what changed.
+7.  OR-07: a permanent closure cites the decision that caused it, and a reopening or extension cites the rule event. A cited decision must target the item, record the matching effect and precede the transition.
+8.  OR-08: no report can arrive through a channel while a closure of that channel for that item is in force; a revision counts from its report’s first arrival. Such a report means the item link or the closure is wrong.
+9.  OR-09: a link’s role fits the decision: a decision on the reported item, on an earlier related attempt, or on an account or payout that contains the item.
+10. OR-10: a reading’s channel state is computed only from the transitions the system had learned by the read time.
+11. OR-11: a reading’s report presence matches the reports learned by the read time. Presence is unavailable only when query access was denied or unavailable, and it does not overwrite channel state.
+12. OR-12: a no-report status follows from the channel’s state and window. An absence matures only if the window is defined and has ended, the channel was open throughout it and query access was full. A matured absence records the rule version it matured under and cites any decision that changed the channel’s meaning.
+13. OR-13: each reported item has exactly one live attribution to its accounts, so a measure counts it once.
+14. OR-14: a link resting only on a shared attribute is neither verified nor high-confidence, and a suspected-successor link starts from an account with a recorded closure.
+
+The [valid conformance case](SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json) builds one synthetic history: a blocked card attempt, an approved retry that draws a fraud chargeback the merchant later wins, a hold on the account that received the payment, and a payment that draws no report. An earlier account with the same principal name was closed; the new account is linked to it as a suspected successor on that name alone, and a storefront is linked to the new account by its checkout identifier. Its 27 records pass. Each of the 22 [invalid cases](SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json) changes that history in one way and must fail exactly one check; together they exercise the schema check and all fourteen rules. `tools/outcome_conformance.py` runs the cases using only the Python standard library, and `CHECK_CANDIDATE.py` runs it as well. The same tool checks any records file in this format.
+
+Channel names, windows and rule versions in the cases are illustrative, not any network’s rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. [S4.4](#investigation-record-schemas) gives the schemas for query runs, which the second requirement needs, and for release records. Denominators are outside these records: which payments a measure counts, their amounts and their capture or settlement times come from the payment ledger, which this section does not specify. Whether a denominator read was complete is a query-coverage record.
+
+### S4.3 Cost of the outcome records on synthetic data
+
+[`tools/outcome_cost.py`](tools/outcome_cost.py) builds one million synthetic payments from the [valid conformance case](SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json), replacing identifiers and shifting times, so each record has its template’s fields. Before measuring, it checks a sample of generated records against the schema and OR-01 to OR-14. [The results](SUPPLEMENT/S4_OUTCOME_RECORDS/cost_results.json) come from one run on the machine below.
+
+Assumptions, illustrative and not any platform’s values: payments spread over 90 days; 100 payments per account; two outcome channels per payment, fraud chargeback and early fraud warning; 1 percent of payments blocked; 0.5 percent of allowed payments draw a fraud chargeback with three report events and one decision link; 1 percent of accounts held and 1 percent linked to a suspected predecessor; one cited channel reading per blocked payment.
+
+| Record                 |   Records | Mean size (bytes, JSON) |
+|------------------------|----------:|------------------------:|
+| ChannelStateTransition | 2,000,000 |                     411 |
+| ControlAction          | 1,000,200 |                     422 |
+| ItemAttribution        | 1,000,000 |                     397 |
+| LabelEvent             |    15,372 |                     718 |
+| ChannelStatusReading   |     9,947 |                     378 |
+| LabelEventDecisionLink |     5,124 |                     230 |
+| EntityLink             |       100 |                     558 |
+| OutcomeChannel         |         2 |                     361 |
+
+Each payment needs 4.03 records. Per million payments: 1,656 MB as JSON lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1, storing each record’s JSON with one index on item, channel, record type, learned time and effective time. On a two-core x86-64 virtual machine with Python 3.13.18: 10,000 reads of one payment’s fraud-chargeback state and report count, at a cutoff after all records, took a median of 17 microseconds and a 99th percentile of 57; one day’s cohort of 11,052 payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
+
+Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are measured in S4.4.
+
+### S4.4 Field-level schemas for query runs and release
+
+The [investigation-record schema](SUPPLEMENT/S4_INVESTIGATION_RECORDS/investigation_records.schema.json) defines the records the second and third requirements need. It covers eight record types:
+
+| Record          | What it holds                                                                                                                                                                                                                                                            |
+|-----------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Actor           | A party that writes records: an agent, the gateway, a checker or a person                                                                                                                                                                                                |
+| QueryRun        | One query and the coverage record the gateway attached: requested and evaluated entities and intervals, the as-of cutoff, each source’s watermarks, known gaps, retention horizon and sampling, filtering, limits reached, the records returned and the derived statuses |
+| Observation     | A stored record with its class, event interval, learned time, root observations, inputs and links to any agent output that informed it                                                                                                                                   |
+| DraftOutput     | An agent draft: its exact version, expiry, the task’s current period, and each claim with its supporting and contradicting records, query runs and context                                                                                                               |
+| OutputExposure  | A period in which a person had an agent output open about an entity                                                                                                                                                                                                      |
+| ReleaseDecision | A person’s decision on one exact draft version: the claims released with their confidence, scope, expiry and reviewer findings                                                                                                                                           |
+| ReleasedItem    | A released conclusion in organizational memory, usable as context only                                                                                                                                                                                                   |
+| MemoryRead      | One read of a released item                                                                                                                                                                                                                                              |
+
+Fourteen rules check records against each other:
+
+1.  IR-01: a record identifier is used once.
+2.  IR-02: every record a record cites exists, and a cited query run is a query run.
+3.  IR-03: a gateway that is not the requester records a query run’s coverage.
+4.  IR-04: the evaluated entities and interval lie within those requested, and the as-of cutoff is not after the query.
+5.  IR-05: a run’s statuses follow from its coverage fields. By Section 6.2’s source rules, a run is partial when a source was sampled, has a known gap in the requested interval, or does not reach from its retention horizon to its event watermark across that interval, and truncated when a limit was reached. Two rules are added here: a narrower evaluated scope or access filtering also gives partial. A denied or unavailable source gives that status. A run is complete only when nothing else applies.
+6.  IR-06: a run returns only records learned by its as-of cutoff whose event intervals overlap the evaluated interval.
+7.  IR-07: a derived record is learned no earlier than its inputs, and its root observations are exactly its inputs’ roots. Only a source observation, score or decision can be its own root.
+8.  IR-08: an absence claim cites at least one query run, and each cited run is complete, not scope-limited, returned nothing and covers the claim’s entities and interval.
+9.  IR-09: a claim’s support consists of observation records about the claim’s entities, learned by the time the draft was written, and its count of distinct roots equals the number of distinct root observations among them. A released conclusion or a draft is never support.
+10. IR-10: a current-conduct claim cites an observation or derived feature whose event interval falls within the current period. A score or decision does not count, and a feature linked to an agent output counts only through an unlinked current-period input.
+11. IR-11: a person releases the exact draft version, before the draft expires, without raising any claim’s confidence.
+12. IR-12: a conclusion enters memory only after a decision that released that claim.
+13. IR-13: memory is read only from a released item, between its creation and its release’s expiry.
+14. IR-14: a note names its author. A record its author wrote about an entity while an agent output about that entity was open links to that output, and a record derived from a linked record keeps the link.
+
+The [valid conformance case](SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json) builds one synthetic history: an investigation with three query runs, a draft with a current-conduct claim and an absence claim, a note written while the draft was open, a release by a second person, and a later case that reads the released conclusion as context and cites a new observation. Its 22 records pass. Each of the 35 [invalid cases](SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json) changes that history in one way and fails exactly one check; together they exercise the schema and all fourteen rules. Run [`tools/investigation_conformance.py`](tools/investigation_conformance.py) to repeat the checks.
+
+The same script checks four necessity pairs. Each pair is two histories that permit different conclusions but are identical once one group of fields is removed. In the first three pairs both histories pass the rules; in the fourth, the rules reject the history with no release decision.
+
+| Fields removed        | The two histories                                                                                    | What differs                             |
+|-----------------------|------------------------------------------------------------------------------------------------------|------------------------------------------|
+| Query coverage (C2)   | The same empty result, from a complete run and from a run reaching past its source’s event watermark | Whether absence is supported             |
+| Learned time (C2)     | The same observation, learned before a run’s cutoff and after it                                     | Whether the fact was known at the cutoff |
+| Roots and inputs (C3) | A second supporting record derived from a different observation, and one derived from the first      | Two root observations or one             |
+| Release decision (C3) | The same stored conclusion, with a person’s release decision and with none                           | Whether reuse is permitted               |
+
+A store without those fields cannot tell the two histories apart, so no rule applied to it can be right in both. The pairs show that each field group is needed; they do not show that the records are sufficient or that they improve investigations. The rules do not check released-item links on records written after a memory read, the lag between a run’s cutoff and a source’s ingestion watermark, or whether a returned record bears on a claim. Identifiers, dates and versions in the cases are illustrative.
+
+**Cost.** [`tools/investigation_cost.py`](tools/investigation_cost.py) copies the valid case 100,000 times, each copy with its four query runs, seven stored records, two drafts, one exposure, one release decision, one released item and one memory read, and checks a sample against the rules. Per copy, the records take 8.5 KB as JSON: 3.5 KB for query runs, about 900 bytes each, and 2.6 KB for drafts, release and memory records. A thousand copies take 0.26 MB compressed and 9.7 MB in SQLite; repeated text makes the compressed figure a best case. On the two-core machine of S4.3, checking that an absence claim’s runs are complete and cover it took a median of 30 microseconds (99th percentile 74), and checking that a memory read used a released, unexpired item took 25 (64). [The results](SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json) come from one run. Real coverage records list more sources per run, and reviewer time is not measured.
+
 ## S5. Pinned public schemas
 
 [Schema versions](SUPPLEMENT/S5_SCHEMA_VERSIONS.csv) records the filenames, hashes, versions and counts at repository commit `18fa2cc768024b47789dc6fa243acd48478acac2`, dated 25 September 2026. All three files come from the public `stripe/openapi` repository. The commit message reads “Update OpenAPI for 2026-09-30.endive”: the version strings name the API release the files describe, which postdates the commit. The `private_preview` in file C’s name does not indicate access to private systems. Stripe publishes these files under the MIT License. That license governs the schema-derived identifiers and locators in the event-type and signal-locator files; the package’s third-party notice reproduces it.
@@ -461,9 +565,10 @@ These conditions explain the scope and comparisons behind the tests in S7.1. E8�
 | 4   | Controls can wrongly restrict or block legitimate users                                                                                 | Peer-reviewed evaluations                                                                                                                                                                                                | Keep decisions, reviews of their correctness and population-level error estimates separate; weigh detection gain against the cost to legitimate users                            |
 | 5   | Adversaries can adapt to controls and testing                                                                                           | Platform publication, peer-reviewed measurement and preprint                                                                                                                                                             | Test adaptively within responsibilities 16 and 17; keep test traffic hard for adversaries to recognize but identifiable within the system                                        |
 | 6   | Decisions a business reports to the platform may carry the business’s errors into platform labels                                       | Platform documentation of business-reported decisions (manuscript Section 7.1); inference that they may carry errors                                                                                                     | Keep decisions and outcomes reported by businesses distinct from platform labels                                                                                                 |
-| 7   | Account structures can hide which transactions and entities a report concerns                                                           | Enforcement allegations                                                                                                                                                                                                  | Keep the links from each report to its transaction and entities; compute defined metrics for each cluster of related accounts                                                    |
-| 8   | Resolving a pre-dispute alert may avert a later chargeback                                                                              | Platform documentation that a refund can prevent a dispute; enforcement allegations for the misuse                                                                                                                       | Record alert resolutions separately; do not read a lower chargeback ratio, by itself, as less abuse                                                                              |
-| 9   | A risk assessment may return a not-assessed result or fail open (let the activity proceed)                                              | Platform documentation                                                                                                                                                                                                   | Keep unknown and failure states distinct; do not convert either into low risk                                                                                                    |
+| 7   | Account structures can hide which transactions and entities a report concerns                                                           | Enforcement allegations                                                                                                                                                                                                  | Keep the links from each report to its transaction and entities; compute defined metrics for each cluster of related accounts; measure a closure’s effect across the cluster     |
+| 8   | Payments a business or platform funds itself can inflate a ratio’s denominator                                                          | Enforcement allegations                                                                                                                                                                                                  | Exclude them from the denominator; count them separately                                                                                                                         |
+| 9   | Resolving a pre-dispute alert may avert a later chargeback                                                                              | Platform documentation that a refund can prevent a dispute; enforcement allegations for the misuse                                                                                                                       | Record alert resolutions separately; do not read a lower chargeback ratio, by itself, as less abuse                                                                              |
+| 10  | A risk assessment may return a not-assessed result or fail open (let the activity proceed)                                              | Platform documentation                                                                                                                                                                                                   | Keep unknown and failure states distinct; do not convert either into low risk                                                                                                    |
 
 **E1. Do coverage and learned-time records reduce unsupported conclusions?** The confirmatory test in S7.1 concerns cases with incomplete history or links learned late, with a stratum of cases with complete history for its non-inferiority measure. A broader timing study would compare minute-level joins with coarser timing across a realistic incident population. It would measure exposure-to-use and session-issuance-to-use intervals, detection or triage gains, collection costs and false alarms from benign changes. Microsoft’s report of payment fraud attempts soon after session theft and the deliberate key-exposure experiment motivate precise timing; neither establishes its typical benefit.
 
@@ -648,13 +753,15 @@ Vendor architectures draw related lines. One keeps an append-only event record, 
 
 A survey of persistent agents calls for records tying actions to the state that justified them \[[85](#ref-Ding2026AlwaysOn)\]. EDDOps links versioned evaluation records to the agent changes they prompt \[[86](#ref-Xia2024EDDOps)\]. Both motivate preserving the connection between an output and its later effects. Under C3, labels, assessments, controls, detections and threat-knowledge items link back to every agent output and every released organizational-memory item open in the writer’s case or session. Human release does not erase this dependence or turn the output into independent evidence.
 
+**Financial-sector and audit guidance (manuscript Section 2.4).** An AI risk-management handbook from Project MindForge, an industry initiative led by the Monetary Authority of Singapore, treats traceability of individual agent decisions as part of explainability, suggests searchable logging, stresses human review for certain risky actions, names injection into shared agent memory as a threat and describes agentic governance as nascent. It also notes that real-time human oversight may not be feasible for fraud detection engines \[[87](#ref-MindForge2026Operationalisation)\]; C3’s release gates entry into memory, not each real-time decision. A white paper on runtime safeguards for agentic finance proposes a check before a consequential agent action or output is executed or relied on, and an append-only audit log of every governance decision. Where feasible, the agent’s account of its steps should be checked against system-generated records of its tool calls and data access; a gateway variant wraps an agent’s outbound calls without changing its code. In its investigation example, agents investigate flagged transactions and propose whether to file a suspicious transaction report. Controls for each alert type set mandatory steps and the minimum evidence for each conclusion, and dispositions with missing steps or insufficient evidence are denied and returned to the queue. Filing needs a compliance officer’s approval, while low-risk cases with complete evidence close as false flags, subject to quality-assurance sampling \[[88](#ref-MAS2026SAFR)\]. Guidelines from India’s computer emergency response team for auditing AI systems require auditors to identify evidence they could not access and assess its effect on coverage; lack of access is not automatically evidence of conformity. When auditors use their own AI tools, the tools’ analysis is a working aid, not by itself evidence that a control works; a competent auditor must validate all AI-assisted findings, and original evidence must be kept separate from AI-derived material. Organizations must periodically assess whether human review is effective, including reviewer agreement and inappropriate automatic acceptance of AI outputs \[[89](#ref-CERTIn2026AIAudit)\]. These provisions partly parallel C2 (independent records of tool calls and data access), C3 (AI analysis is not by itself evidence) and E8 (measuring whether review works).
+
 ### S9.4 Memory, dependence and revision
 
-Agents can learn reusable lessons from experience. ExpeL extracts lessons, which it calls insights, from its successes and failures on training tasks, adds them to the prompt for later tasks and retrieves similar successful trajectories as examples \[[87](#ref-Zhao2024ExpeL)\]. This capability explains the value of reuse, but reuse can propagate an earlier mistake. A-MemGuard checks memory-derived reasoning during use, consulting lessons from stored failures \[[88](#ref-Wei2026AMemGuard)\]. Manuscript Section 7 proposes testing new lessons against counterexamples before reuse, then testing their effects in E7. This proposed control has no measured payment-platform benefit here.
+Agents can learn reusable lessons from experience. ExpeL extracts lessons, which it calls insights, from its successes and failures on training tasks, adds them to the prompt for later tasks and retrieves similar successful trajectories as examples \[[90](#ref-Zhao2024ExpeL)\]. This capability explains the value of reuse, but reuse can propagate an earlier mistake. A-MemGuard checks memory-derived reasoning during use, consulting lessons from stored failures \[[91](#ref-Wei2026AMemGuard)\]. Manuscript Section 7 proposes testing new lessons against counterexamples before reuse, then testing their effects in E7. This proposed control has no measured payment-platform benefit here.
 
-The choice of memory structure depends on purpose. An investigative system needs to know whether a retrieved item is an observation or a conclusion. Studies of memory consolidation show that it can erase a claim’s source; external source records restore much of the lost control in their test settings \[[89](#ref-Zhan2026AuthMemBench), [90](#ref-Xu2026PPMF)\]. Those settings used synthetic customer-service histories and benchmark attacks, not payment investigations.
+The choice of memory structure depends on purpose. An investigative system needs to know whether a retrieved item is an observation or a conclusion. Studies of memory consolidation show that it can erase a claim’s source; external source records restore much of the lost control in their test settings \[[92](#ref-Zhan2026AuthMemBench), [93](#ref-Xu2026PPMF)\]. Those settings used synthetic customer-service histories and benchmark attacks, not payment investigations.
 
-Belief-revision work on threat intelligence asks that intelligence state its source and its chain of modifications \[[91](#ref-Hettema2021Rationality)\]. A recent agent-memory design keeps an immutable raw log beneath its summaries and links each summary to the raw pages that support it \[[92](#ref-Zhu2026TierMem)\]. SSGM separates an append-only observation log from derived memory and checks updates against protected facts \[[93](#ref-Lam2026SSGM)\]. A shared-memory service records writers, derivation links and supersession; its authors evaluate it without a baseline \[[94](#ref-Margalit2026GovernedMemory)\]. PROV-AGENT extends provenance records to prompts, responses and decisions, linking them to downstream outcomes \[[95](#ref-Souza2025ProvAgent)\]. These precedents support typed records and traceable revision. C3 does not claim to invent them.
+Belief-revision work on threat intelligence asks that intelligence state its source and its chain of modifications \[[94](#ref-Hettema2021Rationality)\]. A recent agent-memory design keeps an immutable raw log beneath its summaries and links each summary to the raw pages that support it \[[95](#ref-Zhu2026TierMem)\]. SSGM separates an append-only observation log from derived memory and checks updates against protected facts \[[96](#ref-Lam2026SSGM)\]. A shared-memory service records writers, derivation links and supersession; its authors evaluate it without a baseline \[[97](#ref-Margalit2026GovernedMemory)\]. PROV-AGENT extends provenance records to prompts, responses and decisions, linking them to downstream outcomes \[[98](#ref-Souza2025ProvAgent)\]. These precedents support typed records and traceable revision. C3 does not claim to invent them.
 
 Source ancestry is necessary but not sufficient to establish independent support. A formal treatment of evidence dependence distinguishes independent observations from reports derived from shared evidence \[[71](#ref-Bara2026EpistemicSybil)\]. C3 follows the same concern: several agents repeating one report do not create several independent observations. A released conclusion can guide the next query, but evidence for that conclusion must remain traceable to the underlying records.
 
@@ -662,11 +769,37 @@ Two recent designs bear directly on C3. A data-governance preprint commits no ag
 
 ### S9.5 Time and coverage
 
-Timing matters when it changes which information a decision could use. Dataflow addresses out-of-order streams, where the system cannot assume that all events have arrived \[[56](#ref-Akidau2015Dataflow)\]. Leakage research identifies information about a target that should not legitimately be available to a model \[[96](#ref-Kaufman2011Leakage)\]. C2 uses these concerns to distinguish when a fact held from when it became queryable. A relationship learned tomorrow cannot support a decision frozen today merely because the relationship existed yesterday.
+Timing matters when it changes which information a decision could use. Dataflow addresses out-of-order streams, where the system cannot assume that all events have arrived \[[56](#ref-Akidau2015Dataflow)\]. Leakage research identifies information about a target that should not legitimately be available to a model \[[99](#ref-Kaufman2011Leakage)\]. C2 uses these concerns to distinguish when a fact held from when it became queryable. A relationship learned tomorrow cannot support a decision frozen today merely because the relationship existed yesterday.
 
 Recent designs combine timing with governance. Quipu controls graph writes while retaining validity and recording times; some policies require human approval bound to the evidence \[[60](#ref-Brown2026Quipu)\]. Wu’s coverage model distinguishes event time from verifier receipt time, judges whether a verifier’s evidence was complete at a stated cutoff, links records to decisions, and separates refused execution branches from late reports \[[52](#ref-Wu2026EvidenceCoverage)\]. It also separates absence from one retrieval from absence in a verifier view whose closure, including retrieval coverage and retention, is justified, and it specifies that basis without designing its implementation. C2 applies these ideas to a query contract that records scope, coverage and availability outside the investigating agent.
 
 Together, these precedents explain why C1 to C3 are a synthesis. The proposed contribution is their joint application to payment-platform investigation, with explicit channels, record classes, query responses and release rules. The hypothetical traces expose conclusions that fail when specified context is removed. E1 to E9 test parts of that context, including whether the channel states reduce bias relative to a platform’s current label rule (E9) and, through planted drafts that rest only on released items, the rule that a released conclusion adds no independent corroboration (E8; manuscript Section 8.3). In S7.1, E5 and E8 measure reviewer time, and no test measures the cost of collecting the records (manuscript Section 9.1). Neither the comparison nor the traces establish that the integrated system works in deployment.
+
+## S10. Two FTC complaints replayed on synthetic records
+
+**Question.** Do the outcome records of S4.2 make the patterns alleged in two complaints measurable? The complaints are FTC v. First Data Merchant Services LLC and Chi W. Ko, No. 1:20-cv-03867 (S.D.N.Y.), ECF 1, and FTC v. AlliedWallet, Inc. et al., No. 2:19-cv-04355 (C.D. Cal.), ECF 24 \[[14](#ref-FTC2020FirstData), [16](#ref-FTC2019Allied)\]. Complaint content is allegation, the data are synthetic and the parameters are assumptions, so the percentages describe constructed cases, not detection rates. Both complaints also allege that the processor saw evidence and did not act; records cannot fix that.
+
+**Method.** [`tools/replays/ftc_first_data_replay.py`](tools/replays/ftc_first_data_replay.py) and [`tools/replays/allied_wallet_replay.py`](tools/replays/allied_wallet_replay.py) generate synthetic payments, reports, decisions, attributions and links as S4.2 records, check them with the conformance rules, and compare what different views of the records flag over 1,000 runs. Results are in [first_data_results.json](SUPPLEMENT/S10_REPLAYS/first_data_results.json) and [allied_wallet_results.json](SUPPLEMENT/S10_REPLAYS/allied_wallet_results.json). Standard library only; Python 3.12 or later.
+
+**Assumptions.** Monitoring rules are illustrative or the complaints’ own descriptions, not any network’s current rules. First Data: 30-day periods; a flag needs at least 100 reports and 1.5 percent of captures; a 120-day dispute window with reports spread across it. Allied Wallet: chargebacks of at least 100 a month and 1 percent of sales transactions; fraud reports of at least \$75,000 a month or 1 percent of sales dollars; three accounts of 185 payments a month each, linked by one payout beneficiary; a 3.14 percent fraud-report rate, the mean of the four monthly ratios the complaint gives. Volumes, ticket sizes, delays and fees are assumptions.
+
+**Findings.**
+
+| Alleged pattern                                                | Without the record                                                                                                                     | With the record                                                                                                                                                                                                                              |
+|----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Transactions spread across eight related accounts (First Data) | The account view never flags them: about 14 expected reports each against a floor of 100                                               | A view over shared-attribute links flags the group in 91.6 percent of runs. It also flags 40 merchants assumed legitimate that share a call center in 76.7 percent                                                                           |
+| A new account after a closure (First Data)                     | About 97 late reports a run arrive on the closed account and face no ratio test                                                        | With a successor link, the linked unit is flagged at once in 99.8 percent of runs, and in 99.1 percent for a clean successor: those first flags are the closed account’s reports. A period later the two separate (96.9 against 0.1 percent) |
+| A switched statement descriptor (First Data)                   | A store that overwrites the descriptor shows the account view and, in 53.7 percent of runs, flags the new descriptor before the switch | Per-payment descriptors rebuild the monitored unit; 95.7 reports a run reach a unit with no denominator and are reported separately                                                                                                          |
+| Reports linked only by card number and amount (First Data)     | Counting every link flags a clean account near the floor in 7.8 to 37.0 percent of runs as unverified links rise from 10 to 50 percent | Counting only verified links gives no wrong flag and leaves the account inconclusive in 40.0 to 100 percent of runs                                                                                                                          |
+| A merchant below the chargeback floor (Allied Wallet)          | The chargeback rule never flags an account or the group: no account exceeds 24 chargebacks in a month                                  | The fraud-report rule by value flags each account in at least 99.8 percent of runs. It needs the separate channel and each report’s amount                                                                                                   |
+| Refunds before disputes (Allied Wallet)                        | A chargeback-only store reads the refunded fifth of reported payments as unreported                                                    | The fraud report is kept as its own record                                                                                                                                                                                                   |
+| Traffic moved after closures (Allied Wallet)                   | On average 13.5 fraud reports a run arrive on closed accounts in months with no sales, which the account view cannot test              | The payout-linked group counts them against the receiving account’s sales                                                                                                                                                                    |
+
+**Holds by construction.** The eight accounts sit below the floor and the alleged fraud ratio is three times the threshold, so those flags follow from the parameters; only their timing depends on the assumed delays. The 40 legitimate merchants’ report rate is set at 1.6 percent, above the 1.5 percent threshold, so their flag also follows from the parameters. The First Data figures divide by the previous period’s captures; with the same period’s, the two linked-account figures are 86.0 and 73.7 percent. The refunded share is set to 20 percent. Displacement follows from the model, which moves each closed account’s volume to the remaining account. Verified links are correct by assumption.
+
+**Limits of the records.** Padding sales with self-funded purchases is arithmetic, not simulated: with the assumed fees, holding the chargeback ratio under 1 percent with \$1 purchases costs 0.2 percent of sales, and padded payments look like clean payments with no reports. Only payment-ledger data, such as the funding instrument, can expose them. Rewriting 12,000 attributions in place passes every rule, so the store must prevent edits. Accounts with no recorded shared attribute, shell companies and dummy websites leave nothing for an outcome record to test.
+
+**Conformance.** The generated records, 144,574 for First Data and 4,240 for Allied Wallet, pass the schema and rules. A refund recorded as also closing the fraud-report channel fails OR-08, and a shared-attribute link marked verified fails OR-14.
 
 ## References
 
@@ -674,7 +807,7 @@ Together, these precedents explain why C1 to C3 are a synthesis. The proposed co
 
 <div id="ref-MITRE2026F3" class="csl-entry">
 
-\[1\] MITRE Center for Threat-Informed Defense. 2026. Fight Fraud Framework (F3), version 1.1. GitHub, center-for-threat-informed-defense/fight-fraud-framework. Cited version: commit cb186c2 (18 September 2026). <https://github.com/center-for-threat-informed-defense/fight-fraud-framework/tree/cb186c2b3372164e0b7def0d4f09531b6acc16e5>. Accessed 25 October 2026.
+\[1\] MITRE Center for Threat-Informed Defense. 2026. Fight Fraud Framework (F3), version 1.2. GitHub, center-for-threat-informed-defense/fight-fraud-framework. Cited version: commit e03c3dc (5 November 2026); version 1.2 released 29 September 2026. <https://github.com/center-for-threat-informed-defense/fight-fraud-framework/tree/e03c3dc0fd765e782f35a6293cc8bb340aa14842>. Accessed 9 November 2026.
 
 </div>
 
@@ -1188,63 +1321,81 @@ Together, these precedents explain why C1 to C3 are a synthesis. The proposed co
 
 </div>
 
+<div id="ref-MindForge2026Operationalisation" class="csl-entry">
+
+\[87\] MindForge Consortium. 2026. AI Risk Management: Operationalisation Handbook. Handbook, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/schemes-and-initiatives/ftig/project-mindforge/mindforge-ai-risk-management-operationalisation-handbook.pdf>.
+
+</div>
+
+<div id="ref-MAS2026SAFR" class="csl-entry">
+
+\[88\] Monetary Authority of Singapore. 2026. Safeguards for Agentic Finance at Runtime (SAFR). White paper, version 1.1, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf>.
+
+</div>
+
+<div id="ref-CERTIn2026AIAudit" class="csl-entry">
+
+\[89\] Indian Computer Emergency Response Team. 2026. AI Security Auditing Guidelines. Guidelines, version 1.0, CERT-In. <https://www.cert-in.org.in/PDF/AI_Security_Auditing_Guidelines.pdf>.
+
+</div>
+
 <div id="ref-Zhao2024ExpeL" class="csl-entry">
 
-\[87\] A. Zhao, D. Huang, Q. Xu, M. Lin, Y.-J. Liu, and G. Huang. 2024. ExpeL: LLM Agents Are Experiential Learners. *Proceedings of the AAAI Conference on Artificial Intelligence*, 38(17), pp. 19632–19642. <https://doi.org/10.1609/aaai.v38i17.29936>.
+\[90\] A. Zhao, D. Huang, Q. Xu, M. Lin, Y.-J. Liu, and G. Huang. 2024. ExpeL: LLM Agents Are Experiential Learners. *Proceedings of the AAAI Conference on Artificial Intelligence*, 38(17), pp. 19632–19642. <https://doi.org/10.1609/aaai.v38i17.29936>.
 
 </div>
 
 <div id="ref-Wei2026AMemGuard" class="csl-entry">
 
-\[88\] Q. Wei, T. Yang, Y. Wang, X. Li, L. Li, Z. Yin, Y. Zhan, T. Holz, Z. Lin, and X. Wang. 2025. A-MemGuard: A Proactive Defense Framework for LLM-Based Agent Memory. arXiv preprint 2510.02373v1. ICML 2026 acceptance reported; final proceedings version not established. Cited version: arXiv 2510.02373v1 (29 September 2025). <https://arxiv.org/abs/2510.02373v1>.
+\[91\] Q. Wei, T. Yang, Y. Wang, X. Li, L. Li, Z. Yin, Y. Zhan, T. Holz, Z. Lin, and X. Wang. 2025. A-MemGuard: A Proactive Defense Framework for LLM-Based Agent Memory. arXiv preprint 2510.02373v1. ICML 2026 acceptance reported; final proceedings version not established. Cited version: arXiv 2510.02373v1 (29 September 2025). <https://arxiv.org/abs/2510.02373v1>.
 
 </div>
 
 <div id="ref-Zhan2026AuthMemBench" class="csl-entry">
 
-\[89\] Q. Zhan, R. Zhang, S. Guo, L. Zhao, and Z. Liu. 2026. When Memory Becomes Authority: Benchmarking Authority Collapse at the Memory Consolidation Boundary. arXiv preprint 2608.01679v2. <https://arxiv.org/abs/2608.01679v2>.
+\[92\] Q. Zhan, R. Zhang, S. Guo, L. Zhao, and Z. Liu. 2026. When Memory Becomes Authority: Benchmarking Authority Collapse at the Memory Consolidation Boundary. arXiv preprint 2608.01679v2. <https://arxiv.org/abs/2608.01679v2>.
 
 </div>
 
 <div id="ref-Xu2026PPMF" class="csl-entry">
 
-\[90\] J. Xu, Y. Xiao, W. Shao, H. Liu, and X. Li. 2026. Memory Provenance Laundering in LLM Agents: A Non-Amplification Firewall for Persistent Memory. arXiv preprint 2607.29167v1. <https://arxiv.org/abs/2607.29167v1>.
+\[93\] J. Xu, Y. Xiao, W. Shao, H. Liu, and X. Li. 2026. Memory Provenance Laundering in LLM Agents: A Non-Amplification Firewall for Persistent Memory. arXiv preprint 2607.29167v1. <https://arxiv.org/abs/2607.29167v1>.
 
 </div>
 
 <div id="ref-Hettema2021Rationality" class="csl-entry">
 
-\[91\] H. Hettema. 2021. Rationality Constraints in Cyber Defense: Incident Handling, Attribution and Cyber Threat Intelligence. *Computers & Security*, 109, Article 102396. <https://doi.org/10.1016/j.cose.2021.102396>.
+\[94\] H. Hettema. 2021. Rationality Constraints in Cyber Defense: Incident Handling, Attribution and Cyber Threat Intelligence. *Computers & Security*, 109, Article 102396. <https://doi.org/10.1016/j.cose.2021.102396>.
 
 </div>
 
 <div id="ref-Zhu2026TierMem" class="csl-entry">
 
-\[92\] Q. Zhu, S. Chen, R. Yu, Z. Wu, and B. Wang. 2026. From Lossy to Verified: A Provenance-Aware Tiered Memory for Agents. arXiv preprint 2602.17913v1. Also presented as a poster at the ICLR 2026 Workshop on Memory for LLM-Based Agentic Systems (MemAgents). Cited version: arXiv 2602.17913v1 (20 February 2026). <https://arxiv.org/abs/2602.17913v1>.
+\[95\] Q. Zhu, S. Chen, R. Yu, Z. Wu, and B. Wang. 2026. From Lossy to Verified: A Provenance-Aware Tiered Memory for Agents. arXiv preprint 2602.17913v1. Also presented as a poster at the ICLR 2026 Workshop on Memory for LLM-Based Agentic Systems (MemAgents). Cited version: arXiv 2602.17913v1 (20 February 2026). <https://arxiv.org/abs/2602.17913v1>.
 
 </div>
 
 <div id="ref-Lam2026SSGM" class="csl-entry">
 
-\[93\] C. Lam, J. Li, L. Zhang, and K. Zhao. 2026. Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework. arXiv preprint 2603.11768v2. <https://arxiv.org/abs/2603.11768v2>.
+\[96\] C. Lam, J. Li, L. Zhang, and K. Zhao. 2026. Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework. arXiv preprint 2603.11768v2. <https://arxiv.org/abs/2603.11768v2>.
 
 </div>
 
 <div id="ref-Margalit2026GovernedMemory" class="csl-entry">
 
-\[94\] Y. Margalit, N. Cohen-Inger, E. Avram, R. Taig, and O. Margalit. 2026. Governed Shared Memory for Multi-Agent LLM Systems. arXiv preprint 2606.24535v1. <https://arxiv.org/abs/2606.24535v1>.
+\[97\] Y. Margalit, N. Cohen-Inger, E. Avram, R. Taig, and O. Margalit. 2026. Governed Shared Memory for Multi-Agent LLM Systems. arXiv preprint 2606.24535v1. <https://arxiv.org/abs/2606.24535v1>.
 
 </div>
 
 <div id="ref-Souza2025ProvAgent" class="csl-entry">
 
-\[95\] R. Souza, A. Gueroudji, S. DeWitt, D. Rosendo, T. Ghosal, R. Ross, P. Balaprakash, and R. Ferreira da Silva. 2025. PROV-AGENT: Unified Provenance for Tracking AI Agent Interactions in Agentic Workflows. *Proceedings of the 21st IEEE International Conference on e-Science*. Cited version: arXiv 2508.02866v3 (20 August 2025). <https://arxiv.org/abs/2508.02866v3>.
+\[98\] R. Souza, A. Gueroudji, S. DeWitt, D. Rosendo, T. Ghosal, R. Ross, P. Balaprakash, and R. Ferreira da Silva. 2025. PROV-AGENT: Unified Provenance for Tracking AI Agent Interactions in Agentic Workflows. *Proceedings of the 21st IEEE International Conference on e-Science*. Cited version: arXiv 2508.02866v3 (20 August 2025). <https://arxiv.org/abs/2508.02866v3>.
 
 </div>
 
 <div id="ref-Kaufman2011Leakage" class="csl-entry">
 
-\[96\] S. Kaufman, S. Rosset, and C. Perlich. 2011. Leakage in Data Mining: Formulation, Detection, and Avoidance. *Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, pp. 556–563. <https://doi.org/10.1145/2020408.2020496>.
+\[99\] S. Kaufman, S. Rosset, and C. Perlich. 2011. Leakage in Data Mining: Formulation, Detection, and Avoidance. *Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, pp. 556–563. <https://doi.org/10.1145/2020408.2020496>.
 
 </div>
 
