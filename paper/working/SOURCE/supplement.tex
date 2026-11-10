@@ -1466,20 +1466,23 @@ linking, separating linkage from clustering. When every account has
 captured payments in the denominator period, a pooled ratio cannot
 exceed the highest account ratio, so a lead from clustering can come
 only from a condition on totals, such as the minimum count or, where the
-network sets one, a minimum value. Report separately any cluster flag
-that depends on reports received by an account with no captured payments
-in that period, such as a closed account or, where the denominator is
-the previous month's captured payments, an account in its first month.
-Keep the eligible transactions, outcome definition and reporting periods
-consistent. Apply the account arms to platform and connected accounts
-and, where a network monitors a different unit, such as Visa's static
-statement descriptor and acquiring bank, also to that unit. Evaluate
-broader measures, including chargeback-or-alert-resolution, separately.
-Apply each program's exclusions as the network's documentation states
-them, such as VAMP's exclusion of fraud reports that qualify for
-Compelling Evidence 3.0. State whose report view each arm uses: the
-programs also count disputes that the provider handles on a business's
-behalf and that do not appear in that business's data
+network sets one, a minimum value. An account with no captured payments
+in the rule's denominator period has no defined ratio when it receives
+reports, and the cluster ratio can then exceed every defined account
+ratio. Report separately any cluster flag that depends on reports
+received by an account with no captured payments in that period, such as
+a closed account or, where the denominator is the previous month's
+captured payments, an account in its first month. Keep the eligible
+transactions, outcome definition and reporting periods consistent. Apply
+the account arms to platform and connected accounts and, where a network
+monitors a different unit, such as Visa's static statement descriptor
+and acquiring bank, also to that unit. Evaluate broader measures,
+including chargeback-or-alert-resolution, separately. Apply each
+program's exclusions as the network's documentation states them, such as
+VAMP's exclusion of fraud reports that qualify for Compelling Evidence
+3.0. State whose report view each arm uses: the programs also count
+disputes that the provider handles on a business's behalf and that do
+not appear in that business's data
 {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{6}{]}. Report
 the share of reports linked to transactions, the share whose link is
 unverified and how duplicate reports were removed. Measure false flags
@@ -1496,7 +1499,9 @@ costs to legitimate users. The identity-verification and login-challenge
 studies report user outcomes under their own procedures
 {[}\protect\hyperlink{ref-Fatima2024}{12},
 \protect\hyperlink{ref-Doerfler2019}{13}{]}. Their rates cannot
-determine whether a proposed payment control is worthwhile.
+determine whether a proposed payment control is worthwhile. Rates from
+the source studies require justification before transfer to this
+platform.
 
 \textbf{E5. Does the agent improve the investigation?} Compare the
 governed agent with well-equipped human investigators and suitable
@@ -1658,7 +1663,9 @@ several conclusions per case.
 the evidence then available and, co-primary, the number of correct,
 supported conclusions per case, rated by the same blind raters against
 the closed case's resolution. Abstentions per case are reported for each
-arm and stratum.
+arm and stratum. Because the records can lower the share of unsupported
+conclusions simply by leading investigators to abstain, E1 also reports
+supported conclusions and abstentions per case.
 
 \textbf{Failure criteria:} Fails if, in the cases with partial history
 or links learned late, the share falls by less than a third of the level
