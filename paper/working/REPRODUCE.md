@@ -7,13 +7,13 @@ The package contains a conceptual architecture and synthetic reasoning examples.
 - [Complete manuscript](MANUSCRIPT.md) and [rendered manuscript](MANUSCRIPT.pdf).
 - [Supplement](SUPPLEMENT.md) and [rendered supplement](SUPPLEMENT.pdf). The 19 CSV files are in `SUPPLEMENT/`.
 - [Citation-source manuscript](SOURCE/manuscript.md) and [citation-source supplement](SOURCE/supplement.md). Edit these sources before rebuilding; the reader-facing Markdown, TeX and PDFs are generated from them. `SOURCE/layout.lua`, `SOURCE/header.tex` and `SOURCE/references.csl` control layout and citation style.
-- [References in CSL JSON](REFERENCES.json) are the typesetting input. [BibLaTeX references](REFERENCES.bib) provide the same 122 identities for reuse; they are generated from the CSL JSON with Pandoc. Source inspection versions and limits are in the [source notes](SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv).
+- [References in CSL JSON](REFERENCES.json) are the typesetting input. [BibLaTeX references](REFERENCES.bib) provide the same 127 identities for reuse; they are generated from the CSL JSON with Pandoc. Source inspection versions and limits are in the [source notes](SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv).
 - Figures are editable SVG files in `FIGURES/`. The PDF exports are used for typesetting; the PNG exports are readable alternates.
 - [What changed since version 1.0](CHANGES_SINCE_v1.0.md), generated from the sources by `tools/changes_since.py`.
-- `BUILD.py` rebuilds the documents and `CHECK_CANDIDATE.py` runs the finite checks. `EXPORT_FIGURES.py` exports the figures when Inkscape is not installed. `tools/` holds optional Markdown round-trip helpers that convert reader-facing Markdown back to citation-key sources and confirm a byte-identical rebuild.
+- `BUILD.py` rebuilds the documents and `CHECK_CANDIDATE.py` runs the finite checks. `EXPORT_FIGURES.py` exports the figures when Inkscape is not installed. `tools/` holds optional Markdown round-trip helpers that convert reader-facing Markdown back to citation-key sources and confirm a byte-identical rebuild. `tools/outcome_conformance.py` checks outcome records against the Supplement S4.2 schema and rules; `CHECK_CANDIDATE.py` runs its conformance cases, and `python3 tools/outcome_conformance.py FILE.json` checks a records file. `tools/investigation_conformance.py` does the same for the query-run and release records, and `tools/investigation_cost.py` measures their cost (Supplement S4.4). `tools/replays/` holds the two complaint replays (Supplement S10). `tools/outcome_cost.py` measures the records' storage and query cost on synthetic payments (Supplement S4.3).
 - [Third-party notices](THIRD_PARTY_NOTICES.md) and `MANIFEST_SHA256.txt`.
 
-The manuscript and the supplement each have a numbered bibliography listing the works their own text cites (104 and 56 works); those numbers are local to each document. Citation keys in the CSV files resolve against the complete CSL JSON and BibLaTeX set, and all 122 works are cited across the pair.
+The manuscript and the supplement each have a numbered bibliography listing the works their own text cites (76 and 99 works); those numbers are local to each document. Citation keys in the CSV files resolve against the complete CSL JSON and BibLaTeX set, and all 127 works are cited across the pair.
 
 ## Run the finite checks
 

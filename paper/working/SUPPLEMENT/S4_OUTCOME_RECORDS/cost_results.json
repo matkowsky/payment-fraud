@@ -1,0 +1,59 @@
+{
+ "payments": 1000000,
+ "assumptions": {
+  "days": 90,
+  "payments_per_account": 100,
+  "channels_per_payment": 2,
+  "block_rate": 0.01,
+  "chargeback_rate_of_allowed": 0.005,
+  "events_per_chargeback": 3,
+  "account_hold_rate": 0.01,
+  "successor_link_rate": 0.01,
+  "cited_readings": "one per blocked payment",
+  "seed": 7
+ },
+ "machine": "x86_64, 2 CPUs; SQLite 3.53.1; Python 3.13.18",
+ "records_by_type": {
+  "ChannelStateTransition": 2000000,
+  "ChannelStatusReading": 9947,
+  "ControlAction": 1000200,
+  "EntityLink": 100,
+  "ItemAttribution": 1000000,
+  "LabelEvent": 15372,
+  "LabelEventDecisionLink": 5124,
+  "OutcomeChannel": 2
+ },
+ "records_per_payment": 4.031,
+ "json_bytes_by_type": {
+  "ChannelStateTransition": 821061292,
+  "ChannelStatusReading": 3757747,
+  "ControlAction": 421779902,
+  "EntityLink": 55765,
+  "ItemAttribution": 396666780,
+  "LabelEvent": 11036291,
+  "LabelEventDecisionLink": 1176903,
+  "OutcomeChannel": 722
+ },
+ "mean_json_bytes_by_type": {
+  "ChannelStateTransition": 411,
+  "ChannelStatusReading": 378,
+  "ControlAction": 422,
+  "EntityLink": 558,
+  "ItemAttribution": 397,
+  "LabelEvent": 718,
+  "LabelEventDecisionLink": 230,
+  "OutcomeChannel": 361
+ },
+ "json_mb_per_million_payments": 1655.5,
+ "gzip_mb_per_million_payments": 78.9,
+ "sqlite_mb_per_million_payments_with_index": 2558.8,
+ "load_seconds": 124.9,
+ "index_seconds": 2.7,
+ "point_query_microseconds": {
+  "median": 17,
+  "p99": 57
+ },
+ "cohort_day_payments": 11052,
+ "cohort_day_seconds": 0.325,
+ "sample_check": "1469 generated records pass the schema and OR-01 to OR-14"
+}
