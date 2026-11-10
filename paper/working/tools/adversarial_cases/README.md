@@ -17,3 +17,9 @@ Threat model: worst case. A case of tier "agent" changes only DraftOutput record
 2. The cases are saved unchanged and run. Each disagreement is adjudicated against the paper's text: the rules are wrong, or the tester is.
 3. Round 2: the tester gets the round 1 results and writes new cases that adapt to them.
 4. Every case and outcome is kept in this folder. Each confirmed miss is either fixed by a rule change or stated as a limit in Supplement S4.4.
+
+## State after round 1
+
+- `PACKET_ROUND1.md` shows the rules as they stood before round 1 (commit `5dd4213`). Do not rebuild it: the builder reads the current supplement, which now holds the revised rules.
+- `round1/` holds the tester's replies, the results before and after the rule changes, the outside check of the rulings and the final rulings (`ADJUDICATION.md`).
+- `run_cases.py --sealed` gives each changed draft its new digest first. `CHECK_CANDIDATE.py` reruns the fifteen cases that way and checks the outcomes.
