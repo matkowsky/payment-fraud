@@ -23,11 +23,12 @@ Accepted pull requests:
 - [#31](https://github.com/matkowsky/payment-fraud/pull/31) Condense both traces the same way; the narratives move to Supplement S6
 - [#32](https://github.com/matkowsky/payment-fraud/pull/32) Move detail from Sections 4.3, 5.4, 6.4 and 6.5 to the supplement
 - [#33](https://github.com/matkowsky/payment-fraud/pull/33) Move detail from Sections 3, 7 and 10; restore two safeguards beside their rule
+- [#35](https://github.com/matkowsky/payment-fraud/pull/35) Acknowledge Humza Akhtar for Section 2.3
 
 | Document | Read the current version | Paragraphs changed | Added | Removed |
 |---|---|---|---|---|
-| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 71 | 8 | 57 |
-| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 42 | 70 | 3 |
+| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 72 | 8 | 62 |
+| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 42 | 77 | 3 |
 
 ## Manuscript
 
@@ -114,6 +115,10 @@ Three published schemas describe the platform's application programming interfac
 **Changed, under "4. From product activity to protective decisions", by [#21](https://github.com/matkowsky/payment-fraud/pull/21), [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
 
 <del>The specification needs its setting first. </del>This section identifies the parties whose activity the records describe, the path from records to protective decisions along which meaning must be preserved, and the responsibilities that path requires. It begins the answer to RQ1, which Section 5 continues and Table <del>4</del><ins>1</ins> in Section 6.3 completes.
+
+**Changed, under "4.1 The platform and its participants", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+These roles determine whose activity a record describes. An end customer's action is not automatically an action by the business or its operator.<del> The platform's products may span onboarding, identity verification, payments, subscriptions, payouts, treasury and risk controls. Businesses may also report their customers' registrations, logins and payments. The specification identifies what investigators need from these records without assuming a provider already collects or links them.</del>
 
 **Removed, under "4.3 Responsibilities and authority", by [#32](https://github.com/matkowsky/payment-fraud/pull/32):**
 
@@ -255,6 +260,22 @@ The investigation must be able to retrieve an observation, its interpretation an
 
 <del>A partial match can leave much of the required record unspecified. An onramp-session object, for buying crypto, and an event-destination configuration both record current state without a complete matching lifecycle event stream. The crypto documentation describes an onramp webhook, a notification sent to another system, for status changes after creation and none at creation \[@Stripe2026CryptoOnramp\]. Neither the event types that the pinned schemas declare nor their lists of webhook-endpoint events name a crypto or onramp event \[@StripeOpenAPI2026\]. A request ID likewise supplies neither full request context nor the history of an onboarding link's use.</del>
 
+**Changed, under "5.5 Privacy and operating constraints", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>Privacy and operating obligations constrain the specification; Supplement S4.1 states them in full. </ins>A deployment must specify retention and deletion for each record class before collecting it. Append-only logs <del>preserve history but </del>must still permit required <del>deletion</del><ins>deletion.</ins> <del>of</del><ins>The</ins> <del>personal</del><ins>agent-and-approval</ins> <del>payloads,</del><ins>ledger</ins> <del>derived</del><ins>uses</ins> <del>data,</del><ins>references</ins> <del>backups</del><ins>to regulated data rather than copies. Cross-business linking requires a stated purpose</ins> and <del>identifying</del><ins>authorization</ins> <del>lineage.</del><ins>for</ins> <del>Encryption-key</del><ins>each</ins> <del>destruction</del><ins>identifier</ins> <del>is</del><ins>type.</ins> <del>sufficient</del><ins>This</ins> <del>only</del><ins>paper</ins> <del>if recoverable keys and plaintext copies are also removed. Retained audit structure must</del><ins>does</ins> not <del>preserve</del><ins>determine</ins> <del>information</del><ins>which</ins> <del>required</del><ins>legal</ins> <del>to</del><ins>basis</ins> <del>be</del><ins>applies</ins> <del>deleted.</del><ins>in</ins> <del>Authorized</del><ins>a</ins> <del>holds</del><ins>particular</ins> <del>record their scope and retention rule.</del><ins>deployment.</ins>
+
+**Removed, under "5.5 Privacy and operating constraints", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<del>The agent-and-approval ledger uses references to card data, identity documents and other regulated data rather than copies. Tokens or keyed hashes may be used only where the applicable standard permits. The ledger should not become a new sensitive-data store or widen payment-card security scope.</del>
+
+**Removed, under "5.5 Privacy and operating constraints", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<del>Use of external model providers depends on their processing terms and permitted processing locations. Drafts concerning suspicious-activity reporting remain subject to the platform's confidentiality and subject-notification rules.</del>
+
+**Removed, under "5.5 Privacy and operating constraints", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<del>Cross-business linking requires a stated purpose and authorization for each identifier type. Permission to use a payment-instrument link does not automatically authorize linking devices or verified people. These deployment obligations constrain the specification; this paper does not determine which legal basis applies in a particular deployment.</del>
+
 **Changed, under "6. How the agent investigates", by [#21](https://github.com/matkowsky/payment-fraud/pull/21), [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
 
 <del>RQ2 asks how an agent can test explanations and prepare useful outputs while people retain review, release and operational authority. </del>This section<ins> answers RQ2. It</ins> follows one investigation from its assignment to the release of its outputs, then addresses the inputs that could subvert it. Table <del>4</del><ins>1</ins> also completes the answer to RQ1 by listing the agent's analytical capabilities with the limit on what each can establish.
@@ -371,13 +392,17 @@ Repeated decisions require the relevant conditions at each step because earlier 
 
 <del>Delay and false reports add assumptions of their own. For delay, an evaluation specifies a distribution and period of stability. It assumes that, given recorded case attributes and channel, reading time is unrelated to when the report would arrive. For false reports, a noise model specifies error rates by decision, channel and reporter where relevant. Rates come from a random sample reviewed for truth or are stated as bounds.</del>
 
-**Changed, under "Attribution and resolution change measured ratios", by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Changed, under "Attribution and resolution change measured ratios", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
 
-The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. Table <del>5</del><ins>2</ins> summarizes the resulting requirements.
+The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. <ins>Supplement </ins>Table <del>5</del><ins>S7.1</ins> summarizes the resulting requirements.
 
-**Changed, under "Attribution and resolution change measured ratios", by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Removed, under "Attribution and resolution change measured ratios", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
 
-\*\*Table <del>5.</del><ins>2.</ins> Requirements for interpreting feedback.\*\* Each response follows from the stated problem and evidence basis.
+<del>\*\*Table 5. Requirements for interpreting feedback.\*\* Each response follows from the stated problem and evidence basis.</del>
+
+**Removed, under "Attribution and resolution change measured ratios", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<del>\| \\\# \| Problem \| Evidence basis \| Required response \|<br>\|---\|---\|---\|---\|<br>\| 1 \| A decision can close or delay an outcome channel, or change its meaning. Effects differ by channel; payout holds do not delay disputes. \| Platform documentation that capture gates fraud reporting and that authentication can shift dispute liability; a theoretical payments preprint; established principles for inferring outcomes under a different decision \| Record the decision and its effect on named outcome channels; state the assumptions needed to estimate unobserved outcomes \|<br>\| 2 \| Reports can arrive late; this paper does not establish maturity periods \| Theory and deployed-system evidence of delay \| Preserve reporting clocks and arrival times. Reconstruct decision inputs as of the decision. Apply the evaluation's separate outcome window and maturity period to later labels. \|<br>\| 3 \| Some reports or their supporting evidence may be fabricated \| Theory and interview research \| Keep report type and source with the label; keep any estimate that the report is mistaken or deliberately false as a linked assessment, not a field of the report \|<br>\| 4 \| Controls can wrongly restrict or block legitimate users \| Peer-reviewed evaluations \| Keep decisions, reviews of their correctness and population-level error estimates separate; weigh detection gain against the cost to legitimate users \|<br>\| 5 \| Adversaries can adapt to controls and testing \| Platform publication, peer-reviewed measurement and preprint \| Test adaptively within responsibilities 16 and 17; keep test traffic hard for adversaries to recognize but identifiable within the system \|<br>\| 6 \| Decisions a business reports to the platform may carry the business’s errors into platform labels \| Platform documentation of business-reported decisions \(Section 7.1\); inference that they may carry errors \| Keep decisions and outcomes reported by businesses distinct from platform labels \|<br>\| 7 \| Account structures can hide which transactions and entities a report concerns \| Enforcement allegations \| Keep the links from each report to its transaction and entities; compute defined metrics for each cluster of related accounts \|<br>\| 8 \| Resolving a pre-dispute alert may avert a later chargeback \| Platform documentation that a refund can prevent a dispute; enforcement allegations for the misuse \| Record alert resolutions separately; do not read a lower chargeback ratio, by itself, as less abuse \|<br>\| 9 \| A risk assessment may return a not-assessed result or fail open \(let the activity proceed\) \| Platform documentation \| Keep unknown and failure states distinct; do not convert either into low risk \|</del>
 
 **Added, under "7.2 Measure control errors and user costs separately", by [#33](https://github.com/matkowsky/payment-fraud/pull/33):**
 
@@ -499,21 +524,21 @@ A risk assessment and a rejected application identify similar <del>storefronts.<
 
 <del>The enforcement sources remain allegations \[@FTC2019Allied; @FTC2020FirstData; @FTC2025Paddle\], and storefront content remains untrusted input. The synthetic rows contain no report-arrival dates. The ratios therefore assume that every report on the four cohorts has arrived, and the example cannot show reporting delay.</del>
 
-**Changed, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Changed, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
 
-\*\*Table <del>6.</del><ins>3.</ins> Five conclusions that depend on recorded context.\*\* Both columns use the stipulated observations. The comparison is logical, not a measured baseline.
+\*\*Table <del>6.</del><ins>2.</ins> Five conclusions that depend on recorded context.\*\* Both columns use the stipulated observations. The comparison is logical, not a measured baseline.
 
-**Changed, under "8.3 What retaining the context changes", by [#21](https://github.com/matkowsky/payment-fraud/pull/21), [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Changed, under "8.3 What retaining the context changes", by [#21](https://github.com/matkowsky/payment-fraud/pull/21), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
 
-<del>Table</del><ins>Two</ins> <del>6 compares conclusions from the same observations with and without five kinds</del><ins>rows</ins> of <del>context.</del><ins>Table</ins> <del>Two rows</del><ins>3</ins> add explicit hypothetical conditions: Trace A's payout is permanently blocked, and Trace B retrieves an earlier assessment of the same descriptor pattern. Omission does not force an error; it removes information needed to rule the error out.
+<del>Table</del><ins>Two</ins> <del>6 compares conclusions from the same observations with and without five kinds</del><ins>rows</ins> of <del>context.</del><ins>Table</ins> <del>Two rows</del><ins>2</ins> add explicit hypothetical conditions: Trace A's payout is permanently blocked, and Trace B retrieves an earlier assessment of the same descriptor pattern. Omission does not force an error; it removes information needed to rule the error out.
 
-**Changed, under "8.3 What retaining the context changes", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Changed, under "8.3 What retaining the context changes", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
 
-The examples identify a starting subset of <del>records.</del><ins>records: the eleven signals behind</ins> Table <del>6</del><ins>3,</ins> <del>uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete</del><ins>their</ins> lineage inputs and the storage requirements <del>are</del><ins>\(Supplement</ins> <del>also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</del><ins>S6\).</ins>
+The examples identify a starting subset of <del>records.</del><ins>records: the eleven signals behind</ins> Table <del>6</del><ins>2,</ins> <del>uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete</del><ins>their</ins> lineage inputs and the storage requirements <del>are</del><ins>\(Supplement</ins> <del>also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</del><ins>S6\).</ins>
 
-**Changed, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Changed, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
 
-That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table <del>6,</del><ins>3,</ins> E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports \(Section 9.1\). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires \(Section 9.1\).
+That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table <del>6,</del><ins>2,</ins> E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports \(Section 9.1\). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires \(Section 9.1\).
 
 **Changed, under "9.1 Questions, comparisons and failure criteria", by [#3](https://github.com/matkowsky/payment-fraud/pull/3), [#21](https://github.com/matkowsky/payment-fraud/pull/21), [#24](https://github.com/matkowsky/payment-fraud/pull/24):**
 
@@ -563,9 +588,9 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 <del>The 71 signals, 24 responsibilities and supporting interfaces make these choices inspectable. The hypothetical traces show their consequences: incomplete history leaves onset unresolved, a link learned late cannot enter a decision frozen before it was learned, a blocked payout closes a channel without producing a negative label, and transaction attribution changes which accounts bear reported outcomes. A stored assessment adds no independent observation.</del>
 
-**Added, under "Author and publication declarations", by [#9](https://github.com/matkowsky/payment-fraud/pull/9), [#17](https://github.com/matkowsky/payment-fraud/pull/17):**
+**Added, under "Author and publication declarations", by [#9](https://github.com/matkowsky/payment-fraud/pull/9), [#17](https://github.com/matkowsky/payment-fraud/pull/17), [#35](https://github.com/matkowsky/payment-fraud/pull/35):**
 
-<ins>\*\*Acknowledgments.\*\* Thanks to Jiahong Dai \(Sections 2.2 and 6.2\), Brian Freeman \(Section 2.3\), Oleg Solozobov \(Sections 2.1, 2.4, 5.2, 5.3 and 7.1\) and Xuwei Tan \(Sections 2.4 and 9.1\) for feedback.</ins>
+<ins>\*\*Acknowledgments.\*\* Thanks to Humza Akhtar \(Section 2.3\), Jiahong Dai \(Sections 2.2 and 6.2\), Brian Freeman \(Section 2.3\), Oleg Solozobov \(Sections 2.1, 2.4, 5.2, 5.3 and 7.1\) and Xuwei Tan \(Sections 2.4 and 9.1\) for feedback.</ins>
 
 **Changed, under "Author and publication declarations", by [#20](https://github.com/matkowsky/payment-fraud/pull/20):**
 
@@ -605,6 +630,10 @@ Study populations and denominators constrain the comparisons. Sharma's balanced 
 **Changed, under "S2. Product scope and mechanism selection", by [#12](https://github.com/matkowsky/payment-fraud/pull/12):**
 
 \[Product scope\]\(../SUPPLEMENT/S2\_SURFACE\_BASELINE.csv\) contains 88 public product and feature entries, read on 27 September 2026: 53 catalog items, twenty items from the Q3 2026 public roadmap \(seventeen appear in a cached copy of that roadmap; the other three are confirmed as shipped in Stripe's changelog\), ten separately documented capabilities and five careers-page footer items. These entries define the scope for candidate selection, not a complete or current product catalog. Each row lists candidate mechanism IDs, not validated coverage or retained signal mappings; a dot means none is listed. The <ins>entries list 85 of the 99 candidates; the other 14 appear only in the allocation table. The </ins>allocation table gives each candidate's final disposition, and S3 supplies the retained mappings. Six retained mechanisms are not listed against any product entry: ID-14 \(account farming and aged-account preparation for later abuse\), PAY-04 \(card testing through attacker-controlled merchant or connected accounts\), MP-02 \(payment-method cashing through a self-controlled merchant or connected account\), MP-04 \(merchant misrepresentation and transaction laundering behind a front\), MP-07 \(merchant-side dispute evasion\) and BOT-04 \(CAPTCHA and challenge defeat\). S5 identifies the exact API schemas used for interface comparisons.
+
+**Added, under "S2. Product scope and mechanism selection", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>\*\*Products and business-reported records \(manuscript Section 4.1\).\*\* The platform's products may span onboarding, identity verification, payments, subscriptions, payouts, treasury and risk controls. Businesses may also report their customers' registrations, logins and payments. The specification identifies what investigators need from these records without assuming a provider already collects or links them.</ins>
 
 **Changed, under "S2. Product scope and mechanism selection", by [#12](https://github.com/matkowsky/payment-fraud/pull/12):**
 
@@ -762,6 +791,22 @@ The inventory preserves the manuscript's interpretation rules: onboarding-link h
 
 <ins>\*\*What makes the agent investigable \(manuscript Section 6.5\).\*\* Ordinary source observations retain their own trust marks and are not assigned an agent-output category. The ledger makes the agent itself investigable. For each tool call it retains the provenance of inputs reaching the model, approved and executed payload hashes, memory writes and outbound-traffic decisions. It also records model identity, version, instructions and decoding settings, with record classes intact.</ins>
 
+**Added, under "S4.1 Complete storage requirements {\#complete-storage-requirements}", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>\*\*Privacy and operating constraints \(manuscript Section 5.5\).\*\* A deployment must specify retention and deletion for each record class before collecting it. Append-only logs preserve history but must still permit required deletion of personal payloads, derived data, backups and identifying lineage. Encryption-key destruction is sufficient only if recoverable keys and plaintext copies are also removed. Retained audit structure must not preserve information required to be deleted. Authorized holds record their scope and retention rule.</ins>
+
+**Added, under "S4.1 Complete storage requirements {\#complete-storage-requirements}", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>The agent-and-approval ledger uses references to card data, identity documents and other regulated data rather than copies. Tokens or keyed hashes may be used only where the applicable standard permits. The ledger should not become a new sensitive-data store or widen payment-card security scope.</ins>
+
+**Added, under "S4.1 Complete storage requirements {\#complete-storage-requirements}", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>Use of external model providers depends on their processing terms and permitted processing locations. Drafts concerning suspicious-activity reporting remain subject to the platform's confidentiality and subject-notification rules.</ins>
+
+**Added, under "S4.1 Complete storage requirements {\#complete-storage-requirements}", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>Cross-business linking requires a stated purpose and authorization for each identifier type. Permission to use a payment-instrument link does not automatically authorize linking devices or verified people. These deployment obligations constrain the specification; this paper does not determine which legal basis applies in a particular deployment.</ins>
+
 **Changed, under "S4.1 Complete storage requirements {\#complete-storage-requirements}", by [#5](https://github.com/matkowsky/payment-fraud/pull/5):**
 
 - Link closed accounts to suspected successor accounts, and storefronts to merchants.<br>- Link each outcome report to the transaction, payout or account application it concerns, with the basis for the link and whether it is verified. Attribute outcomes through that link to the platform account, connected account and end customer, so that a measure counts each affected transaction once. <ins>A report's links to the decisions that may have shaped it do not change this count. </ins>Keep each transaction's acquiring bank and the static part of its statement descriptor, so that a network's monitored unit can be reconstructed.<br>- Link each wallet to every party it has allowed to spend its funds.
@@ -906,9 +951,17 @@ Both measures exclude reports on transactions outside the four cohorts. A missin
 
 <del>Trace A uses a separate hypothetical timeline \(manuscript Sections 8.1 and 8.3\). The agent requests seven days of history before the key's exposure; only the final two hours are available. A detection already running on the platform freezes its first compromise assessment at +30 minutes after publication of the key. The destination-reuse link becomes known at +1 day, although it was effective before exposure. The +30-minute assessment cannot use that link, and the missing history leaves the onset of any misuse inconclusive.</del>
 
-**Added, under "S6.3 Reproducible arithmetic", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Added, under "S6.3 Reproducible arithmetic", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
 
-<ins>Manuscript Table 3 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</ins>
+<ins>Manuscript Table 2 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</ins>
+
+**Added, under "S7. Evaluation conditions", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>\*\*Table S7.1. Requirements for interpreting feedback.\*\* Each response follows from the stated problem and evidence basis.</ins>
+
+**Added, under "S7. Evaluation conditions", by [#34](https://github.com/matkowsky/payment-fraud/pull/34):**
+
+<ins>\| \\\# \| Problem \| Evidence basis \| Required response \|<br>\|---\|---\|---\|---\|<br>\| 1 \| A decision can close or delay an outcome channel, or change its meaning. Effects differ by channel; payout holds do not delay disputes. \| Platform documentation that capture gates fraud reporting and that authentication can shift dispute liability; a theoretical payments preprint; established principles for inferring outcomes under a different decision \| Record the decision and its effect on named outcome channels; state the assumptions needed to estimate unobserved outcomes \|<br>\| 2 \| Reports can arrive late; this paper does not establish maturity periods \| Theory and deployed-system evidence of delay \| Preserve reporting clocks and arrival times. Reconstruct decision inputs as of the decision. Apply the evaluation's separate outcome window and maturity period to later labels. \|<br>\| 3 \| Some reports or their supporting evidence may be fabricated \| Theory and interview research \| Keep report type and source with the label; keep any estimate that the report is mistaken or deliberately false as a linked assessment, not a field of the report \|<br>\| 4 \| Controls can wrongly restrict or block legitimate users \| Peer-reviewed evaluations \| Keep decisions, reviews of their correctness and population-level error estimates separate; weigh detection gain against the cost to legitimate users \|<br>\| 5 \| Adversaries can adapt to controls and testing \| Platform publication, peer-reviewed measurement and preprint \| Test adaptively within responsibilities 16 and 17; keep test traffic hard for adversaries to recognize but identifiable within the system \|<br>\| 6 \| Decisions a business reports to the platform may carry the business’s errors into platform labels \| Platform documentation of business-reported decisions \(manuscript Section 7.1\); inference that they may carry errors \| Keep decisions and outcomes reported by businesses distinct from platform labels \|<br>\| 7 \| Account structures can hide which transactions and entities a report concerns \| Enforcement allegations \| Keep the links from each report to its transaction and entities; compute defined metrics for each cluster of related accounts \|<br>\| 8 \| Resolving a pre-dispute alert may avert a later chargeback \| Platform documentation that a refund can prevent a dispute; enforcement allegations for the misuse \| Record alert resolutions separately; do not read a lower chargeback ratio, by itself, as less abuse \|<br>\| 9 \| A risk assessment may return a not-assessed result or fail open \(let the activity proceed\) \| Platform documentation \| Keep unknown and failure states distinct; do not convert either into low risk \|</ins>
 
 **Added, under "S7. Evaluation conditions", by [#25](https://github.com/matkowsky/payment-fraud/pull/25):**
 

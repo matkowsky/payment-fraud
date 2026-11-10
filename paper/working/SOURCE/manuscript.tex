@@ -623,12 +623,7 @@ or end customer; these are distinct from the investigating agent.
 
 These roles determine whose activity a record describes. An end
 customer's action is not automatically an action by the business or its
-operator. The platform's products may span onboarding, identity
-verification, payments, subscriptions, payouts, treasury and risk
-controls. Businesses may also report their customers' registrations,
-logins and payments. The specification identifies what investigators
-need from these records without assuming a provider already collects or
-links them.
+operator.
 
 \hypertarget{the-path-from-records-to-action}{%
 \subsubsection{4.2 The path from records to
@@ -989,30 +984,14 @@ every possible public interface.
 \subsubsection{5.5 Privacy and operating
 constraints}\label{privacy-and-operating-constraints}}
 
-A deployment must specify retention and deletion for each record class
-before collecting it. Append-only logs preserve history but must still
-permit required deletion of personal payloads, derived data, backups and
-identifying lineage. Encryption-key destruction is sufficient only if
-recoverable keys and plaintext copies are also removed. Retained audit
-structure must not preserve information required to be deleted.
-Authorized holds record their scope and retention rule.
-
-The agent-and-approval ledger uses references to card data, identity
-documents and other regulated data rather than copies. Tokens or keyed
-hashes may be used only where the applicable standard permits. The
-ledger should not become a new sensitive-data store or widen
-payment-card security scope.
-
-Use of external model providers depends on their processing terms and
-permitted processing locations. Drafts concerning suspicious-activity
-reporting remain subject to the platform's confidentiality and
-subject-notification rules.
-
-Cross-business linking requires a stated purpose and authorization for
-each identifier type. Permission to use a payment-instrument link does
-not automatically authorize linking devices or verified people. These
-deployment obligations constrain the specification; this paper does not
-determine which legal basis applies in a particular deployment.
+Privacy and operating obligations constrain the specification;
+Supplement S4.1 states them in full. A deployment must specify retention
+and deletion for each record class before collecting it. Append-only
+logs must still permit required deletion. The agent-and-approval ledger
+uses references to regulated data rather than copies. Cross-business
+linking requires a stated purpose and authorization for each identifier
+type. This paper does not determine which legal basis applies in a
+particular deployment.
 
 \FloatBarrier
 
@@ -1591,75 +1570,8 @@ establish less abuse.
 
 The records retain each alert, its resolution and any later chargeback.
 Transaction links allow a defined measure to count each affected
-transaction once. Table 2 summarizes the resulting requirements.
-
-\begin{table}[tp]
-\textbf{Table 2. Requirements for interpreting feedback.} Each response
-follows from the stated problem and evidence basis.\par\smallskip
-{\small
-\begin{tabular}{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0500}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2300}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4200}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-\#
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Problem
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Evidence basis
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Required response
-\end{minipage} \\
-\midrule\noalign{}
-
-1 & A decision can close or delay an outcome channel, or change its
-meaning. Effects differ by channel; payout holds do not delay disputes.
-& Platform documentation that capture gates fraud reporting and that
-authentication can shift dispute liability; a theoretical payments
-preprint; established principles for inferring outcomes under a
-different decision & Record the decision and its effect on named outcome
-channels; state the assumptions needed to estimate unobserved
-outcomes \\
-2 & Reports can arrive late; this paper does not establish maturity
-periods & Theory and deployed-system evidence of delay & Preserve
-reporting clocks and arrival times. Reconstruct decision inputs as of
-the decision. Apply the evaluation's separate outcome window and
-maturity period to later labels. \\
-3 & Some reports or their supporting evidence may be fabricated & Theory
-and interview research & Keep report type and source with the label;
-keep any estimate that the report is mistaken or deliberately false as a
-linked assessment, not a field of the report \\
-4 & Controls can wrongly restrict or block legitimate users &
-Peer-reviewed evaluations & Keep decisions, reviews of their correctness
-and population-level error estimates separate; weigh detection gain
-against the cost to legitimate users \\
-5 & Adversaries can adapt to controls and testing & Platform
-publication, peer-reviewed measurement and preprint & Test adaptively
-within responsibilities 16 and 17; keep test traffic hard for
-adversaries to recognize but identifiable within the system \\
-6 & Decisions a business reports to the platform may carry the
-business's errors into platform labels & Platform documentation of
-business-reported decisions (Section 7.1); inference that they may carry
-errors & Keep decisions and outcomes reported by businesses distinct
-from platform labels \\
-7 & Account structures can hide which transactions and entities a report
-concerns & Enforcement allegations & Keep the links from each report to
-its transaction and entities; compute defined metrics for each cluster
-of related accounts \\
-8 & Resolving a pre-dispute alert may avert a later chargeback &
-Platform documentation that a refund can prevent a dispute; enforcement
-allegations for the misuse & Record alert resolutions separately; do not
-read a lower chargeback ratio, by itself, as less abuse \\
-9 & A risk assessment may return a not-assessed result or fail open (let
-the activity proceed) & Platform documentation & Keep unknown and
-failure states distinct; do not convert either into low risk \\
-
-\bottomrule\noalign{}
-\end{tabular}
-}
-\end{table}
+transaction once. Supplement Table S7.1 summarizes the resulting
+requirements.
 
 \hypertarget{measure-control-errors-and-user-costs-separately}{%
 \subsubsection{7.2 Measure control errors and user costs
@@ -1822,7 +1734,7 @@ changes}\label{what-retaining-the-context-changes}}
 
 \suppressfloats[t]
 \begin{table}[!ht]
-\textbf{Table 3. Five conclusions that depend on recorded context.} Both
+\textbf{Table 2. Five conclusions that depend on recorded context.} Both
 columns use the stipulated observations. The comparison is logical, not
 a measured baseline.\par\smallskip
 {\small
@@ -1875,7 +1787,7 @@ corroboration. \\
 }
 \end{table}
 
-Two rows of Table 3 add explicit hypothetical conditions: Trace A's
+Two rows of Table 2 add explicit hypothetical conditions: Trace A's
 payout is permanently blocked, and Trace B retrieves an earlier
 assessment of the same descriptor pattern. Omission does not force an
 error; it removes information needed to rule the error out.
@@ -1886,7 +1798,7 @@ all attempted payouts retains it in the target population and must
 address its unobserved outcome.
 
 The examples identify a starting subset of records: the eleven signals
-behind Table 3, their lineage inputs and the storage requirements
+behind Table 2, their lineage inputs and the storage requirements
 (Supplement S6).
 
 The first two rows need request coverage, credential exposure,
@@ -1902,7 +1814,7 @@ necessary.
 
 That context costs storage, query work, controlled cross-account access
 and investigator time. E1 tests the context in the first two rows of
-Table 3, E9 the channel states in the third, E3 the report linkage in
+Table 2, E9 the channel states in the third, E3 the report linkage in
 the fourth, and E5 the human work the agent creates. The exploratory E2
 and E4 bear on C1's decision links, and E2 also on late and false
 reports (Section 9.1). E8's planted drafts that rest a material claim
@@ -2150,9 +2062,10 @@ declarations}\label{author-and-publication-declarations}}
 
 \suppressfloats[t]
 
-\textbf{Acknowledgments.} Thanks to Jiahong Dai (Sections 2.2 and 6.2),
-Brian Freeman (Section 2.3), Oleg Solozobov (Sections 2.1, 2.4, 5.2, 5.3
-and 7.1) and Xuwei Tan (Sections 2.4 and 9.1) for feedback.
+\textbf{Acknowledgments.} Thanks to Humza Akhtar (Section 2.3), Jiahong
+Dai (Sections 2.2 and 6.2), Brian Freeman (Section 2.3), Oleg Solozobov
+(Sections 2.1, 2.4, 5.2, 5.3 and 7.1) and Xuwei Tan (Sections 2.4 and
+9.1) for feedback.
 
 \textbf{Use of generative AI.} The author used Anthropic Claude and
 OpenAI ChatGPT/Codex in the research, as Section 3 describes, and for

@@ -308,6 +308,14 @@ transaction laundering behind a front), \mbox{MP-07} (merchant-side
 dispute evasion) and \mbox{BOT-04} (CAPTCHA and challenge defeat). S5
 identifies the exact API schemas used for interface comparisons.
 
+\textbf{Products and business-reported records (manuscript Section
+4.1).} The platform's products may span onboarding, identity
+verification, payments, subscriptions, payouts, treasury and risk
+controls. Businesses may also report their customers' registrations,
+logins and payments. The specification identifies what investigators
+need from these records without assuming a provider already collects or
+links them.
+
 A retained mechanism targets a documented capability, serves a plausible
 adversary goal and has supporting public evidence. Sources include
 research, incident reports, government and intergovernmental guidance,
@@ -1445,6 +1453,32 @@ reaching the model, approved and executed payload hashes, memory writes
 and outbound-traffic decisions. It also records model identity, version,
 instructions and decoding settings, with record classes intact.
 
+\textbf{Privacy and operating constraints (manuscript Section 5.5).} A
+deployment must specify retention and deletion for each record class
+before collecting it. Append-only logs preserve history but must still
+permit required deletion of personal payloads, derived data, backups and
+identifying lineage. Encryption-key destruction is sufficient only if
+recoverable keys and plaintext copies are also removed. Retained audit
+structure must not preserve information required to be deleted.
+Authorized holds record their scope and retention rule.
+
+The agent-and-approval ledger uses references to card data, identity
+documents and other regulated data rather than copies. Tokens or keyed
+hashes may be used only where the applicable standard permits. The
+ledger should not become a new sensitive-data store or widen
+payment-card security scope.
+
+Use of external model providers depends on their processing terms and
+permitted processing locations. Drafts concerning suspicious-activity
+reporting remain subject to the platform's confidentiality and
+subject-notification rules.
+
+Cross-business linking requires a stated purpose and authorization for
+each identifier type. Permission to use a payment-instrument link does
+not automatically authorize linking devices or verified people. These
+deployment obligations constrain the specification; this paper does not
+determine which legal basis applies in a particular deployment.
+
 \needspace{4\baselineskip}
 
 \textbf{Query coverage record}
@@ -1990,7 +2024,7 @@ agreement and links between files. \url{REPRODUCE.md} gives build and
 verification instructions. These are checks of the supplied artifacts
 and arithmetic, not an evaluation of the proposed system.
 
-Manuscript Table 3 uses eleven signals: \mbox{SIG-04}, \mbox{SIG-15},
+Manuscript Table 2 uses eleven signals: \mbox{SIG-04}, \mbox{SIG-15},
 \mbox{SIG-16}, \mbox{SIG-18}, \mbox{SIG-20}, \mbox{SIG-24},
 \mbox{SIG-25}, \mbox{SIG-32}, \mbox{SIG-56}, \mbox{SIG-58} and
 \mbox{SIG-71}. Their complete lineage inputs and the storage
@@ -2008,6 +2042,74 @@ transactions without reports.
 These conditions explain the scope and comparisons behind the tests in
 S7.1. E8's release-gate test appears there alongside the other eight; S8
 adds practitioner judgments of availability and usefulness.
+
+\begin{table}[tp]
+\textbf{Table S7.1. Requirements for interpreting feedback.} Each
+response follows from the stated problem and evidence basis.\par\smallskip
+{\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2300}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4200}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\#
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Problem
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evidence basis
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Required response
+\end{minipage} \\
+\midrule\noalign{}
+
+1 & A decision can close or delay an outcome channel, or change its
+meaning. Effects differ by channel; payout holds do not delay disputes.
+& Platform documentation that capture gates fraud reporting and that
+authentication can shift dispute liability; a theoretical payments
+preprint; established principles for inferring outcomes under a
+different decision & Record the decision and its effect on named outcome
+channels; state the assumptions needed to estimate unobserved
+outcomes \\
+2 & Reports can arrive late; this paper does not establish maturity
+periods & Theory and deployed-system evidence of delay & Preserve
+reporting clocks and arrival times. Reconstruct decision inputs as of
+the decision. Apply the evaluation's separate outcome window and
+maturity period to later labels. \\
+3 & Some reports or their supporting evidence may be fabricated & Theory
+and interview research & Keep report type and source with the label;
+keep any estimate that the report is mistaken or deliberately false as a
+linked assessment, not a field of the report \\
+4 & Controls can wrongly restrict or block legitimate users &
+Peer-reviewed evaluations & Keep decisions, reviews of their correctness
+and population-level error estimates separate; weigh detection gain
+against the cost to legitimate users \\
+5 & Adversaries can adapt to controls and testing & Platform
+publication, peer-reviewed measurement and preprint & Test adaptively
+within responsibilities 16 and 17; keep test traffic hard for
+adversaries to recognize but identifiable within the system \\
+6 & Decisions a business reports to the platform may carry the
+business's errors into platform labels & Platform documentation of
+business-reported decisions (manuscript Section 7.1); inference that
+they may carry errors & Keep decisions and outcomes reported by
+businesses distinct from platform labels \\
+7 & Account structures can hide which transactions and entities a report
+concerns & Enforcement allegations & Keep the links from each report to
+its transaction and entities; compute defined metrics for each cluster
+of related accounts \\
+8 & Resolving a pre-dispute alert may avert a later chargeback &
+Platform documentation that a refund can prevent a dispute; enforcement
+allegations for the misuse & Record alert resolutions separately; do not
+read a lower chargeback ratio, by itself, as less abuse \\
+9 & A risk assessment may return a not-assessed result or fail open (let
+the activity proceed) & Platform documentation & Keep unknown and
+failure states distinct; do not convert either into low risk \\
+
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
 
 \textbf{E1. Do coverage and learned-time records reduce unsupported
 conclusions?} The confirmatory test in S7.1 concerns cases with
