@@ -86,7 +86,7 @@ T = {ac: 100 for ac in 'ABCD'}; D = {ac: 2 for ac in 'ABCD'}
 pooled = sum(D.values()) / sum(T.values()); weighted = sum((T[k] / sum(T.values())) * (D[k] / T[k]) for k in T)
 assert abs(pooled - weighted) < 1e-12 and min(D[k] / T[k] for k in T) <= pooled <= max(D[k] / T[k] for k in T)
 
-# Section 8.2 uncertainty: exact (Clopper-Pearson) 95 percent intervals and Fisher's two-sided exact test, standard library only.
+# Supplement S6 (Trace B) uncertainty: exact (Clopper-Pearson) 95 percent intervals and Fisher's two-sided exact test, standard library only.
 from math import comb
 def binom_cdf(k, n, p): return sum(comb(n, i) * p**i * (1 - p)**(n - i) for i in range(k + 1))
 def clopper_pearson(k, n, a=0.05):
@@ -182,7 +182,7 @@ result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs
           'synthetic': {'transactions': 400, 'chargebacks': 8, 'alerts': 14, 'overlap': 2, 'union': 20,
                         'chargeback_ratio': .02, 'broader_report_ratio': .05, 'undeduplicated_sum_rejected': .055,
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
-                        'clopper_pearson_and_fisher': f'intervals match Section 8.2; Fisher two-sided p = {fisher_p:.4f}'},
+                        'clopper_pearson_and_fisher': f'intervals match Supplement S6; Fisher two-sided p = {fisher_p:.4f}'},
           'bib_parser_checked': parsed is not None, 'private_content_and_dash_screen': f'passed ({screened} files)',
           'relative_links_checked': checked_links,
           'as_of_example': 'later-known edge excluded; earlier onset unresolved',

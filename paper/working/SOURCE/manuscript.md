@@ -541,15 +541,7 @@ A risk assessment and a rejected application identify similar storefronts. A hum
 
 Following the merchant-identifier approach used in storefront research [@Bitaab2025], the hypothetical investigation links eleven storefronts sharing two templates and a descriptor pattern. They settle through four merchant accounts. A principal, a person who owns or controls a business, also appears on a closed account and the rejected application. Research and enforcement allegations motivate examining such returns after closure [@McCoy2012; @FTC2019Allied]. Settlement relationships are stipulated here, not inferred from the cited study's uncompleted checkouts.
 
-The next question is which transactions the outcome reports concern. Let $T_i$ be the size of account $i$'s fixed transaction cohort and $D_i$ its distinct transactions with chargebacks. For disjoint cohorts with positive sizes and the same outcome definition and window:
-
-$$
-r = \frac{\sum_i D_i}{\sum_i T_i} = \sum_i w_i r_i,\qquad
-r_i = \frac{D_i}{T_i},\qquad
-w_i = \frac{T_i}{\sum_j T_j}.
-$$
-
-The pooled ratio is a transaction-weighted average. Its nonnegative weights sum to one, so it lies between the lowest and highest account ratios.
+The next question is which transactions the outcome reports concern. For disjoint cohorts with the same outcome definition and window, the pooled ratio is a transaction-weighted average of the account ratios (Supplement S6 gives the formula). Its nonnegative weights sum to one, so it lies between the lowest and highest account ratios.
 
 The synthetic example gives accounts A to D 100 completed transactions each. After linking reports to transactions, every account has two chargebacked transactions: `2/100 = 2%`. The pooled chargeback ratio is `8/400 = 2%`.
 
@@ -561,11 +553,11 @@ On that broader measure, A and B each have `8/100 = 8%`; C and D each have `2/10
 
 Such a mismatch can be legitimate. In Stripe's Connect documentation, a dispute on a direct charge debits the connected account's balance. A dispute on a destination charge or on separate charges and transfers debits the platform's balance, even when the connected account is the business of record, and the platform can try to recover funds by reversing the transfer [@Stripe2026ConnectCharges]. Merchant-of-record and payment-facilitator arrangements can therefore explain a report appearing elsewhere. A missing transaction link leaves the affected measure incomplete, rather than justifying an assumed attribution. Reports concerning transactions outside the four cohorts are excluded.
 
-**A cohort ratio differs from a network-program ratio.** Stripe's monitoring guide describes Mastercard's Excessive Chargeback Program as dividing one month's chargebacks by the previous month's captured payments and applying a minimum monthly chargeback count. It describes Visa's Acquirer Monitoring Program differently: each month, Visa divides the previous month's disputes plus early fraud warnings by captured payments in that same month, and it also sets thresholds on the count of those reports and, in one region, on their total value. The guide says both networks assign a report to the month in which they receive it, not the month of the original payment. For that Visa program, a transaction that appears in both the dispute report and the fraud report counts twice, and disputes resolved through pre-dispute products are excluded. Visa identifies a monitored account by the static part of its statement descriptor and its acquiring bank [@Stripe2026MonitoringPrograms]. The guide describes itself as a general guide rather than a comprehensive reference, so E3 applies each program as the network's own documentation states it, such as Visa's program overview [@Visa2025VAMP], and uses the guide only as a secondary summary. That overview defines the ratio over card-not-present VisaNet transactions, with settled transactions as the denominator, while the guide speaks of captured payments; E3 follows the network's definition [@Visa2025VAMP].
+**A cohort ratio differs from a network-program ratio.** Network programs compute monthly ratios by the month a report is received, apply minimum counts, and in one program count early fraud warnings and exclude disputes resolved through pre-dispute products [@Stripe2026MonitoringPrograms]; Supplement S6 gives the rules as read and where Visa's own overview differs [@Visa2025VAMP].
 
 Thus resolving alerts can lower the program ratio, and growing volume can lower a period ratio while reports are still arriving. Splitting activity can also keep accounts below a count threshold even when their ratios are identical. Detecting that pattern requires cluster-level counts, not merely a pooled cohort ratio.
 
-**Small cohorts leave substantial uncertainty.** Under independent trials with a common rate, exact 95 percent intervals are 0.24 to 7.04 percent for 2/100, 0 to 3.62 percent for 0/100, and 0.87 to 3.90 percent for 8/400. For 8/100, the interval is 3.52 to 15.16 percent. Fisher's two-sided test comparing 8/100 with 2/100 gives p = 0.10. Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent. Repeated customers or a shared operator may correlate transactions, making those intervals and the test overstate precision.
+**Small cohorts leave substantial uncertainty.** Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent: Supplement S6 gives exact intervals and a test. Repeated customers or a shared operator may correlate transactions, making those intervals and the test overstate precision.
 
 The linked storefronts still require an explanation. Shared templates and descriptors may reflect a legitimate multi-brand business or aggregator. Verified identifiers support specific relationships without establishing intent or common control. The agent may produce a qualified cluster assessment, an inconclusive finding, a proposed account review or a detection candidate. It cannot reject or terminate accounts.
 
