@@ -1,0 +1,218 @@
+[
+ {
+  "removed": "The specified minimum counts are not power calculations.",
+  "covered_by": [
+   "The minimum counts below are not power calculations; the sizing assumptions must be recorded before main-study data are collected."
+  ]
+ },
+ {
+  "removed": "E8 sizes its planted false exonerations for 93 percent power to show a release rate below a tolerable rate stated in advance, given an assumed true rate, and sizes its planted drafts so that the complete rule, with the catch-rate criterion, reaches that power.",
+  "covered_by": [
+   "The number of planted false exonerations is sized for 93 percent power to show a release rate below the tolerable rate, given an assumed true release rate stated in advance, and the number of planted drafts is sized so that the complete rule, with the catch-rate criterion, reaches that power."
+  ]
+ },
+ {
+  "removed": "At realistic prevalence and the volume assumed in Section 6.4, that can take many months of production drafts, so the tolerable rate, the assumed rate and the implied duration are stated together.",
+  "covered_by": [
+   "If planted false exonerations made up 5 percent of the drafts reaching review, 628 of them would take 12,560 drafts, about 628 days at the 20 drafts a day assumed in manuscript Section 6.4.",
+   "The plan states the tolerable rate, the assumed rate, the prevalence and the implied duration together."
+  ]
+ },
+ {
+  "removed": "The sizing assumptions must be recorded before main-study data are collected, and E2's interval settings and E9's negligible reduction in reference error fixed before any data are examined.",
+  "covered_by": [
+   "The minimum counts below are not power calculations; the sizing assumptions must be recorded before main-study data are collected.",
+   "E2's interval settings remain deployment-specific choices, to be fixed before any data are examined.",
+   "E1's non-inferiority margin, E3's false-flag margin and E8's tolerable and assumed release rates are named parameters that a platform fixes and records before data collection, and E9's negligible reduction in reference error is one that it fixes before any data are examined; this section does not set them."
+  ]
+ },
+ {
+  "removed": "Its co-primary criterion fails unless the lower 95 percent bound on the change in correct, supported conclusions per case lies above minus the non-inferiority margin.",
+  "covered_by": [
+   "It also fails if, in those cases or in the complete-history stratum, the lower 95 percent bound on the difference in correct, supported conclusions per case (with the records minus without) is at or below minus the non-inferiority margin."
+  ]
+ },
+ {
+  "removed": "S7.1 specifies the confirmatory test, including who investigates.",
+  "covered_by": [
+   "Who investigates is fixed before the study starts: people, the agent, or both as separate arms, each analyzed on its own."
+  ]
+ },
+ {
+  "removed": "The broader agenda also examines timing precision, detection and triage gains, collection cost and false alarms from benign changes.",
+  "covered_by": [
+   "A broader timing study would compare minute-level joins with coarser timing across a realistic incident population.",
+   "It would measure exposure-to-use and session-issuance-to-use intervals, detection or triage gains, collection costs and false alarms from benign changes."
+  ]
+ },
+ {
+  "removed": "Simulation shows how estimates behave under given assumptions but cannot verify them or recover unknown real outcomes.",
+  "covered_by": [
+   "Simulation can test behavior under known assumptions, including cases without overlap, where no comparable cases received another decision.",
+   "It cannot verify those assumptions or recover unknown real outcomes."
+  ]
+ },
+ {
+  "removed": "The onset of evasion is fixed from case evidence by adjudicators blind to both monitoring rules, and the pass rule is judged only on clusters selected by a route that does not depend on either rule; clusters from other routes are reported separately.",
+  "covered_by": [
+   "The pass rule is judged only on clusters selected by a confirmation route documented as independent of either monitoring rule; clusters from other routes are reported separately.",
+   "Adjudicators blind to both rules' outputs fix the onset of evasion for each cluster from case evidence."
+  ]
+ },
+ {
+  "removed": "A third arm applies the same rule to each account after linking, separating the contribution of linkage from that of clustering.",
+  "covered_by": [
+   "A third arm applies the rule to each account after linking, separating linkage from clustering."
+  ]
+ },
+ {
+  "removed": "The cluster and third arms count only reports with verified transaction links; flags that need others are reported separately.",
+  "covered_by": [
+   "The cluster and third arms count only reports with verified links, such as a match on the network's transaction identifier.",
+   "Flags that need reports linked otherwise, such as by card number and amount alone, are reported separately."
+  ]
+ },
+ {
+  "removed": "When every account in a cluster has captured payments in the rule's denominator period, a pooled ratio cannot exceed the highest account ratio (Section 8.2), so any lead from clustering must come from a condition on totals, such as the minimum count or, where the network sets one, a minimum value.",
+  "covered_by": [
+   "When every account has captured payments in the denominator period, a pooled ratio cannot exceed the highest account ratio, so a lead from clustering can come only from a condition on totals, such as the minimum count or, where the network sets one, a minimum value."
+  ]
+ },
+ {
+  "removed": "Examples are a closed account and, where the denominator is the previous month's captured payments, an account in its first month.",
+  "covered_by": [
+   "Report separately any cluster flag that depends on reports received by an account with no captured payments in that period, such as a closed account or, where the denominator is the previous month's captured payments, an account in its first month."
+  ]
+ },
+ {
+  "removed": "Such cluster flags are reported separately.",
+  "covered_by": [
+   "Report separately any cluster flag that depends on reports received by an account with no captured payments in that period, such as a closed account or, where the denominator is the previous month's captured payments, an account in its first month."
+  ]
+ },
+ {
+  "removed": "All arms use the same eligible transactions, outcome definition and reporting periods.",
+  "covered_by": [
+   "Keep the eligible transactions, outcome definition and reporting periods consistent."
+  ]
+ },
+ {
+  "removed": "Support also requires the one-sided 95 percent upper confidence bound on the increase in false-flag probability among legitimate multi-brand businesses, cluster arm minus account arm, to be below the prespecified margin, with business-level pairing and any additional clustering preserved.",
+  "covered_by": [
+   "It also fails unless the one-sided 95 percent upper confidence bound on the increase in the probability that a legitimate multi-brand business is flagged, cluster arm minus account arm, is below the false-flag margin, proposed as 5 percentage points.",
+   "The interval preserves business-level pairing and any additional clustering."
+  ]
+ },
+ {
+  "removed": "S7.1 proposes a five-percentage-point margin and requires sizing for both criteria.",
+  "covered_by": [
+   "It also fails unless the one-sided 95 percent upper confidence bound on the increase in the probability that a legitimate multi-brand business is flagged, cluster arm minus account arm, is below the false-flag margin, proposed as 5 percentage points.",
+   "Prespecify the interval method and size the study for the complete lead-time and false-flag pass rule at the 93 percent power target, given the expected share of verified report links."
+  ]
+ },
+ {
+  "removed": "Each account arm applies the rule to platform and connected accounts; where a network monitors a different unit, such as Visa's static statement descriptor and acquiring bank (Section 8.2), that arm also reports results for the network's unit.",
+  "covered_by": [
+   "Apply the account arms to platform and connected accounts and, where a network monitors a different unit, such as Visa's static statement descriptor and acquiring bank, also to that unit."
+  ]
+ },
+ {
+  "removed": "E4 tests this feasibility before E1 to E3 and E9.",
+  "covered_by": [
+   "It precedes E1 to E3 and E9."
+  ]
+ },
+ {
+  "removed": "Deciding whether detection gains justify that harm remains a broader evaluation question.",
+  "covered_by": [
+   "A broader evaluation would compare detection gains with failed attempts and other costs to legitimate users."
+  ]
+ },
+ {
+  "removed": "The comparison should measure correct findings, errors, abstentions (cases left without a conclusion), total human investigation and review time, cost and latency.",
+  "covered_by": [
+   "Measure correct findings, errors, abstentions, human review burden, cost and latency, and include adaptive adversaries.",
+   "In E5, reviewer time covers human investigation, tool or agent operation, checking, release and rework.",
+   "Record incomplete tests and any abstention (a decision not to conclude)."
+  ]
+ },
+ {
+  "removed": "For a fixed historical cohort of payment attempts, payouts and account decisions, labels are built twice: once under the platform's current label rule, with its existing maturity period and its existing treatment of blocked or reversed items, recorded before any data are examined, and once under C1, which reads a missing report as a provisional negative only where its channel matured open under its original meaning.",
+  "covered_by": [
+   "The comparator is the platform's current label rule, with its existing maturity period and its treatment of blocked or reversed items, recorded before any data are examined.",
+   "(a) Historical reclassification: a fixed cohort of payment attempts, payouts and account decisions, with the decision logs, disputes, early fraud warnings, returns and other reports the platform already holds.",
+   "Labels are built twice, once under the comparator and once under C1, which reads a missing report as a provisional negative only where its channel matured open under its original meaning."
+  ]
+ },
+ {
+  "removed": "E9 reports the share of the existing rule's negatives that C1 classes as closed, delayed, changed in meaning, immature or without a defined window, and separately the share whose channel state is unknown.",
+  "covered_by": [
+   "Reported but not counted as support: (a) the share of the comparator's negatives that C1 classes as closed, delayed, changed in meaning, immature or without a defined window.",
+   "Items whose channel state is unknown are excluded from that share and reported separately as a coverage shortfall, with, by channel, the share of affected items whose channel state, clock start and window can be determined rather than recorded as unknown."
+  ]
+ },
+ {
+  "removed": "It also reports the reports that later arrive on the existing rule's negatives, and the change in an existing control's measured error rates and in the ranking of two candidate rules.",
+  "covered_by": [
+   "Also reported: the reports that later arrive on the comparator's negatives, and the change in an existing control's measured error rates and in the ranking of two candidate rules."
+  ]
+ },
+ {
+  "removed": "On decisions with a randomized holdout, it compares the absolute error of the same evaluation quantity under both readings against a reference constructed after the longest defined reporting window has closed, with report truth checked on a random sample.",
+  "covered_by": [
+   "On decisions with a randomized holdout, compare the absolute error of the same evaluation quantity under both readings against the holdout reference after the longest defined reporting window has closed, with report truth reviewed on a random sample."
+  ]
+ },
+ {
+  "removed": "S7.1 defines the paired reduction in reference error and requires joint uncertainty for both readings and the holdout reference.",
+  "covered_by": [
+   "For comparator estimate $q_0$, C1 estimate $q_1$ and holdout reference $r$, the reduction is $D=|q_0-r|-|q_1-r|$; positive values favor C1.",
+   "Prespecify a joint uncertainty procedure for the two readings and the reference that preserves pairing, randomization, truth-review sampling and relevant clustering."
+  ]
+ },
+ {
+  "removed": "Agreement with that reference is not itself an estimate of statistical bias or proof of accuracy against all underlying fraud.",
+  "covered_by": [
+   "This comparison does not by itself estimate statistical bias or reveal fraud that was never reported."
+  ]
+ },
+ {
+  "removed": "Each evaluation freezes the information each method may use at an as-of cutoff and separates development from test data.",
+  "covered_by": [
+   "First, each evaluation freezes the information each method may use at an as-of cutoff and separates development from test data."
+  ]
+ },
+ {
+  "removed": "It states base rates and how true outcomes are decided, by whom and blind to which method produced each finding, and it sets error and abstention rules in advance.",
+  "covered_by": [
+   "Second, it states how true outcomes are decided, by whom, and blind to which method produced each finding.",
+   "Its error and abstention rules are set in advance, and it states base rates."
+  ]
+ },
+ {
+  "removed": "Where ground truth comes from labels shaped by control decisions, it says how that bias is avoided or reports relative performance among detected cases only.",
+  "covered_by": [
+   "Third, where ground truth comes from labels shaped by control decisions, it says how that bias is avoided.",
+   "Otherwise it reports relative performance among detected cases only."
+  ]
+ },
+ {
+  "removed": "Test, replay and emulation records are marked when created and kept out of production labels and lessons.",
+  "covered_by": [
+   "Fourth, records from tests, replays and emulations are marked when created and kept out of production labels and lessons."
+  ]
+ },
+ {
+  "removed": "S7 also requires recording the provenance of synthetic data when created.",
+  "covered_by": [
+   "Record the provenance of synthetic, replayed and emulated data when created."
+  ]
+ },
+ {
+  "removed": "E8's planted drafts concern synthetic entities or closed cases whose named entities have no account action pending, and no recommendation in a planted draft may reach a control decision or the urgent-containment route; the decider is told that the draft is planted before any action.",
+  "covered_by": [
+   "Planted drafts concern synthetic entities or closed cases whose cited records are test-marked and whose named entities have no account action pending.",
+   "The gateway refuses any control request or urgent-containment routing that originates from a test-marked draft, and it tells the decider that the draft is planted before any action."
+  ]
+ }
+]
