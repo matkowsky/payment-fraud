@@ -244,6 +244,8 @@ Table S4.1 summarizes this complete storage contract; S3.1 and manuscript Sectio
 
 **Bank-debit and other rails (manuscript Section 7.1).** A SEPA Direct Debit dispute within eight weeks of the debit is honored with no questions asked, and such disputes are final, with no process for appeal [@Stripe2026SEPADebit]. After eight weeks and up to 13 months, a customer can dispute only a debit considered unauthorized, and the customer's bank decides; the window that applies therefore depends on the claim, and an absence at eight weeks is not a negative for unauthorized-debit fraud [@Stripe2026SEPADebit]. Inside its window, an ACH return is refunded without question, and the ACH Network has no appeals process of its own [@Stripe2026ACHTerms]. A SEPA dispute honored with no questions asked is not by itself a fraud allegation. For ACH returns, the provider's terms give 60 days for consumer accounts and 2 days for business accounts, counted from the customer's bank statement [@Stripe2026ACHTerms], while the Nacha return deadlines that banks apply run from the settlement date of the original debit [@LeadBank2026ACHReturns]; a channel record therefore names the rule from which it takes its clock start. Banks may also accept late returns outside the window [@Stripe2026ACHTerms]. The product scope also lists instant push payments and stablecoin payments (S2); their reporting channels, if any, follow each rail's own rules and windows, which this paper did not review.
 
+**Limits of the rail review (manuscript Section 9.2).** Bank debits were compared only with two of the provider's pages and one bank's return-code table (manuscript Section 7.1); of the bank-debit candidates in S2, PAY-07 was judged covered and MM-03 was not reviewed. Instant push payments and stablecoin payments, which are also in the product scope, were not reviewed rail by rail; their mechanisms MM-07 and MM-12 were reviewed, but not their reporting channels (S2).
+
 **Assessment store**
 
 - Retain the model or reviewer identity and version. Keep unknown, not-assessed and failed-open states distinct from low risk. Failed-open means the assessment failed and activity continued.
@@ -391,6 +393,8 @@ The detection candidate needs an appropriate outcome. A payout moves an account'
 
 Victim reports and incident findings have no defined reporting window here. Those channels can supply confirmed positives but cannot reach “matured with no report.” Evaluation must either justify a delay model, as conversion research does in its setting [@Chapelle2014Delayed], or leave negatives unconfirmed. The recorded decision and channel states determine which interpretation is available.
 
+**The blocked payout in manuscript Table 2 (manuscript Section 8.3).** For the blocked payout, excluding the case is valid only for a rate explicitly restricted to completed transfers. Estimating outcomes over all attempted payouts retains it in the target population and must address its unobserved outcome.
+
 ### S6.2 Trace B: narrative
 
 A risk assessment and a rejected application identify similar storefronts. A human asks whether newly onboarded merchant accounts form an operation structured to evade dispute monitoring. The assessment selects a lead; the investigation must establish the underlying relationships.
@@ -442,6 +446,8 @@ Both measures exclude reports on transactions outside the four cohorts. A missin
 
 Manuscript Table 2 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.
 
+**Context each row of manuscript Table 2 needs (manuscript Section 8.3).** The first two rows need request coverage, credential exposure, destination history and learned times. The second row also needs the frozen assessment and its freeze time, which the assessment store holds; none of the eleven signals records it. The third needs the control's effect on each channel. The fourth needs verified report-to-transaction links, deduplication and versioned cluster membership, which Trace B builds from storefront-to-merchant links. The fifth needs the separation between observations and organizational memory.
+
 ## S7. Evaluation conditions
 
 These conditions explain the scope and comparisons behind the tests in S7.1. E8's release-gate test appears there alongside the other eight; S8 adds practitioner judgments of availability and usefulness.
@@ -463,6 +469,15 @@ These conditions explain the scope and comparisons behind the tests in S7.1. E8'
 **E1. Do coverage and learned-time records reduce unsupported conclusions?** The confirmatory test in S7.1 concerns cases with incomplete history or links learned late, with a stratum of cases with complete history for its non-inferiority measure. A broader timing study would compare minute-level joins with coarser timing across a realistic incident population. It would measure exposure-to-use and session-issuance-to-use intervals, detection or triage gains, collection costs and false alarms from benign changes. Microsoft's report of payment fraud attempts soon after session theft and the deliberate key-exposure experiment motivate precise timing; neither establishes its typical benefit.
 
 **E2. When can missing outcomes be estimated?** Define the outcome channel, population and assumptions before selecting an estimator. Simulation can test behavior under known assumptions, including cases without overlap, where no comparable cases received another decision. It cannot verify those assumptions or recover unknown real outcomes. Later observational comparisons must separate populations with supported overlap from those whose outcomes cannot be estimated. Test sensitivity to late, mistaken and deliberately false reports. Allowing attempts that a policy would otherwise block requires separate ethical, human and operational authorization. The motivating theoretical preprint proposes methods; this paper claims no recovery of missing outcomes on platform data [@Dhama2026Causal].
+
+**The four assumptions (manuscript Section 7.1).** An observational evaluation justifies four assumptions linking observed decisions to alternatives [@HernanRobins2020]:
+
+- **Consistency:** each compared decision is precisely defined, and a case's observed outcome equals its outcome under the decision actually taken.
+- **Conditional exchangeability:** after conditioning on logged history, cases receiving different decisions have no remaining differences that bias the comparison.
+- **Overlap:** comparable cases had a nonzero chance of each relevant alternative decision.
+- **No interference:** changing one attempt's decision does not change other attempts' outcomes, including retries.
+
+If all decision inputs are logged and remaining decision variation is independent randomization, conditional exchangeability holds given those inputs. In practical terms, the logged history must account for variables influencing both decision and outcome [@HernanRobins2020]. Unlogged inputs used by a decider break that guarantee and must be identified. Repeated decisions require the relevant conditions at each step because earlier decisions can change later inputs [@HernanRobins2020].
 
 **Examining assumptions is not validating an estimator (manuscript Section 7.1).** Three target quantities illustrate the distinction:
 
