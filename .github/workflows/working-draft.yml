@@ -25,7 +25,7 @@ jobs:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           persist-credentials: false
       - run: python3 tools/test_revision_status.py
@@ -43,7 +43,7 @@ jobs:
       - name: Check the journal-format copies against the source (text and numbering)
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc
+          sudo apt-get install -y -o Acquire::Retries=3 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 pandoc
           python3 tools/test_journal_build.py
           python3 JOURNAL_BUILD.py --check-only
         working-directory: paper/working
@@ -51,11 +51,12 @@ jobs:
   synchronize-accepted-draft:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
+    timeout-minutes: 60  # a stalled package download must fail visibly, not hold the queue for hours
     permissions:
       contents: write
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: ${{ github.sha }}
           fetch-depth: 0  # the change record traces each paragraph through the merge history
@@ -69,9 +70,9 @@ jobs:
         if: steps.status.outputs.changed == 'true'
         run: |
           sudo apt-get update
-          sudo apt-get install -y pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern inkscape
+          sudo apt-get install -y -o Acquire::Retries=3 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern inkscape
           # ACM journal template, its fonts and pdftotext, for JOURNAL_BUILD.py
-          sudo apt-get install -y --no-install-recommends texlive-publishers texlive-fonts-extra texlive-plain-generic fonts-linuxlibertine fonts-inconsolata poppler-utils
+          sudo apt-get install -y -o Acquire::Retries=3 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 --no-install-recommends texlive-publishers texlive-fonts-extra texlive-plain-generic fonts-linuxlibertine fonts-inconsolata poppler-utils
       - name: Rebuild both documents and the change record, then check
         if: steps.status.outputs.changed == 'true'
         working-directory: paper/working
