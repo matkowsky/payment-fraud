@@ -1,0 +1,54 @@
+[
+ {
+  "removed": "A login-challenge study reports 47.8 percent same-session success for challenged sign-ins from unfamiliar devices and networks.",
+  "covered_by": [
+   "Doerfler's 47.8 percent same-session success rate concerns challenged sign-ins."
+  ]
+ },
+ {
+  "removed": "It also reports 97.3 percent eventual access within a week.",
+  "covered_by": [
+   "Its 97.3 percent eventual-access rate counts users, not sign-ins: it is the share of users with access within one week."
+  ]
+ },
+ {
+  "removed": "Its results count that share over users who failed a challenge, not over sign-ins, while its introduction states it over users who saw a challenge [@Doerfler2019].",
+  "covered_by": [
+   "Doerfler's Section 5.3 and Table 7 caption take users who failed a challenge as the denominator; Doerfler's introduction takes users who saw a challenge."
+  ]
+ },
+ {
+  "removed": "Adaptive prompt-injection attacks likewise expose limits of fixed tests [@Nasr2025].",
+  "covered_by": [
+   "Testing includes adaptive attackers because fixed-test success can overstate resistance [@Nasr2025]."
+  ]
+ },
+ {
+  "removed": "Fixed at commit `18fa2cc768024b47789dc6fa243acd48478acac2`, they provide a reproducible check for partial public counterparts of the proposed records [@StripeOpenAPI2026].",
+  "covered_by": [
+   "records the filenames, hashes, versions and counts at repository commit `18fa2cc768024b47789dc6fa243acd48478acac2`, dated 25 September 2026.",
+   "These findings describe the inspected schemas, not the provider's private telemetry or every possible public interface."
+  ]
+ },
+ {
+  "removed": "The 71 signals, 24 responsibilities and supporting interfaces make these choices inspectable.",
+  "covered_by": [
+   "Two artifacts make the specification inspectable: an inventory of 71 signals and an architecture of 24 responsibilities."
+  ]
+ },
+ {
+  "removed": "The hypothetical traces show their consequences: incomplete history leaves onset unresolved, a link learned late cannot enter a decision frozen before it was learned, a blocked payout closes a channel without producing a negative label, and transaction attribution changes which accounts bear reported outcomes.",
+  "covered_by": [
+   "A requested seven-day baseline contains only two hours of earlier history, so the change at nineteen minutes cannot be called the first misuse.",
+   "A detection already running on the platform froze its compromise assessment thirty minutes after publication, so the destination link, learned the next day, can inform the later investigation but cannot enter that assessment.",
+   "The pooled 5 percent conceals the higher values at A and B.",
+   "A permanent block prevents outcomes requiring completion; a hold may only delay them."
+  ]
+ },
+ {
+  "removed": "A stored assessment adds no independent observation.",
+  "covered_by": [
+   "It adds no root observation and no independent corroboration."
+  ]
+ }
+]
