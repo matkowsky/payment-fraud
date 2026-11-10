@@ -6,7 +6,7 @@ What it is not: a human coder, or a check that the sources say what the paper sa
 
 ## Files
 
-- `build_packet.py` builds `PACKET.md` and `KEY.json`. The packet holds the rule, the 68 mechanism-specific signals and a seeded random sample: 20 of the 61 mapped mechanisms and 5 of the 13 judged covered by existing records. It holds none of the paper's links. Mechanism IDs are masked as M01 to M25.
+- `build_packet.py` builds `PACKET.md` and `KEY.json`. The packet holds the rule, the 68 mechanism-specific signals and a seeded random sample: 20 of the 61 mapped mechanisms and 5 of the 13 then judged covered by existing records. It holds none of the paper's links. Mechanism IDs are masked as M01 to M25.
 - `score.py ANSWERS.txt [KEY.json]` compares the rater's lines with the paper's links: Cohen's kappa over every mechanism-signal cell, the share of links each side made that the other also made, and every disagreement.
 - `dry_run/` holds two dry-run answer files from Claude subagents. They tested the packet. They are not the independent check: Claude proposed the paper's mappings, and both subagents reported that they recognized the project.
 
@@ -27,3 +27,7 @@ The paper did not state a linking rule. Claude wrote the rule in `PACKET.md` on 
 2. Paste the whole of `PACKET.md`.
 3. Save the reply as `ANSWERS.txt`, with the model name and version shown and the date.
 4. Run `python3 tools/second_coder/score.py ANSWERS.txt`.
+
+## The other eight covered mechanisms
+
+`PACKET_COVERED_REST.md` gave the same rater, with the same rule and signals, the eight covered mechanisms the first sample left out (`covered_rest/`). Across all 13, the rater named no missing record for nine and a missing record for four: MP-08, API-09, API-10 and MP-11. The inventory was searched for each named record and none was found. Those four are now recorded as record gaps in the allocation table.

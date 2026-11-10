@@ -8,7 +8,7 @@
 The packet gives a second rater the linking rule, the signals, and a seeded random sample of mechanisms
 with the recorded scope of each mechanism's sources. It contains none of the paper's links. Mechanism
 IDs are replaced by M01, M02, ... so the rater cannot look the answers up; KEY.json maps them back.
-Sample: 20 of the 61 mapped mechanisms and 5 of the 13 judged covered by existing records.
+Sample: 20 of the 61 mapped mechanisms and 5 of the 13 then judged covered by existing records.
 """
 import csv, json, random, sys
 from pathlib import Path
@@ -66,7 +66,8 @@ def main():
     for j in rows('S3_MAPPING_SOURCE_JOINS.csv'):
         joins.setdefault(j['mechanism_id'], []).append(j)
     mapped = sorted({p['mechanism'] for p in pairs})
-    covered = sorted(i for i, r in alloc.items() if r['disposition'] == 'covered')
+    # The triage record, not the disposition: four of these were later relabelled as record gaps.
+    covered = sorted(i for i, r in alloc.items() if 'COVERED BY EXISTING DESIGN' in r['recorded_status'])
     rng = random.Random(seed)
     sample = rng.sample(mapped, N_MAPPED) + rng.sample(covered, N_COVERED)
     rng.shuffle(sample)
