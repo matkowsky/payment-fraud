@@ -1,6 +1,13 @@
 """Run an outside tester's adversarial cases against the query-run and release rules.
 
   python3 tools/adversarial_cases/run_cases.py CASES.json [RESULTS.md]
+  python3 tools/adversarial_cases/run_cases.py --sealed CASES.json [RESULTS.md]
+
+With --sealed, a draft whose claims a case changed is first given its new digest, and a release that
+named the old digest is updated to match. That models a draft written that way and then released.
+Without it, a changed draft keeps its old version identifier, which models a draft altered after
+release. Since the rules began to recompute the digest, every altered draft fails IR-11 as written,
+so the sealed run is the one that shows what else the rules catch.
 
 CASES.json is the tester's JSON array (code fences are stripped). Each case patches the valid history;
 the patched history is checked against the schema and rules IR-01 to IR-14. The table says, for each
@@ -13,7 +20,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
-from investigation_conformance import SCHEMA, VALID, check   # noqa: E402
+from investigation_conformance import SCHEMA, VALID, check, seal   # noqa: E402
 from outcome_conformance import apply_patch                   # noqa: E402
 
 PATCH_KEYS = ('set_fields', 'remove_fields', 'remove_records', 'add_records')
@@ -35,7 +42,21 @@ def touched_types(case, base_types):
     return kinds
 
 
+def rules_hit(case, sealed=True):
+    """The set of checks a case fails: empty if it passes, {'MALFORMED'} if the patch cannot be applied."""
+    schema = json.loads(SCHEMA.read_text(encoding='utf-8'))
+    valid = json.loads(VALID.read_text(encoding='utf-8'))['records']
+    try:
+        records = apply_patch(valid, case)
+        return {f[0] for f in check(seal(records) if sealed else records, schema)}
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return {'MALFORMED'}
+
+
 def main():
+    args = [a for a in sys.argv[1:] if a != '--sealed']
+    sealed = '--sealed' in sys.argv[1:]
+    sys.argv = [sys.argv[0]] + args
     cases = load_cases(sys.argv[1])
     schema = json.loads(SCHEMA.read_text(encoding='utf-8'))
     valid = json.loads(VALID.read_text(encoding='utf-8'))['records']
@@ -50,7 +71,7 @@ def main():
             result, detail = 'malformed', 'the case changes nothing'
         else:
             try:
-                found = check(apply_patch(valid, c), schema)
+                found = check(seal(apply_patch(valid, c)) if sealed else apply_patch(valid, c), schema)
             except (KeyError, TypeError, ValueError, AttributeError) as e:
                 found, result, detail = None, 'malformed', f'patch or record could not be applied: {type(e).__name__} {e}'
             if found is not None:
@@ -76,7 +97,7 @@ def main():
         tally[key] = tally.get(key, 0) + 1
         note = '' if c.get('tier') == tier else f" (tester said {c.get('tier')})"
         rows.append(f"| {cid} | {tier}{note} | {expect} | {result} | {outcome} | {str(c.get('why', '')).replace('|', '/')} | {detail.replace('|', '/')} |")
-    out = [f'Cases: {len(cases)}. ' + '; '.join(f'{k}: {v}' for k, v in sorted(tally.items())) + '.', '',
+    out = [('Sealed run. ' if sealed else '') + f'Cases: {len(cases)}. ' + '; '.join(f'{k}: {v}' for k, v in sorted(tally.items())) + '.', '',
            '| Case | Tier | Tester expects | Checker | Outcome | Tester\'s reason | Checker detail |', '|---|---|---|---|---|---|---|', *rows, '']
     text = '\n'.join(out)
     if len(sys.argv) > 2: Path(sys.argv[2]).write_text(text, encoding='utf-8')
