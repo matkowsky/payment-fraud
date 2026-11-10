@@ -11,8 +11,9 @@ Compares SOURCE/manuscript.md and SOURCE/supplement.md with BASE, sentence by se
 In the supplement a moved sentence may say "manuscript Section N" (or Table N, Figure N) for "Section N",
 and "S4" where the manuscript said "Supplement S4". Nothing else may differ.
 --covered FILE names a JSON list of {"removed": sentence, "covered_by": [supplement sentences]} for
-sentences removed because the supplement already states them in its own words. Each "removed" must be a
-sentence this change removes, each "covered_by" must be in the supplement word for word, and together they
+sentences removed because the supplement, or another part of the manuscript, already states them. Each
+"removed" must be a sentence this change removes, each "covered_by" must be in the new supplement or the
+new manuscript word for word, and together they
 must contain every number of the removed sentence (labels such as E3 and section references aside). The
 check confirms the quotations exist; a reviewer confirms they say the same thing.
 --renumber FILE names a JSON map of old table and figure labels to new ones, used when a table or
@@ -60,8 +61,8 @@ def squash(s):
 def keys(s): return set(re.findall(r'@([A-Za-z][A-Za-z0-9]+)', s))
 def numbers(s): return re.findall(r'\d[\d.,]*\d|\d', s)
 def plain_numbers(s):
-    # Numbers other than labels (E3, S7.1, C1, RQ2) and section references.
-    return numbers(re.sub(r'\b(?:E|S|C|RQ)\d+(?:\.\d+)?\b|\b(?:manuscript )?Sections? \d+(?:\.\d+)?', '', s))
+    # Numbers other than citation keys, labels (E3, S7.1, C1, RQ2) and section references.
+    return numbers(re.sub(r'@[A-Za-z][A-Za-z0-9]+|\b(?:E|S|C|RQ)\d+(?:\.\d+)?\b|\b(?:manuscript )?Sections? \d+(?:\.\d+)?', '', s))
 def words(s): return re.findall(r"[A-Za-z0-9']+", s.lower())
 
 
@@ -87,8 +88,10 @@ def compare(old_ms, new_ms, old_sup, new_sup, covered=()):
     for s in removed:
         if squash(s) in declared:
             quotes = declared[squash(s)]
+            kept = squash(new_ms)
             for q in quotes:
-                if squash(q) not in sup: problems.append(f'covering text is not in the supplement: {q[:80]}')
+                if squash(q) not in sup and squash(q) not in kept:
+                    problems.append(f'covering text is in neither the supplement nor the manuscript: {q[:80]}')
             missing = Counter(plain_numbers(s)) - Counter(plain_numbers(' '.join(quotes)))
             for n in sorted(set(missing)): problems.append(f'number {n} is not in the covering text: {s[:80]}')
             cov.append((s, quotes)); continue
@@ -116,8 +119,8 @@ def report(moved, edited, added, problems, wc, cov=()):
     out = [f'Manuscript words: {wc[0]:,} to {wc[1]:,}. Supplement words: {wc[2]:,} to {wc[3]:,}.', '',
            f'**Moved to the supplement word for word ({len(moved)}):**']
     out += [f'- {s}' for s in moved]
-    out += ['', f'**Removed because the supplement already states it ({len(cov)}):**']
-    for s, quotes in cov: out += [f'- Removed: {s}'] + [f'  Supplement: {q}' for q in quotes]
+    out += ['', f'**Removed because the supplement or the manuscript already states it ({len(cov)}):**']
+    for s, quotes in cov: out += [f'- Removed: {s}'] + [f'  Stated in: {q}' for q in quotes]
     out += ['', f'**Edited in the manuscript ({len(edited)}):**']
     for a, b in edited: out += [f'- Before: {a}', f'  After: {b}']
     out += ['', f'**Added to the manuscript ({len(added)}):**'] + [f'- {s}' for s in added]
