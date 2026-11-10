@@ -369,6 +369,8 @@ Account structure affects where a report is recorded and which transactions a ra
 
 The same outcome definition, cohort and window must be retained when comparing account and cluster ratios. A pooled cohort ratio is a weighted average and cannot exceed the highest account ratio merely through pooling (Section 8.2). It can conceal a high account ratio among lower ones.
 
+Sales can also be inflated or moved. One FTC complaint alleges plans to add stored-value card “purchases” to a merchant's sales, and continued processing of a merchant's transactions through a linked account after its account was closed [@FTC2019Allied]. Payments known to be funded by instruments the business or platform controls are therefore kept out of a ratio's denominator and counted separately, and a closure's effect is measured across linked accounts.
+
 Resolution also changes what becomes a chargeback. One FTC complaint alleges refunding on pre-dispute alerts to avoid chargeback recording; the resulting order was stipulated [@FTC2025Paddle]. Stripe's dispute guide says a business can proactively refund a payment flagged by an early fraud warning to prevent a dispute, while advising against refunding every flagged payment. It adds that such a refund does not affect the fraud warning [@Stripe2026Disputes]. A lower chargeback ratio after alert resolution therefore does not establish less abuse.
 
 The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. Supplement Table S7.1 summarizes the resulting requirements.
