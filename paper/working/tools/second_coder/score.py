@@ -1,6 +1,6 @@
 """Score a second rater's answers against the paper's mechanism-to-signal links.
 
-  python3 tools/second_coder/score.py ANSWERS.txt
+  python3 tools/second_coder/score.py ANSWERS.txt [KEY.json]
 
 ANSWERS.txt holds the rater's lines: `M01 | SIG-xx, SIG-yy (inference) | missing: none`.
 Prints agreement over every mechanism-signal cell of the mapped sample (Cohen's kappa, and the share
@@ -37,7 +37,7 @@ def kappa(a, b, c, d):
     return (po - pe) / (1 - pe) if pe < 1 else 1.0
 
 def main():
-    labels = json.loads((HERE / 'KEY.json').read_text())['labels']
+    labels = json.loads(Path(sys.argv[2] if len(sys.argv) > 2 else HERE / 'KEY.json').read_text())['labels']
     got = parse(Path(sys.argv[1]).read_text(encoding='utf-8'), labels)
     sig = [s['signal_id'] for s in rows('S3_SIGNALS.csv') if s['signal_id'] not in CROSS_CUTTING]
     names = {s['signal_id']: s['signal'] for s in rows('S3_SIGNALS.csv')}

@@ -13,14 +13,30 @@ Link a mechanism to a signal when BOTH hold:
 2. At least one of the sources listed under the mechanism describes behaviour that the signal would
    record. If you link on reasoning alone, without such a source, mark the link "inference".
 
-Do not link a signal only because it is generally useful. Most mechanisms link to between one and
-six signals. Link every signal that meets the rule and no others.
+Do not link a signal only because it is generally useful. Link every signal that meets the rule and
+no others.
 
-For each mechanism also answer: is any record that rule 1 requires absent from the signal list?
+How to apply the rule:
+
+- A source from another setting (another platform, another industry) counts for rule 2 when it
+  describes the same behaviour.
+- Some sources are public interface schemas. Their scope says "capability premises": the schema shows
+  that an account can create or change the thing the mechanism abuses. Such a source supports a
+  signal that records that creation or change.
+- Signals of any class may be linked: observations, derived features, model outputs, control
+  outcomes and external knowledge.
+- A derived feature and the observations it is computed from are separate signals. Link each one
+  that meets the rule by itself. Do not link an observation only because a linked feature uses it.
+- A mechanism with "Sources: none recorded" cannot meet rule 2. Apply rule 1 only and mark every
+  link "inference".
+
+For each mechanism also answer whether a record is missing. Answer "missing" only when the test in
+rule 1 could not be made at all with the listed signals. A record that would merely help is not
+missing.
 
 ## Answer format
 
-One line per mechanism, nothing else before or after the lines:
+One line per mechanism. If you recognize the project, say so in one sentence before the lines. Add nothing else:
 
 `M01 | SIG-xx, SIG-yy (inference), SIG-zz | missing: none`
 
@@ -103,91 +119,56 @@ Write `missing: <the record that is absent>` if rule 1 needs a record the list l
 
 ### M01
 
+Delegated payment-credential leakage and theft (Shared Payment Tokens, Link Pay Tokens, agent virtual cards, authenticated wallet sessions exposed to other local processes).
+
+Sources (recorded scope of each):
+- stripe/link-cli README (2026; fact (public engineering artifact)). Vendor README for an agent payment-credential CLI: credential types, spend-request limits and validity, optional HTTP MCP endpoint bound to 127.0.0.1 by default with a stated local-session exposure warning; no incident or security evaluation. Limit: README statement; no incident.
+
+### M02
+
+Post-compromise persistence and privilege abuse (added users, linked or authorized accounts, cross-account permissions, lockout and deletion).
+
+Sources (recorded scope of each):
+- FBI and CISA Joint Cybersecurity Advisory AA23-320A, Scattered Spider (2023-11-16; revised 2023-11-21) (2023; fact (practitioner/incident) government). FBI and CISA advisory on one actor cluster (Scattered Spider), TTPs from FBI investigations to November 2023: help-desk social engineering to reset passwords or MFA tokens, MFA fatigue, SIM swap, actor-registered MFA tokens, federated identity provider added with automatic account linking, new identities, then data theft, extortion and ransomware; enterprise IT and SSO environments. The 2025-07-29 update (seven co-sealers, TTPs to June 2025) keeps these and calls the federated-IdP technique historical. Limit: one actor cluster's TTPs to November 2023; enterprise identity environment.
+- Microsoft Threat Intelligence, From cookie theft to BEC: Attackers use AiTM phishing sites as entry point to further financial fraud (2022-07-12) (2022; fact (practitioner/incident) vendor). Vendor report of an AiTM phishing campaign against more than 10,000 organizations from Sept 2021: passwords and session cookies stolen through a proxy kit, MFA bypassed, stolen cookies replayed, inbox rules created, and follow-on payment fraud attempted as little as five minutes after theft. Reported minimum timing, not a distribution; no counts of fraud cases or losses; enterprise email.
+
+### M03
+
+Device and browser fingerprint spoofing, emulators and device farms.
+
+Sources: none recorded for this mechanism.
+
+### M04
+
+Connected-account takeover via onboarding-link or embedded-session leakage.
+
+Sources (recorded scope of each):
+- Stripe Docs, Stripe-hosted onboarding (Account Links) (2026; fact (vendor documentation) illustrative platform). One-use, short-lived Account Link URLs that grant access to personal information; platforms must authenticate the account before redirecting and must not send links outside the application; tracking link issuance and use is a design inference. No incident evidence. Limit: public documentation; no incident evidence.
+- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only.
+
+### M05
+
+Fake or cloned e-commerce sites collecting payments or card data.
+
+Sources (recorded scope of each):
+- Bitaab M., Karimi A., Lyu Z., Oest A., Kuchhal D., Saad M., Ahn G.-J., Wang R., Bao T., Shoshitaishvili Y., Doupé A. ScamMagnifier: Piercing the Veil of Fraudulent Shopping Website Campaigns (2025; peer-reviewed prior research). Newly registered domains, May 2023 to Jun 2024: 46,746 fraudulent shopping sites; a crawler extracted checkout merchant IDs and stopped before payment; one provider linked 14,394 domains to its merchant IDs (54.55% to 10 IDs); 20.17% of sites transacted within 10 days of registration. Externally visible processors only; provider linkage method undisclosed; no settlement observed; some internal count inconsistencies. Limit: three processors; lower bound.
+- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only.
+
+### M06
+
+Signature and approval phishing and drainer-as-a-service against self-custodial and embedded wallets (incl. stablecoin allowance abuse).
+
+Sources (recorded scope of each):
+- Chen Z., Luo D., Hu Y., Wu L., He B., Zhou Y. Dissecting Payload-based Transaction Phishing on Ethereum (2025; peer-reviewed prior research). Payload-based transaction phishing on Ethereum, Dec 2022 to Oct 2023: 130,637 phishing transactions with about USD 342 million in losses; ice phishing through approve and permit accounted for 59.04% of losses; outstanding approvals let scammers drain assets later. Ethereum only; categories reflect the 2023 landscape. Limit: Ethereum.
+
+### M07
+
 Event-destination, webhook or data-destination hijack after compromise (attacker endpoint receives account events or data exports).
 
 Sources (recorded scope of each):
 - Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: absence in the public schema is not evidence about internal telemetry.
 
-### M02
-
-Small-deposit verification abuse and bank-account reuse across accounts.
-
-Sources: none recorded for this mechanism.
-
-### M03
-
-Bust-out (build history, then maximize payouts or financing before losses surface).
-
-Sources (recorded scope of each):
-- Stripe Docs, Best practices for risk management (2026; fact (vendor documentation) illustrative platform). Vendor guidance for Connect platforms: rejection reasons signalled by account.updated; account takeover prevention (two-factor authentication; monitoring changes to passwords, email and bank details from new devices); dispute activity above 0.75% generally excessive; delaying, holding, slowing or pausing payouts per account. Public practice only; no inference to private implementation. Limit: public documentation.
-- Stripe Docs, Risk and liability management with Connect (2026; fact (vendor documentation) illustrative platform). Vendor explanation of negative-balance liability on Connect (direct versus indirect charges, platform reserves, 180-day rule) and of account risk: credit risk (refunds and chargebacks exceeding what an account can cover) and fraud risk (no intent to deliver; payment method cashing through a self-opened account). No dispute threshold, payout-hold guidance or bust-out description. Limit: public documentation.
-- USAO District of New Jersey, Eighteen People Charged in International, $200 Million Credit Card Fraud Scam (2013-02-05) (2013; fact (practitioner/incident) government). Charging announcement (allegations, not findings): more than 7,000 fabricated identities with fabricated credit, loans run up and not repaid (bust-out), more than 1,800 drop addresses, sham companies whose merchant accounts were replaced by new companies and terminals after processors shut them for fraud, complicit merchants holding multiple processing accounts; 2013. Limit: allegations.
-- FTC v. First Data Merchant Services LLC and Chi W. Ko, No. 1:20-cv-03867 (S.D.N.Y.), Complaint, ECF 1 (filed 2020-05-19) (2020; fact (practitioner/incident) government). Complaint (allegations, not findings): an ISO opened hundreds of merchant accounts for phony entities and shell corporations with false information; 40 pairs of identical applications approved (load balancing); an applicant approved two weeks after a prior account closed for excessive chargebacks; over 300,000 chargebacks in under a year. 2012 to 2014; the stipulated First Data order (ECF 15, read in full) does not adjudicate the allegations, and the Ko order (ECF 16) was not read. Limit: allegations.
-- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only.
-
-### M04
-
-Session and token theft (infostealer cookies, session hijack).
-
-Sources (recorded scope of each):
-- Microsoft Threat Intelligence, From cookie theft to BEC: Attackers use AiTM phishing sites as entry point to further financial fraud (2022-07-12) (2022; fact (practitioner/incident) vendor). Vendor report of an AiTM phishing campaign against more than 10,000 organizations from Sept 2021: passwords and session cookies stolen through a proxy kit, MFA bypassed, stolen cookies replayed, inbox rules created, and follow-on payment fraud attempted as little as five minutes after theft. Reported minimum timing, not a distribution; no counts of fraud cases or losses; enterprise email. Limit: vendor.
-- Ghasemisharif M., Ramesh A., Checkoway S., Kanich C., Polakis J. O Single Sign-Off, Where Art Thou? An Empirical Analysis of Single Sign-On Account Hijacking and Session Management on the Web (2018; peer-reviewed prior research). Consumer web and mobile SSO with Facebook as IdP: SSO on 6.30% of the Alexa top 1M (Sept 2017); Facebook session-cookie replay without alert (campus network, Jan to May 2017); manual audit of 95 relying parties showing long-term access via email or password change and IdP-account linking, and no user remediation at 71 of 95; proposed single sign-off revocation. Not enterprise SAML SSO or platform operator sessions; 2017 behavior, Facebook cookie exposure since fixed. Limit: Facebook SSO, 95 consumer relying parties, measured 2017 (published 2018); cookie exposure fixed after disclosure.
-- Campobasso M., Allodi L. Impersonation-as-a-Service: Characterizing the Emerging Criminal Infrastructure for User Impersonation at Scale (2020; peer-reviewed prior research). One invite-only impersonation market, Dec 2017 to Mar 2020: about 262,000 listed profiles of malware-harvested cookies, saved credentials and browser fingerprints, sold with a custom browser and extension that load them; only 4.3% of profiles had a real fingerprint. Listings only; no profile bought, so profile quality and the impersonation software were not tested.
-
-### M05
-
-Merchant misrepresentation and transaction laundering (prohibited business behind a front).
-
-Sources (recorded scope of each):
-- McCoy D., Dharmdasani H., Kreibich C., Voelker G.M., Savage S. Priceless: The Role of Payments in Abuse-advertised Goods (2012; peer-reviewed prior research). Banking relationships of 40 spam- and search-advertised affiliate programs from 676 Visa test orders over about two years: 30 acquiring banks; terminals usually disappear within 30 days of a brand-holder complaint and programs move to other banks; almost 50%, later about 70%, of pharmaceutical transactions miscoded. Visa only, 2010 to 2012; transfer to onboarding is analogical. Limit: fetch-mediated; one network.
-- Tian H., Gaffigan S.M., West D.S., McCoy D. Bullet-Proof Payment Processors (2018; peer-reviewed prior research). Two-year payment intervention with six luxury brands: 424 test purchases from counterfeit sites reported to Visa; processors shifted between acquiring banks, opened merchant accounts through shell companies that appeared to sell low-risk goods, and filtered test purchases. Six brands, Visa purchases, 2014 to 2017; failed attempts not tracked; not a prevalence ranking. Limit: fetch-mediated.
-- FTC v. AlliedWallet, Inc., No. 2:19-cv-04355 (C.D. Cal.), Complaint, ECF 24 (unredacted, filed 2019-05-28; redacted twin ECF 1 filed 2019-05-20) (2019; fact (practitioner/incident) government). Complaint (allegations, not findings): a processor knowingly served fraudulent merchants, procured U.K. shell companies and nominees, submitted dummy websites, accepted plans to pad sales using stored-value card purchases and spread transaction volume across accounts, and kept processing after terminations; at least USD 110 million consumer loss alleged. Stipulated order; no merits adjudication. Limit: allegations.
-- FTC v. First Data Merchant Services LLC and Chi W. Ko, No. 1:20-cv-03867 (S.D.N.Y.), Complaint, ECF 1 (filed 2020-05-19) (2020; fact (practitioner/incident) government). Complaint (allegations, not findings): an ISO opened hundreds of merchant accounts for phony entities and shell corporations with false information; 40 pairs of identical applications approved (load balancing); an applicant approved two weeks after a prior account closed for excessive chargebacks; over 300,000 chargebacks in under a year. 2012 to 2014; the stipulated First Data order (ECF 15, read in full) does not adjudicate the allegations, and the Ko order (ECF 16) was not read. Limit: allegations.
-- FTC v. Paddle.com Market Limited, No. 1:25-cv-01886 (D.D.C.), Complaint, ECF 1 (filed 2025-06-16) (2025; fact (practitioner/incident) government). Complaint (allegations, not findings): a merchant of record processed for thousands of sellers under its own accounts, so networks and acquirers could not see seller-level chargeback rates; chargeback-prevention alerts (Ethoca, Verifi) and refunds kept disputes from being counted; descriptors changed to aggregate disputes. 2017 to 2023; stipulated order; figures not visible. Limit: allegations.
-- Stripe Docs, Best practices for risk management (2026; fact (vendor documentation) illustrative platform). Vendor guidance for Connect platforms: rejection reasons signalled by account.updated; account takeover prevention (two-factor authentication; monitoring changes to passwords, email and bank details from new devices); dispute activity above 0.75% generally excessive; delaying, holding, slowing or pausing payouts per account. Public practice only; no inference to private implementation. Limit: public documentation.
-- USAO Southern District of New York, CEO of Credit Card Processing Company Charged in $19 Million Credit Card Laundering Scheme (2019-10-11) (2019; fact (practitioner/incident) government). Charging announcement (allegations, not findings): about 26 sham merchant companies headed by paid nominee signers, false merchant applications concealing the true (prohibited telemarketing) merchant, closed accounts quickly replaced, and charges, refunds and chargebacks spread across accounts to evade bank, processor and ISO chargeback monitoring; 2012 to 2015. Limit: allegations.
-
-### M06
-
-Credential stuffing against consumer-wallet and merchant end-customer accounts.
-
-Sources (recorded scope of each):
-- Thomas K., Pullman J., Yeo K., Raghunathan A., Kelley P.G., Invernizzi L., Benko B., Pietraszek T., Patel S., Boneh D., Bursztein E. Protecting accounts from credential stuffing with password breach alerting (2019; peer-reviewed prior research). Privacy-preserving breach-alerting protocol and Chrome extension checking exact username and password pairs at login against 4 billion breached credentials; 667,716 opt-in users, 21.2 million logins on 746,853 domains, Feb to Mar 2019; 1.5% of logins used breached credentials (lower bound); 26% of warnings led to resets. Users' own logins, not observed attacker attempts; desktop Chrome only; not specific to payment or wallet accounts. Limit: opt-in Chrome extension users, Feb to Mar 2019; logins on 746,853 web domains, not wallet- or merchant-specific.
-
-### M07
-
-Layering through shell companies, transfers and scheduled movements across accounts.
-
-Sources (recorded scope of each):
-- FinCEN Advisory FIN-2014-A005, Update on U.S. Currency Restrictions in Mexico: Funnel Accounts and TBML (2014-05-28) (2014; fact (standard/guidance) government). FinCEN advisory: funnel accounts receive multiple cash deposits in one area, often below the reporting threshold, and are drained elsewhere with little elapsed time; multiple funnel accounts consolidate funds into one account; red flags and SAR terms. Bank cash-deposit and trade-based laundering setting; no time or concentration thresholds; no payment-platform evidence. Limit: cash rail; analog.
-
 ### M08
-
-Credential, session and key markets fed by infostealers and leaks.
-
-Sources (recorded scope of each):
-- Campobasso M., Allodi L. Impersonation-as-a-Service: Characterizing the Emerging Criminal Infrastructure for User Impersonation at Scale (2020; peer-reviewed prior research). One invite-only impersonation market, Dec 2017 to Mar 2020: about 262,000 listed profiles of malware-harvested cookies, saved credentials and browser fingerprints, sold with a custom browser and extension that load them; only 4.3% of profiles had a real fingerprint. Listings only; no profile bought, so profile quality and the impersonation software were not tested. Limit: one market.
-
-### M09
-
-AI token and compute theft for resale.
-
-Sources: none recorded for this mechanism.
-
-### M10
-
-Account farming and aged-account preparation for later abuse.
-
-Sources (recorded scope of each):
-- Thomas K., McCoy D., Grier C., Kolcz A., Paxson V. Trafficking Fraudulent Accounts: The Role of the Underground Market in Twitter Spam and Abuse (2013; peer-reviewed prior research). 121,027 fraudulent Twitter accounts bought from 27 merchants, Jun 2012 to Apr 2013: registration from unique IPs (79%), email confirmation, solved CAPTCHAs and naming patterns; accounts stockpiled a median of 31 days and sold as 'pre-aged' to evade heuristics on new accounts. Twitter only; classifier applied retroactively; not payment accounts. Limit: Twitter; retroactive; adversary adaptation noted.
-
-### M11
-
-Inbound transfer fraud on financial accounts (fund, withdraw, return).
-
-Sources: none recorded for this mechanism.
-
-### M12
 
 Payout redirection after compromise (added bank accounts, payout schedule changes).
 
@@ -197,106 +178,125 @@ Sources (recorded scope of each):
 - Stripe Docs, Account fraud prevention (Radar for platforms) (2026; fact (vendor documentation) illustrative platform). Vendor guidance for platform account risk: account risk scores and levels, risk metrics, agentic insights (matching bank account rejected for fraud; card-testing example), and reject reasons including card casher (buyer and seller), card tester and no intent to fulfill; no bank-account change guidance; no performance data. Limit: public documentation.
 - Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only.
 
-### M13
+### M09
 
-Business email compromise and invoice fraud using hosted invoices or payment redirection.
-
-Sources (recorded scope of each):
-- FBI IC3 Public Service Announcement, Business Email Compromise: The $55 Billion Scam (2024-09-11) (2024; fact (standard/guidance) government). FBI IC3 PSA: BEC definition (compromised email, unauthorized transfers), USD 55.5 billion exposed losses in 305,033 incidents, October 2013 to December 2023 (IC3, law-enforcement and financial-institution data), recipient counts, 2023 growth in funds sent to custodial accounts at third-party and P2P payment processors and crypto exchanges, UK and Hong Kong banks as intermediary stops; advice incl. verifying account-information change requests; no invoice-redirection, mule or timing detail. Limit: IC3 complaints, law-enforcement and financial-institution filings; exposed losses, October 2013 to December 2023.
-
-### M14
-
-Merchant-side dispute evasion (dispute avoidance, churning, fabricated evidence, threshold gaming).
+Key theft from developer environments and agent tooling (infostealers, malicious packages, credentials in files; agent-tagged and restricted API keys exposed in model context, logs or tool configuration).
 
 Sources (recorded scope of each):
-- FTC v. AlliedWallet, Inc., No. 2:19-cv-04355 (C.D. Cal.), Complaint, ECF 24 (unredacted, filed 2019-05-28; redacted twin ECF 1 filed 2019-05-20) (2019; fact (practitioner/incident) government). Complaint (allegations, not findings): a processor knowingly served fraudulent merchants, procured U.K. shell companies and nominees, submitted dummy websites, accepted plans to pad sales using stored-value card purchases and spread transaction volume across accounts, and kept processing after terminations; at least USD 110 million consumer loss alleged. Stipulated order; no merits adjudication. Limit: allegations.
-- FTC v. First Data Merchant Services LLC and Chi W. Ko, No. 1:20-cv-03867 (S.D.N.Y.), Complaint, ECF 1 (filed 2020-05-19) (2020; fact (practitioner/incident) government). Complaint (allegations, not findings): an ISO opened hundreds of merchant accounts for phony entities and shell corporations with false information; 40 pairs of identical applications approved (load balancing); an applicant approved two weeks after a prior account closed for excessive chargebacks; over 300,000 chargebacks in under a year. 2012 to 2014; the stipulated First Data order (ECF 15, read in full) does not adjudicate the allegations, and the Ko order (ECF 16) was not read. Limit: allegations.
-- FTC v. Paddle.com Market Limited, No. 1:25-cv-01886 (D.D.C.), Complaint, ECF 1 (filed 2025-06-16) (2025; fact (practitioner/incident) government). Complaint (allegations, not findings): a merchant of record processed for thousands of sellers under its own accounts, so networks and acquirers could not see seller-level chargeback rates; chargeback-prevention alerts (Ethoca, Verifi) and refunds kept disputes from being counted; descriptors changed to aggregate disputes. 2017 to 2023; stipulated order; figures not visible. Limit: allegations; confounder noted.
-- Stripe Docs, Best practices for risk management (2026; fact (vendor documentation) illustrative platform). Vendor guidance for Connect platforms: rejection reasons signalled by account.updated; account takeover prevention (two-factor authentication; monitoring changes to passwords, email and bank details from new devices); dispute activity above 0.75% generally excessive; delaying, holding, slowing or pausing payouts per account. Public practice only; no inference to private implementation. Limit: public documentation.
-- Zhang S., He E., Zhan X., He S., Xiao R., Yi X., Li H. Generative AI-Enabled Refund Fraud in Chinese E-Commerce: Investigation on Merchants and Platform Workers (2026; preprint). Interview study with 17 merchants and 13 platform workers in Chinese e-commerce: GenAI-fabricated defect images and records used in refund claims, one manipulated photo reused to claim from four shops at once, chatbots misclassifying generated images. Self-reported accounts; no measurement of prevalence; Chinese platforms only; participant tables inconsistent. Limit: Chinese e-commerce; interviews.
-- USAO Southern District of New York, CEO of Credit Card Processing Company Charged in $19 Million Credit Card Laundering Scheme (2019-10-11) (2019; fact (practitioner/incident) government). Charging announcement (allegations, not findings): about 26 sham merchant companies headed by paid nominee signers, false merchant applications concealing the true (prohibited telemarketing) merchant, closed accounts quickly replaced, and charges, refunds and chargebacks spread across accounts to evade bank, processor and ISO chargeback monitoring; 2012 to 2015. Limit: allegations.
+- Chen Z., Zhang Y., Liu Y., Deng G., Li Y., Zhang Y., Ning J., Zhang L.Y., Ma L., Li Z. How Your Credentials Are Leaked by LLM Agent Skills: An Empirical Study (2026; preprint). One marketplace (SkillsMP), 10% random sample (17,022) of a 12 Feb 2026 snapshot of 170,226 skills; static extraction, sandboxed Claude Code runs with mock credentials, manual labeling; 520 affected skills, 1,708 issues; credentials exposed in skill code, docs and config files and at runtime through stdout fed into the model context; credentials persisted in forks after upstream removal. Generic credentials, not payment-platform keys; other marketplaces not measured. Limit: one marketplace (SkillsMP); sandbox with mock credentials.
 
-### M15
+### M10
 
-Post-compromise persistence through automation objects (workflows, hosted custom-object methods, event destinations, connected apps, assistant skills).
+Credential stuffing and password spraying against operator (Dashboard) accounts.
 
 Sources (recorded scope of each):
-- Microsoft Threat Intelligence, Threat actors misuse OAuth applications to automate financially driven attacks, 2023-12-12 (2023; fact (practitioner/incident) vendor). Vendor report of three attack sets in which compromised accounts created or modified OAuth applications: secrets and credentials added and cloud compute provisioned for cryptomining (fees 10,000 to 1.5 million USD), BEC persistence and phishing through Microsoft Graph, inbox rules, and spam through Mail.Send. Microsoft tenant setting; no changes to authentication factors or event destinations described; no prevalence estimates. Limit: vendor.
-- FBI and CISA Joint Cybersecurity Advisory AA23-320A, Scattered Spider (2023-11-16; revised 2023-11-21) (2023; fact (practitioner/incident) government). FBI and CISA advisory on one actor cluster (Scattered Spider), TTPs from FBI investigations to November 2023: help-desk social engineering to reset passwords or MFA tokens, MFA fatigue, SIM swap, actor-registered MFA tokens, federated identity provider added with automatic account linking, new identities, then data theft, extortion and ransomware; enterprise IT and SSO environments. The 2025-07-29 update (seven co-sealers, TTPs to June 2025) keeps these and calls the federated-IdP technique historical. Limit: one actor cluster's TTPs to November 2023; enterprise identity environment.
+- Thomas K., Pullman J., Yeo K., Raghunathan A., Kelley P.G., Invernizzi L., Benko B., Pietraszek T., Patel S., Boneh D., Bursztein E. Protecting accounts from credential stuffing with password breach alerting (2019; peer-reviewed prior research). Privacy-preserving breach-alerting protocol and Chrome extension checking exact username and password pairs at login against 4 billion breached credentials; 667,716 opt-in users, 21.2 million logins on 746,853 domains, Feb to Mar 2019; 1.5% of logins used breached credentials (lower bound); 26% of warnings led to resets. Users' own logins, not observed attacker attempts; desktop Chrome only; not specific to payment or wallet accounts. Limit: opt-in extension users.
+- Doerfler P., Marincenko M., Ranieri J., Jiang Y., Moscicki A., McCoy D., Thomas K. Evaluating Login Challenges as a Defense Against Account Takeover (2019; peer-reviewed prior research). Google login and recovery challenges, 2017 to 2018: device-based challenges blocked nearly all bot and most phishing hijack attempts; 47.8% of challenged sign-ins from an unfamiliar device and network succeeded in the same session; the one-week access figure uses users who failed a challenge as its denominator. Google only; the unfamiliar-device sample may include hijackers. Limit: one provider.
 
-### M16
-
-Client-side e-skimming and payment-page tampering on merchant checkouts.
-
-Sources: none recorded for this mechanism.
-
-### M17
-
-Abuse of support and escalation workflows (policy and procedure abuse).
-
-Sources (recorded scope of each):
-- FBI and CISA Joint Cybersecurity Advisory AA23-320A, Scattered Spider (2023-11-16; revised 2023-11-21) (2023; fact (practitioner/incident) government). FBI and CISA advisory on one actor cluster (Scattered Spider), TTPs from FBI investigations to November 2023: help-desk social engineering to reset passwords or MFA tokens, MFA fatigue, SIM swap, actor-registered MFA tokens, federated identity provider added with automatic account linking, new identities, then data theft, extortion and ransomware; enterprise IT and SSO environments. The 2025-07-29 update (seven co-sealers, TTPs to June 2025) keeps these and calls the federated-IdP technique historical. Limit: one actor cluster's TTPs to November 2023; enterprise IT help desk, applied to platform support workflows by analogy.
-
-### M18
-
-No-intent-to-deliver merchant (non-delivery, partial or wrong goods, fabricated shipping evidence).
-
-Sources (recorded scope of each):
-- Stripe Docs, Risk and liability management with Connect (2026; fact (vendor documentation) illustrative platform). Vendor explanation of negative-balance liability on Connect (direct versus indirect charges, platform reserves, 180-day rule) and of account risk: credit risk (refunds and chargebacks exceeding what an account can cover) and fraud risk (no intent to deliver; payment method cashing through a self-opened account). No dispute threshold, payout-hold guidance or bust-out description. Limit: public documentation.
-- Stripe Docs, Account fraud prevention (Radar for platforms) (2026; fact (vendor documentation) illustrative platform). Vendor guidance for platform account risk: account risk scores and levels, risk metrics, agentic insights (matching bank account rejected for fraud; card-testing example), and reject reasons including card casher (buyer and seller), card tester and no intent to fulfill; no bank-account change guidance; no performance data. Limit: public documentation.
-- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only.
-- Bitaab M., Karimi A., Lyu Z., Oest A., Kuchhal D., Saad M., Ahn G.-J., Wang R., Bao T., Shoshitaishvili Y., Doupé A. ScamMagnifier: Piercing the Veil of Fraudulent Shopping Website Campaigns (2025; peer-reviewed prior research). Newly registered domains, May 2023 to Jun 2024: 46,746 fraudulent shopping sites; a crawler extracted checkout merchant IDs and stopped before payment; one provider linked 14,394 domains to its merchant IDs (54.55% to 10 IDs); 20.17% of sites transacted within 10 days of registration. Externally visible processors only; provider linkage method undisclosed; no settlement observed; some internal count inconsistencies. Limit: three payment processors; collaborator-limited data.
-- Stripe Docs, Best practices for risk management (2026; fact (vendor documentation) illustrative platform). Vendor guidance for Connect platforms: rejection reasons signalled by account.updated; account takeover prevention (two-factor authentication; monitoring changes to passwords, email and bank details from new devices); dispute activity above 0.75% generally excessive; delaying, holding, slowing or pausing payouts per account. Public practice only; no inference to private implementation. Limit: public documentation.
-
-### M19
-
-Mule and pass-through accounts receiving and rapidly moving proceeds.
-
-Sources (recorded scope of each):
-- Stripe Docs, Manage fraud (Treasury and Issuing for Connect platforms) (2026; fact (vendor documentation) illustrative platform). Vendor fraud guide for platforms liable for Treasury and Issuing losses: default defense layer, inbound transfer fraud and return windows, bank-account linking abuse, APP fraud (including BEC and fake invoices) and mule activity (rapid outflow to new or changed recipients), and private-preview rules; guidance, not measurement. Limit: public documentation.
-- UK Payment Systems Regulator, APP fraud performance data (web page, undated; data for 1 January to 6 October 2024 from the February 2026 report) (2026; fact (standard/guidance) government). UK PSR APP scam performance data, payments before 7 October 2024 (cases closed in 2024): Metric C ranks the 20 firms receiving the highest value and volume of APP scams per £ million and per million transactions received, from scams sent by the 14 largest banking groups over Faster Payments; smaller firms included as disproportionate receivers (report: non-directed PSPs 34 percent of fraud value, 19 percent of payment value); firm-level, not account-level. Limit: firm-level, not account-level; UK Faster Payments; scams sent from the 14 largest banking groups, payments before 7 October 2024.
-- FinCEN Advisory FIN-2014-A005, Update on U.S. Currency Restrictions in Mexico: Funnel Accounts and TBML (2014-05-28) (2014; fact (standard/guidance) government). FinCEN advisory: funnel accounts receive multiple cash deposits in one area, often below the reporting threshold, and are drained elsewhere with little elapsed time; multiple funnel accounts consolidate funds into one account; red flags and SAR terms. Bank cash-deposit and trade-based laundering setting; no time or concentration thresholds; no payment-platform evidence. Limit: bank cash deposits (funnel accounts); analog; no time or concentration thresholds.
-
-### M20
-
-Free-trial abuse (repeat trials, virtual or prepaid cards, disposable emails).
-
-Sources (recorded scope of each):
-- Stripe Docs, Free trial abuse prevention (2026; fact (vendor documentation) illustrative platform). Vendor documentation: free-trial abuse patterns (prepaid or virtual cards; the same card across accounts) and a Radar control that blocks high-risk trial starts, recorded as a rule decision. No performance figures; no inference to how risk is scored. Limit: public documentation.
-- Stripe Docs, Pay-as-you-go abuse evaluation (2026; fact (vendor documentation) illustrative platform). Vendor documentation of a preview billing evaluation: non-payment risk for post-paid usage, evaluated mid-cycle against the expected invoice amount, with levels including not_assessed and unknown; suggested actions (review, early invoice, prepayment, limits, pause); the endpoint fails open. No performance figures. Limit: public documentation.
-- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only.
-
-### M21
-
-Authorized push payment scams using platform accounts as sender or receiver.
-
-Sources (recorded scope of each):
-- Stripe Docs, Manage fraud (Treasury and Issuing for Connect platforms) (2026; fact (vendor documentation) illustrative platform). Vendor fraud guide for platforms liable for Treasury and Issuing losses: default defense layer, inbound transfer fraud and return windows, bank-account linking abuse, APP fraud (including BEC and fake invoices) and mule activity (rapid outflow to new or changed recipients), and private-preview rules; guidance, not measurement. Limit: public documentation.
-- UK Payment Systems Regulator, APP fraud performance data (web page, undated; data for 1 January to 6 October 2024 from the February 2026 report) (2026; fact (standard/guidance) government). UK PSR APP scam performance data, payments before 7 October 2024 (cases closed in 2024): Metric C ranks the 20 firms receiving the highest value and volume of APP scams per £ million and per million transactions received, from scams sent by the 14 largest banking groups over Faster Payments; smaller firms included as disproportionate receivers (report: non-directed PSPs 34 percent of fraud value, 19 percent of payment value); firm-level, not account-level. Limit: firm-level, not account-level; UK Faster Payments; scams sent from the 14 largest banking groups, payments before 7 October 2024.
-
-### M22
+### M11
 
 Stablecoin rails for layering, cash-out and sanctions evasion (rapid conversion, unhosted-wallet P2P, chain hopping).
 
 Sources (recorded scope of each):
 - FATF, Targeted Report on Stablecoins and Unhosted Wallets: Peer-to-Peer Transactions (2026-03-03) (2026; fact (standard/guidance) intergovernmental). FATF targeted report: stablecoins in ML/TF/PF (84 percent of USD 154 billion illicit VA volume in 2025, citing Chainalysis), P2P transfers via unhosted wallets outside AML/CFT obligations, layering, cash-out and chain hopping, near-instant cross-border settlement, issuer blacklist, freeze and burn controls, blockchain analytics and their limits, case studies and risk indicators; non-binding guidance and case material, not measurement. Limit: figure vendor-sourced.
 
-### M23
+### M12
+
+Webhook forgery and replay against merchant endpoints lacking signature or timestamp checks.
+
+Sources: none recorded for this mechanism.
+
+### M13
+
+Synthetic-identity onboarding of merchant or connected accounts.
+
+Sources (recorded scope of each):
+- Federal Reserve, Payments Fraud Insights: Detecting Synthetic Identity Fraud in the U.S. Payment System (October 2019) (2019; fact (standard/guidance) government). Federal Reserve Banks white paper on detecting synthetic identity fraud in consumer credit: definition (fictitious and sometimes real elements), contributing factors, relationship indicators (same SSN, address, phone, IP address or device; unrelated authorized users), false-positive caution on single traits, sleeper synthetics and bust-out tactics; loss figures are vendor estimates; guidance, not measurement. Limit: consumer credit focus; fetch-mediated.
+- USAO District of New Jersey, Eighteen People Charged in International, $200 Million Credit Card Fraud Scam (2013-02-05) (2013; fact (practitioner/incident) government). Charging announcement (allegations, not findings): more than 7,000 fabricated identities with fabricated credit, loans run up and not repaid (bust-out), more than 1,800 drop addresses, sham companies whose merchant accounts were replaced by new companies and terminals after processors shut them for fraud, complicit merchants holding multiple processing accounts; 2013. Limit: allegations; 2013.
+
+### M14
+
+Post-compromise API key misuse (connected accounts, payout destinations, refunds, card testing, data export).
+
+Sources (recorded scope of each):
+- Gamazo W., Quist N. (Palo Alto Networks Unit 42). CloudKeys in the Air: Tracking Malicious Operations of Exposed IAM Keys, 2023-10-30 (2023; fact (practitioner/incident) vendor). Vendor honeypot: overly permissive AWS IAM keys leaked in past commits of public GitHub repositories; reconnaissance began about four minutes after AWS applied its quarantine policy; after the researchers removed the quarantine, more than 400 API calls in seven minutes launched mining instances. One actor in a researcher-controlled environment; the five-minute figures conflict with the article's own timeline; no population timing distribution. Limit: vendor; one cloud provider; honeypot-style exposure.
+- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema; internal telemetry not established.
+
+### M15
+
+Abuse of agent authorization flows (MCP OAuth consent phishing, approval fatigue, stolen approval tokens).
+
+Sources (recorded scope of each):
+- Kumar A.A. Loopjacking: Hijacking Human-in-the-Loop Approval (2026; preprint). Approval of one operation used to release a different one (representation mismatch or post-approval state substitution), reproduced in a purposive set of agent-framework releases; a canonical approval record with a digest, compared with the operation at use time, blocked the tested attacks. One operator; no independent reproduction; not a prevalence estimate. Limit: single author.
+- Stripe Docs, Model Context Protocol (MCP) (2026; fact (vendor documentation) illustrative platform). Vendor documentation of the remote MCP server: tools (generic API read and write, Treasury money movement), OAuth consent and revocable sessions, agent API keys (non-agent keys rejected from December 2026), a prompt-injection caution, client tool approval, and Stripe human confirmation with an approval token for certain writes; no incident or effectiveness data. Limit: public documentation.
+
+### M16
+
+Platform-brand impersonation phishing targeting merchants and developers.
+
+Sources (recorded scope of each):
+- Kondracki B., Azad B.A., Starov O., Nikiforakis N. Catching Transparent Phish: Analyzing and Detecting MITM Phishing Toolkits (2021; peer-reviewed prior research). Three open-source MITM phishing toolkits (13 versions) fingerprinted by client-side RTT and TLS-library features (99.9% lab accuracy); 1,220 in-the-wild sites found mainly via Certificate Transparency, Mar 2020 to Mar 2021, targeting 19 consumer, financial and enterprise brands (22 trademarks monitored, no merchant payment platform); 43.7% of domains and 18.9% of IPs on blocklists; target-side detection by unique JA3 TLS client fingerprints. Not the platform brand; RTT method applies to probing the phishing server, not to login requests at the target. Limit: 22 monitored consumer, financial and enterprise brands (PayPal, banks, card issuers; no merchant payment platform); not merchant- or developer-targeted; Mar 2020 to Mar 2021.
+
+### M17
+
+Injected unauthorized actions and memory or skill poisoning in operator-facing AI assistants (refunds, coupons, subscription changes).
+
+Sources (recorded scope of each):
+- Dash P., Ge T., Jain A., Shah T., Shang Z. From Untrusted Input to Trusted Memory: A Systematic Study of Memory Poisoning Attacks in LLM Agents (2026; preprint). Memory poisoning in LLM agents: four long-term memory write channels and no robust provenance for stored entries; on synthetic benchmark cases, writes from untrusted input succeeded in 34% and 67% of cases on two agents and were retrieved in later sessions. Two agents, one model, LLM-generated test cases and an LLM judge. Limit: benchmark (MPBench).
+- Kumar A.A. Loopjacking: Hijacking Human-in-the-Loop Approval (2026; preprint). Approval of one operation used to release a different one (representation mismatch or post-approval state substitution), reproduced in a purposive set of agent-framework releases; a canonical approval record with a digest, compared with the operation at use time, blocked the tested attacks. One operator; no independent reproduction; not a prevalence estimate.
+
+### M18
 
 Stolen or rented identity for onboarding (identity theft, straw owners, account rental).
 
 Sources (recorded scope of each):
 - USAO Southern District of New York, CEO of Credit Card Processing Company Charged in $19 Million Credit Card Laundering Scheme (2019-10-11) (2019; fact (practitioner/incident) government). Charging announcement (allegations, not findings): about 26 sham merchant companies headed by paid nominee signers, false merchant applications concealing the true (prohibited telemarketing) merchant, closed accounts quickly replaced, and charges, refunds and chargebacks spread across accounts to evade bank, processor and ISO chargeback monitoring; 2012 to 2015. Limit: allegations.
 
-### M24
+### M19
 
-Card testing through attacker-controlled merchant or connected accounts.
+Card testing by validating stolen card data through card setup and small payments.
 
 Sources (recorded scope of each):
-- Stripe Docs, Account fraud prevention (Radar for platforms) (2026; fact (vendor documentation) illustrative platform). Vendor guidance for platform account risk: account risk scores and levels, risk metrics, agentic insights (matching bank account rejected for fraud; card-testing example), and reject reasons including card casher (buyer and seller), card tester and no intent to fulfill; no bank-account change guidance; no performance data. Limit: public documentation.
+- Meltzer J., Chadalapaka V. (Stripe), How Stripe Radar responded to a new wave of card testing (2025-01-15) (2025; fact (public engineering publication) illustrative platform). Vendor engineering post: card testers shifted from enumeration to verification attacks using dumps of stolen cards, raising issuer authorization rates; the platform responded by ingesting dumps to block those cards, monitoring the internet for stolen numbers and adding stolen-card models. Its figures have no stated period, source or baseline. Limit: platform statement.
+- Stripe Docs, Protect yourself from card testing (2026; fact (vendor documentation) illustrative platform). Vendor guidance defining card testing (setup and small payments, harvesting 3DS or issuer responses, publishable-key reuse, stolen secret keys), its symptoms and recommended controls; no prevalence or effectiveness data.
 
-### M25
+### M20
+
+Fake review and reputation fraud supporting merchant legitimacy.
+
+Sources: none recorded for this mechanism.
+
+### M21
 
 Merchant financing fraud using fabricated volume or synthetic or stolen business identity, then default.
 
 Sources: none recorded for this mechanism.
+
+### M22
+
+AI token and compute theft for resale.
+
+Sources: none recorded for this mechanism.
+
+### M23
+
+Pay-as-you-go non-payment (run up usage, never pay).
+
+Sources (recorded scope of each):
+- Stripe Docs, Pay-as-you-go abuse evaluation (2026; fact (vendor documentation) illustrative platform). Vendor documentation of a preview billing evaluation: non-payment risk for post-paid usage, evaluated mid-cycle against the expected invoice amount, with levels including not_assessed and unknown; suggested actions (review, early invoice, prepayment, limits, pause); the endpoint fails open. No performance figures. Limit: public documentation; preview API.
+- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only.
+
+### M24
+
+Business email compromise and invoice fraud using hosted invoices or payment redirection.
+
+Sources (recorded scope of each):
+- FBI IC3 Public Service Announcement, Business Email Compromise: The $55 Billion Scam (2024-09-11) (2024; fact (standard/guidance) government). FBI IC3 PSA: BEC definition (compromised email, unauthorized transfers), USD 55.5 billion exposed losses in 305,033 incidents, October 2013 to December 2023 (IC3, law-enforcement and financial-institution data), recipient counts, 2023 growth in funds sent to custodial accounts at third-party and P2P payment processors and crypto exchanges, UK and Hong Kong banks as intermediary stops; advice incl. verifying account-information change requests; no invoice-redirection, mule or timing detail. Limit: IC3 complaints, law-enforcement and financial-institution filings; exposed losses, October 2013 to December 2023.
+
+### M25
+
+Account sharing (one account used concurrently from several places).
+
+Sources (recorded scope of each):
+- Stripe Docs, Customer account evaluations (2026; fact (vendor documentation) illustrative platform). Vendor documentation of a preview API: registration and login evaluations (user_multi_accounting, user_account_sharing) with scores and risk levels from device session or IP, user agent and referrer, and reported allowed, restricted or blocked outcomes; abuse reasons (email, IP and device reuse within the business over seven days) do not alone confirm abuse. No inference to internal implementation or data used. Limit: public documentation; preview API.
+- Stripe public OpenAPI specification and API event map (2026; fact (public engineering artifact)). Public OpenAPI files (general availability, public preview and private preview) parsed in full, blob IDs and SHA-256 verified; capability premises only (objects, fields and events an account can create or change). Interface definitions, not complete event histories, private instrumentation or field population; searches for absent counterparts are bounded by the terms tried. Limit: public schema only; public preview.
