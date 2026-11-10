@@ -16,6 +16,7 @@ Accepted pull requests:
 - [#17](https://github.com/matkowsky/payment-fraud/pull/17) Correct the Akhtar and Freeman summary
 - [#20](https://github.com/matkowsky/payment-fraud/pull/20) Describe AI use in Section 3; move a signal list to the supplement
 - [#21](https://github.com/matkowsky/payment-fraud/pull/21) Remove sentences the manuscript states elsewhere \(241 words\)
+- [#22](https://github.com/matkowsky/payment-fraud/pull/22) Build the manuscript in ACM's journal format, with a check that nothing changed
 
 | Document | Read the current version | Paragraphs changed | Added | Removed |
 |---|---|---|---|---|
