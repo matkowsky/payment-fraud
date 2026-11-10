@@ -1,0 +1,86 @@
+"""Build the blind packet for the second-coder check of the mechanism-to-signal links.
+
+  python3 tools/second_coder/build_packet.py        writes PACKET.md and KEY.json beside this file
+
+The packet gives a second rater the linking rule, the signals, and a seeded random sample of mechanisms
+with the recorded scope of each mechanism's sources. It contains none of the paper's links. Mechanism
+IDs are replaced by M01, M02, ... so the rater cannot look the answers up; KEY.json maps them back.
+Sample: 20 of the 61 mapped mechanisms and 5 of the 13 judged covered by existing records.
+"""
+import csv, json, random
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+SUP = HERE.parents[1] / 'SUPPLEMENT'
+SEED = 20261110
+N_MAPPED, N_COVERED = 20, 5
+CROSS_CUTTING = {'SIG-44', 'SIG-45', 'SIG-46'}   # apply to every mechanism; not coded
+
+RULE = """## The rule
+
+Link a mechanism to a signal when BOTH hold:
+
+1. An investigator examining that mechanism would need the signal's record to test whether the
+   mechanism occurred, or to tell it apart from legitimate activity.
+2. At least one of the sources listed under the mechanism describes behaviour that the signal would
+   record. If you link on reasoning alone, without such a source, mark the link "inference".
+
+Do not link a signal only because it is generally useful. Most mechanisms link to between one and
+six signals. Link every signal that meets the rule and no others.
+
+For each mechanism also answer: is any record that rule 1 requires absent from the signal list?
+"""
+
+def rows(name):
+    with open(SUP / name, newline='', encoding='utf-8') as f:
+        return list(csv.DictReader(f))
+
+def main():
+    alloc = {r['ID']: r for r in rows('S2_MECHANISM_ALLOCATION.csv')}
+    pairs = rows('S3_MECHANISM_SIGNAL_PAIRS.csv')
+    signals = [s for s in rows('S3_SIGNALS.csv') if s['signal_id'] not in CROSS_CUTTING]
+    sources = {s['source_id']: s for s in rows('S3_SOURCE_DIRECTORY.csv')}
+    joins = {}
+    for j in rows('S3_MAPPING_SOURCE_JOINS.csv'):
+        joins.setdefault(j['mechanism_id'], []).append(j)
+    mapped = sorted({p['mechanism'] for p in pairs})
+    covered = sorted(i for i, r in alloc.items() if r['disposition'] == 'covered')
+    rng = random.Random(SEED)
+    sample = rng.sample(mapped, N_MAPPED) + rng.sample(covered, N_COVERED)
+    rng.shuffle(sample)
+    key = {f'M{n:02d}': mid for n, mid in enumerate(sample, 1)}
+
+    out = ['# Second-coder packet: which signals does each mechanism need?', '',
+           'You are an independent rater. Use only this packet. Do not use memory of earlier chats, '
+           'files, the web or any other source. If you recognize the project this comes from, say so '
+           'and still answer only from the packet.', '',
+           'A "mechanism" is a way of abusing a multi-product payment platform. A "signal" is a kind '
+           'of record the platform could keep. Your task is to decide, for each mechanism, which '
+           'signals it should be linked to under the rule below.', '', RULE,
+           '## Answer format', '',
+           'One line per mechanism, nothing else before or after the lines:', '',
+           '`M01 | SIG-xx, SIG-yy (inference), SIG-zz | missing: none`', '',
+           'Write `missing: <the record that is absent>` if rule 1 needs a record the list lacks. '
+           'Write `M01 | none | missing: none` if no signal meets the rule.', '',
+           '## Signals', '', '| ID | Signal | Family | Class |', '|---|---|---|---|']
+    for s in signals:
+        out.append(f"| {s['signal_id']} | {s['signal']} | {s['family']} | {s['chain_level']} |")
+    out += ['', '## Mechanisms', '']
+    for label, mid in key.items():
+        out += [f"### {label}", '', alloc[mid]['Mechanism'] + '.', '']
+        js = joins.get(mid, [])
+        if not js:
+            out += ['Sources: none recorded for this mechanism.', '']
+            continue
+        out.append('Sources (recorded scope of each):')
+        for j in js:
+            src = sources[j['source_id']]
+            limit = f" Limit: {j['recorded_scope_limit']}." if j['recorded_scope_limit'].strip('. ') else ''
+            out.append(f"- {src['citation']} ({src['year']}; {src['source_type'].lower()}). {src['scope']}{limit}")
+        out.append('')
+    (HERE / 'PACKET.md').write_text('\n'.join(out), encoding='utf-8')
+    (HERE / 'KEY.json').write_text(json.dumps({'seed': SEED, 'labels': key}, indent=1) + '\n', encoding='utf-8')
+    print(f'{len(key)} mechanisms, {len(signals)} signals, {len(" ".join(out).split())} words')
+
+if __name__ == '__main__':
+    main()
