@@ -13,7 +13,7 @@ The package contains a conceptual architecture and synthetic reasoning examples.
 - `BUILD.py` rebuilds the documents and `CHECK_CANDIDATE.py` runs the finite checks. `EXPORT_FIGURES.py` exports the figures when Inkscape is not installed. `tools/` holds optional Markdown round-trip helpers that convert reader-facing Markdown back to citation-key sources and confirm a byte-identical rebuild. `tools/outcome_conformance.py` checks outcome records against the Supplement S4.2 schema and rules; `CHECK_CANDIDATE.py` runs its conformance cases, and `python3 tools/outcome_conformance.py FILE.json` checks a records file. `tools/investigation_conformance.py` does the same for the query-run and release records, and `tools/investigation_cost.py` measures their cost (Supplement S4.4). `tools/replays/` holds the two complaint replays (Supplement S10). `tools/outcome_cost.py` measures the records' storage and query cost on synthetic payments (Supplement S4.3).
 - [Third-party notices](THIRD_PARTY_NOTICES.md) and `MANIFEST_SHA256.txt`.
 
-The manuscript and the supplement each have a numbered bibliography listing the works their own text cites (75 and 98 works); those numbers are local to each document. Citation keys in the CSV files resolve against the complete CSL JSON and BibLaTeX set, and all 127 works are cited across the pair.
+The manuscript and the supplement each have a numbered bibliography listing the works their own text cites (76 and 99 works); those numbers are local to each document. Citation keys in the CSV files resolve against the complete CSL JSON and BibLaTeX set, and all 127 works are cited across the pair.
 
 ## Run the finite checks
 
