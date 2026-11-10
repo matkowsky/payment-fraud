@@ -244,6 +244,8 @@ Table S4.1 summarizes this complete storage contract; S3.1 and manuscript Sectio
 
 **Bank-debit and other rails (manuscript Section 7.1).** A SEPA Direct Debit dispute within eight weeks of the debit is honored with no questions asked, and such disputes are final, with no process for appeal [@Stripe2026SEPADebit]. After eight weeks and up to 13 months, a customer can dispute only a debit considered unauthorized, and the customer's bank decides; the window that applies therefore depends on the claim, and an absence at eight weeks is not a negative for unauthorized-debit fraud [@Stripe2026SEPADebit]. Inside its window, an ACH return is refunded without question, and the ACH Network has no appeals process of its own [@Stripe2026ACHTerms]. A SEPA dispute honored with no questions asked is not by itself a fraud allegation. For ACH returns, the provider's terms give 60 days for consumer accounts and 2 days for business accounts, counted from the customer's bank statement [@Stripe2026ACHTerms], while the Nacha return deadlines that banks apply run from the settlement date of the original debit [@LeadBank2026ACHReturns]; a channel record therefore names the rule from which it takes its clock start. Banks may also accept late returns outside the window [@Stripe2026ACHTerms]. The product scope also lists instant push payments and stablecoin payments (S2); their reporting channels, if any, follow each rail's own rules and windows, which this paper did not review.
 
+**Limits of the rail review (manuscript Section 9.2).** Bank debits were compared only with two of the provider's pages and one bank's return-code table (manuscript Section 7.1); of the bank-debit candidates in S2, PAY-07 was judged covered and MM-03 was not reviewed. Instant push payments and stablecoin payments, which are also in the product scope, were not reviewed rail by rail; their mechanisms MM-07 and MM-12 were reviewed, but not their reporting channels (S2).
+
 **Assessment store**
 
 - Retain the model or reviewer identity and version. Keep unknown, not-assessed and failed-open states distinct from low risk. Failed-open means the assessment failed and activity continued.
@@ -390,6 +392,8 @@ Stripe's public risk guide describes pausing, delaying or holding connected-acco
 The detection candidate needs an appropriate outcome. A payout moves an account's balance to its payout destination, which here may be controlled by an attacker. It is not a card payment that can produce a chargeback. Possible outcomes include victim reports, returned or recalled transfers and confirmed incident findings. A permanent block prevents outcomes requiring completion; a hold may only delay them.
 
 Victim reports and incident findings have no defined reporting window here. Those channels can supply confirmed positives but cannot reach “matured with no report.” Evaluation must either justify a delay model, as conversion research does in its setting [@Chapelle2014Delayed], or leave negatives unconfirmed. The recorded decision and channel states determine which interpretation is available.
+
+**The blocked payout in manuscript Table 2 (manuscript Section 8.3).** For the blocked payout, excluding the case is valid only for a rate explicitly restricted to completed transfers. Estimating outcomes over all attempted payouts retains it in the target population and must address its unobserved outcome.
 
 ### S6.2 Trace B: narrative
 
