@@ -38,7 +38,7 @@ for k in g: visit(k, [])
 assert sid - {x['signal_id'] for x in p} == {'SIG-44', 'SIG-45', 'SIG-46'}
 assert len(a) == len({x['ID'] for x in a}) == 99
 counts = collections.Counter(x['disposition'] for x in a)
-assert dict(counts) == {'dedicated': 53, 'targeted': 8, 'unreviewed': 20, 'covered': 13, 'screened gap': 4, 'adjacent logged': 1}, counts
+assert dict(counts) == {'dedicated': 53, 'targeted': 8, 'unreviewed': 20, 'covered': 9, 'record gap': 4, 'screened gap': 4, 'adjacent logged': 1}, counts
 # Job-posting topics in the priority basis (Supplement S2): 24 candidates, 23 of the 26 Tier 1, all mapped, 65 links.
 posting = {x['ID'] for x in a if re.search(r'(?<![\w:])r:', x['Priority (basis)'])}
 tier1 = {x['ID'] for x in a if x['Depth'] == 'Tier 1'}; mapped = {x['mechanism'] for x in p}
@@ -199,6 +199,20 @@ assert sum(1 for x in rdetail for sid in x[3] if (x[1], sid) in inference) == 2
 assert sum(1 for l, m in rlabels.items() if m not in rpaper) == 5 and sum(1 for l, m in rlabels.items() if m not in rpaper and rgot[l][2].lower() == 'none') == 4
 assert "made 49 of the paper's 52 links and 70 that the paper lacks (Cohen's kappa 0.55); two mechanisms matched exactly" in sbody
 assert 'made 49 of 52 sampled links and 70 that the paper lacks' in body
+# The 13 mechanisms first judged covered: the second rater's "missing record" answers match the record-gap labels.
+from score import parse as rater_parse
+rest_labels = json.loads((B / 'tools/second_coder/KEY_COVERED_REST.json').read_text())['labels']
+rest_got = rater_parse((B / 'tools/second_coder/covered_rest/ANSWERS.txt').read_text(encoding='utf-8'), rest_labels)
+missing = {m for l, m in rlabels.items() if m not in rpaper and rgot[l][2].lower() != 'none'} | {m for l, m in rest_labels.items() if rest_got[l][2].lower() != 'none'}
+triaged = {x['ID'] for x in a if 'COVERED BY EXISTING DESIGN' in x['recorded_status']}
+assert len(triaged) == 13 and len(rest_labels) == 8 and set(rest_labels.values()) | {m for m in rlabels.values() if m not in rpaper} == triaged
+assert missing == {x['ID'] for x in a if x['disposition'] == 'record gap'} == {'MP-08', 'API-09', 'API-10', 'MP-11'}
+assert {x['ID'] for x in a if x['disposition'] == 'covered'} == triaged - missing
+f3 = rows('S2_F3_CROSSWALK.csv')
+only = collections.Counter(tuple(sorted({lab.split(';')[-1].strip() for lab in re.findall(r'[A-Z]+-\d+ \(([^)]*)\)', x['mechanism_ids'])}))
+                           for x in f3 if x['in_scope'] == 'yes' and x['retained'] == 'no')
+assert only == {('covered',): 2, ('record gap',): 3, ('unreviewed',): 6, ('covered', 'unreviewed'): 3}, only
+assert 'Two of the fourteen rest only on candidates judged covered by existing records' in sbody and 'Three rest only on candidates recorded as record gaps' in sbody
 
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),

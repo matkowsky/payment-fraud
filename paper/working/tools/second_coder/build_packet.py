@@ -1,12 +1,14 @@
 """Build the blind packet for the second-coder check of the mechanism-to-signal links.
 
-  python3 tools/second_coder/build_packet.py [SEED]   writes PACKET.md and KEY.json beside this file
-                                                     (PACKET_SEED.md and KEY_SEED.json for another seed)
+  python3 tools/second_coder/build_packet.py [SEED]        writes PACKET.md and KEY.json beside this file
+                                                          (PACKET_SEED.md and KEY_SEED.json for another seed)
+  python3 tools/second_coder/build_packet.py covered-rest  writes PACKET_COVERED_REST.md and KEY_COVERED_REST.json:
+                                                          the covered mechanisms the first sample left out
 
 The packet gives a second rater the linking rule, the signals, and a seeded random sample of mechanisms
 with the recorded scope of each mechanism's sources. It contains none of the paper's links. Mechanism
 IDs are replaced by M01, M02, ... so the rater cannot look the answers up; KEY.json maps them back.
-Sample: 20 of the 61 mapped mechanisms and 5 of the 13 judged covered by existing records.
+Sample: 20 of the 61 mapped mechanisms and 5 of the 13 then judged covered by existing records.
 """
 import csv, json, random, sys
 from pathlib import Path
@@ -53,8 +55,9 @@ def rows(name):
         return list(csv.DictReader(f))
 
 def main():
-    seed = int(sys.argv[1]) if len(sys.argv) > 1 else SEED
-    suffix = '' if seed == SEED else f'_{seed}'
+    rest = len(sys.argv) > 1 and sys.argv[1] == 'covered-rest'
+    seed = SEED if rest else int(sys.argv[1]) if len(sys.argv) > 1 else SEED
+    suffix = '_COVERED_REST' if rest else '' if seed == SEED else f'_{seed}'
     alloc = {r['ID']: r for r in rows('S2_MECHANISM_ALLOCATION.csv')}
     pairs = rows('S3_MECHANISM_SIGNAL_PAIRS.csv')
     signals = [s for s in rows('S3_SIGNALS.csv') if s['signal_id'] not in CROSS_CUTTING]
@@ -63,10 +66,14 @@ def main():
     for j in rows('S3_MAPPING_SOURCE_JOINS.csv'):
         joins.setdefault(j['mechanism_id'], []).append(j)
     mapped = sorted({p['mechanism'] for p in pairs})
-    covered = sorted(i for i, r in alloc.items() if r['disposition'] == 'covered')
+    # The triage record, not the disposition: four of these were later relabelled as record gaps.
+    covered = sorted(i for i, r in alloc.items() if 'COVERED BY EXISTING DESIGN' in r['recorded_status'])
     rng = random.Random(seed)
     sample = rng.sample(mapped, N_MAPPED) + rng.sample(covered, N_COVERED)
     rng.shuffle(sample)
+    if rest:   # the covered mechanisms the first sample left out, in a seeded order
+        sample = sorted(set(covered) - set(sample))
+        random.Random(SEED + 1).shuffle(sample)
     key = {f'M{n:02d}': mid for n, mid in enumerate(sample, 1)}
 
     out = ['# Second-coder packet: which signals does each mechanism need?', '',
