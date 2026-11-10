@@ -5,8 +5,8 @@ component,responsibility,class,requirement,boundary
 4,Specialist analytical capabilities/skills; separate agent/model instances optional.,INH,Inherited; no payment-specific derivation asserted.,No autonomous account/payment/control action granted
 5,Telemetry schema discovery.,DI,Signal/schema discovery; S3/S5; partial representation versus required semantics,No autonomous account/payment/control action granted
 6,"Governed capability/tool interfaces, including telemetry/query, detection-engineering, product/control-knowledge, and environment-state services.",DI,"Governed query interface; authorization, budgets, scope, version and failure",No autonomous account/payment/control action granted
-7,Live telemetry/evidence store.,DI,Observation/label/assessment/control separation; manuscript Table 3,No autonomous account/payment/control action granted
-8,Iterative hypothesis-testing loop.,DI,Hypothesis and query-result-state loop; Figure 3,No autonomous account/payment/control action granted
+7,Live telemetry/evidence store.,DI,Observation/label/assessment/control separation; Table S4.1,No autonomous account/payment/control action granted
+8,Iterative hypothesis-testing loop.,DI,Hypothesis and query-result-state loop; Figure S4.1,No autonomous account/payment/control action granted
 9,Entity extraction and normalization.,DI,Namespaced identifiers and as-of normalization,No autonomous account/payment/control action granted
 10,Relationship/correlation engine.,DI,"Versioned clusters and cohort attribution; SIG-04,20,24,32,62",No autonomous account/payment/control action granted
 11,Actor/activity-group knowledge.,DI,"External-knowledge store only; SIG-15,31,41,42,44,49,53",No autonomous account/payment/control action granted

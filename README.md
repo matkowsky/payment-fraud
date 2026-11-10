@@ -2,6 +2,8 @@
 
 Open review space for the preprint **Threat Analytics Across Payment Products: Evidence Requirements for Agent Investigations** by Jonathan Matkowsky. Version 1.0, 29 October 2026. Not peer reviewed.
 
+**Latest draft:** the [version 1.1 working draft](paper/working/MANUSCRIPT.md) ([PDF](paper/working/MANUSCRIPT.pdf)), updated as changes are accepted. [What changed since version 1.0](paper/working/CHANGES_SINCE_v1.0.md) names the pull request behind each change.
+
 - Preprint, all versions: https://doi.org/10.5281/zenodo.23772005
 - Version 1.0: https://doi.org/10.5281/zenodo.23772006
 - Author ORCID: https://orcid.org/0009-0000-0708-5711

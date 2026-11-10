@@ -1,18 +1,22 @@
+-- Numbering (10 November 2026): manuscript Tables 1 to 3 and Figures 2 and 3 moved to the supplement as Tables
+-- S1.1, S3.1, S4.1 and Figures S3.1, S4.1. Manuscript Table 3 below is the Section 8.3 table (formerly 6) and
+-- Figure 2 the Section 7 figure (formerly 4). Later the same day the Section 7 table moved to the supplement as
+-- Table S7.1, so the Section 8.3 table is now manuscript Table 2; comments that say Table 3 mean that table.
 -- Presentation only. Scientific text, citations and table values are unchanged.
 -- Captioned tables and figures are set as top-placed floats, so following text fills the page and each
--- caption stays with its table or image. Figure 4 is the exception: it is placed at the bottom of a page
+-- caption stays with its table or image. Figure 2 is the exception: it is placed at the bottom of a page
 -- or on a float page, so it cannot print above the Section 7 heading or its callout. Table S9.1 is taller
 -- than a page, so it is set as two floats: its caption with the first row at the bottom of a page, then
 -- the other rows as "Table S9.1 (continued)" on the float page that follows, so no text falls between
--- them. Table 6 directly follows its Section 8.3 heading. A reservation for the heading and the whole
--- table (about 432pt) left most of a page empty when the heading fell low on a page, so Table 6 is a
+-- them. Table 3 directly follows its Section 8.3 heading. A reservation for the heading and the whole
+-- table (about 432pt) left most of a page empty when the heading fell low on a page, so Table 3 is a
 -- float that prints where it occurs if it fits ([!ht]); \suppressfloats[t] before it keeps it from the
 -- top of its heading's page, so otherwise it prints at the top of the next page and the 8.3 text fills
 -- the space before it. Table S6.1 also follows its heading and is nearly a page tall. The S6 heading
 -- starts a new page (\clearpage), and Table S6.1 is a top-only float: the \suppressfloats after the
 -- heading then acts on the heading's own page, so the table prints at the top of the next page and the
--- S6 text fills the heading's page. In the PDF only, Tables 1 and 3 follow the paragraphs that cite
--- them; Table 1 also follows \suppressfloats[t] and, like Table 6, prints where it occurs if it fits ([!ht]),
+-- S6 text fills the heading's page. In the PDF only, Tables S1.1 and S4.1 formerly followed the paragraphs that cite
+-- them; the former Table 1 also followed \suppressfloats[t] and, like Table 3, prints where it occurs if it fits ([!ht]),
 -- otherwise at the top of a later page, after the Section 2.4 heading and its callout. The two uncaptioned tables, the query-interface table in S4 and
 -- the SDK-file table in S5, are set in place after their lead-ins, each after a space reservation; the
 -- taller query-interface table may break between rows, with its header repeated. The Section 4.2
@@ -82,7 +86,7 @@ local function latex_of(block)
 end
 -- Tables 1 and 3 (PDF only): emit each float directly after the paragraph that cites it, so the float
 -- can be placed near its citation rather than flushed by the barrier before the next section.
--- Without this, Table 3 takes a float page after the end of Section 5 and the barrier before
+-- Without this, the former Table 3 took a float page after the end of Section 5 and the barrier before
 -- Section 6 can leave the last lines of Section 5 alone on a page.
 local function advance_table(bs,num,cite)
  for j=1,#bs-3 do
@@ -112,7 +116,6 @@ local function rows_of(tbl,first,last)
 end
 function Blocks(bs)
  if not FORMAT:match('latex') then return bs end
- bs=advance_table(advance_table(bs,'1','Table 1 locates'),'3','Table 3 lists the properties')
  local out=pandoc.List()
  local i=1
  while i<=#bs do
@@ -128,18 +131,18 @@ function Blocks(bs)
    else
     -- Captioned table: a top-placed float with its caption above the rows.
     -- Table S6.1 is top-only ([t]) so that it never forms a float page of its own.
-    local place=(key=='S2.1') and '[htp]' or (key=='S6.1') and '[t]' or (key=='6' or key=='1') and '[!ht]' or '[tp]'
-    -- Table 3 fills a float page exactly, so it omits the small skip below its caption and, in Table(),
+    local place=(key=='S2.1') and '[htp]' or (key=='S6.1') and '[t]' or (key=='2') and '[!ht]' or '[tp]'
+    -- Table S4.1 fills a float page exactly, so it omits the small skip below its caption and, in Table(),
     -- sets its rows with a slightly smaller array stretch (1.04) than the other tables.
-    local skip=(key=='3') and '' or '\\smallskip'
-    -- Table 1 is emitted after the Section 2.4 paragraph that cites it, below a level-3 heading that
+    local skip=(key=='S4.1') and '' or '\\smallskip'
+    -- The former Table 1 was emitted after the Section 2.4 paragraph that cites it, below a level-3 heading that
     -- does not suppress top floats, so it could print at the top of that page, above the heading.
-    -- \suppressfloats[t] before it keeps it from that page's top. Like Table 6 it is [!ht], so it prints
+    -- \suppressfloats[t] before it keeps it from that page's top. Like Table 3 it is [!ht], so it prints
     -- below its citing paragraph if it fits there; a top-only placement left most of a page empty before
     -- the Section 3 barrier once Section 2.3 grew (29 October 2026).
-    -- Table 6 ([!ht]) prints directly below its heading if it fits there; the same suppression keeps it
+    -- Table 3 ([!ht]) prints directly below its heading if it fits there; the same suppression keeps it
     -- from the top of the heading's page, so otherwise it moves to the top of the next page.
-    local pre=(key=='1' or key=='6') and '\\suppressfloats[t]\n' or ''
+    local pre=(key=='2') and '\\suppressfloats[t]\n' or ''
     out:insert(pandoc.RawBlock('latex',pre..'\\begin{table}'..place..'\n'..latex_of(b)..'\\par'..skip..'\n{'..size..'\n'..to_tabular(bs[i+2])..'\n}\n\\end{table}'))
    end
    i=i+4
@@ -168,12 +171,12 @@ function Blocks(bs)
    -- lead-in with the header and first rows.
    out:insert(b); out:insert(nxt); out:insert(bs[i+2]); out:insert(bs[i+3])
    i=i+4
-  elseif text:match('^Figure %d%.') and nxt and nxt.t=='Para' and #nxt.content==1 and nxt.content[1].t=='Image' then
-   -- Figure: a top-placed float with its caption above the image. Figure 4 directly follows the
+  elseif (text:match('^Figure %d%.') or text:match('^Figure S%d+%.%d+%.')) and nxt and nxt.t=='Para' and #nxt.content==1 and nxt.content[1].t=='Image' then
+   -- Figure: a top-placed float with its caption above the image. Figure 2 directly follows the
    -- Section 7 heading and its callout, so it is placed at the bottom of a page or on a float page.
    -- The ! lets it use more than the default 30 percent bottom area, which it needs; nothing else
    -- is placed at the bottom of a page.
-   local place=text:match('^Figure 4%.') and '[!bp]' or '[tp]'
+   local place=text:match('^Figure 2%.') and '[!bp]' or '[tp]'
    out:insert(pandoc.RawBlock('latex','\\begin{figure}'..place))
    out:insert(b); out:insert(nxt)
    out:insert(pandoc.RawBlock('latex','\\end{figure}'))
