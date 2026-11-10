@@ -28,11 +28,12 @@ Accepted pull requests:
 - [#37](https://github.com/matkowsky/payment-fraud/pull/37) Move four passages from Sections 7.1, 8.3 and 9.2 to the supplement
 - [#38](https://github.com/matkowsky/payment-fraud/pull/38) Merge seven held proposals into the working draft \(PRs \#7, \#10, \#11, \#13, \#14, \#18, \#19\)
 - [#39](https://github.com/matkowsky/payment-fraud/pull/39) Fixes from three simulated journal reviews
+- [#40](https://github.com/matkowsky/payment-fraud/pull/40) Second-rater check of the mechanism-to-signal links
 
 | Document | Read the current version | Paragraphs changed | Added | Removed |
 |---|---|---|---|---|
-| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 75 | 18 | 68 |
-| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 46 | 116 | 3 |
+| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 76 | 18 | 68 |
+| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 46 | 117 | 3 |
 
 ## Manuscript
 
@@ -127,6 +128,10 @@ Three published schemas describe the platform's application programming interfac
 **Changed, under "3. Deriving the specification from public evidence", by [#4](https://github.com/matkowsky/payment-fraud/pull/4), [#12](https://github.com/matkowsky/payment-fraud/pull/12), [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 
 <del>Across the manuscript and supplement, 122 cited works support the claims and comparisons. </del>Supplement S1 records <del>their</del><ins>the</ins> <del>versions,</del><ins>version,</ins> relevant passages and <del>uses;</del><ins>use</ins> <del>its</del><ins>of</ins> <del>requirements</del><ins>each</ins> <del>matrix</del><ins>of the 127 cited works, and</ins> compares 50 sources against the three requirements. <del>The</del><ins>Supplement S3 lists the 61</ins> design <del>files contain 61 source records</del><ins>sources</ins> and<del> 126 mechanism-to-source links. Of those sources, 27 are not among the 122 cited works and have no S1 note. All 61 were read in October 2026, 60 in full and one in part. For one of the 60, a vendor blog post, the cited passages were read verbatim and the other paragraphs only as a close paraphrase. The directory records</del> the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
+
+**Changed, under "3. Deriving the specification from public evidence", by [#40](https://github.com/matkowsky/payment-fraud/pull/40):**
+
+The synthesis distinguishes sourced findings, design choices and hypotheses \(Supplement S2.1\). One author, assisted by AI models, made the mappings and coverage judgments; agreement between independent human coders has not been measured. <ins>A model that took no part in the mapping, given a linking rule written afterward, made 49 of 52 sampled links and 70 that the paper lacks. The links are therefore a sourced subset, not a complete map \(Supplement S3\). </ins>Section 9.2 explains the limits this focused selection places on coverage and transfer.
 
 **Added, under "3. Deriving the specification from public evidence", by [#20](https://github.com/matkowsky/payment-fraud/pull/20):**
 
@@ -742,6 +747,10 @@ An external check compares the candidates with MITRE's Fight Fraud Framework \(F
 **Added, under "S3. Signals, mappings and lineage", by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
 
 <ins>\| Family \| Signals \| Classes \| Partial / n/a / none identified \|<br>\|------------------------------------------\|--------\|--------------------\|-------------------\|<br>\| Identity and onboarding \| 8 \| SO 3, DF 4, CO 1 \| 3 / 4 / 1 \|<br>\| Authentication, session and operator administration \| 10 \| SO 5, DF 4, CO 1 \| 6 / 4 / 0 \|<br>\| Credentials, API keys and request context \| 5 \| SO 3, DF 1, XK 1 \| 2 / 2 / 1 \|<br>\| Funds movement and payout destinations \| 11 \| SO 4, DF 5, CO 2 \| 6 / 5 / 0 \|<br>\| Payment attempts, authorization and payment controls \| 7 \| SO 2, DF 4, CO 1 \| 3 / 4 / 0 \|<br>\| End-customer lifecycle and entitlement \| 7 \| SO 2, DF 4, CO 1 \| 3 / 4 / 0 \|<br>\| Merchant storefront and business claims \| 2 \| DF 1, XK 1 \| 0 / 2 / 0 \|<br>\| Platform outputs and labels \| 4 \| SO 1, MO 2, CO 1 \| 4 / 0 / 0 \|<br>\| Agents, tools and approvals \| 8 \| SO 5, CO 3 \| 4 / 0 / 4 \|<br>\| Wallet signing and token allowances \| 2 \| SO 1, DF 1 \| 0 / 1 / 1 \|<br>\| External threat knowledge \| 5 \| XK 5 \| 0 / 5 / 0 \|<br>\| Provenance classes \| 2 \| NO 2 \| 1 / 1 / 0 \|</ins>
+
+**Added, under "S3. Signals, mappings and lineage", by [#40](https://github.com/matkowsky/payment-fraud/pull/40):**
+
+<ins>\*\*Second-rater check of the links \(10 November 2026\).\*\* The links were made without a written linking rule. For this check a rule was written afterward \(\[packet\]\(../tools/second\_coder/PACKET.md\)\): link a mechanism to a signal when an investigator of that mechanism would need the record, and a listed source describes behaviour the record would capture. A rater that took no part in the mapping, OpenAI's GPT-6 in a session without memory, project files or web access, applied the rule to a seeded random sample of 20 of the 61 mapped mechanisms and 5 of the 13 judged covered. It saw the 68 mechanism-specific signals and the recorded scope of each mechanism's sources, not the sources and not the links. Claude models had proposed the links; ChatGPT models assisted with other parts of the paper. Over the 1,360 mechanism-signal pairs for the 20 mapped mechanisms, the rater made 49 of the paper's 52 links and 70 that the paper lacks \(Cohen's kappa 0.55\); two mechanisms matched exactly. Of the three links it did not make, the paper marks two as inference. Thirty-two of the 70 added links attach six general-purpose signals, such as request context and funds movement, to further mechanisms. The links are therefore a sourced subset: each gives a reason for a record, and other mechanisms may need the same record. Counts of links describe this subset, not a complete map. For four of the five covered mechanisms the rater named no missing record; for fake reviews \(MP-08\) it named review content, reviewer identities and posting histories. The check tests whether the rule reproduces the links from recorded source scopes. It is not a human coder and does not test the sources. The \[run record\]\(../tools/second\_coder/real\_run/RUN\_RECORD.md\), answers and score are in the package.</ins>
 
 **Changed, under "S3. Signals, mappings and lineage", by [#4](https://github.com/matkowsky/payment-fraud/pull/4), [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 
