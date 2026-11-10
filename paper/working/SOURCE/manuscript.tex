@@ -1895,35 +1895,14 @@ channel: closed, delayed, changed in meaning, none or unknown.
 
 These channel properties come from card-network rules, and other rails
 differ. On the illustrative provider's bank-debit rails, a payer's
-dispute or return is honored without network adjudication or appeal. A
-SEPA Direct Debit dispute within eight weeks of the debit is honored
-with no questions asked, and such disputes are final, with no process
-for appeal {[}\protect\hyperlink{ref-Stripe2026SEPADebit}{93}{]}. After
-eight weeks and up to 13 months, a customer can dispute only a debit
-considered unauthorized, and the customer's bank decides; the window
-that applies therefore depends on the claim, and an absence at eight
-weeks is not a negative for unauthorized-debit fraud
-{[}\protect\hyperlink{ref-Stripe2026SEPADebit}{93}{]}. Inside its
-window, an ACH return is refunded without question, and the ACH Network
-has no appeals process of its own
-{[}\protect\hyperlink{ref-Stripe2026ACHTerms}{80}{]}. A report honored
-without question is never adjudicated, so any won or lost status
-recorded for it says nothing about its truth, which rests entirely on a
-separate assessment. A SEPA dispute honored with no questions asked is
-not by itself a fraud allegation. For ACH returns, the provider's terms
-give 60 days for consumer accounts and 2 days for business accounts,
-counted from the customer's bank statement
-{[}\protect\hyperlink{ref-Stripe2026ACHTerms}{80}{]}, while the Nacha
-return deadlines that banks apply run from the settlement date of the
-original debit {[}\protect\hyperlink{ref-LeadBank2026ACHReturns}{94}{]};
-a channel record therefore names the rule from which it takes its clock
-start. Banks may also accept late returns outside the window
-{[}\protect\hyperlink{ref-Stripe2026ACHTerms}{80}{]}. The product scope
-also lists instant push payments and stablecoin payments (Supplement
-S2); their reporting channels, if any, follow each rail's own rules and
-windows, which this paper did not review. Each channel record therefore
-names its rail, the attributes its window depends on and whether the
-channel adjudicates report truth.
+dispute or return is honored without network adjudication or appeal
+{[}\protect\hyperlink{ref-Stripe2026ACHTerms}{80},
+\protect\hyperlink{ref-Stripe2026SEPADebit}{93}{]}; Supplement S4.1
+gives the windows and rules read. A report honored without question is
+never adjudicated, so any won or lost status recorded for it says
+nothing about its truth, which rests entirely on a separate assessment.
+Each channel record therefore names its rail, the attributes its window
+depends on and whether the channel adjudicates report truth.
 
 \hypertarget{truth-the-report-may-be-wrong}{%
 \paragraph{Truth: the report may be
@@ -1967,27 +1946,8 @@ by a decider break that guarantee and must be identified. The records
 support examining assumptions; they do not validate an estimator or the
 bounds in theoretical payment models
 {[}\protect\hyperlink{ref-Dhama2026Causal}{9},
-\protect\hyperlink{ref-Dhama2026Limits}{10}{]}.
-
-Three target quantities illustrate the distinction:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Candidate-policy value:} the average outcome a proposed
-  decline policy would produce on a stated measure. Estimation from
-  another policy's logs needs decision inputs, probabilities and overlap
-  for the decisions the candidate would take.
-\item
-  \textbf{The chargeback rate if all cases were allowed:} this needs
-  comparable cases with some chance of being allowed. A class always
-  blocked supplies no allowed comparison.
-\item
-  \textbf{A control's error rate:} this needs a defined cohort, outcome
-  window and denominator, with correctness reviewed for every case or a
-  random sample with recorded selection probabilities. Appeals alone do
-  not establish a cohort rate.
-\end{itemize}
+\protect\hyperlink{ref-Dhama2026Limits}{10}{]}. Supplement S7
+illustrates the distinction with three target quantities.
 
 Comparing human deciders of different leniency additionally requires
 random case assignment for the cited evaluation approach
@@ -2152,7 +2112,7 @@ A known control decision can have unknown correctness. A study of five
 commercial identity-verification products reported false negative rates
 of 10.5 to 53.1 percent, the share of genuine participants' verification
 attempts that were rejected
-{[}\protect\hyperlink{ref-Fatima2024}{95}{]}. It did not report
+{[}\protect\hyperlink{ref-Fatima2024}{94}{]}. It did not report
 fraud-detection results. Those cohort results cannot become
 probabilities that an individual platform decision is wrong.
 
@@ -2181,7 +2141,7 @@ include changed card-testing methods, aged accounts, banks changed after
 payment disruption, and filtering of recognizable test transactions
 {[}\protect\hyperlink{ref-Tian2018}{69},
 \protect\hyperlink{ref-Thomas2013}{81},
-\protect\hyperlink{ref-Meltzer2025}{96}{]}. Adaptive prompt-injection
+\protect\hyperlink{ref-Meltzer2025}{95}{]}. Adaptive prompt-injection
 attacks likewise expose limits of fixed tests
 {[}\protect\hyperlink{ref-Nasr2025}{91}{]}. Responsibilities 16 and 17
 own this evaluation.
@@ -2200,7 +2160,7 @@ The correction links to the original, retains the new evidence's
 provenance, repeats applicable review and release, and notifies
 downstream users where warranted. Threat-intelligence lifecycle research
 likewise lets an entity that receives intelligence enrich it as a new
-version or retract it {[}\protect\hyperlink{ref-Dimitriadis2025}{97}{]}.
+version or retract it {[}\protect\hyperlink{ref-Dimitriadis2025}{96}{]}.
 
 A reusable procedure follows a different path. A productive query, a
 useful move between related entities, or a recurring benign explanation
@@ -2215,7 +2175,7 @@ withdrawn. This is controlled learning, responsibility 23.
 Memory-poisoning and experience-reuse studies show how planted or
 mistaken entries can steer later work
 {[}\protect\hyperlink{ref-Dash2026}{90},
-\protect\hyperlink{ref-Xiong2026MemoryManagement}{98}{]}. A validated
+\protect\hyperlink{ref-Xiong2026MemoryManagement}{97}{]}. A validated
 lesson therefore guides procedure; it is never evidence that the
 suspected activity occurred in the current case.
 
@@ -2289,7 +2249,7 @@ normal review.
 
 Stripe's public risk guide describes pausing, delaying or holding
 connected-account payouts and extending payout schedules
-{[}\protect\hyperlink{ref-Stripe2026Connect}{99}{]}. It does not define
+{[}\protect\hyperlink{ref-Stripe2026Connect}{98}{]}. It does not define
 a pause-versus-hold distinction, so the specification treats both as
 reversible restrictions while recording which was applied. A deployment
 must confirm from its own permission model which credentials can change
@@ -2378,7 +2338,7 @@ dispute on a destination charge or on separate charges and transfers
 debits the platform's balance, even when the connected account is the
 business of record, and the platform can try to recover funds by
 reversing the transfer
-{[}\protect\hyperlink{ref-Stripe2026ConnectCharges}{100}{]}.
+{[}\protect\hyperlink{ref-Stripe2026ConnectCharges}{99}{]}.
 Merchant-of-record and payment-facilitator arrangements can therefore
 explain a report appearing elsewhere. A missing transaction link leaves
 the affected measure incomplete, rather than justifying an assumed
@@ -2403,11 +2363,11 @@ descriptor and its acquiring bank
 guide describes itself as a general guide rather than a comprehensive
 reference, so E3 applies each program as the network's own documentation
 states it, such as Visa's program overview
-{[}\protect\hyperlink{ref-Visa2025VAMP}{101}{]}, and uses the guide only
+{[}\protect\hyperlink{ref-Visa2025VAMP}{100}{]}, and uses the guide only
 as a secondary summary. That overview defines the ratio over
 card-not-present VisaNet transactions, with settled transactions as the
 denominator, while the guide speaks of captured payments; E3 follows the
-network's definition {[}\protect\hyperlink{ref-Visa2025VAMP}{101}{]}.
+network's definition {[}\protect\hyperlink{ref-Visa2025VAMP}{100}{]}.
 
 Thus resolving alerts can lower the program ratio, and growing volume
 can lower a period ratio while reports are still arriving. Splitting
@@ -2695,7 +2655,7 @@ the deeper reviews (Section 3; Supplement S2). A crosswalk to MITRE's
 Fight Fraud Framework finds that 18 of its 92 in-scope techniques have
 no retained mechanism; fourteen of them are covered only by candidates
 outside the signal map (Supplement S2.2)
-{[}\protect\hyperlink{ref-MITRE2026F3}{102}{]}. At the volume assumed in
+{[}\protect\hyperlink{ref-MITRE2026F3}{101}{]}. At the volume assumed in
 Section 6.4, the confirmatory release-gate test could run for more than
 a year and a half before it reaches its planned size (Supplement S7.1).
 The comparison supports the specified distinctions, not priority for
@@ -3383,14 +3343,8 @@ Accessed 19 October 2026.
 \url{https://docs.stripe.com/payments/sepa-debit}. Accessed 25 October
 2026.
 
-\leavevmode\vadjust pre{\hypertarget{ref-LeadBank2026ACHReturns}{}}%
-{[}94{]} Lead Bank. 2026. Returns, Reversals, \& Exceptions. Lead Bank
-documentation.
-\url{https://docs.lead.bank/api-integrations/ach/return-codes}. Accessed
-25 October 2026.
-
 \leavevmode\vadjust pre{\hypertarget{ref-Fatima2024}{}}%
-{[}95{]} K. Fatima, M. Schuckers, G. Cruz-Ortiz, D. Hou, S. Purnapatra,
+{[}94{]} K. Fatima, M. Schuckers, G. Cruz-Ortiz, D. Hou, S. Purnapatra,
 T. Andrews, A. Neupane, B. Marshall, and S. Schuckers. 2024. A
 Large-Scale Study of Performance and Equity of Commercial Remote
 Identity Verification Technologies Across Demographics. \emph{2024 IEEE
@@ -3398,20 +3352,20 @@ International Joint Conference on Biometrics}, pp. 1--8.
 \url{https://doi.org/10.1109/IJCB62174.2024.10744432}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Meltzer2025}{}}%
-{[}96{]} J. Meltzer and V. Chadalapaka. 2025. How Stripe Radar responded
+{[}95{]} J. Meltzer and V. Chadalapaka. 2025. How Stripe Radar responded
 to a new wave of card testing. Stripe blog.
 \url{https://stripe.com/blog/how-stripe-radar-responded-to-a-new-wave-of-card-testing}.
 Accessed 21 October 2026.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Dimitriadis2025}{}}%
-{[}97{]} A. Dimitriadis, A. Papoutsis, D. Kavalieros, T. Tsikrika, S.
+{[}96{]} A. Dimitriadis, A. Papoutsis, D. Kavalieros, T. Tsikrika, S.
 Vrochidis, and I. Kompatsiaris. 2025. EVACTI: Evaluating the
 Actionability of Cyber Threat Intelligence. \emph{International Journal
 of Information Security}, 24, Article 123.
 \url{https://doi.org/10.1007/s10207-025-01033-z}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Xiong2026MemoryManagement}{}}%
-{[}98{]} Z. Xiong, Y. Lin, W. Xie, P. He, Z. Liu, J. Tang, H. Lakkaraju,
+{[}97{]} Z. Xiong, Y. Lin, W. Xie, P. He, Z. Liu, J. Tang, H. Lakkaraju,
 and Z. Xiang. 2026. How Memory Management Impacts LLM Agents: An
 Empirical Study of Experience-Following Behavior. \emph{Proceedings of
 the 64th Annual Meeting of the Association for Computational Linguistics
@@ -3419,23 +3373,23 @@ the 64th Annual Meeting of the Association for Computational Linguistics
 \url{https://doi.org/10.18653/v1/2026.acl-long.27}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Stripe2026Connect}{}}%
-{[}99{]} Stripe. 2026. Best practices for risk management. Stripe
+{[}98{]} Stripe. 2026. Best practices for risk management. Stripe
 documentation.
 \url{https://docs.stripe.com/connect/risk-management/best-practices}.
 Accessed 19 October 2026.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Stripe2026ConnectCharges}{}}%
-{[}100{]} Stripe. 2026. Understand how charges work in a Connect
+{[}99{]} Stripe. 2026. Understand how charges work in a Connect
 integration. Stripe documentation.
 \url{https://docs.stripe.com/connect/charges}. Accessed 19 October 2026.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Visa2025VAMP}{}}%
-{[}101{]} Visa. 2025. Visa Acquirer Monitoring Program Overview. Visa.
+{[}100{]} Visa. 2025. Visa Acquirer Monitoring Program Overview. Visa.
 \url{https://corporate.visa.com/content/dam/VCOM/corporate/visa-perspectives/security-and-trust/documents/visa-acquirer-monitoring-program-fact-sheet-2025.pdf}.
 Accessed 25 October 2026.
 
 \leavevmode\vadjust pre{\hypertarget{ref-MITRE2026F3}{}}%
-{[}102{]} MITRE Center for Threat-Informed Defense. 2026. Fight Fraud
+{[}101{]} MITRE Center for Threat-Informed Defense. 2026. Fight Fraud
 Framework (F3), version 1.1. GitHub,
 center-for-threat-informed-defense/fight-fraud-framework. Cited version:
 commit cb186c2 (18 September 2026).
