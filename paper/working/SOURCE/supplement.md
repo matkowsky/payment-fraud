@@ -336,7 +336,7 @@ Every listed counterpart is partial. An event envelope (the wrapper around an ev
 
 ## S6. Hypothetical investigations and reproducible arithmetic
 
-**Table S6.1. The two investigations at a glance.** Every observation is hypothetical. Manuscript Sections 8.1 and 8.2 identify the supporting research and how far its findings transfer to this setting.
+**Table S6.1. The two investigations at a glance.** Every observation is hypothetical. S6.1 and S6.2 identify the supporting research and how far its findings transfer to this setting.
 
 | Element | Trace A: exposure and possible payout redirection | Trace B: storefront links and possible dispute evasion |
 |---|---|---|
@@ -351,7 +351,59 @@ Every listed counterpart is partial. An event envelope (the wrapper around an ev
 
 Table S6.1 summarizes the two investigations. The [synthetic cohort](../SUPPLEMENT/S6_SYNTHETIC_COHORT.csv) contains 400 completed transactions, 100 in each of four non-overlapping account cohorts. Each cohort fixes one account's transactions using the same definition and outcome window. These synthetic rows make the counting rules reproducible. They contain no report-arrival dates, so the ratios assume that every report on the four cohorts has arrived. They cannot show reporting delay.
 
-Once each report is linked to its transaction, each of the four accounts, A to D, has two distinct transactions with chargebacks, so its chargeback ratio is `2/100 = 2%`. Pooling the same measure across the four accounts gives `8/400 = 2%`.
+### S6.1 Trace A: narrative
+
+A repository scan finds a publicly visible API key. A human asks whether it enabled account compromise and payout redirection. The trace concerns a key not yet revoked, or activity before revocation; existing automatic revocation is outside this workflow.
+
+Exposure alone does not establish that a secret is still usable [@Meli2019]. It also does not show misuse. The agent therefore compares earlier requests with those after publication. A hypothetical repository record supplies publication time, separately from the later scan-detection time. Available earlier requests share a cloud-provider region and stable client fingerprint.
+
+At nineteen minutes after publication, requests arrive through a residential proxy range, using a different fingerprint. They access account-profile and configuration endpoints. Minute-scale investigation is motivated by the deliberate exposure experiment [@Gamazo2023], but developer testing or an internal scanner remains a possible explanation.
+
+The same burst creates a webhook endpoint, changes the payout destination and accelerates the payout schedule. A webhook receives the platform's event notifications. This trace assumes the key permits these changes. If destination changes instead require a dashboard session and additional authentication, the investigation would need evidence of session takeover. The payroll-diversion advisory motivates the destination-change mechanism by analogy [@FBI2018].
+
+The next day, delayed records show that the same verified destination identifier was attached to two other accounts before exposure. The matching namespace and interval support destination reuse, not common ownership or malicious intent. The agent checks account histories and ownership records for alternatives such as a legitimate business with several accounts or an intermediary receiving client funds.
+
+Two limits change the conclusion. First, a requested seven-day baseline contains only two hours of earlier history. The change at nineteen minutes cannot be called the first misuse. Second, a detection already running on the platform froze its compromise assessment thirty minutes after publication, before the destination link was learned the next day. The link can inform the later investigation but cannot enter that earlier assessment.
+
+The investigation prepares four outputs: a search for similar cases, a detection candidate linking exposure to use and destination changes, an intelligence draft, and recommendations for authorized action. A reversible payout pause or hold may follow the urgent path when the accelerated schedule appears. Credential rotation or revocation follows normal review.
+
+Stripe's public risk guide describes pausing, delaying or holding connected-account payouts and extending payout schedules [@Stripe2026Connect]. It does not define a pause-versus-hold distinction, so the specification treats both as reversible restrictions while recording which was applied. A deployment must confirm from its own permission model which credentials can change payout destinations and schedules, and what revocation would interrupt.
+
+The detection candidate needs an appropriate outcome. A payout moves an account's balance to its payout destination, which here may be controlled by an attacker. It is not a card payment that can produce a chargeback. Possible outcomes include victim reports, returned or recalled transfers and confirmed incident findings. A permanent block prevents outcomes requiring completion; a hold may only delay them.
+
+Victim reports and incident findings have no defined reporting window here. Those channels can supply confirmed positives but cannot reach “matured with no report.” Evaluation must either justify a delay model, as conversion research does in its setting [@Chapelle2014Delayed], or leave negatives unconfirmed. The recorded decision and channel states determine which interpretation is available.
+
+### S6.2 Trace B: narrative
+
+A risk assessment and a rejected application identify similar storefronts. A human asks whether newly onboarded merchant accounts form an operation structured to evade dispute monitoring. The assessment selects a lead; the investigation must establish the underlying relationships.
+
+Following the merchant-identifier approach used in storefront research [@Bitaab2025], the hypothetical investigation links eleven storefronts sharing two templates and a descriptor pattern. They settle through four merchant accounts. A principal, a person who owns or controls a business, also appears on a closed account and the rejected application. Research and enforcement allegations motivate examining such returns after closure [@McCoy2012; @FTC2019Allied]. Settlement relationships are stipulated here, not inferred from the cited study's uncompleted checkouts.
+
+The next question is which transactions the outcome reports concern. For disjoint cohorts with the same outcome definition and window, the pooled ratio is a transaction-weighted average of the account ratios (S6 gives the formula). Its nonnegative weights sum to one, so it lies between the lowest and highest account ratios.
+
+The synthetic example gives accounts A to D 100 completed transactions each. After linking reports to transactions, every account has two chargebacked transactions: `2/100 = 2%`. The pooled chargeback ratio is `8/400 = 2%`.
+
+Fourteen transactions also carry pre-dispute alert-resolution flags. Two overlap with the eight chargebacked transactions. A separate chargeback-or-alert-resolution measure therefore counts `8 + 14 − 2 = 20` transactions, or `20/400 = 5%`. Adding flags without deduplication gives the incorrect `22/400 = 5.5%`.
+
+On that broader measure, A and B each have `8/100 = 8%`; C and D each have `2/100 = 2%`. The pooled 5 percent conceals the higher values at A and B. On the chargeback measure, all accounts remain at 2 percent, so pooling hides no higher rate. Neither measure is a fraud rate, and the example assumes no monitoring threshold.
+
+**Attribution changes which account appears affected.** The chargebacks on D001 and D002 are recorded at account-X, outside the four cohorts. Counting where reports were recorded shows D at `0/100`. Verified transaction links restore D to `2/100` without changing the 400-transaction denominator or counting either report twice.
+
+Such a mismatch can be legitimate. In Stripe's Connect documentation, a dispute on a direct charge debits the connected account's balance. A dispute on a destination charge or on separate charges and transfers debits the platform's balance, even when the connected account is the business of record, and the platform can try to recover funds by reversing the transfer [@Stripe2026ConnectCharges]. Merchant-of-record and payment-facilitator arrangements can therefore explain a report appearing elsewhere. A missing transaction link leaves the affected measure incomplete, rather than justifying an assumed attribution. Reports concerning transactions outside the four cohorts are excluded.
+
+**A cohort ratio differs from a network-program ratio.** Network programs compute monthly ratios by the month a report is received, apply minimum counts, and in one program count early fraud warnings and exclude disputes resolved through pre-dispute products [@Stripe2026MonitoringPrograms]; S6 gives the rules as read and where Visa's own overview differs [@Visa2025VAMP].
+
+**Network program rules as read.** Stripe's monitoring guide describes Mastercard's Excessive Chargeback Program as dividing one month's chargebacks by the previous month's captured payments and applying a minimum monthly chargeback count. It describes Visa's Acquirer Monitoring Program differently: each month, Visa divides the previous month's disputes plus early fraud warnings by captured payments in that same month, and it also sets thresholds on the count of those reports and, in one region, on their total value. The guide says both networks assign a report to the month in which they receive it, not the month of the original payment. For that Visa program, a transaction that appears in both the dispute report and the fraud report counts twice, and disputes resolved through pre-dispute products are excluded. Visa identifies a monitored account by the static part of its statement descriptor and its acquiring bank [@Stripe2026MonitoringPrograms]. The guide describes itself as a general guide rather than a comprehensive reference, so E3 applies each program as the network's own documentation states it, such as Visa's program overview [@Visa2025VAMP], and uses the guide only as a secondary summary. That overview defines the ratio over card-not-present VisaNet transactions, with settled transactions as the denominator, while the guide speaks of captured payments; E3 follows the network's definition [@Visa2025VAMP].
+
+Thus resolving alerts can lower the program ratio, and growing volume can lower a period ratio while reports are still arriving. Splitting activity can also keep accounts below a count threshold even when their ratios are identical. Detecting that pattern requires cluster-level counts, not merely a pooled cohort ratio.
+
+**Small cohorts leave substantial uncertainty.** Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent: S6 gives exact intervals and a test. Repeated customers or a shared operator may correlate transactions, making those intervals and the test overstate precision.
+
+The linked storefronts still require an explanation. Shared templates and descriptors may reflect a legitimate multi-brand business or aggregator. Verified identifiers support specific relationships without establishing intent or common control. The agent may produce a qualified cluster assessment, an inconclusive finding, a proposed account review or a detection candidate. It cannot reject or terminate accounts.
+
+The enforcement sources remain allegations [@FTC2019Allied; @FTC2020FirstData; @FTC2025Paddle], and storefront content remains untrusted input. The synthetic rows contain no report-arrival dates. The ratios therefore assume that every report on the four cohorts has arrived, and the example cannot show reporting delay.
+
+### S6.3 Reproducible arithmetic
 
 Consider non-overlapping cohorts with the same outcome definition and outcome window. Let $T_i > 0$ be account $i$'s transaction count and $D_i$ its count of distinct transactions with chargebacks. Then
 
@@ -363,15 +415,9 @@ $$
 
 The weights are nonnegative and sum to one, so the pooled ratio lies between the smallest and largest account ratios.
 
-Fourteen transactions have a resolved pre-dispute alert, including two of the eight transactions with chargebacks. Counting each transaction once gives `8 + 14 − 2 = 20`. The separate chargeback-or-alert-resolution measure is therefore `20/400 = 5%`. Adding all flags would count two transactions twice and wrongly give `22/400 = 5.5%`. This broader measure is neither a fraud rate nor the chargeback ratio above. The example assumes no dispute-monitoring threshold for either measure. The broader measure is `8/100` for A and B, and `2/100` for C and D; the pooled 5 percent lies between them.
-
-The chargebacks on D001 and D002 are recorded at account-X, whose own transactions lie outside all four cohorts. Both transactions remain in D's cohort and count once; account-X adds no transactions to the denominator. Counting reports where recorded shows D at `0/100` and assigns both reports to account-X. Linking reports to transactions restores D to `2/100`, the same as the other accounts. The mismatch needs explanation but does not prove concealment. Legitimate merchant-of-record or facilitator arrangements can also record disputes on another account.
+The two chargebacks recorded at account-X remain in D's cohort and count once; account-X adds no transactions to the denominator. The mismatch needs explanation but does not prove concealment.
 
 Both measures exclude reports on transactions outside the four cohorts. A missing transaction link leaves a measure that depends on it incomplete. Any change to report links or outcome definitions must be stated explicitly. If it applies alike to every cohort, the weighted-average formula still holds. Under independent trials with a common rate, exact 95 percent intervals are 0.24 to 7.04 percent for 2/100, 0 to 3.62 percent for 0/100, and 0.87 to 3.90 percent for 8/400. For 8/100, the interval is 3.52 to 15.16 percent. Fisher's two-sided test comparing 8/100 with 2/100 gives p = 0.10. These are Clopper-Pearson intervals.
-
-**Network program ratios (manuscript Section 8.2).** Stripe's monitoring guide describes Mastercard's Excessive Chargeback Program as dividing one month's chargebacks by the previous month's captured payments and applying a minimum monthly chargeback count. It describes Visa's Acquirer Monitoring Program differently: each month, Visa divides the previous month's disputes plus early fraud warnings by captured payments in that same month, and it also sets thresholds on the count of those reports and, in one region, on their total value. The guide says both networks assign a report to the month in which they receive it, not the month of the original payment. For that Visa program, a transaction that appears in both the dispute report and the fraud report counts twice, and disputes resolved through pre-dispute products are excluded. Visa identifies a monitored account by the static part of its statement descriptor and its acquiring bank [@Stripe2026MonitoringPrograms]. The guide describes itself as a general guide rather than a comprehensive reference, so E3 applies each program as the network's own documentation states it, such as Visa's program overview [@Visa2025VAMP], and uses the guide only as a secondary summary. That overview defines the ratio over card-not-present VisaNet transactions, with settled transactions as the denominator, while the guide speaks of captured payments; E3 follows the network's definition [@Visa2025VAMP].
-
-Trace A uses a separate hypothetical timeline (manuscript Sections 8.1 and 8.3). The agent requests seven days of history before the key's exposure; only the final two hours are available. A detection already running on the platform freezes its first compromise assessment at +30 minutes after publication of the key. The destination-reuse link becomes known at +1 day, although it was effective before exposure. The +30-minute assessment cannot use that link, and the missing history leaves the onset of any misuse inconclusive.
 
 [CHECK_CANDIDATE.py](../CHECK_CANDIDATE.py) checks these calculations and excludes the +1-day destination-reuse link from the +30-minute assessment. It also checks identifiers, counts, feature lineage, citation-reference agreement and links between files. [REPRODUCE.md](../REPRODUCE.md) gives build and verification instructions. These are checks of the supplied artifacts and arithmetic, not an evaluation of the proposed system.
 
