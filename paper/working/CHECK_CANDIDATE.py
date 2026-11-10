@@ -169,11 +169,18 @@ private = r'jonathanmatkowsky|jonathan_matkowsky|sharepoint\.com|onedrive|REVIEW
 screened = 0
 for path in [B / MS, B / 'SUPPLEMENT.md', B / 'README.md', B / 'REPRODUCE.md', B / REFB, B / REFJ,
              *[p for p in [B / 'CHANGES_SINCE_v1.0.md'] if p.is_file()],
-             *(B / 'SOURCE').glob('*.md'), *(B / 'FIGURES').rglob('*.svg'), *(B / 'SUPPLEMENT').rglob('*.csv')]:
+             *(B / 'SOURCE').glob('*.md'), *(B / 'FIGURES').rglob('*.svg'), *(B / 'SUPPLEMENT').rglob('*.csv'),
+             *(B / 'SUPPLEMENT').rglob('*.json')]:
     z = path.read_text(encoding='utf-8')
     assert not re.search(private, z, re.I), path
     assert '—' not in z, ('em dash', path.name)
     screened += 1
+
+# Outcome-record schema (Supplement S4.2): the synthetic valid case passes and each invalid case fails exactly its rule.
+sys.path.insert(0, str(B / 'tools'))
+from outcome_conformance import run_conformance
+outcome = run_conformance()
+assert outcome == {'valid_records': 27, 'invalid_cases': 22, 'rules_exercised': 15}, outcome
 
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),
@@ -184,7 +191,7 @@ result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
                         'clopper_pearson_and_fisher': f'intervals match Supplement S6; Fisher two-sided p = {fisher_p:.4f}'},
           'bib_parser_checked': parsed is not None, 'private_content_and_dash_screen': f'passed ({screened} files)',
-          'relative_links_checked': checked_links,
+          'relative_links_checked': checked_links, 'outcome_record_conformance': outcome,
           'as_of_example': 'later-known edge excluded; earlier onset unresolved',
           'evaluation_sizing': {'evaluations': 9, 'confirmatory': 4, 'all_confirmatory_pass_at_least': 0.72, 'e8_false_exonerations_for_1_percent': n_fe,
                                 'e8_for_93_percent_power_at_0.1_percent': n_pow, 'e8_drafts_at_5_percent': e8_drafts, 'e8_days_at_20_a_day': e8_days},

@@ -159,7 +159,7 @@ Responsibilities 16 and 17 cover engineering validation and adaptive testing of 
 
 Responsibilities 1 to 10 scope and conduct an investigation. They include human tasking, governed tools, the evidence store, hypothesis testing and entity relationships. Responsibilities 11 to 20 represent threat knowledge and turn findings into usable outputs: actor, technique and vulnerability knowledge, the structured threat-knowledge store, hunting for undetected abuse, detection development, threat-model integration, recommendations, finished-intelligence synthesis and evidence lineage. Responsibilities 21 to 24 govern use and reuse: independent quality review, human release, controlled learning and security of the investigation system.
 
-The [entity inventory](../SUPPLEMENT/S4_ENTITIES.csv) and [entity relationships](../SUPPLEMENT/S4_ENTITY_RELATIONS.csv) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders (other explanations for the link), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel's status; it does not invent an outcome report. [S4.1](#complete-storage-requirements) gives the complete storage requirements.
+The [entity inventory](../SUPPLEMENT/S4_ENTITIES.csv) and [entity relationships](../SUPPLEMENT/S4_ENTITY_RELATIONS.csv) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders (other explanations for the link), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel's status; it does not invent an outcome report. [S4.1](#complete-storage-requirements) gives the complete storage requirements, and [S4.2](#outcome-record-schemas) gives field-level schemas for the outcome records.
 
 **Figure S4.1. Investigation as a sequence of tests.** Each query tests competing explanations within authorized scope. A gateway outside the agent attaches the query's coverage, which determines which interpretations remain supported. Draft outputs follow review and release under manuscript Section 6.4.
 
@@ -331,6 +331,42 @@ Cross-business linking requires a stated purpose and authorization for each iden
 - Link closed accounts to suspected successor accounts, and storefronts to merchants.
 - Link each outcome report to the transaction, payout or account application it concerns, with the basis for the link and whether it is verified. Attribute outcomes through that link to the platform account, connected account and end customer, so that a measure counts each affected transaction once. A report's links to the decisions that may have shaped it do not change this count. Keep each transaction's acquiring bank and the static part of its statement descriptor, so that a network's monitored unit can be reconstructed.
 - Link each wallet to every party it has allowed to spend its funds.
+
+### S4.2 Field-level schemas for outcome records {#outcome-record-schemas}
+
+The [outcome-record schema](../SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json) defines, in JSON Schema, the fields of the records that the first requirement needs. It covers eight record types:
+
+| Record | What it holds |
+|---|---|
+| OutcomeChannel | A route for reporting outcomes: its rail, clock-start event, reporting window with source and rule version, the attributes the window depends on, and whether the channel adjudicates report truth |
+| ControlAction | A decision's targets, time, authority and version, and its effect on each channel: closed, delayed, changed in meaning, none or unknown |
+| ChannelStateTransition | One change in a channel's state for one item, with its effective interval and the decision or rule event that caused it |
+| LabelEvent | An outcome report or one revision of it, with its amount, when the outcome occurred, when it was reported at its source, when it arrived and when it became queryable |
+| LabelEventDecisionLink | A link from a report to one decision that may have shaped it, with the decision's role, the basis for the link and whether it is verified |
+| ChannelStatusReading | Report presence, channel state, query access and no-report status for one item and channel at one read time, stored when a draft cites it |
+| ItemAttribution | The accounts an item belongs to, and the acquiring bank and static statement descriptor from which a network's monitored unit can be rebuilt |
+| EntityLink | A link between entities, such as a closed account and a suspected successor, with its basis, confidence and other possible explanations |
+
+Every record is append-only: a correction is a new record that references the earlier one. A time that is not known is recorded as unknown, with a reason, and is never left out. The schema checks each record on its own. Fourteen rules check records against each other:
+
+1. OR-01: a record identifier is used once. A record changed in place under its own identifier passes every rule, so the store must prevent edits.
+2. OR-02: a correction or revision references an earlier record of the same type and, for a report, of the same report.
+3. OR-03: every channel, decision and report that a record cites exists.
+4. OR-04: a report's times are in order where they are known: occurred, reported, arrived, learned.
+5. OR-05: a won or lost report states whether that result followed adjudication.
+6. OR-06: a decision gives one effect per channel. A delay gives its expected clock start, and a change in meaning says what changed.
+7. OR-07: a permanent closure cites the decision that caused it, and a reopening or extension cites the rule event. A cited decision must target the item, record the matching effect and precede the transition.
+8. OR-08: no report can arrive through a channel while a closure of that channel for that item is in force; a revision counts from its report's first arrival. Such a report means the item link or the closure is wrong.
+9. OR-09: a link's role fits the decision: a decision on the reported item, on an earlier related attempt, or on an account or payout that contains the item.
+10. OR-10: a reading's channel state is computed only from the transitions the system had learned by the read time.
+11. OR-11: a reading's report presence matches the reports learned by the read time. Presence is unavailable only when query access was denied or unavailable, and it does not overwrite channel state.
+12. OR-12: a no-report status follows from the channel's state and window. An absence matures only if the window is defined and has ended, the channel was open throughout it and query access was full. A matured absence records the rule version it matured under and cites any decision that changed the channel's meaning.
+13. OR-13: each reported item has exactly one live attribution to its accounts, so a measure counts it once.
+14. OR-14: a link resting only on a shared attribute is neither verified nor high-confidence, and a suspected-successor link starts from an account with a recorded closure.
+
+The [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json) builds one synthetic history: a blocked card attempt, an approved retry that draws a fraud chargeback the merchant later wins, a hold on the account that received the payment, and a payment that draws no report. An earlier account with the same principal name was closed; the new account is linked to it as a suspected successor on that name alone, and a storefront is linked to the new account by its checkout identifier. Its 27 records pass. Each of the 22 [invalid cases](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json) changes that history in one way and must fail exactly one check; together they exercise the schema check and all fourteen rules. `tools/outcome_conformance.py` runs the cases using only the Python standard library, and `CHECK_CANDIDATE.py` runs it as well. The same tool checks any records file in this format.
+
+Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. The schema for query runs (QueryRun), which the second requirement needs, is not yet specified. Denominators are outside these records: which payments a measure counts, their amounts and their capture or settlement times come from the payment ledger, which this section does not specify. Whether a denominator read was complete is a query-coverage record.
 
 ## S5. Pinned public schemas
 
