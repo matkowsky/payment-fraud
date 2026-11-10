@@ -1,0 +1,964 @@
+{
+ "description": "Each case changes the synthetic valid case in one way. The checker must report exactly the stated rule and no other.",
+ "cases": [
+  {
+   "case_id": "D01",
+   "rule": "SCHEMA",
+   "description": "A query run omits its as-of cutoff.",
+   "remove_fields": {
+    "Q-1": [
+     "as_of"
+    ]
+   }
+  },
+  {
+   "case_id": "D02",
+   "rule": "SCHEMA",
+   "description": "A released item is marked usable as evidence.",
+   "set_fields": {
+    "M-1": {
+     "usable_as": "evidence"
+    }
+   }
+  },
+  {
+   "case_id": "D03",
+   "rule": "IR-01",
+   "description": "A record is stored twice under one identifier.",
+   "add_records": [
+    {
+     "record_type": "Observation",
+     "record_id": "O-4",
+     "record_class": "score",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-1"
+     },
+     "event_interval": {
+      "from": "2026-05-03T12:00:00Z",
+      "to": "2026-05-03T12:00:00Z"
+     },
+     "learned_at": "2026-05-04T07:00:00Z",
+     "root_ids": [
+      "O-4"
+     ],
+     "inputs": [],
+     "agent_output_links": []
+    }
+   ]
+  },
+  {
+   "case_id": "D04",
+   "rule": "IR-02",
+   "description": "A claim cites a record that does not exist.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [
+        "O-99"
+       ],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D05",
+   "rule": "IR-03",
+   "description": "The agent records its own query coverage.",
+   "set_fields": {
+    "Q-1": {
+     "recorded_by": "AG-1"
+    }
+   }
+  },
+  {
+   "case_id": "D06",
+   "rule": "IR-04",
+   "description": "The evaluated interval is wider than the requested one.",
+   "set_fields": {
+    "Q-2": {
+     "evaluated_interval": {
+      "from": "2026-03-01T00:00:00Z",
+      "to": "2026-04-30T00:00:00Z"
+     }
+    }
+   }
+  },
+  {
+   "case_id": "D07",
+   "rule": "IR-04",
+   "description": "The as-of cutoff is later than the query.",
+   "set_fields": {
+    "Q-2": {
+     "as_of": "2026-05-07T00:00:00Z"
+    }
+   }
+  },
+  {
+   "case_id": "D08",
+   "rule": "IR-05",
+   "description": "A run that reaches past its source's event watermark is marked complete.",
+   "set_fields": {
+    "Q-3": {
+     "statuses": [
+      "complete"
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D09",
+   "rule": "IR-05",
+   "description": "A run that hit a row limit is marked complete.",
+   "set_fields": {
+    "Q-4": {
+     "limits_reached": [
+      "row"
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D10",
+   "rule": "IR-05",
+   "description": "A run over a source with a known gap in the requested interval is marked complete.",
+   "set_fields": {
+    "Q-4": {
+     "sources": [
+      {
+       "source_id": "S-PAY",
+       "schema_version": "pay-events-7",
+       "access": "evaluated",
+       "event_watermark": "2026-05-20T00:00:00Z",
+       "ingestion_watermark": "2026-05-20T00:00:00Z",
+       "retention_horizon": "2025-05-01T00:00:00Z",
+       "known_gaps": [
+        {
+         "from": "2026-05-16T00:00:00Z",
+         "to": "2026-05-16T06:00:00Z"
+        }
+       ],
+       "sampled": false
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D11",
+   "rule": "IR-06",
+   "description": "A run returns a record the system learned after the run's as-of cutoff.",
+   "set_fields": {
+    "Q-1": {
+     "as_of": "2026-05-03T00:00:00Z"
+    }
+   }
+  },
+  {
+   "case_id": "D12",
+   "rule": "IR-07",
+   "description": "A derived record is marked as learned before one of its inputs.",
+   "set_fields": {
+    "O-3": {
+     "learned_at": "2026-05-03T00:00:00Z"
+    }
+   }
+  },
+  {
+   "case_id": "D13",
+   "rule": "IR-07",
+   "description": "A derived record omits one of its inputs' root observations.",
+   "set_fields": {
+    "O-3": {
+     "root_ids": [
+      "O-1"
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D14",
+   "rule": "IR-08",
+   "description": "An absence claim cites a partial run.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-3"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D15",
+   "rule": "IR-08",
+   "description": "An absence claim cites no run.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D16",
+   "rule": "IR-08",
+   "description": "An absence claim cites a complete run that does not cover its period.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D17",
+   "rule": "IR-09",
+   "description": "A claim cites a released conclusion as support.",
+   "set_fields": {
+    "DR-2": {
+     "claims": [
+      {
+       "claim_id": "CL-3",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-18T00:00:00Z",
+        "to": "2026-05-18T06:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-6",
+        "M-1"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-4"
+       ],
+       "context": [],
+       "distinct_roots": 1
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D18",
+   "rule": "IR-09",
+   "description": "A claim counts a derived record as a third root observation.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 3
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D19",
+   "rule": "IR-10",
+   "description": "A current-conduct claim cites only a score.",
+   "set_fields": {
+    "DR-2": {
+     "claims": [
+      {
+       "claim_id": "CL-3",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-18T00:00:00Z",
+        "to": "2026-05-18T06:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-7"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-4"
+       ],
+       "context": [
+        "M-1"
+       ],
+       "distinct_roots": 1
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D20",
+   "rule": "IR-10",
+   "description": "A current-conduct claim cites only an observation from before the current period.",
+   "set_fields": {
+    "DR-2": {
+     "claims": [
+      {
+       "claim_id": "CL-3",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-18T00:00:00Z",
+        "to": "2026-05-18T06:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-2"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-4"
+       ],
+       "context": [
+        "M-1"
+       ],
+       "distinct_roots": 1
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D21",
+   "rule": "IR-11",
+   "description": "The release names a different version than the draft.",
+   "set_fields": {
+    "RL-1": {
+     "version_hash": "00000000aaaaaaaa"
+    }
+   }
+  },
+  {
+   "case_id": "D22",
+   "rule": "IR-11",
+   "description": "The agent releases its own draft.",
+   "set_fields": {
+    "RL-1": {
+     "decided_by": "AG-1"
+    }
+   }
+  },
+  {
+   "case_id": "D23",
+   "rule": "IR-11",
+   "description": "The release raises a claim's confidence.",
+   "set_fields": {
+    "RL-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "confidence": "high"
+      },
+      {
+       "claim_id": "CL-2",
+       "confidence": "moderate"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D24",
+   "rule": "IR-11",
+   "description": "The draft is released after it expired.",
+   "set_fields": {
+    "RL-1": {
+     "decided_at": "2026-05-14T09:00:00Z"
+    },
+    "M-1": {
+     "created_at": "2026-05-14T09:05:00Z"
+    }
+   }
+  },
+  {
+   "case_id": "D25",
+   "rule": "IR-12",
+   "description": "A conclusion enters memory although the draft was returned.",
+   "set_fields": {
+    "RL-1": {
+     "decision": "returned"
+    }
+   }
+  },
+  {
+   "case_id": "D26",
+   "rule": "IR-12",
+   "description": "A conclusion enters memory before its release.",
+   "set_fields": {
+    "M-1": {
+     "created_at": "2026-05-07T08:00:00Z"
+    }
+   }
+  },
+  {
+   "case_id": "D27",
+   "rule": "IR-13",
+   "description": "A released conclusion is read after its release expired.",
+   "set_fields": {
+    "MR-1": {
+     "read_at": "2026-09-01T00:00:00Z"
+    }
+   }
+  },
+  {
+   "case_id": "D28",
+   "rule": "IR-14",
+   "description": "A note written while the draft was open carries no link to it.",
+   "set_fields": {
+    "O-5": {
+     "agent_output_links": []
+    }
+   }
+  },
+  {
+   "case_id": "D29",
+   "rule": "IR-02",
+   "description": "A claim cites an observation as a query run.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "O-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D30",
+   "rule": "IR-07",
+   "description": "A note with no inputs is counted as its own root observation.",
+   "set_fields": {
+    "O-5": {
+     "inputs": [],
+     "root_ids": [
+      "O-5"
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D31",
+   "rule": "IR-08",
+   "description": "An absence claim cites a complete run that returned a record in its scope.",
+   "add_records": [
+    {
+     "record_type": "Observation",
+     "record_id": "O-9",
+     "record_class": "source_observation",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-1"
+     },
+     "event_interval": {
+      "from": "2026-04-10T00:00:00Z",
+      "to": "2026-04-10T06:00:00Z"
+     },
+     "learned_at": "2026-04-11T06:00:00Z",
+     "root_ids": [
+      "O-9"
+     ],
+     "inputs": [],
+     "agent_output_links": []
+    }
+   ],
+   "set_fields": {
+    "Q-2": {
+     "returned": [
+      "O-9"
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D32",
+   "rule": "IR-09",
+   "description": "A claim about one account is supported by an observation of another.",
+   "add_records": [
+    {
+     "record_type": "Observation",
+     "record_id": "O-10",
+     "record_class": "source_observation",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-2"
+     },
+     "event_interval": {
+      "from": "2026-05-18T00:00:00Z",
+      "to": "2026-05-18T06:00:00Z"
+     },
+     "learned_at": "2026-05-19T06:00:00Z",
+     "root_ids": [
+      "O-10"
+     ],
+     "inputs": [],
+     "agent_output_links": []
+    }
+   ],
+   "set_fields": {
+    "DR-2": {
+     "claims": [
+      {
+       "claim_id": "CL-3",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-18T00:00:00Z",
+        "to": "2026-05-18T06:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-10"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-4"
+       ],
+       "context": [
+        "M-1"
+       ],
+       "distinct_roots": 1
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D33",
+   "rule": "IR-09",
+   "description": "A claim cites support the system learned after the draft was written.",
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3",
+        "O-6"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 3
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D34",
+   "rule": "IR-14",
+   "description": "A note names no author.",
+   "remove_fields": {
+    "O-5": [
+     "author"
+    ]
+   }
+  },
+  {
+   "case_id": "D35",
+   "rule": "IR-14",
+   "description": "A record derived from a linked note drops the link.",
+   "add_records": [
+    {
+     "record_type": "Observation",
+     "record_id": "O-8",
+     "record_class": "derived_feature",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-1"
+     },
+     "event_interval": {
+      "from": "2026-05-06T04:00:00Z",
+      "to": "2026-05-06T04:00:00Z"
+     },
+     "learned_at": "2026-05-06T05:30:00Z",
+     "root_ids": [
+      "O-1"
+     ],
+     "inputs": [
+      "O-5"
+     ],
+     "agent_output_links": []
+    }
+   ]
+  }
+ ]
+}

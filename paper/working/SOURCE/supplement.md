@@ -366,7 +366,7 @@ Every record is append-only: a correction is a new record that references the ea
 
 The [valid conformance case](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json) builds one synthetic history: a blocked card attempt, an approved retry that draws a fraud chargeback the merchant later wins, a hold on the account that received the payment, and a payment that draws no report. An earlier account with the same principal name was closed; the new account is linked to it as a suspected successor on that name alone, and a storefront is linked to the new account by its checkout identifier. Its 27 records pass. Each of the 22 [invalid cases](../SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json) changes that history in one way and must fail exactly one check; together they exercise the schema check and all fourteen rules. `tools/outcome_conformance.py` runs the cases using only the Python standard library, and `CHECK_CANDIDATE.py` runs it as well. The same tool checks any records file in this format.
 
-Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. The schema for query runs (QueryRun), which the second requirement needs, is not yet specified. Denominators are outside these records: which payments a measure counts, their amounts and their capture or settlement times come from the payment ledger, which this section does not specify. Whether a denominator read was complete is a query-coverage record.
+Channel names, windows and rule versions in the cases are illustrative, not any network's rules. The schema follows the label-store, control-outcome-store and graph-semantics requirements in S4.1 and the relations in the entity-relationships file. A schema and passing synthetic cases do not show that the records improve investigations. [S4.4](#investigation-record-schemas) gives the schemas for query runs, which the second requirement needs, and for release records. Denominators are outside these records: which payments a measure counts, their amounts and their capture or settlement times come from the payment ledger, which this section does not specify. Whether a denominator read was complete is a query-coverage record.
 
 ### S4.3 Cost of the outcome records on synthetic data {#outcome-record-cost}
 
@@ -387,7 +387,54 @@ Assumptions, illustrative and not any platform's values: payments spread over 90
 
 Each payment needs 4.03 records. Per million payments: 1,656 MB as JSON lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1, storing each record's JSON with one index on item, channel, record type, learned time and effective time. On a two-core x86-64 virtual machine with Python 3.13.18: 10,000 reads of one payment's fraud-chargeback state and report count, at a cutoff after all records, took a median of 17 microseconds and a 99th percentile of 57; one day's cohort of 11,052 payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
 
-Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are not included.
+Limits: template text repeats, so compression overstates what real records achieve, and field values are longer than coded production values would be. Each added outcome channel adds one channel-state record per payment. The store is one SQLite file on one machine, not a production database. Query runs (C2) and release records (C3) are measured in S4.4.
+
+### S4.4 Field-level schemas for query runs and release {#investigation-record-schemas}
+
+The [investigation-record schema](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/investigation_records.schema.json) defines the records the second and third requirements need. It covers eight record types:
+
+| Record | What it holds |
+|---|---|
+| Actor | A party that writes records: an agent, the gateway, a checker or a person |
+| QueryRun | One query and the coverage record the gateway attached: requested and evaluated entities and intervals, the as-of cutoff, each source's watermarks, known gaps, retention horizon and sampling, filtering, limits reached, the records returned and the derived statuses |
+| Observation | A stored record with its class, event interval, learned time, root observations, inputs and links to any agent output that informed it |
+| DraftOutput | An agent draft: its exact version, expiry, the task's current period, and each claim with its supporting and contradicting records, query runs and context |
+| OutputExposure | A period in which a person had an agent output open about an entity |
+| ReleaseDecision | A person's decision on one exact draft version: the claims released with their confidence, scope, expiry and reviewer findings |
+| ReleasedItem | A released conclusion in organizational memory, usable as context only |
+| MemoryRead | One read of a released item |
+
+Fourteen rules check records against each other:
+
+1. IR-01: a record identifier is used once.
+2. IR-02: every record a record cites exists, and a cited query run is a query run.
+3. IR-03: a gateway that is not the requester records a query run's coverage.
+4. IR-04: the evaluated entities and interval lie within those requested, and the as-of cutoff is not after the query.
+5. IR-05: a run's statuses follow from its coverage fields. By Section 6.2's source rules, a run is partial when a source was sampled, has a known gap in the requested interval, or does not reach from its retention horizon to its event watermark across that interval, and truncated when a limit was reached. Two rules are added here: a narrower evaluated scope or access filtering also gives partial. A denied or unavailable source gives that status. A run is complete only when nothing else applies.
+6. IR-06: a run returns only records learned by its as-of cutoff whose event intervals overlap the evaluated interval.
+7. IR-07: a derived record is learned no earlier than its inputs, and its root observations are exactly its inputs' roots. Only a source observation, score or decision can be its own root.
+8. IR-08: an absence claim cites at least one query run, and each cited run is complete, not scope-limited, returned nothing and covers the claim's entities and interval.
+9. IR-09: a claim's support consists of observation records about the claim's entities, learned by the time the draft was written, and its count of distinct roots equals the number of distinct root observations among them. A released conclusion or a draft is never support.
+10. IR-10: a current-conduct claim cites an observation or derived feature whose event interval falls within the current period. A score or decision does not count, and a feature linked to an agent output counts only through an unlinked current-period input.
+11. IR-11: a person releases the exact draft version, before the draft expires, without raising any claim's confidence.
+12. IR-12: a conclusion enters memory only after a decision that released that claim.
+13. IR-13: memory is read only from a released item, between its creation and its release's expiry.
+14. IR-14: a note names its author. A record its author wrote about an entity while an agent output about that entity was open links to that output, and a record derived from a linked record keeps the link.
+
+The [valid conformance case](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json) builds one synthetic history: an investigation with three query runs, a draft with a current-conduct claim and an absence claim, a note written while the draft was open, a release by a second person, and a later case that reads the released conclusion as context and cites a new observation. Its 22 records pass. Each of the 35 [invalid cases](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json) changes that history in one way and fails exactly one check; together they exercise the schema and all fourteen rules. Run [`tools/investigation_conformance.py`](../tools/investigation_conformance.py) to repeat the checks.
+
+The same script checks four necessity pairs. Each pair is two histories that permit different conclusions but are identical once one group of fields is removed. In the first three pairs both histories pass the rules; in the fourth, the rules reject the history with no release decision.
+
+| Fields removed | The two histories | What differs |
+|---|---|---|
+| Query coverage (C2) | The same empty result, from a complete run and from a run reaching past its source's event watermark | Whether absence is supported |
+| Learned time (C2) | The same observation, learned before a run's cutoff and after it | Whether the fact was known at the cutoff |
+| Roots and inputs (C3) | A second supporting record derived from a different observation, and one derived from the first | Two root observations or one |
+| Release decision (C3) | The same stored conclusion, with a person's release decision and with none | Whether reuse is permitted |
+
+A store without those fields cannot tell the two histories apart, so no rule applied to it can be right in both. The pairs show that each field group is needed; they do not show that the records are sufficient or that they improve investigations. The rules do not check released-item links on records written after a memory read, the lag between a run's cutoff and a source's ingestion watermark, or whether a returned record bears on a claim. Identifiers, dates and versions in the cases are illustrative.
+
+**Cost.** [`tools/investigation_cost.py`](../tools/investigation_cost.py) copies the valid case 100,000 times, each copy with its four query runs, seven stored records, two drafts, one exposure, one release decision, one released item and one memory read, and checks a sample against the rules. Per copy, the records take 8.5 KB as JSON: 3.5 KB for query runs, about 900 bytes each, and 2.6 KB for drafts, release and memory records. A thousand copies take 0.26 MB compressed and 9.7 MB in SQLite; repeated text makes the compressed figure a best case. On the two-core machine of S4.3, checking that an absence claim's runs are complete and cover it took a median of 30 microseconds (99th percentile 74), and checking that a memory read used a released, unexpired item took 25 (64). [The results](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json) come from one run. Real coverage records list more sources per run, and reviewer time is not measured.
 
 ## S5. Pinned public schemas
 

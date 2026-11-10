@@ -427,7 +427,7 @@ A risk assessment and a rejected application identify similar storefronts, and a
 
 ### 8.3 What retaining the context changes
 
-**Table 2. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline.
+**Table 2. Five conclusions that depend on recorded context.** Both columns use the stipulated observations. The comparison is logical, not a measured baseline. Supplement S4.4 gives four C2 and C3 dependencies as pairs of record histories that permit different conclusions but are identical once one group of fields is removed.
 
 | Question and fixed observations | If context is omitted | If context is retained |
 |---|---|---|
@@ -441,13 +441,13 @@ Two rows of Table 2 add explicit hypothetical conditions: Trace A's payout is pe
 
 The examples identify a starting subset of records: the eleven signals behind Table 2, their lineage inputs and the storage requirements (Supplement S6). Supplement S6 also lists the context each row needs. These examples explain the required context without claiming that each named signal is uniquely necessary.
 
-That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 2, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports (Section 9.1). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires (Section 9.1). Section 8.4 estimates C1's storage and query work on synthetic data.
+That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 2, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports (Section 9.1). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires (Section 9.1). Section 8.4 estimates the records' storage and query work on synthetic data.
 
 ### 8.4 Where to start and what it costs
 
 A platform that already logs decisions, payments and disputes can start with the records behind Table 2: each decision's effect on each outcome channel and each channel's state for each payment (C1), a gateway record of what each query covered and when each fact became known (C2), and a release step before an agent conclusion enters reusable memory (C3). The illustrative provider already exposes parts of the first two (Section 2.4).
 
-To estimate C1's cost, one million synthetic payments with two outcome channels each were built from the conformance case (Supplement S4.3). Each payment needed about four records. Its decision and attribution records may already exist as decision logs and ledger entries; its two channel-state records are new. The records took 1.7 GB per million payments as uncompressed JSON and 2.6 GB in a single-file SQLite store with an index for as-of reads. On a two-core virtual machine, reading one payment's channel state and reports took a median of 17 microseconds, and one day's cohort of 11,052 payments took 0.3 seconds. C2's coverage records, C3's release records and reviewer time are not measured.
+To estimate C1's cost, one million synthetic payments with two outcome channels each were built from the conformance case (Supplement S4.3). Each payment needed about four records. Its decision and attribution records may already exist as decision logs and ledger entries; its two channel-state records are new. The records took 1.7 GB per million payments as uncompressed JSON and 2.6 GB in a single-file SQLite store with an index for as-of reads. On a two-core virtual machine, reading one payment's channel state and reports took a median of 17 microseconds, and one day's cohort of 11,052 payments took 0.3 seconds. In the same kind of test, a query run's coverage record took about 900 bytes with one source, and checking an absence claim against its runs took 30 microseconds (Supplement S4.4). Reviewer time is not measured.
 
 ## 9. Evaluating the specification
 
