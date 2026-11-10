@@ -22,7 +22,8 @@ from collections import Counter
 from pathlib import Path
 
 B = Path(__file__).resolve().parents[1]
-SPLIT = re.compile(r'(?<=[.?!])\s+(?=[A-Z*\[`$“"(])')
+# Sentence ends, and the end of a bold lead-in such as "**Label.** Text".
+SPLIT = re.compile(r'(?<=[.?!])\s+(?=[A-Z*\[`$“"(])|(?<=[.?!:]\*\*)\s+(?=\S)')
 
 
 def units(text):
