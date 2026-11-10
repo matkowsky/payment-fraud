@@ -1,0 +1,122 @@
+[
+  {
+    "case_id": "R06",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The agent changes CL-2 from absence to presence after human approval, leaving the version_hash unchanged. IR-11 compares stored version identifiers but does not independently verify that the draft content matches its hash, so RL-1 appears to authorize the opposite conclusion from the one the human reviewed. The unsupported presence claim also bypasses IR-08.",
+    "set_fields": {
+      "DR-1": {
+        "claims": [
+          {
+            "claim_id": "CL-1",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-01T00:00:00Z",
+              "to": "2026-05-03T12:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": ["O-1", "O-2", "O-3"],
+            "contradicting": [],
+            "query_runs": ["Q-1"],
+            "context": [],
+            "distinct_roots": 2
+          },
+          {
+            "claim_id": "CL-2",
+            "claim_type": "presence",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-04-01T00:00:00Z",
+              "to": "2026-04-30T00:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [],
+            "contradicting": [],
+            "query_runs": ["Q-2"],
+            "context": [],
+            "distinct_roots": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R07",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "O-6 now claims that the system learned an observation on May 1 even though the observed activity did not occur until May 18. C2 requires meaningful event and learned times, but IR-07 checks learned-time ordering only for derived records, not whether a source observation was supposedly learned before its underlying event occurred.",
+    "set_fields": {
+      "O-6": {
+        "learned_at": "2026-05-01T06:00:00Z"
+      }
+    }
+  },
+  {
+    "case_id": "R08",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "A source observation for April, already learned before Q-2's cutoff, exists in the store, yet Q-2 still reports complete coverage and zero results. IR-06 constrains records that were returned but does not require a complete query to return all eligible observations; IR-08 therefore accepts an absence claim despite the omitted matching record.",
+    "add_records": [
+      {
+        "record_type": "Observation",
+        "record_id": "O-8",
+        "record_class": "source_observation",
+        "entity": {
+          "tenant": "T1",
+          "namespace": "account",
+          "id": "ACC-1"
+        },
+        "event_interval": {
+          "from": "2026-04-15T03:00:00Z",
+          "to": "2026-04-15T04:00:00Z"
+        },
+        "learned_at": "2026-04-16T06:00:00Z",
+        "root_ids": ["O-8"],
+        "inputs": [],
+        "agent_output_links": []
+      }
+    ]
+  },
+  {
+    "case_id": "R09",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The human release is explicitly scoped to tenant T2, while CL-1 concerns tenant T1 and its released item M-1 is subsequently consumed in a T1 investigation. C3's human authorization cannot legitimately cover promotion and reuse outside the approved scope, but IR-11 through IR-13 never verify that a release's scope includes the conclusion or its downstream use.",
+    "set_fields": {
+      "RL-1": {
+        "scope": "fraud investigations of tenant T2 only"
+      }
+    }
+  },
+  {
+    "case_id": "R10",
+    "tier": "other",
+    "expect": "accept",
+    "breaks": "none",
+    "why": "O-5 is an independently authored human note based solely on source observation O-1, despite being written while DR-1 happened to be open. C3 requires provenance links for records actually informed by agent output, not every independent record written during an exposure. IR-14 nevertheless rejects this history because it treats overlapping exposure as sufficient proof of dependence.",
+    "set_fields": {
+      "O-5": {
+        "agent_output_links": []
+      }
+    }
+  }
+]

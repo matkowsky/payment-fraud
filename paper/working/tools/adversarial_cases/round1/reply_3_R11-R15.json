@@ -1,0 +1,155 @@
+[
+  {
+    "case_id": "R11",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "DR-1 lists O-6 as contradicting evidence even though O-6 was learned on May 19, thirteen days after the draft was created. C2 requires learned time to constrain which facts could have informed an investigation. IR-09 checks learned time for supporting records but not contradicting records, allowing the agent to present future evidence as if it were known when drafting.",
+    "set_fields": {
+      "DR-1": {
+        "claims": [
+          {
+            "claim_id": "CL-1",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-01T00:00:00Z",
+              "to": "2026-05-03T12:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": ["O-1", "O-2", "O-3"],
+            "contradicting": ["O-6"],
+            "query_runs": ["Q-1"],
+            "context": [],
+            "distinct_roots": 2
+          },
+          {
+            "claim_id": "CL-2",
+            "claim_type": "absence",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-04-01T00:00:00Z",
+              "to": "2026-04-30T00:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [],
+            "contradicting": [],
+            "query_runs": ["Q-2"],
+            "context": [],
+            "distinct_roots": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R12",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "Q-2 now examines zero data sources but still reports complete coverage and no results. An empty-source query cannot establish the absence of activity during April. IR-05 defines incompleteness through properties of listed sources but does not explicitly require at least one evaluated source, while IR-08 accepts the resulting complete, empty query as absence evidence.",
+    "set_fields": {
+      "Q-2": {
+        "sources": []
+      }
+    }
+  },
+  {
+    "case_id": "R13",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The release record explicitly states that approval was automatic and H-2 neither reviewed nor authorized it. C3 requires an actual human release before organizational-memory promotion, not merely a human identifier attached to an automated decision. IR-11 checks that decided_by identifies a human but does not validate reviewer findings or whether the person genuinely authorized release.",
+    "set_fields": {
+      "RL-1": {
+        "reviewer_findings": [
+          "Approval was generated automatically by the release workflow.",
+          "H-2 did not inspect, approve, or authorize this draft."
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R14",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "O-6 is now explicitly linked to the earlier agent output DR-1, yet remains classified as a source observation and is the sole supporting record for CL-3. C3 requires agent-influenced records to remain dependent rather than count as independent evidence of investigated activity. IR-09 counts O-6's own root, and IR-10's special restriction on linked evidence applies to derived features but not source observations, allowing this contaminated source to establish current conduct.",
+    "set_fields": {
+      "O-6": {
+        "agent_output_links": ["DR-1"]
+      }
+    }
+  },
+  {
+    "case_id": "R15",
+    "tier": "agent",
+    "expect": "accept",
+    "breaks": "none",
+    "why": "CL-2 cites both Q-2, which completely covers April and returns nothing, and Q-3, a separately recorded partial investigation of May. The additional, transparently documented May query does not invalidate Q-2's complete April coverage or the absence conclusion, so C2 and C3 remain satisfied. IR-08 nevertheless rejects the claim because it requires every cited run, including supplemental runs, to be individually complete, empty and covering the entire claim interval.",
+    "set_fields": {
+      "DR-1": {
+        "claims": [
+          {
+            "claim_id": "CL-1",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-01T00:00:00Z",
+              "to": "2026-05-03T12:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": ["O-1", "O-2", "O-3"],
+            "contradicting": [],
+            "query_runs": ["Q-1"],
+            "context": [],
+            "distinct_roots": 2
+          },
+          {
+            "claim_id": "CL-2",
+            "claim_type": "absence",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-04-01T00:00:00Z",
+              "to": "2026-04-30T00:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [],
+            "contradicting": [],
+            "query_runs": ["Q-2", "Q-3"],
+            "context": [],
+            "distinct_roots": 0
+          }
+        ]
+      }
+    }
+  }
+]
