@@ -598,6 +598,33 @@ and the provenance of test records, respectively. The other 68 signals
 map to specific mechanisms. All 61 mapped mechanisms have at least one
 mapping motivated by evidence; S2 explains \mbox{PAY-12}'s exclusion.
 
+\textbf{Second-rater check of the links (10 November 2026).} The links
+were made without a written linking rule. For this check a rule was
+written afterward (\href{tools/second_coder/PACKET.md}{packet}): link a
+mechanism to a signal when an investigator of that mechanism would need
+the record, and a listed source describes behaviour the record would
+capture. A rater that took no part in the mapping, OpenAI's \mbox{GPT-6}
+in a session without memory, project files or web access, applied the
+rule to a seeded random sample of 20 of the 61 mapped mechanisms and 5
+of the 13 judged covered. It saw the 68 mechanism-specific signals and
+the recorded scope of each mechanism's sources, not the sources and not
+the links. Claude models had proposed the links; ChatGPT models assisted
+with other parts of the paper. Over the 1,360 mechanism-signal pairs for
+the 20 mapped mechanisms, the rater made 49 of the paper's 52 links and
+70 that the paper lacks (Cohen's kappa 0.55); two mechanisms matched
+exactly. Of the three links it did not make, the paper marks two as
+inference. Thirty-two of the 70 added links attach six general-purpose
+signals, such as request context and funds movement, to further
+mechanisms. The links are therefore a sourced subset: each gives a
+reason for a record, and other mechanisms may need the same record.
+Counts of links describe this subset, not a complete map. For four of
+the five covered mechanisms the rater named no missing record; for fake
+reviews (\mbox{MP-08}) it named review content, reviewer identities and
+posting histories. The check tests whether the rule reproduces the links
+from recorded source scopes. It is not a human coder and does not test
+the sources. The \href{tools/second_coder/real_run/RUN_RECORD.md}{run
+record}, answers and score are in the package.
+
 Each input ID for the 24 derived features names another signal in the
 inventory. No feature depends, directly or indirectly, on itself. For
 example, \mbox{SIG-24} uses \mbox{SIG-27} to enumerate its eligible
