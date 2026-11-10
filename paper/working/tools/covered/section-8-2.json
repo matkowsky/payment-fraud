@@ -1,0 +1,33 @@
+[
+ {
+  "removed": "Let $T_i$ be the size of account $i$'s fixed transaction cohort and $D_i$ its distinct transactions with chargebacks.",
+  "covered_by": [
+   "Let $T_i > 0$ be account $i$'s transaction count and $D_i$ its count of distinct transactions with chargebacks."
+  ]
+ },
+ {
+  "removed": "For disjoint cohorts with positive sizes and the same outcome definition and window:",
+  "covered_by": [
+   "Consider non-overlapping cohorts with the same outcome definition and outcome window.",
+   "Let $T_i > 0$ be account $i$'s transaction count and $D_i$ its count of distinct transactions with chargebacks."
+  ]
+ },
+ {
+  "removed": "r = \\frac{\\sum_i D_i}{\\sum_i T_i} = \\sum_i w_i r_i,\\qquad",
+  "covered_by": [
+   "r = \\frac{\\sum_i D_i}{\\sum_i T_i} = \\sum_i w_i r_i,"
+  ]
+ },
+ {
+  "removed": "r_i = \\frac{D_i}{T_i},\\qquad",
+  "covered_by": [
+   "\\qquad r_i = \\frac{D_i}{T_i},"
+  ]
+ },
+ {
+  "removed": "w_i = \\frac{T_i}{\\sum_j T_j}.",
+  "covered_by": [
+   "\\qquad w_i = \\frac{T_i}{\\sum_j T_j}."
+  ]
+ }
+]
