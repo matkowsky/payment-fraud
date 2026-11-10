@@ -174,31 +174,7 @@ Supplement Table S3.1 organizes the signals by family and class. Supplement S3 d
 
 ### 5.2 How abuse mechanisms motivate the records
 
-#### Exposure and misuse require different evidence
-
-Measurements of exposed secrets establish exposure or validity at a particular time, not unauthorized use [@Meli2019; @Demir2026] (Supplement S3). The specification therefore records exposure location and time as external knowledge, then compares credential use before and after exposure. Public visibility, validity, attacker possession and misuse remain separate propositions.
-
-Timing can matter at minute scale [@Gamazo2023; @Microsoft2022AiTM]. These observations motivate precise timestamps without establishing typical attack speed.
-
-#### Access needs a history
-
-A login challenge is an extra verification step at sign-in. Research examines challenges triggered by unfamiliar devices and networks [@Doerfler2019]. The design records authentication context, session issuance and later use. Applying the same lifecycle to onboarding links, which let businesses complete account setup, is a design analogy.
-
-Changes after access can identify what an intruder attempted. In reported OAuth-application abuse, intruders used compromised accounts to create applications, grant them permissions, add credentials to new and existing applications and create inbox rules that hid messages from the user [@Microsoft2023OAuth]. The design records these changes, with links to source observations. Recording changes to authentication factors and event destinations extends the same approach.
-
-A device or browser fingerprint can help connect activity but cannot alone establish common control. One impersonation market sells stolen user profiles with browser fingerprint data and a browser extension meant to reproduce them. The study did not buy profiles to test that software [@Campobasso2020]. The records retain that uncertainty.
-
-#### Funds movements need destination histories
-
-The FBI's payroll-diversion advisory describes attackers changing where funds are sent [@FBI2018]. Payout destinations therefore have their own identities and histories: creation, changes, first observation, validation and reuse across accounts. Trace A applies this analogy to a hypothetical key permitted to change a payout destination.
-
-Regulatory guidance motivates measures of time between receipt and onward transfer, and concentration at receiving entities [@FinCEN2014]. It does not validate a per-account detector.
-
-#### Business descriptions need corroboration
-
-Storefronts, merchant accounts and statement descriptors, the merchant names cardholders see, need not map one-to-one. ScamMagnifier linked fraudulent storefronts through merchant identifiers, with a provider corroborating some links. Its checkouts stopped before purchase and did not observe settlement [@Bitaab2025].
-
-Studies of abusive merchants describe misdeclared business categories and movement between banks [@McCoy2012; @Tian2018]. FTC complaints allege pooling or spreading transactions across accounts to evade monitoring, and misleading representations [@FTC2020FirstData; @FTC2025Paddle; @FTC2019Allied]. The design consequently links storefronts, descriptors, account histories and verified ownership records. It retains declared business details with their source and time for comparison with activity. These allegations and links motivate investigation; they do not establish intent or ownership in a new case.
+Each group of abuse mechanisms motivates particular records; Supplement S3.1 gives the public evidence for each and its limits. Credential exposure is recorded as external knowledge with its location and time, apart from validity, attacker possession and misuse, and credential use is compared before and after exposure with precise timestamps. Access keeps its authentication context, session issuance and later use, and the changes made after access; a device or browser fingerprint can connect activity but cannot alone establish common control. Payout destinations have their own identities and histories: creation, changes, first observation, validation and reuse across accounts. Storefronts, statement descriptors, account histories and verified ownership records are linked, and declared business details keep their source and time for comparison with activity. End-customer histories are recorded within a business; linking an end customer's identity across businesses requires separate authorization, a permitted purpose, privacy oversight and supporting evidence.
 
 #### Labels need their reporting path
 
@@ -207,12 +183,6 @@ An outcome label can be missing because its report is late or because a control 
 Each report retains its type, source, lag and attributed transaction or entity. It keeps three times: when the reported outcome occurred, where known; when the report was made at its source; and when it arrived at the platform. Its channel supplies a reporting window and clock-start event. The evaluation separately records its chosen maturity period, how long it waits before reading a missing report as a negative. A period shorter than the channel's window, or any period for a channel without one, rests on a delay model (Section 7.1). Every decision that may have shaped the report remains linked, and there can be several. A dispute can follow a blocked attempt, a retry and an approval, and one account restriction can affect many payments. Each link therefore states the decision's role. The report's later status, such as withdrawn, reversed, won or lost, has its own history, which records whether each won or lost status followed adjudication. A status change or correction is a new record that references the earlier one, so what the platform believed at each time can be reconstructed. Some channels never adjudicate a report, yet a provider may still record it as lost: Stripe's dispute guide says disputes that network rules or local regulations make unchallengeable are closed as lost when they open [@Stripe2026Disputes] (Section 7.1).
 
 An estimate that a report is false belongs to the assessment store, linked to the report with the responsible model or reviewer and version. This matters when supporting material itself may be fabricated, as participants describe for refund fraud involving generative AI [@Zhang2026Refund]. A report may be both late and false, so one status cannot replace the other.
-
-#### End customers are not platform accounts
-
-A legitimate business may have abusive customers. One provider's public documentation describes multi-accounting, account sharing, free trial abuse, account farming and deliberate non-payment for accrued usage [@Stripe2026CAE; @Stripe2026Trial; @Stripe2026PAYG; @Stripe2026Farming]. The customer-evaluations page describes its reuse reasons as reuse within one business over the past seven days; the account-farming page does not specify whether its links span businesses.
-
-The specification records end-customer registration and billing histories, reused identifiers, simultaneous use and unpaid usage within a business. Linking an end customer's identity across businesses requires separate authorization, a permitted purpose, privacy oversight and supporting evidence. This restriction does not prohibit authorized fraud-prevention aggregation on instruments, devices or credentials under a stated and logged scope.
 
 ### 5.3 Preserve meaning across stores, time and relationships
 

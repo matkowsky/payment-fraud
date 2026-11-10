@@ -109,9 +109,45 @@ The public-counterpart classification asks whether a pinned schema contains an o
 
 Identifier links establish limited relationships. A storefront-to-merchant identifier link does not show that a payment through the merchant account settled. A verified identifier from the same namespace and relevant interval can support a stronger, or *hard*, link. A descriptor or shared IP address may support only a weaker, or *soft*, link. Neither alone establishes common control or malicious intent.
 
-The inventory preserves the manuscript's interpretation rules: onboarding-link histories are a design analogy (Section 5.2), and error estimates retain their cohorts and denominators (Section 7.2). Each outcome channel retains its decision context (Section 7.1), and each broader outcome measure requires its own evaluation (Sections 8.2 and 9.1).
+The inventory preserves the manuscript's interpretation rules: onboarding-link histories are a design analogy (S3.1), and error estimates retain their cohorts and denominators (Section 7.2). Each outcome channel retains its decision context (Section 7.1), and each broader outcome measure requires its own evaluation (Sections 8.2 and 9.1).
 
-**Exposure and timing measurements (manuscript Section 5.2).** Meli and colleagues found a median of about 1,800 unique candidate secrets daily. Of the monitored secrets, 81 percent remained sixteen days after discovery. They did not test credentials against the services [@Meli2019]. Demir and colleagues confirmed 1,748 active credentials for 14 services, with payment services among the largest groups. Traced through nine archived crawl snapshots, the verified credentials had been publicly exposed for 12 months on average [@Demir2026]. That duration does not show continuous credential validity. In a deliberate cloud-key exposure experiment, an actor used the key within minutes while an automatic quarantine limited its actions. Researchers later removed that restriction to observe further operations [@Gamazo2023]. Microsoft reported attackers launching follow-on payment fraud attempts as little as five minutes after stealing credentials and session cookies through phishing that relayed the victim's login [@Microsoft2022AiTM].
+### S3.1 How abuse mechanisms motivate the records
+
+Manuscript Section 5.2 summarizes these mechanisms and keeps the outcome-label records. The evidence for the others follows.
+
+#### Exposure and misuse require different evidence
+
+Measurements of exposed secrets establish exposure or validity at a particular time, not unauthorized use [@Meli2019; @Demir2026] (S3). The specification therefore records exposure location and time as external knowledge, then compares credential use before and after exposure. Public visibility, validity, attacker possession and misuse remain separate propositions.
+
+Timing can matter at minute scale [@Gamazo2023; @Microsoft2022AiTM]. These observations motivate precise timestamps without establishing typical attack speed.
+
+Meli and colleagues found a median of about 1,800 unique candidate secrets daily. Of the monitored secrets, 81 percent remained sixteen days after discovery. They did not test credentials against the services [@Meli2019]. Demir and colleagues confirmed 1,748 active credentials for 14 services, with payment services among the largest groups. Traced through nine archived crawl snapshots, the verified credentials had been publicly exposed for 12 months on average [@Demir2026]. That duration does not show continuous credential validity. In a deliberate cloud-key exposure experiment, an actor used the key within minutes while an automatic quarantine limited its actions. Researchers later removed that restriction to observe further operations [@Gamazo2023]. Microsoft reported attackers launching follow-on payment fraud attempts as little as five minutes after stealing credentials and session cookies through phishing that relayed the victim's login [@Microsoft2022AiTM].
+
+#### Access needs a history
+
+A login challenge is an extra verification step at sign-in. Research examines challenges triggered by unfamiliar devices and networks [@Doerfler2019]. The design records authentication context, session issuance and later use. Applying the same lifecycle to onboarding links, which let businesses complete account setup, is a design analogy.
+
+Changes after access can identify what an intruder attempted. In reported OAuth-application abuse, intruders used compromised accounts to create applications, grant them permissions, add credentials to new and existing applications and create inbox rules that hid messages from the user [@Microsoft2023OAuth]. The design records these changes, with links to source observations. Recording changes to authentication factors and event destinations extends the same approach.
+
+A device or browser fingerprint can help connect activity but cannot alone establish common control. One impersonation market sells stolen user profiles with browser fingerprint data and a browser extension meant to reproduce them. The study did not buy profiles to test that software [@Campobasso2020]. The records retain that uncertainty.
+
+#### Funds movements need destination histories
+
+The FBI's payroll-diversion advisory describes attackers changing where funds are sent [@FBI2018]. Payout destinations therefore have their own identities and histories: creation, changes, first observation, validation and reuse across accounts. Trace A applies this analogy to a hypothetical key permitted to change a payout destination.
+
+Regulatory guidance motivates measures of time between receipt and onward transfer, and concentration at receiving entities [@FinCEN2014]. It does not validate a per-account detector.
+
+#### Business descriptions need corroboration
+
+Storefronts, merchant accounts and statement descriptors, the merchant names cardholders see, need not map one-to-one. ScamMagnifier linked fraudulent storefronts through merchant identifiers, with a provider corroborating some links. Its checkouts stopped before purchase and did not observe settlement [@Bitaab2025].
+
+Studies of abusive merchants describe misdeclared business categories and movement between banks [@McCoy2012; @Tian2018]. FTC complaints allege pooling or spreading transactions across accounts to evade monitoring, and misleading representations [@FTC2020FirstData; @FTC2025Paddle; @FTC2019Allied]. The design consequently links storefronts, descriptors, account histories and verified ownership records. It retains declared business details with their source and time for comparison with activity. These allegations and links motivate investigation; they do not establish intent or ownership in a new case.
+
+#### End customers are not platform accounts
+
+A legitimate business may have abusive customers. One provider's public documentation describes multi-accounting, account sharing, free trial abuse, account farming and deliberate non-payment for accrued usage [@Stripe2026CAE; @Stripe2026Trial; @Stripe2026PAYG; @Stripe2026Farming]. The customer-evaluations page describes its reuse reasons as reuse within one business over the past seven days; the account-farming page does not specify whether its links span businesses.
+
+The specification records end-customer registration and billing histories, reused identifiers, simultaneous use and unpaid usage within a business. Linking an end customer's identity across businesses requires separate authorization, a permitted purpose, privacy oversight and supporting evidence. This restriction does not prohibit authorized fraud-prevention aggregation on instruments, devices or credentials under a stated and logged scope.
 
 ## S4. Responsibilities, entities and interfaces
 
@@ -146,7 +182,7 @@ The [draft schema](../SUPPLEMENT/S4_DRAFT_SCHEMA.csv) supplies the fields that t
 
 ### S4.1 Complete storage requirements {#complete-storage-requirements}
 
-Table S4.1 summarizes this complete storage contract; manuscript Section 5.2 gives the motivating evidence. Each block groups requirements by the information it preserves. The stores distinguish record meanings and need not be separate databases.
+Table S4.1 summarizes this complete storage contract; S3.1 and manuscript Section 5.2 give the motivating evidence. Each block groups requirements by the information it preserves. The stores distinguish record meanings and need not be separate databases.
 
 **Table S4.1. What each analytical store preserves.** The full contract is in S4.1. These are requirements for the proposed platform, not claims about an existing provider. The structured threat-knowledge and organizational-memory stores form their own planes, and the other stores hold evidence-plane records. Clusters in the entity-relation graph remain threat-knowledge items. External-knowledge records support only what their source observed or described, and ledger entries only what happened during the investigation itself.
 
