@@ -1,6 +1,6 @@
 """Check that text removed from the manuscript was moved to the supplement, not lost.
 
-  python3 tools/move_check.py [BASE] [--covered FILE]     BASE is a git ref; default origin/main
+  python3 tools/move_check.py [BASE] [--covered FILE] [--renumber FILE]     BASE is a git ref; default origin/main
 
 Compares SOURCE/manuscript.md and SOURCE/supplement.md with BASE, sentence by sentence
 (table rows and list items count as one unit each), and fails unless:
@@ -15,6 +15,9 @@ sentences removed because the supplement already states them in its own words. E
 sentence this change removes, each "covered_by" must be in the supplement word for word, and together they
 must contain every number of the removed sentence (labels such as E3 and section references aside). The
 check confirms the quotations exist; a reviewer confirms they say the same thing.
+--renumber FILE names a JSON map of old table and figure labels to new ones, used when a table or
+figure moves to the supplement and the rest are renumbered. The map is applied to the old manuscript
+first, so only real changes are reported.
 Prints a Markdown report: moved sentences, edited sentences (before and after) and added sentences.
 """
 import re, subprocess, sys, difflib, json
@@ -40,7 +43,14 @@ def units(text):
 
 def as_supplement(s):
     s = re.sub(r'(?<!manuscript )\b((?:Sections?|Tables?|Figures?) \d)', r'manuscript \1', s)
-    return re.sub(r'\bSupplement (S\d)', r'\1', s)
+    return re.sub(r'\bSupplement ((?:(?:Table|Figure) )?S\d)', r'\1', s)
+
+
+def renumber(text, mapping):
+    # Replace every old label at once, so "Table 4" -> "Table 1" and "Table 1" -> "Table S1.1" cannot chain.
+    if not mapping: return text
+    rx = re.compile('|'.join(r'\b' + re.escape(k) + r'(?!\d)' for k in sorted(mapping, key=len, reverse=True)))
+    return rx.sub(lambda m: mapping[m.group(0)], text)
 
 
 def squash(s):
@@ -118,13 +128,18 @@ def report(moved, edited, added, problems, wc, cov=()):
 def main():
     args = sys.argv[1:]
     covered = []
+    mapping = {}
+    if '--renumber' in args:
+        i = args.index('--renumber'); mapping = json.loads(Path(args[i + 1]).read_text(encoding='utf-8')); del args[i:i + 2]
     if '--covered' in args:
         i = args.index('--covered'); covered = json.loads(Path(args[i + 1]).read_text(encoding='utf-8')); del args[i:i + 2]
     base = args[0] if args else 'origin/main'
     def show(name):
         return subprocess.run(['git', 'show', f'{base}:paper/working/SOURCE/{name}'], cwd=B, text=True,
                               stdout=subprocess.PIPE, check=True).stdout
-    old_ms, old_sup = show('manuscript.md'), show('supplement.md')
+    old_ms, old_sup = renumber(show('manuscript.md'), mapping), show('supplement.md')
+    if mapping:
+        print('**Renumbered before comparing:** ' + '; '.join(f'{k} is now {v}' for k, v in mapping.items()) + '.\n')
     new_ms = (B / 'SOURCE' / 'manuscript.md').read_text(encoding='utf-8')
     new_sup = (B / 'SOURCE' / 'supplement.md').read_text(encoding='utf-8')
     moved, edited, added, problems, cov = compare(old_ms, new_ms, old_sup, new_sup, covered)

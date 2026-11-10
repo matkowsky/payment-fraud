@@ -59,8 +59,8 @@ if not SOURCES_ONLY:
     assert set(re.findall(r'<div id="ref-([^"]+)"', t)) == mkeys
     assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
 assert {x['citation_key'] for x in rows('S1_CITED_SOURCE_NOTES.csv')} == refkeys
-assert set(re.findall(r'\*\*Table (\d+)\.', body)) == set(map(str, range(1, 7)))
-assert set(re.findall(r'\*\*Figure (\d+)\.', body)) == set(map(str, range(1, 5)))
+assert set(re.findall(r'\*\*Table (\d+)\.', body)) == set(map(str, range(1, 4)))
+assert set(re.findall(r'\*\*Figure (\d+)\.', body)) == set(map(str, range(1, 3)))
 for path in re.findall(r'!\[[^]]*\]\(([^)]+)\)', body):
     assert (B / 'SOURCE' / path).is_file(), path
     for ext in ('.pdf', '.png'): assert (B / 'SOURCE' / path).with_suffix(ext).is_file(), (path, ext)

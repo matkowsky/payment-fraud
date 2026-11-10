@@ -10,7 +10,16 @@ This supplement accompanies the [complete manuscript](../MANUSCRIPT.md). S1 and 
 
 [Source notes](../SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv) identify the version, supporting passages, publication status and supported claim for each of the 122 cited works. The [requirements matrix](../SUPPLEMENT/S1_REQUIREMENTS_MATRIX.csv) compares 50 sources against C1 to C3. It codes two parts of C1 and C2 and three of C3: an outcome linked to its decision, and late, unobservable and false reports kept apart (C1); query coverage and learned time (C2); typed separation of observations, inferences and memory, a human principal before reuse, and links from records an agent output informed back to that output (C3). E means explicit support, P partial or adjacent support, and a dot means the cited material does not establish the requirement. The `payment_setting` column records yes for a payment or payment-fraud setting, P for a setting partly in payments or adjacent to payment fraud, and no otherwise. It marks two cyber threat intelligence sources, STIX 2.1 and Hettema's belief-revision paper, as cyber; other security and threat-intelligence sources are coded no. The source notes provide passage locators, linked to the matrix by citation key. Their inspection dates are in UTC.
 
-[Stage coverage](../SUPPLEMENT/S1_STAGE_COVERAGE.csv) supplies the source-level codes behind manuscript Table 1. Each family receives the strongest code among its sources, so a family row may combine capabilities from several systems. Source notes record bibliographic and access issues separately from claims about a method.
+[Stage coverage](../SUPPLEMENT/S1_STAGE_COVERAGE.csv) supplies the source-level codes behind Table S1.1. Each family receives the strongest code among its sources, so a family row may combine capabilities from several systems. Source notes record bibliographic and access issues separately from claims about a method.
+
+**Table S1.1. Stages described in the cited research.** E means explicitly described; P means partial coverage or a different scope; a dot means not established by the cited material. Each family receives the strongest source-level code in S1, so one row may combine several systems. L1: signal sources; L2: ingestion and stores; L3: entities, correlation and knowledge; L4: investigation; L5: outputs; L6: feedback; L7: governance; L8: learning and correction.
+
+| Research family and inspected examples | L1 | L2 | L3 | L4 | L5 | L6 | L7 | L8 | Payment domain |
+|---|---|---|---|---|---|---|---|---|---|
+| Industrial payment and risk systems: TitAnt, GEM | P | E | P | . | P | P | . | P | yes |
+| Illustrative platform’s (Stripe’s) engineering publications, 2019 to 2025 | P | E | P | P | P | E | . | P | yes |
+| Threat-intelligence and security-operations architectures: reference models, intelligence lifecycle and agent benchmarks | P | P | E | E | E | P | E | E | no |
+| Preprints on agents making fraud decisions: SR-Fraud and Sharma’s auditable agent | P | P | P | E | P | E | P | E | yes |
 
 Study populations and denominators constrain the comparisons. Sharma's balanced synthetic sample contains 60 cases drawn from transactions its classifier scored between 0.2 and 0.8: thresholding the classifier at 0.5 decides 43 correctly and the agent 39. Six of the agent's eight overrides replace a correct decision with an error. Fatima's verification rates concern genuine participants under the study's completion and exclusion rules; they do not measure fraud detection. Doerfler's 47.8 percent same-session success rate concerns challenged sign-ins. Its 97.3 percent eventual-access rate counts users, not sign-ins: it is the share of users with access within one week. Doerfler's Section 5.3 and Table 7 caption take users who failed a challenge as the denominator; Doerfler's introduction takes users who saw a challenge. Neither Fatima's nor Doerfler's aggregate rate establishes whether an individual event was decided correctly.
 
@@ -69,6 +78,27 @@ The outcome-channel requirements use SIG-70 and SIG-71 to record each payment-le
 
 The inventory contains 26 source observations (SO), two normalized observations (NO), 24 derived features (DF), two model or risk outputs (MO) and ten control outcomes (CO). Seven signals provide external knowledge (XK). The inventory therefore covers five of the seven record classes in manuscript Section 5.1, plus external knowledge. Analytical inferences and finished intelligence are later outputs, not input signals.
 
+**Figure S3.1. What each record class can establish.** Counts refer to the 71 signals. Analytical inferences and finished intelligence are outputs, so neither appears among those input signals. Test, replay and emulation records are marked when created to distinguish them from production activity.
+
+![Figure S3.1: Record classes and their evidentiary limits](../FIGURES/FIG2_SIGNAL_CLASSES.svg)
+
+**Table S3.1. The 71 signals by family.** SO: source observation; NO: normalized observation; DF: derived feature; MO: model or risk output; CO: control outcome; XK: external knowledge. The final column counts partial public counterparts, cases where that comparison does not apply, and signals with no counterpart identified in the pinned schemas (manuscript Section 5.4). Token allowances permit another party to spend from a crypto wallet.
+
+| Family | Signals | Classes | Partial / n/a / none identified |
+|------------------------------------------|--------|--------------------|-------------------|
+| Identity and onboarding | 8 | SO 3, DF 4, CO 1 | 3 / 4 / 1 |
+| Authentication, session and operator administration | 10 | SO 5, DF 4, CO 1 | 6 / 4 / 0 |
+| Credentials, API keys and request context | 5 | SO 3, DF 1, XK 1 | 2 / 2 / 1 |
+| Funds movement and payout destinations | 11 | SO 4, DF 5, CO 2 | 6 / 5 / 0 |
+| Payment attempts, authorization and payment controls | 7 | SO 2, DF 4, CO 1 | 3 / 4 / 0 |
+| End-customer lifecycle and entitlement | 7 | SO 2, DF 4, CO 1 | 3 / 4 / 0 |
+| Merchant storefront and business claims | 2 | DF 1, XK 1 | 0 / 2 / 0 |
+| Platform outputs and labels | 4 | SO 1, MO 2, CO 1 | 4 / 0 / 0 |
+| Agents, tools and approvals | 8 | SO 5, CO 3 | 4 / 0 / 4 |
+| Wallet signing and token allowances | 2 | SO 1, DF 1 | 0 / 1 / 1 |
+| External threat knowledge | 5 | XK 5 | 0 / 5 / 0 |
+| Provenance classes | 2 | NO 2 | 1 / 1 / 0 |
+
 SIG-44, SIG-45 and SIG-46 apply across mechanisms. They record technique-catalog mappings, minimum observation provenance and the provenance of test records, respectively. The other 68 signals map to specific mechanisms. All 61 mapped mechanisms have at least one mapping motivated by evidence; S2 explains PAY-12's exclusion.
 
 Each input ID for the 24 derived features names another signal in the inventory. No feature depends, directly or indirectly, on itself. For example, SIG-24 uses SIG-27 to enumerate its eligible transaction cohort, including completed payments with no report. The separate chargeback-or-alert-resolution measure also uses SIG-25. Keeping these inputs explicit makes the denominator and the distinction between measures inspectable.
@@ -91,6 +121,10 @@ Responsibilities 16 and 17 cover engineering validation and adaptive testing of 
 
 The [entity inventory](../SUPPLEMENT/S4_ENTITIES.csv) and [entity relationships](../SUPPLEMENT/S4_ENTITY_RELATIONS.csv) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders (other explanations for the link), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel's status; it does not invent an outcome report. [S4.1](#complete-storage-requirements) gives the complete storage requirements.
 
+**Figure S4.1. Investigation as a sequence of tests.** Each query tests competing explanations within authorized scope. A gateway outside the agent attaches the query's coverage, which determines which interpretations remain supported. Draft outputs follow review and release under manuscript Section 6.4.
+
+![Figure S4.1: Hypotheses, governed queries, interpretation and draft outputs](../FIGURES/FIG3_INVESTIGATION.svg)
+
 The query interface must show what each query actually covered and what its result means:
 
 | Part of the interface | Information or behavior required |
@@ -112,7 +146,24 @@ The [draft schema](../SUPPLEMENT/S4_DRAFT_SCHEMA.csv) supplies the fields that t
 
 ### S4.1 Complete storage requirements {#complete-storage-requirements}
 
-Manuscript Table 3 summarizes this complete storage contract; manuscript Section 5.2 gives the motivating evidence. Each block groups requirements by the information it preserves. The stores distinguish record meanings and need not be separate databases.
+Table S4.1 summarizes this complete storage contract; manuscript Section 5.2 gives the motivating evidence. Each block groups requirements by the information it preserves. The stores distinguish record meanings and need not be separate databases.
+
+**Table S4.1. What each analytical store preserves.** The full contract is in S4.1. These are requirements for the proposed platform, not claims about an existing provider. The structured threat-knowledge and organizational-memory stores form their own planes, and the other stores hold evidence-plane records. Clusters in the entity-relation graph remain threat-knowledge items. External-knowledge records support only what their source observed or described, and ledger entries only what happened during the investigation itself.
+
+| Store or shared requirement | Required properties |
+|---|---|
+| Observation log | Source records and revisions, identifiers, environment, tenant scope and lineage; separate event, source-recording, ingestion and query-availability times; repeated delivery does not duplicate the event |
+| Entity-relation graph | Typed identifier links with source, namespace, effective interval, learned time, version, confidence, benign explanations, and permitted purpose and scope; versioned cluster membership; end customers scoped to a business |
+| Feature store | Recomputable inputs and versions; decision-time features exclude later information; later labels use the evaluation's outcome window and maturity; features inherit their inputs' agent-output and released-item links |
+| Label store | Report source, type and attributed entity; occurrence, report and arrival times; appended value history; typed links to every decision that may have shaped the report; links to separate truth assessments and any informing agent output or released item; report presence, channel state and query access kept apart |
+| Assessment store | Model or reviewer identity and version; review selection route and probability; links to any informing agent output or released item; unknown, not-assessed and failed-open states kept distinct from low risk; failed-open means an assessment failed and activity continued |
+| Control-outcome store | Decision, authority, reason and version; reproducible available inputs; alternative-decision probabilities where applicable; human assignment and what the decider was shown; links to any informing agent output or released item; effects on each outcome channel, fixed with the decision; for action before review, the urgent route, impact class and later review outcome; correctness reviews with their selection route, separate from population error estimates |
+| Structured threat-knowledge store | Revisable relationships and conclusions with confidence, input and rule versions, writer and status; agent proposals marked as unreleased context; links to informing agent outputs and released items |
+| Organizational-memory store | Human-released items with approved claims and their stated confidence, version, scope, expiry, reviewer findings, lineage and correction links; exonerating items have independent counterexamples, a re-test date and the evidence and cluster versions whose change expires them early; proposed lessons wait outside it with their counterexample tests, and released lessons keep monitoring and withdrawal records |
+| External-knowledge store | Source, type, times observed and published, validity period, retrieval time and license; a link to the released item whose identifier the returning content bears |
+| Agent-and-approval ledger | Model, instructions, inputs, tool calls; approver, binding, expiry and reuse rule of each approval; approved and executed payloads, tool-manifest version and hash at approval and at execution, memory writes, outbound-traffic decisions; rule-checker and reviewer findings per draft version; marked untrusted content and exposed agent output; logged agent-output and released-item link removals |
+| Query coverage record | Gateway-written entities and intervals, requested and evaluated; as-of cutoff, schema versions, sampling, per-source watermarks, known gaps and retention horizon, access filtering and limits reached; derived result status; not writable by the agent |
+| Shared time and graph requirements | Reconstruct what was available at each decision; preserve reporting clocks and delays, retention limits, account histories and report-to-transaction links |
 
 **Observation log**
 
@@ -289,7 +340,7 @@ Trace A uses a separate hypothetical timeline (manuscript Sections 8.1 and 8.3).
 [CHECK_CANDIDATE.py](../CHECK_CANDIDATE.py) checks these calculations and excludes the +1-day destination-reuse link from the +30-minute assessment. It also checks identifiers, counts, feature lineage, citation-reference agreement and links between files. [REPRODUCE.md](../REPRODUCE.md) gives build and verification instructions. These are checks of the supplied artifacts and arithmetic, not an evaluation of the proposed system.
 
 
-Manuscript Table 6 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.
+Manuscript Table 3 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.
 
 ## S7. Evaluation conditions
 
@@ -311,7 +362,7 @@ These conditions explain the scope and comparisons behind the tests in S7.1. E8'
 
 **E5. Does the agent improve the investigation?** Compare the governed agent with well-equipped human investigators and suitable decision rules, including simple thresholds where appropriate. Sharma's agent underperformed its underlying classifier's threshold on 60 synthetic cases [@Sharma2026AuditableFraud]. That limited result motivates testing the agent's added value. Give each approach the same information, frozen at an as-of cutoff. Report case base rates and judge outcomes without knowing which approach produced each finding. Set error, abstention and escalation rules in advance. Measure correct findings, errors, abstentions, human review burden, cost and latency, and include adaptive adversaries. The study records reviewer time for investigation, tool or agent operation, checking, release and rework on the same basis in both human arms. The storage contract holds these times only for work recorded in the agent-and-approval ledger.
 
-**E6. Do the agent's safeguards hold under adaptive attack?** Test prompt injection, approval rebinding (reusing approval for an altered operation), memory poisoning, limits on outbound data, planted omissions of retrieved records that count against a claim, and steering the agent away from queries that would return such records. Let adversaries adapt to the defense. Measure security failures and the effect of safeguards on investigations completed. Prior adaptive attacks motivate this test but do not establish that these safeguards work [@Nasr2025]. One proposed defense separates control flow, the steps an agent chooses, from untrusted data [@Debenedetti2025CaMeL]. It is a candidate for evaluation under its stated assumptions. Adopting it would change the single hypothesis loop in manuscript Figure 3, which currently makes no such separation.
+**E6. Do the agent's safeguards hold under adaptive attack?** Test prompt injection, approval rebinding (reusing approval for an altered operation), memory poisoning, limits on outbound data, planted omissions of retrieved records that count against a claim, and steering the agent away from queries that would return such records. Let adversaries adapt to the defense. Measure security failures and the effect of safeguards on investigations completed. Prior adaptive attacks motivate this test but do not establish that these safeguards work [@Nasr2025]. One proposed defense separates control flow, the steps an agent chooses, from untrusted data [@Debenedetti2025CaMeL]. It is a candidate for evaluation under its stated assumptions. Adopting it would change the single hypothesis loop in Figure S4.1, which currently makes no such separation.
 
 **E7. Can lessons be reused without spreading mistakes?** Measure time to useful reuse, negative transfer (a lesson degrading later investigations) and poisoning. Vary validation strictness, release scope and withdrawal conditions. General-purpose agent research supplies methods and evidence of failures, not payment-platform results [@Dash2026; @Xiong2026MemoryManagement].
 
