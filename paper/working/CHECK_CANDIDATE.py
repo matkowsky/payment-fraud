@@ -134,7 +134,7 @@ assert round(100 * binom_cdf(2, 628, 0.01), 2) == 4.98 and binom_cdf(3, 628, 0.0
 assert 'two or fewer releases show it' in sbody and 'probability 4.98 percent' in sbody and 'probability 97.4 percent' in sbody
 assert round(100 * 0.93 ** 4) == 75 and 'about 75 percent if their results are independent' in sbody
 m59 = next(m for m in range(1, 1000) if 1 - 0.95 ** m >= 0.95)  # Section 6.4: sample finding a 5 percent contrary share
-assert m59 == 59 and '59 records give 95 percent when $q$ is 5 percent' in body
+assert m59 == 59 and '59 records give 95 percent when $q$ is 5 percent' in sbody
 
 # Trace A timing: the same edge is effective earlier but unavailable to the frozen assessment.
 edge = {'effective_minute': -1440, 'known_minute': 1440}; cutoff = 30
