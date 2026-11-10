@@ -2,7 +2,7 @@
 
 Jonathan Matkowsky
 
-9 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+10 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 This supplement accompanies the [complete manuscript](../MANUSCRIPT.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 and S8 give the proposed evaluations. S9 extends the comparison with prior work. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package's [BibLaTeX references](../REFERENCES.bib).
 
@@ -276,6 +276,8 @@ Trace A uses a separate hypothetical timeline (manuscript Sections 8.1 and 8.3).
 
 [CHECK_CANDIDATE.py](../CHECK_CANDIDATE.py) checks these calculations and excludes the +1-day destination-reuse link from the +30-minute assessment. It also checks identifiers, counts, feature lineage, citation-reference agreement and links between files. [REPRODUCE.md](../REPRODUCE.md) gives build and verification instructions. These are checks of the supplied artifacts and arithmetic, not an evaluation of the proposed system.
 
+
+Manuscript Table 6 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.
 
 ## S7. Evaluation conditions
 

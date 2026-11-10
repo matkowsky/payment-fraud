@@ -14,17 +14,18 @@ Accepted pull requests:
 - [#15](https://github.com/matkowsky/payment-fraud/pull/15) Precision fixes: definitions, rules and the arithmetic behind stated numbers
 - [#16](https://github.com/matkowsky/payment-fraud/pull/16) Change record names the pull request behind each change
 - [#17](https://github.com/matkowsky/payment-fraud/pull/17) Correct the Akhtar and Freeman summary
+- [#20](https://github.com/matkowsky/payment-fraud/pull/20) Describe AI use in Section 3; move a signal list to the supplement
 
 | Document | Read the current version | Paragraphs changed | Added | Removed |
 |---|---|---|---|---|
-| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 19 | 1 | 0 |
-| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 27 | 0 | 0 |
+| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 21 | 2 | 0 |
+| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 27 | 1 | 0 |
 
 ## Manuscript
 
 **Changed, under "Threat Analytics Across Payment Products: Evidence Requirements for Agent Investigations", by the automatic status update:**
 
-<del>29</del><ins>9</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>10</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "1. Introduction", by [#15](https://github.com/matkowsky/payment-fraud/pull/15):**
 
@@ -58,6 +59,10 @@ The resulting inventory contains 71 signals in 12 families. Sixty-eight connect 
 
 <del>Across the manuscript and supplement, 122 cited works support the claims and comparisons. </del>Supplement S1 records <del>their</del><ins>the</ins> <del>versions,</del><ins>version,</ins> relevant passages and <del>uses;</del><ins>use</ins> <del>its</del><ins>of</ins> <del>requirements</del><ins>each</ins> <del>matrix</del><ins>of the 122 cited works, and</ins> compares 50 sources against the three requirements. <del>The</del><ins>Supplement S3 lists the 61</ins> design <del>files contain 61 source records</del><ins>sources</ins> and<del> 126 mechanism-to-source links. Of those sources, 27 are not among the 122 cited works and have no S1 note. All 61 were read in October 2026, 60 in full and one in part. For one of the 60, a vendor blog post, the cited passages were read verbatim and the other paragraphs only as a close paraphrase. The directory records</del> the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
 
+**Added, under "3. Deriving the specification from public evidence", by [#20](https://github.com/matkowsky/payment-fraud/pull/20):**
+
+<ins>The author used Anthropic Claude and OpenAI ChatGPT/Codex in the research. The models searched for and read the sources, proposed the mappings and comparison codes, ran the prior-work search, wrote the scripts, synthetic data and figures, and reviewed drafts. Every cited work was read in full, or, for a book or standard, the cited chapters; Supplement S1 records the version and passages for each and names the few parts not read, such as reference pages. A check script recomputes the counts, lineage and arithmetic on every proposed change. The author decided what entered the paper. Model review is not independent human peer review.</ins>
+
 **Changed, under "Labels need their reporting path", by [#5](https://github.com/matkowsky/payment-fraud/pull/5):**
 
 Each report retains its type, source, <del>arrival time, </del>lag and attributed transaction or entity.<ins> It keeps three times: when the reported outcome occurred, where known; when the report was made at its source; and when it arrived at the platform.</ins> Its channel supplies a reporting window and clock-start event. The evaluation separately records its chosen maturity period, how long it waits before reading a missing report as a negative. A period shorter than the channel's window, or any period for a channel without one, rests on a delay model \(Section 7.1\). <del>Decisions</del><ins>Every decision</ins> that <ins>may have shaped the report remains linked, and there can be several. A dispute can follow a blocked attempt, a retry and an approval, and one account restriction can </ins>affect <del>observability</del><ins>many</ins> <del>remain</del><ins>payments.</ins> <del>linked.</del><ins>Each link therefore states the decision's role.</ins> The report's later status, such as withdrawn, reversed, won or lost, has its own history, which records whether each won or lost status followed adjudication.<ins> A status change or correction is a new record that references the earlier one, so what the platform believed at each time can be reconstructed.</ins> Some channels never adjudicate a report, yet a provider may still record it as lost: Stripe's dispute guide says disputes that network rules or local regulations make unchallengeable are closed as lost when they open \[74\] \(Section 7.1\).
@@ -77,6 +82,10 @@ A draft separates material claims from context. A claim is material when its fal
 **Changed, under "What the records permit an evaluation to estimate", by [#5](https://github.com/matkowsky/payment-fraud/pull/5):**
 
 Repeated decisions require the relevant conditions at each step because earlier decisions can change later inputs \[4\]. Interference is especially consequential when blocked actors move to sibling accounts or other merchants.<ins> Links from each report to every decision that may have shaped it make these dependencies visible; they do not remove them.</ins>
+
+**Changed, under "8.3 What retaining the context changes", by [#20](https://github.com/matkowsky/payment-fraud/pull/20):**
+
+The examples identify a starting subset of <del>records.</del><ins>records: the eleven signals behind</ins> Table <del>6</del><ins>6,</ins> <del>uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete</del><ins>their</ins> lineage inputs and the storage requirements <del>are</del><ins>\(Supplement</ins> <del>also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</del><ins>S6\).</ins>
 
 **Changed, under "9.1 Questions, comparisons and failure criteria", by [#3](https://github.com/matkowsky/payment-fraud/pull/3):**
 
@@ -98,6 +107,10 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 <ins>\*\*Acknowledgments.\*\* Thanks to Jiahong Dai \(Sections 2.2 and 6.2\), Brian Freeman \(Section 2.3\), Oleg Solozobov \(Sections 2.1, 2.4, 5.2, 5.3 and 7.1\) and Xuwei Tan \(Sections 2.4 and 9.1\) for feedback.</ins>
 
+**Changed, under "Author and publication declarations", by [#20](https://github.com/matkowsky/payment-fraud/pull/20):**
+
+\*\*Use of generative AI.\*\* The author used Anthropic Claude and OpenAI ChatGPT/Codex <del>for research assistance, drafting, substantive revision, figures, calculations and document preparation. Source-checking depths and limits are documented </del>in the <del>supplement.</del><ins>research,</ins> <del>Model-assisted</del><ins>as</ins> <del>reviews</del><ins>Section</ins> <del>were</del><ins>3</ins> <del>not</del><ins>describes,</ins> <del>independent</del><ins>and</ins> <del>human</del><ins>for</ins> <del>peer</del><ins>drafting</ins> <del>review.</del><ins>and revision.</ins> The author takes responsibility for the content.
+
 **Changed, under "Author and publication declarations", by [#6](https://github.com/matkowsky/payment-fraud/pull/6):**
 
 \*\*Data and code availability.\*\* The accompanying supplement provides the signal inventory, mappings, entity and interface records, source locators, schema pins and synthetic worked-example data. Reproduction scripts check the included counts, lineage and arithmetic and rebuild the documents. No private platform data, implementation of the proposed architecture or empirical system-evaluation code is supplied. External source texts remain with their publishers or authors. <del>The accompanying</del><ins>These</ins> files are <del>proposed</del><ins>published</ins> <del>release</del><ins>with</ins> <del>materials,</del><ins>this</ins> <del>not</del><ins>preprint</ins> <del>a</del><ins>\(https://doi.org/10.5281/zenodo.23772005\),</ins> <del>claim</del><ins>and</ins> <del>that</del><ins>the</ins> <del>a</del><ins>working</ins> <del>repository</del><ins>draft</ins> <del>has</del><ins>and</ins> <del>already</del><ins>review</ins> <del>been</del><ins>record</ins> <del>made</del><ins>are</ins> <del>public.</del><ins>at https://github.com/matkowsky/payment-fraud.</ins>
@@ -107,7 +120,7 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by the automatic status update:**
 
-<del>29</del><ins>9</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>10</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by [#3](https://github.com/matkowsky/payment-fraud/pull/3):**
 
@@ -136,6 +149,10 @@ The \[source directory\]\(../SUPPLEMENT/S3\_SOURCE\_DIRECTORY.csv\) identifies 6
 **Changed, under "S4.1 Complete storage requirements {\#complete-storage-requirements}", by [#5](https://github.com/matkowsky/payment-fraud/pull/5):**
 
 - Link closed accounts to suspected successor accounts, and storefronts to merchants.<br>- Link each outcome report to the transaction, payout or account application it concerns, with the basis for the link and whether it is verified. Attribute outcomes through that link to the platform account, connected account and end customer, so that a measure counts each affected transaction once. <ins>A report's links to the decisions that may have shaped it do not change this count. </ins>Keep each transaction's acquiring bank and the static part of its statement descriptor, so that a network's monitored unit can be reconstructed.<br>- Link each wallet to every party it has allowed to spend its funds.
+
+**Added, under "S6. Hypothetical investigations and reproducible arithmetic", by [#20](https://github.com/matkowsky/payment-fraud/pull/20):**
+
+<ins>Manuscript Table 6 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</ins>
 
 **Changed, under "S7. Evaluation conditions", by [#8](https://github.com/matkowsky/payment-fraud/pull/8):**
 
