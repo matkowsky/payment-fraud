@@ -158,11 +158,11 @@ keeps both when it happened and when the system learned it (Sections
 memory. No agent output enters the evidence plane, which stores
 observations, as evidence of the activity under investigation (Sections
 4.2 and 5.3); the agent's own outputs are recorded only as observations
-of what the agent did (Section 6.5). A person releases a conclusion into
-organizational memory, where it serves only as a hypothesis or context.
-Any record that an agent output informed links back to that output and
-counts as dependent, not as independent corroboration (Sections 4.2, 6.4
-and 7.3).
+of what the agent did (Supplement S4.1). A person releases a conclusion
+into organizational memory, where it serves only as a hypothesis or
+context. Any record that an agent output informed links back to that
+output and counts as dependent, not as independent corroboration
+(Sections 4.2, 6.4 and 7.3).
 
 The requirements work together. C1 identifies which outcomes the
 platform's decisions left observable. C2 establishes what information an
@@ -181,16 +181,17 @@ survive when particular records are missing.
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
-product scope, not a description of its internal systems. The paper
-synthesizes public evidence and proposes a design. It reports no
-implementation of the architecture and no measurement on platform data;
-its only experiments run the record schemas on synthetic records
-(Sections 8.4 and 8.5). Section 2 establishes its relationship to prior
-work and Section 3 explains how it was derived. Sections 4 and 5 answer
-RQ1, with Table 1 in Section 6.3 adding the agent's analytical
-capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8
-shows the consequences of the design in two hypothetical investigations,
-and Section 9 states how its value would be tested.
+product scope, not a description of its internal systems; the paper
+calls Stripe the illustrative provider. The paper synthesizes public
+evidence and proposes a design. It reports no implementation of the
+architecture and no measurement on platform data; its only experiments
+run the record schemas on synthetic records (Sections 8.4 and 8.5).
+Section 2 establishes its relationship to prior work and Section 3
+explains how it was derived. Sections 4 and 5 answer RQ1, with Table 1
+in Section 6.3 adding the agent's analytical capabilities; Section 6
+answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences
+of the design in two hypothetical investigations, and Section 9 states
+how its value would be tested.
 
 \hypertarget{relationship-to-prior-work}{%
 \section{Relationship to prior work}\label{relationship-to-prior-work}}
@@ -253,10 +254,10 @@ keeps the decision as the unit of record, as the Decision Event Schema
 does. Each outcome report is a separate appended record. It links to
 every decision that may have shaped it, and each link states that
 decision's role. The schema has no field for outcome channels, but C1's
-fields could extend it rather than replace it (Section 5.2). The
-proposed records expose the assumptions needed to interpret such
-outcomes; they do not supply a validated estimator. Section 7 develops
-this distinction.
+fields could extend it rather than replace it (Section 7.1; Supplement
+S4.2). The proposed records expose the assumptions needed to interpret
+such outcomes; they do not supply a validated estimator. Section 7
+develops this distinction.
 
 \hypertarget{evidence-depends-on-coverage-time-and-origin}{%
 \subsection{Evidence depends on coverage, time and
@@ -1339,7 +1340,8 @@ channel: closed, delayed, changed in meaning, none or unknown.
 
 These channel properties come from card-network rules, and other rails
 differ. On the illustrative provider's bank-debit rails, a payer's
-dispute or return is honored without network adjudication or appeal
+dispute or return inside the rail's no-questions window is honored
+without adjudication or appeal
 {[}\protect\hyperlink{ref-Stripe2026ACHTerms}{52},
 \protect\hyperlink{ref-Stripe2026SEPADebit}{64}{]}; Supplement S4.1
 gives the windows and rules read. A report honored without question is
@@ -1427,10 +1429,8 @@ transaction links and cluster-level measures, without establishing
 erroneous attribution in a new case.
 
 The same outcome definition, cohort and window must be retained when
-comparing account and cluster ratios. A pooled cohort ratio is a
-weighted average and cannot exceed the highest account ratio merely
-through pooling (Section 8.2). It can conceal a high account ratio among
-lower ones.
+comparing account and cluster ratios; Section 8.2 shows what pooling can
+conceal.
 
 Sales can also be inflated or moved. One FTC complaint alleges plans to
 add stored-value card ``purchases'' to a merchant's sales, and continued
@@ -1559,10 +1559,12 @@ possible explanations.
 a detection candidate, an intelligence draft and recommendations for
 authorized action. A reversible payout pause or hold may follow the
 urgent path when the accelerated schedule appears. Credential rotation
-or revocation follows normal review. A payout is not a card payment that
-can produce a chargeback, and victim reports and incident findings have
-no defined reporting window here: those channels can supply confirmed
-positives but cannot reach ``matured with no report.''
+or revocation follows normal review; the trace concerns a key not yet
+revoked, and existing automatic revocation is outside it. A payout is
+not a card payment that can produce a chargeback, and victim reports and
+incident findings have no defined reporting window here: those channels
+can supply confirmed positives but cannot reach ``matured with no
+report.''
 
 \hypertarget{trace-b-linked-storefronts-and-dispute-activity}{%
 \subsection{Trace B: linked storefronts and dispute
@@ -1695,7 +1697,7 @@ the fourth, and E5 the human work the agent creates. The exploratory E2
 and E4 bear on C1's decision links, and E2 also on late and false
 reports (Section 9.1). E8's planted drafts that rest a material claim
 only on a released item test the rule in the fifth row. The traces
-establish what the records mean. Those evaluations test whether some of
+illustrate what the records mean. Those evaluations test whether some of
 the records improve investigation; none measures the storage, query work
 or controlled cross-account access that collecting them requires
 (Section 9.1). Section 8.4 estimates the records' storage and query work
@@ -1714,41 +1716,45 @@ illustrative provider already exposes parts of the first two (Section
 2.4).
 
 To estimate C1's cost, one million synthetic payments with two outcome
-channels each were built from the conformance case (Supplement S4.3).
-Each payment needed about four records. Its decision and attribution
-records may already exist as decision logs and ledger entries; its two
-channel-state records are new. The records took 1.7 GB per million
-payments as uncompressed JSON and 2.6 GB in a single-file SQLite store
-with an index for as-of reads. On a two-core virtual machine, reading
-one payment's channel state and reports took a median of 17
-microseconds, and one day's cohort of 11,052 payments took 0.3 seconds.
-In the same kind of test, a query run's coverage record took about 900
-bytes with one source, and checking an absence claim against its runs
-took 30 microseconds (Supplement S4.4). Reviewer time is not measured.
+channels each were built from the schema's valid conformance case
+(Supplement S4.3). Each payment needed about four records. Its decision
+and attribution records may already exist as decision logs and ledger
+entries; its two channel-state records are new. The records took 1.7 GB
+per million payments as uncompressed JSON and 2.6 GB in a single-file
+SQLite store with an index for as-of reads. On a two-core virtual
+machine, reading one payment's channel state and reports took a median
+of 17 microseconds, and one day's cohort of 11,052 payments took 0.3
+seconds. These figures describe one synthetic file on one machine, not a
+platform's cost. In the same kind of test, a query run's coverage record
+took about 900 bytes with one source, and checking an absence claim
+against its runs took 30 microseconds (Supplement S4.4). Reviewer time
+is not measured.
 
-\hypertarget{two-documented-cases-replayed}{%
-\subsection{Two documented cases
-replayed}\label{two-documented-cases-replayed}}
+\hypertarget{two-alleged-patterns-replayed}{%
+\subsection{Two alleged patterns
+replayed}\label{two-alleged-patterns-replayed}}
 
 Two FTC complaints were rebuilt as synthetic outcome records from the
 patterns and rates they allege, with illustrative monitoring rules and
 assumed volumes and delays (Supplement S10)
 {[}\protect\hyperlink{ref-FTC2020FirstData}{66},
 \protect\hyperlink{ref-FTC2019Allied}{68}{]}. Complaint content is
-allegation; the replays test record design, not detection. Eight related
-accounts, each below a chargeback count floor, were never flagged alone.
-A view over recorded links flagged them in 92 percent of runs, and 40
-legitimate merchants sharing a call center, set just above the ratio
-threshold, in 77 percent; a linked view belongs beside the account view,
-not in its place. At the smaller merchant's alleged scale the chargeback
-rule never flagged an account, while fraud reports counted by value
-flagged each account in at least 99.8 percent of runs. A chargeback-only
-store reads payments refunded before a dispute as unreported. Counting
-only verified links between reports and payments replaced false flags
-near the floor with stated uncertainty. The records have limits: padded
-sales look like clean payments, a record rewritten in place passes every
-rule, so the store must prevent edits, and accounts with no recorded
-shared attribute cannot be linked.
+allegation; the replays test record design, not detection, and whether a
+view flags follows from the chosen parameters. In the first replay,
+eight related accounts, each below a chargeback count floor, were never
+flagged alone. A view over recorded links flagged them in 92 percent of
+1,000 runs, and 40 legitimate merchants sharing a call center, set just
+above the ratio threshold, in 77 percent; a linked view belongs beside
+the account view, not in its place. In the second replay, of a smaller
+merchant, the chargeback rule never flagged an account at the alleged
+scale, while fraud reports counted by value flagged each account in at
+least 99.8 percent of runs. A chargeback-only store reads payments
+refunded before a dispute as unreported. Counting only verified links
+between reports and payments replaced false flags near the floor with
+stated uncertainty. The records have limits: padded sales look like
+clean payments, a record rewritten in place passes every rule, so the
+store must prevent edits, and accounts with no recorded shared attribute
+cannot be linked.
 
 \hypertarget{evaluating-the-specification}{%
 \section{Evaluating the
@@ -1764,7 +1770,9 @@ separates the value of the records from the benefit of using an agent.
 
 Supplement S7.1 gives each hypothesis, design, primary measure and
 proposed failure criteria. E1, E3, E8 and E9 are confirmatory; the
-others are exploratory. E3 tests the report-to-transaction links on
+others are exploratory. The tests address the three requirements and the
+agent's added value; none tests the signal inventory or the
+responsibilities as a whole. E3 tests the report-to-transaction links on
 which C1's outcome records depend, together with cluster-level
 monitoring. Its pass rule compares linked clusters with accounts as
 their reports are recorded, so a lead from clustering alone can pass it;
@@ -1897,7 +1905,8 @@ section, and logged 388 searches and page reads across patents, payment
 and fraud vendors, agent-governance and security-investigation products,
 standards and regulators, code repositories, journals and recent
 preprints. It found no source stating the three requirements together;
-the two sources it added are discussed in Section 2.3. The illustrative
+the two sources it added, a data-governance preprint and a
+threat-detection design, are discussed in Section 2.3. The illustrative
 provider's public hiring priorities influenced selection and set most of
 the deeper reviews (Section 3; Supplement S2). A crosswalk to MITRE's
 Fight Fraud Framework finds that 21 of its 105 in-scope techniques have
@@ -1937,24 +1946,24 @@ was available to a query, and whether apparent support comes from an
 earlier conclusion.
 
 This paper combines those requirements in one specification grounded in
-public evidence. The specification answers the three research questions.
-For RQ1, records keep their meaning across products through the seven
-record classes, the store contract and C2's coverage and learned-time
-records, which bound what an investigation could have established. Each
-analytical capability carries the limit on what its results can show.
-For RQ2, the agent tests explanations without operational authority. It
-works through governed queries whose coverage it cannot alter, and its
-drafts pass a checker, independent quality review and the human release
-of C3. Release authorizes reuse of a conclusion from organizational
-memory, while the conclusion keeps its status as context and its
-dependence on earlier agent outputs. For RQ3, feedback informs later
-work without concealing control effects or recycling conclusions. It
-rests on the decision-linked outcome channels of C1, which keep missing
-reports from silently becoming negatives, and on lessons that are
-tested, reviewed and released for a defined scope before reuse,
-monitored during it and, when they exonerate, re-tested at expiry.
-Decisions about accounts, payments and controls stay with authorized
-humans or accountable operational systems.
+public evidence. The specification proposes answers to the three
+research questions. For RQ1, records keep their meaning across products
+through the seven record classes, the store contract and C2's coverage
+and learned-time records, which bound what an investigation could have
+established. Each analytical capability carries the limit on what its
+results can show. For RQ2, the agent tests explanations without
+operational authority. It works through governed queries whose coverage
+it cannot alter, and its drafts pass a checker, independent quality
+review and the human release of C3. Release authorizes reuse of a
+conclusion from organizational memory, while the conclusion keeps its
+status as context and its dependence on earlier agent outputs. For RQ3,
+feedback informs later work without concealing control effects or
+recycling conclusions. It rests on the decision-linked outcome channels
+of C1, which keep missing reports from silently becoming negatives, and
+on lessons that are tested, reviewed and released for a defined scope
+before reuse, monitored during it and, when they exonerate, re-tested at
+expiry. Decisions about accounts, payments and controls stay with
+authorized humans or accountable operational systems.
 
 For a platform that already logs decisions, queries and disputes, the
 specification states what those records and their joins must preserve.
