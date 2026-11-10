@@ -186,6 +186,19 @@ from investigation_conformance import run_conformance as run_investigation
 investigation = run_investigation()
 assert investigation == {'valid_records': 22, 'invalid_cases': 35, 'rules_exercised': 15, 'necessity_pairs': 4}, investigation
 assert 'Its 22 records pass. Each of the 35' in sbody
+# Second-rater check of the links (Supplement S3): the stored answers reproduce the reported counts.
+sys.path.insert(0, str(B / 'tools' / 'second_coder'))
+from score import tally as rater_tally, kappa as rater_kappa
+ra, rb, rc, rd, rdetail, rgot, rlabels, rpaper = rater_tally()
+general = {'SIG-07', 'SIG-23', 'SIG-27', 'SIG-56', 'SIG-57', 'SIG-58'}
+inference = {(x['mechanism'], x['signal_id']) for x in rows('S3_MECHANISM_SIGNAL_PAIRS.csv') if x['support_class'] == 'inference'}
+assert (ra, rb, rc, ra + rb + rc + rd, len(rdetail)) == (49, 3, 70, 1360, 20) and f'{rater_kappa(ra, rb, rc, rd):.2f}' == '0.55'
+assert sum(1 for x in rdetail if not x[3] and not x[4]) == 2
+assert sum(1 for x in rdetail for sid in x[4] if sid in general) == 32
+assert sum(1 for x in rdetail for sid in x[3] if (x[1], sid) in inference) == 2
+assert sum(1 for l, m in rlabels.items() if m not in rpaper) == 5 and sum(1 for l, m in rlabels.items() if m not in rpaper and rgot[l][2].lower() == 'none') == 4
+assert "made 49 of the paper's 52 links and 70 that the paper lacks (Cohen's kappa 0.55); two mechanisms matched exactly" in sbody
+assert 'made 49 of 52 sampled links and 70 that the paper lacks' in body
 
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),
