@@ -101,7 +101,7 @@ as a patch to the valid history at the end of this packet:
 
 ## Record fields
 
-Every field is required except where marked optional. A timestamp looks like `2026-05-06T04:00:00Z`. An entity is `{"tenant": ..., "namespace": ..., "id": ...}`. An interval is `{"from": timestamp, "to": timestamp}`.
+Every field is required except where marked optional. A timestamp looks like `2026-05-06T04:00:00Z`. An entity is `{"tenant": ..., "namespace": ..., "id": ...}`. An interval is `{"from": timestamp, "to": timestamp}`. Each stored record also carries `record_type`, the name shown in bold; `source_coverage` and `claim` are parts of records, not records.
 
 - **source_coverage**: source_id: id, schema_version: string, access: evaluated / denied / unavailable, event_watermark: timestamp, ingestion_watermark: timestamp, retention_horizon: timestamp, known_gaps: list of interval, sampled: boolean
 - **claim**: claim_id: id, claim_type: presence / absence / current_conduct, material: boolean, entities: list of entity, interval: interval, confidence: low / moderate / high, supporting: list of id, contradicting: list of id, query_runs: list of id, context: list of id, distinct_roots: integer

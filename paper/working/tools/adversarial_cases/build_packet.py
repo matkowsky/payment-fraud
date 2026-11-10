@@ -84,7 +84,8 @@ as a patch to the valid history at the end of this packet:
 
 FIELDS_NOTE = ('Every field is required except where marked optional. A timestamp looks like '
                '`2026-05-06T04:00:00Z`. An entity is `{"tenant": ..., "namespace": ..., "id": ...}`. '
-               'An interval is `{"from": timestamp, "to": timestamp}`.')
+               'An interval is `{"from": timestamp, "to": timestamp}`. Each stored record also carries '
+               '`record_type`, the name shown in bold; `source_coverage` and `claim` are parts of records, not records.')
 
 
 def describe(v):
