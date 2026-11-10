@@ -38,6 +38,13 @@ jobs:
         working-directory: paper/working
       - run: python3 tools/revision_status.py check --sources
         working-directory: paper/working
+      - name: Check the journal-format copies against the source (text and numbering)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+          python3 tools/test_journal_build.py
+          python3 JOURNAL_BUILD.py --check-only
+        working-directory: paper/working
 
   synchronize-accepted-draft:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -61,16 +68,20 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern inkscape
+          # ACM journal template, its fonts and pdftotext, for JOURNAL_BUILD.py
+          sudo apt-get install -y --no-install-recommends texlive-publishers texlive-fonts-extra texlive-plain-generic fonts-linuxlibertine fonts-inconsolata poppler-utils
       - name: Rebuild both documents and the change record, then check
         if: steps.status.outputs.changed == 'true'
         working-directory: paper/working
         run: |
           python3 BUILD.py
+          python3 JOURNAL_BUILD.py
           python3 tools/changes_since.py
           python3 CHECK_CANDIDATE.py
           python3 tools/test_revision_status.py
           python3 tools/test_changes_since.py
           python3 tools/test_iterate.py
+          python3 tools/test_journal_build.py
           python3 tools/revision_status.py manifest
           python3 tools/revision_status.py check
       - name: Commit generated status and document updates
