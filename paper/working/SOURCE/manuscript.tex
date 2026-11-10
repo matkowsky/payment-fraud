@@ -709,7 +709,6 @@ operations and receives data. Fixed at commit
 provide a reproducible check for partial public counterparts of the
 proposed records {[}\protect\hyperlink{ref-StripeOpenAPI2026}{57}{]}.
 Supplement S5 supplies the object, field or event supporting each match.
-The comparison concerns the published interface, not private telemetry.
 
 Supplement S1 records the version, relevant passages and use of each of
 the 122 cited works, and compares 50 sources against the three
@@ -742,11 +741,11 @@ decisions}\label{from-product-activity-to-protective-decisions}}
 
 \suppressfloats[t]
 
-The specification needs its setting first. This section identifies the
-parties whose activity the records describe, the path from records to
-protective decisions along which meaning must be preserved, and the
-responsibilities that path requires. It begins the answer to RQ1, which
-Section 5 continues and Table 4 in Section 6.3 completes.
+This section identifies the parties whose activity the records describe,
+the path from records to protective decisions along which meaning must
+be preserved, and the responsibilities that path requires. It begins the
+answer to RQ1, which Section 5 continues and Table 4 in Section 6.3
+completes.
 
 \hypertarget{the-platform-and-its-participants}{%
 \subsubsection{4.1 The platform and its
@@ -900,8 +899,7 @@ The investigating agent may query permitted records and prepare
 intelligence, hunting and detection candidates, recommendations and
 proposed lessons. It cannot change accounts, payments or controls,
 certify its own output, or release conclusions into organizational
-memory. Proposed lessons remain separate until testing, quality review
-and human release approve their reuse.
+memory.
 
 \FloatBarrier
 
@@ -911,9 +909,7 @@ from}\label{records-an-investigator-can-reason-from}}
 
 \suppressfloats[t]
 
-RQ1 asks which records and analytical capabilities support investigation
-across payment products while preserving what observations and outcomes
-mean. This section answers the part about records in four steps: record
+This section answers the records part of RQ1 in four steps: record
 classes that state what each record can establish (5.1), the abuse
 mechanisms that motivate particular records (5.2), the properties each
 store must preserve (5.3), and what published schemas already supply and
@@ -1459,12 +1455,11 @@ investigates}\label{how-the-agent-investigates}}
 
 \suppressfloats[t]
 
-RQ2 asks how an agent can test explanations and prepare useful outputs
-while people retain review, release and operational authority. This
-section follows one investigation from its assignment to the release of
-its outputs, then addresses the inputs that could subvert it. Table 4
-also completes the answer to RQ1 by listing the agent's analytical
-capabilities with the limit on what each can establish.
+This section answers RQ2. It follows one investigation from its
+assignment to the release of its outputs, then addresses the inputs that
+could subvert it. Table 4 also completes the answer to RQ1 by listing
+the agent's analytical capabilities with the limit on what each can
+establish.
 
 \hypertarget{set-the-question-and-scope}{%
 \subsubsection{6.1 Set the question and
@@ -1569,10 +1564,8 @@ boundaries}\label{capabilities-and-their-boundaries}}
 Table 4 lists the agent's permitted capabilities. Every use is scoped,
 limited and logged; none grants operational authority.
 
-Entity links and labels require particular care. A shared verified
-payout destination can support a stronger match than a shared IP
-address, but neither alone establishes common control. The agent
-retrieves each cluster's membership rule and version and tests benign
+Entity links and labels require particular care. The agent retrieves
+each cluster's membership rule and version and tests benign
 explanations, including shared proxies
 {[}\protect\hyperlink{ref-Liu2018GEM}{45}{]}.
 
@@ -1741,8 +1734,7 @@ automatic controls remain in place.
 Reversibility does not imply low impact. An API-key restriction may
 interrupt a merchant's integration. Actions are classed by impact as
 none, degraded service or outage; outage-class actions require
-notification and a restoration path. Credential rotation or revocation
-in Trace A follows normal review.
+notification and a restoration path.
 
 Human review also creates a capacity limit. With assumed values of 20
 drafts a day and 30 minutes per draft, review alone requires 10 hours
@@ -1854,13 +1846,12 @@ decisions}\label{interpreting-feedback-after-protective-decisions}}
 
 \suppressfloats[t]
 
-RQ3 asks how later outcomes and reusable lessons can inform
-investigation without concealing the effects of controls or recycling
-conclusions as evidence. Section 4.2 distinguished three feedback loops.
-This section concerns the two that leave the case: protective feedback,
-which changes the platform and therefore the evidence available
-afterwards (Sections 7.1 and 7.2), and organizational-learning feedback,
-which carries conclusions and procedures into later cases (Section 7.3).
+This section answers RQ3. Section 4.2 distinguished three feedback
+loops. This section concerns the two that leave the case: protective
+feedback, which changes the platform and therefore the evidence
+available afterwards (Sections 7.1 and 7.2), and organizational-learning
+feedback, which carries conclusions and procedures into later cases
+(Section 7.3).
 
 \hypertarget{separate-delay-observability-and-report-truth}{%
 \subsubsection{7.1 Separate delay, observability and report
@@ -2561,11 +2552,10 @@ corroboration. \\
 }
 \end{table}
 
-Table 6 compares conclusions from the same observations with and without
-five kinds of context. Two rows add explicit hypothetical conditions:
-Trace A's payout is permanently blocked, and Trace B retrieves an
-earlier assessment of the same descriptor pattern. Omission does not
-force an error; it removes information needed to rule the error out.
+Two rows of Table 6 add explicit hypothetical conditions: Trace A's
+payout is permanently blocked, and Trace B retrieves an earlier
+assessment of the same descriptor pattern. Omission does not force an
+error; it removes information needed to rule the error out.
 
 For the blocked payout, excluding the case is valid only for a rate
 explicitly restricted to completed transfers. Estimating outcomes over
@@ -2622,39 +2612,31 @@ which C1's outcome records depend, together with cluster-level
 monitoring. Its pass rule compares linked clusters with accounts as
 their reports are recorded, so a lead from clustering alone can pass it;
 only the third arm, which applies the rule to each account after
-linking, shows whether linkage contributes. E9 tests whether C1's
-channel states reduce the absolute error of an evaluation quantity
-against a mature holdout reference, compared with the platform's current
-label rule. The reference concerns reported outcomes after sampled truth
-review; it does not establish the rate of unreported fraud. It reports
-how many labels the states change, but that share does not count as
-support. E9 exercises C1's links from outcomes to control decisions, and
-its separation of late from unobservable outcomes, only jointly through
-the channel-state reading. No confirmatory evaluation tests the separate
-field for false reports or the decision links' other uses, such as
-estimating outcomes under other decisions. The exploratory E2 bears on
-the decision links and, through its sensitivity analysis, on late and
-false reports; E4 bears on the decision links. Passing E1, E3, E8 and E9
-would therefore not establish the value of each of those links and
-fields on its own. E8 tests C3's release gate. Its planted drafts
-include some whose only support for a material claim is a released item
-or a record linked to one, which tests C3's rule that a released
-conclusion adds no independent corroboration (Section 8.3). The
-exploratory E6 checks that required links back to agent outputs exist.
-No evaluation tests the urgent-containment route in Section 6.4. The
-rate at which later review reverses its actions, and the service those
-actions interrupt, remain unmeasured. The specified minimum counts are
-not power calculations. E8 sizes its planted false exonerations for 93
-percent power to show a release rate below a tolerable rate stated in
-advance, given an assumed true rate, and sizes its planted drafts so
-that the complete rule, with the catch-rate criterion, reaches that
-power. At realistic prevalence and the volume assumed in Section 6.4,
-that can take many months of production drafts, so the tolerable rate,
-the assumed rate and the implied duration are stated together. The
-sizing assumptions must be recorded before main-study data are
-collected, and E2's interval settings and E9's negligible reduction in
-reference error fixed before any data are examined. The questions below
-state what each evaluation is intended to resolve.
+linking, shows whether linkage contributes. E9 exercises C1's links from
+outcomes to control decisions, and its separation of late from
+unobservable outcomes, only jointly through the channel-state reading.
+No confirmatory evaluation tests the separate field for false reports or
+the decision links' other uses, such as estimating outcomes under other
+decisions. The exploratory E2 bears on the decision links and, through
+its sensitivity analysis, on late and false reports; E4 bears on the
+decision links. Passing E1, E3, E8 and E9 would therefore not establish
+the value of each of those links and fields on its own. E8 tests C3's
+release gate. The exploratory E6 checks that required links back to
+agent outputs exist. No evaluation tests the urgent-containment route in
+Section 6.4. The rate at which later review reverses its actions, and
+the service those actions interrupt, remain unmeasured. The specified
+minimum counts are not power calculations. E8 sizes its planted false
+exonerations for 93 percent power to show a release rate below a
+tolerable rate stated in advance, given an assumed true rate, and sizes
+its planted drafts so that the complete rule, with the catch-rate
+criterion, reaches that power. At realistic prevalence and the volume
+assumed in Section 6.4, that can take many months of production drafts,
+so the tolerable rate, the assumed rate and the implied duration are
+stated together. The sizing assumptions must be recorded before
+main-study data are collected, and E2's interval settings and E9's
+negligible reduction in reference error fixed before any data are
+examined. The questions below state what each evaluation is intended to
+resolve.
 
 \textbf{E1. Coverage and learned time:} Do these records reduce
 unsupported conclusions in cases with incomplete history or links
@@ -2796,16 +2778,14 @@ the storage, query work or controlled cross-account access that the
 added records require. S7 adds collection cost for E1's broader timing
 study and the safeguards' effect on investigations completed for E6.
 Passing the S7.1 tests would therefore not show that the added records
-justify their collection cost. Prospective exploration and agent-driven
-adversary emulation each need separate ethical, human and operational
-authorization. Neither is done or authorized here. E1, E5 and E8 also
-measure the work of identifiable staff on real case records, and E8's
-undisclosed planted drafts require a deception protocol. Each needs
-ethics and privacy review before it starts. E8's planted drafts concern
-synthetic entities or closed cases whose named entities have no account
-action pending, and no recommendation in a planted draft may reach a
-control decision or the urgent-containment route; the decider is told
-that the draft is planted before any action.
+justify their collection cost. E1, E5 and E8 also measure the work of
+identifiable staff on real case records, and E8's undisclosed planted
+drafts require a deception protocol. Each needs ethics and privacy
+review before it starts. E8's planted drafts concern synthetic entities
+or closed cases whose named entities have no account action pending, and
+no recommendation in a planted draft may reach a control decision or the
+urgent-containment route; the decider is told that the draft is planted
+before any action.
 
 \hypertarget{what-the-evidence-can-support}{%
 \subsubsection{9.2 What the evidence can
