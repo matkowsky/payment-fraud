@@ -1,0 +1,27 @@
+"""move_check.py must pass a word-for-word move and fail a loss, a reworded move and a dropped citation."""
+import importlib.util
+from pathlib import Path
+spec = importlib.util.spec_from_file_location('mc', Path(__file__).resolve().parent / 'move_check.py')
+mc = importlib.util.module_from_spec(spec); spec.loader.exec_module(mc)
+
+ms = 'Alpha holds in 7 of 9 cases [@Aa2020]. Beta follows Section 5.1 and Supplement S4. Gamma stays here.\n'
+sup = 'Old supplement text [@Bb2021].\n'
+kept = 'Gamma stays here.\n'
+
+# Word-for-word move, with the two permitted reference forms.
+moved, edited, added, problems = mc.compare(ms, kept, sup, sup + 'Alpha holds in 7 of 9 cases [@Aa2020]. Beta follows manuscript Section 5.1 and S4.\n')
+assert len(moved) == 2 and not edited and not added and not problems, problems
+# Removed and not moved.
+assert mc.compare(ms, kept, sup, sup)[3]
+# Reworded in the supplement.
+assert mc.compare(ms, kept, sup, sup + 'Alpha holds in most cases [@Aa2020]. Beta follows manuscript Section 5.1 and S4.\n')[3]
+# Citation dropped from an edited sentence.
+m, e, a, p = mc.compare(ms, 'Alpha holds in 7 of 9 cases. Gamma stays here.\n', sup, sup + 'Beta follows manuscript Section 5.1 and S4.\n')
+assert e and any('Aa2020' in x for x in p), p
+# Number changed in an edited sentence.
+m, e, a, p = mc.compare(ms, 'Alpha holds in 8 of 9 cases [@Aa2020]. Gamma stays here.\n', sup, sup + 'Beta follows manuscript Section 5.1 and S4.\n')
+assert e and any('number 7' in x for x in p), p
+# An edit that keeps every citation and number is reported, not failed.
+m, e, a, p = mc.compare(ms, 'Alpha holds in 7 of 9 cases [@Aa2020; @Bb2021]. Gamma stays here.\n', sup, sup + 'Beta follows manuscript Section 5.1 and S4.\n')
+assert e and not p, p
+print('OK')
