@@ -456,14 +456,7 @@ To estimate C1's cost, one million synthetic payments with two outcome channels 
 
 ### 8.5 Two documented cases replayed
 
-Two FTC complaints were rebuilt as synthetic outcome records from the patterns and rates they allege, with illustrative monitoring rules and assumed volumes and delays (Supplement S10) [@FTC2020FirstData; @FTC2019Allied]. Complaint content is allegation; the replays test record design, not detection.
-
-- **Linked accounts.** Eight related accounts, each below a chargeback count floor, were never flagged alone. A view over recorded links flagged them in 92 percent of runs, and 40 legitimate merchants sharing a call center, set just above the ratio threshold, in 77 percent. A linked view belongs beside the account view, not in its place.
-- **Separate channels.** At the smaller merchant's alleged scale the chargeback rule never flagged an account. Fraud reports counted by value flagged each account in at least 99.8 percent of runs.
-- **Refunds.** An assumed fifth of reported payments were refunded before a dispute; a chargeback-only store reads them as unreported.
-- **Unverified links.** Reports matched to payments only by card number and amount caused false flags near the floor. Counting only verified links replaced them with stated uncertainty.
-
-The records have limits. Padded sales look like clean payments. A record rewritten in place passes every rule, so the store must prevent edits. Accounts with no recorded shared attribute cannot be linked.
+Two FTC complaints were rebuilt as synthetic outcome records from the patterns and rates they allege, with illustrative monitoring rules and assumed volumes and delays (Supplement S10) [@FTC2020FirstData; @FTC2019Allied]. Complaint content is allegation; the replays test record design, not detection. Eight related accounts, each below a chargeback count floor, were never flagged alone. A view over recorded links flagged them in 92 percent of runs, and 40 legitimate merchants sharing a call center, set just above the ratio threshold, in 77 percent; a linked view belongs beside the account view, not in its place. At the smaller merchant's alleged scale the chargeback rule never flagged an account, while fraud reports counted by value flagged each account in at least 99.8 percent of runs. A chargeback-only store reads payments refunded before a dispute as unreported. Counting only verified links between reports and payments replaced false flags near the floor with stated uncertainty. The records have limits: padded sales look like clean payments, a record rewritten in place passes every rule, so the store must prevent edits, and accounts with no recorded shared attribute cannot be linked.
 
 ## 9. Evaluating the specification
 
