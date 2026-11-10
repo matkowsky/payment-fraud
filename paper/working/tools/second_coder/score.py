@@ -36,11 +36,11 @@ def kappa(a, b, c, d):
     pe = ((a + b) * (a + c) + (c + d) * (b + d)) / (n * n)
     return (po - pe) / (1 - pe) if pe < 1 else 1.0
 
-def main():
-    labels = json.loads(Path(sys.argv[2] if len(sys.argv) > 2 else HERE / 'KEY.json').read_text())['labels']
-    got = parse(Path(sys.argv[1]).read_text(encoding='utf-8'), labels)
+def tally(answers=None, key=None):
+    """Counts for the mapped mechanisms of a run: (both, paper only, rater only, neither, identical sets, detail, got, labels)."""
+    labels = json.loads(Path(key or HERE / 'KEY.json').read_text())['labels']
+    got = parse(Path(answers or HERE / 'real_run' / 'ANSWERS.txt').read_text(encoding='utf-8'), labels)
     sig = [s['signal_id'] for s in rows('S3_SIGNALS.csv') if s['signal_id'] not in CROSS_CUTTING]
-    names = {s['signal_id']: s['signal'] for s in rows('S3_SIGNALS.csv')}
     paper = {}
     for p in rows('S3_MECHANISM_SIGNAL_PAIRS.csv'):
         paper.setdefault(p['mechanism'], set()).add(p['signal_id'])
@@ -54,6 +54,12 @@ def main():
         a += len(truth & rater); b += len(truth - rater); c += len(rater - truth)
         d += len(sig) - len(truth | rater)
         detail.append((label, mid, sorted(truth & rater), sorted(truth - rater), sorted(rater - truth)))
+    return a, b, c, d, detail, got, labels, paper
+
+
+def main():
+    a, b, c, d, detail, got, labels, paper = tally(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else None)
+    names = {s['signal_id']: s['signal'] for s in rows('S3_SIGNALS.csv')}
     n_map = len(detail)
     print(f'Mapped mechanisms scored: {n_map}; cells: {a + b + c + d}')
     print(f'Both link: {a}; paper only: {b}; rater only: {c}; neither: {d}')
@@ -74,6 +80,7 @@ def main():
     for label, mid in labels.items():
         if mid in paper and got[label][2].lower() not in ('none', 'none.'):
             print(f'- {label} ({mid}): {got[label][2]}')
+
 
 if __name__ == '__main__':
     main()
