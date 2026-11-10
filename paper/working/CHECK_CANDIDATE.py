@@ -39,7 +39,7 @@ assert sid - {x['signal_id'] for x in p} == {'SIG-44', 'SIG-45', 'SIG-46'}
 assert len(a) == len({x['ID'] for x in a}) == 99
 counts = collections.Counter(x['disposition'] for x in a)
 assert dict(counts) == {'dedicated': 53, 'targeted': 8, 'unreviewed': 20, 'covered': 13, 'screened gap': 4, 'adjacent logged': 1}, counts
-# Job-posting topics in the priority basis (manuscript Section 3): 24 candidates, 23 of the 26 Tier 1, all mapped, 65 links.
+# Job-posting topics in the priority basis (Supplement S2): 24 candidates, 23 of the 26 Tier 1, all mapped, 65 links.
 posting = {x['ID'] for x in a if re.search(r'(?<![\w:])r:', x['Priority (basis)'])}
 tier1 = {x['ID'] for x in a if x['Depth'] == 'Tier 1'}; mapped = {x['mechanism'] for x in p}
 assert len(posting) == 24 and len(tier1) == 26 and len(posting & tier1) == 23, (len(posting), len(tier1))
@@ -59,8 +59,8 @@ if not SOURCES_ONLY:
     assert set(re.findall(r'<div id="ref-([^"]+)"', t)) == mkeys
     assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
 assert {x['citation_key'] for x in rows('S1_CITED_SOURCE_NOTES.csv')} == refkeys
-assert set(re.findall(r'\*\*Table (\d+)\.', body)) == set(map(str, range(1, 7)))
-assert set(re.findall(r'\*\*Figure (\d+)\.', body)) == set(map(str, range(1, 5)))
+assert set(re.findall(r'\*\*Table (\d+)\.', body)) == set(map(str, range(1, 3)))
+assert set(re.findall(r'\*\*Figure (\d+)\.', body)) == set(map(str, range(1, 3)))
 for path in re.findall(r'!\[[^]]*\]\(([^)]+)\)', body):
     assert (B / 'SOURCE' / path).is_file(), path
     for ext in ('.pdf', '.png'): assert (B / 'SOURCE' / path).with_suffix(ext).is_file(), (path, ext)
@@ -86,7 +86,7 @@ T = {ac: 100 for ac in 'ABCD'}; D = {ac: 2 for ac in 'ABCD'}
 pooled = sum(D.values()) / sum(T.values()); weighted = sum((T[k] / sum(T.values())) * (D[k] / T[k]) for k in T)
 assert abs(pooled - weighted) < 1e-12 and min(D[k] / T[k] for k in T) <= pooled <= max(D[k] / T[k] for k in T)
 
-# Section 8.2 uncertainty: exact (Clopper-Pearson) 95 percent intervals and Fisher's two-sided exact test, standard library only.
+# Supplement S6 (Trace B) uncertainty: exact (Clopper-Pearson) 95 percent intervals and Fisher's two-sided exact test, standard library only.
 from math import comb
 def binom_cdf(k, n, p): return sum(comb(n, i) * p**i * (1 - p)**(n - i) for i in range(k + 1))
 def clopper_pearson(k, n, a=0.05):
@@ -130,6 +130,11 @@ n_pow = next(n for n in range(1, 2000) if e8_power(n, 0.001) >= 0.93)
 assert n_pow == 628 and all(e8_power(m, 0.001) >= 0.93 for m in range(n_pow, n_pow + 60)) and e8_power(299, 0.001) < 0.93
 e8_drafts = round(n_pow / 0.05); e8_days = e8_drafts // 20
 assert e8_drafts == 12560 and e8_days == 628 and 'needs 628' in sbody and '12,560 drafts, about 628 days' in sbody
+assert round(100 * binom_cdf(2, 628, 0.01), 2) == 4.98 and binom_cdf(3, 628, 0.01) > 0.05 and round(100 * binom_cdf(2, 628, 0.001), 1) == 97.4
+assert 'two or fewer releases show it' in sbody and 'probability 4.98 percent' in sbody and 'probability 97.4 percent' in sbody
+assert round(100 * 0.93 ** 4) == 75 and 'about 75 percent if their results are independent' in sbody
+m59 = next(m for m in range(1, 1000) if 1 - 0.95 ** m >= 0.95)  # Section 6.4: sample finding a 5 percent contrary share
+assert m59 == 59 and '59 records give 95 percent when $q$ is 5 percent' in sbody
 
 # Trace A timing: the same edge is effective earlier but unavailable to the frozen assessment.
 edge = {'effective_minute': -1440, 'known_minute': 1440}; cutoff = 30
@@ -177,7 +182,7 @@ result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs
           'synthetic': {'transactions': 400, 'chargebacks': 8, 'alerts': 14, 'overlap': 2, 'union': 20,
                         'chargeback_ratio': .02, 'broader_report_ratio': .05, 'undeduplicated_sum_rejected': .055,
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
-                        'clopper_pearson_and_fisher': f'intervals match Section 8.2; Fisher two-sided p = {fisher_p:.4f}'},
+                        'clopper_pearson_and_fisher': f'intervals match Supplement S6; Fisher two-sided p = {fisher_p:.4f}'},
           'bib_parser_checked': parsed is not None, 'private_content_and_dash_screen': f'passed ({screened} files)',
           'relative_links_checked': checked_links,
           'as_of_example': 'later-known edge excluded; earlier onset unresolved',
