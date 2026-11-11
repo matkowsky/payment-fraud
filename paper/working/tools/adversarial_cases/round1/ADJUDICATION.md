@@ -4,7 +4,7 @@ Tester: ChatGPT (model shown: GPT-6) in a temporary chat, three replies of five 
 
 Three files record what happened, in order:
 1. `RESULTS.md`: the checker's output on the rules as they stood before any change.
-2. `RULINGS_CHECK_REPLY.txt`: a separate ChatGPT session's check of Claude's first rulings, from `RULINGS_CHECK_PACKET.md`, stored as received. The model shown for that session was not recorded.
+2. `RULINGS_CHECK_REPLY.txt`: a separate session's check of Claude's first rulings, from `RULINGS_CHECK_PACKET.md`, stored as received. Same model and environment as the tester (author, 11 November): ChatGPT, model shown GPT-6, temporary chat, memory off.
 3. `RESULTS_AFTER_FIX.md`: the checker's output on the revised rules, with each changed draft given its new digest.
 
 Claude wrote the rules and the first rulings, so the first rulings were not independent. The outside check agreed with 12 of 15 rulings and disagreed with 3 (R13, R14, R15). Claude checked each disagreement against the paper and the checker's code and accepted all three. The check also showed that Claude's first fix for R03 would not have closed the gap, and tightened the fixes for R01, R02 and R09.
