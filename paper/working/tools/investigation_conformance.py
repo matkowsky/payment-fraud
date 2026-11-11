@@ -25,7 +25,7 @@ OBSERVED = {'source_observation', 'normalized_observation', 'derived_feature'}
 RANK = {'low': 0, 'moderate': 1, 'high': 2}
 COVERAGE_FIELDS = ('evaluated_entities', 'evaluated_interval', 'sources', 'access_filter_removed_rows',
                    'limits_reached', 'scope_limited', 'statuses', 'as_of')
-DEPENDENCE_FIELDS = ('root_ids', 'inputs', 'agent_output_links', 'author')
+DEPENDENCE_FIELDS = ('root_ids', 'inputs', 'agent_output_links', 'producer')
 
 
 def ent(e):
@@ -118,7 +118,7 @@ def check(records, schema):
         if t == 'QueryRun':
             return [r['requested_by'], r['recorded_by']] + r['returned']
         if t == 'Observation':
-            return r['inputs'] + r['agent_output_links'] + r['root_ids'] + ([r['author']] if 'author' in r else [])
+            return r['inputs'] + r['agent_output_links'] + r['root_ids'] + ([r['producer']] if 'producer' in r else [])
         if t == 'DraftOutput':
             out = [r['agent']]
             for c in r['claims']:
@@ -142,6 +142,8 @@ def check(records, schema):
             for q in c['query_runs']:
                 if q in by and by[q]['record_type'] != 'QueryRun':
                     found.append(('IR-02', r['record_id'], f'cites {q} as a query run'))
+        if r['record_type'] == 'Observation' and r.get('producer') in by and by[r['producer']]['record_type'] != 'Actor':
+            found.append(('IR-02', r['record_id'], f'names {r["producer"]} as its producer'))
     if found:
         return found
 
@@ -177,11 +179,11 @@ def check(records, schema):
                 found.append(('IR-07', rid, 'a source observation cannot be learned before its event began'))
             owed = {x for i in ins for x in i['agent_output_links']}
             for x in records:
-                if x['record_type'] == 'OutputExposure' and x['viewer'] == r.get('author') and ent(x['entity']) == ent(r['entity']) \
+                if x['record_type'] == 'OutputExposure' and x['viewer'] == r.get('producer') and ent(x['entity']) == ent(r['entity']) \
                         and ts(x['opened_at']) <= ts(r['learned_at']) <= ts(x['closed_at']):
                     owed.add(x['output_id'])
-            if r['record_class'] == 'human_note' and 'author' not in r:
-                found.append(('IR-14', rid, 'a note must name its author'))
+            if r['record_class'] == 'human_note' and 'producer' not in r:
+                found.append(('IR-14', rid, 'a note must name its producer'))
             elif not owed <= set(r['agent_output_links']):
                 found.append(('IR-14', rid, f'missing link to agent output {sorted(owed - set(r["agent_output_links"]))}'))
         if t == 'DraftOutput':
@@ -201,8 +203,10 @@ def check(records, schema):
                     o = by[x]
                     return ts(o.get('learned_at') or o.get('issued_at') or o.get('created_at') or r['created_at'])
                 sup = [by[x] for x in c['supporting']]
-                # A record linked to an agent output is dependent: it may be cited, but it adds no root.
-                free = [o for o in sup if o['record_type'] == 'Observation' and not o['agent_output_links']]
+                # A record is dependent if it is linked to an agent output, names no producer, or, unless it is a
+                # source observation, names no inputs: it may be cited, but it adds no root.
+                free = [o for o in sup if o['record_type'] == 'Observation' and not o['agent_output_links'] and 'producer' in o
+                        and (o['record_class'] == 'source_observation' or o['inputs'])]
                 cited = c['supporting'] + c['contradicting'] + c['context'] + c['query_runs']
                 if any(o['record_type'] != 'Observation' or ent(o['entity']) not in named for o in sup) \
                         or any(existed(x) > ts(r['created_at']) for x in cited) \
@@ -210,7 +214,7 @@ def check(records, schema):
                         or (c['material'] and c['claim_type'] != 'absence'
                             and not any(overlaps(o['event_interval'], c['interval']) for o in free)):
                     found.append(('IR-09', cid, 'support must be observations of the named entities, known by the draft, counted once per '
-                                                'unlinked root, with an unlinked observation in the claim interval for a material claim'))
+                                                'root among records that are not dependent, with one such record in the claim interval for a material claim'))
                 elif c['claim_type'] == 'current_conduct':
                     def current(o):
                         return o['record_class'] in OBSERVED and within(o['event_interval'], r['current_period'])

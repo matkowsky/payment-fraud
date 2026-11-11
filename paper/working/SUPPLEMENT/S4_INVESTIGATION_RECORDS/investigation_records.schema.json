@@ -202,7 +202,7 @@
    }
   },
   "Actor": {
-   "description": "A party that writes records: an agent, the gateway, a checker or a person.",
+   "description": "A person, or a process at one version, that writes records: a source system, pipeline, model, rule, agent, the gateway or a checker.",
    "type": "object",
    "additionalProperties": false,
    "required": [
@@ -222,7 +222,11 @@
       "agent",
       "gateway",
       "checker",
-      "human"
+      "human",
+      "source",
+      "pipeline",
+      "model",
+      "rule"
      ]
     }
    }
@@ -336,7 +340,7 @@
    }
   },
   "Observation": {
-   "description": "A stored record with its class, event interval, learned time, root observations and inputs, and links to any agent output that informed it.",
+   "description": "A stored record with its class, event interval, learned time, producer, root observations and inputs, and links to any agent output that informed it.",
    "type": "object",
    "additionalProperties": false,
    "required": [
@@ -394,7 +398,7 @@
       "$ref": "#/$defs/id"
      }
     },
-    "author": {
+    "producer": {
      "$ref": "#/$defs/id"
     }
    }

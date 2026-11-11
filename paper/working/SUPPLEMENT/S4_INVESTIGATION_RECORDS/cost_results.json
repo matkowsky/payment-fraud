@@ -2,7 +2,7 @@
  "investigations": 100000,
  "machine": "x86_64, 2 CPUs; SQLite 3.53.1; Python 3.13.18",
  "records_by_type": {
-  "Actor": 5,
+  "Actor": 8,
   "DraftOutput": 200000,
   "MemoryRead": 100000,
   "Observation": 700000,
@@ -12,29 +12,29 @@
   "ReleasedItem": 100000
  },
  "mean_json_bytes_by_type": {
-  "Actor": 58,
-  "DraftOutput": 803,
+  "Actor": 59,
+  "DraftOutput": 799,
   "MemoryRead": 147,
-  "Observation": 335,
+  "Observation": 351,
   "OutputExposure": 233,
   "QueryRun": 883,
   "ReleaseDecision": 446,
   "ReleasedItem": 181
  },
  "records_per_investigation": 17.0,
- "json_kb_per_investigation": 8.5,
+ "json_kb_per_investigation": 8.6,
  "query_run_kb_per_investigation": 3.5,
  "release_record_kb_per_investigation": 2.6,
- "json_mb_per_thousand_investigations": 8.5,
- "gzip_mb_per_thousand_investigations": 0.26,
- "sqlite_mb_per_thousand_investigations": 9.7,
+ "json_mb_per_thousand_investigations": 8.6,
+ "gzip_mb_per_thousand_investigations": 0.3,
+ "sqlite_mb_per_thousand_investigations": 9.8,
  "absence_check_microseconds": {
-  "median": 30,
-  "p99": 74
+  "median": 38,
+  "p99": 91
  },
  "reuse_check_microseconds": {
-  "median": 25,
-  "p99": 64
+  "median": 30,
+  "p99": 78
  },
  "sample_check": "generated records pass the schema and IR-01 to IR-14"
 }

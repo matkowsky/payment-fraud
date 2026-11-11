@@ -27,6 +27,21 @@
    "kind": "human"
   },
   {
+   "record_type": "Actor",
+   "record_id": "SRC-1",
+   "kind": "source"
+  },
+  {
+   "record_type": "Actor",
+   "record_id": "PL-1",
+   "kind": "pipeline"
+  },
+  {
+   "record_type": "Actor",
+   "record_id": "MD-1",
+   "kind": "model"
+  },
+  {
    "record_type": "Observation",
    "record_id": "O-1",
    "record_class": "source_observation",
@@ -44,7 +59,8 @@
     "O-1"
    ],
    "inputs": [],
-   "agent_output_links": []
+   "agent_output_links": [],
+   "producer": "SRC-1"
   },
   {
    "record_type": "Observation",
@@ -64,7 +80,8 @@
     "O-2"
    ],
    "inputs": [],
-   "agent_output_links": []
+   "agent_output_links": [],
+   "producer": "SRC-1"
   },
   {
    "record_type": "Observation",
@@ -88,7 +105,8 @@
     "O-1",
     "O-2"
    ],
-   "agent_output_links": []
+   "agent_output_links": [],
+   "producer": "PL-1"
   },
   {
    "record_type": "Observation",
@@ -108,7 +126,8 @@
     "O-4"
    ],
    "inputs": [],
-   "agent_output_links": []
+   "agent_output_links": [],
+   "producer": "MD-1"
   },
   {
    "record_type": "QueryRun",
@@ -369,7 +388,7 @@
    "agent_output_links": [
     "DR-1"
    ],
-   "author": "H-1"
+   "producer": "H-1"
   },
   {
    "record_type": "ReleaseDecision",
@@ -430,7 +449,8 @@
     "O-6"
    ],
    "inputs": [],
-   "agent_output_links": []
+   "agent_output_links": [],
+   "producer": "SRC-1"
   },
   {
    "record_type": "Observation",
@@ -450,7 +470,8 @@
     "O-7"
    ],
    "inputs": [],
-   "agent_output_links": []
+   "agent_output_links": [],
+   "producer": "MD-1"
   },
   {
    "record_type": "QueryRun",

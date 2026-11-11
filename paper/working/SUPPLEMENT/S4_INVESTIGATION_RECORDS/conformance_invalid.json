@@ -552,6 +552,14 @@
        "distinct_roots": 1
       }
      ]
+    },
+    "O-7": {
+     "inputs": [
+      "O-6"
+     ],
+     "root_ids": [
+      "O-6"
+     ]
     }
    }
   },
@@ -924,10 +932,10 @@
   {
    "case_id": "D34",
    "rule": "IR-14",
-   "description": "A note names no author.",
+   "description": "A note names no producer.",
    "remove_fields": {
     "O-5": [
-     "author"
+     "producer"
     ]
    }
   },
@@ -959,6 +967,66 @@
      "agent_output_links": []
     }
    ]
+  },
+  {
+   "case_id": "D36",
+   "rule": "IR-09",
+   "description": "A claim's only supporting observation names no producer.",
+   "remove_fields": {
+    "O-6": [
+     "producer"
+    ]
+   }
+  },
+  {
+   "case_id": "D37",
+   "rule": "IR-09",
+   "description": "A claim counts a score with no recorded inputs as a second root observation.",
+   "set_fields": {
+    "DR-2": {
+     "claims": [
+      {
+       "claim_id": "CL-3",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-18T00:00:00Z",
+        "to": "2026-05-18T06:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-6",
+        "O-4"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-4"
+       ],
+       "context": [
+        "M-1"
+       ],
+       "distinct_roots": 2
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "D38",
+   "rule": "IR-02",
+   "description": "An observation names a query run as its producer.",
+   "set_fields": {
+    "O-1": {
+     "producer": "Q-1"
+    }
+   }
   }
  ]
 }
