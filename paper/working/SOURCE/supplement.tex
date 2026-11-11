@@ -1860,16 +1860,16 @@ What it holds
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-Actor & A party that writes records: an agent, the gateway, a checker or
-a person \\
+Actor & A person, or a process at one version, that writes records: a
+source system, pipeline, model, rule, agent, the gateway or a checker \\
 QueryRun & One query and the coverage record the gateway attached:
 requested and evaluated entities and intervals, the as-of cutoff, each
 source's watermarks, known gaps, retention horizon and sampling,
 filtering, limits reached, the records returned and the derived
 statuses \\
 Observation & A stored record with its class, event interval, learned
-time, root observations, inputs and links to any agent output that
-informed it \\
+time, producer, root observations, inputs and links to any agent output
+that informed it \\
 DraftOutput & An agent draft: its exact version, expiry, the task's
 current period, and each claim with its supporting and contradicting
 records, query runs and context \\
@@ -1893,8 +1893,8 @@ Fourteen rules check records against each other:
 \item
   \mbox{IR-01}: a record identifier is used once.
 \item
-  \mbox{IR-02}: every record a record cites exists, and a cited query
-  run is a query run.
+  \mbox{IR-02}: every record a record cites exists, a cited query run is
+  a query run, and a producer is an actor.
 \item
   \mbox{IR-03}: a gateway that is not the requester records a query
   run's coverage.
@@ -1930,12 +1930,14 @@ Fourteen rules check records against each other:
   \mbox{IR-09}: a claim's support consists of observation records about
   the claim's entities. Every record a claim cites, as support,
   contradiction, context or query run, exists by the time the draft was
-  written. A supporting record linked to an agent output adds no root:
-  the claim's count of distinct roots equals the number of distinct root
-  observations among its unlinked supporting records. A material
-  presence or current-conduct claim has at least one unlinked supporting
-  observation whose event interval overlaps the claim's interval. A
-  released conclusion or a draft is never support.
+  written. A supporting record is dependent, and adds no root, if it is
+  linked to an agent output, names no producer, or lists no inputs and
+  is not a source observation. The claim's count of distinct roots
+  equals the number of distinct root observations among its other
+  supporting records. A material presence or current-conduct claim cites
+  at least one supporting observation that is not dependent and whose
+  event interval overlaps the claim's interval. A released conclusion or
+  a draft is never support.
 \item
   \mbox{IR-10}: a current-conduct claim cites an observation or derived
   feature whose event interval falls within the current period. A score
@@ -1952,9 +1954,10 @@ Fourteen rules check records against each other:
   \mbox{IR-13}: memory is read only from a released item, between its
   creation and its release's expiry.
 \item
-  \mbox{IR-14}: a note names its author. A record its author wrote about
-  an entity while an agent output about that entity was open links to
-  that output, and a record derived from a linked record keeps the link.
+  \mbox{IR-14}: a note names its producer. A record its producer wrote
+  about an entity while an agent output about that entity was open links
+  to that output, and a record derived from a linked record keeps the
+  link.
 \end{enumerate}
 
 The
@@ -1963,7 +1966,7 @@ conformance case} builds one synthetic history: an investigation with
 three query runs, a draft with a current-conduct claim and an absence
 claim, a note written while the draft was open, a release by a second
 person, and a later case that reads the released conclusion as context
-and cites a new observation. Its 22 records pass. Each of the 35
+and cites a new observation. Its 25 records pass. Each of the 38
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json}{invalid
 cases} changes that history in one way and fails exactly one check;
 together they exercise the schema and all fourteen rules. Where a case
@@ -2026,8 +2029,8 @@ the person read the draft, and the schema has no class for a fact
 recorded ahead of its effective date. Identifiers, dates and versions in
 the cases are illustrative.
 
-\textbf{Adversarial test (10 and 11 November 2026).} The 35 invalid
-cases were written by the same hand as the rules. To test the rules from
+\textbf{Adversarial test (10 and 11 November 2026).} The invalid cases
+were written by the same hand as the rules. To test the rules from
 outside, a tester received the two requirements as the manuscript states
 them, the fourteen rules, the record fields and the valid history, and
 not the checker
@@ -2065,13 +2068,13 @@ parts of the paper.
 copies the valid case 100,000 times, each copy with its four query runs,
 seven stored records, two drafts, one exposure, one release decision,
 one released item and one memory read, and checks a sample against the
-rules. Per copy, the records take 8.5 KB as JSON: 3.5 KB for query runs,
+rules. Per copy, the records take 8.6 KB as JSON: 3.5 KB for query runs,
 about 900 bytes each, and 2.6 KB for drafts, release and memory records.
-A thousand copies take 0.26 MB compressed and 9.7 MB in SQLite; repeated
+A thousand copies take 0.30 MB compressed and 9.8 MB in SQLite; repeated
 text makes the compressed figure a best case. On the two-core machine of
 S4.3, checking that an absence claim's runs are complete and cover it
-took a median of 30 microseconds (99th percentile 74), and checking that
-a memory read used a released, unexpired item took 25 (64).
+took a median of 38 microseconds (99th percentile 91), and checking that
+a memory read used a released, unexpired item took 30 (78).
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json}{The
 results} come from one run. Real coverage records list more sources per
 run, and reviewer time is not measured.
@@ -3791,12 +3794,24 @@ invent them.
 
 Source ancestry is necessary but not sufficient to establish independent
 support. A formal treatment of evidence dependence distinguishes
-independent observations from reports derived from shared evidence
-{[}\protect\hyperlink{ref-Bara2026EpistemicSybil}{71}{]}. C3 follows the
-same concern: several agents repeating one report do not create several
-independent observations. A released conclusion can guide the next
-query, but evidence for that conclusion must remain traceable to the
-underlying records.
+independent observations from reports derived from shared evidence and
+requires a dependence model as well as ancestry
+{[}\protect\hyperlink{ref-Bara2026EpistemicSybil}{71}{]}. It shows that
+no rule that sees only report content can, in general, tell replication
+from independent corroboration. In its experiments, with one small
+language model reading synthetic documents, repeated extractions from
+one document had correlated errors (estimated correlation 0.72, in an
+exploratory analysis), and a deduplication method that clustered reports
+by text similarity tracked how they were worded far more than their
+ancestry. C3 follows the same concern: several agents repeating one
+report do not create several independent observations. Records therefore
+carry their roots, their producer and links to the agent outputs that
+informed them, and a record without a producer, or without inputs unless
+it is a source observation, adds no root (manuscript Section 6.4). The
+specification does not estimate how strong the dependence is; quality
+review judges that from these records. A released conclusion can guide
+the next query, but evidence for that conclusion must remain traceable
+to the underlying records.
 
 Two recent designs bear directly on C3. A data-governance preprint
 commits no agent-proposed metadata decision before a steward reviews it.
