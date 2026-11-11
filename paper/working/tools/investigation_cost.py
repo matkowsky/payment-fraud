@@ -47,8 +47,8 @@ def generate(n, emit):
     for a in actors:
         emit(a)
     for i in range(n):
-        for r in rest:
-            emit(rename(r, i, keep))
+        for r in ic.seal([rename(r, i, keep) for r in rest]):   # renaming changes the claims, so the digest
+            emit(r)
 
 
 def measure(n):

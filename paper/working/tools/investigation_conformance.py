@@ -9,6 +9,7 @@ Standard library only; the schema validator is the one in outcome_conformance.py
 passing synthetic cases do not establish operational effectiveness.
 """
 import copy
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -51,7 +52,8 @@ def derive_statuses(run):
             out.add('denied')
         elif s['access'] == 'unavailable':
             out.add('unavailable')
-        elif (ts(req['to']) > ts(s['event_watermark']) or ts(req['from']) < ts(s['retention_horizon']) or s['sampled']
+        elif (ts(req['to']) > ts(s['event_watermark']) or ts(req['to']) > ts(s['ingestion_watermark'])
+              or ts(req['from']) < ts(s['retention_horizon']) or s['sampled']
               or any(overlaps(g, req) for g in s['known_gaps'])):
             out.add('partial')
     if run['limits_reached']:
@@ -64,6 +66,32 @@ def supports_absence(run, claim):
     return (run['statuses'] == ['complete'] and not run['scope_limited'] and not run['returned']
             and {ent(e) for e in claim['entities']} <= {ent(e) for e in run['evaluated_entities']}
             and within(claim['interval'], run['evaluated_interval']))
+
+
+def claims_digest(claims):
+    """A draft's version identifier: the first 16 hex digits of SHA-256 over its claims in canonical JSON."""
+    text = json.dumps(claims, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+    return hashlib.sha256(text.encode('utf-8')).hexdigest()[:16]
+
+
+def seal(records):
+    """Give each draft whose claims changed its new digest, and carry it to a release that named the old one.
+
+    Used where a history is built on purpose with changed claims: the in-house invalid cases, so that a case
+    meant to break one rule breaks only that rule, and the generated copies in investigation_cost.py.
+    """
+    for r in records:
+        if r.get('record_type') != 'DraftOutput' or 'claims' not in r or 'version_hash' not in r:
+            continue
+        new = claims_digest(r['claims'])
+        if new == r['version_hash']:
+            continue
+        for x in records:
+            if x.get('record_type') == 'ReleaseDecision' and x.get('draft_id') == r['record_id'] \
+                    and x.get('version_hash') == r['version_hash']:
+                x['version_hash'] = new
+        r['version_hash'] = new
+    return records
 
 
 def distinct_roots(ids, by):
@@ -145,6 +173,8 @@ def check(records, schema):
                 roots_ok = r['root_ids'] == [rid] and r['record_class'] in ('score', 'control_decision')
             if not roots_ok or any(ts(r['learned_at']) < ts(i['learned_at']) for i in ins):
                 found.append(('IR-07', rid, 'roots or learned time do not follow from the inputs'))
+            elif r['record_class'] == 'source_observation' and ts(r['learned_at']) < ts(r['event_interval']['from']):
+                found.append(('IR-07', rid, 'a source observation cannot be learned before its event began'))
             owed = {x for i in ins for x in i['agent_output_links']}
             for x in records:
                 if x['record_type'] == 'OutputExposure' and x['viewer'] == r.get('author') and ent(x['entity']) == ent(r['entity']) \
@@ -155,16 +185,32 @@ def check(records, schema):
             elif not owed <= set(r['agent_output_links']):
                 found.append(('IR-14', rid, f'missing link to agent output {sorted(owed - set(r["agent_output_links"]))}'))
         if t == 'DraftOutput':
+            if r['version_hash'] != claims_digest(r['claims']):
+                found.append(('IR-11', rid, "the draft's version identifier is not the digest of its claims"))
             for c in r['claims']:
                 cid = f'{rid}/{c["claim_id"]}'
-                if c['claim_type'] == 'absence' and not (c['query_runs'] and all(
-                        by[q]['record_type'] == 'QueryRun' and supports_absence(by[q], c) for q in c['query_runs'])):
-                    found.append(('IR-08', cid, 'an absence claim needs complete query runs that cover it'))
                 named = {ent(e) for e in c['entities']}
-                if any(by[s]['record_type'] != 'Observation' or ent(by[s]['entity']) not in named
-                       or ts(by[s]['learned_at']) > ts(r['created_at']) for s in c['supporting']) \
-                        or c['distinct_roots'] != len(distinct_roots(c['supporting'], by)):
-                    found.append(('IR-09', cid, 'support must be observations of the named entities, learned by the draft, counted once per root'))
+                runs = [by[q] for q in c['query_runs']]
+                if c['claim_type'] == 'absence' and (
+                        not any(supports_absence(q, c) for q in runs)
+                        or any(by[x]['record_type'] == 'Observation' and ent(by[x]['entity']) in named
+                               and overlaps(by[x]['event_interval'], c['interval']) for q in runs for x in q['returned'])):
+                    found.append(('IR-08', cid, 'an absence claim needs a complete, empty run that covers it, and no cited run that returned a matching record'))
+
+                def existed(x):   # when a cited record came to exist
+                    o = by[x]
+                    return ts(o.get('learned_at') or o.get('issued_at') or o.get('created_at') or r['created_at'])
+                sup = [by[x] for x in c['supporting']]
+                # A record linked to an agent output is dependent: it may be cited, but it adds no root.
+                free = [o for o in sup if o['record_type'] == 'Observation' and not o['agent_output_links']]
+                cited = c['supporting'] + c['contradicting'] + c['context'] + c['query_runs']
+                if any(o['record_type'] != 'Observation' or ent(o['entity']) not in named for o in sup) \
+                        or any(existed(x) > ts(r['created_at']) for x in cited) \
+                        or c['distinct_roots'] != len({x for o in free for x in o['root_ids']}) \
+                        or (c['material'] and c['claim_type'] != 'absence'
+                            and not any(overlaps(o['event_interval'], c['interval']) for o in free)):
+                    found.append(('IR-09', cid, 'support must be observations of the named entities, known by the draft, counted once per '
+                                                'unlinked root, with an unlinked observation in the claim interval for a material claim'))
                 elif c['claim_type'] == 'current_conduct':
                     def current(o):
                         return o['record_class'] in OBSERVED and within(o['event_interval'], r['current_period'])
@@ -253,7 +299,7 @@ def run_conformance():
     assert not base, ('valid case fails', base)
     rules = set()
     for case in cases:
-        got = {f[0] for f in check(apply_patch(valid, case), schema)}
+        got = {f[0] for f in check(seal(apply_patch(valid, case)), schema)}
         assert got == {case['rule']}, (case['case_id'], case['rule'], sorted(got))
         rules.add(case['rule'])
     expected = {'SCHEMA'} | {f'IR-{n:02d}' for n in range(1, 15)}

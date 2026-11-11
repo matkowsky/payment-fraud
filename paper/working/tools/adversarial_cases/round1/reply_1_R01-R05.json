@@ -1,0 +1,164 @@
+[
+  {
+    "case_id": "R01",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "CL-1 now asserts current conduct on May 5, after Q-1's evaluated interval ends, although every supporting observation concerns May 1–3. IR-09 checks entity identity and learned time, while IR-10 requires evidence only somewhere within the broader current period, so neither checks whether the evidence or query coverage supports the claimed interval. The unsupported conclusion is subsequently released into memory.",
+    "set_fields": {
+      "DR-1": {
+        "claims": [
+          {
+            "claim_id": "CL-1",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-05T00:00:00Z",
+              "to": "2026-05-05T12:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": ["O-1", "O-2", "O-3"],
+            "contradicting": [],
+            "query_runs": ["Q-1"],
+            "context": [],
+            "distinct_roots": 2
+          },
+          {
+            "claim_id": "CL-2",
+            "claim_type": "absence",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-04-01T00:00:00Z",
+              "to": "2026-04-30T00:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [],
+            "contradicting": [],
+            "query_runs": ["Q-2"],
+            "context": [],
+            "distinct_roots": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R02",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "Q-2 retains complete status and returns no records for April despite its source ingestion watermark being March 31, before the entire requested interval. The released absence claim therefore relies on coverage that cannot establish the claimed absence. This exploits the explicitly stated limit that the rules do not check ingestion-watermark lag.",
+    "set_fields": {
+      "Q-2": {
+        "sources": [
+          {
+            "source_id": "S-PAY",
+            "schema_version": "pay-events-7",
+            "access": "evaluated",
+            "event_watermark": "2026-05-06T00:00:00Z",
+            "ingestion_watermark": "2026-03-31T00:00:00Z",
+            "retention_horizon": "2025-05-01T00:00:00Z",
+            "known_gaps": [],
+            "sampled": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R03",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "DR-2 treats O-5, a human note explicitly linked to the earlier agent output DR-1, as an additional independent supporting root for current conduct. IR-09 counts O-5's inherited root O-1 alongside O-6 without excluding agent-influenced notes, while IR-10 passes because O-6 independently satisfies its current-period test. Agent-influenced material is therefore reused as corroborating evidence rather than merely dependent context.",
+    "set_fields": {
+      "DR-2": {
+        "claims": [
+          {
+            "claim_id": "CL-3",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-18T00:00:00Z",
+              "to": "2026-05-18T06:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": ["O-5", "O-6"],
+            "contradicting": [],
+            "query_runs": ["Q-4"],
+            "context": ["M-1"],
+            "distinct_roots": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R04",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "DR-2 conceals its originally declared dependence on released conclusion M-1 by removing that context reference, even though MR-1 still records the same agent reading M-1 for K-2 shortly before drafting. The rules validate recorded memory reads but do not require subsequent drafts to disclose reliance on material read from memory. This exploits the stated limit concerning downstream links after memory reads.",
+    "set_fields": {
+      "DR-2": {
+        "claims": [
+          {
+            "claim_id": "CL-3",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-18T00:00:00Z",
+              "to": "2026-05-18T06:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": ["O-6"],
+            "contradicting": [],
+            "query_runs": ["Q-4"],
+            "context": [],
+            "distinct_roots": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R05",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "RL-1 is backdated to May 5, before DR-1 was created on May 6 and before its supporting queries ran. A person cannot meaningfully review and release an exact draft version that does not yet exist. IR-11 checks the reviewer, version equality, confidence and expiry but does not explicitly require the decision to follow draft creation; IR-12 still sees M-1 created after the purported release.",
+    "set_fields": {
+      "RL-1": {
+        "decided_at": "2026-05-05T09:00:00Z"
+      }
+    }
+  }
+]

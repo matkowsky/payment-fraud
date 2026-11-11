@@ -186,6 +186,18 @@ from investigation_conformance import run_conformance as run_investigation
 investigation = run_investigation()
 assert investigation == {'valid_records': 22, 'invalid_cases': 35, 'rules_exercised': 15, 'necessity_pairs': 4}, investigation
 assert 'Its 22 records pass. Each of the 35' in sbody
+# Adversarial test (Supplement S4.4): the fifteen outside histories give the reported outcomes under the current rules.
+sys.path.insert(0, str(B / 'tools' / 'adversarial_cases'))
+from run_cases import rules_hit
+outside = json.loads((B / 'tools/adversarial_cases/round1/CASES.json').read_text(encoding='utf-8'))
+sealed = {x['case_id']: rules_hit(x) for x in outside}
+assert sealed == {'R01': {'IR-09'}, 'R02': {'IR-05'}, 'R03': {'IR-09'}, 'R04': set(), 'R05': {'IR-11'}, 'R06': {'IR-09'}, 'R07': {'IR-07'},
+                  'R08': set(), 'R09': set(), 'R10': {'IR-14'}, 'R11': {'IR-09'}, 'R12': {'SCHEMA'}, 'R13': set(), 'R14': {'IR-09'},
+                  'R15': set()}, sealed
+meant_to_break = [x['case_id'] for x in outside if x['expect'] == 'reject']
+assert len(outside) == 15 and len(meant_to_break) == 13 and sum(1 for i in meant_to_break if sealed[i]) == 9
+assert 'IR-11' in rules_hit(next(x for x in outside if x['case_id'] == 'R06'), sealed=False)   # a draft altered after release
+assert 'nine of the 13 histories are rejected and the false rejection is gone' in sbody and '10 of the 13 passed' in sbody
 # Second-rater check of the links (Supplement S3): the stored answers reproduce the reported counts.
 sys.path.insert(0, str(B / 'tools' / 'second_coder'))
 from score import tally as rater_tally, kappa as rater_kappa
