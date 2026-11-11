@@ -96,7 +96,7 @@ The resulting inventory contains 71 signals in 12 families. Sixty-eight connect 
 
 Three published schemas describe the platform's application programming interface (API), the interface through which software requests operations and receives data. Supplement S5 supplies the object, field or event supporting each match.
 
-Supplement S1 records the version, relevant passages and use of each of the 127 cited works, and compares 50 sources against the three requirements. Supplement S3 lists the 61 design sources and the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
+Supplement S1 records the version, relevant passages and use of each of the 127 works cited in the manuscript and supplement, and compares 50 sources against the three requirements. Supplement S3 lists the 61 design sources and the depth of each read. These records let readers inspect the synthesis; their counts do not measure evidence quality.
 
 The synthesis distinguishes sourced findings, design choices and hypotheses (Supplement S2.1). One author, assisted by AI models, made the mappings and coverage judgments; agreement between independent human coders has not been measured. A model that took no part in the mapping, given a linking rule written afterward, made 49 of 52 sampled links and 70 that the paper lacks. The links are therefore a sourced subset, not a complete map (Supplement S3). Section 9.2 explains the limits this focused selection places on coverage and transfer.
 
