@@ -204,13 +204,21 @@ def check(records, schema):
                     return ts(o.get('learned_at') or o.get('issued_at') or o.get('created_at') or r['created_at'])
                 sup = [by[x] for x in c['supporting']]
                 # A record is dependent if it is linked to an agent output, names no producer, or, unless it is a
-                # source observation, names no inputs: it may be cited, but it adds no root.
-                free = [o for o in sup if o['record_type'] == 'Observation' and not o['agent_output_links'] and 'producer' in o
-                        and (o['record_class'] == 'source_observation' or o['inputs'])]
+                # source observation, names no inputs: it may be cited, but it adds no root. The restriction runs
+                # through the inputs, so a derived record adds only the roots reachable through records that are
+                # not dependent.
+                def countable(o, seen=()):
+                    if o['record_type'] != 'Observation' or o['agent_output_links'] or 'producer' not in o \
+                            or o['record_id'] in seen:
+                        return set()
+                    if o['record_class'] == 'source_observation':
+                        return set(o['root_ids'])
+                    return set().union(*(countable(by[i], seen + (o['record_id'],)) for i in o['inputs'] if i in by))
+                free = [o for o in sup if countable(o)]
                 cited = c['supporting'] + c['contradicting'] + c['context'] + c['query_runs']
                 if any(o['record_type'] != 'Observation' or ent(o['entity']) not in named for o in sup) \
                         or any(existed(x) > ts(r['created_at']) for x in cited) \
-                        or c['distinct_roots'] != len({x for o in free for x in o['root_ids']}) \
+                        or c['distinct_roots'] != len(set().union(*(countable(o) for o in sup))) \
                         or (c['material'] and c['claim_type'] != 'absence'
                             and not any(overlaps(o['event_interval'], c['interval']) for o in free)):
                     found.append(('IR-09', cid, 'support must be observations of the named entities, known by the draft, counted once per '

@@ -301,8 +301,14 @@ def check(records, schema):
             else:
                 covering = [t for t in known if ts(t['effective_from']) < end
                             and ('effective_to' not in t or ts(t['effective_to']) > cs_lo)]
-                starts = any(ts(t['effective_from']) <= cs_lo and t['state'] in OPEN_STATES for t in covering)
-                open_all = starts and all(t['state'] in OPEN_STATES for t in covering)
+                # Open throughout: every known transition in the window is open, and together they cover the window
+                # from the clock start to its end with no gap. A gap is a period of unknown state.
+                reach = cs_lo
+                for t in sorted(covering, key=lambda t: ts(t['effective_from'])):
+                    if ts(t['effective_from']) > reach:
+                        break
+                    reach = max(reach, ts(t['effective_to'])) if 'effective_to' in t else end
+                open_all = reach >= end and all(t['state'] in OPEN_STATES for t in covering)
                 expected = 'matured_absent' if open_all else 'unknown'
                 if open_all and rd.get('matured_under_rule_version') != window['rule_version']:
                     add('OR-12', rd['record_id'], 'a matured absence records the rule version it matured under')

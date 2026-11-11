@@ -180,12 +180,12 @@ for path in [B / MS, B / 'SUPPLEMENT.md', B / 'README.md', B / 'REPRODUCE.md', B
 sys.path.insert(0, str(B / 'tools'))
 from outcome_conformance import run_conformance
 outcome = run_conformance()
-assert outcome == {'valid_records': 27, 'invalid_cases': 22, 'rules_exercised': 15}, outcome
+assert outcome == {'valid_records': 27, 'invalid_cases': 23, 'rules_exercised': 15}, outcome
 # Query-run and release schema (Supplement S4.4): the same test, plus four necessity pairs.
 from investigation_conformance import run_conformance as run_investigation
 investigation = run_investigation()
-assert investigation == {'valid_records': 25, 'invalid_cases': 38, 'rules_exercised': 15, 'necessity_pairs': 4}, investigation
-assert 'Its 25 records pass. Each of the 38' in sbody
+assert investigation == {'valid_records': 25, 'invalid_cases': 39, 'rules_exercised': 15, 'necessity_pairs': 4}, investigation
+assert 'Its 25 records pass. Each of the 39' in sbody
 # Adversarial test (Supplement S4.4): the fifteen outside histories give the reported outcomes under the current rules.
 sys.path.insert(0, str(B / 'tools' / 'adversarial_cases'))
 from run_cases import rules_hit
