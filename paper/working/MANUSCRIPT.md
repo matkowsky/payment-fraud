@@ -4,7 +4,7 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-10 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+11 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 ## Abstract
 
@@ -38,7 +38,7 @@ The contribution is three requirements on the investigation’s records:
 
 **C2** records query coverage and learned time. Query coverage is what a query actually covered: the data and period it examined, and whether its result was complete. Learned time is when a fact became available to the system’s queries. Every query passes through a gateway, a checkpoint outside the agent, which records its coverage. Every fact keeps both when it happened and when the system learned it (Sections 5.1, 5.3 and 6.2).
 
-**C3** requires human release before promotion into organizational memory. No agent output enters the evidence plane, which stores observations, as evidence of the activity under investigation (Sections 4.2 and 5.3); the agent’s own outputs are recorded only as observations of what the agent did (Supplement S4.1). A person releases a conclusion into organizational memory, where it serves only as a hypothesis or context. Any record that an agent output informed links back to that output and counts as dependent, not as independent corroboration (Sections 4.2, 6.4 and 7.3).
+**C3** requires human release before promotion into organizational memory. No agent output enters the evidence plane, which stores observations, as evidence of the activity under investigation (Sections 4.2 and 5.3); the agent’s own outputs are recorded only as observations of what the agent did (Supplement S4.1). A person releases a conclusion into organizational memory, where it serves only as a hypothesis or context. Any record that an agent output informed links back to that output and counts as dependent, not as independent corroboration; a record written while an agent output is open to its writer counts as informed (Sections 4.2, 6.4 and 7.3).
 
 The requirements work together. C1 identifies which outcomes the platform’s decisions left observable. C2 establishes what information an investigation actually examined and could have known. C3 prevents the resulting interpretation from returning as independent support for itself. A record can satisfy one requirement and still mislead an investigation through a failure of another.
 
