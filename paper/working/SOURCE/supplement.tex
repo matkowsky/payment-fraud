@@ -950,7 +950,7 @@ The \href{SUPPLEMENT/S4_DRAFT_SCHEMA.csv}{draft schema} supplies the
 fields that the rule checker, quality reviewers and the releaser use to
 assess an intelligence draft. S7 explains the evaluation conditions;
 S7.1 gives hypotheses and criteria for E1 to E9. S8 gives the
-practitioner review protocol.
+practitioner study protocol.
 
 \textbf{Returned records a draft does not cite (manuscript Section
 6.4).} The checker identifies every record that the case's query runs
@@ -1730,9 +1730,10 @@ record on its own. Fourteen rules check records against each other:
 \item
   \mbox{OR-12}: a no-report status follows from the channel's state and
   window. An absence matures only if the window is defined and has
-  ended, the channel was open throughout it and query access was full. A
-  matured absence records the rule version it matured under and cites
-  any decision that changed the channel's meaning.
+  ended, the channel was open throughout it, with no gap in its recorded
+  state, and query access was full. A matured absence records the rule
+  version it matured under and cites any decision that changed the
+  channel's meaning.
 \item
   \mbox{OR-13}: each reported item has exactly one live attribution to
   its accounts, so a measure counts it once.
@@ -1749,7 +1750,7 @@ a hold on the account that received the payment, and a payment that
 draws no report. An earlier account with the same principal name was
 closed; the new account is linked to it as a suspected successor on that
 name alone, and a storefront is linked to the new account by its
-checkout identifier. Its 27 records pass. Each of the 22
+checkout identifier. Its 27 records pass. Each of the 23
 \href{SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json}{invalid
 cases} changes that history in one way and must fail exactly one check;
 together they exercise the schema check and all fourteen rules.
@@ -1932,12 +1933,14 @@ Fourteen rules check records against each other:
   contradiction, context or query run, exists by the time the draft was
   written. A supporting record is dependent, and adds no root, if it is
   linked to an agent output, names no producer, or lists no inputs and
-  is not a source observation. The claim's count of distinct roots
-  equals the number of distinct root observations among its other
-  supporting records. A material presence or current-conduct claim cites
-  at least one supporting observation that is not dependent and whose
-  event interval overlaps the claim's interval. A released conclusion or
-  a draft is never support.
+  is not a source observation. The restriction runs through inputs: a
+  derived record adds only the roots reachable through records that are
+  not dependent. The claim's count of distinct roots equals the number
+  of distinct root observations its supporting records add. A material
+  presence or current-conduct claim cites at least one supporting
+  observation that is not dependent and whose event interval overlaps
+  the claim's interval. A released conclusion or a draft is never
+  support.
 \item
   \mbox{IR-10}: a current-conduct claim cites an observation or derived
   feature whose event interval falls within the current period. A score
@@ -1966,7 +1969,7 @@ conformance case} builds one synthetic history: an investigation with
 three query runs, a draft with a current-conduct claim and an absence
 claim, a note written while the draft was open, a release by a second
 person, and a later case that reads the released conclusion as context
-and cites a new observation. Its 25 records pass. Each of the 38
+and cites a new observation. Its 25 records pass. Each of the 39
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json}{invalid
 cases} changes that history in one way and fails exactly one check;
 together they exercise the schema and all fourteen rules. Where a case
@@ -2566,7 +2569,7 @@ between observations and organizational memory.
 
 These conditions explain the scope and comparisons behind the tests in
 S7.1. E8's release-gate test appears there alongside the other eight; S8
-adds practitioner judgments of availability and usefulness.
+adds a practitioner study of conclusions and current practice.
 
 \begin{table}[tp]
 \textbf{Table S7.1. Requirements for interpreting feedback.} Each
@@ -2872,16 +2875,17 @@ section does not set them. A platform may change them before it starts,
 if it records the change before examining any data. No data have been
 collected, and whoever runs the plan can register it with a time stamp.
 
-Four rules apply to all nine. First, each evaluation freezes the
-information each method may use at an as-of cutoff and separates
-development from test data. Second, it states how true outcomes are
-decided, by whom, and blind to which method produced each finding. Its
-error and abstention rules are set in advance, and it states base rates.
-Third, where ground truth comes from labels shaped by control decisions,
-it says how that bias is avoided. Otherwise it reports relative
-performance among detected cases only. Fourth, records from tests,
-replays and emulations are marked when created and kept out of
-production labels and lessons.
+C1 and C2 do not need the agent: E1, E3 and E9 test them without one,
+and E9(a) needs only records a platform already holds. Four rules apply
+to all nine. First, each evaluation freezes the information each method
+may use at an as-of cutoff and separates development from test data.
+Second, it states how true outcomes are decided, by whom, and blind to
+which method produced each finding. Its error and abstention rules are
+set in advance, and it states base rates. Third, where ground truth
+comes from labels shaped by control decisions, it says how that bias is
+avoided. Otherwise it reports relative performance among detected cases
+only. Fourth, records from tests, replays and emulations are marked when
+created and kept out of production labels and lessons.
 
 Each evaluation is judged separately, without correction for multiple
 tests, because support requires every confirmatory evaluation to pass.
@@ -2932,12 +2936,15 @@ on its own. If both arms are run, E1 fails if either arm meets a failure
 criterion, and the power target applies to both arms together.
 Conclusions reach the raters in a common format without coverage or
 learned-time field names. Each rater records which arm they believe
-produced each conclusion, so that blinding can be checked. A 30-case
-pilot, excluded from the main study, estimates the level without the
-records for sizing. The main study will be sized for 93 percent power
-for its complete pass rule, assuming the share truly falls by half and
-correct, supported conclusions per case do not fall. Intervals allow for
-several conclusions per case.
+produced each conclusion, so that blinding can be checked. Raters judge
+each conclusion against the case's complete record as of the time it was
+written, the same record for both arms. Agreement is reported as Cohen's
+kappa, and a third rater settles disagreements. A 30-case pilot,
+excluded from the main study, estimates the level without the records
+for sizing. The main study will be sized for 93 percent power for its
+complete pass rule, assuming the share truly falls by half and correct,
+supported conclusions per case do not fall. Intervals allow for several
+conclusions per case.
 
 \textbf{Primary measures:} the share of conclusions rated unsupported by
 the evidence then available and, co-primary, the number of correct,
@@ -3070,12 +3077,16 @@ Errors are counted per case. Both human arms see the same records. In
 E5, reviewer time covers human investigation, tool or agent operation,
 checking, release and rework. Measure these activities on the same basis
 in both human arms. Include work on cases that produce no correct
-finding. As a supplementary analysis, set the threshold-rules arm to act
-on as many cases as the person-with-agent arm, reporting its results by
-depth of prior history and for fraud bursts defined in advance.
+finding. A random share of cases, fixed in advance, is worked without
+agent access; it also supplies the independent labels that manuscript
+Section 4.2 requires for validating detections. As a supplementary
+analysis, set the threshold-rules arm to act on as many cases as the
+person-with-agent arm, reporting its results by depth of prior history
+and for fraud bursts defined in advance.
 
 \textbf{Primary measures:} correct findings, errors, abstentions,
-reviewer minutes per correct finding, cost and latency.
+reviewer minutes per correct finding, cost and latency, and the share of
+labels that carry an agent-output link.
 
 \textbf{Failure criteria:} Fails if errors in the agent arm exceed those
 of the human arm or the threshold-rules arm by more than 2 percentage
@@ -3201,7 +3212,12 @@ probability 4.98 percent; at 0.1 percent they occur with probability
 drafts reaching review, 628 of them would take 12,560 drafts, about 628
 days at the 20 drafts a day assumed in manuscript Section 6.4. The plan
 states the tolerable rate, the assumed rate, the prevalence and the
-implied duration together.
+implied duration together. One site at that volume would need about 21
+months. Sites may pool planted drafts under one protocol, or use a
+group-sequential design that can stop once a bound is met; the choice is
+fixed before the study starts. A site that cannot reach the required
+numbers runs E8 as exploratory and reports catch rates without the pass
+rule.
 
 \textbf{Primary measures:} the catch rate, overall and by error type
 (false exonerations, other wrong claims, omissions of retrieved contrary
@@ -3262,23 +3278,26 @@ under both readings. Before any data are examined, the plan states how
 items that either rule leaves unlabeled enter the quantity, whether
 excluded, bounded or estimated under a stated delay model, and how
 channels without a defined reporting window enter the holdout
-comparison. The quantity, its population, denominator and read times,
-and the method applied to unlabeled items are the same under both
-readings, so that the comparison tests the records rather than a change
-of estimator. Each reading is compared with a reference for the same
-quantity and target population constructed from the holdout after the
-longest defined reporting window has closed, with report truth reviewed
-on a random sample. The target is the selected metric on matured
-reported outcomes after that sampled truth review. Prespecify how the
-truth-review sample contributes to the reference and its uncertainty.
-Checking reports does not reveal fraud that was never reported; a target
-of underlying fraud would require a separate ascertainment and
-identification design. Prespecify a joint uncertainty procedure for the
-two readings and the reference that preserves pairing, randomization,
-truth-review sampling and relevant clustering. Rule events that reopen a
-window during follow-up are recorded and reported. The main study will
-be sized for 93 percent power for part (b), which carries the pass rule,
-under stated effect assumptions.
+comparison. \(D\) is also reported under each other handling: exclusion,
+the stated delay model, and bounding with every unlabeled item counted
+first as a positive and then as a negative. The quantity, its
+population, denominator and read times, and the method applied to
+unlabeled items are the same under both readings, so that the comparison
+tests the records rather than a change of estimator. Each reading is
+compared with a reference for the same quantity and target population
+constructed from the holdout after the longest defined reporting window
+has closed, with report truth reviewed on a random sample. The target is
+the selected metric on matured reported outcomes after that sampled
+truth review. Prespecify how the truth-review sample contributes to the
+reference and its uncertainty. Checking reports does not reveal fraud
+that was never reported; a target of underlying fraud would require a
+separate ascertainment and identification design. Prespecify a joint
+uncertainty procedure for the two readings and the reference that
+preserves pairing, randomization, truth-review sampling and relevant
+clustering. Rule events that reopen a window during follow-up are
+recorded and reported. The main study will be sized for 93 percent power
+for part (b), which carries the pass rule, under stated effect
+assumptions.
 
 \textbf{Primary measures:} (b) the reduction in absolute error against
 the holdout reference, with its 95 percent interval. For comparator
@@ -3307,43 +3326,56 @@ error rates and in the ranking of two candidate rules.
 
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
 reduction in reference error is at or below the negligible reduction, a
-named parameter fixed before any data are examined. Measure (a) does not
-count toward passing, because the share that C1 reclassifies follows
-partly from its definitions and from the cohort's composition.
+named parameter fixed before any data are examined. It also fails if
+\(D\) changes sign under any other handling of unlabeled items. Measure
+(a) does not count toward passing, because the share that C1
+reclassifies follows partly from its definitions and from the cohort's
+composition.
 
 \FloatBarrier
 
-\hypertarget{s8.-practitioner-review-protocol-not-yet-run}{%
-\subsection{S8. Practitioner review protocol (not yet
-run)}\label{s8.-practitioner-review-protocol-not-yet-run}}
+\hypertarget{s8.-practitioner-study-protocol-fixed-before-the-first-response}{%
+\subsection{S8. Practitioner study (protocol fixed before the first
+response)}\label{s8.-practitioner-study-protocol-fixed-before-the-first-response}}
 
 \suppressfloats[t]
 
-This proposed protocol assesses whether the specification fits
-investigative practice. It measures availability and perceived
-usefulness, not detection performance. Recruit six to ten fraud, abuse,
-risk, trust-and-safety, data-engineering or privacy practitioners from
-at least three organizations, with consent and required institutional
-ethics review.
+This study asks whether the records C1 to C3 require change the
+conclusions practitioners draw, how often the failures they target
+occur, and what the field records today. It measures conclusions and
+reported practice, not detection performance. The
+\href{tools/practitioner_study/README.md}{protocol}, the
+\href{tools/practitioner_study/INSTRUMENT.md}{form} and the hash of the
+answer key were committed before the first response.
 
-Give each participant the signal inventory (S3), responsibilities (S4)
-and traces (S6), with and without the coverage, learned-time,
-decision-link and release records. For each signal, ask whether it is
-collected today (yes, partly, no), its typical retention and its
-freshness (at decision time, in minutes, daily). Also ask about
-usefulness in recent cases and the cost to an adversary of evading it.
-For each responsibility, ask whether it exists and which role owns it.
-For each trace, record the conclusions the participant would draw in
-each condition.
+Six to ten practitioners with at least two years in fraud or abuse
+investigation, or in building systems for it, from at least three
+organizations, complete one anonymous form of about 35 minutes. They
+read Traces A and B as many systems show them and answer eleven
+questions, then answer them again with the coverage, learned-time,
+attribution, decision-link and exposure records added. Eight questions
+test a requirement; three are controls. They then report how often each
+failure has changed a real conclusion, whether each record exists today
+and how hard it would be to add, whether the eleven signals of
+manuscript Table 2 are available at decision time, and, optionally, who
+owns each responsibility.
 
-Participants may also review a small set of planted wrong drafts as a
-pilot for E8; such a pilot cannot reach E8's realistic volume and does
-not test its criteria. Publish the protocol with ratings aggregated
-across organizations and with free-text quotes stripped of identifying
-detail, identifying signals rated missing, redundant or infeasible. No
-published rating or quote may show which organization lacks a signal,
-because that would disclose a control gap. No participant data have been
-collected.
+Each question has one error the records should prevent. The study
+reports, for each question, how many participants made that error
+without and with the records, grouped by requirement, with the controls
+and participants who had read Section 8 reported separately. It reports
+counts only, and negative results as prominently as positive ones. Part
+3 follows Part 2, so a changed answer may reflect the reveal rather than
+the record. No published figure or quote shows which organization lacks
+a record or signal.
+
+The study has no institutional sponsor or funding. It follows ACM's
+policy on research involving human participants: adults only, recorded
+consent, minimal risk, no names, employers or confidential information,
+and deletion of responses at journal publication or after two years. Two
+further volunteers repeat, as human coders, the model's mechanism-link
+check (S3) and its rulings on the adversarial histories (S4.4). No
+responses had been collected at this version.
 
 \FloatBarrier
 
@@ -3863,13 +3895,14 @@ proposed contribution is their joint application to payment-platform
 investigation, with explicit channels, record classes, query responses
 and release rules. The hypothetical traces expose conclusions that fail
 when specified context is removed. E1 to E9 test parts of that context,
-including whether the channel states reduce bias relative to a
-platform's current label rule (E9) and, through planted drafts that rest
-only on released items, the rule that a released conclusion adds no
-independent corroboration (E8; manuscript Section 8.3). In S7.1, E5 and
-E8 measure reviewer time, and no test measures the cost of collecting
-the records (manuscript Section 9.1). Neither the comparison nor the
-traces establish that the integrated system works in deployment.
+including whether the channel states reduce error against a mature
+holdout reference, compared with a platform's current label rule (E9)
+and, through planted drafts that rest only on released items, the rule
+that a released conclusion adds no independent corroboration (E8;
+manuscript Section 8.3). In S7.1, E5 and E8 measure reviewer time, and
+no test measures the cost of collecting the records (manuscript Section
+9.1). Neither the comparison nor the traces establish that the
+integrated system works in deployment.
 
 \FloatBarrier
 
