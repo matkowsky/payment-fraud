@@ -1027,6 +1027,16 @@
      "producer": "Q-1"
     }
    }
+  },
+  {
+   "case_id": "D39",
+   "rule": "IR-09",
+   "description": "A source observation names no producer, yet the derived feature built from it still counts its root.",
+   "remove_fields": {
+    "O-2": [
+     "producer"
+    ]
+   }
   }
  ]
 }
