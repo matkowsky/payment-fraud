@@ -81,7 +81,9 @@ def validate(inst, schema, root, path='$'):
             errors.append(f'{path}: does not match {schema["pattern"]}')
         if schema.get('format') == 'date-time':
             try:
-                assert DATE_TIME.match(inst); ts(inst)
+                if not DATE_TIME.match(inst):
+                    raise ValueError('invalid date-time format')
+                ts(inst)
             except Exception:
                 errors.append(f'{path}: not an RFC 3339 date-time')
     if isinstance(inst, int) and not isinstance(inst, bool) and inst < schema.get('minimum', inst):
