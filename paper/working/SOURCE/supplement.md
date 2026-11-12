@@ -441,6 +441,16 @@ A store without those fields cannot tell the two histories apart, so no rule app
 
 **Cost.** [`tools/investigation_cost.py`](../tools/investigation_cost.py) copies the valid case 100,000 times, each copy with its four query runs, seven stored records, two drafts, one exposure, one release decision, one released item and one memory read, and checks a sample against the rules. Per copy, the records take 8.6 KB as JSON: 3.5 KB for query runs, about 900 bytes each, and 2.6 KB for drafts, release and memory records. A thousand copies take 0.30 MB compressed and 9.8 MB in SQLite; repeated text makes the compressed figure a best case. On the two-core machine of S4.3, checking that an absence claim's runs are complete and cover it took a median of 38 microseconds (99th percentile 91), and checking that a memory read used a released, unexpired item took 30 (78). [The results](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json) come from one run. Real coverage records list more sources per run, and reviewer time is not measured.
 
+### S4.5 Further safeguards for the investigation system
+
+A second attack reaches a person investigating the agent itself, through hostile content copied into the ledger. Untrusted status must survive storage and normalization.
+
+Ledger copies and agent outputs may suggest hypotheses, but claims cite the underlying evidence-plane records. Their promotion into organizational memory still requires independent testing and human release.
+
+The ledger makes the agent itself investigable; S4.1 lists what it retains.
+
+The architecture does not include live adversary emulation. Any future use would require separate ethical, human and operational authorization, enforced scope, tamper-evident logs and test-data provenance.
+
 ## S5. Pinned public schemas
 
 [Schema versions](../SUPPLEMENT/S5_SCHEMA_VERSIONS.csv) records the filenames, hashes, versions and counts at repository commit `18fa2cc768024b47789dc6fa243acd48478acac2`, dated 25 September 2026. All three files come from the public `stripe/openapi` repository. The commit message reads "Update OpenAPI for 2026-09-30.endive": the version strings name the API release the files describe, which postdates the commit. The `private_preview` in file C's name does not indicate access to private systems. Stripe publishes these files under the MIT License. That license governs the schema-derived identifiers and locators in the event-type and signal-locator files; the package's third-party notice reproduces it.
@@ -783,6 +793,18 @@ Timing matters when it changes which information a decision could use. Dataflow 
 Recent designs combine timing with governance. Quipu controls graph writes while retaining validity and recording times; some policies require human approval bound to the evidence [@Brown2026Quipu]. Wu's coverage model distinguishes event time from verifier receipt time, judges whether a verifier's evidence was complete at a stated cutoff, links records to decisions, and separates refused execution branches from late reports [@Wu2026EvidenceCoverage]. It also separates absence from one retrieval from absence in a verifier view whose closure, including retrieval coverage and retention, is justified, and it specifies that basis without designing its implementation. C2 applies these ideas to a query contract that records scope, coverage and availability outside the investigating agent.
 
 Together, these precedents explain why C1 to C3 are a synthesis. The proposed contribution is their joint application to payment-platform investigation, with explicit channels, record classes, query responses and release rules. The hypothetical traces expose conclusions that fail when specified context is removed. E1 to E9 test parts of that context, including whether the channel states reduce error against a mature holdout reference, compared with a platform's current label rule (E9) and, through planted drafts that rest only on released items, the rule that a released conclusion adds no independent corroboration (E8; manuscript Section 8.3). In S7.1, E5 and E8 measure reviewer time, and no test measures the cost of collecting the records (manuscript Section 9.1). Neither the comparison nor the traces establish that the integrated system works in deployment.
+
+### S9.6 Further limits of the evidence
+
+The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs on platform data and investigator workload remain unmeasured. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules (manuscript Section 7.1). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program (manuscript Section 8.2). Bank debits, instant push payments and stablecoin payments, which are also in the product scope, were reviewed less fully (S4.1).
+
+A second search on 28 and 29 October 2026 started from the paper's problem statement and the three requirement statements, without the related-work section, and logged 388 searches and page reads across patents, payment and fraud vendors, agent-governance and security-investigation products, standards and regulators, code repositories, journals and recent preprints. It found no source stating the three requirements together; the two sources it added, a data-governance preprint and a threat-detection design, are discussed in manuscript Section 2.3.
+
+Visibility also depends on where an agent runs. SIG-34, SIG-35, SIG-39 and SIG-40 require access inside the agent, its tool server or its outbound-traffic controls. A platform can obtain that for its own agent but normally sees only interface activity from buyer- or merchant-operated agents. These signals cannot be assumed available in every deployment.
+
+The product scope comes from one provider's public product catalog, roadmap and documentation, including roadmap items in public preview. Other platforms may combine products differently or face other mechanisms. Public interfaces expose only part of a provider's records, so “none identified” in Table S3.1 refers only to the pinned schemas and the terms searched. Collection ownership, retention and budgets remain deployment decisions.
+
+The focused search and author-assigned mappings do not establish exhaustive coverage or the absence of equivalent systems. Bank case-management systems, card-network risk systems, vendor architectures and non-English literature were not reviewed as complete families. The illustrative provider's public hiring priorities influenced selection and set most of the deeper reviews (manuscript Section 3; S2).
 
 ## S10. Two FTC complaints replayed on synthetic records
 
