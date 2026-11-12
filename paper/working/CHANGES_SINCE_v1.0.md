@@ -40,11 +40,12 @@ Accepted pull requests:
 - [#52](https://github.com/matkowsky/payment-fraud/pull/52) Show the requirements together: a joint case, XR-01 and two cross-requirement pairs
 - [#55](https://github.com/matkowsky/payment-fraud/pull/55) Correct supported-to-counted-error scoring
 - [#56](https://github.com/matkowsky/payment-fraud/pull/56) Compare investigation interval endpoints as exact instants
+- [#57](https://github.com/matkowsky/payment-fraud/pull/57) Case study: the FTC replays in the main text, with parameter sweeps
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
-| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 79 | 21 | 26 | 49 |
-| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 57 | 86 | 5 | 51 |
+| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 77 | 24 | 25 | 53 |
+| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 57 | 85 | 5 | 53 |
 
 ## Manuscript
 
@@ -328,7 +329,7 @@ The investigation must be able to retrieve an observation, its interpretation an
 
 <del>RQ2 asks how an agent can test explanations and prepare useful outputs while people retain review, release and operational authority. </del>This section<ins> answers RQ2. It</ins> follows one investigation from its assignment to the release of its outputs, then addresses the inputs that could subvert it. Table <del>4</del><ins>1</ins> also completes the answer to RQ1 by listing the agent's analytical capabilities with the limit on what each can establish.
 
-**Moved to Supplement S4, from Section 6.2, by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Removed, under "6.2 Test explanations and interpret the query that ran", by [#29](https://github.com/matkowsky/payment-fraud/pull/29) (4 of 5 sentences now in Supplement S4):**
 
 <del>\*\*Figure 3. Investigation as a sequence of tests.\*\* Each query tests competing explanations within authorized scope. A gateway outside the agent attaches the query's coverage, which determines which interpretations remain supported. Draft outputs follow review and release under Section 6.4.</del>
 
@@ -492,9 +493,13 @@ Controls also need retesting as adversaries adapt. Published examples include ch
 
 New evidence may require correcting or retracting released intelligence. The correction links to the original, retains the new evidence's provenance, repeats applicable review and release, and notifies downstream users where warranted.<del> Threat-intelligence lifecycle research likewise lets an entity that receives intelligence enrich it as a new version or retract it \[@Dimitriadis2025\].</del>
 
-**Changed, under "8.1 Trace A: an exposed key and a changed payout destination", by [#31](https://github.com/matkowsky/payment-fraud/pull/31); 3 removed sentences now in Supplement S6.1:**
+**Changed, under "8. Two hypothetical investigations", by [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-A repository scan finds a publicly visible API <del>key.</del><ins>key,</ins> <del>A</del><ins>and a</ins> human asks whether it enabled account compromise and payout redirection. <del>The</del><ins>Supplement</ins> <del>trace</del><ins>S6.1</ins> <del>concerns</del><ins>gives</ins> <del>a</del><ins>the</ins> <del>key</del><ins>step-by-step</ins> <del>not</del><ins>narrative</ins> <del>yet</del><ins>and</ins> <del>revoked,</del><ins>its</ins> <del>or activity before revocation; existing automatic revocation is outside this workflow.</del><ins>sources.</ins>
+The following traces apply the specification to fixed hypothetical observations. Each asks what happened, which explanations remain plausible, and what further test would distinguish them. Their purpose is to expose the consequences of missing context. <ins>Table 2 gives what the recorded context changes. </ins>Supplement S6 <del>supplies</del><ins>gives each trace's reasoning and outputs,</ins> the synthetic transaction records and reproducible arithmetic.
+
+**Changed, under "8.1 Trace A: an exposed key and a changed payout destination", by [#31](https://github.com/matkowsky/payment-fraud/pull/31), [#57](https://github.com/matkowsky/payment-fraud/pull/57); 3 removed sentences now in Supplement S6.1:**
+
+A repository scan finds a publicly visible API <del>key.</del><ins>key,</ins> <del>A</del><ins>and a</ins> human asks whether it enabled account compromise and payout redirection.<del> The trace concerns a key not yet revoked, or activity before revocation; existing automatic revocation is outside this workflow.</del>
 
 **Moved to Supplement S6.1, from Section 8.1, by [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
 
@@ -512,13 +517,13 @@ A repository scan finds a publicly visible API <del>key.</del><ins>key,</ins> <d
 
 <del>The next day, delayed records show that the same verified destination identifier was attached to two other accounts before exposure. The matching namespace and interval support destination reuse, not common ownership or malicious intent. The agent checks account histories and ownership records for alternatives such as a legitimate business with several accounts or an intermediary receiving client funds.</del>
 
-**Changed, under "8.1 Trace A: an exposed key and a changed payout destination", by [#31](https://github.com/matkowsky/payment-fraud/pull/31); 5 removed sentences now in Supplement S6.1:**
+**Moved to Supplement S6.1, from Section 8.1, by [#31](https://github.com/matkowsky/payment-fraud/pull/31), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<del>Two limits change</del><ins>\*\*What</ins> the <del>conclusion.</del><ins>recorded</ins> <del>First,</del><ins>context</ins> <del>a</del><ins>changes.\*\* A</ins> requested seven-day baseline contains only two hours of earlier <del>history.</del><ins>history,</ins> <del>The</del><ins>so the</ins> change at nineteen minutes cannot be called the first misuse. <del>Second, a</del><ins>A</ins> detection already running on the platform froze its compromise assessment thirty minutes after publication, <del>before</del><ins>so</ins> the destination <del>link was</del><ins>link,</ins> learned the next <del>day. The link</del><ins>day,</ins> can inform the later investigation but cannot enter that <del>earlier</del><ins>assessment.</ins> <del>assessment.</del><ins>Developer testing, an internal scanner, a legitimate business with several accounts and an intermediary receiving client funds remain possible explanations.</ins>
+<del>Two limits change the conclusion. First, a requested seven-day baseline contains only two hours of earlier history. The change at nineteen minutes cannot be called the first misuse. Second, a detection already running on the platform froze its compromise assessment thirty minutes after publication, before the destination link was learned the next day. The link can inform the later investigation but cannot enter that earlier assessment.</del>
 
-**Changed, under "8.1 Trace A: an exposed key and a changed payout destination", by [#31](https://github.com/matkowsky/payment-fraud/pull/31), [#39](https://github.com/matkowsky/payment-fraud/pull/39); 2 removed sentences now in Supplement S6.1:**
+**Moved to Supplement S6.1, from Section 8.1, by [#31](https://github.com/matkowsky/payment-fraud/pull/31), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>\*\*Outputs.\*\* </ins>The investigation prepares<del> four outputs:</del> a search for similar cases, a detection <del>candidate linking exposure to use and destination changes,</del><ins>candidate,</ins> an intelligence <del>draft,</del><ins>draft</ins> and recommendations for authorized action. A reversible payout pause or hold may follow the urgent path when the accelerated schedule appears. Credential rotation or revocation follows normal <del>review.</del><ins>review; the trace concerns a key not yet revoked, and existing automatic revocation is outside it. A payout is not a card payment that can produce a chargeback, and victim reports and incident findings have no defined reporting window here: those channels can supply confirmed positives but cannot reach “matured with no report.”</ins>
+<del>The investigation prepares four outputs: a search for similar cases, a detection candidate linking exposure to use and destination changes, an intelligence draft, and recommendations for authorized action. A reversible payout pause or hold may follow the urgent path when the accelerated schedule appears. Credential rotation or revocation follows normal review.</del>
 
 **Moved to Supplement S6.1, from Section 8.1, by [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
 
@@ -532,9 +537,9 @@ A repository scan finds a publicly visible API <del>key.</del><ins>key,</ins> <d
 
 <del>Victim reports and incident findings have no defined reporting window here. Those channels can supply confirmed positives but cannot reach “matured with no report.” Evaluation must either justify a delay model, as conversion research does in its setting \[11\], or leave negatives unconfirmed. The recorded decision and channel states determine which interpretation is available.</del>
 
-**Changed, under "8.2 Trace B: linked storefronts and dispute activity", by [#31](https://github.com/matkowsky/payment-fraud/pull/31); 3 removed sentences now in Supplement S6.2:**
+**Changed, under "8.2 Trace B: linked storefronts and dispute activity", by [#31](https://github.com/matkowsky/payment-fraud/pull/31), [#57](https://github.com/matkowsky/payment-fraud/pull/57); 3 removed sentences now in Supplement S6.2:**
 
-A risk assessment and a rejected application identify similar <del>storefronts.</del><ins>storefronts,</ins> <del>A</del><ins>and a</ins> human asks whether newly onboarded merchant accounts form an operation structured to evade dispute monitoring. <del>The</del><ins>Supplement</ins> <del>assessment</del><ins>S6.2</ins> <del>selects a lead;</del><ins>gives</ins> the <del>investigation</del><ins>step-by-step</ins> <del>must</del><ins>narrative</ins> <del>establish</del><ins>and</ins> <del>the</del><ins>its</ins> <del>underlying relationships.</del><ins>sources.</ins>
+A risk assessment and a rejected application identify similar <del>storefronts.</del><ins>storefronts,</ins> <del>A</del><ins>and a</ins> human asks whether newly onboarded merchant accounts form an operation structured to evade dispute monitoring.<del> The assessment selects a lead; the investigation must establish the underlying relationships.</del>
 
 **Changed, under "8.2 Trace B: linked storefronts and dispute activity", by [#31](https://github.com/matkowsky/payment-fraud/pull/31); 5 removed sentences now in Supplement S6.2:**
 
@@ -560,7 +565,7 @@ A risk assessment and a rejected application identify similar <del>storefronts.<
 
 <del>Fourteen transactions also carry pre-dispute alert-resolution flags. Two overlap with the eight chargebacked transactions. A separate chargeback-or-alert-resolution measure therefore counts \`8 + 14 − 2 = 20\` transactions, or \`20/400 = 5%\`. Adding flags without deduplication gives the incorrect \`22/400 = 5.5%\`.</del>
 
-**Removed, under "8.2 Trace B: linked storefronts and dispute activity", by [#31](https://github.com/matkowsky/payment-fraud/pull/31) (3 of 4 sentences now in Supplement S6.2):**
+**Moved to Supplement S6.2, from Section 8.2, by [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
 
 <del>On that broader measure, A and B each have \`8/100 = 8%\`; C and D each have \`2/100 = 2%\`. The pooled 5 percent conceals the higher values at A and B. On the chargeback measure, all accounts remain at 2 percent, so pooling hides no higher rate. Neither measure is a fraud rate, and the example assumes no monitoring threshold.</del>
 
@@ -584,13 +589,9 @@ A risk assessment and a rejected application identify similar <del>storefronts.<
 
 <del>\*\*Small cohorts leave substantial uncertainty.\*\* Under independent trials with a common rate, exact 95 percent intervals are 0.24 to 7.04 percent for 2/100, 0 to 3.62 percent for 0/100, and 0.87 to 3.90 percent for 8/400. For 8/100, the interval is 3.52 to 15.16 percent. Fisher's two-sided test comparing 8/100 with 2/100 gives p = 0.10. Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent. Repeated customers or a shared operator may correlate transactions, making those intervals and the test overstate precision.</del>
 
-**Added, under "8.2 Trace B: linked storefronts and dispute activity", by [#27](https://github.com/matkowsky/payment-fraud/pull/27), [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
+**Moved to Supplement S6.2, from Section 8.2, by [#31](https://github.com/matkowsky/payment-fraud/pull/31), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>\*\*What the recorded context changes.\*\* Two chargebacks on account D's transactions are recorded at another account, so counting where reports were recorded shows D at zero; verified transaction links restore D to 2 percent without changing the denominator. A pooled ratio is a transaction-weighted average of the account ratios, so it lies between the lowest and highest. The pooled 5 percent conceals the higher values at A and B. Network programs compute monthly ratios by the month a report is received, apply minimum counts, and in one program count early fraud warnings and exclude disputes resolved through pre-dispute products \[51\]; Supplement S6 gives the rules as read and where Visa's own overview differs \[76\]. Splitting activity can also keep accounts below a count threshold even when their ratios are identical. Detecting that pattern requires cluster-level counts, not merely a pooled cohort ratio. Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent. Neither measure is a fraud rate, and a report recorded at another account can be legitimate.</ins>
-
-**Changed, under "8.2 Trace B: linked storefronts and dispute activity", by [#31](https://github.com/matkowsky/payment-fraud/pull/31); 2 removed sentences now in Supplement S6.2:**
-
-<del>The linked storefronts still require an explanation.</del><ins>\*\*Outputs.\*\*</ins> Shared templates and descriptors may reflect a legitimate multi-brand business or aggregator.<del> Verified identifiers support specific relationships without establishing intent or common control.</del> The agent may produce a qualified cluster assessment, an inconclusive finding, a proposed account review or a detection candidate. It cannot reject or terminate accounts.
+<del>The linked storefronts still require an explanation. Shared templates and descriptors may reflect a legitimate multi-brand business or aggregator. Verified identifiers support specific relationships without establishing intent or common control. The agent may produce a qualified cluster assessment, an inconclusive finding, a proposed account review or a detection candidate. It cannot reject or terminate accounts.</del>
 
 **Moved to Supplement S6.2, from Section 8.2, by [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
 
@@ -608,13 +609,9 @@ A risk assessment and a rejected application identify similar <del>storefronts.<
 
 <del>Table</del><ins>Two</ins> <del>6 compares conclusions from the same observations with and without five kinds</del><ins>rows</ins> of <del>context.</del><ins>Table</ins> <del>Two rows</del><ins>2</ins> add explicit hypothetical conditions: Trace A's payout is permanently blocked, and Trace B retrieves an earlier assessment of the same descriptor pattern. Omission does not force an error; it removes information needed to rule the error out.
 
-**Added, under "8.3 What retaining the context changes", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#37](https://github.com/matkowsky/payment-fraud/pull/37):**
+**Added, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#52](https://github.com/matkowsky/payment-fraud/pull/52), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>The examples identify a starting subset of records: the eleven signals behind Table 2, their lineage inputs and the storage requirements \(Supplement S6\). Supplement S6 also lists the context each row needs. These examples explain the required context without claiming that each named signal is uniquely necessary.</ins>
-
-**Added, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#52](https://github.com/matkowsky/payment-fraud/pull/52):**
-
-<ins>That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 2, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports \(Section 9.1\). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces illustrate what the records mean. Section 8.4 estimates the records' storage and query work on synthetic data.</ins>
+<ins>That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 2, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. Section 8.4 estimates the records' storage and query work on synthetic data.</ins>
 
 **Added, under "8.4 Where to start and what it costs", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 
@@ -624,31 +621,51 @@ A risk assessment and a rejected application identify similar <del>storefronts.<
 
 <ins>A platform that already logs decisions, payments and disputes can start with the records behind Table 2: each decision's effect on each outcome channel and each channel's state for each payment \(C1\), a gateway record of what each query covered and when each fact became known \(C2\), and a release step before an agent conclusion enters reusable memory \(C3\). The illustrative provider already exposes parts of the first two \(Section 2.4\).</ins>
 
+**Added, under "8.4 Where to start and what it costs", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#45](https://github.com/matkowsky/payment-fraud/pull/45), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
+
+<ins>To estimate C1's cost, one million synthetic payments with two outcome channels each were built from the schema's valid conformance case \(Supplement S4.3\). Each payment needed about four records; its decision and attribution records may already exist, and its two channel-state records are new. The records took 1.7 GB per million payments as JSON and 2.6 GB in a single-file SQLite store, and reading one payment's channel state and reports took a median of 17 microseconds. A query run's coverage record took about 900 bytes, and checking an absence claim against its runs took 38 microseconds \(Supplement S4.4\). These figures describe one synthetic file on one machine, not a platform's cost. Reviewer time is not measured.</ins>
+
+**Added, under "8.5 Case study: two alleged patterns replayed", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
+
+<ins>\#\#\# 8.5 Case study: two alleged patterns replayed</ins>
+
+**Added, under "8.5 Case study: two alleged patterns replayed", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
+
+<ins>Two FTC complaints were rebuilt as synthetic outcome records from the patterns and rates they allege, with illustrative monitoring rules and assumed volumes and delays \(Supplement S10\) \[67, 69\]. Complaint content is allegation; the replays test record design, not detection, and whether a view flags follows from the chosen parameters. The records have limits: padded sales look like clean payments, a record rewritten in place passes every rule, so the store must prevent edits, and accounts with no recorded shared attribute cannot be linked.</ins>
+
+**Added, under "8.5 Case study: two alleged patterns replayed", by [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
+
+<ins>Network programs compute monthly ratios by the month a report is received, apply minimum counts, and in one program count early fraud warnings and exclude disputes resolved through pre-dispute products \[51\]; Supplement S6 gives the rules as read and where Visa's own overview differs \[76\]. Splitting activity can also keep accounts below a count threshold even when their ratios are identical. Detecting that pattern requires cluster-level counts, not merely a pooled cohort ratio.</ins>
+
+**Added, under "8.5 Case study: two alleged patterns replayed", by [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
+
+<ins>\*\*Figure 3. Where each view stops flagging.\*\* The share of 500 synthetic runs in which a view flags at least once. \(A, B\) First Data replay: eight related accounts, at a 4 percent report rate in A, and 40 merchants assumed legitimate; the dotted line is the 1.5 percent ratio. \(C\) Allied Wallet replay: one account at the complaint's mean fraud-report rate of 3.14 percent or at 0.3 percent. Supplement S10 gives the assumptions.</ins>
+
 **Moved to Supplement S6.1, from Section 8.3, by [#37](https://github.com/matkowsky/payment-fraud/pull/37):**
 
 <del>For the blocked payout, excluding the case is valid only for a rate explicitly restricted to completed transfers. Estimating outcomes over all attempted payouts retains it in the target population and must address its unobserved outcome.</del>
 
-**Added, under "8.4 Where to start and what it costs", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#45](https://github.com/matkowsky/payment-fraud/pull/45):**
+**Added, under "8.5 Case study: two alleged patterns replayed", by [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>To estimate C1's cost, one million synthetic payments with two outcome channels each were built from the schema's valid conformance case \(Supplement S4.3\). Each payment needed about four records. Its decision and attribution records may already exist as decision logs and ledger entries; its two channel-state records are new. The records took 1.7 GB per million payments as uncompressed JSON and 2.6 GB in a single-file SQLite store with an index for as-of reads. On a two-core virtual machine, reading one payment's channel state and reports took a median of 17 microseconds, and one day's cohort of 11,052 payments took 0.3 seconds. These figures describe one synthetic file on one machine, not a platform's cost. In the same kind of test, a query run's coverage record took about 900 bytes with one source, and checking an absence claim against its runs took 38 microseconds \(Supplement S4.4\). Reviewer time is not measured.</ins>
+<ins>!\[Figure 3: Share of runs flagged by each view as volume, report rate and payments a month change\]\(../FIGURES/FIG5\_REPLAY\_SWEEPS.svg\)</ins>
 
-**Removed, under "8.3 What retaining the context changes", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#37](https://github.com/matkowsky/payment-fraud/pull/37) (2 of 4 sentences now in Supplement S6.3):**
+**Removed, under "8.3 What retaining the context changes", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#37](https://github.com/matkowsky/payment-fraud/pull/37), [#57](https://github.com/matkowsky/payment-fraud/pull/57) (2 of 4 sentences now in Supplement S6.3):**
 
 <del>The examples identify a starting subset of records. Table 6 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</del>
 
-**Added, under "8.5 Two alleged patterns replayed", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39):**
+**Added, under "8.5 Case study: two alleged patterns replayed", by [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>\#\#\# 8.5 Two alleged patterns replayed</ins>
+<ins>In the first replay, the account view flags only when each account alone reaches the floor, at about 2,500 captures a period \(Figure 3A\). A view over recorded links flags the group from about 350. Below 300 the whole group stays under the floor, and neither view flags in more than 1 percent of runs. The linked view also flags legitimate groups \(Figure 3B\). The 40 merchants have enough volume that the ratio, not the floor, decides. Between report rates of 1.75 and 3 percent, the linked view flags them in at least 98 percent of runs and the smaller related group in at most 2.2 percent. A linked view belongs beside the account view, not in its place.</ins>
 
-**Removed, under "8.3 What retaining the context changes", by [#37](https://github.com/matkowsky/payment-fraud/pull/37) (5 of 6 sentences now in Supplement S6.3):**
+**Moved to Supplement S6.3, from Section 8.3, by [#37](https://github.com/matkowsky/payment-fraud/pull/37):**
 
 <del>The first two rows need request coverage, credential exposure, destination history and learned times. The second row also needs the frozen assessment and its freeze time, which the assessment store holds; none of the eleven signals records it. The third needs the control's effect on each channel. The fourth needs verified report-to-transaction links, deduplication and versioned cluster membership, which Trace B builds from storefront-to-merchant links. The fifth needs the separation between observations and organizational memory. These examples explain the required context without claiming that each named signal is uniquely necessary.</del>
 
-**Added, under "8.5 Two alleged patterns replayed", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39):**
+**Added, under "8.5 Case study: two alleged patterns replayed", by [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>Two FTC complaints were rebuilt as synthetic outcome records from the patterns and rates they allege, with illustrative monitoring rules and assumed volumes and delays \(Supplement S10\) \[67, 69\]. Complaint content is allegation; the replays test record design, not detection, and whether a view flags follows from the chosen parameters. In the first replay, eight related accounts, each below a chargeback count floor, were never flagged alone. A view over recorded links flagged them in 92 percent of 1,000 runs, and 40 legitimate merchants sharing a call center, set just above the ratio threshold, in 77 percent; a linked view belongs beside the account view, not in its place. In the second replay, of a smaller merchant, the chargeback rule never flagged an account at the alleged scale, while fraud reports counted by value flagged each account in at least 99.8 percent of runs. A chargeback-only store reads payments refunded before a dispute as unreported. Counting only verified links between reports and payments replaced false flags near the floor with stated uncertainty. The records have limits: padded sales look like clean payments, a record rewritten in place passes every rule, so the store must prevent edits, and accounts with no recorded shared attribute cannot be linked.</ins>
+<ins>In the second replay, the chargeback rule needs 100 chargebacks a month. With a fifth of reported payments refunded before a dispute, one account needs about 4,000 payments a month to reach it; the modeled accounts had 185 \(Figure 3C\). Fraud reports counted by value flag in at least 98 percent of runs at every volume swept, from 25 a month; that rule needs the separate fraud-report channel and each report's amount. With no count floor, it also flags an account at an assumed legitimate rate of 0.3 percent in 39 to 54 percent of runs below 200 payments a month, and in none from 2,000. Supplement S10 also replays a successor account, a switched descriptor, refunds before disputes, traffic moved after closures and reports linked only by card number and amount.</ins>
 
-**Removed, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#52](https://github.com/matkowsky/payment-fraud/pull/52):**
+**Removed, under "8.3 What retaining the context changes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#52](https://github.com/matkowsky/payment-fraud/pull/52), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
 <del>That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 6, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports \(Section 9.1\). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires \(Section 9.1\).</del>
 
@@ -700,13 +717,13 @@ Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, a
 
 <ins>\*\*Table 3. Each claim, its evidence and what that evidence does not show.\*\* Supplement S9.6 gives further limits.</ins>
 
-**Removed, under "9.2 What the evidence can support", by [#37](https://github.com/matkowsky/payment-fraud/pull/37), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#50](https://github.com/matkowsky/payment-fraud/pull/50) (5 of 7 sentences now in Supplement S4.1, S9.6):**
+**Removed, under "9.2 What the evidence can support", by [#37](https://github.com/matkowsky/payment-fraud/pull/37), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#50](https://github.com/matkowsky/payment-fraud/pull/50) (4 of 7 sentences now in Supplement S4.1, S9.6):**
 
 <del>The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs and investigator workload remain unmeasured. The practitioner protocol would assess availability and usefulness of the proposed records; it has not been run. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules \(Section 7.1\). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program \(Section 8.2\). Bank debits were compared only with two of the provider's pages and one bank's return-code table \(Section 7.1\); of the bank-debit candidates in Supplement S2, PAY-07 was judged covered and MM-03 was not reviewed. Instant push payments and stablecoin payments, which are also in the product scope, were not reviewed rail by rail; their mechanisms MM-07 and MM-12 were reviewed, but not their reporting channels \(Supplement S2\).</del>
 
-**Added, under "9.2 What the evidence can support", by [#50](https://github.com/matkowsky/payment-fraud/pull/50), [#52](https://github.com/matkowsky/payment-fraud/pull/52):**
+**Added, under "9.2 What the evidence can support", by [#50](https://github.com/matkowsky/payment-fraud/pull/50), [#52](https://github.com/matkowsky/payment-fraud/pull/52), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>\| Claim \| Evidence \| Not shown \|<br>\|---\|---\|---\|<br>\| Each field group changes what a history supports \| Necessity pairs; failing cases \(S4.2, S4.4\) \| That the records improve investigations \|<br>\| No two requirements replace the third \| Two cross-requirement pairs \(8.3, S4.4\) \| That they cover every interaction \|<br>\| Software can check the rules \| Two checkers; 15 adversarial histories \(S4.4\) \| Every evasion; four stated limits remain \|<br>\| The records are cheap to store and check \| Synthetic measurement \(8.4\) \| The cost of producing them on a platform \|<br>\| Missing context changes conclusions \| Two hypothetical traces \(8.1 to 8.3\) \| How often; the practitioner study \(S8\) has not run \|<br>\| The records expose two alleged patterns \| Synthetic replays \(8.5, S10\) \| Detection on real data \|<br>\| The signals and responsibilities cover the mechanisms \| The author's mapping; a model as second rater \(3, S3\) \| Completeness; a human coder is pending \|<br>\| No source states C1 to C3 together \| Two searches \(2, S9.6\) \| That none exists \|<br>\| C1's channel fields reflect network rules \| The provider's descriptions \(7.1\) \| The networks' own rules; other rails reviewed less fully \|</ins>
+<ins>\| Claim \| Evidence \| Not shown \|<br>\|---\|---\|---\|<br>\| Each field group changes what a history supports \| Necessity pairs; failing cases \(S4.2, S4.4\) \| That the records improve investigations \|<br>\| No two requirements replace the third \| Two cross-requirement pairs \(8.3, S4.4\) \| That they cover every interaction \|<br>\| Software can check the rules \| Two checkers; 15 adversarial histories \(S4.4\) \| Every evasion; four stated limits remain \|<br>\| The records are cheap to store and check \| Synthetic measurement \(8.4\) \| The cost of producing them on a platform \|<br>\| Missing context changes conclusions \| Two hypothetical traces \(8.1 to 8.3\) \| How often; the practitioner study \(S8\) has not run \|<br>\| The records expose two alleged patterns \| Synthetic replays and sweeps \(8.5, S10\) \| Detection on real data \|<br>\| The signals and responsibilities cover the mechanisms \| The author's mapping; a model as second rater \(3, S3\) \| Completeness; a human coder is pending \|<br>\| No source states C1 to C3 together \| Two searches \(2, S9.6\) \| That none exists \|<br>\| C1's channel fields reflect network rules \| The provider's descriptions \(7.1\) \| The networks' own rules; other rails reviewed less fully \|</ins>
 
 **Moved to Supplement S9.6, from Section 9.2, by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
@@ -919,7 +936,7 @@ The \[functional responsibilities\]\(../SUPPLEMENT/S4\_FUNCTIONS.csv\) file defi
 
 The \[entity inventory\]\(../SUPPLEMENT/S4\_ENTITIES.csv\) and \[entity relationships\]\(../SUPPLEMENT/S4\_ENTITY\_RELATIONS.csv\) define the entities and the kinds of links between them. Each link records its source, identifier namespaces and the basis for associating each identifier with its entity. It retains its effective interval, learned time, version, confidence, confounders \(other explanations for the link\), and permitted purpose and scope. A shared attribute alone does not establish that one person controls both entities. When a decision makes an outcome unobservable, the record describes the channel's status; it does not invent an outcome report. \[S4.1\]\(\#complete-storage-requirements\) gives the complete storage <del>requirements.</del><ins>requirements, and \[S4.2\]\(\#outcome-record-schemas\) gives field-level schemas for the outcome records.</ins>
 
-**Moved from manuscript Section 6.2, to S4, by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Added, under "S4. Responsibilities, entities and interfaces", by [#29](https://github.com/matkowsky/payment-fraud/pull/29) (4 of 5 sentences moved from manuscript Section 6.2):**
 
 <ins>\*\*Figure S4.1. Investigation as a sequence of tests.\*\* Each query tests competing explanations within authorized scope. A gateway outside the agent attaches the query's coverage, which determines which interpretations remain supported. Draft outputs follow review and release under manuscript Section 6.4.</ins>
 
@@ -1171,7 +1188,7 @@ The \[draft schema\]\(../SUPPLEMENT/S4\_DRAFT\_SCHEMA.csv\) supplies the fields 
 
 <ins>Two limits change the conclusion. First, a requested seven-day baseline contains only two hours of earlier history. The change at nineteen minutes cannot be called the first misuse. Second, a detection already running on the platform froze its compromise assessment thirty minutes after publication, before the destination link was learned the next day. The link can inform the later investigation but cannot enter that earlier assessment.</ins>
 
-**Added, under "S6.1 Trace A: narrative", by [#31](https://github.com/matkowsky/payment-fraud/pull/31) (2 of 3 sentences moved from manuscript Section 8.1):**
+**Moved from manuscript Section 8.1, to S6.1, by [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
 
 <ins>The investigation prepares four outputs: a search for similar cases, a detection candidate linking exposure to use and destination changes, an intelligence draft, and recommendations for authorized action. A reversible payout pause or hold may follow the urgent path when the accelerated schedule appears. Credential rotation or revocation follows normal review.</ins>
 
@@ -1215,7 +1232,7 @@ The \[draft schema\]\(../SUPPLEMENT/S4\_DRAFT\_SCHEMA.csv\) supplies the fields 
 
 <ins>Fourteen transactions also carry pre-dispute alert-resolution flags. Two overlap with the eight chargebacked transactions. A separate chargeback-or-alert-resolution measure therefore counts \`8 + 14 − 2 = 20\` transactions, or \`20/400 = 5%\`. Adding flags without deduplication gives the incorrect \`22/400 = 5.5%\`.</ins>
 
-**Added, under "S6.2 Trace B: narrative", by [#31](https://github.com/matkowsky/payment-fraud/pull/31) (3 of 4 sentences moved from manuscript Section 8.2):**
+**Moved from manuscript Section 8.2, to S6.2, by [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
 
 <ins>On that broader measure, A and B each have \`8/100 = 8%\`; C and D each have \`2/100 = 2%\`. The pooled 5 percent conceals the higher values at A and B. On the chargeback measure, all accounts remain at 2 percent, so pooling hides no higher rate. Neither measure is a fraud rate, and the example assumes no monitoring threshold.</ins>
 
@@ -1243,7 +1260,7 @@ The \[draft schema\]\(../SUPPLEMENT/S4\_DRAFT\_SCHEMA.csv\) supplies the fields 
 
 <ins>\*\*Small cohorts leave substantial uncertainty.\*\* Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent: S6 gives exact intervals and a test. Repeated customers or a shared operator may correlate transactions, making those intervals and the test overstate precision.</ins>
 
-**Added, under "S6.2 Trace B: narrative", by [#31](https://github.com/matkowsky/payment-fraud/pull/31) (2 of 5 sentences moved from manuscript Section 8.2):**
+**Moved from manuscript Section 8.2, to S6.2, by [#31](https://github.com/matkowsky/payment-fraud/pull/31):**
 
 <ins>The linked storefronts still require an explanation. Shared templates and descriptors may reflect a legitimate multi-brand business or aggregator. Verified identifiers support specific relationships without establishing intent or common control. The agent may produce a qualified cluster assessment, an inconclusive finding, a proposed account review or a detection candidate. It cannot reject or terminate accounts.</ins>
 
@@ -1275,9 +1292,9 @@ Both measures exclude reports on transactions outside the four cohorts. A missin
 
 <del>Trace A uses a separate hypothetical timeline \(manuscript Sections 8.1 and 8.3\). The agent requests seven days of history before the key's exposure; only the final two hours are available. A detection already running on the platform freezes its first compromise assessment at +30 minutes after publication of the key. The destination-reuse link becomes known at +1 day, although it was effective before exposure. The +30-minute assessment cannot use that link, and the missing history leaves the onset of any misuse inconclusive.</del>
 
-**Added, under "S6.3 Reproducible arithmetic", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34) (2 of 3 sentences moved from manuscript Section 8.3):**
+**Added, under "S6.3 Reproducible arithmetic", by [#20](https://github.com/matkowsky/payment-fraud/pull/20), [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#34](https://github.com/matkowsky/payment-fraud/pull/34), [#57](https://github.com/matkowsky/payment-fraud/pull/57) (3 of 4 sentences moved from manuscript Section 8.3):**
 
-<ins>Manuscript Table 2 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</ins>
+<ins>Manuscript Table 2 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, SIG-24, SIG-25, SIG-32, SIG-56, SIG-58 and SIG-71. Their complete lineage inputs and the storage requirements are also needed. These examples explain the required context without claiming that each named signal is uniquely necessary. In particular, the denominator requires the eligible completed-transaction cohort from SIG-27, including transactions without reports.</ins>
 
 **Added, under "S6.3 Reproducible arithmetic", by [#37](https://github.com/matkowsky/payment-fraud/pull/37) (5 of 6 sentences moved from manuscript Section 8.3):**
 
@@ -1491,9 +1508,9 @@ Together, these precedents explain why C1 to C3 are a synthesis. The proposed co
 
 <ins>\#\#\# S9.6 Further limits of the evidence</ins>
 
-**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50) (3 of 5 sentences moved from manuscript Section 9.2):**
+**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50), [#57](https://github.com/matkowsky/payment-fraud/pull/57) (2 of 5 sentences moved from manuscript Section 9.2):**
 
-<ins>The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs on platform data and investigator workload remain unmeasured. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules \(manuscript Section 7.1\). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program \(manuscript Section 8.2\). Bank debits, instant push payments and stablecoin payments, which are also in the product scope, were reviewed less fully \(S4.1\).</ins>
+<ins>The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs on platform data and investigator workload remain unmeasured. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules \(manuscript Section 7.1\). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program \(manuscript Section 8.5\). Bank debits, instant push payments and stablecoin payments, which are also in the product scope, were reviewed less fully \(S4.1\).</ins>
 
 **Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50) (1 of 2 sentences moved from manuscript Section 9.2):**
 
@@ -1519,9 +1536,9 @@ Together, these precedents explain why C1 to C3 are a synthesis. The proposed co
 
 <ins>\*\*Question.\*\* Do the outcome records of S4.2 make the patterns alleged in two complaints measurable? The complaints are FTC v. First Data Merchant Services LLC and Chi W. Ko, No. 1:20-cv-03867 \(S.D.N.Y.\), ECF 1, and FTC v. AlliedWallet, Inc. et al., No. 2:19-cv-04355 \(C.D. Cal.\), ECF 24 \[14, 16\]. Complaint content is allegation, the data are synthetic and the parameters are assumptions, so the percentages describe constructed cases, not detection rates. Both complaints also allege that the processor saw evidence and did not act; records cannot fix that.</ins>
 
-**Added, under "S10. Two FTC complaints replayed on synthetic records", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
+**Added, under "S10. Two FTC complaints replayed on synthetic records", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
 
-<ins>\*\*Method.\*\* \[\`tools/replays/ftc\_first\_data\_replay.py\`\]\(../tools/replays/ftc\_first\_data\_replay.py\) and \[\`tools/replays/allied\_wallet\_replay.py\`\]\(../tools/replays/allied\_wallet\_replay.py\) generate synthetic payments, reports, decisions, attributions and links as S4.2 records, check them with the conformance rules, and compare what different views of the records flag over 1,000 runs. Results are in \[first\_data\_results.json\]\(../SUPPLEMENT/S10\_REPLAYS/first\_data\_results.json\) and \[allied\_wallet\_results.json\]\(../SUPPLEMENT/S10\_REPLAYS/allied\_wallet\_results.json\). Standard library only; Python 3.12 or later.</ins>
+<ins>\*\*Method.\*\* \[\`tools/replays/ftc\_first\_data\_replay.py\`\]\(../tools/replays/ftc\_first\_data\_replay.py\) and \[\`tools/replays/allied\_wallet\_replay.py\`\]\(../tools/replays/allied\_wallet\_replay.py\) generate synthetic payments, reports, decisions, attributions and links as S4.2 records, check them with the conformance rules, and compare what different views of the records flag over 1,000 runs. Results are in \[first\_data\_results.json\]\(../SUPPLEMENT/S10\_REPLAYS/first\_data\_results.json\) and \[allied\_wallet\_results.json\]\(../SUPPLEMENT/S10\_REPLAYS/allied\_wallet\_results.json\); the sweeps below are separate. Standard library only; Python 3.12 or later.</ins>
 
 **Added, under "S10. Two FTC complaints replayed on synthetic records", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 
@@ -1538,6 +1555,10 @@ Together, these precedents explain why C1 to C3 are a synthesis. The proposed co
 **Added, under "S10. Two FTC complaints replayed on synthetic records", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 
 <ins>\*\*Holds by construction.\*\* The eight accounts sit below the floor and the alleged fraud ratio is three times the threshold, so those flags follow from the parameters; only their timing depends on the assumed delays. The 40 legitimate merchants' report rate is set at 1.6 percent, above the 1.5 percent threshold, so their flag also follows from the parameters. The First Data figures divide by the previous period's captures; with the same period's, the two linked-account figures are 86.0 and 73.7 percent. The refunded share is set to 20 percent. Displacement follows from the model, which moves each closed account's volume to the remaining account. Verified links are correct by assumption.</ins>
+
+**Added, under "S10. Two FTC complaints replayed on synthetic records", by [#57](https://github.com/matkowsky/payment-fraud/pull/57):**
+
+<ins>\*\*Sweeps \(manuscript Figure 3\).\*\* \[\`tools/replays/sweeps.py\`\]\(../tools/replays/sweeps.py\) varies one parameter at a time with the replays' generating processes and rules, 500 runs a point, and seeds separate from the runs above \(\[results\]\(../SUPPLEMENT/S10\_REPLAYS/sweep\_results.json\)\). First Data uses the previous period's captures. For eight related accounts at 4 percent, the account view flags in 5.4 percent of runs at 2,000 captures each a period and 98.8 percent at 2,500; the linked view flags in 27.6 percent at 300, 89.4 percent at 350 and 99.8 percent at 400. At the base values the sweep's 89.4 percent compares with 91.6 in the 1,000 runs above. At 350 captures each, the linked view flags the eight accounts in 2.2 percent of runs at a 3 percent report rate, 33.2 percent at 3.5 and 89.4 percent at 4. It flags the 40 legitimate merchants, at 300 each, in 0.6 percent at 1.25, 35.0 percent at 1.5 and 98.4 percent at 1.75. For one Allied Wallet account at 3.14 percent, the chargeback rule flags in 2.6 percent of runs at 3,000 payments a month and 96.2 percent at 4,000. The fraud-report rule flags in at least 98.8 percent at every volume from 25 to 8,000. At an assumed legitimate 0.3 percent, the fraud-report rule flags in 38.8 to 54.4 percent of runs from 25 to 185 payments a month, 17.2 percent at 500, 2.8 percent at 1,000 and none from 2,000. The swept account is steady for eight months; the replay's three linked accounts are not.</ins>
 
 **Added, under "S10. Two FTC complaints replayed on synthetic records", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 

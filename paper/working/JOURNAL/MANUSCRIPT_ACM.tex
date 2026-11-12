@@ -1526,16 +1526,16 @@ investigations}\label{two-hypothetical-investigations}}
 The following traces apply the specification to fixed hypothetical
 observations. Each asks what happened, which explanations remain
 plausible, and what further test would distinguish them. Their purpose
-is to expose the consequences of missing context. Supplement S6 supplies
-the synthetic transaction records and reproducible arithmetic.
+is to expose the consequences of missing context. Table 2 gives what the
+recorded context changes. Supplement S6 gives each trace's reasoning and
+outputs, the synthetic transaction records and reproducible arithmetic.
 
 \hypertarget{trace-a-an-exposed-key-and-a-changed-payout-destination}{%
 \subsection{Trace A: an exposed key and a changed payout
 destination}\label{trace-a-an-exposed-key-and-a-changed-payout-destination}}
 
 A repository scan finds a publicly visible API key, and a human asks
-whether it enabled account compromise and payout redirection. Supplement
-S6.1 gives the step-by-step narrative and its sources.
+whether it enabled account compromise and payout redirection.
 
 \textbf{Observations.} Nineteen minutes after publication, requests
 arrive through a residential proxy range with a different client
@@ -1545,35 +1545,13 @@ assumes the key permits these changes. The next day, delayed records
 show that the same verified destination identifier was attached to two
 other accounts before exposure.
 
-\textbf{What the recorded context changes.} A requested seven-day
-baseline contains only two hours of earlier history, so the change at
-nineteen minutes cannot be called the first misuse. A detection already
-running on the platform froze its compromise assessment thirty minutes
-after publication, so the destination link, learned the next day, can
-inform the later investigation but cannot enter that assessment.
-Developer testing, an internal scanner, a legitimate business with
-several accounts and an intermediary receiving client funds remain
-possible explanations.
-
-\textbf{Outputs.} The investigation prepares a search for similar cases,
-a detection candidate, an intelligence draft and recommendations for
-authorized action. A reversible payout pause or hold may follow the
-urgent path when the accelerated schedule appears. Credential rotation
-or revocation follows normal review; the trace concerns a key not yet
-revoked, and existing automatic revocation is outside it. A payout is
-not a card payment that can produce a chargeback, and victim reports and
-incident findings have no defined reporting window here: those channels
-can supply confirmed positives but cannot reach ``matured with no
-report.''
-
 \hypertarget{trace-b-linked-storefronts-and-dispute-activity}{%
 \subsection{Trace B: linked storefronts and dispute
 activity}\label{trace-b-linked-storefronts-and-dispute-activity}}
 
 A risk assessment and a rejected application identify similar
 storefronts, and a human asks whether newly onboarded merchant accounts
-form an operation structured to evade dispute monitoring. Supplement
-S6.2 gives the step-by-step narrative and its sources.
+form an operation structured to evade dispute monitoring.
 
 \textbf{Observations.} The hypothetical investigation links eleven
 storefronts that share two templates and a descriptor pattern and settle
@@ -1584,30 +1562,6 @@ of 2 percent once reports are linked to transactions. A separate
 chargeback-or-alert-resolution measure, counting each transaction once,
 is 5 percent pooled: 8 percent at accounts A and B and 2 percent at C
 and D.
-
-\textbf{What the recorded context changes.} Two chargebacks on account
-D's transactions are recorded at another account, so counting where
-reports were recorded shows D at zero; verified transaction links
-restore D to 2 percent without changing the denominator. A pooled ratio
-is a transaction-weighted average of the account ratios, so it lies
-between the lowest and highest. The pooled 5 percent conceals the higher
-values at A and B. Network programs compute monthly ratios by the month
-a report is received, apply minimum counts, and in one program count
-early fraud warnings and exclude disputes resolved through pre-dispute
-products {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{51}{]};
-Supplement S6 gives the rules as read and where Visa's own overview
-differs {[}\protect\hyperlink{ref-Visa2025VAMP}{76}{]}. Splitting
-activity can also keep accounts below a count threshold even when their
-ratios are identical. Detecting that pattern requires cluster-level
-counts, not merely a pooled cohort ratio. Cohorts of 100 transactions
-cannot reliably separate 8 percent from 2 percent. Neither measure is a
-fraud rate, and a report recorded at another account can be legitimate.
-
-\textbf{Outputs.} Shared templates and descriptors may reflect a
-legitimate multi-brand business or aggregator. The agent may produce a
-qualified cluster assessment, an inconclusive finding, a proposed
-account review or a detection candidate. It cannot reject or terminate
-accounts.
 
 \hypertarget{what-retaining-the-context-changes}{%
 \subsection{What retaining the context
@@ -1694,21 +1648,13 @@ payout is permanently blocked, and Trace B retrieves an earlier
 assessment of the same descriptor pattern. Omission does not force an
 error; it removes information needed to rule the error out.
 
-The examples identify a starting subset of records: the eleven signals
-behind Table 2, their lineage inputs and the storage requirements
-(Supplement S6). Supplement S6 also lists the context each row needs.
-These examples explain the required context without claiming that each
-named signal is uniquely necessary.
-
 That context costs storage, query work, controlled cross-account access
 and investigator time. E1 tests the context in the first two rows of
 Table 2, E9 the channel states in the third, E3 the report linkage in
-the fourth, and E5 the human work the agent creates. The exploratory E2
-and E4 bear on C1's decision links, and E2 also on late and false
-reports (Section 9.1). E8's planted drafts that rest a material claim
-only on a released item test the rule in the fifth row. The traces
-illustrate what the records mean. Section 8.4 estimates the records'
-storage and query work on synthetic data.
+the fourth, and E5 the human work the agent creates. E8's planted drafts
+that rest a material claim only on a released item test the rule in the
+fifth row. Section 8.4 estimates the records' storage and query work on
+synthetic data.
 
 \hypertarget{where-to-start-and-what-it-costs}{%
 \subsection{Where to start and what it
@@ -1724,22 +1670,19 @@ illustrative provider already exposes parts of the first two (Section
 
 To estimate C1's cost, one million synthetic payments with two outcome
 channels each were built from the schema's valid conformance case
-(Supplement S4.3). Each payment needed about four records. Its decision
-and attribution records may already exist as decision logs and ledger
-entries; its two channel-state records are new. The records took 1.7 GB
-per million payments as uncompressed JSON and 2.6 GB in a single-file
-SQLite store with an index for as-of reads. On a two-core virtual
-machine, reading one payment's channel state and reports took a median
-of 17 microseconds, and one day's cohort of 11,052 payments took 0.3
-seconds. These figures describe one synthetic file on one machine, not a
-platform's cost. In the same kind of test, a query run's coverage record
-took about 900 bytes with one source, and checking an absence claim
-against its runs took 38 microseconds (Supplement S4.4). Reviewer time
-is not measured.
+(Supplement S4.3). Each payment needed about four records; its decision
+and attribution records may already exist, and its two channel-state
+records are new. The records took 1.7 GB per million payments as JSON
+and 2.6 GB in a single-file SQLite store, and reading one payment's
+channel state and reports took a median of 17 microseconds. A query
+run's coverage record took about 900 bytes, and checking an absence
+claim against its runs took 38 microseconds (Supplement S4.4). These
+figures describe one synthetic file on one machine, not a platform's
+cost. Reviewer time is not measured.
 
-\hypertarget{two-alleged-patterns-replayed}{%
-\subsection{Two alleged patterns
-replayed}\label{two-alleged-patterns-replayed}}
+\hypertarget{case-study-two-alleged-patterns-replayed}{%
+\subsection{Case study: two alleged patterns
+replayed}\label{case-study-two-alleged-patterns-replayed}}
 
 Two FTC complaints were rebuilt as synthetic outcome records from the
 patterns and rates they allege, with illustrative monitoring rules and
@@ -1747,21 +1690,55 @@ assumed volumes and delays (Supplement S10)
 {[}\protect\hyperlink{ref-FTC2020FirstData}{67},
 \protect\hyperlink{ref-FTC2019Allied}{69}{]}. Complaint content is
 allegation; the replays test record design, not detection, and whether a
-view flags follows from the chosen parameters. In the first replay,
-eight related accounts, each below a chargeback count floor, were never
-flagged alone. A view over recorded links flagged them in 92 percent of
-1,000 runs, and 40 legitimate merchants sharing a call center, set just
-above the ratio threshold, in 77 percent; a linked view belongs beside
-the account view, not in its place. In the second replay, of a smaller
-merchant, the chargeback rule never flagged an account at the alleged
-scale, while fraud reports counted by value flagged each account in at
-least 99.8 percent of runs. A chargeback-only store reads payments
-refunded before a dispute as unreported. Counting only verified links
-between reports and payments replaced false flags near the floor with
-stated uncertainty. The records have limits: padded sales look like
-clean payments, a record rewritten in place passes every rule, so the
-store must prevent edits, and accounts with no recorded shared attribute
-cannot be linked.
+view flags follows from the chosen parameters. The records have limits:
+padded sales look like clean payments, a record rewritten in place
+passes every rule, so the store must prevent edits, and accounts with no
+recorded shared attribute cannot be linked.
+
+Network programs compute monthly ratios by the month a report is
+received, apply minimum counts, and in one program count early fraud
+warnings and exclude disputes resolved through pre-dispute products
+{[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{51}{]};
+Supplement S6 gives the rules as read and where Visa's own overview
+differs {[}\protect\hyperlink{ref-Visa2025VAMP}{76}{]}. Splitting
+activity can also keep accounts below a count threshold even when their
+ratios are identical. Detecting that pattern requires cluster-level
+counts, not merely a pooled cohort ratio.
+
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{FIGURES/FIG5_REPLAY_SWEEPS.pdf}
+\Description{Figure 3: Share of runs flagged by each view as volume, report rate and payments a month change}
+\caption{\textbf{Where each view stops flagging.} The share of 500 synthetic runs
+in which a view flags at least once. (A, B) First Data replay: eight
+related accounts, at a 4 percent report rate in A, and 40 merchants
+assumed legitimate; the dotted line is the 1.5 percent ratio. (C) Allied
+Wallet replay: one account at the complaint's mean fraud-report rate of
+3.14 percent or at 0.3 percent. Supplement S10 gives the assumptions.}
+\end{figure}
+
+In the first replay, the account view flags only when each account alone
+reaches the floor, at about 2,500 captures a period (Figure 3A). A view
+over recorded links flags the group from about 350. Below 300 the whole
+group stays under the floor, and neither view flags in more than 1
+percent of runs. The linked view also flags legitimate groups (Figure
+3B). The 40 merchants have enough volume that the ratio, not the floor,
+decides. Between report rates of 1.75 and 3 percent, the linked view
+flags them in at least 98 percent of runs and the smaller related group
+in at most 2.2 percent. A linked view belongs beside the account view,
+not in its place.
+
+In the second replay, the chargeback rule needs 100 chargebacks a month.
+With a fifth of reported payments refunded before a dispute, one account
+needs about 4,000 payments a month to reach it; the modeled accounts had
+185 (Figure 3C). Fraud reports counted by value flag in at least 98
+percent of runs at every volume swept, from 25 a month; that rule needs
+the separate fraud-report channel and each report's amount. With no
+count floor, it also flags an account at an assumed legitimate rate of
+0.3 percent in 39 to 54 percent of runs below 200 payments a month, and
+in none from 2,000. Supplement S10 also replays a successor account, a
+switched descriptor, refunds before disputes, traffic moved after
+closures and reports linked only by card number and amount.
 
 \hypertarget{evaluating-the-specification}{%
 \section{Evaluating the
@@ -1922,8 +1899,8 @@ The records are cheap to store and check & Synthetic measurement (8.4) &
 The cost of producing them on a platform \\
 Missing context changes conclusions & Two hypothetical traces (8.1 to
 8.3) & How often; the practitioner study (S8) has not run \\
-The records expose two alleged patterns & Synthetic replays (8.5, S10) &
-Detection on real data \\
+The records expose two alleged patterns & Synthetic replays and sweeps
+(8.5, S10) & Detection on real data \\
 The signals and responsibilities cover the mechanisms & The author's
 mapping; a model as second rater (3, S3) & Completeness; a human coder
 is pending \\
