@@ -37,7 +37,9 @@ Accepted pull requests:
 - [#49](https://github.com/matkowsky/payment-fraud/pull/49) Practitioner study: scoring script, fixed before the first response
 - [#50](https://github.com/matkowsky/payment-fraud/pull/50) Restructure around C1 to C3: testable artifacts first, claim-to-evidence table
 - [#51](https://github.com/matkowsky/payment-fraud/pull/51) Change record: label text moved between the manuscript and the supplement
+- [#52](https://github.com/matkowsky/payment-fraud/pull/52) Show the requirements together: a joint case, XR-01 and two cross-requirement pairs
 - [#55](https://github.com/matkowsky/payment-fraud/pull/55) Correct supported-to-counted-error scoring
+- [#56](https://github.com/matkowsky/payment-fraud/pull/56) Compare investigation interval endpoints as exact instants
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
