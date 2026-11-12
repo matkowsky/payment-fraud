@@ -265,6 +265,14 @@
       "merged_at": "2026-11-12T10:13:52Z",
       "merged_by": "matkowsky",
       "credit": "Recorded in PR #51."
+    },
+    {
+      "pr": 55,
+      "title": "Correct supported-to-counted-error scoring",
+      "merge_commit_sha": "ea77d41c4b38a5fe4915c0b0a557c717b7a6cea8",
+      "merged_at": "2026-11-12T10:32:03Z",
+      "merged_by": "matkowsky",
+      "credit": "jointly Jonathan Matkowsky and ChatGPT/Codex, from Jonathan's direction. Implementation and checks by ChatGPT/Codex; independent AI review completed on the fixed candidate. Optional docstring wording clarification was noted as nonblocking because README explicitly preserves the correction history."
     }
   ]
 }

@@ -1873,7 +1873,8 @@ time, producer, root observations, inputs and links to any agent output
 that informed it \\
 DraftOutput & An agent draft: its exact version, expiry, the task's
 current period, and each claim with its supporting and contradicting
-records, query runs and context \\
+records, query runs, context, and any items whose unreported outcome it
+relies on, with their channel readings \\
 OutputExposure & A period in which a person had an agent output open
 about an entity \\
 ReleaseDecision & A person's decision on one exact draft version: the
@@ -2031,6 +2032,64 @@ authenticated approval tied to the draft. No record rule can show that
 the person read the draft, and the schema has no class for a fact
 recorded ahead of its effective date. Identifiers, dates and versions in
 the cases are illustrative.
+
+\textbf{Requirements together.} One further rule checks a claim against
+the outcome records of S4.2:
+
+\begin{itemize}
+\tightlist
+\item
+  \mbox{XR-01}: a claim that relies on an item's outcome not being
+  reported lists the item and cites a channel reading of it taken by the
+  time of the draft. Every cited reading of the item shows a matured
+  absence, and a cited run that is complete and not scope-limited
+  evaluated the item from its clock start to the end of its reporting
+  window and returned nothing about it.
+\end{itemize}
+
+The \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/joint_case.json}{joint
+case} adds a later investigation to the valid histories of S4.2 and this
+section. A person releases a claim that card attempt \mbox{PA-3} drew no
+fraud chargeback. The claim rests on a complete, empty run over the
+attempt's reporting window and on the reading that shows the window
+matured. Its four records pass, and each of four invalid cases fails
+\mbox{XR-01} alone. Two pairs of histories show that each requirement is
+needed when the other two hold:
+
+\begingroup\footnotesize
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.5300}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3200}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Requirements that hold
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+The two histories
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What differs
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+C2 and C3 & The same complete, empty run and released claim about one
+attempt, which the platform approved in one history and blocked in the
+other & Whether the absence is a negative \\
+C1 and C3 & The same matured reading and released claim, with a complete
+run and with a run over a label feed loaded only to 20 May & Whether the
+absence is a negative \\
+\end{longtable}
+
+\endgroup
+
+In the first pair every investigation record is the same, and both
+stores pass their own rules; only the channel records differ, and
+\mbox{XR-01} rejects the blocked attempt. In the second, \mbox{IR-08}
+and \mbox{XR-01} reject the stalled read. The rules cannot tell whether
+a claim relies on an unreported outcome it does not list, or which
+channels it should cite.
 
 \textbf{Adversarial test (10 and 11 November 2026).} The invalid cases
 were written by the same hand as the rules. To test the rules from
