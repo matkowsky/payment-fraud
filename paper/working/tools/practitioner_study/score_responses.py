@@ -91,7 +91,7 @@ def score(responses, key, also):
                 'part2_supported': sum(a == k['supported'] or (i in also and a == 'cannot tell') for a in before),
                 'part3_supported': sum(a == k['supported'] for a in after),
                 'error_to_supported': sum(b == k['error'] and a == k['supported'] for b, a in zip(before, after)),
-                'supported_to_error': sum(b != k['error'] and a == k['error'] for b, a in zip(before, after)),
+                'supported_to_error': sum((b == k['supported'] or (i in also and b == 'cannot tell')) and a == k['error'] for b, a in zip(before, after)),
             }
         by_req = {}
         for i, v in items.items():
@@ -119,12 +119,12 @@ def to_markdown(res):
     for name in ('main', 'read_section_8'):
         g = res[name]
         lines += [f"## {name} ({g['participants']} participants)", '',
-                  '| Item | Requirement | Errors without records | Errors with records | Error to supported | Supported to error |',
+                  '| Item | Requirement | Errors without records | Errors with records | Error to supported | Supported to counted error (Part 2 → Part 3) |',
                   '|---|---|---|---|---|---|']
         for i, v in g['items'].items():
             lines.append(f"| {i} | {v['requirement']} | {v['part2_errors']} | {v['part3_errors']} | "
                          f"{v['error_to_supported']} | {v['supported_to_error']} |")
-        lines += ['', '| Requirement | Answers | Errors without | Errors with | Error to supported | Supported to error |',
+        lines += ['', '| Requirement | Answers | Errors without | Errors with | Error to supported | Supported to counted error (Part 2 → Part 3) |',
                   '|---|---|---|---|---|---|']
         for k, v in sorted(g['by_requirement'].items()):
             lines.append(f"| {k} | {v['answers']} | {v['part2_errors']} | {v['part3_errors']} | "

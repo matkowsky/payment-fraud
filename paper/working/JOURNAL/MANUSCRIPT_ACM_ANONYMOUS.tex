@@ -58,7 +58,7 @@ it enters organizational memory for reuse by later investigations; a
 released conclusion serves only as a hypothesis or context, and any
 record that an agent output informed must link back to that output.
 
-Draft schemas, 28 cross-record rules and two checkers make the
+Draft schemas, 29 cross-record rules and two checkers make the
 requirements testable, and adversarial cases written by a second model
 probe the rules. Public sources supply the design premises, and Stripe's
 public product pages and documentation provide an illustrative product
@@ -167,9 +167,9 @@ platform's decisions left observable. C2 establishes what information an
 investigation actually examined and could have known. C3 prevents the
 resulting interpretation from returning as independent support for
 itself. A record can satisfy one requirement and still mislead an
-investigation through a failure of another.
+investigation through a failure of another (Section 8.3).
 
-Draft schemas, 28 cross-record rules and two checkers make the
+Draft schemas, 29 cross-record rules and two checkers make the
 requirements testable, and every rule has a failing case (Supplement
 S4). Fifteen histories written by a second model to test the rules
 exposed eight gaps; the revised rules reject nine of the 13 meant to
@@ -1675,6 +1675,16 @@ corroboration. \\
 
 \endgroup
 
+Each row of Table 2 isolates one requirement. Supplement S4.4 adds two
+pairs of histories in which two requirements hold and only the third
+shows whether an absence is a negative. In one, a person releases the
+claim that a card attempt drew no chargeback, resting on a complete,
+empty search; only C1's channel state shows that the platform had
+blocked the attempt, so no chargeback could arrive. In the other, the
+same claim cites a reading that shows a matured absence; only C2's
+coverage record shows that the label feed had stalled before the window
+ended.
+
 Two rows of Table 2 add explicit hypothetical conditions: Trace A's
 payout is permanently blocked, and Trace B retrieves an earlier
 assessment of the same descriptor pattern. Omission does not force an
@@ -1693,11 +1703,8 @@ the fourth, and E5 the human work the agent creates. The exploratory E2
 and E4 bear on C1's decision links, and E2 also on late and false
 reports (Section 9.1). E8's planted drafts that rest a material claim
 only on a released item test the rule in the fifth row. The traces
-illustrate what the records mean. Those evaluations test whether some of
-the records improve investigation; none measures the storage, query work
-or controlled cross-account access that collecting them requires
-(Section 9.1). Section 8.4 estimates the records' storage and query work
-on synthetic data.
+illustrate what the records mean. Section 8.4 estimates the records'
+storage and query work on synthetic data.
 
 \hypertarget{where-to-start-and-what-it-costs}{%
 \subsection{Where to start and what it
@@ -1903,6 +1910,8 @@ Not shown
 \endlastfoot
 Each field group changes what a history supports & Necessity pairs;
 failing cases (S4.2, S4.4) & That the records improve investigations \\
+No two requirements replace the third & Two cross-requirement pairs
+(8.3, S4.4) & That they cover every interaction \\
 Software can check the rules & Two checkers; 15 adversarial histories
 (S4.4) & Every evasion; four stated limits remain \\
 The records are cheap to store and check & Synthetic measurement (8.4) &

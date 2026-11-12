@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Check query-run and release records against their schema and rules IR-01 to IR-14 (Supplement S4.4).
+"""Check query-run and release records against their schema and rules IR-01 to IR-14 (Supplement S4.4),
+and claims against outcome records under XR-01.
 
 Usage:
-  python3 tools/investigation_conformance.py              run the conformance cases and necessity pairs
-  python3 tools/investigation_conformance.py FILE.json    check a file of the form {"records": [...]}
+  python3 tools/investigation_conformance.py                       run the conformance cases and necessity pairs
+  python3 tools/investigation_conformance.py FILE.json [OUT.json]  check a file of the form {"records": [...]},
+                                                                   with XR-01 if outcome records are given
 
 Standard library only; the schema validator is the one in outcome_conformance.py. A schema and
 passing synthetic cases do not establish operational effectiveness.
@@ -14,15 +16,19 @@ import json
 import re
 from datetime import datetime
 import sys
+from datetime import timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import outcome_conformance as oc  # noqa: E402
 from outcome_conformance import apply_patch, ts, validate  # noqa: E402
 
 HERE = Path(__file__).resolve().parent.parent / 'SUPPLEMENT' / 'S4_INVESTIGATION_RECORDS'
 SCHEMA = HERE / 'investigation_records.schema.json'
 VALID = HERE / 'conformance_valid.json'
 INVALID = HERE / 'conformance_invalid.json'
+JOINT = HERE / 'joint_case.json'
+C1_TYPES = ('ControlAction', 'ChannelStateTransition', 'ChannelStatusReading')
 OBSERVED = {'source_observation', 'normalized_observation', 'derived_feature'}
 RANK = {'low': 0, 'moderate': 1, 'high': 2}
 COVERAGE_FIELDS = ('evaluated_entities', 'evaluated_interval', 'sources', 'access_filter_removed_rows',
@@ -282,6 +288,58 @@ def check(records, schema):
     return found
 
 
+def check_joint(records, outcomes):
+    """XR-01: a claim that relies on items' outcomes not being reported lists the items and cites, for each, a channel
+    reading taken by the time of the draft. Every cited reading of a listed item shows a matured absence, and a cited
+    complete run evaluated the item from its clock start through the end of its reporting window and returned nothing
+    about it."""
+    found = []
+    by = {r['record_id']: r for r in records}
+    out = {r['record_id']: r for r in outcomes}
+    windows = {(r['channel_id'], r['reporting_window'].get('rule_version')): r['reporting_window']
+               for r in outcomes if r['record_type'] == 'OutcomeChannel'}
+    for d in records:
+        for c in d['claims'] if d['record_type'] == 'DraftOutput' else []:
+            if not c.get('outcome_items'):
+                continue
+            cid = f'{d["record_id"]}/{c["claim_id"]}'
+            readings = [out.get(x) for x in c.get('outcome_readings', [])]
+            if any(x is None or x['record_type'] != 'ChannelStatusReading' or ts(x['read_time']) > ts(d['created_at'])
+                   for x in readings):
+                found.append(('XR-01', cid, 'a cited reading does not exist or was taken after the draft'))
+                continue
+            runs = [by[q] for q in c['query_runs'] if by.get(q, {}).get('record_type') == 'QueryRun']
+            for e in c['outcome_items']:
+                mine = [x for x in readings if (x['item']['item_type'], x['item']['item_id']) == (e['namespace'], e['id'])]
+                if not mine or any(x['no_report_status'] != 'matured_absent' for x in mine):
+                    found.append(('XR-01', cid, f'{e["id"]}: no cited reading, or one that is not a matured absence'))
+                    continue
+                for x in mine:
+                    w = windows.get((x['channel_id'], x.get('matured_under_rule_version')), {})
+                    start = ts(x['clock_start']['value'])
+                    end = start + timedelta(days=w.get('days', 0))
+                    if not any(q['statuses'] == ['complete'] and not q['scope_limited']
+                               and ent(e) in {ent(v) for v in q['evaluated_entities']}
+                               and ts(q['evaluated_interval']['from']) <= start <= end <= ts(q['evaluated_interval']['to'])
+                               and not any(ent(by[i]['entity']) == ent(e) for i in q['returned'] if i in by)
+                               for q in runs):
+                        found.append(('XR-01', cid, f'{e["id"]}: no cited complete run covers its reporting window'))
+    return found
+
+
+def check_both(records, outcomes, schema, outcome_schema):
+    """Each store's own rules, then XR-01 across them."""
+    return check(records, schema) + oc.check(outcomes, outcome_schema) + check_joint(records, outcomes)
+
+
+def joint_history():
+    """The joint case: the valid investigation records plus case K-3, and the valid outcome records."""
+    joint = json.loads(JOINT.read_text(encoding='utf-8'))
+    records = json.loads(VALID.read_text(encoding='utf-8'))['records'] + joint['records']
+    outcomes = json.loads(oc.VALID.read_text(encoding='utf-8'))['records']
+    return records, outcomes, joint['cases']
+
+
 def strip(records, fields):
     return [{k: v for k, v in r.items() if k not in fields} for r in records]
 
@@ -327,6 +385,28 @@ def necessity_pairs(valid, schema):
     return out
 
 
+def joint_pairs(records, outcomes, schema, outcome_schema):
+    """Two requirements hold in both histories of a pair; only the third tells them apart."""
+    out = {}
+    blocked = next(c for c in joint_history()[2] if c['case_id'] == 'J01')
+    # C1 with C2 and C3 holding: a complete, empty run and a release, over an attempt that matured or was blocked.
+    b_out = apply_patch(outcomes, blocked['outcome'])
+    keep = [r for r in outcomes if r['record_type'] not in C1_TYPES]
+    assert keep == [r for r in b_out if r['record_type'] not in C1_TYPES]
+    assert not check(records, schema) and not oc.check(outcomes, outcome_schema) and not oc.check(b_out, outcome_schema)
+    assert not check_joint(records, outcomes) and {f[0] for f in check_joint(records, b_out)} == {'XR-01'}
+    out['C1 with C2 and C3'] = 'the same released absence is a negative in one history only'
+    # C2 with C1 and C3 holding: the same matured reading, read through a complete run or a stalled label feed.
+    stalled = copy.deepcopy(records)
+    q = next(r for r in stalled if r['record_id'] == 'Q-5')
+    q['sources'][0]['ingestion_watermark'] = '2026-05-20T00:00:00Z'
+    q['statuses'] = derive_statuses(q)
+    assert strip(records, COVERAGE_FIELDS) == strip(stalled, COVERAGE_FIELDS) and q['statuses'] == ['partial']
+    assert {f[0] for f in check_both(stalled, outcomes, schema, outcome_schema)} == {'IR-08', 'XR-01'}
+    out['C2 with C1 and C3'] = 'the same matured reading supports a negative in one history only'
+    return out
+
+
 def run_conformance():
     schema = json.loads(SCHEMA.read_text(encoding='utf-8'))
     valid = json.loads(VALID.read_text(encoding='utf-8'))['records']
@@ -341,13 +421,25 @@ def run_conformance():
     expected = {'SCHEMA'} | {f'IR-{n:02d}' for n in range(1, 15)}
     assert rules == expected, ('rules without a failing case', sorted(expected - rules))
     pairs = necessity_pairs(valid, schema)
-    return {'valid_records': len(valid), 'invalid_cases': len(cases), 'rules_exercised': len(rules), 'necessity_pairs': len(pairs)}
+    records, outcomes, joint_cases = joint_history()
+    outcome_schema = json.loads(oc.SCHEMA.read_text(encoding='utf-8'))
+    assert not check_both(records, outcomes, schema, outcome_schema), check_both(records, outcomes, schema, outcome_schema)
+    for case in joint_cases:
+        got = {f[0] for f in check_both(seal(apply_patch(records, case.get('investigation', {}))),
+                                        apply_patch(outcomes, case.get('outcome', {})), schema, outcome_schema)}
+        assert got == {case['rule']}, (case['case_id'], case['rule'], sorted(got))
+    joint = joint_pairs(records, outcomes, schema, outcome_schema)
+    return {'valid_records': len(valid), 'invalid_cases': len(cases), 'rules_exercised': len(rules), 'necessity_pairs': len(pairs),
+            'joint_records': len(records) - len(valid), 'joint_cases': len(joint_cases), 'joint_pairs': len(joint)}
 
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         schema = json.loads(SCHEMA.read_text(encoding='utf-8'))
-        found = check(json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))['records'], schema)
+        records = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))['records']
+        found = check(records, schema)
+        if len(sys.argv) > 2:
+            found += check_joint(records, json.loads(Path(sys.argv[2]).read_text(encoding='utf-8'))['records'])
         for f in found:
             print(*f, sep='\t')
         sys.exit(1 if found else 0)
