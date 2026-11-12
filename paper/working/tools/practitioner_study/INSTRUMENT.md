@@ -80,20 +80,24 @@ The cases are unchanged. These records are now also available. Answer the same q
 
 ### Case A: added records
 
-- The seven-day search's coverage, recorded by the query service, not the analyst: the key's request log reaches back only two hours before publication. The search covered two hours, not seven days. Status: partial.
-- When the system learned each fact: the link between the payout destination and the two other accounts was recorded one day after publication. The attachments themselves predate publication.
-- The compromise check's record: it scored the account at 30 minutes, using only data the system had learned by then.
-- Outcome channels for these payouts: victim reports and incident findings. Neither has a defined reporting window, so "no report yet" never becomes final.
+Each record is shown as the system stores it.
+
+- Coverage of the seven-day search, written by the query service: requested 7 days before publication to now; evaluated 2 hours before publication to now; status partial.
+- Learned times: link of the new payout destination to the two other accounts, effective before publication, learned 1 day after publication.
+- Compromise check: scored 30 minutes after publication; inputs as of 30 minutes after publication.
+- Outcome channels for these payouts: victim report, reporting window none defined; incident finding, reporting window none defined.
 
 A1 to A5 again.
 
 ### Case B: added records
 
-- Report-to-transaction links: two chargebacks recorded at a fifth account, X, concern transactions of account D.
-- The combined measure by account: A 8 percent, B 8 percent, C 2 percent, D 2 percent.
-- The search's coverage, recorded by the query service: one of three account sources was sampled at 10 percent, and the search stopped at its row limit. Status: partial and truncated.
-- Exposure links: both analyst notes were written while the agent's cluster assessment of these accounts was open in the case.
-- The decision record for C's blocked payment: the block closed the chargeback channel for that payment.
+Each record is shown as the system stores it.
+
+- Report-to-transaction links: 2 chargebacks recorded at a fifth account, X, linked to transactions of account D; link verified by transaction identifier.
+- Chargeback-or-alert measure by account, each transaction counted once: A 8 of 100, B 8 of 100, C 2 of 100, D 2 of 100.
+- Coverage of the search for the controlling person, written by the query service: 3 account sources; 1 source sampled at 10 percent; row limit reached; status partial and truncated.
+- Exposure links: analyst note 1 and analyst note 2 each link to the agent's cluster assessment of accounts A to D, open in the case when the note was written.
+- Decision record for C's blocked payment: decision block; effect on the chargeback channel closed.
 
 B1 to B6 again.
 

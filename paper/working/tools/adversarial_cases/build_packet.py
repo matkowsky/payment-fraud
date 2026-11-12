@@ -1,6 +1,11 @@
 """Build the packet for an adversarial test of the query-run and release rules (Supplement S4.4).
 
-  python3 tools/adversarial_cases/build_packet.py     writes PACKET_ROUND1.md beside this file
+  python3 tools/adversarial_cases/build_packet.py 2   writes PACKET_ROUND2.md beside this file
+
+Round 1's packet (PACKET_ROUND1.md, commit 5dd4213) shows the rules before round 1 and is not rebuilt.
+Round 2 is held out: a fresh tester gets the rules as revised after round 1, and the rules stay frozen
+until its cases are scored. Its packet also lists every limit the supplement now states, so the
+tester looks for new failures.
 
 An outside tester reads the published requirements, rules, record fields and valid history, and
 writes histories meant to defeat the rules. The tester never sees the checker's code. Each case is
@@ -115,7 +120,14 @@ def section(text, start, end):
     return text[a:text.index(end, a)]
 
 
-def main():
+ROUND2_NOTE = """
+This round tests rules that were revised after an earlier round of tests. Do not repeat the
+limits listed under "Stated limits": the specification already admits them. A case that only
+restates one of them will be counted as a stated limit, not as a new failure.
+"""
+
+
+def main(round_no):
     ms = (W / 'SOURCE' / 'manuscript.md').read_text(encoding='utf-8')
     sup = (W / 'SOURCE' / 'supplement.md').read_text(encoding='utf-8')
     reqs = [p for p in ms.split('\n\n') if p.startswith(('**C2**', '**C3**'))]
@@ -123,10 +135,16 @@ def main():
     s44 = section(sup, '### S4.4 ', '\n## S5.')
     table = section(s44, '| Record | What it holds |', '\nFourteen rules')
     rules = section(s44, '1. IR-01', '\nThe [valid conformance case]')
-    limits = re.search(r'The rules do not check[^.]*\.', s44).group(0)
+    if round_no == 1:
+        limits = re.search(r'The rules do not check[^.]*\.', s44).group(0)
+    else:
+        limits = re.search(r'The rules do not check.*?(?=Identifiers, dates and versions)', s44, re.S).group(0).strip()
+        limits += (' Histories already known to pass: a draft that drops its link to a released item it read, '
+                   'a complete run that omitted a matching record, a release whose scope excludes its own claim, '
+                   'and a release that names a person who did not review.')
     guide = field_guide(json.loads((REC / 'investigation_records.schema.json').read_text(encoding='utf-8')))
     valid = json.loads((REC / 'conformance_valid.json').read_text(encoding='utf-8'))
-    out = [BRIEF, '## The two requirements, as the paper states them', '', *['> ' + r + '\n' for r in reqs],
+    out = [BRIEF + (ROUND2_NOTE if round_no == 2 else ''), '## The two requirements, as the paper states them', '', *['> ' + r + '\n' for r in reqs],
            '## The eight record types', '', table.strip(), '', '## The fourteen rules', '', rules.strip(), '',
            '## Stated limits', '', limits, '',
            FORMAT, '## Record fields', '', FIELDS_NOTE, '', *guide, '',
@@ -136,9 +154,13 @@ def main():
            'case that reads the released conclusion as context and cites a new observation.', '',
            '```json', json.dumps(valid['records'], separators=(',', ':')).replace('},{', '},\n{'), '```', '']
     text = '\n'.join(out)
-    (HERE / 'PACKET_ROUND1.md').write_text(text, encoding='utf-8')
+    (HERE / f'PACKET_ROUND{round_no}.md').write_text(text, encoding='utf-8')
     print(f'{len(text)} characters, {len(text.split())} words')
 
 
 if __name__ == '__main__':
-    main()
+    import sys
+    n = int(sys.argv[1]) if len(sys.argv) > 1 else 2
+    if n == 1:
+        sys.exit('PACKET_ROUND1.md is kept as used at commit 5dd4213; rebuilding it would show the revised rules')
+    main(n)

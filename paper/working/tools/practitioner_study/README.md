@@ -2,6 +2,8 @@
 
 Protocol for Supplement S8, fixed before the first response. Any later change is a new commit that states its reason.
 
+Changed before the first response, 12 November 2026: Part 3's added records now show stored fields without interpretation, because a referee noted that the earlier wording stated the answers. The questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
