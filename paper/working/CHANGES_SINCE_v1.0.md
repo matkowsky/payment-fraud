@@ -35,11 +35,12 @@ Accepted pull requests:
 - [#44](https://github.com/matkowsky/payment-fraud/pull/44) Producer field and dependence default, from the author of the cited dependence study
 - [#48](https://github.com/matkowsky/payment-fraud/pull/48) Checker fixes: provenance through inputs; no gap in a matured channel
 - [#49](https://github.com/matkowsky/payment-fraud/pull/49) Practitioner study: scoring script, fixed before the first response
+- [#50](https://github.com/matkowsky/payment-fraud/pull/50) Restructure around C1 to C3: testable artifacts first, claim-to-evidence table
 
 | Document | Read the current version | Paragraphs changed | Added | Removed |
 |---|---|---|---|---|
-| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 79 | 18 | 68 |
-| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 57 | 121 | 5 |
+| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 78 | 20 | 75 |
+| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 57 | 132 | 5 |
 
 ## Manuscript
 
@@ -47,9 +48,9 @@ Accepted pull requests:
 
 <del>29</del><ins>12</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
-**Changed, under "Abstract", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
+**Changed, under "Abstract", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
-The specification connects these requirements to 71 signals, the kinds of records an investigator can check, and 24 responsibilities for investigation, review and reuse. Public sources supply the design premises, and Stripe's public product pages and documentation provide an illustrative product scope. Two hypothetical investigations show how missing context changes the conclusions that the same observations can support, and an evaluation plan proposes tests of evidential quality, operational cost and agent benefit. The contribution is a joint specification for investigation across payment products, built on established methods and recent agent-governance designs. It is a synthesis, not a new <del>method</del><ins>method.</ins> <del>or</del><ins>The</ins> <del>a measured result: the specification</del><ins>architecture</ins> has not been <del>built</del><ins>built,</ins> <del>or</del><ins>no</ins> <del>evaluated,</del><ins>platform data were used, its only experiments run the record schemas on synthetic records,</ins> and no practitioner has reviewed it.
+<del>The</del><ins>Draft</ins> <del>specification</del><ins>schemas,</ins> <del>connects</del><ins>28</ins> <del>these</del><ins>cross-record rules and two checkers make the</ins> requirements <del>to</del><ins>testable,</ins> <del>71</del><ins>and</ins> <del>signals,</del><ins>adversarial cases written by a second model probe</ins> the <del>kinds of records an investigator can check, and 24 responsibilities for investigation, review and reuse.</del><ins>rules.</ins> Public sources supply the design premises, and Stripe's public product pages and documentation provide an illustrative product scope. Two hypothetical investigations show how missing context changes the conclusions that the same observations can support,<ins> replays of two FTC complaints on synthetic records show what the records expose and miss,</ins> and an evaluation plan proposes tests of evidential quality, operational cost and agent benefit. The contribution is a joint specification for investigation across payment products, built on established methods and recent agent-governance designs. It is a synthesis, not a new <del>method</del><ins>method.</ins> <del>or</del><ins>The</ins> <del>a measured result: the specification</del><ins>architecture</ins> has not been <del>built</del><ins>built,</ins> <del>or</del><ins>no</ins> <del>evaluated,</del><ins>platform data were used, its only experiments run the record schemas on synthetic records,</ins> and no practitioner has reviewed it.
 
 **Changed, under "1. Introduction", by [#15](https://github.com/matkowsky/payment-fraud/pull/15):**
 
@@ -58,6 +59,10 @@ The specification connects these requirements to 71 signals, the kinds of record
 **Changed, under "1. Introduction", by [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#42](https://github.com/matkowsky/payment-fraud/pull/42):**
 
 \*\*C3\*\* requires human release before promotion into organizational memory. No agent output enters the evidence plane, which stores observations, as evidence of the activity under investigation \(Sections 4.2 and 5.3\); the agent's own outputs are recorded only as observations of what the agent did <del>\(Section</del><ins>\(Supplement</ins> <del>6.5\).</del><ins>S4.1\).</ins> A person releases a conclusion into organizational memory, where it serves only as a hypothesis or context. Any record that an agent output informed links back to that output and counts as dependent, not as independent <del>corroboration</del><ins>corroboration; a record written while an agent output is open to its writer counts as informed</ins> \(Sections 4.2, 6.4 and 7.3\).
+
+**Changed, under "1. Introduction", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<del>Two</del><ins>Draft</ins> <del>artifacts</del><ins>schemas, 28 cross-record rules and two checkers</ins> make the <del>specification</del><ins>requirements</ins> <del>inspectable:</del><ins>testable,</ins> <del>an</del><ins>and every rule has a failing case \(Supplement S4\). Fifteen histories written by a second model to test the rules exposed eight gaps; the revised rules reject nine of the 13 meant to break a requirement, and the other four are stated limits. An</ins> inventory of 71 signals and an architecture of 24 <del>responsibilities.</del><ins>responsibilities</ins> <del>Sixty-eight</del><ins>connect</ins> <del>signals</del><ins>the</ins> <del>map</del><ins>requirements</ins> to <del>abuse</del><ins>the</ins> <del>mechanisms,</del><ins>evidence</ins> <del>meaning</del><ins>an</ins> <del>ways</del><ins>investigator</ins> <del>abuse can occur; three apply across mechanisms. The responsibilities cover investigation, review, release, tested reuse of lessons</del><ins>checks</ins> and <del>security</del><ins>to</ins> <del>of</del><ins>who</ins> <del>the</del><ins>checks</ins> <del>investigation system.</del><ins>it.</ins> Two hypothetical investigations<del> then</del> show which conclusions survive when particular records are <del>missing.</del><ins>missing, and replays of two FTC complaints on synthetic records show what the records expose and miss \(Section 8\).</ins>
 
 **Changed, under "1. Introduction", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39):**
 
@@ -118,6 +123,10 @@ Two payment-agent preprints show why specification and operational benefit must 
 **Removed, under "2.4 What the combined specification contributes", by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
 
 <del>\| Research family and inspected examples \| L1 \| L2 \| L3 \| L4 \| L5 \| L6 \| L7 \| L8 \| Payment domain \|<br>\|---\|---\|---\|---\|---\|---\|---\|---\|---\|---\|<br>\| Industrial payment and risk systems: TitAnt, GEM \| P \| E \| P \| . \| P \| P \| . \| P \| yes \|<br>\| Illustrative platform’s \(Stripe’s\) engineering publications, 2019 to 2025 \| P \| E \| P \| P \| P \| E \| . \| P \| yes \|<br>\| Threat-intelligence and security-operations architectures: reference models, intelligence lifecycle and agent benchmarks \| P \| P \| E \| E \| E \| P \| E \| E \| no \|<br>\| Preprints on agents making fraud decisions: SR-Fraud and Sharma’s auditable agent \| P \| P \| P \| E \| P \| E \| P \| E \| yes \|</del>
+
+**Changed, under "3. Deriving the specification from public evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+The design starts from documented product capabilities and asks how an adversary could misuse each one. For each abuse <del>mechanism</del><ins>mechanism, meaning a way abuse can occur,</ins> it then identifies the records needed to distinguish the malicious explanation from plausible alternatives. Stripe's public product catalog, roadmap and documentation define the illustrative scope; research, engineering accounts, incident reports and guidance supply the design premises.
 
 **Changed, under "3. Deriving the specification from public evidence", by [#12](https://github.com/matkowsky/payment-fraud/pull/12):**
 
@@ -363,17 +372,21 @@ Reversibility does not imply low impact. An API-key restriction may interrupt a 
 
 One consequential attack produces a plausible but false benign explanation. <del>Poisoned evidence might suggest a legitimate merchant-of-record arrangement, where one business sells on behalf of others. An honest agent could then propose a lesson steering later investigations away from that infrastructure. </del>Human release alone does not defeat this attack.
 
-**Changed, under "6.5 Protect the investigation from its inputs", by [#32](https://github.com/matkowsky/payment-fraud/pull/32):**
+**Removed, under "6.5 Protect the investigation from its inputs", by [#32](https://github.com/matkowsky/payment-fraud/pull/32), [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
-A second attack reaches a person investigating the agent itself, through hostile content copied into the ledger. Untrusted status must survive storage and normalization.<del> The ledger distinguishes copied untrusted content, agent output exposed to untrusted content, and agent output without that exposure. Exposure takes precedence when outputs also use other evidence. Ordinary source observations retain their own trust marks and are not assigned an agent-output category.</del>
+<del>A second attack reaches a person investigating the agent itself, through hostile content copied into the ledger. Untrusted status must survive storage and normalization. The ledger distinguishes copied untrusted content, agent output exposed to untrusted content, and agent output without that exposure. Exposure takes precedence when outputs also use other evidence. Ordinary source observations retain their own trust marks and are not assigned an agent-output category.</del>
 
-**Added, under "6.5 Protect the investigation from its inputs", by [#32](https://github.com/matkowsky/payment-fraud/pull/32):**
+**Removed, under "6.5 Protect the investigation from its inputs", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
-<ins>The ledger makes the agent itself investigable; Supplement S4.1 lists what it retains.</ins>
+<del>Ledger copies and agent outputs may suggest hypotheses, but claims cite the underlying evidence-plane records. Their promotion into organizational memory still requires independent testing and human release.</del>
 
 **Removed, under "6.5 Protect the investigation from its inputs", by [#32](https://github.com/matkowsky/payment-fraud/pull/32):**
 
 <del>The ledger makes the agent itself investigable. For each tool call it retains the provenance of inputs reaching the model, approved and executed payload hashes, memory writes and outbound-traffic decisions. It also records model identity, version, instructions and decoding settings, with record classes intact.</del>
+
+**Removed, under "6.5 Protect the investigation from its inputs", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<del>The architecture does not include live adversary emulation. Any future use would require separate ethical, human and operational authorization, enforced scope, tamper-evident logs and test-data provenance.</del>
 
 **Changed, under "7. Interpreting feedback after protective decisions", by [#21](https://github.com/matkowsky/payment-fraud/pull/21):**
 
@@ -627,6 +640,10 @@ A risk assessment and a rejected application identify similar <del>storefronts.<
 
 <del>That context costs storage, query work, controlled cross-account access and investigator time. E1 tests the context in the first two rows of Table 6, E9 the channel states in the third, E3 the report linkage in the fourth, and E5 the human work the agent creates. The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports \(Section 9.1\). E8's planted drafts that rest a material claim only on a released item test the rule in the fifth row. The traces establish what the records mean. Those evaluations test whether some of the records improve investigation; none measures the storage, query work or controlled cross-account access that collecting them requires \(Section 9.1\).</del>
 
+**Changed, under "9.1 Questions, comparisons and failure criteria", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+The specification is worthwhile only if its added records and safeguards improve investigation enough to justify their cost. The evaluation plan separates the <del>value of the </del>records from the <del>benefit</del><ins>agent:</ins> <del>of</del><ins>C1</ins> <del>using</del><ins>and</ins> <del>an</del><ins>C2</ins> <del>agent.</del><ins>do not need one, E1, E3 and E9 test them without it, and E5 tests the agent's benefit.</ins>
+
 **Changed, under "9.1 Questions, comparisons and failure criteria", by [#3](https://github.com/matkowsky/payment-fraud/pull/3), [#21](https://github.com/matkowsky/payment-fraud/pull/21), [#24](https://github.com/matkowsky/payment-fraud/pull/24), [#39](https://github.com/matkowsky/payment-fraud/pull/39):**
 
 Supplement S7.1 gives each hypothesis, design, primary measure and proposed failure criteria. E1, E3, E8 and E9 are confirmatory; the others are exploratory.<ins> The tests address the three requirements and the agent's added value; none tests the signal inventory or the responsibilities as a whole.</ins> E3 tests the report-to-transaction links on which C1's outcome records depend, together with cluster-level monitoring. Its pass rule compares linked clusters with accounts as their reports are recorded, so a lead from clustering alone can pass it; only the third arm, which applies the rule to each account after linking, shows whether linkage contributes.<del> E9 tests whether C1's channel states reduce the bias of an evaluation quantity that the platform computes today, judged against a randomized holdout and compared with the platform's current label rule. It reports how many labels the states change, but that share does not count as support.</del> E9 exercises C1's links from outcomes to control decisions, and its separation of late from unobservable outcomes, only jointly through the channel-state reading. No confirmatory evaluation tests the separate field for false reports or the decision links' other uses, such as estimating outcomes under other decisions. The exploratory E2 bears on the decision links and, through its sensitivity analysis, on late and false reports; E4 bears on the decision links. Passing E1, E3, E8 and E9 would therefore not establish the value of each of those links and fields on its own. E8 tests C3's release gate. <del>Its planted drafts include some whose only support for a material claim is a released item or a record linked to one, which tests C3's rule that a released conclusion adds no independent corroboration \(Section 8.3\). </del>The exploratory E6 checks that required links back to agent outputs exist. No evaluation tests the urgent-containment route in Section 6.4. The rate at which later review reverses its actions, and the service those actions interrupt, remain unmeasured. The <del>specified minimum counts are not power calculations. E8 sizes its planted false exonerations for 93 percent power to show a release rate below a tolerable rate stated in advance, given an assumed true rate, and sizes its planted drafts so that the complete rule, with the catch-rate criterion, reaches that power. At realistic prevalence and the volume assumed in Section 6.4, that can take many months of production drafts, so the tolerable rate, the assumed rate and the implied duration are stated together. The sizing assumptions must be recorded before main-study data are collected, and E2's interval settings and E9's negligible bias reduction fixed before any data are examined. The </del>questions below state what each evaluation is intended to resolve.
@@ -667,17 +684,33 @@ Supplement S8 <del>separately</del><ins>gives</ins> <del>proposes</del><ins>a</i
 
 Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, and S7.1 states the tests for all nine. Four rules in S7.1 apply to every <del>evaluation.</del><ins>evaluation:</ins> <del>Each</del><ins>an</ins> <del>evaluation</del><ins>as-of</ins> <del>freezes</del><ins>cutoff on</ins> the information each method may <del>use at an as-of cutoff and separates development from test data. It states base rates and how true</del><ins>use,</ins> outcomes <del>are decided, by whom and</del><ins>decided</ins> blind <del>to which method produced each finding, and it sets error and abstention</del><ins>under</ins> rules <ins>set </ins>in <del>advance.</del><ins>advance,</ins> <del>Where</del><ins>a</ins> <del>ground</del><ins>stated</ins> <del>truth</del><ins>treatment</ins> <del>comes from</del><ins>of</ins> labels shaped by control decisions, <del>it says how that bias is avoided or reports relative performance among detected cases only. Test, replay </del>and <del>emulation records are marked when created and kept out</del><ins>marking</ins> of <del>production</del><ins>test</ins> <del>labels and lessons. S7 also requires recording the provenance of synthetic data when created.</del><ins>records.</ins> Of the S7.1 tests, E5 and E8 measure reviewer time, and E5 also compares cost across arms that see the same records. None measures the storage, query work or controlled cross-account access that the added records require. S7 adds collection cost for E1's broader timing study and the safeguards' effect on investigations completed for E6. Passing the S7.1 tests would therefore not show that the added records justify their collection cost. <del>Prospective exploration and agent-driven adversary emulation each need separate ethical, human and operational authorization. Neither is done or authorized here. </del>E1, E5 and E8 also measure the work of identifiable staff on real case records, and E8's undisclosed planted drafts require a deception protocol. Each needs ethics and privacy review before it starts.<del> E8's planted drafts concern synthetic entities or closed cases whose named entities have no account action pending, and no recommendation in a planted draft may reach a control decision or the urgent-containment route; the decider is told that the draft is planted before any action.</del>
 
-**Changed, under "9.2 What the evidence can support", by [#37](https://github.com/matkowsky/payment-fraud/pull/37), [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
+**Added, under "9.2 What the evidence can support", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
-The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs<ins> on platform data</ins> and investigator workload remain unmeasured. The practitioner protocol would assess availability and usefulness of the proposed records; it has not been run. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules \(Section 7.1\). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program \(Section 8.2\). Bank <del>debits</del><ins>debits,</ins> <del>were compared only with two of the provider's pages and one bank's return-code table \(Section 7.1\); of the bank-debit candidates in Supplement S2, PAY-07 was judged covered and MM-03 was not reviewed. Instant</del><ins>instant</ins> push payments and stablecoin payments, which are also in the product scope, were <del>not </del>reviewed <del>rail</del><ins>less</ins> <del>by rail; their mechanisms MM-07 and MM-12 were reviewed, but not their reporting channels</del><ins>fully</ins> \(Supplement <del>S2\).</del><ins>S4.1\).</ins>
+<ins>\*\*Table 3. Each claim, its evidence and what that evidence does not show.\*\* Supplement S9.6 gives further limits.</ins>
 
-**Changed, under "9.2 What the evidence can support", by [#29](https://github.com/matkowsky/payment-fraud/pull/29):**
+**Removed, under "9.2 What the evidence can support", by [#37](https://github.com/matkowsky/payment-fraud/pull/37), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
-The product scope comes from one provider's public product catalog, roadmap and documentation, including roadmap items in public preview. Other platforms may combine products differently or face other mechanisms. Public interfaces expose only part of a provider's records, so “none identified” in <ins>Supplement </ins>Table <del>2</del><ins>S3.1</ins> refers only to the pinned schemas and the terms searched. Collection ownership, retention and budgets remain deployment decisions.
+<del>The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs and investigator workload remain unmeasured. The practitioner protocol would assess availability and usefulness of the proposed records; it has not been run. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules \(Section 7.1\). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program \(Section 8.2\). Bank debits were compared only with two of the provider's pages and one bank's return-code table \(Section 7.1\); of the bank-debit candidates in Supplement S2, PAY-07 was judged covered and MM-03 was not reviewed. Instant push payments and stablecoin payments, which are also in the product scope, were not reviewed rail by rail; their mechanisms MM-07 and MM-12 were reviewed, but not their reporting channels \(Supplement S2\).</del>
 
-**Changed, under "9.2 What the evidence can support", by [#12](https://github.com/matkowsky/payment-fraud/pull/12), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39):**
+**Added, under "9.2 What the evidence can support", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
-The focused search and author-assigned mappings do not establish exhaustive coverage or the absence of equivalent systems. Bank case-management systems, card-network risk systems, vendor architectures and non-English literature were not reviewed as complete families. A second search on 28 and 29 October 2026 started from the paper's problem statement and the three requirement statements, without the related-work section, and logged 388 searches and page reads across patents, payment and fraud vendors, agent-governance and security-investigation products, standards and regulators, code repositories, journals and recent preprints. It found no source stating the three requirements together; the two sources it <del>added</del><ins>added, a data-governance preprint and a threat-detection design,</ins> are discussed in Section 2.3. The illustrative provider's public hiring priorities influenced selection and set most of the deeper reviews \(Section <del>3\).</del><ins>3; Supplement S2\).</ins> A crosswalk to MITRE's Fight Fraud Framework finds that <del>18</del><ins>21</ins> of its <del>92</del><ins>105</ins> in-scope techniques have no retained mechanism; fourteen of them are covered only by candidates outside the signal map \(Supplement S2.2\) \[77\]. At the volume assumed in Section 6.4, the confirmatory release-gate test could run for more than a year and a half before it reaches its planned size \(Supplement S7.1\). The comparison supports the specified distinctions, not priority for their individual components.
+<ins>\| Claim \| Evidence \| Not shown \|<br>\|---\|---\|---\|<br>\| Each field group changes what a history supports \| Necessity pairs; failing cases \(S4.2, S4.4\) \| That the records improve investigations \|<br>\| Software can check the rules \| Two checkers; 15 adversarial histories \(S4.4\) \| Every evasion; four stated limits remain \|<br>\| The records are cheap to store and check \| Synthetic measurement \(8.4\) \| The cost of producing them on a platform \|<br>\| Missing context changes conclusions \| Two hypothetical traces \(8.1 to 8.3\) \| How often; the practitioner study \(S8\) has not run \|<br>\| The records expose two alleged patterns \| Synthetic replays \(8.5, S10\) \| Detection on real data \|<br>\| The signals and responsibilities cover the mechanisms \| The author's mapping; a model as second rater \(3, S3\) \| Completeness; a human coder is pending \|<br>\| No source states C1 to C3 together \| Two searches \(2, S9.6\) \| That none exists \|<br>\| C1's channel fields reflect network rules \| The provider's descriptions \(7.1\) \| The networks' own rules; other rails reviewed less fully \|</ins>
+
+**Removed, under "9.2 What the evidence can support", by [#29](https://github.com/matkowsky/payment-fraud/pull/29), [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<del>The product scope comes from one provider's public product catalog, roadmap and documentation, including roadmap items in public preview. Other platforms may combine products differently or face other mechanisms. Public interfaces expose only part of a provider's records, so “none identified” in Table 2 refers only to the pinned schemas and the terms searched. Collection ownership, retention and budgets remain deployment decisions.</del>
+
+**Added, under "9.2 What the evidence can support", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>A crosswalk to MITRE's Fight Fraud Framework finds that 21 of its 105 in-scope techniques have no retained mechanism; fourteen of them are covered only by candidates outside the signal map \(Supplement S2.2\) \[77\]. The prior-work comparison supports the specified distinctions, not priority for their individual components.</ins>
+
+**Removed, under "9.2 What the evidence can support", by [#12](https://github.com/matkowsky/payment-fraud/pull/12), [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#39](https://github.com/matkowsky/payment-fraud/pull/39), [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<del>The focused search and author-assigned mappings do not establish exhaustive coverage or the absence of equivalent systems. Bank case-management systems, card-network risk systems, vendor architectures and non-English literature were not reviewed as complete families. A second search on 28 and 29 October 2026 started from the paper's problem statement and the three requirement statements, without the related-work section, and logged 388 searches and page reads across patents, payment and fraud vendors, agent-governance and security-investigation products, standards and regulators, code repositories, journals and recent preprints. It found no source stating the three requirements together; the two sources it added are discussed in Section 2.3. The illustrative provider's public hiring priorities influenced selection and set most of the deeper reviews \(Section 3\). A crosswalk to MITRE's Fight Fraud Framework finds that 18 of its 92 in-scope techniques have no retained mechanism; fourteen of them are covered only by candidates outside the signal map \(Supplement S2.2\) \[77\]. At the volume assumed in Section 6.4, the confirmatory release-gate test could run for more than a year and a half before it reaches its planned size \(Supplement S7.1\). The comparison supports the specified distinctions, not priority for their individual components.</del>
+
+**Removed, under "9.2 What the evidence can support", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<del>Visibility also depends on where an agent runs. SIG-34, SIG-35, SIG-39 and SIG-40 require access inside the agent, its tool server or its outbound-traffic controls. A platform can obtain that for its own agent but normally sees only interface activity from buyer- or merchant-operated agents. These signals cannot be assumed available in every deployment.</del>
 
 **Changed, under "10. Conclusion", by [#39](https://github.com/matkowsky/payment-fraud/pull/39):**
 
@@ -1046,6 +1079,26 @@ The \[draft schema\]\(../SUPPLEMENT/S4\_DRAFT\_SCHEMA.csv\) supplies the fields 
 
 <ins>\*\*Cost.\*\* \[\`tools/investigation\_cost.py\`\]\(../tools/investigation\_cost.py\) copies the valid case 100,000 times, each copy with its four query runs, seven stored records, two drafts, one exposure, one release decision, one released item and one memory read, and checks a sample against the rules. Per copy, the records take 8.6 KB as JSON: 3.5 KB for query runs, about 900 bytes each, and 2.6 KB for drafts, release and memory records. A thousand copies take 0.30 MB compressed and 9.8 MB in SQLite; repeated text makes the compressed figure a best case. On the two-core machine of S4.3, checking that an absence claim's runs are complete and cover it took a median of 38 microseconds \(99th percentile 91\), and checking that a memory read used a released, unexpired item took 30 \(78\). \[The results\]\(../SUPPLEMENT/S4\_INVESTIGATION\_RECORDS/cost\_results.json\) come from one run. Real coverage records list more sources per run, and reviewer time is not measured.</ins>
 
+**Added, under "S4.5 Further safeguards for the investigation system", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>\#\#\# S4.5 Further safeguards for the investigation system</ins>
+
+**Added, under "S4.5 Further safeguards for the investigation system", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>A second attack reaches a person investigating the agent itself, through hostile content copied into the ledger. Untrusted status must survive storage and normalization.</ins>
+
+**Added, under "S4.5 Further safeguards for the investigation system", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>Ledger copies and agent outputs may suggest hypotheses, but claims cite the underlying evidence-plane records. Their promotion into organizational memory still requires independent testing and human release.</ins>
+
+**Added, under "S4.5 Further safeguards for the investigation system", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>The ledger makes the agent itself investigable; S4.1 lists what it retains.</ins>
+
+**Added, under "S4.5 Further safeguards for the investigation system", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>The architecture does not include live adversary emulation. Any future use would require separate ethical, human and operational authorization, enforced scope, tamper-evident logs and test-data provenance.</ins>
+
 **Added, under "S5. Pinned public schemas", by [#23](https://github.com/matkowsky/payment-fraud/pull/23):**
 
 <ins>The pinned public schemas supply event identifiers, creation time and mode, but omit learned time and some actor, scope and lineage fields \[26\]. Stripe's canonical-logging account describes one summary record per request in each service, with identifiers and outcomes \[27\]. These are partial precedents; the specification does not require vendor field names.</ins>
@@ -1401,6 +1454,30 @@ Two recent designs bear directly on C3. A data-governance preprint commits no ag
 **Changed, under "S9.5 Time and coverage", by [#45](https://github.com/matkowsky/payment-fraud/pull/45):**
 
 Together, these precedents explain why C1 to C3 are a synthesis. The proposed contribution is their joint application to payment-platform investigation, with explicit channels, record classes, query responses and release rules. The hypothetical traces expose conclusions that fail when specified context is removed. E1 to E9 test parts of that context, including whether the channel states reduce <del>bias</del><ins>error</ins> <del>relative</del><ins>against</ins> <del>to</del><ins>a mature holdout reference, compared with</ins> a platform's current label rule \(E9\) and, through planted drafts that rest only on released items, the rule that a released conclusion adds no independent corroboration \(E8; manuscript Section 8.3\). In S7.1, E5 and E8 measure reviewer time, and no test measures the cost of collecting the records \(manuscript Section 9.1\). Neither the comparison nor the traces establish that the integrated system works in deployment.
+
+**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>\#\#\# S9.6 Further limits of the evidence</ins>
+
+**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>The specification has not been implemented or evaluated on platform data. Its traces demonstrate reasoning over hypothetical records, while safeguards, costs on platform data and investigator workload remain unmeasured. C1's channel fields were derived from, and checked against, the illustrative provider's descriptions of card-network rules \(manuscript Section 7.1\). The networks' own rules were not read; the one network document cited is Visa's overview of its acquirer monitoring program \(manuscript Section 8.2\). Bank debits, instant push payments and stablecoin payments, which are also in the product scope, were reviewed less fully \(S4.1\).</ins>
+
+**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>A second search on 28 and 29 October 2026 started from the paper's problem statement and the three requirement statements, without the related-work section, and logged 388 searches and page reads across patents, payment and fraud vendors, agent-governance and security-investigation products, standards and regulators, code repositories, journals and recent preprints. It found no source stating the three requirements together; the two sources it added, a data-governance preprint and a threat-detection design, are discussed in manuscript Section 2.3.</ins>
+
+**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>Visibility also depends on where an agent runs. SIG-34, SIG-35, SIG-39 and SIG-40 require access inside the agent, its tool server or its outbound-traffic controls. A platform can obtain that for its own agent but normally sees only interface activity from buyer- or merchant-operated agents. These signals cannot be assumed available in every deployment.</ins>
+
+**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>The product scope comes from one provider's public product catalog, roadmap and documentation, including roadmap items in public preview. Other platforms may combine products differently or face other mechanisms. Public interfaces expose only part of a provider's records, so “none identified” in Table S3.1 refers only to the pinned schemas and the terms searched. Collection ownership, retention and budgets remain deployment decisions.</ins>
+
+**Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
+
+<ins>The focused search and author-assigned mappings do not establish exhaustive coverage or the absence of equivalent systems. Bank case-management systems, card-network risk systems, vendor architectures and non-English literature were not reviewed as complete families. The illustrative provider's public hiring priorities influenced selection and set most of the deeper reviews \(manuscript Section 3; S2\).</ins>
 
 **Added, under "S10. Two FTC complaints replayed on synthetic records", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 

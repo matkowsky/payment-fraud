@@ -170,13 +170,14 @@ it enters organizational memory for reuse by later investigations; a
 released conclusion serves only as a hypothesis or context, and any
 record that an agent output informed must link back to that output.
 
-The specification connects these requirements to 71 signals, the kinds
-of records an investigator can check, and 24 responsibilities for
-investigation, review and reuse. Public sources supply the design
-premises, and Stripe's public product pages and documentation provide an
-illustrative product scope. Two hypothetical investigations show how
-missing context changes the conclusions that the same observations can
-support, and an evaluation plan proposes tests of evidential quality,
+Draft schemas, 28 cross-record rules and two checkers make the
+requirements testable, and adversarial cases written by a second model
+probe the rules. Public sources supply the design premises, and Stripe's
+public product pages and documentation provide an illustrative product
+scope. Two hypothetical investigations show how missing context changes
+the conclusions that the same observations can support, replays of two
+FTC complaints on synthetic records show what the records expose and
+miss, and an evaluation plan proposes tests of evidential quality,
 operational cost and agent benefit. The contribution is a joint
 specification for investigation across payment products, built on
 established methods and recent agent-governance designs. It is a
@@ -285,13 +286,16 @@ resulting interpretation from returning as independent support for
 itself. A record can satisfy one requirement and still mislead an
 investigation through a failure of another.
 
-Two artifacts make the specification inspectable: an inventory of 71
-signals and an architecture of 24 responsibilities. Sixty-eight signals
-map to abuse mechanisms, meaning ways abuse can occur; three apply
-across mechanisms. The responsibilities cover investigation, review,
-release, tested reuse of lessons and security of the investigation
-system. Two hypothetical investigations then show which conclusions
-survive when particular records are missing.
+Draft schemas, 28 cross-record rules and two checkers make the
+requirements testable, and every rule has a failing case (Supplement
+S4). Fifteen histories written by a second model to test the rules
+exposed eight gaps; the revised rules reject nine of the 13 meant to
+break a requirement, and the other four are stated limits. An inventory
+of 71 signals and an architecture of 24 responsibilities connect the
+requirements to the evidence an investigator checks and to who checks
+it. Two hypothetical investigations show which conclusions survive when
+particular records are missing, and replays of two FTC complaints on
+synthetic records show what the records expose and miss (Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
@@ -566,11 +570,12 @@ evidence}\label{deriving-the-specification-from-public-evidence}}
 \suppressfloats[t]
 
 The design starts from documented product capabilities and asks how an
-adversary could misuse each one. For each abuse mechanism it then
-identifies the records needed to distinguish the malicious explanation
-from plausible alternatives. Stripe's public product catalog, roadmap
-and documentation define the illustrative scope; research, engineering
-accounts, incident reports and guidance supply the design premises.
+adversary could misuse each one. For each abuse mechanism, meaning a way
+abuse can occur, it then identifies the records needed to distinguish
+the malicious explanation from plausible alternatives. Stripe's public
+product catalog, roadmap and documentation define the illustrative
+scope; research, engineering accounts, incident reports and guidance
+supply the design premises.
 
 The scope, read on 27 September 2026, contains 88 product and feature
 entries. A retained mechanism must target a documented capability, serve
@@ -1351,22 +1356,6 @@ closed cases or reviewers who did not write the lesson. Labels,
 assessments and decisions informed by them retain links so they can be
 revisited after expiry or retraction.
 
-A second attack reaches a person investigating the agent itself, through
-hostile content copied into the ledger. Untrusted status must survive
-storage and normalization.
-
-Ledger copies and agent outputs may suggest hypotheses, but claims cite
-the underlying evidence-plane records. Their promotion into
-organizational memory still requires independent testing and human
-release.
-
-The ledger makes the agent itself investigable; Supplement S4.1 lists
-what it retains.
-
-The architecture does not include live adversary emulation. Any future
-use would require separate ethical, human and operational authorization,
-enforced scope, tamper-evident logs and test-data provenance.
-
 \FloatBarrier
 
 \hypertarget{interpreting-feedback-after-protective-decisions}{%
@@ -1899,7 +1888,8 @@ criteria}\label{questions-comparisons-and-failure-criteria}}
 
 The specification is worthwhile only if its added records and safeguards
 improve investigation enough to justify their cost. The evaluation plan
-separates the value of the records from the benefit of using an agent.
+separates the records from the agent: C1 and C2 do not need one, E1, E3
+and E9 test them without it, and E5 tests the agent's benefit.
 
 Supplement S7.1 gives each hypothesis, design, primary measure and
 proposed failure criteria. E1, E3, E8 and E9 are confirmatory; the
@@ -2007,48 +1997,53 @@ review before it starts.
 \subsubsection{9.2 What the evidence can
 support}\label{what-the-evidence-can-support}}
 
-The specification has not been implemented or evaluated on platform
-data. Its traces demonstrate reasoning over hypothetical records, while
-safeguards, costs on platform data and investigator workload remain
-unmeasured. The practitioner protocol would assess availability and
-usefulness of the proposed records; it has not been run. C1's channel
-fields were derived from, and checked against, the illustrative
-provider's descriptions of card-network rules (Section 7.1). The
-networks' own rules were not read; the one network document cited is
-Visa's overview of its acquirer monitoring program (Section 8.2). Bank
-debits, instant push payments and stablecoin payments, which are also in
-the product scope, were reviewed less fully (Supplement S4.1).
+\begin{table}[tp]
+\textbf{Table 3. Each claim, its evidence and what that evidence does
+not show.} Supplement S9.6 gives further limits.\par\smallskip
+{\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Claim
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evidence
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Not shown
+\end{minipage} \\
+\midrule\noalign{}
 
-The product scope comes from one provider's public product catalog,
-roadmap and documentation, including roadmap items in public preview.
-Other platforms may combine products differently or face other
-mechanisms. Public interfaces expose only part of a provider's records,
-so ``none identified'' in Supplement Table S3.1 refers only to the
-pinned schemas and the terms searched. Collection ownership, retention
-and budgets remain deployment decisions.
+Each field group changes what a history supports & Necessity pairs;
+failing cases (S4.2, S4.4) & That the records improve investigations \\
+Software can check the rules & Two checkers; 15 adversarial histories
+(S4.4) & Every evasion; four stated limits remain \\
+The records are cheap to store and check & Synthetic measurement (8.4) &
+The cost of producing them on a platform \\
+Missing context changes conclusions & Two hypothetical traces (8.1 to
+8.3) & How often; the practitioner study (S8) has not run \\
+The records expose two alleged patterns & Synthetic replays (8.5, S10) &
+Detection on real data \\
+The signals and responsibilities cover the mechanisms & The author's
+mapping; a model as second rater (3, S3) & Completeness; a human coder
+is pending \\
+No source states C1 to C3 together & Two searches (2, S9.6) & That none
+exists \\
+C1's channel fields reflect network rules & The provider's descriptions
+(7.1) & The networks' own rules; other rails reviewed less fully \\
 
-The focused search and author-assigned mappings do not establish
-exhaustive coverage or the absence of equivalent systems. Bank
-case-management systems, card-network risk systems, vendor architectures
-and non-English literature were not reviewed as complete families. A
-second search on 28 and 29 October 2026 started from the paper's problem
-statement and the three requirement statements, without the related-work
-section, and logged 388 searches and page reads across patents, payment
-and fraud vendors, agent-governance and security-investigation products,
-standards and regulators, code repositories, journals and recent
-preprints. It found no source stating the three requirements together;
-the two sources it added, a data-governance preprint and a
-threat-detection design, are discussed in Section 2.3. The illustrative
-provider's public hiring priorities influenced selection and set most of
-the deeper reviews (Section 3; Supplement S2). A crosswalk to MITRE's
-Fight Fraud Framework finds that 21 of its 105 in-scope techniques have
-no retained mechanism; fourteen of them are covered only by candidates
-outside the signal map (Supplement S2.2)
-{[}\protect\hyperlink{ref-MITRE2026F3}{77}{]}. At the volume assumed in
-Section 6.4, the confirmatory release-gate test could run for more than
-a year and a half before it reaches its planned size (Supplement S7.1).
-The comparison supports the specified distinctions, not priority for
-their individual components.
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
+
+A crosswalk to MITRE's Fight Fraud Framework finds that 21 of its 105
+in-scope techniques have no retained mechanism; fourteen of them are
+covered only by candidates outside the signal map (Supplement S2.2)
+{[}\protect\hyperlink{ref-MITRE2026F3}{77}{]}. The prior-work comparison
+supports the specified distinctions, not priority for their individual
+components.
 
 Evidence strength varies by premise. Dhama's payment models are
 theoretical preprints {[}\protect\hyperlink{ref-Dhama2026Causal}{8},
@@ -2061,13 +2056,6 @@ Estimating a decision's effect still requires identifying assumptions
 {[}\protect\hyperlink{ref-HernanRobins2020}{4}{]}. Enforcement
 complaints motivate alleged mechanisms; vendor accounts support
 attributed observations within their stated settings.
-
-Visibility also depends on where an agent runs. \mbox{SIG-34},
-\mbox{SIG-35}, \mbox{SIG-39} and \mbox{SIG-40} require access inside the
-agent, its tool server or its outbound-traffic controls. A platform can
-obtain that for its own agent but normally sees only interface activity
-from buyer- or merchant-operated agents. These signals cannot be assumed
-available in every deployment.
 
 \FloatBarrier
 

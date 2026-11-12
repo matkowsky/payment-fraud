@@ -2082,6 +2082,26 @@ a memory read used a released, unexpired item took 30 (78).
 results} come from one run. Real coverage records list more sources per
 run, and reviewer time is not measured.
 
+\hypertarget{s4.5-further-safeguards-for-the-investigation-system}{%
+\subsubsection{S4.5 Further safeguards for the investigation
+system}\label{s4.5-further-safeguards-for-the-investigation-system}}
+
+A second attack reaches a person investigating the agent itself, through
+hostile content copied into the ledger. Untrusted status must survive
+storage and normalization.
+
+Ledger copies and agent outputs may suggest hypotheses, but claims cite
+the underlying evidence-plane records. Their promotion into
+organizational memory still requires independent testing and human
+release.
+
+The ledger makes the agent itself investigable; S4.1 lists what it
+retains.
+
+The architecture does not include live adversary emulation. Any future
+use would require separate ethical, human and operational authorization,
+enforced scope, tamper-evident logs and test-data provenance.
+
 \FloatBarrier
 
 \hypertarget{s5.-pinned-public-schemas}{%
@@ -3903,6 +3923,53 @@ manuscript Section 8.3). In S7.1, E5 and E8 measure reviewer time, and
 no test measures the cost of collecting the records (manuscript Section
 9.1). Neither the comparison nor the traces establish that the
 integrated system works in deployment.
+
+\hypertarget{s9.6-further-limits-of-the-evidence}{%
+\subsubsection{S9.6 Further limits of the
+evidence}\label{s9.6-further-limits-of-the-evidence}}
+
+The specification has not been implemented or evaluated on platform
+data. Its traces demonstrate reasoning over hypothetical records, while
+safeguards, costs on platform data and investigator workload remain
+unmeasured. C1's channel fields were derived from, and checked against,
+the illustrative provider's descriptions of card-network rules
+(manuscript Section 7.1). The networks' own rules were not read; the one
+network document cited is Visa's overview of its acquirer monitoring
+program (manuscript Section 8.2). Bank debits, instant push payments and
+stablecoin payments, which are also in the product scope, were reviewed
+less fully (S4.1).
+
+A second search on 28 and 29 October 2026 started from the paper's
+problem statement and the three requirement statements, without the
+related-work section, and logged 388 searches and page reads across
+patents, payment and fraud vendors, agent-governance and
+security-investigation products, standards and regulators, code
+repositories, journals and recent preprints. It found no source stating
+the three requirements together; the two sources it added, a
+data-governance preprint and a threat-detection design, are discussed in
+manuscript Section 2.3.
+
+Visibility also depends on where an agent runs. \mbox{SIG-34},
+\mbox{SIG-35}, \mbox{SIG-39} and \mbox{SIG-40} require access inside the
+agent, its tool server or its outbound-traffic controls. A platform can
+obtain that for its own agent but normally sees only interface activity
+from buyer- or merchant-operated agents. These signals cannot be assumed
+available in every deployment.
+
+The product scope comes from one provider's public product catalog,
+roadmap and documentation, including roadmap items in public preview.
+Other platforms may combine products differently or face other
+mechanisms. Public interfaces expose only part of a provider's records,
+so ``none identified'' in Table S3.1 refers only to the pinned schemas
+and the terms searched. Collection ownership, retention and budgets
+remain deployment decisions.
+
+The focused search and author-assigned mappings do not establish
+exhaustive coverage or the absence of equivalent systems. Bank
+case-management systems, card-network risk systems, vendor architectures
+and non-English literature were not reviewed as complete families. The
+illustrative provider's public hiring priorities influenced selection
+and set most of the deeper reviews (manuscript Section 3; S2).
 
 \FloatBarrier
 
