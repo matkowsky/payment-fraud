@@ -30,9 +30,29 @@ class ChangeRecordTests(unittest.TestCase):
                 (base / 'SOURCE' / 'manuscript.md').write_text('# M\n\nAn ' + word + ' sentence.\n')
                 (base / 'SOURCE' / 'supplement.md').write_text('# S\n\nSame.\n')
             text = changes_since.render(root / 'working', root / 'v1.0')
-            self.assertIn('| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 1 | 0 | 0 |', text)
-            self.assertIn('| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 0 | 0 | 0 |', text)
+            self.assertIn('| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 1 | 0 | 0 | 0 |', text)
+            self.assertIn('| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 0 | 0 | 0 | 0 |', text)
             self.assertIn('No changes.', text)
+
+    def test_moved_text_names_where_it_went_and_came_from(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            texts = {'v1.0': ('# M\n\n## 5.2 Signals\n\nKept here.\n\nThis paragraph moves whole.\n\n'
+                              'Stays here. This sentence leaves.\n', '# S3. Signals\n\nOld.\n'),
+                     'working': ('# M\n\n## 5.2 Signals\n\nKept here.\n\nStays here.\n',
+                                 '# S3. Signals\n\nOld.\n\n### S3.1 Detail\n\nThis paragraph moves whole.\n\n'
+                                 'This sentence leaves.\n')}
+            for name, (manuscript, supplement) in texts.items():
+                (root / name / 'SOURCE').mkdir(parents=True)
+                (root / name / 'SOURCE' / 'manuscript.md').write_text(manuscript)
+                (root / name / 'SOURCE' / 'supplement.md').write_text(supplement)
+            text = changes_since.render(root / 'working', root / 'v1.0')
+            self.assertIn('| Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 1 | 0 | 0 | 1 |', text)
+            self.assertIn('| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 0 | 1 | 0 | 2 |', text)
+            self.assertIn('**Moved to Supplement S3.1, from Section 5.2:**', text)
+            self.assertIn('**Changed, under "5.2 Signals"; 1 removed sentence now in Supplement S3.1:**', text)
+            self.assertEqual(text.count('**Moved from manuscript Section 5.2, to S3.1:**'), 2)
+            self.assertNotIn('**Removed', text)
 
 
     def test_citations_show_current_numbers(self):
