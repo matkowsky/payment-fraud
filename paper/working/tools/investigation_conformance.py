@@ -11,6 +11,8 @@ passing synthetic cases do not establish operational effectiveness.
 import copy
 import hashlib
 import json
+import re
+from datetime import datetime
 import sys
 from pathlib import Path
 
@@ -40,12 +42,34 @@ def overlaps(a, b):
     return ts(a['from']) <= ts(b['to']) and ts(b['from']) <= ts(a['to'])
 
 
+def exact_instant(value):
+    """Equality key for validated aware timestamps; retain all fractional digits.
+
+    This does not replace the datetime ordering used by other rules.
+    """
+    match = re.search(r'\.(\d+)', value)
+    fraction = match.group(1).rstrip('0') if match else ''
+    whole = value[:match.start()] + value[match.end():] if match else value
+    parsed = datetime.fromisoformat(whole.replace('Z', '+00:00'))
+    offset = parsed.utcoffset()
+    if offset is None:
+        raise ValueError('timestamp must include a UTC offset')
+    seconds = ((parsed.toordinal() - 719163) * 86400
+               + parsed.hour * 3600 + parsed.minute * 60 + parsed.second
+               - (offset.days * 86400 + offset.seconds))
+    return seconds, fraction
+
+
+def same_interval(left, right):
+    return all(exact_instant(left[end]) == exact_instant(right[end]) for end in ('from', 'to'))
+
+
 def derive_statuses(run):
     """The fixed rules of Section 6.2: statuses follow from the coverage fields alone."""
     out = set()
     req = run['requested_interval']
     if {ent(e) for e in run['evaluated_entities']} != {ent(e) for e in run['requested_entities']} \
-            or run['evaluated_interval'] != req or run['access_filter_removed_rows']:
+            or not same_interval(run['evaluated_interval'], req) or run['access_filter_removed_rows']:
         out.add('partial')
     for s in run['sources']:
         if s['access'] == 'denied':
