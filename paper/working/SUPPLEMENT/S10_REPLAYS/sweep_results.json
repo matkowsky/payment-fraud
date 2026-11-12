@@ -1,0 +1,374 @@
+{
+ "note": "Synthetic; every parameter is an assumption; complaint content is allegation. Share of 500 runs in which the view flags at least once.",
+ "runs_per_point": 500,
+ "first_data_rule": "SYN-MON-1",
+ "first_data_split": [
+  {
+   "captures_per_account_period": 100,
+   "account_view": 0.0,
+   "linked_view": 0.0
+  },
+  {
+   "captures_per_account_period": 150,
+   "account_view": 0.0,
+   "linked_view": 0.0
+  },
+  {
+   "captures_per_account_period": 200,
+   "account_view": 0.0,
+   "linked_view": 0.0
+  },
+  {
+   "captures_per_account_period": 250,
+   "account_view": 0.0,
+   "linked_view": 0.004
+  },
+  {
+   "captures_per_account_period": 300,
+   "account_view": 0.0,
+   "linked_view": 0.276
+  },
+  {
+   "captures_per_account_period": 350,
+   "account_view": 0.0,
+   "linked_view": 0.894
+  },
+  {
+   "captures_per_account_period": 400,
+   "account_view": 0.0,
+   "linked_view": 0.998
+  },
+  {
+   "captures_per_account_period": 500,
+   "account_view": 0.0,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 700,
+   "account_view": 0.0,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 1000,
+   "account_view": 0.0,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 1500,
+   "account_view": 0.0,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 2000,
+   "account_view": 0.054,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 2500,
+   "account_view": 0.988,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 3000,
+   "account_view": 1.0,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 3500,
+   "account_view": 1.0,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 4000,
+   "account_view": 1.0,
+   "linked_view": 1.0
+  },
+  {
+   "captures_per_account_period": 5000,
+   "account_view": 1.0,
+   "linked_view": 1.0
+  }
+ ],
+ "first_data_rates": {
+  "8 related accounts, 350 captures each": [
+   {
+    "rate": 0.005,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.0075,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.01,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.0125,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.015,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.0175,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.02,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.025,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.03,
+    "account_view": 0.0,
+    "linked_view": 0.022
+   },
+   {
+    "rate": 0.035,
+    "account_view": 0.0,
+    "linked_view": 0.332
+   },
+   {
+    "rate": 0.04,
+    "account_view": 0.0,
+    "linked_view": 0.894
+   },
+   {
+    "rate": 0.045,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.05,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.06,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   }
+  ],
+  "40 merchants assumed legitimate, 300 captures each": [
+   {
+    "rate": 0.005,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.0075,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.01,
+    "account_view": 0.0,
+    "linked_view": 0.0
+   },
+   {
+    "rate": 0.0125,
+    "account_view": 0.0,
+    "linked_view": 0.006
+   },
+   {
+    "rate": 0.015,
+    "account_view": 0.0,
+    "linked_view": 0.35
+   },
+   {
+    "rate": 0.0175,
+    "account_view": 0.0,
+    "linked_view": 0.984
+   },
+   {
+    "rate": 0.02,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.025,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.03,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.035,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.04,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.045,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.05,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   },
+   {
+    "rate": 0.06,
+    "account_view": 0.0,
+    "linked_view": 1.0
+   }
+  ]
+ },
+ "allied_wallet": {
+  "alleged 3.14 percent": [
+   {
+    "payments_per_month": 25,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.988
+   },
+   {
+    "payments_per_month": 50,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 100,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 185,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 300,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 500,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 1000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 2000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 3000,
+    "chargeback_rule": 0.026,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 4000,
+    "chargeback_rule": 0.962,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 5000,
+    "chargeback_rule": 1.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 6000,
+    "chargeback_rule": 1.0,
+    "fraud_report_rule": 1.0
+   },
+   {
+    "payments_per_month": 8000,
+    "chargeback_rule": 1.0,
+    "fraud_report_rule": 1.0
+   }
+  ],
+  "assumed legitimate 0.3 percent": [
+   {
+    "payments_per_month": 25,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.388
+   },
+   {
+    "payments_per_month": 50,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.538
+   },
+   {
+    "payments_per_month": 100,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.544
+   },
+   {
+    "payments_per_month": 185,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.476
+   },
+   {
+    "payments_per_month": 300,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.3
+   },
+   {
+    "payments_per_month": 500,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.172
+   },
+   {
+    "payments_per_month": 1000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.028
+   },
+   {
+    "payments_per_month": 2000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.0
+   },
+   {
+    "payments_per_month": 3000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.0
+   },
+   {
+    "payments_per_month": 4000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.0
+   },
+   {
+    "payments_per_month": 5000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.0
+   },
+   {
+    "payments_per_month": 6000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.0
+   },
+   {
+    "payments_per_month": 8000,
+    "chargeback_rule": 0.0,
+    "fraud_report_rule": 0.0
+   }
+  ]
+ }
+}

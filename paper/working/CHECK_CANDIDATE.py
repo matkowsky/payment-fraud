@@ -60,7 +60,7 @@ if not SOURCES_ONLY:
     assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
 assert {x['citation_key'] for x in rows('S1_CITED_SOURCE_NOTES.csv')} == refkeys
 assert set(re.findall(r'\*\*Table (\d+)\.', body)) == set(map(str, range(1, 4)))
-assert set(re.findall(r'\*\*Figure (\d+)\.', body)) == set(map(str, range(1, 3)))
+assert set(re.findall(r'\*\*Figure (\d+)\.', body)) == set(map(str, range(1, 4)))
 for path in re.findall(r'!\[[^]]*\]\(([^)]+)\)', body):
     assert (B / 'SOURCE' / path).is_file(), path
     for ext in ('.pdf', '.png'): assert (B / 'SOURCE' / path).with_suffix(ext).is_file(), (path, ext)
@@ -232,7 +232,7 @@ assert 'Two of the fourteen rest only on candidates judged covered by existing r
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),
           'posting_priority': {'candidates': 24, 'tier1': 26, 'tier1_with_posting_topic': 23, 'their_links': 65}, 'functions': 24,
-          'public_counterparts': dict(public), 'cited_works': 127, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 2, 'figures': 2,
+          'public_counterparts': dict(public), 'cited_works': 127, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 3, 'figures': 3,
           'synthetic': {'transactions': 400, 'chargebacks': 8, 'alerts': 14, 'overlap': 2, 'union': 20,
                         'chargeback_ratio': .02, 'broader_report_ratio': .05, 'undeduplicated_sum_rejected': .055,
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
