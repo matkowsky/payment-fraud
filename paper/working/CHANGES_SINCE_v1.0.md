@@ -34,17 +34,18 @@ Accepted pull requests:
 - [#43](https://github.com/matkowsky/payment-fraud/pull/43) Supplement S2: put the two PAY-12 sentences back beside PAY-12
 - [#44](https://github.com/matkowsky/payment-fraud/pull/44) Producer field and dependence default, from the author of the cited dependence study
 - [#48](https://github.com/matkowsky/payment-fraud/pull/48) Checker fixes: provenance through inputs; no gap in a matured channel
+- [#49](https://github.com/matkowsky/payment-fraud/pull/49) Practitioner study: scoring script, fixed before the first response
 
 | Document | Read the current version | Paragraphs changed | Added | Removed |
 |---|---|---|---|---|
 | Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 79 | 18 | 68 |
-| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 56 | 122 | 6 |
+| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 57 | 121 | 5 |
 
 ## Manuscript
 
 **Changed, under "Threat Analytics Across Payment Products: Evidence Requirements for Agent Investigations", by the automatic status update:**
 
-<del>29</del><ins>11</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>12</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "Abstract", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
 
@@ -707,7 +708,7 @@ This paper combines those requirements in one specification grounded in public e
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by the automatic status update:**
 
-<del>29</del><ins>11</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>12</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by [#3](https://github.com/matkowsky/payment-fraud/pull/3):**
 
@@ -1329,17 +1330,13 @@ Each evaluation is judged separately, without correction for multiple tests, bec
 
 \#\# S8. Practitioner <del>review</del><ins>study</ins> <del>protocol</del><ins>\(protocol</ins> <del>\(not</del><ins>fixed</ins> <del>yet</del><ins>before</ins> <del>run\)</del><ins>the first response\)</ins>
 
-**Added, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46):**
+**Changed, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46), [#49](https://github.com/matkowsky/payment-fraud/pull/49):**
 
-<ins>This study asks whether the records C1 to C3 require change the conclusions practitioners draw, how often the failures they target occur, and what the field records today. It measures conclusions and reported practice, not detection performance. The \[protocol\]\(../tools/practitioner\_study/README.md\), the \[form\]\(../tools/practitioner\_study/INSTRUMENT.md\) and the hash of the answer key were committed before the first response.</ins>
+This <del>proposed</del><ins>study</ins> <del>protocol assesses</del><ins>asks</ins> whether the <del>specification</del><ins>records</ins> <del>fits</del><ins>C1</ins> <del>investigative</del><ins>to</ins> <del>practice.</del><ins>C3 require change the conclusions practitioners draw, how often the failures they target occur, and what the field records today.</ins> It measures <del>availability</del><ins>conclusions</ins> and <del>perceived</del><ins>reported</ins> <del>usefulness,</del><ins>practice,</ins> not detection performance. <del>Recruit</del><ins>The</ins> <del>six</del><ins>\[protocol\]\(../tools/practitioner\_study/README.md\),</ins> <del>to</del><ins>the</ins> <del>ten</del><ins>\[form\]\(../tools/practitioner\_study/INSTRUMENT.md\),</ins> <del>fraud,</del><ins>the</ins> <del>abuse,</del><ins>scoring</ins> <del>risk, trust-and-safety, data-engineering or privacy practitioners from at least three organizations, with consent</del><ins>script</ins> and <del>required</del><ins>the</ins> <del>institutional</del><ins>hash</ins> <del>ethics</del><ins>of</ins> <del>review.</del><ins>the answer key were committed before the first response.</ins>
 
 **Added, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46):**
 
 <ins>Six to ten practitioners with at least two years in fraud or abuse investigation, or in building systems for it, from at least three organizations, complete one anonymous form of about 35 minutes. They read Traces A and B as many systems show them and answer eleven questions, then answer them again with the coverage, learned-time, attribution, decision-link and exposure records added. Eight questions test a requirement; three are controls. They then report how often each failure has changed a real conclusion, whether each record exists today and how hard it would be to add, whether the eleven signals of manuscript Table 2 are available at decision time, and, optionally, who owns each responsibility.</ins>
-
-**Removed, under "S8. Practitioner review protocol \(not yet run\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46):**
-
-<del>This proposed protocol assesses whether the specification fits investigative practice. It measures availability and perceived usefulness, not detection performance. Recruit six to ten fraud, abuse, risk, trust-and-safety, data-engineering or privacy practitioners from at least three organizations, with consent and required institutional ethics review.</del>
 
 **Added, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46):**
 
