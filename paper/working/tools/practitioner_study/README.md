@@ -56,3 +56,13 @@ Both are reported beside the model results, with agreement between them.
 ## Timeline
 
 The form opens when this protocol is merged and closes two weeks later. Results go into a new subsection of manuscript Section 9 and into S8.
+
+## Scoring correction, 12 November 2026
+
+The reverse transition, **Supported to counted error (Part 2 → Part 3)**, counts only an earlier answer supported by the key (including an explicitly permitted Part 2 “Cannot tell”) followed by that item's counted error. Skipped, missing and unsupported earlier answers do not qualify. They remain in the answer distributions and any later counted error remains in the Part 3 total. The forward transition retains the Part 3 support definition.
+
+This corrects the scorer introduced in PR #49, whose reverse predicate counted every earlier answer other than the designated error under a “Supported to error” label. The README originally specified counted errors and the forward transition, but did not separately define the reverse metric. This dated correction preserves that history; it is not represented as part of the originally frozen scorer. It was developed using synthetic responses and the public made-up test key only, without access to the private key or participant data. Actual collection/analysis timing was not verified in this correction; any affected results must identify their scorer version and disclose rescoring. The answer-key hash and instrument are unchanged.
+
+Requirement-level `answers` counts eligible participant–item slots, including skips; it is not a count of nonblank answers or a transition-rate denominator. These outputs report counts only.
+
+Drafting contribution: jointly Jonathan Matkowsky and ChatGPT/Codex, from Jonathan's direction; implementation and synthetic checks by ChatGPT/Codex. Independent AI review is recorded in the linked correction PR; it is not human peer review or empirical study validation.

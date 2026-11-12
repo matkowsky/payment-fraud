@@ -3,6 +3,7 @@
 Run from the package root: python3 tools/test_score_responses.py
 """
 import csv
+import itertools
 import subprocess
 import sys
 import tempfile
@@ -30,6 +31,40 @@ def row(consent='Yes', years='6 to 10', read='No', before='Yes', after='No'):
 
 
 class ScoringTests(unittest.TestCase):
+    def test_reverse_transitions(self):
+        key, also = sr.parse_key(FAKE_KEY)
+        values = [None, '', ' \t', 'Cannot tell', 'No', 'Yes', 'unexpected']
+        # Independent category sets from the public made-up key, not the scoring predicate.
+        for item, before, after, read in itertools.product(ITEMS, values, values, ['No', 'Yes']):
+            with self.subTest(item=item, before=before, after=after, read=read):
+                supported = {'yes'} if item in {'A5', 'B6'} else {'no'}
+                error = 'no' if item in {'A5', 'B6'} else 'yes'
+                before_support = supported | ({'cannot tell'} if item in {'A2', 'B1', 'B4'} else set())
+                clean = lambda x: ' '.join(str(x or '').split()).casefold()
+                r = {'C0': 'Yes', 'P3': '6 to 10', 'P4': read, item: before, item + '-R': after}
+                res = sr.score([r], key, also)
+                g = res['read_section_8' if read == 'Yes' else 'main']
+                v = g['items'][item]
+                expected = int(clean(before) in before_support and clean(after) == error)
+                self.assertEqual(v['supported_to_error'], expected)
+                self.assertLessEqual(expected, min(v['part2_supported'], v['part3_errors']))
+                self.assertEqual(v['error_to_supported'], int(clean(before) == error and clean(after) in supported))
+                req = 'Control' if item in {'A5', 'B6'} else 'C2'
+                self.assertEqual(g['by_requirement'][req]['supported_to_error'], expected)
+
+    def test_blank_export_reverse_and_render(self):
+        key, also = sr.parse_key(FAKE_KEY)
+        with tempfile.TemporaryDirectory() as d:
+            p = Path(d) / 'export.csv'
+            p.write_text('C0. Consent,P3. Years,P4. Read,A1. Before,A1-R. After\nYes,6 to 10,No,,Yes\n')
+            res = sr.score(sr.read_export(p), key, also)
+        a1 = res['main']['items']['A1']
+        self.assertEqual((a1['part2_supported'], a1['part3_errors'], a1['supported_to_error']), (0, 1, 0))
+        rendered = sr.to_markdown(res)
+        self.assertIn('Supported to counted error (Part 2 → Part 3)', rendered)
+        self.assertIn('| A1 | C2 coverage | 0 | 1 | 0 | 0 |', rendered)
+        self.assertIn('| C2 | 9 | 0 | 1 | 0 | 0 |', rendered)
+
     def test_key_parsing(self):
         key, also = sr.parse_key(FAKE_KEY)
         self.assertEqual(set(key), set(ITEMS))
