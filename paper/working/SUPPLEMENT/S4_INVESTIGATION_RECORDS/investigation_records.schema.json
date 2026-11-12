@@ -198,6 +198,20 @@
     "distinct_roots": {
      "type": "integer",
      "minimum": 0
+    },
+    "outcome_items": {
+     "description": "Items whose outcome the claim states or relies on as not reported, matched to outcome records (Supplement S4.2) by item type (namespace) and identifier.",
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/entity"
+     }
+    },
+    "outcome_readings": {
+     "description": "Channel status readings (Supplement S4.2) the claim cites for those items.",
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/id"
+     }
     }
    }
   },
