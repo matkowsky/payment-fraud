@@ -6,10 +6,11 @@ This is the full text of the online form (Supplement S8). It was fixed before th
 
 This study tests a published specification of the records an AI agent needs to investigate payment abuse under human authority. It asks for your professional judgment on two short hypothetical cases and on what your field records today.
 
-- It takes about 35 minutes. You may skip any question or stop at any time.
+- It takes about 35 minutes. You may stop at any time.
+- Questions marked with an asterisk (*) are required: eligibility, consent, Part 1 and the case questions in Parts 2 and 3. Each case question allows "Cannot tell". You may skip any other question.
 - The form does not record your name or email. Do not name your employer, and do not share anything confidential or anything that would identify an organization or a person.
 - Answers are reported only in aggregate. A free-text answer is quoted only if you allow it below, and only without identifying detail.
-- Responses are kept until the paper is published in a journal, or for two years, whichever comes first, and then deleted. Aggregated results stay in the paper.
+- Responses are kept until the paper is published in a journal, or for one year, whichever comes first, and then deleted. Aggregated results stay in the paper.
 - You must be 18 or older and have at least two years of experience investigating fraud or abuse, or building systems for it.
 - To be credited by name, email the author separately after you finish. That email is never linked to your answers.
 - Please do not read Section 8 of the paper or Supplement S6 before you finish. The cases come from them.

@@ -4,6 +4,8 @@ Protocol for Supplement S8, fixed before the first response. Any later change is
 
 Changed before the first response, 12 November 2026: Part 3's added records now show stored fields without interpretation, because a referee noted that the earlier wording stated the answers. The questions and the answer key did not change.
 
+Changed before the first response, 12 November 2026, at the author's direction: responses are kept for at most one year instead of two, and the eligibility, consent, Part 1 and case questions are now required, so that every participant answers each case question both before and after the records. Each case question still allows "Cannot tell". Parts 4 to 8 stay optional. The answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -25,10 +27,10 @@ Do the records C1 to C3 require change the conclusions practitioners draw, how o
 The study is not run through any institution and has no funding; the author knows of no local requirement for ethics-board review. ACM's policy on research involving human participants then requires authors to "be prepared to show compliance" with its principles. The study does so as follows:
 
 - Adults only, with consent recorded on the form's first page.
-- Minimal risk: professional judgment on hypothetical cases; no personal, employer or confidential information; any question may be skipped.
+- Minimal risk: professional judgment on hypothetical cases; no personal, employer or confidential information; only the eligibility, consent, Part 1 and case questions are required, each case question allows "Cannot tell", and participants may stop at any time.
 - The form records no name or email address. Results are reported in aggregate. Quotes need the participant's permission and carry no identifying detail.
 - No published figure or quote may show which organization lacks a record or signal.
-- Responses are deleted at journal publication or after two years, whichever comes first. The consent text and the response export with its date are kept as evidence.
+- Responses are deleted at journal publication or after one year, whichever comes first, with every export of them. The consent text, the date of each export and the scored counts are kept as evidence.
 
 ## Scoring, fixed in advance
 

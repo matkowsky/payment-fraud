@@ -746,7 +746,7 @@ Six to ten practitioners with at least two years in fraud or abuse investigation
 
 Each question has one error the records should prevent. The study reports, for each question, how many participants made that error without and with the records, grouped by requirement, with the controls and participants who had read Section 8 reported separately. It reports counts only, and negative results as prominently as positive ones. Part 3 follows Part 2, so a changed answer may reflect the reveal rather than the record. No published figure or quote shows which organization lacks a record or signal.
 
-The study has no institutional sponsor or funding. It follows ACM's policy on research involving human participants: adults only, recorded consent, minimal risk, no names, employers or confidential information, and deletion of responses at journal publication or after two years. Two further volunteers repeat, as human coders, the model's mechanism-link check (S3) and its rulings on the adversarial histories (S4.4). No responses had been collected at this version.
+The study has no institutional sponsor or funding. It follows ACM's policy on research involving human participants: adults only, recorded consent, minimal risk, no names, employers or confidential information, and deletion of responses at journal publication or after one year. Two further volunteers repeat, as human coders, the model's mechanism-link check (S3) and its rulings on the adversarial histories (S4.4). No responses had been collected at this version.
 
 
 ## S9. Extended comparison with prior work
