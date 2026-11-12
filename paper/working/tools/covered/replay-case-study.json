@@ -1,0 +1,167 @@
+[
+ {
+  "removed": "A requested seven-day baseline contains only two hours of earlier history, so the change at nineteen minutes cannot be called the first misuse.",
+  "covered_by": [
+   "First, a requested seven-day baseline contains only two hours of earlier history.",
+   "The change at nineteen minutes cannot be called the first misuse."
+  ]
+ },
+ {
+  "removed": "A detection already running on the platform froze its compromise assessment thirty minutes after publication, so the destination link, learned the next day, can inform the later investigation but cannot enter that assessment.",
+  "covered_by": [
+   "Second, a detection already running on the platform froze its compromise assessment thirty minutes after publication, before the destination link was learned the next day.",
+   "The link can inform the later investigation but cannot enter that earlier assessment."
+  ]
+ },
+ {
+  "removed": "Developer testing, an internal scanner, a legitimate business with several accounts and an intermediary receiving client funds remain possible explanations.",
+  "covered_by": [
+   "Minute-scale investigation is motivated by the deliberate exposure experiment [@Gamazo2023], but developer testing or an internal scanner remains a possible explanation.",
+   "The agent checks account histories and ownership records for alternatives such as a legitimate business with several accounts or an intermediary receiving client funds."
+  ]
+ },
+ {
+  "removed": "The investigation prepares a search for similar cases, a detection candidate, an intelligence draft and recommendations for authorized action.",
+  "covered_by": [
+   "The investigation prepares four outputs: a search for similar cases, a detection candidate linking exposure to use and destination changes, an intelligence draft, and recommendations for authorized action."
+  ]
+ },
+ {
+  "removed": "Credential rotation or revocation follows normal review; the trace concerns a key not yet revoked, and existing automatic revocation is outside it.",
+  "covered_by": [
+   "Credential rotation or revocation follows normal review.",
+   "The trace concerns a key not yet revoked, or activity before revocation; existing automatic revocation is outside this workflow."
+  ]
+ },
+ {
+  "removed": "A payout is not a card payment that can produce a chargeback, and victim reports and incident findings have no defined reporting window here: those channels can supply confirmed positives but cannot reach “matured with no report.”",
+  "covered_by": [
+   "It is not a card payment that can produce a chargeback.",
+   "Victim reports and incident findings have no defined reporting window here.",
+   "Those channels can supply confirmed positives but cannot reach “matured with no report.”"
+  ]
+ },
+ {
+  "removed": "Two chargebacks on account D's transactions are recorded at another account, so counting where reports were recorded shows D at zero; verified transaction links restore D to 2 percent without changing the denominator.",
+  "covered_by": [
+   "The chargebacks on D001 and D002 are recorded at account-X, outside the four cohorts.",
+   "Counting where reports were recorded shows D at `0/100`.",
+   "Verified transaction links restore D to `2/100` without changing the 400-transaction denominator or counting either report twice."
+  ]
+ },
+ {
+  "removed": "A pooled ratio is a transaction-weighted average of the account ratios, so it lies between the lowest and highest.",
+  "covered_by": [
+   "For disjoint cohorts with the same outcome definition and window, the pooled ratio is a transaction-weighted average of the account ratios (S6 gives the formula).",
+   "Its nonnegative weights sum to one, so it lies between the lowest and highest account ratios."
+  ]
+ },
+ {
+  "removed": "Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent.",
+  "covered_by": [
+   "Cohorts of 100 transactions cannot reliably separate 8 percent from 2 percent: S6 gives exact intervals and a test."
+  ]
+ },
+ {
+  "removed": "Neither measure is a fraud rate, and a report recorded at another account can be legitimate.",
+  "covered_by": [
+   "Neither measure is a fraud rate, and the example assumes no monitoring threshold.",
+   "Such a mismatch can be legitimate."
+  ]
+ },
+ {
+  "removed": "**What the recorded context changes.**",
+  "covered_by": [
+   "Table 2 gives what the recorded context changes."
+  ]
+ },
+ {
+  "removed": "**Outputs.**",
+  "covered_by": [
+   "Supplement S6 gives each trace's reasoning and outputs, the synthetic transaction records and reproducible arithmetic."
+  ]
+ },
+ {
+  "removed": "Supplement S6.1 gives the step-by-step narrative and its sources.",
+  "covered_by": [
+   "Supplement S6 gives each trace's reasoning and outputs, the synthetic transaction records and reproducible arithmetic."
+  ]
+ },
+ {
+  "removed": "Supplement S6.2 gives the step-by-step narrative and its sources.",
+  "covered_by": [
+   "Supplement S6 gives each trace's reasoning and outputs, the synthetic transaction records and reproducible arithmetic."
+  ]
+ },
+ {
+  "removed": "The examples identify a starting subset of records: the eleven signals behind Table 2, their lineage inputs and the storage requirements (Supplement S6).",
+  "covered_by": [
+   "Manuscript Table 2 uses eleven signals:",
+   "Their complete lineage inputs and the storage requirements are also needed."
+  ]
+ },
+ {
+  "removed": "Supplement S6 also lists the context each row needs.",
+  "covered_by": [
+   "Context each row of manuscript Table 2 needs"
+  ]
+ },
+ {
+  "removed": "The exploratory E2 and E4 bear on C1's decision links, and E2 also on late and false reports (Section 9.1).",
+  "covered_by": [
+   "The exploratory E2 bears on the decision links and, through its sensitivity analysis, on late and false reports; E4 bears on the decision links."
+  ]
+ },
+ {
+  "removed": "The traces illustrate what the records mean.",
+  "covered_by": [
+   "Their purpose is to expose the consequences of missing context."
+  ]
+ },
+ {
+  "removed": "Its decision and attribution records may already exist as decision logs and ledger entries; its two channel-state records are new.",
+  "covered_by": [
+   "Each payment needed about four records; its decision and attribution records may already exist, and its two channel-state records are new."
+  ]
+ },
+ {
+  "removed": "On a two-core virtual machine, reading one payment's channel state and reports took a median of 17 microseconds, and one day's cohort of 11,052 payments took 0.3 seconds.",
+  "covered_by": [
+   "took a median of 17 microseconds and a 99th percentile of 57; one day's cohort of 11,052 payments took 0.3 seconds."
+  ]
+ },
+ {
+  "removed": "In the first replay, eight related accounts, each below a chargeback count floor, were never flagged alone.",
+  "covered_by": [
+   "In the first replay, the account view flags only when each account alone reaches the floor, at about 2,500 captures a period (Figure 3A).",
+   "The account view never flags them: about 14 expected reports each against a floor of 100"
+  ]
+ },
+ {
+  "removed": "A view over recorded links flagged them in 92 percent of 1,000 runs, and 40 legitimate merchants sharing a call center, set just above the ratio threshold, in 77 percent; a linked view belongs beside the account view, not in its place.",
+  "covered_by": [
+   "A view over shared-attribute links flags the group in 91.6 percent of runs. It also flags 40 merchants assumed legitimate that share a call center in 76.7 percent",
+   "compares with 91.6 in the 1,000 runs above.",
+   "A linked view belongs beside the account view, not in its place."
+  ]
+ },
+ {
+  "removed": "In the second replay, of a smaller merchant, the chargeback rule never flagged an account at the alleged scale, while fraud reports counted by value flagged each account in at least 99.8 percent of runs.",
+  "covered_by": [
+   "The chargeback rule never flags an account or the group: no account exceeds 24 chargebacks in a month",
+   "The fraud-report rule by value flags each account in at least 99.8 percent of runs."
+  ]
+ },
+ {
+  "removed": "A chargeback-only store reads payments refunded before a dispute as unreported.",
+  "covered_by": [
+   "A chargeback-only store reads the refunded fifth of reported payments as unreported"
+  ]
+ },
+ {
+  "removed": "Counting only verified links between reports and payments replaced false flags near the floor with stated uncertainty.",
+  "covered_by": [
+   "Counting only verified links gives no wrong flag and leaves the account inconclusive in 40.0 to 100 percent of runs"
+  ]
+ }
+]
