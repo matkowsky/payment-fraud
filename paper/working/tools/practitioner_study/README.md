@@ -31,6 +31,7 @@ The study is not run through any institution and has no funding; the author know
 ## Scoring, fixed in advance
 
 - The answer key was fixed before the first response and is kept private until the form closes, so participants cannot see it. SHA-256 of the key file: `3438ef22c7491a0adbe01b3702515b2b7699dc2b6675c405e70500f081b3f8f0`. It is published with the results.
+- [score_responses.py](score_responses.py) scores the form's export. It refuses a key whose hash differs, excludes responses without consent or with under two years of experience, and copies no free text except answers whose author allowed quoting, for review before any use. Each question title and grid row in the form starts with its code from the instrument; Part 3 repeats use `A1-R` to `B6-R`, and Part 5's second grid uses `R1-H` to `R5-H`.
 - Each item has one error the records are meant to prevent. For each item, report how many participants made that error in Part 2 and in Part 3, and how many moved from the error to a supported answer.
 - Report items by requirement, controls separately, and participants who had read Section 8 or Supplement S6 separately.
 - Report counts only. With six to ten people there is no significance test.
