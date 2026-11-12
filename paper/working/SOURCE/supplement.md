@@ -715,7 +715,7 @@ The release gate has a cost that E8 measures. If a system produced 20 drafts a d
 
 ## S8. Practitioner study (protocol fixed before the first response)
 
-This study asks whether the records C1 to C3 require change the conclusions practitioners draw, how often the failures they target occur, and what the field records today. It measures conclusions and reported practice, not detection performance. The [protocol](../tools/practitioner_study/README.md), the [form](../tools/practitioner_study/INSTRUMENT.md) and the hash of the answer key were committed before the first response.
+This study asks whether the records C1 to C3 require change the conclusions practitioners draw, how often the failures they target occur, and what the field records today. It measures conclusions and reported practice, not detection performance. The [protocol](../tools/practitioner_study/README.md), the [form](../tools/practitioner_study/INSTRUMENT.md), the scoring script and the hash of the answer key were committed before the first response.
 
 Six to ten practitioners with at least two years in fraud or abuse investigation, or in building systems for it, from at least three organizations, complete one anonymous form of about 35 minutes. They read Traces A and B as many systems show them and answer eleven questions, then answer them again with the coverage, learned-time, attribution, decision-link and exposure records added. Eight questions test a requirement; three are controls. They then report how often each failure has changed a real conclusion, whether each record exists today and how hard it would be to add, whether the eleven signals of manuscript Table 2 are available at decision time, and, optionally, who owns each responsibility.
 
