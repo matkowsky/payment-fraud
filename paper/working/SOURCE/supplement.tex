@@ -3478,23 +3478,25 @@ the stated delay model, and bounding with every unlabeled item counted
 first as a positive and then as a negative. The quantity, its
 population, denominator and read times, and the method applied to
 unlabeled items are the same under every reading, so that the comparison
-tests the records rather than a change of estimator. How the reference
-treats items whose channel a decision closed or changed in meaning is
-fixed before any data are examined and uses no reading's labels. Each
-reading is compared with a reference for the same quantity and target
-population constructed from the holdout after the longest defined
-reporting window has closed, with report truth reviewed on a random
-sample. The target is the selected metric on matured reported outcomes
-after that sampled truth review. Prespecify how the truth-review sample
-contributes to the reference and its uncertainty. Checking reports does
-not reveal fraud that was never reported; a target of underlying fraud
-would require a separate ascertainment and identification design.
-Prespecify a joint uncertainty procedure for the two readings and the
-reference that preserves pairing, randomization, truth-review sampling
-and relevant clustering. Rule events that reopen a window during
-follow-up are recorded and reported. The main study will be sized for 93
-percent power for part (b), which carries the pass rule, under stated
-effect assumptions.
+tests the records rather than a change of estimator. In the comparison
+that counts, blocked attempts are outside that population for the pass
+comparator, for C1 and for the reference. How the reference treats items
+whose channel a decision closed or changed in meaning is fixed before
+any data are examined and uses no reading's labels. Each reading is
+compared with a reference for the same quantity and target population
+constructed from the holdout after the longest defined reporting window
+has closed, with report truth reviewed on a random sample. The target is
+the selected metric on matured reported outcomes after that sampled
+truth review. Prespecify how the truth-review sample contributes to the
+reference and its uncertainty. Checking reports does not reveal fraud
+that was never reported; a target of underlying fraud would require a
+separate ascertainment and identification design. Prespecify a joint
+uncertainty procedure for the two readings and the reference that
+preserves pairing, randomization, truth-review sampling and relevant
+clustering. Rule events that reopen a window during follow-up are
+recorded and reported. The main study will be sized for 93 percent power
+for part (b), which carries the pass rule, under stated effect
+assumptions.
 
 \textbf{Primary measures:} (b) the reduction in absolute error against
 the holdout reference, with its 95 percent interval. For pass-comparator
@@ -3531,10 +3533,35 @@ candidate rules.
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
 reduction in reference error is at or below the negligible reduction, a
 named parameter fixed before any data are examined. It also fails if
-\(D\) changes sign under any other handling of unlabeled items. Measure
-(a) does not count toward passing, because the share that C1
-reclassifies follows partly from its definitions and from the cohort's
-composition.
+\(D\) changes sign between exclusion and the stated delay model. The two
+bounds are reported and do not count toward the rule. Counted as
+negatives, the unlabeled items give both readings the same value
+wherever the readings differ only on those items, so \(D\) is zero by
+construction. Counted as positives, they overstate the quantity unless
+nearly all of them later draw a report. Measure (a) does not count
+toward passing, because the share that C1 reclassifies follows partly
+from its definitions and from the cohort's composition.
+
+\textbf{Worked example, with hypothetical counts:} the quantity is one
+detection's precision on card payments: of the attempts it flagged, the
+share that drew a fraud chargeback. The holdout arm has 1,100 flagged
+attempts, and another control blocked 100 of them. The two readings and
+the reference therefore estimate precision on the same 1,000 completed
+attempts. For 760 of them the chargeback window had closed by the read
+time, with 200 fraud chargebacks. For 240 the window was still open on
+the channel's own clock, though the rail's standard period had passed
+since the attempt; 40 had drawn a fraud chargeback and 200 had not. The
+readings differ only on those 200. The pass comparator reads them as
+negatives, so \(q_0=240/1000=0.240\). C1 leaves them unlabeled and the
+plan excludes unlabeled items, so \(q_1=240/800=0.300\). If 40 more
+fraud chargebacks arrive before the last window closes,
+\(r=280/1000=0.280\) and \(D=0.040-0.020=0.020\). If 5 arrive,
+\(r=245/1000=0.245\) and \(D=0.005-0.055=-0.050\). The later reports
+decide the sign of \(D\); the definitions do not. Counting the 200 as
+negatives instead gives \(q_1=q_0\) and \(D=0\). Counting them as
+positives gives \(q_1=440/1000=0.440\) and, with 40 later chargebacks,
+\(D=0.040-0.160=-0.120\). The example leaves out truth review and
+sampling error.
 
 \FloatBarrier
 
