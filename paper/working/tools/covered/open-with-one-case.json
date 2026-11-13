@@ -1,0 +1,83 @@
+[
+ {
+  "removed": "Consider an investigator examining several storefronts that share payment accounts.",
+  "covered_by": [
+   "The hypothetical investigation links eleven storefronts that share two templates and a descriptor pattern and settle through four merchant accounts."
+  ]
+ },
+ {
+  "removed": "A low chargeback count could reflect little abuse, payments blocked before completion, refunds that prevented disputes, or reports recorded under another account.",
+  "covered_by": [
+   "Likewise, no chargebacks may mean no abusive completed payments, blocked attempts, immature reporting or reports attributed elsewhere.",
+   "Stripe's dispute guide says a business can proactively refund a payment flagged by an early fraud warning to prevent a dispute, while advising against refunding every flagged payment."
+  ]
+ },
+ {
+  "removed": "Finding no earlier suspicious requests could reflect missing history rather than clean history.",
+  "covered_by": [
+   "| Did misuse begin after exposure? A seven-day query returns two hours of earlier history; changed requests appear at +19 minutes. | The lack of an earlier returned match does not distinguish absent activity from missing history. | The baseline is partial. The change is observed, but the onset of misuse remains inconclusive. |"
+  ]
+ },
+ {
+  "removed": "An earlier intelligence report could suggest where to look, yet add no independent evidence.",
+  "covered_by": [
+   "| Does an earlier released assessment corroborate the cluster finding? It concerns the same descriptor pattern. | The conclusion can become apparent independent support for itself. | The assessment supplies a hypothesis or context. It adds no root observation and no independent corroboration. |"
+  ]
+ },
+ {
+  "removed": "The resulting inventory contains 71 signals in 12 families.",
+  "covered_by": [
+   "The resulting inventory, 71 signals in 12 families linked to 61 of the 99 candidate mechanisms, is in Supplement S3."
+  ]
+ },
+ {
+  "removed": "Sixty-eight connect to 61 mechanisms through 163 links, and three apply across mechanisms.",
+  "covered_by": [
+   "[Mechanism-to-signal mappings](../SUPPLEMENT/S3_MECHANISM_SIGNAL_PAIRS.csv) contain 163 links: 154 design mappings motivated by evidence and nine marked as inferential.",
+   "SIG-44, SIG-45 and SIG-46 apply across mechanisms.",
+   "The other 68 signals map to specific mechanisms.",
+   "All 61 mapped mechanisms have at least one mapping motivated by evidence; S2 explains PAY-12's exclusion."
+  ]
+ },
+ {
+  "removed": "Nine links are explicitly inferential; the others use sourced premises to motivate record design without validating a detector.",
+  "covered_by": [
+   "[Mechanism-to-signal mappings](../SUPPLEMENT/S3_MECHANISM_SIGNAL_PAIRS.csv) contain 163 links: 154 design mappings motivated by evidence and nine marked as inferential.",
+   "These links explain why a record is proposed; they do not establish a detector's effectiveness or make its fields uniquely necessary."
+  ]
+ },
+ {
+  "removed": "Each derived feature, a value computed from other records, identifies its inputs.",
+  "covered_by": [
+   "**Derived features** compute values from recorded inputs for specified entities and time windows.",
+   "Each input ID for the 24 derived features names another signal in the inventory."
+  ]
+ },
+ {
+  "removed": "It begins the answer to RQ1, which Section 5 continues and Supplement Table S4.2 in Section 6.3 completes.",
+  "covered_by": [
+   "Sections 4 and 5 answer RQ1, with Section 6.3 and Supplement Table S4.2 adding the agent's analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3."
+  ]
+ },
+ {
+  "removed": "Supplement Table S4.2 in Section 6.3 adds the capabilities.",
+  "covered_by": [
+   "Sections 4 and 5 answer RQ1, with Section 6.3 and Supplement Table S4.2 adding the agent's analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3."
+  ]
+ },
+ {
+  "removed": "In one, a person releases the claim that a card attempt drew no chargeback, resting on a complete, empty search; only C1's channel state shows that the platform had blocked the attempt, so no chargeback could arrive.",
+  "covered_by": [
+   "The query covers the whole window and returns nothing.",
+   "A person releases it into the platform's memory, where later investigations can read it.",
+   "| The control decision on the attempt and the state of its chargeback channel (C1) | No chargeback arrived, so the absence counts against fraud | The platform blocked the attempt, so no chargeback could arrive |"
+  ]
+ },
+ {
+  "removed": "In the other, the same claim cites a reading that shows a matured absence; only C2's coverage record shows that the label feed had stalled before the window ended.",
+  "covered_by": [
+   "The agent drafts the conclusion that no fraud chargeback arrived, citing the query and a reading of the chargeback channel that shows its window closed with no report.",
+   "| The query's coverage (C2) | The query returned nothing, so no chargeback arrived by the end of the window | The report feed was loaded only to 20 May, so the query did not cover the end of the window |"
+  ]
+ }
+]
