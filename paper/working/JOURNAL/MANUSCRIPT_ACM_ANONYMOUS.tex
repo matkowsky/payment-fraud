@@ -237,17 +237,16 @@ miss (Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
-product scope, not a description of its internal systems; the paper
-calls Stripe the illustrative provider. The paper synthesizes public
-evidence and proposes a design. It reports no implementation of the
-architecture and no measurement on platform data; its only experiments
-run the record schemas on synthetic records (Sections 8.4 and 8.5).
-Section 2 establishes its relationship to prior work and Section 3
-explains how it was derived. Sections 4 and 5 answer RQ1, with Section
-6.3 and Supplement Table S4.2 adding the agent's analytical
-capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8
-shows the consequences of the design in two hypothetical investigations,
-and Section 9 states how its value would be tested.
+product scope, not a description of its internal systems. The paper
+synthesizes public evidence and proposes a design. It reports no
+implementation of the architecture and no measurement on platform data;
+its only experiments run the record schemas on synthetic records
+(Sections 8.4 and 8.5). Section 2 establishes its relationship to prior
+work and Section 3 explains how it was derived. Sections 4 and 5 answer
+RQ1, with Section 6.3 and Supplement Table S4.2 adding the agent's
+analytical capabilities; Section 6 answers RQ2 and Section 7 answers
+RQ3. Section 8 shows the consequences of the design in two hypothetical
+investigations, and Section 9 states how its value would be tested.
 
 \hypertarget{relationship-to-prior-work}{%
 \section{Relationship to prior work}\label{relationship-to-prior-work}}
@@ -388,11 +387,11 @@ only verified records as precedent, records each promotion and lets a
 reviewer demote a record, flagging the decisions that relied on it. It
 does not say who authorizes promotion or what a retrieved precedent may
 establish {[}\protect\hyperlink{ref-Akhtar2026Contestable}{30}{]}. In
-the illustrative provider's agent-assisted fraud modeling, engineers
-review the agents' hypotheses and results and decide what to deploy, and
-for one fraud attack the agents were given results from earlier
-experiments and investigations; the account does not describe a release
-step for those earlier results
+Stripe's agent-assisted fraud modeling, engineers review the agents'
+hypotheses and results and decide what to deploy, and for one fraud
+attack the agents were given results from earlier experiments and
+investigations; the account does not describe a release step for those
+earlier results
 {[}\protect\hyperlink{ref-Drapeau2026ScalingRadar}{31}{]}. A
 threat-detection design comes closest on reuse as evidence. It tags each
 detection compiled from one of its hypotheses and drops tagged
@@ -424,9 +423,9 @@ Industrial payment systems supply examples of fast decisions and
 relationships between accounts
 {[}\protect\hyperlink{ref-Cao2019TitAnt}{5},
 \protect\hyperlink{ref-Liu2018GEM}{33}{]}. Payment providers' public
-documentation already exposes parts of the first two requirements. The
-illustrative provider lets businesses query which rules affected each
-charge and join disputes to charges
+documentation already exposes parts of the first two requirements.
+Stripe lets businesses query which rules affected each charge and join
+disputes to charges
 {[}\protect\hyperlink{ref-Stripe2026QueryDisputes}{34}{]}. Its dispute
 analytics warns that rates by payment date can look lower for recent
 payments because customers can wait weeks to dispute
@@ -507,10 +506,9 @@ supply the design premises.
 The scope, read on 27 September 2026, contains 88 product and feature
 entries. A retained mechanism must target a documented capability, serve
 a plausible adversary goal and have supporting public evidence. Public
-job postings from the illustrative provider, Stripe, for abuse, risk and
-machine-learning roles helped prioritize topics as a statement of its
-current priorities, not as evidence of incidents
-{[}\protect\hyperlink{ref-Stripe2026}{46},
+job postings from Stripe for abuse, risk and machine-learning roles
+helped prioritize topics as a statement of its current priorities, not
+as evidence of incidents {[}\protect\hyperlink{ref-Stripe2026}{46},
 \protect\hyperlink{ref-StripeARE2026}{47}{]}. Supplement S2 records the
 99 candidate mechanisms, how postings set priorities, the nine search
 paths and each candidate's final disposition; every mapped mechanism
@@ -546,7 +544,9 @@ mappings and comparison codes, ran the prior-work search, wrote the
 scripts, synthetic data and figures, and reviewed drafts. Every cited
 work was read in full, or, for a book or standard, the cited chapters;
 Supplement S1 records the version and passages for each and names the
-few parts not read, such as reference pages. A check script recomputes
+few parts not read, such as reference pages. The author read each cited
+work to the same depth, and the manuscript and supplement in full, more
+than once before this version was released. A check script recomputes
 the counts, lineage and arithmetic on every proposed change. The author
 decided what entered the paper. Model review is not independent human
 peer review.
@@ -906,8 +906,8 @@ of the three published schemas found none for the rest.
 
 Supplement S3 records the classification and its counts; S5 provides
 schema pins, hashes, event extracts and exact field locations. These
-findings describe the inspected schemas, not the provider's private
-telemetry or every possible public interface.
+findings describe the inspected schemas, not Stripe's private telemetry
+or every possible public interface.
 
 \hypertarget{privacy-and-operating-constraints}{%
 \subsection{Privacy and operating
@@ -1241,11 +1241,10 @@ arrive after the transaction
 window depends on the channel. A delay model can distinguish a pending
 outcome from a negative after sufficient time, as in Chapelle's
 conversion model {[}\protect\hyperlink{ref-Chapelle2014Delayed}{11}{]}.
-Reading immature negatives as final can reverse a comparison: the
-illustrative provider's engineers report a fraud model trained on far
-more payments that looked better at first, until, as more fraud reports
-arrived, its measured performance fell below the earlier model's and it
-was rolled back
+Reading immature negatives as final can reverse a comparison: Stripe's
+engineers report a fraud model trained on far more payments that looked
+better at first, until, as more fraud reports arrived, its measured
+performance fell below the earlier model's and it was rolled back
 {[}\protect\hyperlink{ref-Drapeau2026ScalingRadar}{31}{]}. A channel
 without a defined reporting window, such as a victim report, supplies no
 such maturity bound.
@@ -1301,9 +1300,8 @@ funds may leave before reports arrive. The effect is recorded per
 channel: closed, delayed, changed in meaning, none or unknown.
 
 These channel properties come from card-network rules, and other rails
-differ. On the illustrative provider's bank-debit rails, a payer's
-dispute or return inside the rail's no-questions window is honored
-without adjudication or appeal
+differ. On Stripe's bank-debit rails, a payer's dispute or return inside
+the rail's no-questions window is honored without adjudication or appeal
 {[}\protect\hyperlink{ref-Stripe2026ACHTerms}{52},
 \protect\hyperlink{ref-Stripe2026SEPADebit}{65}{]}; Supplement S4.1
 gives the windows and rules read. A report honored without question is
@@ -1621,9 +1619,8 @@ A platform that already logs decisions, payments and disputes can start
 with the records behind Table 2: each decision's effect on each outcome
 channel and each channel's state for each payment (C1), a gateway record
 of what each query covered and when each fact became known (C2), and a
-release step before an agent conclusion enters reusable memory (C3). The
-illustrative provider already exposes parts of the first two (Section
-2.4).
+release step before an agent conclusion enters reusable memory (C3).
+Stripe already exposes parts of the first two (Section 2.4).
 
 To estimate C1's cost, one million synthetic payments with two outcome
 channels each were built from the schema's valid conformance case
@@ -1871,8 +1868,8 @@ mapping; a model as second rater (3, S3) & Completeness; a human coder
 is pending \\
 No source states C1 to C3 together & Two searches (2, S9.6) & That none
 exists \\
-C1's channel fields reflect network rules & The provider's descriptions
-(7.1) & The networks' own rules; other rails reviewed less fully \\
+C1's channel fields reflect network rules & Stripe's descriptions (7.1)
+& The networks' own rules; other rails reviewed less fully \\
 \end{longtable}
 
 \endgroup

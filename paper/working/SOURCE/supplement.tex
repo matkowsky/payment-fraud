@@ -242,8 +242,8 @@ Payment domain
 
 Industrial payment and risk systems: TitAnt, GEM & P & E & P & . & P & P
 & . & P & yes \\
-Illustrative platform's (Stripe's) engineering publications, 2019 to
-2025 & P & E & P & P & P & E & . & P & yes \\
+Stripe's engineering publications, 2019 to 2025 & P & E & P & P & P & E
+& . & P & yes \\
 Threat-intelligence and security-operations architectures: reference
 models, intelligence lifecycle and agent benchmarks & P & P & E & E & E
 & P & E & E & no \\
@@ -1282,8 +1282,8 @@ window, an ACH return is refunded without question, and the ACH Network
 has no appeals process of its own
 {[}\protect\hyperlink{ref-Stripe2026ACHTerms}{24}{]}. A SEPA dispute
 honored with no questions asked is not by itself a fraud allegation. For
-ACH returns, the provider's terms give 60 days for consumer accounts and
-2 days for business accounts, counted from the customer's bank statement
+ACH returns, Stripe's terms give 60 days for consumer accounts and 2
+days for business accounts, counted from the customer's bank statement
 {[}\protect\hyperlink{ref-Stripe2026ACHTerms}{24}{]}, while the Nacha
 return deadlines that banks apply run from the settlement date of the
 original debit {[}\protect\hyperlink{ref-LeadBank2026ACHReturns}{25}{]};
@@ -1295,11 +1295,11 @@ reporting channels, if any, follow each rail's own rules and windows,
 which this paper did not review.
 
 \textbf{Limits of the rail review (manuscript Section 9.2).} Bank debits
-were compared only with two of the provider's pages and one bank's
-return-code table (manuscript Section 7.1); of the bank-debit candidates
-in S2, \mbox{PAY-07} was judged covered and \mbox{MM-03} was not
-reviewed. Instant push payments and stablecoin payments, which are also
-in the product scope, were not reviewed rail by rail; their mechanisms
+were compared only with two of Stripe's pages and one bank's return-code
+table (manuscript Section 7.1); of the bank-debit candidates in S2,
+\mbox{PAY-07} was judged covered and \mbox{MM-03} was not reviewed.
+Instant push payments and stablecoin payments, which are also in the
+product scope, were not reviewed rail by rail; their mechanisms
 \mbox{MM-07} and \mbox{MM-12} were reviewed, but not their reporting
 channels (S2).
 
@@ -2925,8 +2925,8 @@ including chargeback-or-alert-resolution, separately. Apply each
 program's exclusions as the network's documentation states them, such as
 VAMP's exclusion of fraud reports that qualify for Compelling Evidence
 3.0. State whose report view each arm uses: the programs also count
-disputes that the provider handles on a business's behalf and that do
-not appear in that business's data
+disputes that Stripe handles on a business's behalf and that do not
+appear in that business's data
 {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{21}{]}. Report
 the share of reports linked to transactions, the share whose link is
 unverified and how duplicate reports were removed. Measure false flags
@@ -3197,8 +3197,8 @@ clusters selected by a confirmation route documented as independent of
 either monitoring rule; clusters from other routes are reported
 separately. Adjudicators blind to both rules' outputs fix the onset of
 evasion for each cluster from case evidence. Each program is applied as
-the network's own documentation states it, with the provider's guide
-used only as a secondary summary. Time to flag is analyzed as paired,
+the network's own documentation states it, with Stripe's guide used only
+as a secondary summary. Time to flag is analyzed as paired,
 right-censored time-to-event data: a cluster that a method has not
 flagged by the end of follow-up is censored there for that method. A
 third arm computes the network's ratio for each account after linking.
@@ -3575,19 +3575,19 @@ reading, with 60 later chargebacks expected per 1,000 attempts so that
 \(r=q_1=0.300\) and \(D=0.060\), it contains \(D\) in 8,703 samples. It
 lies wholly below \(D\) in 1,292 and wholly above in 5, and the estimate
 of \(D\) averages 0.006 too low. So it misses its stated coverage where
-C1 succeeds, and it errs by understating C1. Its lower bound exceeds
-\(D\) in 5 samples where the stated level allows 250, so the pass rule
-loses power and gains no false passes. Where \(D=0\), with 30 later
-chargebacks expected so that \(r=0.270\), it contains \(D\) in 9,494
-samples. The second interval uses the smooth parts of \(D\). When
-\(q_1\ge q_0\), \(D=\max(\min(L,W),-W)\) with \(L=2r-q_0-q_1\) and
-\(W=q_1-q_0\). It takes a 97.5 percent percentile interval for each part
-and reports the range of \(D\) over the two. It contains \(D\) in 9,696
-samples where \(r=q_1\) and in 9,765 where \(D=0\). The check assumes
-independent attempts and one sample size, with no truth review, strata
-or clustering. It shows that one method can meet the requirement above
-on this example; it does not replace the simulation on a platform's own
-design.
+C1 succeeds, and it errs by understating C1. Where \(D=0\), with 30
+later chargebacks expected so that \(r=0.270\), it contains \(D\) in
+9,494 samples, and its lower bound lies above zero in 191 where the
+stated level allows 250. The second interval uses the smooth parts of
+\(D\). When \(q_1\ge q_0\), \(D=\max(\min(L,W),-W)\) with
+\(L=2r-q_0-q_1\) and \(W=q_1-q_0\). It takes a 97.5 percent percentile
+interval for each part and reports the range of \(D\) over the two. It
+contains \(D\) in 9,696 samples where \(r=q_1\) and in 9,765 where
+\(D=0\). The check assumes independent attempts and one sample size,
+with no truth review, strata or clustering. It tests the intervals, not
+the full pass rule. It shows that one method can meet the requirement
+above on this example; it does not replace the simulation on a
+platform's own design.
 
 \FloatBarrier
 
@@ -4171,12 +4171,11 @@ The specification has not been implemented or evaluated on platform
 data. Its traces demonstrate reasoning over hypothetical records, while
 safeguards, costs on platform data and investigator workload remain
 unmeasured. C1's channel fields were derived from, and checked against,
-the illustrative provider's descriptions of card-network rules
-(manuscript Section 7.1). The networks' own rules were not read; the one
-network document cited is Visa's overview of its acquirer monitoring
-program (manuscript Section 8.5). Bank debits, instant push payments and
-stablecoin payments, which are also in the product scope, were reviewed
-less fully (S4.1).
+Stripe's descriptions of card-network rules (manuscript Section 7.1).
+The networks' own rules were not read; the one network document cited is
+Visa's overview of its acquirer monitoring program (manuscript Section
+8.5). Bank debits, instant push payments and stablecoin payments, which
+are also in the product scope, were reviewed less fully (S4.1).
 
 A second search on 28 and 29 October 2026 started from the paper's
 problem statement and the three requirement statements, without the
@@ -4206,9 +4205,9 @@ remain deployment decisions.
 The focused search and author-assigned mappings do not establish
 exhaustive coverage or the absence of equivalent systems. Bank
 case-management systems, card-network risk systems, vendor architectures
-and non-English literature were not reviewed as complete families. The
-illustrative provider's public hiring priorities influenced selection
-and set most of the deeper reviews (manuscript Section 3; S2).
+and non-English literature were not reviewed as complete families.
+Stripe's public hiring priorities influenced selection and set most of
+the deeper reviews (manuscript Section 3; S2).
 
 \FloatBarrier
 
