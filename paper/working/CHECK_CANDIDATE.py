@@ -117,6 +117,19 @@ assert round(fisher_p, 2) == 0.10 and abs(fisher_p - 0.1005) < 5e-4, fisher_p
 # drafts and days if planted false exonerations are 5 percent of drafts and 20 drafts arrive a day.
 assert round(1 - 4 * 0.07, 2) == 0.72 and 'all four pass with probability at least 72 percent' in sbody and '79 percent' not in sbody
 assert 'E1, E3, E8 and E9 are confirmatory' in sbody and 'E1, E3, E8 and E9 are confirmatory' in body
+
+# Supplement S7.1, E9 worked example: precision under the pass comparator and under C1 on the same 1,000 completed
+# attempts, and the reduction in reference error when 40 or 5 more fraud chargebacks arrive.
+e9_q0, e9_q1 = (200 + 40) / 1000, (200 + 40) / (1000 - 200)
+assert (e9_q0, e9_q1) == (0.24, 0.3) and '$q_0=240/1000=0.240$' in sbody and '$q_1=240/800=0.300$' in sbody
+assert 1100 - 100 == 760 + 240 == 1000 and 'The holdout arm has 1,100 flagged attempts, and another control blocked 100 of them.' in sbody
+for e9_more, e9_d, e9_text in ((40, 0.02, '$r=280/1000=0.280$ and $D=0.040-0.020=0.020$'), (5, -0.05, '$r=245/1000=0.245$ and $D=0.005-0.055=-0.050$')):
+    e9_r = (200 + 40 + e9_more) / 1000
+    assert round(abs(e9_q0 - e9_r) - abs(e9_q1 - e9_r), 3) == e9_d and e9_text in sbody, (e9_more, e9_r)
+# The two bounds on the same example: unlabeled items counted as negatives, then as positives.
+e9_r, e9_neg, e9_pos = 280 / 1000, 240 / 1000, (240 + 200) / 1000
+assert e9_neg == e9_q0 and round(abs(e9_q0 - e9_r) - abs(e9_pos - e9_r), 3) == -0.12
+assert '$q_1=440/1000=0.440$ and, with 40 later chargebacks, $D=0.040-0.160=-0.120$' in sbody
 assert set(re.findall(r'^#### E(\d) \(', sbody, re.M)) == set(map(str, range(1, 10)))
 n_fe = next(n for n in range(1, 1000) if 1 - 0.05 ** (1 / n) < 0.01)
 assert n_fe == 299 and 'needs at least 299' in sbody and 'at least 150' not in sbody
