@@ -10,6 +10,8 @@ Changed before the first response, 13 November 2026: the report reads each requi
 
 Changed before the first response, 13 November 2026: the form opens when the recruitment post goes live, not at the merge, because the merge came two days before the form was ready. A single extension and the scoring of every eligible response are now fixed in advance. The form, the questions and the answer key did not change.
 
+Changed before the first response, 13 November 2026, at the author's direction: the two volunteer human coders are dropped. They would only repeat checks a model already ran on the paper's own work, and they would draw on the same small pool of volunteers as the form. The paper states that agreement between human coders has not been measured. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -53,14 +55,9 @@ The study is not run through any institution and has no funding; the author know
 - The cases are hypothetical and come from the paper. Practitioners who read it may know the answers (P4 separates them).
 - A small, self-selected sample. Results describe these participants, not the field.
 
-## Independent human coders
+## Human coders
 
-Two further volunteers, who do not take the form, repeat checks that a model performed:
-
-- The 52-link mechanism check: `../second_coder/PACKET.md`, about one to two hours, scored with `../second_coder/score.py`.
-- The rulings on the 15 adversarial histories: `../adversarial_cases/round1/RULINGS_CHECK_PACKET.md`, about one hour.
-
-Both are reported beside the model results, with agreement between them.
+None. The mechanism-link check (S3) and the rulings on the adversarial histories (S4.4) are reported as model checks. Their packets stay in the package for anyone who wants to repeat them: `../second_coder/PACKET.md` and `../adversarial_cases/round1/RULINGS_CHECK_PACKET.md`.
 
 ## Timeline
 
