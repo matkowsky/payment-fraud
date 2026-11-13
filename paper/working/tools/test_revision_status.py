@@ -1,11 +1,14 @@
 """Exercise merge gates, merge-commit lookup, label synchronization, source-only checks and checksum failures.
 
-GitHub and git are mocked: no network access, no repository changes.
+GitHub is mocked: no network access. Git is mocked too, except in HistoryWalkTests, which builds a small
+repository in a temporary directory. No test changes this repository.
 Run from the package root: python3 tools/test_revision_status.py
 """
 import copy
 import json
+import os
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -100,7 +103,7 @@ class MergeGateTests(unittest.TestCase):
 class AcceptTests(unittest.TestCase):
     """accept() with GitHub's API and git mocked: one test for each path."""
 
-    def run_accept(self, responses, state=STATE):
+    def run_accept(self, responses, state=STATE, earlier=(), credits=None):
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         root = Path(directory.name)
@@ -111,6 +114,8 @@ class AcceptTests(unittest.TestCase):
         before = snapshot(package)
         with patch.dict('os.environ', env), \
                 patch.object(rs, 'current_head', return_value=HEAD), \
+                patch.object(rs, 'earlier_unrecorded', return_value=list(earlier)), \
+                patch.object(rs, 'introduced_credit', side_effect=lambda sha: (credits or {}).get(sha)), \
                 patch.object(rs, 'github_get', side_effect=lambda path: copy.deepcopy(responses[path])) as get:
             try:
                 changed = rs.accept(package)
@@ -159,6 +164,105 @@ class AcceptTests(unittest.TestCase):
         self.assertEqual(calls, [])
         self.assertEqual(snapshot(package), before)
         self.assertEqual(output, '')
+
+
+    def second_merge_responses(self, first, own_commit):
+        """Main holds an unrecorded merge of PR #5, then the workflow's own commit, then the merge of PR #9."""
+        fifth = {**PR, 'number': 5, 'title': 'Earlier proposal', 'merge_commit_sha': first,
+                 'merged_at': '2026-11-09T10:00:00Z', 'body': 'Drafting contribution: Edited by A. Reviewer\n'}
+        ninth = {**PR, 'number': 9, 'title': 'Later proposal', 'merged_at': '2026-11-09T10:00:30Z'}
+        listed = lambda pr: {k: pr[k] for k in ('number', 'merged_at', 'merge_commit_sha', 'base')}
+        return {'repos/' + REPO + '/branches/main': {'commit': {'sha': HEAD}},
+                'repos/' + REPO + '/commits/' + first + '/pulls': [listed(fifth)],
+                'repos/' + REPO + '/commits/' + own_commit + '/pulls': [],
+                'repos/' + REPO + '/commits/' + HEAD + '/pulls': [listed(ninth)],
+                'repos/' + REPO + '/pulls/5': fifth, 'repos/' + REPO + '/pulls/9': ninth}
+
+    def test_merge_whose_own_run_stopped_is_recorded_by_the_next_run(self):
+        """Two merges a few seconds apart: the first run stops because main advanced; the second records both."""
+        first, own_commit, third = 'c' * 40, 'd' * 40, 'e' * 40
+        recorded = rs.validate_merge({**PR, 'merge_commit_sha': third}, STATE, REPO, third, 'refs/heads/main')
+        package, _, output, changed, error, _ = self.run_accept(
+            self.second_merge_responses(first, own_commit), state=recorded, earlier=[first, own_commit])
+        self.assertIsNone(error)
+        self.assertTrue(changed)
+        state = json.loads((package / 'REVISION_STATUS.json').read_text())
+        self.assertEqual([(e['pr'], e['merge_commit_sha']) for e in state['accepted']],
+                         [(3, third), (5, first), (9, HEAD)])
+        self.assertEqual(state['accepted'][1]['credit'], 'Edited by A. Reviewer')
+        status = (package / 'STATUS.md').read_text()
+        self.assertLess(status.index('[#5]'), status.index('[#9]'))
+        self.assertIn('9 November 2026 · Accepted working draft', (package / 'SOURCE' / 'manuscript.md').read_text())
+        self.assertIn('changed=true', output)
+
+    def test_branch_credit_goes_to_the_merge_that_added_it(self):
+        first, own_commit, third = 'c' * 40, 'd' * 40, 'e' * 40
+        recorded = {**rs.validate_merge({**PR, 'merge_commit_sha': third}, STATE, REPO, third, 'refs/heads/main'),
+                    'drafting_credit': CREDIT}
+        package, _, _, _, error, _ = self.run_accept(
+            self.second_merge_responses(first, own_commit), state=recorded, earlier=[first, own_commit],
+            credits={first: CREDIT})
+        self.assertIsNone(error)
+        state = json.loads((package / 'REVISION_STATUS.json').read_text())
+        self.assertEqual([e['credit'] for e in state['accepted'][1:]], [CREDIT, 'Recorded in PR #9.'])
+        self.assertNotIn('drafting_credit', state)
+
+
+class HistoryWalkTests(unittest.TestCase):
+    """The walk back to the last recorded merge, on a real history in a temporary repository."""
+
+    def setUp(self):
+        directory = tempfile.TemporaryDirectory()
+        self.addCleanup(directory.cleanup)
+        self.root = Path(directory.name)
+        self.package = self.root / 'paper' / 'working'
+        self.package.mkdir(parents=True)
+        self.env = {**os.environ, 'GIT_AUTHOR_NAME': 'Test', 'GIT_AUTHOR_EMAIL': 'test@example.org',
+                    'GIT_COMMITTER_NAME': 'Test', 'GIT_COMMITTER_EMAIL': 'test@example.org',
+                    'GIT_CONFIG_GLOBAL': os.devnull, 'GIT_CONFIG_SYSTEM': os.devnull}
+        self.run_git('init', '--quiet', '--initial-branch=main')
+        self.commit('paper/working/REVISION_STATUS.json', '{}', 'Start')
+        patcher = patch.object(rs, 'PACKAGE', self.package)
+        patcher.start()
+        self.addCleanup(patcher.stop)
+
+    def run_git(self, *args):
+        return subprocess.run(['git', '-C', str(self.root), *args], check=True, capture_output=True, text=True,
+                              env=self.env).stdout.strip()
+
+    def commit(self, path, text, message):
+        (self.root / path).parent.mkdir(parents=True, exist_ok=True)
+        (self.root / path).write_text(text)
+        self.run_git('add', '--', path)
+        self.run_git('commit', '--quiet', '-m', message)
+        return self.run_git('rev-parse', 'HEAD')
+
+    def merge(self, path, text):
+        """A pull request with one commit, merged into main with a merge commit."""
+        self.run_git('checkout', '--quiet', '-b', 'proposal')
+        self.commit(path, text, 'Proposal')
+        self.run_git('checkout', '--quiet', 'main')
+        self.run_git('merge', '--quiet', '--no-ff', '-m', 'Merge proposal', 'proposal')
+        self.run_git('branch', '--quiet', '-D', 'proposal')
+        return self.run_git('rev-parse', 'HEAD')
+
+    def test_walk_stops_at_the_last_recorded_merge_and_keeps_only_package_changes(self):
+        older = self.merge('paper/working/a.md', 'a')
+        recorded = self.merge('paper/working/b.md', 'b')
+        own_commit = self.commit('paper/working/STATUS.md', 'built', 'Synchronize')
+        missed = self.merge('paper/working/c.md', 'c')
+        self.merge('README.md', 'outside the package')
+        head = self.merge('paper/working/d.md', 'd')
+        self.assertEqual(rs.earlier_unrecorded(head, {older, recorded}), [own_commit, missed])
+        self.assertEqual(rs.earlier_unrecorded(head, set()), [])
+        with self.assertRaisesRegex(ValueError, 'No recorded merge is an ancestor'):
+            rs.earlier_unrecorded(head, {'f' * 40})
+
+    def test_credit_is_read_from_the_merge_that_added_it(self):
+        with_credit = self.merge('paper/working/REVISION_STATUS.json', json.dumps({'drafting_credit': CREDIT}))
+        without = self.merge('paper/working/e.md', 'e')
+        self.assertEqual(rs.introduced_credit(with_credit), CREDIT)
+        self.assertIsNone(rs.introduced_credit(without))
 
 
 class PackageCheckTests(unittest.TestCase):

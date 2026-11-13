@@ -8,7 +8,8 @@ Commands, run from the package root:
              generated files are not rebuilt
   manifest   refresh MANIFEST_SHA256.txt
   accept     on main after a merge: find the merged pull request from the merge commit,
-             verify it and record it (GitHub Actions only)
+             verify it and record it, after any earlier merge that is not yet recorded
+             (GitHub Actions only)
 """
 from pathlib import Path
 import argparse
@@ -162,7 +163,8 @@ def sync_labels(state, package=PACKAGE):
     details += ['',
                 'After a pull request that changes `paper/working/` is merged into main, GitHub Actions finds that pull '
                 'request from the merge commit, records it above, synchronizes these labels, rebuilds both documents and '
-                'the change record, runs the checks and refreshes the package manifest. A failed run leaves the last '
+                'the change record, runs the checks and refreshes the package manifest. A merge whose own run did not '
+                'finish is recorded by the next run. A failed run leaves the last '
                 'committed files intact; the merge record remains the authority for acceptance. A versioned publication is '
                 'separate. Checks and reviews are recorded in each pull request. This status does not establish independent '
                 'review, empirical validation or publication.', '']
@@ -220,28 +222,79 @@ def github_get(path):
         return json.load(response)
 
 
+def git(*args):
+    return subprocess.run(['git', '-C', str(PACKAGE), *args], capture_output=True, text=True)
+
+
 def current_head():
     return subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
 
 
+def earlier_unrecorded(head, recorded):
+    """Commits on main after the last recorded merge and before head that changed this package, oldest first.
+
+    A run stops when main has advanced, so a merge followed at once by another merge is not recorded by its
+    own run. The next run finds it here. Main's own history is followed through first parents.
+    """
+    if not recorded:
+        return []
+    found = []
+    walk = git('rev-list', '--first-parent', head + '^')
+    if walk.returncode:
+        raise ValueError('Cannot read the history of main: ' + walk.stderr.strip())
+    for sha in walk.stdout.split():
+        if sha in recorded:
+            return found[::-1]
+        changed = git('diff', '--quiet', sha + '^', sha, '--', '.').returncode
+        if changed not in (0, 1):
+            break  # no parent to compare with: the start of the history, or a shallow checkout
+        if changed:
+            found.append(sha)
+    raise ValueError('No recorded merge is an ancestor of this commit; the history is incomplete')
+
+
+def introduced_credit(sha):
+    """The drafting_credit that this merge added to REVISION_STATUS.json, or None."""
+    def credit(commit):
+        shown = git('show', commit + ':./REVISION_STATUS.json')
+        try:
+            return json.loads(shown.stdout).get('drafting_credit') if shown.returncode == 0 else None
+        except ValueError:
+            return None
+    here = credit(sha)
+    return here if isinstance(here, str) and here.strip() and here != credit(sha + '^') else None
+
+
 def accept(package=PACKAGE):
-    """Record the pull request whose merge produced the checked-out commit. Returns True if files changed."""
+    """Record the pull request whose merge produced the checked-out commit, after any earlier merge that is
+    not yet recorded. Returns True if files changed."""
     if os.environ.get('GITHUB_REF') != 'refs/heads/main':
         raise ValueError('Acceptance requires main')
     state = read_state(package)
     head = current_head()
-    if any(e['merge_commit_sha'] == head for e in state.get('accepted', [])):
+    recorded = {e['merge_commit_sha'] for e in state.get('accepted', [])}
+    if head in recorded:
         print('Already synchronized; no changes')
         return False
     repository = os.environ['GITHUB_REPOSITORY']
     if github_get('repos/' + repository + '/branches/main')['commit']['sha'] != head:
         raise ValueError('Main advanced; refusing to overwrite newer work')
-    number = find_merged_pr(github_get('repos/' + repository + '/commits/' + head + '/pulls'), head)
-    pr = github_get('repos/' + repository + '/pulls/' + str(number))
-    sync_labels(validate_merge(pr, state, repository, head, os.environ['GITHUB_REF']), package)
+    state = {k: v for k, v in state.items() if k != 'drafting_credit'}
+    numbers = []
+    for sha in [*earlier_unrecorded(head, recorded), head]:
+        pulls = github_get('repos/' + repository + '/commits/' + sha + '/pulls')
+        if sha != head and not any(p.get('merged_at') and p.get('merge_commit_sha') == sha for p in pulls):
+            continue  # this workflow's own commit, or a push whose own run already failed visibly
+        number = find_merged_pr(pulls, sha)
+        pr = github_get('repos/' + repository + '/pulls/' + str(number))
+        credit = introduced_credit(sha)
+        state = validate_merge(pr, {**state, 'drafting_credit': credit} if credit else state,
+                               repository, sha, os.environ['GITHUB_REF'])
+        numbers.append(number)
+    sync_labels(state, package)
     with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
         output.write('changed=true\n')
-    print('Recorded merge of PR #' + str(number))
+    print('Recorded merge of PR ' + ', '.join('#' + str(n) for n in numbers))
     return True
 
 
