@@ -21,7 +21,7 @@ A referee noted that round 1 is in-sample: the rules were revised on the same 15
 ## Scoring
 
 - `python3 tools/adversarial_cases/run_cases.py --sealed round2/CASES.json round2/RESULTS.md`, with CASES.json the three replies joined in order.
-- Each disagreement between the tester's expectation and the checker is ruled against the paper's text. The author confirms every ruling; a human coder from the practitioner post rechecks them if one is available.
+- Each disagreement between the tester's expectation and the checker is ruled against the paper's text. The author confirms every ruling.
 - Reported, as counts and fractions: of the cases the tester meant to break a requirement, how many the frozen rules reject; of those that pass, how many are new failures and how many fall under stated limits; and, of the cases the tester meant to be legitimate, how many the rulings find falsely rejected.
 - The tester's intent and the ruling on each case are reported separately. A case that is excluded or left unresolved is listed with its reason.
 - No interval is reported. One tester writes the cases in sequence and is asked to vary them, so they are not a random sample from a defined population, and the coverage of a binomial interval would not be established. The results describe this suite of cases.
