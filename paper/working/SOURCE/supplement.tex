@@ -1660,7 +1660,8 @@ unknown \\
 ChannelStateTransition & One change in a channel's state for one item,
 with its effective interval and the decision or rule event that caused
 it \\
-LabelEvent & An outcome report or one revision of it, with its amount,
+LabelEvent & An outcome report or one revision of it, with its amount
+and whether the report states that amount or the platform estimated it,
 when the outcome occurred, when it was reported at its source, when it
 arrived and when it became queryable \\
 LabelEventDecisionLink & A link from a report to one decision that may
@@ -1750,7 +1751,7 @@ a hold on the account that received the payment, and a payment that
 draws no report. An earlier account with the same principal name was
 closed; the new account is linked to it as a suspected successor on that
 name alone, and a storefront is linked to the new account by its
-checkout identifier. Its 27 records pass. Each of the 23
+checkout identifier. Its 27 records pass. Each of the 24
 \href{SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_invalid.json}{invalid
 cases} changes that history in one way and must fail exactly one check;
 together they exercise the schema check and all fourteen rules.
@@ -3133,22 +3134,23 @@ complete lead-time and false-flag pass rule at the 93 percent power
 target, given the expected share of verified report links.
 
 \textbf{Primary measures:} days from the adjudicated onset of evasion to
-the flag, counting a flag on or before the onset as day 0, and false
-flags. Flags before the onset are also reported separately, because an
-early flag may be unrelated to the evasion. The lead time is the
-difference in restricted mean time to flag, account arm minus cluster
-arm, up to a horizon fixed before any data are examined.
+the flag, and false flags. A flag before the onset may be unrelated to
+the evasion, so time to flag is computed twice: counting a flag on or
+before the onset as day 0, and counting only flags on or after the
+onset. The lead time is the difference in restricted mean time to flag,
+account arm minus cluster arm, up to a horizon fixed before any data are
+examined.
 
-\textbf{Failure criteria:} Fails if the lower bound of the 95 percent
-interval on the lead time, estimated from the paired censored analysis,
-is zero or less. It also fails unless the one-sided 95 percent upper
-confidence bound on the increase in the probability that a legitimate
-multi-brand business is flagged, cluster arm minus account arm, is below
-the false-flag margin, proposed as 5 percentage points. The interval
-preserves business-level pairing and any additional clustering. An
-interval that crosses the margin is inconclusive about this guardrail;
-an observed difference below the margin alone does not establish
-support.
+\textbf{Failure criteria:} Fails if, under either count, the lower bound
+of the 95 percent interval on the lead time, estimated from the paired
+censored analysis, is zero or less. It also fails unless the one-sided
+95 percent upper confidence bound on the increase in the probability
+that a legitimate multi-brand business is flagged, cluster arm minus
+account arm, is below the false-flag margin, proposed as 5 percentage
+points. The interval preserves business-level pairing and any additional
+clustering. An interval that crosses the margin is inconclusive about
+this guardrail; an observed difference below the margin alone does not
+establish support.
 
 \hypertarget{e4-tests-the-first-requirement-exploratory.}{%
 \paragraph{E4 (tests the first requirement;
@@ -3422,26 +3424,28 @@ under the prespecified joint procedure. Because \(D\) uses absolute
 values, it is not smooth where \(q_1=r\), which is where C1 succeeds.
 Standard delta-method and bootstrap intervals can miss their stated
 coverage there, and the observed \(|q_1-r|\) tends to overstate C1's
-error. Name the interval method before any data are examined, for
-example a paired bootstrap that resamples randomization units within
-truth-review strata, and size part (b) by simulating that same method.
-The simulation, with known outcomes and the platform's channel windows
-and decision rates, also checks that \(D\) can be zero or negative under
-this design, so that a pass is not guaranteed by construction. \(D\) is
-also reported on the items where the pass comparator and C1 disagree,
-and against the platform's current rule. This endpoint measures
-agreement with that reference. Statistical bias instead concerns an
-expected estimate minus an identified target over a specified sampling
-process and is not estimated merely by this realized comparison.
-Reported but not counted as support: (a) the share of each comparator's
-negatives that C1 classes as closed, delayed, changed in meaning,
-immature or without a defined window. Items whose channel state is
-unknown are excluded from that share and reported separately as a
-coverage shortfall, with, by channel, the share of affected items whose
-channel state, clock start and window can be determined rather than
-recorded as unknown. Also reported: the reports that later arrive on
-each comparator's negatives, and the change in an existing control's
-measured error rates and in the ranking of two candidate rules.
+error. Name the interval method before any data are examined, and show
+by simulation that it reaches its stated coverage where \(q_1=r\) and
+where \(D=0\). A paired bootstrap that resamples randomization units
+within truth-review strata is a candidate only if it passes that check.
+Size part (b) by simulating the same method. The simulation, with known
+outcomes and the platform's channel windows and decision rates, also
+checks that \(D\) can be zero or negative under this design, so that a
+pass is not guaranteed by construction. \(D\) is also reported on the
+items where the pass comparator and C1 disagree, and against the
+platform's current rule. This endpoint measures agreement with that
+reference. Statistical bias instead concerns an expected estimate minus
+an identified target over a specified sampling process and is not
+estimated merely by this realized comparison. Reported but not counted
+as support: (a) the share of each comparator's negatives that C1 classes
+as closed, delayed, changed in meaning, immature or without a defined
+window. Items whose channel state is unknown are excluded from that
+share and reported separately as a coverage shortfall, with, by channel,
+the share of affected items whose channel state, clock start and window
+can be determined rather than recorded as unknown. Also reported: the
+reports that later arrive on each comparator's negatives, and the change
+in an existing control's measured error rates and in the ranking of two
+candidate rules.
 
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
 reduction in reference error is at or below the negligible reduction, a
@@ -3485,8 +3489,10 @@ without and with the records, grouped by requirement, with the controls
 and participants who had read Section 8 reported separately. It reports
 counts only, and negative results as prominently as positive ones. Part
 3 follows Part 2, so a changed answer may reflect the reveal rather than
-the record. No published figure or quote shows which organization lacks
-a record or signal.
+the record. No added record bears on the three controls, so their counts
+show how often an answer changes on a second reading alone, and each
+requirement's counts are read beside them. No published figure or quote
+shows which organization lacks a record or signal.
 
 The study has no institutional sponsor or funding. It follows ACM's
 policy on research involving human participants: adults only, recorded
