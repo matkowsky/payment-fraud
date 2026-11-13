@@ -145,9 +145,11 @@ e9_pct, e9_parts = e9_at_c1['intervals']['percentile'], e9_at_c1['intervals']['p
 assert all(sum(t.values()) == 10000 for cond in (e9_at_c1, e9_at_zero) for t in cond['intervals'].values())
 assert (e9_pct['covered'], e9_pct['upper_below_truth'], e9_pct['lower_above_truth']) == (8703, 1292, 5)
 assert (e9_at_zero['intervals']['percentile']['covered'], e9_parts['covered'], e9_at_zero['intervals']['parts']['covered']) == (9494, 9696, 9765)
+assert e9_at_zero['intervals']['percentile']['lower_above_truth'] == 191
 for e9_text in ('draws 10,000 samples of 1,000 attempts', 'from 999 resamples of the attempts', 'it contains $D$ in 8,703 samples',
                 'It lies wholly below $D$ in 1,292 and wholly above in 5, and the estimate of $D$ averages 0.006 too low',
-                'in 5 samples where the stated level allows 250', 'it contains $D$ in 9,494 samples',
+                'it contains $D$ in 9,494 samples, and its lower bound lies above zero in 191 where the stated level allows 250',
+                'It tests the intervals, not the full pass rule.',
                 'It contains $D$ in 9,696 samples where $r=q_1$ and in 9,765 where $D=0$',
                 'with 60 later chargebacks expected per 1,000 attempts so that $r=q_1=0.300$ and $D=0.060$',
                 'with 30 later chargebacks expected so that $r=0.270$'):
