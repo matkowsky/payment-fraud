@@ -8,6 +8,8 @@ Changed before the first response, 12 November 2026, at the author's direction: 
 
 Changed before the first response, 13 November 2026: the report reads each requirement's counts beside the controls' counts, because an independent review noted that Part 3 always follows Part 2. The form, the questions and the answer key did not change.
 
+Changed before the first response, 13 November 2026: the form opens when the recruitment post goes live, not at the merge, because the merge came two days before the form was ready. A single extension and the scoring of every eligible response are now fixed in advance. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -62,7 +64,9 @@ Both are reported beside the model results, with agreement between them.
 
 ## Timeline
 
-The form opens when this protocol is merged and closes two weeks later. Results go into a new subsection of manuscript Section 9 and into S8.
+The form opens when the author's recruitment post goes live and closes 14 days later. If fewer than six eligible participants who have not read Section 8 or Supplement S6 have answered by then, it stays open once for 14 more days. Every eligible response received before it closes is scored; there is no early stop. Results go into a new subsection of manuscript Section 9 and into S8.
+
+Before opening, the author checked the scorer on one test response. It was deleted from the form and from the form's linked workbook, and it is not data.
 
 ## Scoring correction, 12 November 2026
 
