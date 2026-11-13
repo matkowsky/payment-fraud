@@ -22,5 +22,11 @@ A referee noted that round 1 is in-sample: the rules were revised on the same 15
 
 - `python3 tools/adversarial_cases/run_cases.py --sealed round2/CASES.json round2/RESULTS.md`, with CASES.json the three replies joined in order.
 - Each disagreement between the tester's expectation and the checker is ruled against the paper's text. The author confirms every ruling; a human coder from the practitioner post rechecks them if one is available.
-- Reported: of the cases meant to break a requirement, how many the frozen rules reject, with an exact 95 percent interval; how many pass as new failures and how many as stated limits; and false rejections among the cases meant to be legitimate.
+- Reported, as counts and fractions: of the cases the tester meant to break a requirement, how many the frozen rules reject; of those that pass, how many are new failures and how many fall under stated limits; and, of the cases the tester meant to be legitimate, how many the rulings find falsely rejected.
+- The tester's intent and the ruling on each case are reported separately. A case that is excluded or left unresolved is listed with its reason.
+- No interval is reported. One tester writes the cases in sequence and is asked to vary them, so they are not a random sample from a defined population, and the coverage of a binomial interval would not be established. The results describe this suite of cases.
 - Results go into Supplement S4.4 beside round 1, and the Section 1 sentence on the adversarial test is updated.
+
+## Changes
+
+- 13 November 2026, with no round 2 reply saved or scored: the report no longer promises an exact 95 percent interval. Reason: such an interval assumes independent draws from one population with one rejection rate, and this protocol does not establish that. The report now also keeps the tester's intent apart from the rulings and lists exclusions. The frozen rules, the tester, the prompts, the denominator and the scoring command are unchanged. From an independent review by ChatGPT, relayed by the author.
