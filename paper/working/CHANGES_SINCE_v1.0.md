@@ -57,6 +57,7 @@ Accepted pull requests:
 - [#62](https://github.com/matkowsky/payment-fraud/pull/62) Open with one case; signal and responsibility inventories out of the main text
 - [#63](https://github.com/matkowsky/payment-fraud/pull/63) E9: worked example, population of the comparison, and the sign rule
 - [#64](https://github.com/matkowsky/payment-fraud/pull/64) E9: interval check on the worked example
+- [#65](https://github.com/matkowsky/payment-fraud/pull/65) Practitioner study: open at the recruitment post; one fixed extension
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
