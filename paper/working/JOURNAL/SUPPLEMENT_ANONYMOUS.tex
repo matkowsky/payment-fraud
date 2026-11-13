@@ -3505,24 +3505,26 @@ error. Name the interval method before any data are examined, and show
 by simulation that it reaches its stated coverage where \(q_1=r\) and
 where \(D=0\). A paired bootstrap that resamples randomization units
 within truth-review strata is a candidate only if it passes that check.
-Size part (b) by simulating the same method. The simulation, with known
-outcomes and the platform's channel windows and decision rates, also
-checks that \(D\) can be zero or negative under this design, so that a
-pass is not guaranteed by construction. \(D\) is also reported on the
-items where the pass comparator and C1 disagree, and against the
-platform's current rule. This endpoint measures agreement with that
-reference. Statistical bias instead concerns an expected estimate minus
-an identified target over a specified sampling process and is not
-estimated merely by this realized comparison. Reported but not counted
-as support: (a) the share of each comparator's negatives that C1 classes
-as closed, delayed, changed in meaning, immature or without a defined
-window. Items whose channel state is unknown are excluded from that
-share and reported separately as a coverage shortfall, with, by channel,
-the share of affected items whose channel state, clock start and window
-can be determined rather than recorded as unknown. Also reported: the
-reports that later arrive on each comparator's negatives, and the change
-in an existing control's measured error rates and in the ranking of two
-candidate rules.
+On the worked example below, the percentile interval from a paired
+bootstrap fails it where \(q_1=r\), and an interval built from two
+smooth parts of \(D\) passes it. Size part (b) by simulating the same
+method. The simulation, with known outcomes and the platform's channel
+windows and decision rates, also checks that \(D\) can be zero or
+negative under this design, so that a pass is not guaranteed by
+construction. \(D\) is also reported on the items where the pass
+comparator and C1 disagree, and against the platform's current rule.
+This endpoint measures agreement with that reference. Statistical bias
+instead concerns an expected estimate minus an identified target over a
+specified sampling process and is not estimated merely by this realized
+comparison. Reported but not counted as support: (a) the share of each
+comparator's negatives that C1 classes as closed, delayed, changed in
+meaning, immature or without a defined window. Items whose channel state
+is unknown are excluded from that share and reported separately as a
+coverage shortfall, with, by channel, the share of affected items whose
+channel state, clock start and window can be determined rather than
+recorded as unknown. Also reported: the reports that later arrive on
+each comparator's negatives, and the change in an existing control's
+measured error rates and in the ranking of two candidate rules.
 
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
 reduction in reference error is at or below the negligible reduction, a
@@ -3556,6 +3558,30 @@ negatives instead gives \(q_1=q_0\) and \(D=0\). Counting them as
 positives gives \(q_1=440/1000=0.440\) and, with 40 later chargebacks,
 \(D=0.040-0.160=-0.120\). The example leaves out truth review and
 sampling error.
+
+\textbf{Interval check on the worked example:}
+\href{tools/e9_interval_check.py}{\texttt{tools/e9\_interval\_check.py}}
+draws 10,000 samples of 1,000 attempts at the example's rates. In each
+sample it builds two 95 percent intervals for \(D\) from 999 resamples
+of the attempts (\href{SUPPLEMENT/S7_E9_INTERVAL_CHECK.json}{results}).
+The first is the percentile interval. Where the reference equals C1's
+reading, with 60 later chargebacks expected per 1,000 attempts so that
+\(r=q_1=0.300\) and \(D=0.060\), it contains \(D\) in 8,703 samples. It
+lies wholly below \(D\) in 1,292 and wholly above in 5, and the estimate
+of \(D\) averages 0.006 too low. So it misses its stated coverage where
+C1 succeeds, and it errs by understating C1. Its lower bound exceeds
+\(D\) in 5 samples where the stated level allows 250, so the pass rule
+loses power and gains no false passes. Where \(D=0\), with 30 later
+chargebacks expected so that \(r=0.270\), it contains \(D\) in 9,494
+samples. The second interval uses the smooth parts of \(D\). When
+\(q_1\ge q_0\), \(D=\max(\min(L,W),-W)\) with \(L=2r-q_0-q_1\) and
+\(W=q_1-q_0\). It takes a 97.5 percent percentile interval for each part
+and reports the range of \(D\) over the two. It contains \(D\) in 9,696
+samples where \(r=q_1\) and in 9,765 where \(D=0\). The check assumes
+independent attempts and one sample size, with no truth review, strata
+or clustering. It shows that one method can meet the requirement above
+on this example; it does not replace the simulation on a platform's own
+design.
 
 \FloatBarrier
 
