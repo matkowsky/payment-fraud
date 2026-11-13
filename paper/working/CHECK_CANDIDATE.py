@@ -142,9 +142,13 @@ assert edge['effective_minute'] <= cutoff < edge['known_minute']
 assert not (edge['effective_minute'] <= cutoff and edge['known_minute'] <= cutoff)
 assert 2 < 7 * 24  # two available hours cannot establish seven-day absence
 
-# Relative links resolve, including from directly opened source Markdown.
+# Relative links resolve, including from directly opened source Markdown. With --sources, the documents rebuilt
+# after merge are skipped: a renamed file leaves their links stale until the rebuild.
 checked_links = 0
+GENERATED = {'MANUSCRIPT.md', 'SUPPLEMENT.md', 'CHANGES_SINCE_v1.0.md'}
 for md in [*B.glob('*.md'), *(B / 'SOURCE').glob('*.md')]:
+    if SOURCES_ONLY and md.parent == B and md.name in GENERATED:
+        continue
     for target in re.findall(r'!?\[[^\]]*\]\(([^)]+)\)', md.read_text(encoding='utf-8')):
         if target.startswith(('http://', 'https://', '#', 'mailto:')): continue
         target = target.split('#')[0]

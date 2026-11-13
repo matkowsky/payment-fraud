@@ -15,7 +15,7 @@ Threat model: worst case. A case of tier "agent" changes only DraftOutput record
 
 1. Round 1: the tester gets `PACKET_ROUND1.md` in a temporary chat with memory off, outside any project, with no web access, and returns a JSON array of 5 cases. The tester is then asked twice for 5 more, different in kind, for 15 in all. The first version of the packet asked for 16 cases at once and carried the full JSON schema; the tester's session timed out and returned no cases, so it was replaced before any answer was received.
 2. The cases are saved unchanged and run. Each disagreement is adjudicated against the paper's text: the rules are wrong, or the tester is.
-3. Round 2: the tester gets the round 1 results and writes new cases that adapt to them.
+3. Round 2, held out: a fresh tester gets `PACKET_ROUND2.md` (the revised rules and every stated limit, not the round 1 cases) and writes 15 cases against rules frozen until they are scored. `round2/PLAN.md` fixes the procedure.
 4. Every case and outcome is kept in this folder. Each confirmed miss is either fixed by a rule change or stated as a limit in Supplement S4.4.
 
 ## State after round 1

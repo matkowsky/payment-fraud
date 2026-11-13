@@ -9,7 +9,7 @@ Standard library only; Python 3.12 or later.
 
 Usage: python3 tools/replays/sweeps.py [OUT_DIR]   about three minutes
        python3 tools/replays/sweeps.py --figure      redraw the figure from SUPPLEMENT/S10_REPLAYS/sweep_results.json
-Writes sweep_results.json to OUT_DIR (default SUPPLEMENT/S10_REPLAYS) and FIGURES/FIG5_REPLAY_SWEEPS.svg.
+Writes sweep_results.json to OUT_DIR (default SUPPLEMENT/S10_REPLAYS) and FIGURES/FIG3_REPLAY_SWEEPS.svg.
 """
 import json
 import random
@@ -136,23 +136,25 @@ def panel(x0, title, x_label, series, xlog, xticks, vline=None):
 def figure(res):
     split, rates, awr = res['first_data_split'], res['first_data_rates'], res['allied_wallet']
     g = list(GROUPS)
-    a = panel(14, 'A. Splitting a volume', 'Captures per account a period', [
+    a = panel(40, 'A. Splitting a volume', 'Captures per account a period', [
         ('Account view', [(r['captures_per_account_period'], r['account_view']) for r in split]),
         ('Linked view', [(r['captures_per_account_period'], r['linked_view']) for r in split])],
         True, [(100, '100'), (300, '300'), (1000, '1,000'), (5000, '5,000')])
-    b = panel(350, 'B. Two linked groups', 'Report rate (percent)', [
+    b = panel(376, 'B. Two linked groups', 'Report rate (percent)', [
         ('8 related accounts', [(r['rate'] * 100, r['linked_view']) for r in rates[g[0]]]),
         ('40 legitimate merchants', [(r['rate'] * 100, r['linked_view']) for r in rates[g[1]]])],
         False, [(0, '0'), (1.5, '1.5'), (3, '3'), (4.5, '4.5'), (6, '6')], vline=(1.5, None))
     al, lg = awr['alleged 3.14 percent'], awr['assumed legitimate 0.3 percent']
-    c = panel(686, 'C. Two channels', 'Payments a month', [
+    c = panel(712, 'C. Two channels', 'Payments a month', [
         ('Chargebacks, alleged', [(r['payments_per_month'], r['chargeback_rule']) for r in al]),
         ('Fraud reports, alleged', [(r['payments_per_month'], r['fraud_report_rule']) for r in al]),
         ('Fraud reports, legitimate', [(r['payments_per_month'], r['fraud_report_rule']) for r in lg])],
         True, [(25, '25'), (100, '100'), (1000, '1,000'), (8000, '8,000')])
-    w, h = 1012, TOP + PH + 86 + 2 * 26 + 8
+    w, h = 1038, TOP + PH + 86 + 2 * 26 + 8
+    ylab = (f'<text x="0" y="0" transform="translate(22,{TOP + PH / 2:.1f}) rotate(-90)" text-anchor="middle" '
+            f'font-family="{FONT}" font-size="21" fill="{INK}">Runs flagged</text>')
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}">'
-            f'<rect width="{w}" height="{h}" fill="white" />\n' + '\n'.join(a + b + c) + '\n</svg>\n')
+            f'<rect width="{w}" height="{h}" fill="white" />\n' + '\n'.join([ylab] + a + b + c) + '\n</svg>\n')
 
 
 def main(out_dir):
@@ -162,13 +164,13 @@ def main(out_dir):
            'first_data_split': first_data_split(), 'first_data_rates': first_data_rates(), 'allied_wallet': allied_wallet()}
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / 'sweep_results.json').write_text(json.dumps(res, indent=1) + '\n', encoding='utf-8')
-    (ROOT / 'FIGURES' / 'FIG5_REPLAY_SWEEPS.svg').write_text(figure(res), encoding='utf-8')
+    (ROOT / 'FIGURES' / 'FIG3_REPLAY_SWEEPS.svg').write_text(figure(res), encoding='utf-8')
     print(json.dumps({'points': len(SPLIT_VOLUMES) + len(RATES) * len(GROUPS) + len(AW_VOLUMES) * len(AW_RATES)}))
 
 
 if __name__ == '__main__':
     if sys.argv[1:2] == ['--figure']:   # redraw the figure from saved results
         res = json.loads((ROOT / 'SUPPLEMENT' / 'S10_REPLAYS' / 'sweep_results.json').read_text(encoding='utf-8'))
-        (ROOT / 'FIGURES' / 'FIG5_REPLAY_SWEEPS.svg').write_text(figure(res), encoding='utf-8')
+        (ROOT / 'FIGURES' / 'FIG3_REPLAY_SWEEPS.svg').write_text(figure(res), encoding='utf-8')
     else:
         main(Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'SUPPLEMENT' / 'S10_REPLAYS')

@@ -1,18 +1,20 @@
 # Practitioner study: the form, item by item
 
-This is the full text of the online form (Supplement S8). It was fixed before the first response; any later change is a new commit with its reason. About 35 minutes; Part 7 is optional.
+This is the full text of the online form (Supplement S8). It was fixed before the first response; any later change is a new commit with its reason. About 35 minutes; Part 7 is optional. Required questions carry the form's asterisk: E0, C0, Part 1 and the case questions in Parts 2 and 3.
 
 ## Consent
 
 This study tests a published specification of the records an AI agent needs to investigate payment abuse under human authority. It asks for your professional judgment on two short hypothetical cases and on what your field records today.
 
-- It takes about 35 minutes. You may skip any question or stop at any time.
+- It takes about 35 minutes. You may stop at any time.
 - The form does not record your name or email. Do not name your employer, and do not share anything confidential or anything that would identify an organization or a person.
 - Answers are reported only in aggregate. A free-text answer is quoted only if you allow it below, and only without identifying detail.
-- Responses are kept until the paper is published in a journal, or for two years, whichever comes first, and then deleted. Aggregated results stay in the paper.
+- Responses are kept until the paper is published in a journal, or for one year, whichever comes first, and then deleted. Aggregated results stay in the paper.
 - You must be 18 or older and have at least two years of experience investigating fraud or abuse, or building systems for it.
 - To be credited by name, email the author separately after you finish. That email is never linked to your answers.
 - Please do not read Section 8 of the paper or Supplement S6 before you finish. The cases come from them.
+
+E0. I confirm that I am 18 or older and have at least two years of experience investigating fraud or abuse, or building systems for it. (Yes / No; No ends the form)
 
 C0. I have read the above and agree to take part. (Yes / No; No ends the form)
 
@@ -80,20 +82,24 @@ The cases are unchanged. These records are now also available. Answer the same q
 
 ### Case A: added records
 
-- The seven-day search's coverage, recorded by the query service, not the analyst: the key's request log reaches back only two hours before publication. The search covered two hours, not seven days. Status: partial.
-- When the system learned each fact: the link between the payout destination and the two other accounts was recorded one day after publication. The attachments themselves predate publication.
-- The compromise check's record: it scored the account at 30 minutes, using only data the system had learned by then.
-- Outcome channels for these payouts: victim reports and incident findings. Neither has a defined reporting window, so "no report yet" never becomes final.
+Each record is shown as the system stores it.
+
+- Coverage of the seven-day search, written by the query service: requested 7 days before publication to now; evaluated 2 hours before publication to now; status partial.
+- Learned times: link of the new payout destination to the two other accounts, effective before publication, learned 1 day after publication.
+- Compromise check: scored 30 minutes after publication; inputs as of 30 minutes after publication.
+- Outcome channels for these payouts: victim report, reporting window none defined; incident finding, reporting window none defined.
 
 A1 to A5 again.
 
 ### Case B: added records
 
-- Report-to-transaction links: two chargebacks recorded at a fifth account, X, concern transactions of account D.
-- The combined measure by account: A 8 percent, B 8 percent, C 2 percent, D 2 percent.
-- The search's coverage, recorded by the query service: one of three account sources was sampled at 10 percent, and the search stopped at its row limit. Status: partial and truncated.
-- Exposure links: both analyst notes were written while the agent's cluster assessment of these accounts was open in the case.
-- The decision record for C's blocked payment: the block closed the chargeback channel for that payment.
+Each record is shown as the system stores it.
+
+- Report-to-transaction links: 2 chargebacks recorded at a fifth account, X, linked to transactions of account D; link verified by transaction identifier.
+- Chargeback-or-alert measure by account, each transaction counted once: A 8 of 100, B 8 of 100, C 2 of 100, D 2 of 100.
+- Coverage of the search for the controlling person, written by the query service: 3 account sources; 1 source sampled at 10 percent; row limit reached; status partial and truncated.
+- Exposure links: analyst note 1 and analyst note 2 each link to the agent's cluster assessment of accounts A to D, open in the case when the note was written.
+- Decision record for C's blocked payment: decision block; effect on the chargeback channel closed.
 
 B1 to B6 again.
 
