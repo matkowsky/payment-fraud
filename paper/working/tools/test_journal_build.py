@@ -71,4 +71,33 @@ try:
         pass
 finally:
     (jb.B / 'SOURCE' / 'anonymize.txt').write_text(orig, encoding='utf-8')
+
+# Anonymous supplement: only the byline and the status line go; a reordered opening is refused.
+manuscript = '# Title\n\nA. Author\n\nCity.\n'
+text, author, status = jb.strip_byline('# Supplement\n\nA. Author\n\n1 January 2026 · Draft\n\nBody text.\n', manuscript)
+assert (text, author, status) == ('# Supplement\n\nBody text.\n', 'A. Author', '1 January 2026 · Draft')
+for bad in ('# Supplement\n\n1 January 2026 · Draft\n\nA. Author\n\nBody text.\n',  # status before byline
+            '# Supplement\n\nA. Author\n\nBody text.\n',                              # no status line
+            '# Supplement\n\nB. Other\n\n1 January 2026 · Draft\n\nBody text.\n'):   # not the manuscript's byline
+    try:
+        jb.strip_byline(bad, manuscript); raise SystemExit('an opening without byline then status line must be refused')
+    except AssertionError:
+        pass
+
+# Any other difference between the two TeX files is reported.
+assert jb.tex_removals('a\n\nb\nc\n', 'a\nB\n') == (['b', 'c'], ['B'])
+
+# The real supplement passes, and one changed word in the anonymous copy fails.
+lines, failed = jb.anonymous_supplement(check_only=True)
+assert not failed, lines
+real_tex = jb.article_tex
+def altered(text, stem, author=None):
+    tex = real_tex(text, stem, author)
+    if author is None: tex.write_text(tex.read_text(encoding='utf-8').replace('chargeback', 'chargebacks', 1), encoding='utf-8')
+    return tex
+jb.article_tex = altered
+try:
+    assert jb.anonymous_supplement(check_only=True)[1], 'a changed word in the anonymous supplement must fail'
+finally:
+    jb.article_tex = real_tex
 print('OK')

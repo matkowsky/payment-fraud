@@ -8,6 +8,9 @@ Copies, both in ACM's large format (acmlarge), which DTRAP uses:
   preprint   [acmlarge,nonacm]            author, acknowledgments and links kept; no ACM copyright block
   anonymous  [acmlarge,review,anonymous]  SOURCE/anonymize.txt removals applied; author hidden; line numbers
 
+The supplement gets an anonymous copy too, in its own layout (the same Pandoc and XeLaTeX settings as
+BUILD.py): JOURNAL/SUPPLEMENT_ANONYMOUS.pdf is the supplement without its byline and status line.
+
 Checks (any failure stops the build):
   1. Text: every heading, paragraph, list item, caption, table cell, image and citation key in each copy
      equals the source, in order, except the removals listed in SOURCE/anonymize.txt.
@@ -16,6 +19,8 @@ Checks (any failure stops the build):
   3. PDF: each paragraph, heading, list item and caption appears in the PDF text, so typesetting dropped
      nothing; every citation resolves.
   4. Anonymous copy: the author's surname and the preprint's DOI appear nowhere in its PDF text or properties.
+  5. Anonymous supplement: its TeX equals the supplement's except for the byline, the status line and the
+     author property; the surname and the DOI appear nowhere in its source, PDF text or properties.
 References: the same data and style as BUILD.py (REFERENCES.json, SOURCE/references.csl).
 Requires Pandoc, XeLaTeX, pdftotext and TeX Live's acmart, libertine, inconsolata and newtx.
 """
@@ -291,13 +296,101 @@ def pdf_check(units, pdf, mode, log, citeproc):
     return missing, total, problems
 
 
+# ---------- Anonymous supplement ----------
+
+# The settings BUILD.py passes to Pandoc for both documents. The full build compares the TeX made here
+# with BUILD.py's SOURCE/supplement.tex, so a difference between the two lists stops the build.
+ARTICLE_LATEX = [
+    '-V', 'documentclass=article', '-V', 'fontsize=11pt', '-V', 'geometry:margin=1in',
+    '-V', 'mainfont=lmroman10-regular.otf',
+    '-V', 'mainfontoptions=BoldFont=lmroman10-bold.otf,ItalicFont=lmroman10-italic.otf,BoldItalicFont=lmroman10-bolditalic.otf',
+    '-V', 'sansfont=lmsans10-regular.otf',
+    '-V', 'sansfontoptions=BoldFont=lmsans10-bold.otf,ItalicFont=lmsans10-oblique.otf,BoldItalicFont=lmsans10-boldoblique.otf',
+    '-V', 'monofont=lmmono10-regular.otf', '-V', 'monofontoptions=ItalicFont=lmmono10-italic.otf,HyphenChar=None',
+    '-V', 'mathfont=latinmodern-math.otf', '-V', 'colorlinks=true', '-V', 'linkcolor=black',
+    '-V', 'urlcolor=blue', '-V', 'linestretch=1']
+
+
+def strip_byline(supplement, manuscript):
+    """The supplement without its byline and status line: (text, author, status).
+
+    The supplement opens with its title, the author's name and a dated status line, each its own
+    paragraph. The name must equal the manuscript's byline, so a reordered opening is refused."""
+    paras = supplement.split('\n\n')
+    author = manuscript.split('\n\n')[1]
+    assert paras[0].startswith('# ') and '\n' not in paras[0], 'the supplement must open with its title'
+    assert paras[1] == author, 'the supplement\'s second paragraph must be the byline'
+    assert ' · ' in paras[2] and '\n' not in paras[2] and not paras[2].endswith('.'), 'the supplement\'s third paragraph must be the status line'
+    return '\n\n'.join(paras[:1] + paras[3:]), author, paras[2]
+
+
+def article_tex(text, stem, author=None):
+    """Pandoc's LaTeX for one document, as BUILD.py makes it; no author property when author is None."""
+    W.mkdir(parents=True, exist_ok=True)
+    title = text.split('\n', 1)[0][2:].strip()
+    tmp = W / (stem + '_input.md')
+    tmp.write_text(re.sub(r'\]\(\.\./', '](', text) + '\n\n## References\n\n::: {#refs}\n:::\n', encoding='utf-8')
+    ast, tex = W / (stem + '.json'), W / (stem + '.tex')
+    run(['pandoc', str(tmp), '-f', 'markdown-implicit_figures', '--citeproc', '--bibliography=REFERENCES.json',
+         '--csl=SOURCE/references.csl', '-M', 'link-citations=true', '-t', 'json', '-o', str(ast)])
+    run(['pandoc', str(ast), '-f', 'json', '-t', 'latex', '--standalone', '--lua-filter=SOURCE/layout.lua',
+         '--include-in-header=SOURCE/header.tex', *ARTICLE_LATEX, '-V', 'title-meta=' + title,
+         *(['-V', 'author-meta=' + author] if author else []), '-o', str(tex)])
+    return tex
+
+
+def tex_removals(public, anonymous):
+    """Lines of the public TeX that the anonymous TeX lacks, and lines it adds. Blank lines are ignored."""
+    diff = list(difflib.ndiff(public.splitlines(), anonymous.splitlines()))
+    return ([l[2:] for l in diff if l.startswith('- ') and l[2:].strip()],
+            [l[2:] for l in diff if l.startswith('+ ') and l[2:].strip()])
+
+
+def anonymous_supplement(check_only):
+    """Build and check the supplement's anonymous copy. Returns (report lines, failed)."""
+    supplement = (B / 'SOURCE' / 'supplement.md').read_text(encoding='utf-8')
+    text, author, status = strip_byline(supplement, (B / 'SOURCE' / 'manuscript.md').read_text(encoding='utf-8'))
+    problems = ['the source still contains ' + f for f in FORBIDDEN if f in norm(text)]
+    public = article_tex(supplement, 'SUPPLEMENT_PUBLIC', author).read_text(encoding='utf-8')
+    tex = article_tex(text, 'SUPPLEMENT_ANONYMOUS')
+    removed, added = tex_removals(public, tex.read_text(encoding='utf-8'))
+    # Pandoc may wrap the status line; compare the removed lines joined, letters and digits only.
+    expected = norm('pdfauthor={' + author + '},' + author + status)
+    if added or norm(''.join(removed)) != expected:
+        problems.append('the anonymous TeX differs from the supplement beyond the byline, status line and author property')
+    report = ['## Anonymous supplement\n',
+              '- Removed: the byline and the status line. The author property is not set.',
+              f'- TeX check: {"pass" if not problems else "FAIL"}. The anonymous TeX equals the supplement\'s except for '
+              f'those {len(removed)} lines; the surname and the preprint DOI are not in its source.']
+    if not check_only:
+        built = B / 'SOURCE' / 'supplement.tex'
+        if built.read_text(encoding='utf-8') != public:
+            problems.append('SOURCE/supplement.tex differs from the TeX made here; BUILD.py and ARTICLE_LATEX disagree, or BUILD.py has not run')
+        for _ in range(2):
+            run(['xelatex', '-interaction=nonstopmode', '-halt-on-error', '-output-directory=' + str(W), str(tex)])
+        pdf = W / 'SUPPLEMENT_ANONYMOUS.pdf'
+        info = run(['pdfinfo', str(pdf)])
+        whole = norm(run(['pdftotext', str(pdf), '-']) + info)
+        found = [f for f in FORBIDDEN if f in whole]
+        problems += ['anonymous supplement PDF contains ' + f for f in found]
+        report.append('- The author\'s surname and the preprint DOI appear nowhere in the PDF text or document properties.'
+                      if not found else '- Identifying text found.')
+        report.append(f'- Pages: {int(re.search(r"Pages:\s+(\d+)", info).group(1))}.')
+        OUT.mkdir(exist_ok=True)
+        shutil.copy2(pdf, OUT / 'SUPPLEMENT_ANONYMOUS.pdf')
+        shutil.copy2(tex, OUT / 'SUPPLEMENT_ANONYMOUS.tex')
+    report += ['  - ' + p for p in problems] + ['']
+    return report, bool(problems)
+
+
 def main():
     check_only = '--check-only' in sys.argv
     src_doc = pandoc_json(source_text())
     report, failed = [], False
     report.append('# Journal-format build check\n')
     report.append('Generated by `JOURNAL_BUILD.py` from `SOURCE/manuscript.md`. Layout files: `SOURCE/acm.lua`, '
-                  '`SOURCE/acm-template.tex`; removals for the anonymous copy: `SOURCE/anonymize.txt`.\n')
+                  '`SOURCE/acm-template.tex`; removals for the anonymous copy: `SOURCE/anonymize.txt`. The anonymous '
+                  'supplement comes from `SOURCE/supplement.md`, in the supplement\'s own layout.\n')
     for mode in ('preprint', 'anonymous'):
         jdoc, units, diff, num_problems, counts, applied, cites = text_check(src_doc, mode)
         ok_text = not diff and not num_problems
@@ -334,6 +427,9 @@ def main():
             shutil.copy2(pdf, OUT / (stem + '.pdf'))
             shutil.copy2(tex, OUT / (stem + '.tex'))
         report.append('')
+    lines, bad = anonymous_supplement(check_only)
+    report += lines
+    failed |= bad
     text = '\n'.join(report) + '\n'
     if check_only:
         print(text)

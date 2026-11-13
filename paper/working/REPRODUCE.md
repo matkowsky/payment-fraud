@@ -67,4 +67,4 @@ Pull-request checks run `python3 CHECK_CANDIDATE.py --sources` and `python3 tool
 
 ## Journal format
 
-`JOURNAL_BUILD.py` builds the manuscript in ACM's journal format, as a preprint and as an anonymous review copy, into `JOURNAL/`, and checks both against the source word for word; `JOURNAL/CHECK_REPORT.md` records the result. `python3 JOURNAL_BUILD.py --check-only` runs the text and numbering checks with Pandoc alone. The full build also needs XeLaTeX, pdftotext and TeX Live's acmart, libertine, inconsolata and newtx, as the post-merge workflow installs them.
+`JOURNAL_BUILD.py` builds the manuscript in ACM's journal format, as a preprint and as an anonymous review copy, into `JOURNAL/`, and checks both against the source word for word; `JOURNAL/CHECK_REPORT.md` records the result. It also builds `JOURNAL/SUPPLEMENT_ANONYMOUS.pdf`, the supplement without its byline and status line, and checks that nothing else differs. `python3 JOURNAL_BUILD.py --check-only` runs the text and numbering checks with Pandoc alone. The full build also needs XeLaTeX, pdftotext and TeX Live's acmart, libertine, inconsolata and newtx, as the post-merge workflow installs them.

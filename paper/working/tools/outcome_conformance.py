@@ -366,6 +366,10 @@ def run_conformance():
     cases = json.loads(INVALID.read_text(encoding='utf-8'))['cases']
     base = check(valid, schema)
     assert not base, ('valid case fails', base)
+    estimated = copy.deepcopy(valid)
+    next(r for r in estimated if r['record_type'] == 'LabelEvent')['amount'] = {
+        'status': 'estimated', 'value_minor': 4999, 'currency': 'USD', 'basis': 'order total; the report states no amount (synthetic)'}
+    assert not check(estimated, schema), 'an estimated amount that names its basis is valid'
     rules = set()
     for case in cases:
         got = {f[0] for f in check(apply_patch(valid, case), schema)}

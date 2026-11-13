@@ -6,6 +6,8 @@ Changed before the first response, 12 November 2026: Part 3's added records now 
 
 Changed before the first response, 12 November 2026, at the author's direction: responses are kept for at most one year instead of two, and the eligibility, consent, Part 1 and case questions are now required, so that every participant answers each case question both before and after the records. Each case question still allows "Cannot tell". Parts 4 to 8 stay optional. The answer key did not change.
 
+Changed before the first response, 13 November 2026: the report reads each requirement's counts beside the controls' counts, because an independent review noted that Part 3 always follows Part 2. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -38,6 +40,7 @@ The study is not run through any institution and has no funding; the author know
 - [score_responses.py](score_responses.py) scores the form's export. It refuses a key whose hash differs, excludes responses without consent or with under two years of experience, and copies no free text except answers whose author allowed quoting, for review before any use. Each question title and grid row in the form starts with its code from the instrument; Part 3 repeats use `A1-R` to `B6-R`, and Part 5's second grid uses `R1-H` to `R5-H`.
 - Each item has one error the records are meant to prevent. For each item, report how many participants made that error in Part 2 and in Part 3, and how many moved from the error to a supported answer.
 - Report items by requirement, controls separately, and participants who had read Section 8 or Supplement S6 separately.
+- Read each requirement's counts beside the controls' counts. No added record bears on the three controls, so they show how often an answer changes on a second reading alone.
 - Report counts only. With six to ten people there is no significance test.
 - Parts 4 to 7: counts per answer. Part 8: themes, with quotes only where permitted.
 - Report negative results as prominently as positive ones: items where the records changed nothing, records the field already keeps, and records rated hard or not feasible.

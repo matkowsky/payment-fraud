@@ -180,7 +180,7 @@
       ]
     },
     "report_amount": {
-      "description": "The report's own amount in minor units, which can differ from the payment's, for example when only part of an order is disputed. Unknown is stated with a reason, never omitted.",
+      "description": "The report's amount in minor units, which can differ from the payment's, for example when only part of an order is disputed. Known means the report itself states the amount. Estimated means the report states none and the platform derived one; an estimate names its basis. Unknown is stated with a reason, never omitted.",
       "oneOf": [
         {
           "type": "object",
@@ -190,6 +190,17 @@
             "status": {"const": "known"},
             "value_minor": {"type": "integer", "minimum": 0},
             "currency": {"type": "string", "pattern": "^[A-Z]{3}$"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "value_minor", "currency", "basis"],
+          "properties": {
+            "status": {"const": "estimated"},
+            "value_minor": {"type": "integer", "minimum": 0},
+            "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+            "basis": {"type": "string", "minLength": 1}
           }
         },
         {

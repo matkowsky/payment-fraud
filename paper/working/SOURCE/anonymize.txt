@@ -4,6 +4,7 @@
 # "status:" removes the dated status line under the byline (its date changes with each rebuild).
 # "block:" removes the paragraph whose text starts with the entry. "text:" removes that exact text.
 # Each entry must match exactly once, or the build fails.
+# The supplement's anonymous copy needs no entry: JOURNAL_BUILD.py removes its byline and status line only.
 status: the dated status line under the byline
 block: Acknowledgments.
 text: These files are published with this preprint (https://doi.org/10.5281/zenodo.23772005), and the working draft and review record are at https://github.com/matkowsky/payment-fraud.
