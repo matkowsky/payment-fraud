@@ -151,7 +151,7 @@ data}\label{supplement-signals-interfaces-and-worked-example-data}}
 
 Jonathan Matkowsky
 
-12 November 2026 · Accepted working draft for version 1.1 · Not
+13 November 2026 · Accepted working draft for version 1.1 · Not
 published · Not peer reviewed
 
 This supplement accompanies the \href{MANUSCRIPT.md}{complete
@@ -549,7 +549,7 @@ outputs, so neither appears among those input signals. Test, replay and
 emulation records are marked when created to distinguish them from
 production activity.
 
-\includegraphics[width=0.86\textwidth,height=\textheight]{FIGURES/FIG2_SIGNAL_CLASSES.pdf}
+\includegraphics[width=0.86\textwidth,height=\textheight]{FIGURES/FIG_S3_1_SIGNAL_CLASSES.pdf}
 
 \end{figure}
 
@@ -869,7 +869,7 @@ the agent attaches the query's coverage, which determines which
 interpretations remain supported. Draft outputs follow review and
 release under manuscript Section 6.4.
 
-\includegraphics[width=0.86\textwidth,height=\textheight]{FIGURES/FIG3_INVESTIGATION.pdf}
+\includegraphics[width=0.86\textwidth,height=\textheight]{FIGURES/FIG_S4_1_INVESTIGATION.pdf}
 
 \end{figure}
 
@@ -2118,12 +2118,13 @@ the limits stated above: a draft that drops its link to a released item
 it read, a complete run that omitted a matching record, a release whose
 scope excludes its own claim, and a release that names a person who did
 not review. The 15 histories are kept as a regression test and the
-package check reruns them. The test assumes a fully compromised agent or
-record writer. No live model was attacked, so it says nothing about how
-often an agent is subverted. Claude wrote the rules and the first
-rulings. The tester and the reviewer of the rulings were separate
-sessions of the same model, and ChatGPT models also assisted with other
-parts of the paper.
+package check reruns them. The rules were revised on these same
+histories, and no held-out round has been run. The test assumes a fully
+compromised agent or record writer. No live model was attacked, so it
+says nothing about how often an agent is subverted. Claude wrote the
+rules and the first rulings. The tester and the reviewer of the rulings
+were separate sessions of the same model, and ChatGPT models also
+assisted with other parts of the paper.
 
 \textbf{Cost.}
 \href{tools/investigation_cost.py}{\texttt{tools/investigation\_cost.py}}
@@ -2909,26 +2910,27 @@ infrastructure.
 \textbf{E9. Do channel states reduce error against a mature holdout
 reference?} Use decisions the platform already logs, with their
 disputes, early fraud warnings, returns and other reports. For a fixed
-cohort, build labels once under the platform's current label rule,
-including its maturity period and its treatment of blocked or reversed
-items, and once under the channel-state and maturity rules (manuscript
-Section 5.3). If the platform has no such rule, use for each rail one
-maturity period equal to that rail's standard window, with blocked
-attempts excluded. Compare the resulting labels, an existing control's
-measured error rates and the ranking of two candidate rules. On
-decisions with a randomized holdout, compare the absolute error of the
-same evaluation quantity under both readings against the holdout
-reference after the longest defined reporting window has closed, with
-report truth reviewed on a random sample. The target is the selected
-metric on matured reported outcomes after sampled truth review. Only the
-reduction in reference error, with joint uncertainty as specified in
-S7.1, counts toward E9's pass rule. This comparison does not by itself
-estimate statistical bias or reveal fraud that was never reported.
-Report, by channel, how often the records determine an affected item's
-channel state, clock start and window rather than recording them as
-unknown. Record and report any rule event that reopens a window during
-follow-up. The motivating theoretical preprint models reporting and
-maturity for one channel
+cohort, build labels under three readings: the strongest reading without
+channel-state records, which uses for each rail one maturity period
+equal to that rail's standard window and excludes blocked attempts; the
+platform's current label rule, including its maturity period and its
+treatment of blocked or reversed items; and the channel-state and
+maturity rules (manuscript Section 5.3). Compare the resulting labels,
+an existing control's measured error rates and the ranking of two
+candidate rules. On decisions with a randomized holdout, compare the
+absolute error of the same evaluation quantity under each reading
+against the holdout reference after the longest defined reporting window
+has closed, with report truth reviewed on a random sample. The target is
+the selected metric on matured reported outcomes after sampled truth
+review. Only the reduction in reference error against the strongest
+reading without channel-state records, with joint uncertainty as
+specified in S7.1, counts toward E9's pass rule. This comparison does
+not by itself estimate statistical bias or reveal fraud that was never
+reported. Report, by channel, how often the records determine an
+affected item's channel state, clock start and window rather than
+recording them as unknown. Record and report any rule event that reopens
+a window during follow-up. The motivating theoretical preprint models
+reporting and maturity for one channel
 {[}\protect\hyperlink{ref-Dhama2026Causal}{33}{]}; E9 asks whether
 recording several channels' states matters on platform data.
 
@@ -2957,15 +2959,34 @@ if it records the change before examining any data. No data have been
 collected, and whoever runs the plan can register it with a time stamp.
 
 C1 and C2 do not need the agent: E1, E3 and E9 test them without one,
-and E9(a) needs only records a platform already holds. Four rules apply
-to all nine. First, each evaluation freezes the information each method
-may use at an as-of cutoff and separates development from test data.
-Second, it states how true outcomes are decided, by whom, and blind to
-which method produced each finding. Its error and abstention rules are
-set in advance, and it states base rates. Third, where ground truth
-comes from labels shaped by control decisions, it says how that bias is
-avoided. Otherwise it reports relative performance among detected cases
-only. Fourth, records from tests, replays and emulations are marked when
+and E9(a) needs only records a platform already holds.
+
+\textbf{A first study within a quarter.} Before or beside E9(a), a
+platform can audit a random sample of closed cases for the three
+failures the requirements target: an absence claim resting on a query
+that was partial, truncated or limited in scope; a missing report read
+as a negative on a channel a decision had closed or whose window had not
+ended; and corroboration whose supporting records trace to one root
+observation or to an earlier conclusion. Two auditors code each case
+independently from the records the case cited and from what the source
+systems held at the time, and record whether the failure would change
+the conclusion. A case the records cannot settle is coded as such, and
+that share is itself a result. The audit reports, for each failure, the
+share of cases in which it occurred and the share in which it changed
+the conclusion, with 95 percent intervals and agreement between
+auditors. With 200 cases, an exact 95 percent interval on any share is
+at most 14.3 points wide. The audit measures how often the targeted
+failures occur; it does not test whether the records prevent them. It
+reviews identifiable staff's work on real case records, so it needs the
+same ethics and privacy review as E1. Four rules apply to all nine.
+First, each evaluation freezes the information each method may use at an
+as-of cutoff and separates development from test data. Second, it states
+how true outcomes are decided, by whom, and blind to which method
+produced each finding. Its error and abstention rules are set in
+advance, and it states base rates. Third, where ground truth comes from
+labels shaped by control decisions, it says how that bias is avoided.
+Otherwise it reports relative performance among detected cases only.
+Fourth, records from tests, replays and emulations are marked when
 created and kept out of production labels and lessons.
 
 Each evaluation is judged separately, without correction for multiple
@@ -3111,9 +3132,10 @@ target, given the expected share of verified report links.
 
 \textbf{Primary measures:} days from the adjudicated onset of evasion to
 the flag, counting a flag on or before the onset as day 0, and false
-flags. The lead time is the difference in restricted mean time to flag,
-account arm minus cluster arm, up to a horizon fixed before any data are
-examined.
+flags. Flags before the onset are also reported separately, because an
+early flag may be unrelated to the evasion. The lead time is the
+difference in restricted mean time to flag, account arm minus cluster
+arm, up to a horizon fixed before any data are examined.
 
 \textbf{Failure criteria:} Fails if the lower bound of the 95 percent
 interval on the lead time, estimated from the paired censored analysis,
@@ -3169,9 +3191,13 @@ and for fraud bursts defined in advance.
 reviewer minutes per correct finding, cost and latency, and the share of
 labels that carry an agent-output link.
 
-\textbf{Failure criteria:} Fails if errors in the agent arm exceed those
-of the human arm or the threshold-rules arm by more than 2 percentage
-points, or reviewer minutes per correct finding are higher. For minutes,
+\textbf{Failure criteria:} Fails if, for either comparator arm, the
+upper 95 percent bound on the paired difference in error rates, agent
+arm minus that arm, is 2 percentage points or more, or reviewer minutes
+per correct finding are higher. At a 10 percent error rate, 700 cases
+worked in two independent arms would give a half-width of about 3.1
+points, so the pairing must remove much of that variance, or E5 needs
+more cases; it is sized by simulation before it starts. For minutes,
 higher means that the 95 percent interval on the agent arm's ratio to
 the human arm lies wholly above one. Avoiding a failure criterion does
 not by itself establish equal error rates or improved efficiency.
@@ -3333,55 +3359,60 @@ a person still releases every draft.
 \paragraph{E9 (tests the first requirement's channel states;
 confirmatory).}\label{e9-tests-the-first-requirements-channel-states-confirmatory.}}
 
-\textbf{Hypothesis:} compared with the platform's current label rule,
-channel-state and maturity records reduce the absolute error of an
-evaluation quantity against a mature holdout reference for the same
-prespecified target.
+\textbf{Hypothesis:} compared with the strongest reading available
+without them, channel-state and maturity records reduce the absolute
+error of an evaluation quantity against a mature holdout reference for
+the same prespecified target.
 
-\textbf{Data and design:} two parts with one comparator. The comparator
-is the platform's current label rule, with its existing maturity period
-and its treatment of blocked or reversed items, recorded before any data
-are examined. If the platform has no such rule, the comparator uses for
-each rail one maturity period equal to that rail's standard window, with
-blocked attempts excluded. (a) Historical reclassification: a fixed
-cohort of payment attempts, payouts and account decisions, with the
-decision logs, disputes, early fraud warnings, returns and other reports
-the platform already holds. Labels are built twice, once under the
-comparator and once under C1, which reads a missing report as a
-provisional negative only where its channel matured open under its
-original meaning. The cohort, channels and read times are recorded
-before any data are examined. (b) Error against a randomized holdout
-reference: decisions where the platform already randomizes traffic under
-its own authorization, as in E2. At operational read times, an
-evaluation quantity that the platform computes today, such as a
-detection's precision or a control's false-positive rate, is computed
-under both readings. Before any data are examined, the plan states how
-items that either rule leaves unlabeled enter the quantity, whether
+\textbf{Data and design:} two parts with two comparators, both recorded
+before any data are examined. The pass comparator is the strongest
+reading available without channel-state records: for each rail, one
+maturity period equal to that rail's standard window, with blocked
+attempts excluded. Comparing with this reading, not only with the
+platform's current rule, keeps a pass from merely reflecting a short
+maturity period. The platform's current label rule, with its existing
+maturity period and its treatment of blocked or reversed items, is the
+second comparator; it is reported but does not count. (a) Historical
+reclassification: a fixed cohort of payment attempts, payouts and
+account decisions, with the decision logs, disputes, early fraud
+warnings, returns and other reports the platform already holds. Labels
+are built under each comparator and under C1, which reads a missing
+report as a provisional negative only where its channel matured open
+under its original meaning. The cohort, channels and read times are
+recorded before any data are examined. (b) Error against a randomized
+holdout reference: decisions where the platform already randomizes
+traffic under its own authorization, as in E2. At operational read
+times, an evaluation quantity that the platform computes today, such as
+a detection's precision or a control's false-positive rate, is computed
+under each reading. Before any data are examined, the plan states how
+items that any reading leaves unlabeled enter the quantity, whether
 excluded, bounded or estimated under a stated delay model, and how
 channels without a defined reporting window enter the holdout
 comparison. \(D\) is also reported under each other handling: exclusion,
 the stated delay model, and bounding with every unlabeled item counted
 first as a positive and then as a negative. The quantity, its
 population, denominator and read times, and the method applied to
-unlabeled items are the same under both readings, so that the comparison
-tests the records rather than a change of estimator. Each reading is
-compared with a reference for the same quantity and target population
-constructed from the holdout after the longest defined reporting window
-has closed, with report truth reviewed on a random sample. The target is
-the selected metric on matured reported outcomes after that sampled
-truth review. Prespecify how the truth-review sample contributes to the
-reference and its uncertainty. Checking reports does not reveal fraud
-that was never reported; a target of underlying fraud would require a
-separate ascertainment and identification design. Prespecify a joint
-uncertainty procedure for the two readings and the reference that
-preserves pairing, randomization, truth-review sampling and relevant
-clustering. Rule events that reopen a window during follow-up are
-recorded and reported. The main study will be sized for 93 percent power
-for part (b), which carries the pass rule, under stated effect
-assumptions.
+unlabeled items are the same under every reading, so that the comparison
+tests the records rather than a change of estimator. How the reference
+treats items whose channel a decision closed or changed in meaning is
+fixed before any data are examined and uses no reading's labels. Each
+reading is compared with a reference for the same quantity and target
+population constructed from the holdout after the longest defined
+reporting window has closed, with report truth reviewed on a random
+sample. The target is the selected metric on matured reported outcomes
+after that sampled truth review. Prespecify how the truth-review sample
+contributes to the reference and its uncertainty. Checking reports does
+not reveal fraud that was never reported; a target of underlying fraud
+would require a separate ascertainment and identification design.
+Prespecify a joint uncertainty procedure for the two readings and the
+reference that preserves pairing, randomization, truth-review sampling
+and relevant clustering. Rule events that reopen a window during
+follow-up are recorded and reported. The main study will be sized for 93
+percent power for part (b), which carries the pass rule, under stated
+effect assumptions.
 
 \textbf{Primary measures:} (b) the reduction in absolute error against
-the holdout reference, with its 95 percent interval. For comparator
+the holdout reference, with its 95 percent interval. For pass-comparator
 estimate \(q_0\), C1 estimate \(q_1\) and holdout reference \(r\), the
 reduction is \(D=|q_0-r|-|q_1-r|\); positive values favor C1. The
 interval includes uncertainty in both readings and in the reference
@@ -3392,18 +3423,23 @@ coverage there, and the observed \(|q_1-r|\) tends to overstate C1's
 error. Name the interval method before any data are examined, for
 example a paired bootstrap that resamples randomization units within
 truth-review strata, and size part (b) by simulating that same method.
-This endpoint measures agreement with that reference. Statistical bias
-instead concerns an expected estimate minus an identified target over a
-specified sampling process and is not estimated merely by this realized
-comparison. Reported but not counted as support: (a) the share of the
-comparator's negatives that C1 classes as closed, delayed, changed in
-meaning, immature or without a defined window. Items whose channel state
-is unknown are excluded from that share and reported separately as a
+The simulation, with known outcomes and the platform's channel windows
+and decision rates, also checks that \(D\) can be zero or negative under
+this design, so that a pass is not guaranteed by construction. \(D\) is
+also reported on the items where the pass comparator and C1 disagree,
+and against the platform's current rule. This endpoint measures
+agreement with that reference. Statistical bias instead concerns an
+expected estimate minus an identified target over a specified sampling
+process and is not estimated merely by this realized comparison.
+Reported but not counted as support: (a) the share of each comparator's
+negatives that C1 classes as closed, delayed, changed in meaning,
+immature or without a defined window. Items whose channel state is
+unknown are excluded from that share and reported separately as a
 coverage shortfall, with, by channel, the share of affected items whose
 channel state, clock start and window can be determined rather than
-recorded as unknown. Also reported: the reports that later arrive on the
-comparator's negatives, and the change in an existing control's measured
-error rates and in the ranking of two candidate rules.
+recorded as unknown. Also reported: the reports that later arrive on
+each comparator's negatives, and the change in an existing control's
+measured error rates and in the ranking of two candidate rules.
 
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
 reduction in reference error is at or below the negligible reduction, a
@@ -3453,7 +3489,7 @@ a record or signal.
 The study has no institutional sponsor or funding. It follows ACM's
 policy on research involving human participants: adults only, recorded
 consent, minimal risk, no names, employers or confidential information,
-and deletion of responses at journal publication or after two years. Two
+and deletion of responses at journal publication or after one year. Two
 further volunteers repeat, as human coders, the model's mechanism-link
 check (S3) and its rulings on the adversarial histories (S4.4). No
 responses had been collected at this version.
@@ -4165,7 +4201,10 @@ from 25 to 8,000. At an assumed legitimate 0.3 percent, the fraud-report
 rule flags in 38.8 to 54.4 percent of runs from 25 to 185 payments a
 month, 17.2 percent at 500, 2.8 percent at 1,000 and none from 2,000.
 The swept account is steady for eight months; the replay's three linked
-accounts are not.
+accounts are not. A First Data group whose report rate equals the
+threshold flags only by chance: reports arrive over up to four periods
+while the accounts are active for four, so a period's expected monitored
+ratio is 55 to 97 percent of the report rate.
 
 \textbf{Limits of the records.} Padding sales with self-funded purchases
 is arithmetic, not simulated: with the assumed fees, holding the

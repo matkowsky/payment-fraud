@@ -77,7 +77,7 @@ synthetic records, and no practitioner has reviewed it.
 \keywords{payment fraud, abuse investigation, threat intelligence,
 selective labels, agent memory, provenance, human oversight}
 \maketitle
-12 November 2026 · Accepted working draft for version 1.1 · Not
+13 November 2026 · Accepted working draft for version 1.1 · Not
 published · Not peer reviewed
 
 \hypertarget{introduction}{%
@@ -176,13 +176,14 @@ investigation through a failure of another (Section 8.3).
 Draft schemas, 29 cross-record rules and two checkers make the
 requirements testable, and every rule has a failing case (Supplement
 S4). Fifteen histories written by a second model to test the rules
-exposed eight gaps; the revised rules reject nine of the 13 meant to
-break a requirement, and the other four are stated limits. An inventory
-of 71 signals and an architecture of 24 responsibilities connect the
-requirements to the evidence an investigator checks and to who checks
-it. Two hypothetical investigations show which conclusions survive when
-particular records are missing, and replays of two FTC complaints on
-synthetic records show what the records expose and miss (Section 8).
+exposed eight gaps; after revision on those same histories, the rules
+reject nine of the 13 meant to break a requirement, and the other four
+are stated limits. An inventory of 71 signals and an architecture of 24
+responsibilities connect the requirements to the evidence an
+investigator checks and to who checks it. Two hypothetical
+investigations show which conclusions survive when particular records
+are missing, and replays of two FTC complaints on synthetic records show
+what the records expose and miss (Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
@@ -583,11 +584,11 @@ need not use separate databases:
 \includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{FIGURES/FIG1_LOOP.pdf}
 \Description{Figure 1: Product records, investigation, review, authorized decisions and feedback}
 \caption{\textbf{From product records to protective decisions.} Investigation
-produces drafts. Independent quality review precedes human release in
-the normal path. An authorized human may decide urgent containment
-before review under Section 6.4, without releasing the draft into
-organizational memory. Each resulting control decision records what the
-platform did, not whether the suspected abuse occurred.}
+produces drafts. In the normal path, shown here, independent quality
+review precedes human release. Under Section 6.4, an authorized human
+may also decide urgent containment before review, without releasing the
+draft into organizational memory. Each resulting control decision
+records what the platform did, not whether the suspected abuse occurred.}
 \end{figure}
 
 For example, two accounts using the same device is an observation.
@@ -1258,7 +1259,7 @@ open.
 
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{FIGURES/FIG4_FEEDBACK.pdf}
+\includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{FIGURES/FIG2_FEEDBACK.pdf}
 \Description{Figure 2: Decisions, delayed reports, outcomes made unobservable by controls and false reports}
 \caption{\textbf{How decisions shape later evidence.} Delay concerns report
 arrival; unobservability concerns outcomes a decision prevents; false
@@ -1680,9 +1681,9 @@ claim against its runs took 38 microseconds (Supplement S4.4). These
 figures describe one synthetic file on one machine, not a platform's
 cost. Reviewer time is not measured.
 
-\hypertarget{case-study-two-alleged-patterns-replayed}{%
-\subsection{Case study: two alleged patterns
-replayed}\label{case-study-two-alleged-patterns-replayed}}
+\hypertarget{synthetic-replays-of-two-alleged-patterns}{%
+\subsection{Synthetic replays of two alleged
+patterns}\label{synthetic-replays-of-two-alleged-patterns}}
 
 Two FTC complaints were rebuilt as synthetic outcome records from the
 patterns and rates they allege, with illustrative monitoring rules and
@@ -1707,14 +1708,16 @@ counts, not merely a pooled cohort ratio.
 
 \begin{figure}
 \centering
-\includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{FIGURES/FIG5_REPLAY_SWEEPS.pdf}
+\includegraphics[width=\linewidth,height=0.5\textheight,keepaspectratio]{FIGURES/FIG3_REPLAY_SWEEPS.pdf}
 \Description{Figure 3: Share of runs flagged by each view as volume, report rate and payments a month change}
 \caption{\textbf{Where each view stops flagging.} The share of 500 synthetic runs
 in which a view flags at least once. (A, B) First Data replay: eight
-related accounts, at a 4 percent report rate in A, and 40 merchants
-assumed legitimate; the dotted line is the 1.5 percent ratio. (C) Allied
-Wallet replay: one account at the complaint's mean fraud-report rate of
-3.14 percent or at 0.3 percent. Supplement S10 gives the assumptions.}
+related accounts, at a 4 percent report rate in A and 350 captures each
+in B, and 40 merchants assumed legitimate, at 300 each; the dotted line
+is the 1.5 percent ratio. Any flag of the legitimate merchants is false
+by assumption. (C) Allied Wallet replay: one account at the complaint's
+mean fraud-report rate of 3.14 percent or at 0.3 percent. Supplement S10
+gives the assumptions.}
 \end{figure}
 
 In the first replay, the account view flags only when each account alone
@@ -1731,14 +1734,17 @@ not in its place.
 In the second replay, the chargeback rule needs 100 chargebacks a month.
 With a fifth of reported payments refunded before a dispute, one account
 needs about 4,000 payments a month to reach it; the modeled accounts had
-185 (Figure 3C). Fraud reports counted by value flag in at least 98
-percent of runs at every volume swept, from 25 a month; that rule needs
-the separate fraud-report channel and each report's amount. With no
-count floor, it also flags an account at an assumed legitimate rate of
-0.3 percent in 39 to 54 percent of runs below 200 payments a month, and
-in none from 2,000. Supplement S10 also replays a successor account, a
-switched descriptor, refunds before disputes, traffic moved after
-closures and reports linked only by card number and amount.
+185 (Figure 3C). The complaint says Visa flags fraud reports at either
+\$75,000 a month or 1 percent of sales by value
+{[}\protect\hyperlink{ref-FTC2019Allied}{69}{]}. Counted that way, fraud
+reports flag in at least 98 percent of runs at every volume swept, from
+25 a month; that rule needs the separate fraud-report channel and each
+report's amount. With no count floor, it also flags an account at an
+assumed legitimate rate of 0.3 percent in 39 to 54 percent of runs below
+200 payments a month, and in none from 2,000. Supplement S10 also
+replays a successor account, a switched descriptor, refunds before
+disputes, traffic moved after closures and reports linked only by card
+number and amount.
 
 \hypertarget{evaluating-the-specification}{%
 \section{Evaluating the
@@ -1751,7 +1757,10 @@ criteria}\label{questions-comparisons-and-failure-criteria}}
 The specification is worthwhile only if its added records and safeguards
 improve investigation enough to justify their cost. The evaluation plan
 separates the records from the agent: C1 and C2 do not need one, E1, E3
-and E9 test them without it, and E5 tests the agent's benefit.
+and E9 test them without it, and E5 tests the agent's benefit. A
+platform can start within a quarter with E9(a) and an audit of closed
+cases that measures how often each targeted failure occurs (Supplement
+S7.1).
 
 Supplement S7.1 gives each hypothesis, design, primary measure and
 proposed failure criteria. E1, E3, E8 and E9 are confirmatory; the
@@ -1827,14 +1836,14 @@ work at an acceptable rate; E5 bears on that cost.
 
 \textbf{E9. Channel states:} Do C1's channel states reduce the absolute
 error of evaluation results against a mature holdout reference, compared
-with the platform's current label rule? The target is the selected
-metric on matured reported outcomes after a sampled review of report
-truth, not underlying fraud that may never be reported. Because the
-share of items that C1 reclassifies follows partly from its definitions
-and from the cohort's composition, E9 reports that share but does not
-count it as support; support requires a reduction in reference error
-exceeding the prespecified negligible improvement, with uncertainty
-accounted for.
+with the best reading without them (each rail's standard window, blocked
+attempts excluded)? The target is the selected metric on matured
+reported outcomes after a sampled review of report truth, not underlying
+fraud that may never be reported. E9 reports the share of items that C1
+reclassifies but does not count it as support, because that share
+follows partly from C1's definitions and the cohort; support requires a
+reduction in reference error above the prespecified negligible
+improvement.
 
 Supplement S8 gives a practitioner study, fixed in advance, of whether
 the records change practitioners' conclusions.
@@ -1919,7 +1928,8 @@ covered only by candidates outside the signal map (Supplement S2.2)
 supports the specified distinctions, not priority for their individual
 components.
 
-Evidence strength varies by premise. Dhama's payment models are
+Evidence strength varies by premise. Several of the closest precedents
+in Section 2 are 2026 preprints, and Dhama's payment models are
 theoretical preprints {[}\protect\hyperlink{ref-Dhama2026Causal}{8},
 \protect\hyperlink{ref-Dhama2026Limits}{9}{]}. The general
 selective-label problem has broader support
