@@ -1,0 +1,110 @@
+{
+ "recorded": {
+  "settings": {
+   "attempts": 1000,
+   "replications": 10000,
+   "resamples": 999,
+   "seed": 20261113
+  },
+  "conditions": {
+   "reference_equals_c1": {
+    "lam": 0.06,
+    "truth": {
+     "q0": 0.24,
+     "q1": 0.3,
+     "r": 0.3,
+     "D": 0.06
+    },
+    "mean_estimate_minus_truth": -0.005626,
+    "intervals": {
+     "percentile": {
+      "covered": 8703,
+      "lower_above_truth": 5,
+      "upper_below_truth": 1292
+     },
+     "parts": {
+      "covered": 9696,
+      "lower_above_truth": 2,
+      "upper_below_truth": 302
+     }
+    }
+   },
+   "d_is_zero": {
+    "lam": 0.03,
+    "truth": {
+     "q0": 0.24,
+     "q1": 0.3,
+     "r": 0.27,
+     "D": 0.0
+    },
+    "mean_estimate_minus_truth": 0.000104,
+    "intervals": {
+     "percentile": {
+      "covered": 9494,
+      "lower_above_truth": 191,
+      "upper_below_truth": 315
+     },
+     "parts": {
+      "covered": 9765,
+      "lower_above_truth": 77,
+      "upper_below_truth": 158
+     }
+    }
+   }
+  }
+ },
+ "reduced": {
+  "settings": {
+   "attempts": 1000,
+   "replications": 100,
+   "resamples": 199,
+   "seed": 20261113
+  },
+  "conditions": {
+   "reference_equals_c1": {
+    "lam": 0.06,
+    "truth": {
+     "q0": 0.24,
+     "q1": 0.3,
+     "r": 0.3,
+     "D": 0.06
+    },
+    "mean_estimate_minus_truth": -0.005139,
+    "intervals": {
+     "percentile": {
+      "covered": 84,
+      "lower_above_truth": 0,
+      "upper_below_truth": 16
+     },
+     "parts": {
+      "covered": 97,
+      "lower_above_truth": 0,
+      "upper_below_truth": 3
+     }
+    }
+   },
+   "d_is_zero": {
+    "lam": 0.03,
+    "truth": {
+     "q0": 0.24,
+     "q1": 0.3,
+     "r": 0.27,
+     "D": 0.0
+    },
+    "mean_estimate_minus_truth": 0.002428,
+    "intervals": {
+     "percentile": {
+      "covered": 94,
+      "lower_above_truth": 4,
+      "upper_below_truth": 2
+     },
+     "parts": {
+      "covered": 98,
+      "lower_above_truth": 1,
+      "upper_below_truth": 1
+     }
+    }
+   }
+  }
+ }
+}

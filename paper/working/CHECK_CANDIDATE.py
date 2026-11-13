@@ -130,6 +130,29 @@ for e9_more, e9_d, e9_text in ((40, 0.02, '$r=280/1000=0.280$ and $D=0.040-0.020
 e9_r, e9_neg, e9_pos = 280 / 1000, 240 / 1000, (240 + 200) / 1000
 assert e9_neg == e9_q0 and round(abs(e9_q0 - e9_r) - abs(e9_pos - e9_r), 3) == -0.12
 assert '$q_1=440/1000=0.440$ and, with 40 later chargebacks, $D=0.040-0.160=-0.120$' in sbody
+
+# Supplement S7.1, E9 interval check: the stored results match the tool's settings and the text, and a reduced run
+# of the tool repeats the stored reduced results exactly.
+sys.path.insert(0, str(B / 'tools'))
+import e9_interval_check as e9c  # noqa: E402
+e9c.self_check()
+e9_res = json.loads((B / 'SUPPLEMENT/S7_E9_INTERVAL_CHECK.json').read_text(encoding='utf-8'))
+assert e9_res['recorded']['settings'] == e9c.RECORDED and e9_res['reduced'] == e9c.run(**e9c.REDUCED)
+e9_at_c1, e9_at_zero = (e9_res['recorded']['conditions'][name] for name in ('reference_equals_c1', 'd_is_zero'))
+assert e9_at_c1['truth'] == {'q0': 0.24, 'q1': 0.3, 'r': 0.3, 'D': 0.06} and e9_at_zero['truth'] == {'q0': 0.24, 'q1': 0.3, 'r': 0.27, 'D': 0.0}
+assert (e9_at_c1['lam'], e9_at_zero['lam']) == (0.06, 0.03) and round(-e9_at_c1['mean_estimate_minus_truth'], 3) == 0.006
+e9_pct, e9_parts = e9_at_c1['intervals']['percentile'], e9_at_c1['intervals']['parts']
+assert all(sum(t.values()) == 10000 for cond in (e9_at_c1, e9_at_zero) for t in cond['intervals'].values())
+assert (e9_pct['covered'], e9_pct['upper_below_truth'], e9_pct['lower_above_truth']) == (8703, 1292, 5)
+assert (e9_at_zero['intervals']['percentile']['covered'], e9_parts['covered'], e9_at_zero['intervals']['parts']['covered']) == (9494, 9696, 9765)
+for e9_text in ('draws 10,000 samples of 1,000 attempts', 'from 999 resamples of the attempts', 'it contains $D$ in 8,703 samples',
+                'It lies wholly below $D$ in 1,292 and wholly above in 5, and the estimate of $D$ averages 0.006 too low',
+                'in 5 samples where the stated level allows 250', 'it contains $D$ in 9,494 samples',
+                'It contains $D$ in 9,696 samples where $r=q_1$ and in 9,765 where $D=0$',
+                'with 60 later chargebacks expected per 1,000 attempts so that $r=q_1=0.300$ and $D=0.060$',
+                'with 30 later chargebacks expected so that $r=0.270$'):
+    assert e9_text in sbody, e9_text
+assert 0.025 * 10000 == 250
 assert set(re.findall(r'^#### E(\d) \(', sbody, re.M)) == set(map(str, range(1, 10)))
 n_fe = next(n for n in range(1, 1000) if 1 - 0.05 ** (1 / n) < 0.01)
 assert n_fe == 299 and 'needs at least 299' in sbody and 'at least 150' not in sbody
