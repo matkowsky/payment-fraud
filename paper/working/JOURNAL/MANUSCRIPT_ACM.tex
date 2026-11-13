@@ -83,14 +83,70 @@ published · Not peer reviewed
 \hypertarget{introduction}{%
 \section{Introduction}\label{introduction}}
 
-Consider an investigator examining several storefronts that share
-payment accounts. A low chargeback count could reflect little abuse,
-payments blocked before completion, refunds that prevented disputes, or
-reports recorded under another account. Finding no earlier suspicious
-requests could reflect missing history rather than clean history. An
-earlier intelligence report could suggest where to look, yet add no
-independent evidence. Each possibility calls for a different conclusion
-and a different next step.
+An investigation asks whether a card payment attempt drew a fraud
+chargeback. An AI agent queries the platform's feed of outcome reports
+for the attempt's reporting window, 4 February to 4 June 2026. The query
+covers the whole window and returns nothing. The agent drafts the
+conclusion that no fraud chargeback arrived, citing the query and a
+reading of the chargeback channel that shows its window closed with no
+report. A person releases it into the platform's memory, where later
+investigations can read it. Table 1 removes one group of records at a
+time from this synthetic case.
+
+\begingroup\footnotesize
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
+\caption{\textbf{One conclusion with each group of records removed.}
+Each row is a pair of synthetic histories that the remaining records
+cannot tell apart (Supplement S4.4): the first two on this claim, the
+third on an earlier conclusion in the same history.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Records removed
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What the rest appear to support
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What the removed records can show
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Records removed
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What the rest appear to support
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+What the removed records can show
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+The control decision on the attempt and the state of its chargeback
+channel (C1) & No chargeback arrived, so the absence counts against
+fraud & The platform blocked the attempt, so no chargeback could
+arrive \\
+The query's coverage (C2) & The query returned nothing, so no chargeback
+arrived by the end of the window & The report feed was loaded only to 20
+May, so the query did not cover the end of the window \\
+The release decision (C3) & The conclusion is in memory, so a later
+investigation may use it & No person released it, so it may not be
+reused \\
+\end{longtable}
+
+\endgroup
+
+Each possibility calls for a different conclusion and a different next
+step. The case rests on a short list of records: the control decision on
+the attempt, the state of its chargeback channel and a dated reading of
+that channel (C1); the query run with its coverage (C2); and the draft,
+the release decision and the released item (C3). The broader inventory
+of 71 signals and architecture of 24 responsibilities, which connect the
+requirements to the evidence an investigator checks and to who checks
+it, are reference material in Supplement S3 and S4.
 
 The difficulty is not simply connecting more data. The connections must
 preserve what each record can establish. A payment log records activity.
@@ -178,12 +234,10 @@ requirements testable, and every rule has a failing case (Supplement
 S4). Fifteen histories written by a second model to test the rules
 exposed eight gaps; after revision on those same histories, the rules
 reject nine of the 13 meant to break a requirement, and the other four
-are stated limits. An inventory of 71 signals and an architecture of 24
-responsibilities connect the requirements to the evidence an
-investigator checks and to who checks it. Two hypothetical
-investigations show which conclusions survive when particular records
-are missing, and replays of two FTC complaints on synthetic records show
-what the records expose and miss (Section 8).
+are stated limits. Two hypothetical investigations show which
+conclusions survive when particular records are missing, and replays of
+two FTC complaints on synthetic records show what the records expose and
+miss (Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
@@ -193,11 +247,11 @@ evidence and proposes a design. It reports no implementation of the
 architecture and no measurement on platform data; its only experiments
 run the record schemas on synthetic records (Sections 8.4 and 8.5).
 Section 2 establishes its relationship to prior work and Section 3
-explains how it was derived. Sections 4 and 5 answer RQ1, with Table 1
-in Section 6.3 adding the agent's analytical capabilities; Section 6
-answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences
-of the design in two hypothetical investigations, and Section 9 states
-how its value would be tested.
+explains how it was derived. Sections 4 and 5 answer RQ1, with Section
+6.3 and Supplement Table S4.2 adding the agent's analytical
+capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8
+shows the consequences of the design in two hypothetical investigations,
+and Section 9 states how its value would be tested.
 
 \hypertarget{relationship-to-prior-work}{%
 \section{Relationship to prior work}\label{relationship-to-prior-work}}
@@ -435,14 +489,12 @@ synthetic sample. Together they motivate comparing an agent with simpler
 alternatives given the same information.
 
 This paper connects decision-shaped outcomes, query coverage and
-controlled reuse in one payment-investigation specification. The 71
-signals identify candidate records, the 24 responsibilities assign
-investigation and review functions, and the interfaces preserve the
-meaning of what passes between them. The traces show which inferences
-lose support when that context is removed; they establish logical
-consequences within hypothetical cases, not improved detection. The
-focused comparison does not establish uniqueness or exhaustive coverage,
-and operational value depends on the evaluations in Section 9.
+controlled reuse in one payment-investigation specification. The traces
+show which inferences lose support when those records are removed; they
+establish logical consequences within hypothetical cases, not improved
+detection. The focused comparison does not establish uniqueness or
+exhaustive coverage, and operational value depends on the evaluations in
+Section 9.
 
 \hypertarget{deriving-the-specification-from-public-evidence}{%
 \section{Deriving the specification from public
@@ -468,13 +520,9 @@ current priorities, not as evidence of incidents
 paths and each candidate's final disposition; every mapped mechanism
 also has supporting sources beyond postings.
 
-The resulting inventory contains 71 signals in 12 families. Sixty-eight
-connect to 61 mechanisms through 163 links, and three apply across
-mechanisms. Nine links are explicitly inferential; the others use
-sourced premises to motivate record design without validating a
-detector. Each derived feature, a value computed from other records,
-identifies its inputs. Supplement S2 gives the disposition of the other
-38 candidates.
+The resulting inventory, 71 signals in 12 families linked to 61 of the
+99 candidate mechanisms, is in Supplement S3. Supplement S2 gives the
+disposition of the other 38 candidates.
 
 Three published schemas describe the platform's application programming
 interface (API), the interface through which software requests
@@ -514,8 +562,7 @@ decisions}\label{from-product-activity-to-protective-decisions}}
 This section identifies the parties whose activity the records describe,
 the path from records to protective decisions along which meaning must
 be preserved, and the responsibilities that path requires. It begins the
-answer to RQ1, which Section 5 continues and Table 1 in Section 6.3
-completes.
+answer to RQ1, which Section 5 continues and Section 6.3 completes.
 
 \hypertarget{the-platform-and-its-participants}{%
 \subsection{The platform and its
@@ -655,8 +702,8 @@ This section answers the records part of RQ1 in four steps: record
 classes that state what each record can establish (5.1), the abuse
 mechanisms that motivate particular records (5.2), the properties each
 store must preserve (5.3), and what published schemas already supply and
-privacy obligations permit (5.4 and 5.5). Table 1 in Section 6.3 adds
-the capabilities.
+privacy obligations permit (5.4 and 5.5). Section 6.3 adds the
+capabilities.
 
 \hypertarget{separate-observations-from-conclusions}{%
 \subsection{Separate observations from
@@ -728,21 +775,8 @@ feature.
 records}\label{how-abuse-mechanisms-motivate-the-records}}
 
 Each group of abuse mechanisms motivates particular records; Supplement
-S3.1 gives the public evidence for each and its limits. Credential
-exposure is recorded as external knowledge with its location and time,
-apart from validity, attacker possession and misuse, and credential use
-is compared before and after exposure with precise timestamps. Access
-keeps its authentication context, session issuance and later use, and
-the changes made after access; a device or browser fingerprint can
-connect activity but cannot alone establish common control. Payout
-destinations have their own identities and histories: creation, changes,
-first observation, validation and reuse across accounts. Storefronts,
-statement descriptors, account histories and verified ownership records
-are linked, and declared business details keep their source and time for
-comparison with activity. End-customer histories are recorded within a
-business; linking an end customer's identity across businesses requires
-separate authorization, a permitted purpose, privacy oversight and
-supporting evidence.
+S3.1 gives the public evidence for each and its limits. This section
+keeps the records for outcome labels, on which C1 depends.
 
 \hypertarget{labels-need-their-reporting-path}{%
 \subsubsection*{Labels need their reporting
@@ -870,17 +904,14 @@ reveal}\label{what-public-schemas-reveal}}
 This comparison shows how much of a required record a published
 interface already supplies and where the specification goes beyond it.
 It asks whether a proposed observation has at least a partial
-counterpart in a published object, field or event. Of the 71 signals, 32
-have partial counterparts. The question does not apply to 32: 24 derived
-features, seven external-knowledge signals and one provenance signal. A
-keyword search of the three files identified no counterpart for seven,
-including request context, identity-capture session context and several
-agent observations. That absence is bounded by the terms searched.
+counterpart in a published object, field or event. Where the question
+applies, most signals have a partial counterpart, and a keyword search
+of the three published schemas found none for the rest.
 
-Supplement S3 records the classification; S5 provides schema pins,
-hashes, event extracts and exact field locations. These findings
-describe the inspected schemas, not the provider's private telemetry or
-every possible public interface.
+Supplement S3 records the classification and its counts; S5 provides
+schema pins, hashes, event extracts and exact field locations. These
+findings describe the inspected schemas, not the provider's private
+telemetry or every possible public interface.
 
 \hypertarget{privacy-and-operating-constraints}{%
 \subsection{Privacy and operating
@@ -900,9 +931,9 @@ particular deployment.
 
 This section answers RQ2. It follows one investigation from its
 assignment to the release of its outputs, then addresses the inputs that
-could subvert it. Table 1 also completes the answer to RQ1 by listing
-the agent's analytical capabilities with the limit on what each can
-establish.
+could subvert it. Section 6.3 and Supplement Table S4.2 also complete
+the answer to RQ1 by listing the agent's analytical capabilities with
+the limit on what each can establish.
 
 \hypertarget{set-the-question-and-scope}{%
 \subsection{Set the question and
@@ -992,8 +1023,8 @@ from a query's status.
 \subsection{Capabilities and their
 boundaries}\label{capabilities-and-their-boundaries}}
 
-Table 1 lists the agent's permitted capabilities. Every use is scoped,
-limited and logged; none grants operational authority.
+Supplement Table S4.2 lists the agent's permitted capabilities. Every
+use is scoped, limited and logged; none grants operational authority.
 
 Entity links and labels require particular care. The agent retrieves
 each cluster's membership rule and version and tests benign
@@ -1009,73 +1040,6 @@ report times and transaction links before interpreting the absence.
 A detection candidate states the behavior to detect, its inputs and an
 evaluation plan. That plan covers label provenance and how an adversary
 might adapt.
-
-\begingroup\footnotesize
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3400}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
-\caption{\textbf{Permitted capabilities and their evidential limits.}
-Task scope, permissions and resource limits apply
-throughout.}\tabularnewline
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Capability
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Information used
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Boundary
-\end{minipage} \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Capability
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Information used
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Boundary
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Discover sources and schemas & Signal inventory, schemas of data stores,
-and records of counterparts in published API schemas & Finding a source
-does not grant access to it \\
-Run governed queries & Permitted data stores, with scope limits, query
-limits and logging & Conclusions cover only the data and period the
-query examined. A denied query is not by itself evidence about the
-suspected abuse \\
-Match records to entities and follow their links & Links labeled by
-type, known benign reasons for shared identifiers, and versioned
-clusters (computed groups of entities) & Propose relationships for
-assessment. A shared identifier does not by itself show common control.
-A cluster is the output of a computation, not an observed
-relationship \\
-Reconstruct timelines & Credential exposure and later use, session
-issuance and later use, and account changes after access & Events close
-together in time do not prove that one caused the other \\
-Interpret outcome labels & Report provenance, decision gates and links
-from reports to transactions & A missing report does not show that no
-abuse occurred \\
-Generate hypotheses from published catalogs of abuse techniques &
-Mappings to a fixed version of each catalog & Naming a likely technique
-does not show that it was used \\
-Draft hunting and detection candidates & Features, observations and
-outcome labels & A hunting candidate is a proposed search, not a
-finding. Detection candidates must still be validated under detection
-development and threat-model integration (responsibilities 16 and 17) \\
-Recommend product or control changes & What each relevant control
-decision means, restriction options, what happens when a check fails,
-and protective actions & Authorized humans or accountable operational
-systems decide and act \\
-Draft intelligence & Evidence with traceable lineage & Drafts require
-independent quality review and human release \\
-\end{longtable}
-
-\endgroup
 
 \hypertarget{check-the-claims-then-authorize-their-use}{%
 \subsection{Check the claims, then authorize their
@@ -1121,9 +1085,10 @@ fields.
 Independent quality review examines the cited records directly, weighs
 contradicting evidence and alternative explanations, and checks
 attribution and fit to the intended reader. It verifies claims of
-detection validation against engineering evidence; responsibilities 16
-and 17 still perform that validation. Reviewers and checkers are subject
-to the same untrusted-content safeguards as the agent.
+detection validation against engineering evidence; detection development
+and threat-model integration (responsibilities 16 and 17 in Supplement
+S4) still perform that validation. Reviewers and checkers are subject to
+the same untrusted-content safeguards as the agent.
 
 When realistic volume forces reviewers to sample the cited records,
 sampling is tiered by materiality. Claims about named entities are
@@ -1486,8 +1451,8 @@ include changed card-testing methods, aged accounts, banks changed after
 payment disruption, and filtering of recognizable test transactions
 {[}\protect\hyperlink{ref-Thomas2013}{53},
 \protect\hyperlink{ref-Meltzer2025}{73},
-\protect\hyperlink{ref-Tian2018}{74}{]}. Responsibilities 16 and 17 own
-this evaluation.
+\protect\hyperlink{ref-Tian2018}{74}{]}. Responsibilities 16 and 17
+(Supplement S4) own this evaluation.
 
 Test, replay and emulation records are marked when created and excluded
 from production labels, intelligence and lessons unless their evaluation
@@ -1511,7 +1476,8 @@ and are re-tested.
 
 After testing, quality review and human release, a lesson may be reused
 within a defined scope and version. It remains monitored and can be
-withdrawn. This is controlled learning, responsibility 23.
+withdrawn. This is controlled learning (responsibility 23 in Supplement
+S4).
 
 Memory-poisoning and experience-reuse studies show how planted or
 mistaken entries can steer later work
@@ -1634,15 +1600,9 @@ corroboration. \\
 
 \endgroup
 
-Each row of Table 2 isolates one requirement. Supplement S4.4 adds two
-pairs of histories in which two requirements hold and only the third
-shows whether an absence is a negative. In one, a person releases the
-claim that a card attempt drew no chargeback, resting on a complete,
-empty search; only C1's channel state shows that the platform had
-blocked the attempt, so no chargeback could arrive. In the other, the
-same claim cites a reading that shows a matured absence; only C2's
-coverage record shows that the label feed had stalled before the window
-ended.
+Each row of Table 2 isolates one requirement. The first two rows of
+Table 1 are pairs of histories in which two requirements hold and only
+the third shows whether an absence is a negative (Supplement S4.4).
 
 Two rows of Table 2 add explicit hypothetical conditions: Trace A's
 payout is permanently blocked, and Trace B retrieves an earlier

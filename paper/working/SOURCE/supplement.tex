@@ -666,10 +666,14 @@ including limits on transferring evidence from another setting.
 
 The public-counterpart classification asks whether a pinned schema
 contains an object, field or event that supplies part of the required
-observation. Of the 71 signals, 32 have partial counterparts, the
-question does not apply to 32, and none was identified for seven. S5
-gives the exact locators and explains the limits of partial
-counterparts; the inventory records each signal's classification.
+observation. Of the 71 signals, 32 have partial counterparts. The
+question does not apply to 32: 24 derived features, seven
+external-knowledge signals and one provenance signal. A keyword search
+of the three files identified no counterpart for seven, including
+request context, identity-capture session context and several agent
+observations. That absence is bounded by the terms searched. S5 gives
+the exact locators and explains the limits of partial counterparts; the
+inventory records each signal's classification.
 
 Identifier links establish limited relationships. A
 storefront-to-merchant identifier link does not show that a payment
@@ -690,8 +694,23 @@ broader outcome measure requires its own evaluation (Sections 8.2 and
 \subsubsection{S3.1 How abuse mechanisms motivate the
 records}\label{s3.1-how-abuse-mechanisms-motivate-the-records}}
 
-Manuscript Section 5.2 summarizes these mechanisms and keeps the
-outcome-label records. The evidence for the others follows.
+Credential exposure is recorded as external knowledge with its location
+and time, apart from validity, attacker possession and misuse, and
+credential use is compared before and after exposure with precise
+timestamps. Access keeps its authentication context, session issuance
+and later use, and the changes made after access; a device or browser
+fingerprint can connect activity but cannot alone establish common
+control. Payout destinations have their own identities and histories:
+creation, changes, first observation, validation and reuse across
+accounts. Storefronts, statement descriptors, account histories and
+verified ownership records are linked, and declared business details
+keep their source and time for comparison with activity. End-customer
+histories are recorded within a business; linking an end customer's
+identity across businesses requires separate authorization, a permitted
+purpose, privacy oversight and supporting evidence.
+
+Manuscript Section 5.2 keeps the outcome-label records. The evidence for
+the others follows.
 
 \hypertarget{exposure-and-misuse-require-different-evidence}{%
 \paragraph{Exposure and misuse require different
@@ -817,7 +836,10 @@ interfaces}\label{s4.-responsibilities-entities-and-interfaces}}
 
 \suppressfloats[t]
 
-The \href{SUPPLEMENT/S4_FUNCTIONS.csv}{functional responsibilities} file
+The 71 signals identify candidate records, the 24 responsibilities
+assign investigation and review functions, and the interfaces preserve
+the meaning of what passes between them. The
+\href{SUPPLEMENT/S4_FUNCTIONS.csv}{functional responsibilities} file
 defines 24 responsibilities without requiring separate processes or
 databases. Seventeen were derived with payment-specific mechanisms or
 sources in view. One (23) adapts agent-security research, and six (2, 3,
@@ -2146,6 +2168,65 @@ run, and reviewer time is not measured.
 \hypertarget{s4.5-further-safeguards-for-the-investigation-system}{%
 \subsubsection{S4.5 Further safeguards for the investigation
 system}\label{s4.5-further-safeguards-for-the-investigation-system}}
+
+Table S4.2 lists the agent's permitted capabilities (manuscript Section
+6.3).
+
+\begin{table}[tp]
+\textbf{Table S4.2. Permitted capabilities and their evidential limits.}
+Task scope, permissions and resource limits apply throughout.\par\smallskip
+{\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Capability
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Information used
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Boundary
+\end{minipage} \\
+\midrule\noalign{}
+
+Discover sources and schemas & Signal inventory, schemas of data stores,
+and records of counterparts in published API schemas & Finding a source
+does not grant access to it \\
+Run governed queries & Permitted data stores, with scope limits, query
+limits and logging & Conclusions cover only the data and period the
+query examined. A denied query is not by itself evidence about the
+suspected abuse \\
+Match records to entities and follow their links & Links labeled by
+type, known benign reasons for shared identifiers, and versioned
+clusters (computed groups of entities) & Propose relationships for
+assessment. A shared identifier does not by itself show common control.
+A cluster is the output of a computation, not an observed
+relationship \\
+Reconstruct timelines & Credential exposure and later use, session
+issuance and later use, and account changes after access & Events close
+together in time do not prove that one caused the other \\
+Interpret outcome labels & Report provenance, decision gates and links
+from reports to transactions & A missing report does not show that no
+abuse occurred \\
+Generate hypotheses from published catalogs of abuse techniques &
+Mappings to a fixed version of each catalog & Naming a likely technique
+does not show that it was used \\
+Draft hunting and detection candidates & Features, observations and
+outcome labels & A hunting candidate is a proposed search, not a
+finding. Detection candidates must still be validated under detection
+development and threat-model integration (responsibilities 16 and 17) \\
+Recommend product or control changes & What each relevant control
+decision means, restriction options, what happens when a check fails,
+and protective actions & Authorized humans or accountable operational
+systems decide and act \\
+Draft intelligence & Evidence with traceable lineage & Drafts require
+independent quality review and human release \\
+
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
 
 A second attack reaches a person investigating the agent itself, through
 hostile content copied into the ledger. Untrusted status must survive

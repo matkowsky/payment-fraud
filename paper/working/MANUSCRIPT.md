@@ -16,7 +16,17 @@ Draft schemas, 29 cross-record rules and two checkers make the requirements test
 
 ## 1. Introduction
 
-Consider an investigator examining several storefronts that share payment accounts. A low chargeback count could reflect little abuse, payments blocked before completion, refunds that prevented disputes, or reports recorded under another account. Finding no earlier suspicious requests could reflect missing history rather than clean history. An earlier intelligence report could suggest where to look, yet add no independent evidence. Each possibility calls for a different conclusion and a different next step.
+An investigation asks whether a card payment attempt drew a fraud chargeback. An AI agent queries the platform’s feed of outcome reports for the attempt’s reporting window, 4 February to 4 June 2026. The query covers the whole window and returns nothing. The agent drafts the conclusion that no fraud chargeback arrived, citing the query and a reading of the chargeback channel that shows its window closed with no report. A person releases it into the platform’s memory, where later investigations can read it. Table 1 removes one group of records at a time from this synthetic case.
+
+**Table 1. One conclusion with each group of records removed.** Each row is a pair of synthetic histories that the remaining records cannot tell apart (Supplement S4.4): the first two on this claim, the third on an earlier conclusion in the same history.
+
+| Records removed                                                                  | What the rest appear to support                                               | What the removed records can show                                                           |
+|----------------------------------------------------------------------------------|-------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| The control decision on the attempt and the state of its chargeback channel (C1) | No chargeback arrived, so the absence counts against fraud                    | The platform blocked the attempt, so no chargeback could arrive                             |
+| The query’s coverage (C2)                                                        | The query returned nothing, so no chargeback arrived by the end of the window | The report feed was loaded only to 20 May, so the query did not cover the end of the window |
+| The release decision (C3)                                                        | The conclusion is in memory, so a later investigation may use it              | No person released it, so it may not be reused                                              |
+
+Each possibility calls for a different conclusion and a different next step. The case rests on a short list of records: the control decision on the attempt, the state of its chargeback channel and a dated reading of that channel (C1); the query run with its coverage (C2); and the draft, the release decision and the released item (C3). The broader inventory of 71 signals and architecture of 24 responsibilities, which connect the requirements to the evidence an investigator checks and to who checks it, are reference material in Supplement S3 and S4.
 
 The difficulty is not simply connecting more data. The connections must preserve what each record can establish. A payment log records activity. A risk score records a model’s assessment. A control decision records what the platform allowed, blocked or restricted. An outcome label records a reported result, which may arrive late or be wrong. When these distinctions disappear, an investigation can mistake a decision for proof, an unobservable outcome for a benign one, or repeated analysis for corroboration.
 
@@ -42,9 +52,9 @@ The contribution is three requirements on the investigation’s records:
 
 The requirements work together. C1 identifies which outcomes the platform’s decisions left observable. C2 establishes what information an investigation actually examined and could have known. C3 prevents the resulting interpretation from returning as independent support for itself. A record can satisfy one requirement and still mislead an investigation through a failure of another (Section 8.3).
 
-Draft schemas, 29 cross-record rules and two checkers make the requirements testable, and every rule has a failing case (Supplement S4). Fifteen histories written by a second model to test the rules exposed eight gaps; after revision on those same histories, the rules reject nine of the 13 meant to break a requirement, and the other four are stated limits. An inventory of 71 signals and an architecture of 24 responsibilities connect the requirements to the evidence an investigator checks and to who checks it. Two hypothetical investigations show which conclusions survive when particular records are missing, and replays of two FTC complaints on synthetic records show what the records expose and miss (Section 8).
+Draft schemas, 29 cross-record rules and two checkers make the requirements testable, and every rule has a failing case (Supplement S4). Fifteen histories written by a second model to test the rules exposed eight gaps; after revision on those same histories, the rules reject nine of the 13 meant to break a requirement, and the other four are stated limits. Two hypothetical investigations show which conclusions survive when particular records are missing, and replays of two FTC complaints on synthetic records show what the records expose and miss (Section 8).
 
-The intended readers design, audit or evaluate investigation systems. Stripe’s public product pages and documentation supply an illustrative product scope, not a description of its internal systems; the paper calls Stripe the illustrative provider. The paper synthesizes public evidence and proposes a design. It reports no implementation of the architecture and no measurement on platform data; its only experiments run the record schemas on synthetic records (Sections 8.4 and 8.5). Section 2 establishes its relationship to prior work and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1, with Table 1 in Section 6.3 adding the agent’s analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences of the design in two hypothetical investigations, and Section 9 states how its value would be tested.
+The intended readers design, audit or evaluate investigation systems. Stripe’s public product pages and documentation supply an illustrative product scope, not a description of its internal systems; the paper calls Stripe the illustrative provider. The paper synthesizes public evidence and proposes a design. It reports no implementation of the architecture and no measurement on platform data; its only experiments run the record schemas on synthetic records (Sections 8.4 and 8.5). Section 2 establishes its relationship to prior work and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1, with Section 6.3 and Supplement Table S4.2 adding the agent’s analytical capabilities; Section 6 answers RQ2 and Section 7 answers RQ3. Section 8 shows the consequences of the design in two hypothetical investigations, and Section 9 states how its value would be tested.
 
 ## 2. Relationship to prior work
 
@@ -84,7 +94,7 @@ Two runtime-governance designs for financial agents bar context from authorizing
 
 Two payment-agent preprints show why specification and operational benefit must be kept apart. SR-Fraud separates scoring from reflection and tests proposed rules before reuse. On one replay benchmark it reports better detection than its scoring agent alone \[[44](#ref-Tan2026SRFraud)\]; Supplement S9.2 gives its comparisons with classifiers. On 60 balanced synthetic cases that its classifier scored between 0.2 and 0.8, Sharma’s agent was correct in 65.0 percent, below the 71.7 percent from thresholding the same classifier score at 0.5. Six of its eight overrides turned a correct decision into an error \[[45](#ref-Sharma2026AuditableFraud)\]. Neither result establishes general agent performance: one rests on a single non-public replay benchmark, and the other on a small, balanced synthetic sample. Together they motivate comparing an agent with simpler alternatives given the same information.
 
-This paper connects decision-shaped outcomes, query coverage and controlled reuse in one payment-investigation specification. The 71 signals identify candidate records, the 24 responsibilities assign investigation and review functions, and the interfaces preserve the meaning of what passes between them. The traces show which inferences lose support when that context is removed; they establish logical consequences within hypothetical cases, not improved detection. The focused comparison does not establish uniqueness or exhaustive coverage, and operational value depends on the evaluations in Section 9.
+This paper connects decision-shaped outcomes, query coverage and controlled reuse in one payment-investigation specification. The traces show which inferences lose support when those records are removed; they establish logical consequences within hypothetical cases, not improved detection. The focused comparison does not establish uniqueness or exhaustive coverage, and operational value depends on the evaluations in Section 9.
 
 ## 3. Deriving the specification from public evidence
 
@@ -92,7 +102,7 @@ The design starts from documented product capabilities and asks how an adversary
 
 The scope, read on 27 September 2026, contains 88 product and feature entries. A retained mechanism must target a documented capability, serve a plausible adversary goal and have supporting public evidence. Public job postings from the illustrative provider, Stripe, for abuse, risk and machine-learning roles helped prioritize topics as a statement of its current priorities, not as evidence of incidents \[[46](#ref-Stripe2026), [47](#ref-StripeARE2026)\]. Supplement S2 records the 99 candidate mechanisms, how postings set priorities, the nine search paths and each candidate’s final disposition; every mapped mechanism also has supporting sources beyond postings.
 
-The resulting inventory contains 71 signals in 12 families. Sixty-eight connect to 61 mechanisms through 163 links, and three apply across mechanisms. Nine links are explicitly inferential; the others use sourced premises to motivate record design without validating a detector. Each derived feature, a value computed from other records, identifies its inputs. Supplement S2 gives the disposition of the other 38 candidates.
+The resulting inventory, 71 signals in 12 families linked to 61 of the 99 candidate mechanisms, is in Supplement S3. Supplement S2 gives the disposition of the other 38 candidates.
 
 Three published schemas describe the platform’s application programming interface (API), the interface through which software requests operations and receives data. Supplement S5 supplies the object, field or event supporting each match.
 
@@ -104,7 +114,7 @@ The author used Anthropic Claude and OpenAI ChatGPT/Codex in the research. The m
 
 ## 4. From product activity to protective decisions
 
-This section identifies the parties whose activity the records describe, the path from records to protective decisions along which meaning must be preserved, and the responsibilities that path requires. It begins the answer to RQ1, which Section 5 continues and Table 1 in Section 6.3 completes.
+This section identifies the parties whose activity the records describe, the path from records to protective decisions along which meaning must be preserved, and the responsibilities that path requires. It begins the answer to RQ1, which Section 5 continues and Section 6.3 completes.
 
 ### 4.1 The platform and its participants
 
@@ -148,7 +158,7 @@ The investigating agent may query permitted records and prepare intelligence, hu
 
 ## 5. Records an investigator can reason from
 
-This section answers the records part of RQ1 in four steps: record classes that state what each record can establish (5.1), the abuse mechanisms that motivate particular records (5.2), the properties each store must preserve (5.3), and what published schemas already supply and privacy obligations permit (5.4 and 5.5). Table 1 in Section 6.3 adds the capabilities.
+This section answers the records part of RQ1 in four steps: record classes that state what each record can establish (5.1), the abuse mechanisms that motivate particular records (5.2), the properties each store must preserve (5.3), and what published schemas already supply and privacy obligations permit (5.4 and 5.5). Section 6.3 adds the capabilities.
 
 ### 5.1 Separate observations from conclusions
 
@@ -176,7 +186,7 @@ Supplement Table S3.1 organizes the signals by family and class. Supplement S3 d
 
 ### 5.2 How abuse mechanisms motivate the records
 
-Each group of abuse mechanisms motivates particular records; Supplement S3.1 gives the public evidence for each and its limits. Credential exposure is recorded as external knowledge with its location and time, apart from validity, attacker possession and misuse, and credential use is compared before and after exposure with precise timestamps. Access keeps its authentication context, session issuance and later use, and the changes made after access; a device or browser fingerprint can connect activity but cannot alone establish common control. Payout destinations have their own identities and histories: creation, changes, first observation, validation and reuse across accounts. Storefronts, statement descriptors, account histories and verified ownership records are linked, and declared business details keep their source and time for comparison with activity. End-customer histories are recorded within a business; linking an end customer’s identity across businesses requires separate authorization, a permitted purpose, privacy oversight and supporting evidence.
+Each group of abuse mechanisms motivates particular records; Supplement S3.1 gives the public evidence for each and its limits. This section keeps the records for outcome labels, on which C1 depends.
 
 #### Labels need their reporting path
 
@@ -204,9 +214,9 @@ A decision’s reproducible snapshot need not copy the entire store. The system 
 
 ### 5.4 What public schemas reveal
 
-This comparison shows how much of a required record a published interface already supplies and where the specification goes beyond it. It asks whether a proposed observation has at least a partial counterpart in a published object, field or event. Of the 71 signals, 32 have partial counterparts. The question does not apply to 32: 24 derived features, seven external-knowledge signals and one provenance signal. A keyword search of the three files identified no counterpart for seven, including request context, identity-capture session context and several agent observations. That absence is bounded by the terms searched.
+This comparison shows how much of a required record a published interface already supplies and where the specification goes beyond it. It asks whether a proposed observation has at least a partial counterpart in a published object, field or event. Where the question applies, most signals have a partial counterpart, and a keyword search of the three published schemas found none for the rest.
 
-Supplement S3 records the classification; S5 provides schema pins, hashes, event extracts and exact field locations. These findings describe the inspected schemas, not the provider’s private telemetry or every possible public interface.
+Supplement S3 records the classification and its counts; S5 provides schema pins, hashes, event extracts and exact field locations. These findings describe the inspected schemas, not the provider’s private telemetry or every possible public interface.
 
 ### 5.5 Privacy and operating constraints
 
@@ -214,7 +224,7 @@ Privacy and operating obligations constrain the specification; Supplement S4.1 s
 
 ## 6. How the agent investigates
 
-This section answers RQ2. It follows one investigation from its assignment to the release of its outputs, then addresses the inputs that could subvert it. Table 1 also completes the answer to RQ1 by listing the agent’s analytical capabilities with the limit on what each can establish.
+This section answers RQ2. It follows one investigation from its assignment to the release of its outputs, then addresses the inputs that could subvert it. Section 6.3 and Supplement Table S4.2 also complete the answer to RQ1 by listing the agent’s analytical capabilities with the limit on what each can establish.
 
 ### 6.1 Set the question and scope
 
@@ -245,7 +255,7 @@ The rule checker (Section 6.4) and the quality reviewer read the full coverage r
 
 ### 6.3 Capabilities and their boundaries
 
-Table 1 lists the agent’s permitted capabilities. Every use is scoped, limited and logged; none grants operational authority.
+Supplement Table S4.2 lists the agent’s permitted capabilities. Every use is scoped, limited and logged; none grants operational authority.
 
 Entity links and labels require particular care. The agent retrieves each cluster’s membership rule and version and tests benign explanations, including shared proxies \[[33](#ref-Liu2018GEM)\].
 
@@ -253,27 +263,13 @@ Likewise, no chargebacks may mean no abusive completed payments, blocked attempt
 
 A detection candidate states the behavior to detect, its inputs and an evaluation plan. That plan covers label provenance and how an adversary might adapt.
 
-**Table 1. Permitted capabilities and their evidential limits.** Task scope, permissions and resource limits apply throughout.
-
-| Capability                                                      | Information used                                                                                                         | Boundary                                                                                                                                                                                    |
-|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Discover sources and schemas                                    | Signal inventory, schemas of data stores, and records of counterparts in published API schemas                           | Finding a source does not grant access to it                                                                                                                                                |
-| Run governed queries                                            | Permitted data stores, with scope limits, query limits and logging                                                       | Conclusions cover only the data and period the query examined. A denied query is not by itself evidence about the suspected abuse                                                           |
-| Match records to entities and follow their links                | Links labeled by type, known benign reasons for shared identifiers, and versioned clusters (computed groups of entities) | Propose relationships for assessment. A shared identifier does not by itself show common control. A cluster is the output of a computation, not an observed relationship                    |
-| Reconstruct timelines                                           | Credential exposure and later use, session issuance and later use, and account changes after access                      | Events close together in time do not prove that one caused the other                                                                                                                        |
-| Interpret outcome labels                                        | Report provenance, decision gates and links from reports to transactions                                                 | A missing report does not show that no abuse occurred                                                                                                                                       |
-| Generate hypotheses from published catalogs of abuse techniques | Mappings to a fixed version of each catalog                                                                              | Naming a likely technique does not show that it was used                                                                                                                                    |
-| Draft hunting and detection candidates                          | Features, observations and outcome labels                                                                                | A hunting candidate is a proposed search, not a finding. Detection candidates must still be validated under detection development and threat-model integration (responsibilities 16 and 17) |
-| Recommend product or control changes                            | What each relevant control decision means, restriction options, what happens when a check fails, and protective actions  | Authorized humans or accountable operational systems decide and act                                                                                                                         |
-| Draft intelligence                                              | Evidence with traceable lineage                                                                                          | Drafts require independent quality review and human release                                                                                                                                 |
-
 ### 6.4 Check the claims, then authorize their use
 
 A draft separates material claims from context. A claim is material when its falsity would change a recommendation, detection candidate or released statement about named entities. Each material claim cites supporting records with their classes, event intervals and root observations, reached through lineage. It also lists the retrieved records that count against it, and quality review adds any it finds. The checker also identifies every record that the case’s query runs returned within the claim’s scope but that the draft neither cites nor lists against it; Supplement S4 gives how these records are shown and sampled. A claim that something is absent also cites the query runs whose coverage records support it. A claim that states or relies on an outcome that was not reported also cites, for each affected item, the state of each relevant outcome channel at the read time. The absence counts as a negative only where the channel matured with no report under its original meaning, and that negative remains provisional (Section 5.3). Claims about current conduct cite at least one source observation, normalized observation or derived feature whose event interval falls entirely within the task’s current period. A score or control decision from that period does not meet this rule by itself, because it records an assessment or an action, not the conduct. A derived feature that carries an agent-output or released-item link does not meet the rule by itself either; the claim must also cite, for each named entity, a current-period observation among that feature’s inputs.
 
 A checker outside the agent enforces these rules before quality review. It rejects substitution of organizational memory for observations. It counts repeated records of one root observation once. That count is a lower bound: several extractions from one root can add information, but no more than the root holds \[[55](#ref-Bara2026EpistemicSybil)\]. Each supporting record names the process or person that produced it. A record without a producer, or without inputs unless it is a source observation, counts as dependent and adds no root. Distinct roots are not automatically independent: shared sources, producers and common causes still need review. Supplement S4’s draft schema gives the required fields.
 
-Independent quality review examines the cited records directly, weighs contradicting evidence and alternative explanations, and checks attribution and fit to the intended reader. It verifies claims of detection validation against engineering evidence; responsibilities 16 and 17 still perform that validation. Reviewers and checkers are subject to the same untrusted-content safeguards as the agent.
+Independent quality review examines the cited records directly, weighs contradicting evidence and alternative explanations, and checks attribution and fit to the intended reader. It verifies claims of detection validation against engineering evidence; detection development and threat-model integration (responsibilities 16 and 17 in Supplement S4) still perform that validation. Reviewers and checkers are subject to the same untrusted-content safeguards as the agent.
 
 When realistic volume forces reviewers to sample the cited records, sampling is tiered by materiality. Claims about named entities are checked in full, and every draft still requires human release. E8 tests this policy under the planned workload.
 
@@ -379,7 +375,7 @@ Denominators matter as much as percentages: Supplement S1 works through one logi
 
 The specification links a control decision to a correctness review where available and separately to applicable population error estimates. Each estimate retains its version, cohort, outcome window, denominator, uncertainty and scope. Evaluation weighs detection gain against legitimate-user cost. Unknown, not-assessed and failed-open states remain distinct from low risk \[[72](#ref-Stripe2026PAYG)\].
 
-Controls also need retesting as adversaries adapt. Published examples include changed card-testing methods, aged accounts, banks changed after payment disruption, and filtering of recognizable test transactions \[[53](#ref-Thomas2013), [73](#ref-Meltzer2025), [74](#ref-Tian2018)\]. Responsibilities 16 and 17 own this evaluation.
+Controls also need retesting as adversaries adapt. Published examples include changed card-testing methods, aged accounts, banks changed after payment disruption, and filtering of recognizable test transactions \[[53](#ref-Thomas2013), [73](#ref-Meltzer2025), [74](#ref-Tian2018)\]. Responsibilities 16 and 17 (Supplement S4) own this evaluation.
 
 Test, replay and emulation records are marked when created and excluded from production labels, intelligence and lessons unless their evaluation use is explicitly authorized. The mark remains internal so it does not help adversaries identify test traffic.
 
@@ -389,7 +385,7 @@ New evidence may require correcting or retracting released intelligence. The cor
 
 A reusable procedure follows a different path. A productive query, a useful move between related entities, or a recurring benign explanation becomes a proposed lesson. It enters a queue for prioritization and independent tests against counterexamples. Lessons that exonerate expire and are re-tested.
 
-After testing, quality review and human release, a lesson may be reused within a defined scope and version. It remains monitored and can be withdrawn. This is controlled learning, responsibility 23.
+After testing, quality review and human release, a lesson may be reused within a defined scope and version. It remains monitored and can be withdrawn. This is controlled learning (responsibility 23 in Supplement S4).
 
 Memory-poisoning and experience-reuse studies show how planted or mistaken entries can steer later work \[[62](#ref-Dash2026), [75](#ref-Xiong2026MemoryManagement)\]. A validated lesson therefore guides procedure; it is never evidence that the suspected activity occurred in the current case.
 
@@ -421,7 +417,7 @@ A risk assessment and a rejected application identify similar storefronts, and a
 | Which transactions do reports concern? Four cohorts contain 400 transactions, eight with chargebacks; D001 and D002 are recorded at account-X. Two of fourteen alert resolutions overlap. | Recording-account counts show D at 0/100. Adding report flags gives 22/400 and changes the outcome definition. | Transaction links restore D to 2/100 and remove double counting. Chargebacks are 8/400 = 2%; the broader measure is 20/400 = 5%, with A and B at 8/100 and C and D at 2/100. Neither establishes fraud. |
 | Does an earlier released assessment corroborate the cluster finding? It concerns the same descriptor pattern.                                                                             | The conclusion can become apparent independent support for itself.                                             | The assessment supplies a hypothesis or context. It adds no root observation and no independent corroboration.                                                                                          |
 
-Each row of Table 2 isolates one requirement. Supplement S4.4 adds two pairs of histories in which two requirements hold and only the third shows whether an absence is a negative. In one, a person releases the claim that a card attempt drew no chargeback, resting on a complete, empty search; only C1’s channel state shows that the platform had blocked the attempt, so no chargeback could arrive. In the other, the same claim cites a reading that shows a matured absence; only C2’s coverage record shows that the label feed had stalled before the window ended.
+Each row of Table 2 isolates one requirement. The first two rows of Table 1 are pairs of histories in which two requirements hold and only the third shows whether an absence is a negative (Supplement S4.4).
 
 Two rows of Table 2 add explicit hypothetical conditions: Trace A’s payout is permanently blocked, and Trace B retrieves an earlier assessment of the same descriptor pattern. Omission does not force an error; it removes information needed to rule the error out.
 
