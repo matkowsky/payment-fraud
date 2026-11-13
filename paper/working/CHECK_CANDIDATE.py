@@ -184,7 +184,7 @@ for path in [B / MS, B / 'SUPPLEMENT.md', B / 'README.md', B / 'REPRODUCE.md', B
 sys.path.insert(0, str(B / 'tools'))
 from outcome_conformance import run_conformance
 outcome = run_conformance()
-assert outcome == {'valid_records': 27, 'invalid_cases': 23, 'rules_exercised': 15}, outcome
+assert outcome == {'valid_records': 27, 'invalid_cases': 24, 'rules_exercised': 15}, outcome
 # Query-run and release schema (Supplement S4.4): the same test, plus four necessity pairs, and the joint case under
 # XR-01 with its two cross-requirement pairs.
 from investigation_conformance import run_conformance as run_investigation

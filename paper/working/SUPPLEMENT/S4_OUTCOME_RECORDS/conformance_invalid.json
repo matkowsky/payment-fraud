@@ -424,6 +424,20 @@
      "learned_at": "2026-04-15T01:00:00Z"
     }
    ]
+  },
+  {
+   "case_id": "C24",
+   "rule": "SCHEMA",
+   "description": "An estimated amount does not say how it was estimated.",
+   "set_fields": {
+    "LE-1": {
+     "amount": {
+      "status": "estimated",
+      "value_minor": 4999,
+      "currency": "USD"
+     }
+    }
+   }
   }
  ]
 }
