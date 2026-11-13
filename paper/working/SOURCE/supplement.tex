@@ -2978,16 +2978,18 @@ auditors. With 200 cases, an exact 95 percent interval on any share is
 at most 14.3 points wide. The audit measures how often the targeted
 failures occur; it does not test whether the records prevent them. It
 reviews identifiable staff's work on real case records, so it needs the
-same ethics and privacy review as E1. Four rules apply to all nine.
-First, each evaluation freezes the information each method may use at an
-as-of cutoff and separates development from test data. Second, it states
-how true outcomes are decided, by whom, and blind to which method
-produced each finding. Its error and abstention rules are set in
-advance, and it states base rates. Third, where ground truth comes from
-labels shaped by control decisions, it says how that bias is avoided.
-Otherwise it reports relative performance among detected cases only.
-Fourth, records from tests, replays and emulations are marked when
-created and kept out of production labels and lessons.
+same ethics and privacy review as E1.
+
+Four rules apply to all nine evaluations. First, each evaluation freezes
+the information each method may use at an as-of cutoff and separates
+development from test data. Second, it states how true outcomes are
+decided, by whom, and blind to which method produced each finding. Its
+error and abstention rules are set in advance, and it states base rates.
+Third, where ground truth comes from labels shaped by control decisions,
+it says how that bias is avoided. Otherwise it reports relative
+performance among detected cases only. Fourth, records from tests,
+replays and emulations are marked when created and kept out of
+production labels and lessons.
 
 Each evaluation is judged separately, without correction for multiple
 tests, because support requires every confirmatory evaluation to pass.
@@ -4013,12 +4015,12 @@ investigation, with explicit channels, record classes, query responses
 and release rules. The hypothetical traces expose conclusions that fail
 when specified context is removed. E1 to E9 test parts of that context,
 including whether the channel states reduce error against a mature
-holdout reference, compared with a platform's current label rule (E9)
-and, through planted drafts that rest only on released items, the rule
-that a released conclusion adds no independent corroboration (E8;
-manuscript Section 8.3). In S7.1, E5 and E8 measure reviewer time, and
-no test measures the cost of collecting the records (manuscript Section
-9.1). Neither the comparison nor the traces establish that the
+holdout reference, compared with the strongest reading available without
+them (E9) and, through planted drafts that rest only on released items,
+the rule that a released conclusion adds no independent corroboration
+(E8; manuscript Section 8.3). In S7.1, E5 and E8 measure reviewer time,
+and no test measures the cost of collecting the records (manuscript
+Section 9.1). Neither the comparison nor the traces establish that the
 integrated system works in deployment.
 
 \hypertarget{s9.6-further-limits-of-the-evidence}{%

@@ -20,9 +20,15 @@ Accepted pull requests:
 - [#23](https://github.com/matkowsky/payment-fraud/pull/23) Move supporting detail from Sections 5 and 6 to the supplement, word for word
 - [#24](https://github.com/matkowsky/payment-fraud/pull/24) Shorten Section 9.1 to the questions and limits; the supplement holds the test designs
 - [#25](https://github.com/matkowsky/payment-fraud/pull/25) Move bank-debit rail details and three example quantities from Section 7.1 to the supplement
+- [#26](https://github.com/matkowsky/payment-fraud/pull/26) Shorten Section 2 to the closest precedents; wider context moves to Supplement S9
+- [#27](https://github.com/matkowsky/payment-fraud/pull/27) Move Trace B's network-program rules and interval figures to Supplement S6
+- [#28](https://github.com/matkowsky/payment-fraud/pull/28) Journal layout: full-width figures, the template's reference size, compact tables
+- [#29](https://github.com/matkowsky/payment-fraud/pull/29) Move Tables 1 to 3 and Figures 2 and 3 to the supplement; renumber the rest
+- [#30](https://github.com/matkowsky/payment-fraud/pull/30) Section 5.2: summarize the mechanism evidence; the evidence moves to Supplement S3.1
 - [#31](https://github.com/matkowsky/payment-fraud/pull/31) Condense both traces the same way; the narratives move to Supplement S6
 - [#32](https://github.com/matkowsky/payment-fraud/pull/32) Move detail from Sections 4.3, 5.4, 6.4 and 6.5 to the supplement
 - [#33](https://github.com/matkowsky/payment-fraud/pull/33) Move detail from Sections 3, 7 and 10; restore two safeguards beside their rule
+- [#34](https://github.com/matkowsky/payment-fraud/pull/34) Move Table 2 to the supplement; condense Sections 4.1 and 5.5
 - [#35](https://github.com/matkowsky/payment-fraud/pull/35) Acknowledge Humza Akhtar for Section 2.3
 - [#36](https://github.com/matkowsky/payment-fraud/pull/36) Supplement: give three moved passages back their referents
 - [#37](https://github.com/matkowsky/payment-fraud/pull/37) Move four passages from Sections 7.1, 8.3 and 9.2 to the supplement
@@ -33,6 +39,9 @@ Accepted pull requests:
 - [#42](https://github.com/matkowsky/payment-fraud/pull/42) Revise the query-run and release rules after an adversarial test by an outside tester
 - [#43](https://github.com/matkowsky/payment-fraud/pull/43) Supplement S2: put the two PAY-12 sentences back beside PAY-12
 - [#44](https://github.com/matkowsky/payment-fraud/pull/44) Producer field and dependence default, from the author of the cited dependence study
+- [#45](https://github.com/matkowsky/payment-fraud/pull/45) Three fixes found by simulated referees
+- [#46](https://github.com/matkowsky/payment-fraud/pull/46) Practitioner study: protocol, form and answer-key hash, fixed before the first response
+- [#47](https://github.com/matkowsky/payment-fraud/pull/47) Make the evaluation plan runnable
 - [#48](https://github.com/matkowsky/payment-fraud/pull/48) Checker fixes: provenance through inputs; no gap in a matured channel
 - [#49](https://github.com/matkowsky/payment-fraud/pull/49) Practitioner study: scoring script, fixed before the first response
 - [#50](https://github.com/matkowsky/payment-fraud/pull/50) Restructure around C1 to C3: testable artifacts first, claim-to-evidence table
@@ -41,12 +50,14 @@ Accepted pull requests:
 - [#55](https://github.com/matkowsky/payment-fraud/pull/55) Correct supported-to-counted-error scoring
 - [#56](https://github.com/matkowsky/payment-fraud/pull/56) Compare investigation interval endpoints as exact instants
 - [#57](https://github.com/matkowsky/payment-fraud/pull/57) Case study: the FTC replays in the main text, with parameter sweeps
+- [#58](https://github.com/matkowsky/payment-fraud/pull/58) A first study within a quarter: an audit of closed cases
 - [#59](https://github.com/matkowsky/payment-fraud/pull/59) Fixes from the 12 November simulated reviews
+- [#60](https://github.com/matkowsky/payment-fraud/pull/60) Record every merge in STATUS.md; two supplement fixes after \#58 and \#59
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
 | Manuscript | [Markdown](MANUSCRIPT.md), [PDF](MANUSCRIPT.pdf) | 77 | 26 | 29 | 51 |
-| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 58 | 88 | 5 | 51 |
+| Supplement | [Markdown](SUPPLEMENT.md), [PDF](SUPPLEMENT.pdf) | 58 | 89 | 5 | 51 |
 
 ## Manuscript
 
@@ -1381,9 +1392,13 @@ For each question in manuscript Section 9.1, this section proposes a hypothesis,
 
 <ins>C1 and C2 do not need the agent: E1, E3 and E9 test them without one, and E9\(a\) needs only records a platform already holds.</ins>
 
-**Changed, under "S7.1 Pre-specified hypotheses and criteria", by [#47](https://github.com/matkowsky/payment-fraud/pull/47), [#58](https://github.com/matkowsky/payment-fraud/pull/58):**
+**Added, under "S7.1 Pre-specified hypotheses and criteria", by [#47](https://github.com/matkowsky/payment-fraud/pull/47), [#58](https://github.com/matkowsky/payment-fraud/pull/58), [#60](https://github.com/matkowsky/payment-fraud/pull/60):**
 
-<ins>\*\*A first study within a quarter.\*\* Before or beside E9\(a\), a platform can audit a random sample of closed cases for the three failures the requirements target: an absence claim resting on a query that was partial, truncated or limited in scope; a missing report read as a negative on a channel a decision had closed or whose window had not ended; and corroboration whose supporting records trace to one root observation or to an earlier conclusion. Two auditors code each case independently from the records the case cited and from what the source systems held at the time, and record whether the failure would change the conclusion. A case the records cannot settle is coded as such, and that share is itself a result. The audit reports, for each failure, the share of cases in which it occurred and the share in which it changed the conclusion, with 95 percent intervals and agreement between auditors. With 200 cases, an exact 95 percent interval on any share is at most 14.3 points wide. The audit measures how often the targeted failures occur; it does not test whether the records prevent them. It reviews identifiable staff's work on real case records, so it needs the same ethics and privacy review as E1. </ins>Four rules apply to all nine. First, each evaluation freezes the information each method may use at an as-of cutoff and separates development from test data. Second, it states how true outcomes are decided, by whom, and blind to which method produced each finding. Its error and abstention rules are set in advance, and it states base rates. Third, where ground truth comes from labels shaped by control decisions, it says how that bias is avoided. Otherwise it reports relative performance among detected cases only. Fourth, records from tests, replays and emulations are marked when created and kept out of production labels and lessons.
+<ins>\*\*A first study within a quarter.\*\* Before or beside E9\(a\), a platform can audit a random sample of closed cases for the three failures the requirements target: an absence claim resting on a query that was partial, truncated or limited in scope; a missing report read as a negative on a channel a decision had closed or whose window had not ended; and corroboration whose supporting records trace to one root observation or to an earlier conclusion. Two auditors code each case independently from the records the case cited and from what the source systems held at the time, and record whether the failure would change the conclusion. A case the records cannot settle is coded as such, and that share is itself a result. The audit reports, for each failure, the share of cases in which it occurred and the share in which it changed the conclusion, with 95 percent intervals and agreement between auditors. With 200 cases, an exact 95 percent interval on any share is at most 14.3 points wide. The audit measures how often the targeted failures occur; it does not test whether the records prevent them. It reviews identifiable staff's work on real case records, so it needs the same ethics and privacy review as E1.</ins>
+
+**Changed, under "S7.1 Pre-specified hypotheses and criteria", by [#60](https://github.com/matkowsky/payment-fraud/pull/60):**
+
+Four rules apply to all <del>nine.</del><ins>nine evaluations.</ins> First, each evaluation freezes the information each method may use at an as-of cutoff and separates development from test data. Second, it states how true outcomes are decided, by whom, and blind to which method produced each finding. Its error and abstention rules are set in advance, and it states base rates. Third, where ground truth comes from labels shaped by control decisions, it says how that bias is avoided. Otherwise it reports relative performance among detected cases only. Fourth, records from tests, replays and emulations are marked when created and kept out of production labels and lessons.
 
 **Changed, under "S7.1 Pre-specified hypotheses and criteria", by [#3](https://github.com/matkowsky/payment-fraud/pull/3), [#15](https://github.com/matkowsky/payment-fraud/pull/15):**
 
@@ -1525,9 +1540,9 @@ Source ancestry is necessary but not sufficient to establish independent support
 
 Two recent designs bear directly on C3. A data-governance preprint commits no agent-proposed metadata decision before a steward reviews it. It proposes a promotion gate that admits only verified records as precedent, records each promotion and lets a reviewer demote a record, flagging the decisions that relied on <del>it;</del><ins>it.</ins> <del>the</del><ins>It</ins> <del>verified</del><ins>does</ins> <del>precedents</del><ins>not</ins> <del>then</del><ins>say</ins> <del>serve</del><ins>who</ins> <del>as</del><ins>authorizes</ins> <del>evidence</del><ins>promotion</ins> <del>for</del><ins>or</ins> <del>later</del><ins>what</ins> <del>proposals</del><ins>a retrieved precedent may establish</ins> \[67\]. A threat-detection design tags every detection compiled from one of its hypotheses and drops tagged observations at ingest, so its own conclusions cannot re-enter as fresh evidence. It leaves as a residual risk an analyst who writes such an alert into a report that is later ingested, and its reference implementation does not yet exercise the rule \[72\]. C3 keeps released conclusions as context rather than evidence, and its interface-written links cover records a person writes with an agent output open in the case.
 
-**Changed, under "S9.5 Time and coverage", by [#45](https://github.com/matkowsky/payment-fraud/pull/45):**
+**Changed, under "S9.5 Time and coverage", by [#45](https://github.com/matkowsky/payment-fraud/pull/45), [#60](https://github.com/matkowsky/payment-fraud/pull/60):**
 
-Together, these precedents explain why C1 to C3 are a synthesis. The proposed contribution is their joint application to payment-platform investigation, with explicit channels, record classes, query responses and release rules. The hypothetical traces expose conclusions that fail when specified context is removed. E1 to E9 test parts of that context, including whether the channel states reduce <del>bias</del><ins>error</ins> <del>relative</del><ins>against</ins> <del>to</del><ins>a mature holdout reference, compared with</ins> a platform's current label rule \(E9\) and, through planted drafts that rest only on released items, the rule that a released conclusion adds no independent corroboration \(E8; manuscript Section 8.3\). In S7.1, E5 and E8 measure reviewer time, and no test measures the cost of collecting the records \(manuscript Section 9.1\). Neither the comparison nor the traces establish that the integrated system works in deployment.
+Together, these precedents explain why C1 to C3 are a synthesis. The proposed contribution is their joint application to payment-platform investigation, with explicit channels, record classes, query responses and release rules. The hypothetical traces expose conclusions that fail when specified context is removed. E1 to E9 test parts of that context, including whether the channel states reduce <del>bias</del><ins>error</ins> <del>relative to</del><ins>against</ins> a <del>platform's</del><ins>mature</ins> <del>current</del><ins>holdout</ins> <del>label</del><ins>reference,</ins> <del>rule</del><ins>compared with the strongest reading available without them</ins> \(E9\) and, through planted drafts that rest only on released items, the rule that a released conclusion adds no independent corroboration \(E8; manuscript Section 8.3\). In S7.1, E5 and E8 measure reviewer time, and no test measures the cost of collecting the records \(manuscript Section 9.1\). Neither the comparison nor the traces establish that the integrated system works in deployment.
 
 **Added, under "S9.6 Further limits of the evidence", by [#50](https://github.com/matkowsky/payment-fraud/pull/50):**
 
