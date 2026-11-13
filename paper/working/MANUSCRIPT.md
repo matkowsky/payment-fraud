@@ -485,7 +485,7 @@ Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, a
 | The records are cheap to store and check              | Synthetic measurement (8.4)                           | The cost of producing them on a platform                 |
 | Missing context changes conclusions                   | Two hypothetical traces (8.1 to 8.3)                  | How often; the practitioner study (S8) has not run       |
 | The records expose two alleged patterns               | Synthetic replays and sweeps (8.5, S10)               | Detection on real data                                   |
-| The signals and responsibilities cover the mechanisms | The author’s mapping; a model as second rater (3, S3) | Completeness; a human coder is pending                   |
+| The signals and responsibilities cover the mechanisms | The author’s mapping; a model as second rater (3, S3) | Completeness; agreement between human coders             |
 | No source states C1 to C3 together                    | Two searches (2, S9.6)                                | That none exists                                         |
 | C1’s channel fields reflect network rules             | Stripe’s descriptions (7.1)                           | The networks’ own rules; other rails reviewed less fully |
 
