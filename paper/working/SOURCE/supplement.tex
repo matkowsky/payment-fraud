@@ -272,9 +272,9 @@ rate. Neither Fatima's nor Doerfler's aggregate rate establishes whether
 an individual event was decided correctly.
 
 FTC complaints describe allegations, and the stipulated orders do not
-establish those allegations on their merits. Vendor publications support
-attributed descriptions of interfaces or observations, not independent
-evidence of industry-wide effectiveness.
+establish them on their merits. Vendor publications support attributed
+descriptions of interfaces or observations, not independent evidence of
+industry-wide effectiveness.
 
 \FloatBarrier
 
@@ -381,8 +381,8 @@ Meaning
 dedicated & Reviewed as a distinct mechanism \\
 targeted & Received a focused review of its implications for the
 design \\
-covered & Judged covered by existing records rather than retained as a
-separate mapped mechanism \\
+covered & Judged covered by existing records, not retained as a separate
+mapped mechanism \\
 record gap & Reviewed and first judged covered; a second-rater check
 found that no record in the inventory covers it \\
 screened gap & Screened without identified supporting evidence and
@@ -510,8 +510,7 @@ The \href{SUPPLEMENT/S3_SIGNALS.csv}{signal inventory} defines all 71
 signals, with their families, classes, feature inputs, mechanism and
 source IDs, public counterparts, entities, uses and limits. Its
 \texttt{internal\_representation\_status} value, DR for every signal,
-marks a design requirement rather than observed platform
-instrumentation.
+marks a design requirement, not observed platform instrumentation.
 \href{SUPPLEMENT/S3_MECHANISM_SIGNAL_PAIRS.csv}{Mechanism-to-signal
 mappings} contain 163 links: 154 design mappings motivated by evidence
 and nine marked as inferential. These links explain why a record is
@@ -814,13 +813,12 @@ The 71 signals identify candidate records, the 24 responsibilities
 assign investigation and review functions, and the interfaces preserve
 the meaning of what passes between them. The
 \href{SUPPLEMENT/S4_FUNCTIONS.csv}{functional responsibilities} file
-defines 24 responsibilities without requiring separate processes or
-databases. Seventeen were derived with payment-specific mechanisms or
-sources in view. One (23) adapts agent-security research, and six (2, 3,
-4, 13, 21 and 22) come from cyber threat intelligence work. These
-origins describe how the responsibilities were derived, not uniqueness
-to payments. The file's \texttt{class} column marks these three groups
-DI, AGV and INH.
+defines them without requiring separate processes or databases.
+Seventeen were derived with payment-specific mechanisms or sources in
+view. One (23) adapts agent-security research, and six (2, 3, 4, 13, 21
+and 22) come from cyber threat intelligence work. These origins describe
+how the responsibilities were derived, not uniqueness to payments. The
+file's \texttt{class} column marks these three groups DI, AGV and INH.
 
 Responsibilities 16 and 17 cover engineering validation and adaptive
 testing of detections, controls and models. Responsibility 21
@@ -1382,7 +1380,7 @@ channels (S2).
   findings and originating draft.
 \item
   Retain supersession and retraction links, and lineage from every cited
-  observation to its root record. Record every later status record for a
+  observation to its root record. Keep every later status record for a
   released item, such as a monitoring finding, an early expiry, a
   retraction or a withdrawal, with who or what wrote it and when.
 \item
@@ -1603,8 +1601,8 @@ records}\label{outcome-record-schemas}}
 
 The
 \href{SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json}{outcome-record
-schema} defines, in JSON Schema, the fields of the records that the
-first requirement needs. It covers eight record types:
+schema} defines, in JSON Schema, the fields of the records the first
+requirement needs. It covers eight record types:
 
 \begingroup\small
 
@@ -1651,9 +1649,9 @@ explanations \\
 \endgroup
 
 Every record is append-only: a correction is a new record that
-references the earlier one. A time that is not known is recorded as
-unknown, with a reason, and is never left out. The schema checks each
-record on its own. Fourteen rules check records against each other:
+references the earlier one. An unknown time is recorded as unknown, with
+a reason, and never left out. The schema checks each record on its own.
+Fourteen rules check records against each other:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1726,8 +1724,8 @@ checkout identifier. Its 27 records pass. Each of the 24
 cases} changes that history in one way and must fail exactly one check;
 together they exercise the schema check and all fourteen rules.
 \texttt{tools/outcome\_conformance.py} runs the cases using only the
-Python standard library, and \texttt{CHECK\_CANDIDATE.py} runs it as
-well. The same tool checks any records file in this format.
+Python standard library, and \texttt{CHECK\_CANDIDATE.py} also runs it.
+The same tool checks any records file in this format.
 
 Channel names, windows and rule versions in the cases are illustrative,
 not any network's rules. The schema follows the label-store,
@@ -2268,15 +2266,15 @@ C & 2026-09-30.preview & 800 & 329 / 327 & 781 \\
 \href{SUPPLEMENT/S5_EVENT_TYPES.csv}{Event types} lists the types
 declared under \texttt{x-stripeEvent} in each file. Each count includes
 216 thin-event declarations whose names add \texttt{v1.} to a snapshot
-type in the same file. The counts do not also include the older
-\texttt{event.type} list.
-\href{SUPPLEMENT/S5_SIGNAL_LOCATORS.csv}{Signal locators} identifies
-each counterpart's file and location using slash-separated field names
-and list positions. Slashes within endpoint names and media types, such
-as \texttt{application/json}, remain unchanged, so adjacent slashes can
-occur, as in \texttt{/paths//v1/webhook\_endpoints}. The file's
-\texttt{locator} column therefore does not hold standard JSON Pointers,
-which would write each such slash as \texttt{\textasciitilde{}1}.
+type in the same file. The counts exclude the older \texttt{event.type}
+list. \href{SUPPLEMENT/S5_SIGNAL_LOCATORS.csv}{Signal locators}
+identifies each counterpart's file and location using slash-separated
+field names and list positions. Slashes within endpoint names and media
+types, such as \texttt{application/json}, remain unchanged, so adjacent
+slashes can occur, as in \texttt{/paths//v1/webhook\_endpoints}. The
+file's \texttt{locator} column therefore does not hold standard JSON
+Pointers, which would write each such slash as
+\texttt{\textasciitilde{}1}.
 
 The signal-locator file lists only the 32 signals with partial
 counterparts. For the seven with none identified, the classification
@@ -2390,8 +2388,8 @@ The \href{SUPPLEMENT/S6_SYNTHETIC_COHORT.csv}{synthetic cohort} contains
 cohorts. Each cohort fixes one account's transactions using the same
 definition and outcome window. These synthetic rows make the counting
 rules reproducible. They contain no report-arrival dates, so the ratios
-assume that every report on the four cohorts has arrived. They cannot
-show reporting delay.
+assume that every report on the four cohorts has arrived and cannot show
+reporting delay.
 
 \hypertarget{s6.1-trace-a-narrative}{%
 \subsubsection{S6.1 Trace A: narrative}\label{s6.1-trace-a-narrative}}
@@ -2401,17 +2399,17 @@ it enabled account compromise and payout redirection. The trace concerns
 a key not yet revoked, or activity before revocation; existing automatic
 revocation is outside this workflow.
 
-Exposure alone does not establish that a secret is still usable
-{[}\protect\hyperlink{ref-Meli2019}{2}{]}. It also does not show misuse.
-The agent therefore compares earlier requests with those after
-publication. A hypothetical repository record supplies publication time,
-separately from the later scan-detection time. Available earlier
-requests share a cloud-provider region and stable client fingerprint.
+Exposure alone shows neither that a secret is still usable
+{[}\protect\hyperlink{ref-Meli2019}{2}{]} nor misuse. The agent
+therefore compares earlier requests with those after publication. A
+hypothetical repository record supplies publication time, separately
+from the later scan-detection time. Available earlier requests share a
+cloud-provider region and stable client fingerprint.
 
-At nineteen minutes after publication, requests arrive through a
+Nineteen minutes after publication, requests arrive through a
 residential proxy range, using a different fingerprint. They access
-account-profile and configuration endpoints. Minute-scale investigation
-is motivated by the deliberate exposure experiment
+account-profile and configuration endpoints. The deliberate exposure
+experiment motivates minute-scale investigation
 {[}\protect\hyperlink{ref-Gamazo2023}{4}{]}, but developer testing or an
 internal scanner remains a possible explanation.
 
@@ -2470,10 +2468,10 @@ negatives unconfirmed. The recorded decision and channel states
 determine which interpretation is available.
 
 \textbf{The blocked payout in manuscript Table 2 (manuscript Section
-8.3).} For the blocked payout, excluding the case is valid only for a
-rate explicitly restricted to completed transfers. Estimating outcomes
-over all attempted payouts retains it in the target population and must
-address its unobserved outcome.
+8.3).} Excluding the case is valid only for a rate explicitly restricted
+to completed transfers. Estimating outcomes over all attempted payouts
+retains it in the target population and must address its unobserved
+outcome.
 
 \hypertarget{s6.2-trace-b-narrative}{%
 \subsubsection{S6.2 Trace B: narrative}\label{s6.2-trace-b-narrative}}
@@ -2539,22 +2537,22 @@ the affected measure incomplete, rather than justifying an assumed
 attribution. Reports concerning transactions outside the four cohorts
 are excluded.
 
-\textbf{A cohort ratio differs from a network-program ratio.} Stripe's
-monitoring guide describes Mastercard's Excessive Chargeback Program as
-dividing one month's chargebacks by the previous month's captured
-payments and applying a minimum monthly chargeback count. It describes
-Visa's Acquirer Monitoring Program differently: each month, Visa divides
-the previous month's disputes plus early fraud warnings by captured
-payments in that same month, and it also sets thresholds on the count of
-those reports and, in one region, on their total value. The guide says
-both networks assign a report to the month in which they receive it, not
-the month of the original payment. For that Visa program, a transaction
-that appears in both the dispute report and the fraud report counts
-twice, and disputes resolved through pre-dispute products are excluded.
-Visa identifies a monitored account by the static part of its statement
+\textbf{Network program rules as read.} Stripe's monitoring guide
+describes Mastercard's Excessive Chargeback Program as dividing one
+month's chargebacks by the previous month's captured payments and
+applying a minimum monthly chargeback count. It describes Visa's
+Acquirer Monitoring Program differently: each month, Visa divides the
+previous month's disputes plus early fraud warnings by captured payments
+in that same month, and it also sets thresholds on the count of those
+reports and, in one region, on their total value. The guide says both
+networks assign a report to the month in which they receive it, not the
+month of the original payment. For that Visa program, a transaction that
+appears in both the dispute report and the fraud report counts twice,
+and disputes resolved through pre-dispute products are excluded. Visa
+identifies a monitored account by the static part of its statement
 descriptor and its acquiring bank
 {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{21}{]}. The
-guide describes itself as a general guide rather than a comprehensive
+guide describes itself as a general guide, not a comprehensive
 reference, so E3 applies each program as the network's own documentation
 states it (S7.1). Visa's program overview defines the ratio over
 card-not-present VisaNet transactions, with settled transactions as the
@@ -2799,8 +2797,8 @@ Section 7.1).} Three target quantities illustrate the distinction:
 the score, threshold or rule, policy version and alternative-decision
 probabilities where the policy is not deterministic. Human decisions
 also record the decider, case assignment and information shown.
-Comparing human deciders of different leniency additionally requires
-random case assignment for the cited evaluation approach
+Comparing human deciders of different leniency also requires random case
+assignment for the cited evaluation approach
 {[}\protect\hyperlink{ref-Lakkaraju2017Selective}{35}{]}. For delay, an
 evaluation specifies a distribution and period of stability. It assumes
 that, given recorded case attributes and channel, reading time is
@@ -3358,8 +3356,8 @@ the stated delay model, and bounding with every unlabeled item counted
 first as a positive and then as a negative. The quantity, its
 population, denominator and read times, and the method applied to
 unlabeled items are the same under every reading, so that the comparison
-tests the records rather than a change of estimator. In the comparison
-that counts, blocked attempts are outside that population for the pass
+tests the records, not a change of estimator. In the comparison that
+counts, blocked attempts are outside that population for the pass
 comparator, for C1 and for the reference. How the reference treats items
 whose channel a decision closed or changed in meaning is fixed before
 any data are examined and uses no reading's labels. Each reading is
@@ -3401,8 +3399,8 @@ construction. \(D\) is also reported on the items where the pass
 comparator and C1 disagree, and against the platform's current rule.
 This endpoint measures agreement with that reference. Statistical bias
 instead concerns an expected estimate minus an identified target over a
-specified sampling process and is not estimated merely by this realized
-comparison. Reported but not counted as support: (a) the share of each
+specified sampling process; this realized comparison does not estimate
+it. Reported but not counted as support: (a) the share of each
 comparator's negatives that C1 classes as closed, delayed, changed in
 meaning, immature or without a defined window. Items whose channel state
 is unknown are excluded from that share and reported separately as a
@@ -3477,7 +3475,7 @@ response)}\label{s8.-practitioner-study-protocol-fixed-before-the-first-response
 
 \suppressfloats[t]
 
-This study asks whether the records C1 to C3 require change the
+This study asks whether the records that C1 to C3 require change the
 conclusions practitioners draw, how often the failures they target
 occur, and what the field records today. It measures conclusions and
 reported practice, not detection performance. The
@@ -3526,9 +3524,8 @@ Manuscript Section 2 develops the closest precedents for C1 to C3. This
 section places them within research on payment decisions, investigation
 and agent memory. The comparisons concern the cited designs and
 findings, not every capability their systems might support. Table S9.1
-summarizes the nearest precedents for each requirement and what the
-specification adds to them; the subsections that follow give the wider
-context.
+summarizes each requirement's nearest precedents and what the
+specification adds; the subsections give the wider context.
 
 \begin{table}[!b]
 \textbf{Table S9.1. The three requirements and their nearest
@@ -3702,10 +3699,10 @@ alone (manuscript Sections 4.2 and 6.4). Labels, assessments, control
 decisions, detections and threat-knowledge items carry a link to every
 agent output and every released organizational-memory item open in the
 writer's case or session. The labeling, assessment, control, detection
-and threat-knowledge interfaces, rather than the person, write these
-links automatically, so they also cover records a person writes with an
-agent output open in the case. Linked records count as dependent; a
-missing link does not establish independence (manuscript Section 4.2).
+and threat-knowledge interfaces, not the person, write these links
+automatically, so they also cover records a person writes with an agent
+output open in the case. Linked records count as dependent; a missing
+link does not establish independence (manuscript Section 4.2).
 Responsibilities 21 and 22, quality review and human release, are
 inherited from threat-intelligence work (S4). \\
 
@@ -3726,8 +3723,8 @@ partly through manual expert review, and retrained models are evaluated
 on offline data and compared with the old model in blue-green tests
 before deployment {[}\protect\hyperlink{ref-Drapeau2024}{76}{]}. These
 vendor accounts establish publicly described practices in their stated
-settings. They do not independently measure the effectiveness of the
-proposed specification.
+settings. They do not measure the proposed specification's
+effectiveness.
 
 Outcome-aware evaluation also predates this work. Consumer credit met
 the same problem earlier as reject inference: a lender observes
@@ -3743,11 +3740,11 @@ were not taken (Table S9.1)
 {[}\protect\hyperlink{ref-Egg2025AdyenOPE}{48},
 \protect\hyperlink{ref-Tocker2022VirtualControl}{49},
 \protect\hyperlink{ref-Manapat2015Counterfactual}{53}{]}; Adyen's
-evaluation is aimed at authorization rates rather than fraud. A
-payment-processing patent application describes adding a treatment
-result, such as the outcome of an authentication step, to the feedback
-on a transaction, labeling transactions canceled after the treatment as
-canceled, and notes that fraud can be reported up to 100 days later
+evaluation targets authorization rates, not fraud. A payment-processing
+patent application describes adding a treatment result, such as the
+outcome of an authentication step, to the feedback on a transaction,
+labeling transactions canceled after the treatment as canceled, and
+notes that fraud can be reported up to 100 days later
 {[}\protect\hyperlink{ref-Erdbrink2023TreatmentPatent}{77}{]}. These
 approaches motivate retaining the decision and the conditions under
 which its outcome became observable. They do not make an unreported
@@ -3807,10 +3804,10 @@ percentage points higher, without an interval
 PROVSEEK is close to the requirement that a claim remain checkable. Its
 agent cites audit-event identifiers for claims and reports searched-for
 artifacts it did not find
-{[}\protect\hyperlink{ref-Mukherjee2025PROVSEEK}{82}{]}. C2 additionally
+{[}\protect\hyperlink{ref-Mukherjee2025PROVSEEK}{82}{]}. C2 also
 requires a gateway outside the agent to record query coverage. A missing
-artifact then has an explicit search scope, rather than relying on the
-agent's description of what it searched.
+artifact then has a recorded search scope, not just the agent's account
+of what it searched.
 
 \hypertarget{s9.3-permission-to-act-and-authority-to-reuse}{%
 \subsubsection{S9.3 Permission to act and authority to
@@ -3973,7 +3970,7 @@ conclusions cannot re-enter as fresh evidence. It leaves as a residual
 risk an analyst who writes such an alert into a report that is later
 ingested, and its reference implementation does not yet exercise the
 rule {[}\protect\hyperlink{ref-Evron2026AdversaryBrains}{72}{]}. C3
-keeps released conclusions as context rather than evidence, and its
+keeps released conclusions as context, not evidence, and its
 interface-written links cover records a person writes with an agent
 output open in the case.
 

@@ -46,32 +46,32 @@ Abuse of a payment platform can cross products and accounts, and the
 platform's own protective decisions change which outcomes can later be
 observed. A blocked payment cannot produce a chargeback; an incomplete
 search cannot establish absence; a reused conclusion cannot corroborate
-itself. This paper specifies the records an AI agent needs in order to
+itself. This paper specifies the records an AI agent needs to
 investigate such cases under human authority. The specification rests on
 three requirements. First, each outcome record links to the control
 decision that may have shaped it, with separate fields for reporting
 delay, outcomes the decision made unobservable, and false reports.
 Second, a gateway outside the agent records what each query actually
-covered, and every fact retains both the time it happened and the time
-the system learned it. Third, a person must release a conclusion before
-it enters organizational memory for reuse by later investigations; a
-released conclusion serves only as a hypothesis or context, and any
-record that an agent output informed must link back to that output.
+covered, and every fact keeps when it happened and when the system
+learned it. Third, a person must release a conclusion before it enters
+organizational memory for reuse by later investigations; a released
+conclusion serves only as a hypothesis or context, and any record an
+agent output informed links back to that output.
 
 Draft schemas, 29 cross-record rules and two checkers make the
 requirements testable, and adversarial cases written by a second model
 probe the rules. Public sources supply the design premises, and Stripe's
 public product pages and documentation provide an illustrative product
 scope. Two hypothetical investigations show how missing context changes
-the conclusions that the same observations can support, replays of two
-FTC complaints on synthetic records show what the records expose and
-miss, and an evaluation plan proposes tests of evidential quality,
-operational cost and agent benefit. The contribution is a joint
-specification for investigation across payment products, built on
-established methods and recent agent-governance designs. It is a
-synthesis, not a new method. The architecture has not been built, no
-platform data were used, its only experiments run the record schemas on
-synthetic records, and no practitioner has reviewed it.
+what the same observations can support, replays of two FTC complaints on
+synthetic records show what the records expose and miss, and an
+evaluation plan proposes tests of evidential quality, operational cost
+and agent benefit. The contribution is a joint specification for
+investigation across payment products, built on established methods and
+recent agent-governance designs. It is a synthesis, not a new method.
+The architecture has not been built, no platform data were used, its
+only experiments run the record schemas on synthetic records, and no
+practitioner has reviewed it.
 \end{abstract}
 \keywords{payment fraud, abuse investigation, threat intelligence,
 selective labels, agent memory, provenance, human oversight}
@@ -144,34 +144,34 @@ of 71 signals and architecture of 24 responsibilities, which connect the
 requirements to the evidence an investigator checks and to who checks
 it, are reference material in Supplement S3 and S4.
 
-The difficulty is not simply connecting more data. The connections must
-preserve what each record can establish. A payment log records activity.
-A risk score records a model's assessment. A control decision records
-what the platform allowed, blocked or restricted. An outcome label
-records a reported result, which may arrive late or be wrong. When these
+Connecting more data is not enough: the connections must preserve what
+each record can establish. A payment log records activity. A risk score
+records a model's assessment. A control decision records what the
+platform allowed, blocked or restricted. An outcome label records a
+reported result, which may arrive late or be wrong. When these
 distinctions disappear, an investigation can mistake a decision for
 proof, an unobservable outcome for a benign one, or repeated analysis
 for corroboration.
 
-Each of these failures has its own research literature. Selective-labels
-and counterfactual-evaluation methods address outcomes hidden by
-decisions. Temporal and incomplete-database research addresses when a
-fact became known and whether a query answer is complete. Provenance
-standards and agent-memory designs address the status of derived
-conclusions. These bodies of work mostly treat the failures one at a
-time. Some recent agent-memory and decision-record designs address two
-or three of them in part, and they differ on who may authorize reuse of
-a conclusion and what a reused conclusion can establish (Section 2). An
-investigation that spans payment products can meet all three failures in
-one case, so its records must keep all three visible together.
+Each failure has its own research literature. Selective-labels and
+counterfactual-evaluation methods address outcomes hidden by decisions.
+Temporal and incomplete-database research addresses when a fact became
+known and whether a query answer is complete. Provenance standards and
+agent-memory designs address the status of derived conclusions. These
+bodies of work mostly treat the failures one at a time. Some recent
+agent-memory and decision-record designs address two or three of them in
+part, and they differ on who may authorize reuse of a conclusion and
+what a reused conclusion can establish (Section 2). An investigation
+that spans payment products can meet all three failures in one case, so
+its records must keep all three visible together.
 
 This paper specifies records for threat analytics: investigation that
 connects product activity to intelligence, proposed detections and
 control recommendations, then learns from later outcomes. The setting is
 a payment platform offering several products to businesses and their end
-customers. The investigator of interest is an AI agent: software that
-uses a language model to choose queries and interpret their results. It
-works within human-assigned tasks and enforced access limits. It can
+customers. The investigator is an AI agent: software that uses a
+language model to choose queries and interpret their results. It works
+within human-assigned tasks and enforced access limits. It can
 investigate and recommend; authorized people or accountable operational
 systems decide what happens to accounts, payments and controls.
 
@@ -219,11 +219,11 @@ record written while an agent output is open to its writer counts as
 informed (Sections 4.2, 6.4 and 7.3).
 
 The requirements work together. C1 identifies which outcomes the
-platform's decisions left observable. C2 establishes what information an
-investigation actually examined and could have known. C3 prevents the
-resulting interpretation from returning as independent support for
-itself. A record can satisfy one requirement and still mislead an
-investigation through a failure of another (Section 8.3).
+platform's decisions left observable. C2 establishes what an
+investigation examined and could have known. C3 prevents the resulting
+interpretation from returning as independent support for itself. A
+record can satisfy one requirement and still mislead an investigation
+through a failure of another (Section 8.3).
 
 Draft schemas, 29 cross-record rules and two checkers make the
 requirements testable, and every rule has a failing case (Supplement
@@ -241,19 +241,19 @@ product scope, not a description of its internal systems. The paper
 synthesizes public evidence and proposes a design. It reports no
 implementation of the architecture and no measurement on platform data;
 its only experiments run the record schemas on synthetic records
-(Sections 8.4 and 8.5). Section 2 establishes its relationship to prior
-work and Section 3 explains how it was derived. Sections 4 and 5 answer
-RQ1, with Section 6.3 and Supplement Table S4.2 adding the agent's
-analytical capabilities; Section 6 answers RQ2 and Section 7 answers
-RQ3. Section 8 shows the consequences of the design in two hypothetical
-investigations, and Section 9 states how its value would be tested.
+(Sections 8.4 and 8.5). Section 2 relates it to prior work and Section 3
+explains how it was derived. Sections 4 and 5 answer RQ1, with Section
+6.3 and Supplement Table S4.2 adding the agent's analytical
+capabilities; Section 6 answers RQ2 and Section 7 RQ3. Section 8 shows
+the design's consequences in two hypothetical investigations, and
+Section 9 states how its value would be tested.
 
 \hypertarget{relationship-to-prior-work}{%
 \section{Relationship to prior work}\label{relationship-to-prior-work}}
 
 The three requirements combine established ideas in a specific setting.
-This section identifies the closest precedents for each requirement and
-the choices the specification adds. Supplement S9 gives the extended
+This section identifies each requirement's closest precedents and the
+choices the specification adds. Supplement S9 gives the extended
 comparison, with the nearest precedents for each requirement summarized
 in Table S9.1; S1 provides source passages, publication status and a
 50-source requirements matrix.
@@ -270,7 +270,7 @@ of logged decisions is most direct when the decisions were randomized
 with known probabilities. Each logged sample is then reweighted to
 reflect its probability under another decision rule, so that average
 outcomes under that rule can be estimated
-{[}\protect\hyperlink{ref-Bottou2013Counterfactual}{3}{]}. All of these
+{[}\protect\hyperlink{ref-Bottou2013Counterfactual}{3}{]}. All these
 methods require assumptions about which comparisons the data support
 {[}\protect\hyperlink{ref-HernanRobins2020}{4}{]}.
 
@@ -280,17 +280,17 @@ delayed user fraud reports
 colleagues distinguish prompt investigator feedback from later labels
 and show how alert-driven review biases training data
 {[}\protect\hyperlink{ref-DalPozzolo2017Fraud}{6}{]}. An e-commerce
-research agenda likewise separates suspicion on blocked transactions
-from outcome labels {[}\protect\hyperlink{ref-Tax2021Fraud}{7}{]}. A
-theoretical payments preprint models authorization, whether fraud is
-reported, whether the report has arrived by training time, and label
-corruption, for one reporting channel
+research agenda separates suspicion on blocked transactions from outcome
+labels {[}\protect\hyperlink{ref-Tax2021Fraud}{7}{]}. A theoretical
+payments preprint models authorization, whether fraud is reported,
+whether the report has arrived by training time, and label corruption,
+for one reporting channel
 {[}\protect\hyperlink{ref-Dhama2026Causal}{8}{]}. Related preprints
 examine delayed, incomplete or incorrect feedback
 {[}\protect\hyperlink{ref-Dhama2026Limits}{9},
 \protect\hyperlink{ref-HeLoh2026Grab}{10}{]}. Chapelle's advertising
-model supplies a precedent for treating a click with no conversion yet
-as unlabeled rather than negative
+model is a precedent for treating a click with no conversion yet as
+unlabeled rather than negative
 {[}\protect\hyperlink{ref-Chapelle2014Delayed}{11}{]}. Two recent design
 preprints come closest to C1's record. One, the Decision Event Schema,
 seals each decision record once its hash is computed. Facts learned
@@ -306,13 +306,13 @@ what each decision closed, delayed or changed, separately for each
 channel and read time. A blocked card payment cannot produce a
 chargeback on that attempt, but an incident finding remains possible. C1
 keeps the decision as the unit of record, as the Decision Event Schema
-does. Each outcome report is a separate appended record. It links to
-every decision that may have shaped it, and each link states that
-decision's role. The schema has no field for outcome channels, but C1's
-fields could extend it rather than replace it (Section 7.1; Supplement
-S4.2). The proposed records expose the assumptions needed to interpret
-such outcomes; they do not supply a validated estimator. Section 7
-develops this distinction.
+does. Each outcome report is a separate appended record, linked to every
+decision that may have shaped it, with that decision's role. The schema
+has no field for outcome channels, but C1's fields could extend it
+rather than replace it (Section 7.1; Supplement S4.2). The proposed
+records expose the assumptions needed to interpret such outcomes; they
+do not supply a validated estimator. Section 7 develops this
+distinction.
 
 \hypertarget{evidence-depends-on-coverage-time-and-origin}{%
 \subsection{Evidence depends on coverage, time and
@@ -496,27 +496,27 @@ Section 9.
 evidence}\label{deriving-the-specification-from-public-evidence}}
 
 The design starts from documented product capabilities and asks how an
-adversary could misuse each one. For each abuse mechanism, meaning a way
-abuse can occur, it then identifies the records needed to distinguish
-the malicious explanation from plausible alternatives. Stripe's public
+adversary could misuse each one. For each abuse mechanism, a way abuse
+can occur, it then identifies the records needed to distinguish the
+malicious explanation from plausible alternatives. Stripe's public
 product catalog, roadmap and documentation define the illustrative
 scope; research, engineering accounts, incident reports and guidance
 supply the design premises.
 
 The scope, read on 27 September 2026, contains 88 product and feature
 entries. A retained mechanism must target a documented capability, serve
-a plausible adversary goal and have supporting public evidence. Public
-job postings from Stripe for abuse, risk and machine-learning roles
-helped prioritize topics as a statement of its current priorities, not
-as evidence of incidents {[}\protect\hyperlink{ref-Stripe2026}{46},
+a plausible adversary goal and have supporting public evidence. Stripe's
+public job postings for abuse, risk and machine-learning roles helped
+prioritize topics as a statement of its current priorities, not as
+evidence of incidents {[}\protect\hyperlink{ref-Stripe2026}{46},
 \protect\hyperlink{ref-StripeARE2026}{47}{]}. Supplement S2 records the
 99 candidate mechanisms, how postings set priorities, the nine search
 paths and each candidate's final disposition; every mapped mechanism
 also has supporting sources beyond postings.
 
 The resulting inventory, 71 signals in 12 families linked to 61 of the
-99 candidate mechanisms, is in Supplement S3. Supplement S2 gives the
-disposition of the other 38 candidates.
+99 candidate mechanisms, is in Supplement S3; S2 gives the disposition
+of the other 38.
 
 Three published schemas describe the platform's application programming
 interface (API), the interface through which software requests
@@ -565,12 +565,12 @@ answer to RQ1, which Section 5 continues and Section 6.3 completes.
 participants}\label{the-platform-and-its-participants}}
 
 The proposed payment platform serves businesses, which serve end
-customers. A business holds a platform account. It may instead hold a
-connected account under another business that has integrated the
-platform into its product. A merchant is a business accepting payments
-through either account type. People act for businesses through operator
-accounts. Software agents may use delegated credentials for a business
-or end customer; these are distinct from the investigating agent.
+customers. A business holds a platform account, or a connected account
+under another business that has integrated the platform into its
+product. A merchant is a business accepting payments through either
+account type. People act for businesses through operator accounts.
+Software agents may use delegated credentials for a business or end
+customer; these are distinct from the investigating agent.
 
 These roles determine whose activity a record describes. An end
 customer's action is not automatically an action by the business or its
@@ -583,11 +583,11 @@ action}\label{the-path-from-records-to-action}}
 Data pipelines collect telemetry and state records, map them to shared
 entity and field definitions, and preserve their origins. Storage and
 correlation services make them searchable by time and entity.
-Investigators use them to prepare intelligence, meaning assessments
-intended to inform decisions, together with proposed detections and
-recommendations. Authorized people or accountable operational systems
-decide whether to change controls, and those changes affect what later
-records can show (Figure 1).
+Investigators use them to prepare intelligence (assessments intended to
+inform decisions), proposed detections and recommendations. Authorized
+people or accountable operational systems decide whether to change
+controls, and those changes affect what later records can show (Figure
+1).
 
 Three feedback loops connect this work. \textbf{Investigative feedback}
 changes the next hypothesis or test within a case.
@@ -708,8 +708,8 @@ conclusions}\label{separate-observations-from-conclusions}}
 A payment log, risk score and fraud report may concern the same
 transaction but establish different facts. The log records activity, the
 score a model's assessment, and the report what someone alleged. Copies
-of one report do not provide several independent confirmations. The
-record's class makes these limits explicit.
+of one report are not independent confirmations. The record's class
+makes these limits explicit.
 
 The same principle applies to relationships. A shared payout destination
 is observed; common control is inferred. Attribution, identifying a
@@ -733,8 +733,8 @@ The specification uses seven record classes (Supplement Figure S3.1):
   \textbf{Model or risk outputs} record assessments and the identity and
   version of the model.
 \item
-  \textbf{Control outcomes} record decisions, independently of whether
-  those decisions were correct.
+  \textbf{Control outcomes} record decisions, whether or not they were
+  correct.
 \item
   \textbf{Analytical inferences} state conclusions drawn from evidence.
 \item
@@ -762,9 +762,8 @@ boundary within which the data may be accessed and used. Delivery
 identifiers prevent repeated delivery from counting or acting on one
 event twice.
 
-Supplement Table S3.1 organizes the signals by family and class.
-Supplement S3 defines each signal and the inputs of every derived
-feature.
+Supplement Table S3.1 organizes the signals by family and class, and S3
+defines each signal and the inputs of every derived feature.
 
 \hypertarget{how-abuse-mechanisms-motivate-the-records}{%
 \subsection{How abuse mechanisms motivate the
@@ -820,10 +819,8 @@ late and false, so one status cannot replace the other.
 relationships}\label{preserve-meaning-across-stores-time-and-relationships}}
 
 The investigation must be able to retrieve an observation, its
-interpretation and the decision it informed separately. These
-distinctions concern logical records; they do not require separate
-database products. Supplement Table S4.1 lists the properties each store
-must preserve.
+interpretation and the decision it informed separately. Supplement Table
+S4.1 lists the properties each store must preserve.
 
 \textbf{Write authority follows the record's meaning.} Ingestion appends
 to the evidence plane. Correlation software and the agent may propose
@@ -865,9 +862,9 @@ liability shift after successful authentication does (Section 7.1), a
 matured absence is read under that changed meaning and does not by
 itself support a negative for the original outcome. A channel without a
 defined window never supports a negative by maturity alone. A matured
-absence is provisional, not final. Network and bank rules can reopen or
-extend a window after it has elapsed, as when a monitoring program lets
-issuers submit fraud disputes past the standard deadline
+absence is provisional. Network and bank rules can reopen or extend a
+window after it has elapsed, as when a monitoring program lets issuers
+submit fraud disputes past the standard deadline
 {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{51}{]} or banks
 accept a late return
 {[}\protect\hyperlink{ref-Stripe2026ACHTerms}{52}{]}. Each such rule
@@ -885,8 +882,8 @@ identifier from the same namespace and relevant interval supports a
 stronger, or hard, link. A weaker, or soft, link may have several
 explanations: benign accounts can share a proxy IP address
 {[}\protect\hyperlink{ref-Liu2018GEM}{33}{]}. Both retain source and
-confounders, meaning plausible alternative explanations. Account-age
-records address aged accounts sold for abuse
+confounders (plausible alternative explanations). Account-age records
+address aged accounts sold for abuse
 {[}\protect\hyperlink{ref-Thomas2013}{53}{]}. Where crypto products are
 in scope, wallet-to-spender links record permissions motivated by
 phishing that induces harmful transactions
@@ -917,10 +914,10 @@ Privacy and operating obligations constrain the specification;
 Supplement S4.1 states them in full. A deployment must specify retention
 and deletion for each record class before collecting it. Append-only
 logs must still permit required deletion. The agent-and-approval ledger
-uses references to regulated data rather than copies. Cross-business
-linking requires a stated purpose and authorization for each identifier
-type. This paper does not determine which legal basis applies in a
-particular deployment.
+uses references to regulated data, not copies. Cross-business linking
+requires a stated purpose and authorization for each identifier type.
+This paper does not determine which legal basis applies in a particular
+deployment.
 
 \hypertarget{how-the-agent-investigates}{%
 \section{How the agent investigates}\label{how-the-agent-investigates}}
@@ -964,9 +961,9 @@ such as reconstructing a timeline or following an entity link. It first
 establishes what the available schemas and services mean.
 
 The loop is \textbf{context → hypothesis → permitted test → observation
-→ interpretation → revised hypothesis or conclusion}. Its stopping point
-may be an inconclusive assessment when the observations cannot separate
-the remaining explanations.
+→ interpretation → revised hypothesis or conclusion}. It may stop at an
+inconclusive assessment when the observations cannot separate the
+remaining explanations.
 
 A complete result with no rows establishes only that no accessible rows
 matched. It counts against a hypothesis when the suspected activity
@@ -993,12 +990,12 @@ requested and evaluated entities, with their tenant and identifier
 namespaces, the requested and evaluated event intervals, source and
 schema versions and any sampling. It also records the as-of cutoff,
 which limits the query to facts the system had learned by that time. For
-each source it records the event and ingestion watermarks, meaning how
-far event time and loading have progressed, known gaps and the retention
-horizon. A requested interval that extends past a source's event
-watermark, begins before its retention horizon or overlaps a known gap
-leaves that source's result partial, as does sampling of that source. It
-also records whether access filtering removed rows or row, time or cost
+each source it records the event and ingestion watermarks (how far event
+time and loading have progressed), known gaps and the retention horizon.
+A requested interval that extends past a source's event watermark,
+begins before its retention horizon or overlaps a known gap leaves that
+source's result partial, as does sampling of that source. It also
+records whether access filtering removed rows or row, time or cost
 limits were reached.
 
 Fixed rules derive complete, partial, truncated, denied or unavailable
@@ -1124,14 +1121,13 @@ interrupt a merchant's integration. Actions are classed by impact as
 none, degraded service or outage; outage-class actions require
 notification and a restoration path.
 
-Human review also creates a capacity limit. With assumed values of 20
-drafts a day and 30 minutes per draft, review alone requires 10 hours
-daily. The system monitors release volume, returned drafts and the
-oldest queued draft. Urgent containment takes priority when the queue is
-saturated; expired drafts are discarded rather than released
-automatically. E5 measures whether the agent's contribution justifies
-this work, and E8 tests the gate under realistic volume and error
-prevalence.
+Human review also creates a capacity limit. At an assumed 20 drafts a
+day and 30 minutes per draft, review alone requires 10 hours daily. The
+system monitors release volume, returned drafts and the oldest queued
+draft. Urgent containment takes priority when the queue is saturated;
+expired drafts are discarded, not released automatically. E5 measures
+whether the agent's contribution justifies this work, and E8 tests the
+gate under realistic volume and error prevalence.
 
 \hypertarget{protect-the-investigation-from-its-inputs}{%
 \subsection{Protect the investigation from its
@@ -1180,10 +1176,10 @@ releasing a false claim or removing an agent-output or released-item
 link, because its authority permits both. Against that position the
 safeguards are the release record, the logged link removal, expiry and
 re-testing of exonerating items, and correction (Section 7.3). They can
-detect and limit such actions, but they do not prevent them.
+detect and limit such actions but do not prevent them.
 
 One consequential attack produces a plausible but false benign
-explanation. Human release alone does not defeat this attack.
+explanation. Human release alone does not defeat it.
 
 Released benign assessments and exonerating lessons therefore expire on
 a fixed date, or earlier when their evidence or cluster membership
@@ -1196,12 +1192,11 @@ revisited after expiry or retraction.
 \section{Interpreting feedback after protective
 decisions}\label{interpreting-feedback-after-protective-decisions}}
 
-This section answers RQ3. Section 4.2 distinguished three feedback
-loops. This section concerns the two that leave the case: protective
-feedback, which changes the platform and therefore the evidence
-available afterwards (Sections 7.1 and 7.2), and organizational-learning
-feedback, which carries conclusions and procedures into later cases
-(Section 7.3).
+This section answers RQ3. Of the three feedback loops in Section 4.2, it
+concerns the two that leave the case: protective feedback, which changes
+the platform and therefore the evidence available afterwards (Sections
+7.1 and 7.2), and organizational-learning feedback, which carries
+conclusions and procedures into later cases (Section 7.3).
 
 \hypertarget{separate-delay-observability-and-report-truth}{%
 \subsection{Separate delay, observability and report
@@ -1282,9 +1277,8 @@ adds that an authorization reversed before capture is not reported
 dispute guide adds that a refund processed as a reversal, which usually
 happens within about 2 hours of capture, can also prevent a fraud report
 {[}\protect\hyperlink{ref-Stripe2026Disputes}{49}{]}. Capture alone
-therefore does not fix that channel's state. Thus a review ending in
-reversal can close that channel while other incident reports remain
-possible.
+therefore does not fix that channel's state: a review ending in reversal
+can close it while other incident reports remain possible.
 
 A control can change a channel's meaning without closing it. Stripe's
 3-D Secure guide says liability for eligible fraud disputes can be
@@ -1355,12 +1349,11 @@ four assumptions and illustrates the distinction with three target
 quantities.
 
 Without further assumptions, outcomes hidden by deterministic blocks
-support ranges rather than a recovered comparison.
+support ranges, not a recovered comparison.
 
-Interference is especially consequential when blocked actors move to
-sibling accounts or other merchants. Links from each report to every
-decision that may have shaped it make these dependencies visible; they
-do not remove them.
+Interference matters most when blocked actors move to sibling accounts
+or other merchants. Links from each report to every decision that may
+have shaped it make these dependencies visible; they do not remove them.
 
 Delay and false reports add assumptions of their own (Supplement S7).
 
@@ -1388,8 +1381,8 @@ spreading activity to evade monitoring
 transaction links and cluster-level measures, without establishing
 erroneous attribution in a new case.
 
-The same outcome definition, cohort and window must be retained when
-comparing account and cluster ratios; Section 8.2 shows what pooling can
+Comparing account and cluster ratios requires the same outcome
+definition, cohort and window; Section 8.2 shows what pooling can
 conceal.
 
 Sales can also be inflated or moved. One FTC complaint alleges plans to
@@ -1484,12 +1477,12 @@ suspected activity occurred in the current case.
 \section{Two hypothetical
 investigations}\label{two-hypothetical-investigations}}
 
-The following traces apply the specification to fixed hypothetical
-observations. Each asks what happened, which explanations remain
-plausible, and what further test would distinguish them. Their purpose
-is to expose the consequences of missing context. Table 2 gives what the
-recorded context changes. Supplement S6 gives each trace's reasoning and
-outputs, the synthetic transaction records and reproducible arithmetic.
+Two traces apply the specification to fixed hypothetical observations.
+Each asks what happened, which explanations remain plausible, and what
+further test would distinguish them. They expose the consequences of
+missing context; Table 2 gives what the recorded context changes.
+Supplement S6 gives each trace's reasoning and outputs, the synthetic
+transaction records and reproducible arithmetic.
 
 \hypertarget{trace-a-an-exposed-key-and-a-changed-payout-destination}{%
 \subsection{Trace A: an exposed key and a changed payout
@@ -1598,10 +1591,10 @@ Each row of Table 2 isolates one requirement. The first two rows of
 Table 1 are pairs of histories in which two requirements hold and only
 the third shows whether an absence is a negative (Supplement S4.4).
 
-Two rows of Table 2 add explicit hypothetical conditions: Trace A's
-payout is permanently blocked, and Trace B retrieves an earlier
-assessment of the same descriptor pattern. Omission does not force an
-error; it removes information needed to rule the error out.
+Two rows of Table 2 add hypothetical conditions: Trace A's payout is
+permanently blocked, and Trace B retrieves an earlier assessment of the
+same descriptor pattern. Omission does not force an error; it removes
+information needed to rule the error out.
 
 That context costs storage, query work, controlled cross-account access
 and investigator time. E1 tests the context in the first two rows of
@@ -1737,7 +1730,7 @@ release gate. The exploratory E6 checks that required links back to
 agent outputs exist. No evaluation tests the urgent-containment route in
 Section 6.4. The rate at which later review reverses its actions, and
 the service those actions interrupt, remain unmeasured. The questions
-below state what each evaluation is intended to resolve.
+below state what each evaluation should resolve.
 
 \textbf{E1. Coverage and learned time:} Do these records reduce
 unsupported conclusions in cases with incomplete history or links
@@ -1763,13 +1756,13 @@ interval for harm to legitimate users after a control change?
 \textbf{E5. Agent benefit:} When all have the same information, does the
 agent with human review match or improve on the confirmed findings per
 reviewer hour of well-equipped human investigators, without materially
-more errors than either them or suitable decision rules that use no
-agent?
+more errors than those investigators or suitable decision rules that use
+no agent?
 
 \textbf{E6. Safeguards:} How well do the agent's safeguards, covering
 prompt injection, approvals, its memory and the data it sends out, hold
-up against attackers who adapt to them? How much do they reduce the
-number of investigations completed?
+up against attackers who adapt to them? How much do they reduce
+investigations completed?
 
 \textbf{E7. Learning:} How quickly do useful lessons become available
 for reuse? How do testing against counterexamples, scoped promotion and
@@ -1898,9 +1891,8 @@ attributed observations within their stated settings.
 \section{Conclusion}\label{conclusion}}
 
 An investigation across payment products needs more than joined records.
-It needs to preserve why an outcome could be observed, what information
-was available to a query, and whether apparent support comes from an
-earlier conclusion.
+It must preserve why an outcome could be observed, what was available to
+a query, and whether apparent support comes from an earlier conclusion.
 
 This paper combines those requirements in one specification grounded in
 public evidence. The specification proposes answers to the three
