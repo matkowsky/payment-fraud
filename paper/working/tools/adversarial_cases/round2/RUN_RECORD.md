@@ -45,3 +45,11 @@ Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 Novembe
 - Twelve cases are meant to break a requirement (R01 to R12: seven name C2, five name C3). Three are meant to be legitimate (A01 to A03).
 - This file and `reply_3.json` were committed before the checker was run on any round 2 case.
 - Frozen files at main `9ec1a3e`, compared with the freeze `58150e8`: the checker, the valid history, the schema and the runner are identical (blobs `4fbc402`, `5d515fe`, `d22b2e4` and `bd0e653`). `apply_patch` in `tools/outcome_conformance.py` is unchanged.
+
+## Scoring
+
+- The cases were committed and pushed first: commit `cb8e0d8`, pushed at 22:35:40Z on 14 November 2026.
+- Command, run from `paper/working` at that commit: `python3 tools/adversarial_cases/run_cases.py --sealed tools/adversarial_cases/round2/CASES.json tools/adversarial_cases/round2/RESULTS.md`. The plan writes the paths relative to `tools/adversarial_cases`; the command is the same.
+- Output: `RESULTS.md`, SHA-256 `fc15cd94c82590dc712e4c2141927f7c1e5a598ae5c1716ed08706d52bcc71bd`. The same command in a checkout of the freeze commit `58150e8`, with `CASES.json` copied in, gives a byte-identical file.
+- What the checker did, before any ruling: of the twelve cases meant to break a requirement, two are rejected (R03 by the schema, R07 by IR-12) and ten pass (R01, R02, R04, R05, R06, R08, R09, R10, R11, R12). All three cases meant to be legitimate are rejected (A01 by IR-14, A02 by IR-08, A03 by IR-11).
+- Thirteen cases therefore need a ruling against the paper's text. No ruling is recorded here. The author confirms every ruling.
