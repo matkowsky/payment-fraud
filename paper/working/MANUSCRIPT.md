@@ -719,7 +719,7 @@ The next test is operational value. Evaluations must determine whether these rec
 
 <div id="ref-Liu2018GEM" class="csl-entry">
 
-\[33\] Z. Liu, C. Chen, X. Yang, J. Zhou, X. Li, and L. Song. 2018. Heterogeneous Graph Neural Networks for Malicious Account Detection. *Proceedings of the 27th ACM International Conference on Information and Knowledge Management*. <https://doi.org/10.1145/3269206.3272010>.
+\[33\] Z. Liu, C. Chen, X. Yang, J. Zhou, X. Li, and L. Song. 2018. Heterogeneous Graph Neural Networks for Malicious Account Detection. *Proceedings of the 27th ACM International Conference on Information and Knowledge Management*, pp. 2077–2085. <https://doi.org/10.1145/3269206.3272010>.
 
 </div>
 
