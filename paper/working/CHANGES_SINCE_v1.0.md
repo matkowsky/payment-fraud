@@ -64,6 +64,7 @@ Accepted pull requests:
 - [#69](https://github.com/matkowsky/payment-fraud/pull/69) Manuscript and supplement: sentence pass for directness
 - [#70](https://github.com/matkowsky/payment-fraud/pull/70) Prior-work search: fix the strings before the first run
 - [#71](https://github.com/matkowsky/payment-fraud/pull/71) Practitioner study: send the form link only after a profile check
+- [#72](https://github.com/matkowsky/payment-fraud/pull/72) Practitioner study: the form opens on a fixed date
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
