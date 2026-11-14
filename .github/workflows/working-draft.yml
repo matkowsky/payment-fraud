@@ -38,6 +38,8 @@ jobs:
         working-directory: paper/working
       - run: python3 tools/test_timestamp_equality.py
         working-directory: paper/working
+      - run: python3 tools/test_correction_cutoff.py
+        working-directory: paper/working
       - run: python3 tools/test_score_responses.py
         working-directory: paper/working
       - run: python3 tools/test_prior_work_search.py
@@ -91,6 +93,7 @@ jobs:
           python3 tools/test_changes_since.py
           python3 tools/test_iterate.py
           python3 tools/test_journal_build.py
+          python3 tools/test_correction_cutoff.py
           python3 tools/revision_status.py manifest
           python3 tools/revision_status.py check
       - name: Commit generated status and document updates

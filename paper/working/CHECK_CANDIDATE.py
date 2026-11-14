@@ -111,6 +111,16 @@ for (k, n), (lo, hi) in intervals.items():
 fisher_p = fisher_two_sided(8, 92, 2, 98)
 assert round(fisher_p, 2) == 0.10 and abs(fisher_p - 0.1005) < 5e-4, fisher_p
 
+# Supplement S7.1, first study: the widest exact 95 percent interval on a share, which is at half the settled cases.
+for n_audit, width in ((200, 14.3), (160, 16.0)):
+    l, u = clopper_pearson(n_audit // 2, n_audit)
+    assert round(100 * (u - l), 1) == width, (n_audit, l, u)
+assert 'With 200 settled cases, an exact 95 percent interval on any share is at most 14.3 points wide; with 160, at most 16.0.' in sbody
+# Supplement S10: the linked view's flag rate under faster, base and slower report delays, as stored.
+lag = json.loads((S / 'S10_REPLAYS' / 'first_data_results.json').read_text(encoding='utf-8'))['sweep_lag']
+assert [lag[k]['A_cell']['SYN-MON-1:cluster'] for k in ('fast', 'base', 'slow')] == [0.986, 0.894, 0.828]
+assert '98.6 percent of runs with faster reports, 89.4 at the base delays and 82.8 with slower ones' in sbody
+
 # Supplement S7.1 sizing arithmetic: nine evaluations, four confirmatory at 93 percent power each (union bound);
 # the planted false exonerations E8 needs at least to show a release rate below 1 percent with none released;
 # and the number it needs for 93 percent power when the true release rate is 0.1 percent, with the implied
@@ -192,6 +202,24 @@ for md in [*B.glob('*.md'), *(B / 'SOURCE').glob('*.md')]:
         target = target.split('#')[0]
         assert (md.parent / target).is_file(), (md.name, target)
         checked_links += 1
+
+# Links to a section of the same document work on GitHub and in the PDF. GitHub ignores a heading's explicit id and
+# makes its own from the heading text, so each explicit id must equal that, and each link must name a heading.
+def github_slug(heading): return re.sub(r'[^\w\- ]', '', heading.strip().lower()).replace(' ', '-')
+checked_anchors = 0
+for name, text in (('manuscript', body), ('supplement', sbody)):
+    heads = [re.match(r'^#+ (.*?)(?: \{#([^}]+)\})?$', l).groups() for l in text.splitlines() if re.match(r'^#+ ', l)]
+    slugs = [github_slug(h) for h, _ in heads]
+    for (h, explicit), slug in zip(heads, slugs):
+        assert explicit in (None, slug), (name, h, explicit, slug)
+    for frag in re.findall(r'\]\(#([^)]+)\)', text):
+        assert slugs.count(frag) == 1, (name, frag)
+        checked_anchors += 1
+if not SOURCES_ONLY:
+    for name, text in ((MS, t), ('SUPPLEMENT.md', ts)):
+        slugs = [github_slug(l.lstrip('#')) for l in text.splitlines() if re.match(r'^#+ ', l)]
+        for frag in re.findall(r'\]\(#([^)]+)\)', text):
+            assert frag.startswith('ref-') or slugs.count(frag) == 1, (name, frag)
 
 # Reader-facing tables cannot retain chat identifiers, repair directions or internal project identifiers.
 residue = r'turn\d+(?:view|search|fetch|academia)|manuscript lines?|replace with|sub.agent|\bGate [0-9]|\bWorkstream\b|\bG2-\d|\bRQ-[A-Z]\d|engineering ledger'
@@ -280,7 +308,7 @@ result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
                         'clopper_pearson_and_fisher': f'intervals match Supplement S6; Fisher two-sided p = {fisher_p:.4f}'},
           'bib_parser_checked': parsed is not None, 'private_content_and_dash_screen': f'passed ({screened} files)',
-          'relative_links_checked': checked_links, 'outcome_record_conformance': outcome,
+          'relative_links_checked': checked_links, 'section_links_checked': checked_anchors, 'outcome_record_conformance': outcome,
           'as_of_example': 'later-known edge excluded; earlier onset unresolved',
           'evaluation_sizing': {'evaluations': 9, 'confirmatory': 4, 'all_confirmatory_pass_at_least': 0.72, 'e8_false_exonerations_for_1_percent': n_fe,
                                 'e8_for_93_percent_power_at_0.1_percent': n_pow, 'e8_drafts_at_5_percent': e8_drafts, 'e8_days_at_20_a_day': e8_days},

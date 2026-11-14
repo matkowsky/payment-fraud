@@ -5,6 +5,7 @@ Usage:
   python3 tools/outcome_cost.py                  1,000,000 payments, results to stdout
   python3 tools/outcome_cost.py --payments N     another volume
   python3 tools/outcome_cost.py --out FILE.json  also write the results
+  python3 tools/outcome_cost.py --cutoff-counts  count the report events the query cutoff admits; no timing
 
 Every record is built from a record in the valid conformance case, with identifiers replaced and
 times shifted, so each has that record's fields. A sample is checked against the schema and rules
@@ -125,6 +126,16 @@ def generate(n, a, emit):
         emit(remap(rd, {'PA-1': pa, 'RD-1': f'RD-{j}'}, when - base_block))
 
 
+def cutoff_counts(n, a):
+    """Report events in all, and those learned by the point queries' cutoff, 30 days after the last payment."""
+    end = (START + timedelta(days=a['days'] + 30)).strftime(FMT)
+    learned = []
+    generate(n, a, lambda r: learned.append(r['learned_at']) if r['record_type'] == 'LabelEvent' else None)
+    by_cutoff = sum(x <= end for x in learned)   # one fixed format, so text order is time order, as in the queries
+    return {'payments': n, 'cutoff': end, 'report_events': len(learned), 'learned_by_cutoff': by_cutoff,
+            'learned_later': len(learned) - by_cutoff}
+
+
 def sample_conformance(a):
     out = []
     generate(300, dict(a, block_rate=0.2, chargeback_rate_of_allowed=0.2, payments_per_account=1), out.append)
@@ -228,7 +239,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--payments', type=int, default=1_000_000)
     ap.add_argument('--out')
+    ap.add_argument('--cutoff-counts', action='store_true')
     args = ap.parse_args()
+    if args.cutoff_counts:
+        print(json.dumps(cutoff_counts(args.payments, ASSUMPTIONS), indent=1))
+        return
     n_sample, found = sample_conformance(ASSUMPTIONS)
     if found:
         print(json.dumps({'sample_records': n_sample, 'findings': found[:10]}, indent=1))

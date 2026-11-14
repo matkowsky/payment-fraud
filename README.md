@@ -27,11 +27,11 @@ You need a free GitHub account for the first three routes.
    - **Practitioner questions**: five short questions about how your team works. A two-line answer helps.
    - **Prior work I should cite**: a paper, standard, product or patent the paper misses or describes wrongly.
    - **Error report**: a factual, citation or arithmetic error.
-2. **Comment line by line** on the manuscript in the [line-by-line review](https://github.com/matkowsky/payment-Fraud/pull/1). Open "Files changed", hover over a paragraph and click the plus sign. Each paragraph is one line.
+2. **Comment line by line** in the [line-by-line review](https://github.com/matkowsky/payment-Fraud/pull/1), which covers version 1.0 only. Open "Files changed", hover over a paragraph and click the plus sign. Each paragraph is one line.
 3. **Start a conversation** in [Discussions](https://github.com/matkowsky/payment-Fraud/discussions) for open questions that are not about one passage.
 4. **No GitHub account?** Comment on the LinkedIn post or email Jonathan@matkowsky.com.
 
-Please refer to version 1.0 section numbers, and quote the sentence you mean when you can. Share only public or general information. Do not share confidential information from an employer or client, or personal data about anyone.
+Say which version you mean, and quote the sentence when you can: section numbers differ between version 1.0 and the working draft. For the working draft, paste a permalink to the line in its [Markdown file](paper/working/MANUSCRIPT.md). Share only public or general information. Do not share confidential information from an employer or client, or personal data about anyone.
 
 ## What happens to comments
 
@@ -54,7 +54,9 @@ The [revision record](REVISIONS.md) explains proposed, accepted and published st
 
 ## How to cite
 
-Matkowsky, J. (2026). *Threat Analytics Across Payment Products: Evidence Requirements for Agent Investigations* (Version 1.0) [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.23772005
+Matkowsky, J. (2026). *Threat Analytics Across Payment Products: Evidence Requirements for Agent Investigations* (Version 1.0) [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.23772006
+
+To cite the preprint without naming a version, use https://doi.org/10.5281/zenodo.23772005, which always points to the latest.
 
 GitHub's "Cite this repository" button uses [CITATION.cff](CITATION.cff).
 
