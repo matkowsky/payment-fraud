@@ -271,6 +271,20 @@ meant_to_break = [x['case_id'] for x in outside if x['expect'] == 'reject']
 assert len(outside) == 15 and len(meant_to_break) == 13 and sum(1 for i in meant_to_break if sealed[i]) == 9
 assert 'IR-11' in rules_hit(next(x for x in outside if x['case_id'] == 'R06'), sealed=False)   # a draft altered after release
 assert 'nine of the 13 histories are rejected and the false rejection is gone' in sbody and '10 of the 13 passed' in sbody
+# Held-out round (Supplement S4.4): the fifteen round 2 histories give the recorded outcomes. The rules are unchanged since that round.
+held = json.loads((B / 'tools/adversarial_cases/round2/CASES.json').read_text(encoding='utf-8'))
+held_hit = {x['case_id']: rules_hit(x) for x in held}
+assert held_hit == {'R01': set(), 'R02': set(), 'R03': {'SCHEMA'}, 'R04': set(), 'A01': {'IR-14'}, 'R05': set(), 'R06': set(),
+                    'R07': {'IR-12'}, 'R08': set(), 'A02': {'IR-08'}, 'R09': set(), 'R10': set(), 'R11': set(), 'R12': set(),
+                    'A03': {'IR-11'}}, held_hit
+held_break = [x['case_id'] for x in held if x['expect'] == 'reject']
+assert len(held) == 15 and len(held_break) == 12 and sum(1 for i in held_break if held_hit[i]) == 2
+assert sum(1 for x in held if x['expect'] == 'accept' and held_hit[x['case_id']]) == 3
+assert 'The frozen rules rejected two of the 12, and all three legitimate histories.' in sbody
+assert 'seven are new failures of the rules, one does not break a requirement, and two are unresolved' in sbody
+assert 'the round 1 rules had rejected three of 13' in sbody and 'the two agreed on seven' in sbody
+assert 'the rules rejected two of the 12 meant to break a requirement, and seven of the 10 that passed are new gaps' in body
+assert '30 adversarial histories in two rounds (S4.4) | Resistance to evasion: 10 of 12 new attempts passed' in body
 # Second-rater check of the links (Supplement S3): the stored answers reproduce the reported counts.
 sys.path.insert(0, str(B / 'tools' / 'second_coder'))
 from score import tally as rater_tally, kappa as rater_kappa
