@@ -16,6 +16,10 @@ Changed before the first response, 14 November 2026, at the author's direction: 
 
 Changed before the first response, 14 November 2026: the form opens on a fixed date, not when the post goes live. The posts went live on 14 November without the link, and the author opened the form the same day. The close date stays the one the posts state. The form, the questions and the answer key did not change.
 
+Changed 14 November 2026, after the form opened; whether a response had arrived was not checked: the scoring script now refuses an export that lacks a required question's column, and it no longer reads a missing, blank or unlisted answer to E0, C0, P3 or P4 as an answer. It stops and names the row and the column, or with `--set-aside-invalid` scores the other rows and reports those set aside. Before, such a row could be counted as a participant who had not read Section 8, and E0 was not read at all. The live form requires these questions and offers fixed choices, so for every answer the form can produce the same responses are scored in the same groups; only the labels of the exclusion counts changed. Text typed under "other" in P1 or P2 is now counted as other and not copied, and quotes are taken from eligible rows only. From an independent review by ChatGPT, relayed by the author. The form, the questions and the answer key did not change.
+
+Changed 14 November 2026, after the form opened; whether a response had arrived was not checked: the report now states where each count of organizations comes from, because the same review noted that neither available count is the count among scored answers. The target of at least three organizations did not change. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -31,7 +35,7 @@ Do the records C1 to C3 require change the conclusions practitioners draw, how o
 - Six to ten people with at least two years investigating fraud or abuse, or building systems for it, at payment companies, banks, fintechs, marketplaces or vendors.
 - Recruited through the author's LinkedIn posts and direct invitations. People whose work the paper cites may take part.
 - No post carries the form link. A person asks for it by a private message or by a like on the post, and the author checks that person's public profile against the criteria above before sending it. The post says that a like is public and a message is private.
-- At least three organizations. The form does not ask for the employer. Participants who want credit email the author separately; those emails, never linked to answers, give the count of organizations.
+- At least three organizations. The form does not ask for the employer, so the count among scored answers cannot be checked. Two counts are reported, each with its source: organizations among the people sent the link, from their public profiles, and organizations among participants who email the author separately for credit. Those emails are never linked to answers.
 
 ## Consent and ethics
 
@@ -46,7 +50,7 @@ The study is not run through any institution and has no funding; the author know
 ## Scoring, fixed in advance
 
 - The answer key was fixed before the first response and is kept private until the form closes, so participants cannot see it. SHA-256 of the key file: `3438ef22c7491a0adbe01b3702515b2b7699dc2b6675c405e70500f081b3f8f0`. It is published with the results.
-- [score_responses.py](score_responses.py) scores the form's export. It refuses a key whose hash differs, excludes responses without consent or with under two years of experience, and copies no free text except answers whose author allowed quoting, for review before any use. Each question title and grid row in the form starts with its code from the instrument; Part 3 repeats use `A1-R` to `B6-R`, and Part 5's second grid uses `R1-H` to `R5-H`.
+- [score_responses.py](score_responses.py) scores the form's export. It refuses a key whose hash differs and an export without a required question's column, stops at a row whose E0, C0, P3 or P4 is not one of the question's choices, excludes responses that answer No to E0 or C0 or report under two years of experience, and copies no free text except answers whose author allowed quoting, for review before any use. Each question title and grid row in the form starts with its code from the instrument; Part 3 repeats use `A1-R` to `B6-R`, and Part 5's second grid uses `R1-H` to `R5-H`.
 - Each item has one error the records are meant to prevent. For each item, report how many participants made that error in Part 2 and in Part 3, and how many moved from the error to a supported answer.
 - Report items by requirement, controls separately, and participants who had read Section 8 or Supplement S6 separately.
 - Read each requirement's counts beside the controls' counts. No added record bears on the three controls, so they show how often an answer changes on a second reading alone.
@@ -60,6 +64,7 @@ The study is not run through any institution and has no funding; the author know
 - The cases are hypothetical and come from the paper. Practitioners who read it may know the answers (P4 separates them).
 - A small, self-selected sample. Results describe these participants, not the field.
 - Eligibility rests on a public profile and the participant's own confirmation. The form is anonymous, so the author cannot confirm who answered, that a link was not passed on, or that no one answered twice.
+- Stated 14 November 2026: for the same reason, the number of organizations among the scored answers cannot be verified.
 
 ## Human coders
 
