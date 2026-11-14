@@ -1,0 +1,105 @@
+[
+  {
+    "case_id": "R01",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "O-6 becomes an agent-produced observation of account activity, yet DR-2 still uses it as independent evidence contributing one root. No rule prohibits an agent actor from producing a source_observation, and IR-09 does not classify a record as dependent merely because its producer is an agent.",
+    "set_fields": {
+      "O-6": {
+        "producer": "AG-1"
+      }
+    }
+  },
+  {
+    "case_id": "R02",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The released agent conclusion M-1 moves from context into contradicting evidence, treating a prior conclusion as evidence about investigated activity rather than merely as a hypothesis. IR-09 prohibits released conclusions and drafts in supporting, but does not impose that prohibition, observation typing, or dependency classification on contradicting.",
+    "set_fields": {
+      "DR-2": {
+        "version_hash": "046011fc941ae02e",
+        "claims": [
+          {
+            "claim_id": "CL-3",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-18T00:00:00Z",
+              "to": "2026-05-18T06:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [
+              "O-6"
+            ],
+            "contradicting": [
+              "M-1"
+            ],
+            "query_runs": [
+              "Q-4"
+            ],
+            "context": [],
+            "distinct_roots": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R03",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "Q-2 still certifies complete account-and-period coverage despite listing no evaluated data source, allowing CL-2's material absence claim without any recorded source coverage. IR-05's per-source conditions have nothing to reject, and IR-08 accepts the resulting complete, empty run without requiring any source to have been evaluated.",
+    "set_fields": {
+      "Q-2": {
+        "sources": []
+      }
+    }
+  },
+  {
+    "case_id": "R04",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "Q-4 declares that it examined only tenant T2's ACC-2 while returning observations about T1's ACC-1, so the recorded entity coverage excludes the data actually returned and used by DR-2. IR-04 checks requested/evaluated containment, but IR-06 checks returned records only for learned time and interval overlap, not membership in the evaluated entity set.",
+    "set_fields": {
+      "Q-4": {
+        "requested_entities": [
+          {
+            "tenant": "T2",
+            "namespace": "account",
+            "id": "ACC-2"
+          }
+        ],
+        "evaluated_entities": [
+          {
+            "tenant": "T2",
+            "namespace": "account",
+            "id": "ACC-2"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "A01",
+    "tier": "other",
+    "expect": "accept",
+    "breaks": "none",
+    "why": "Removing the author's identifier from O-5 leaves its explicit link to DR-1, dependent status, event time and learned time intact, without changing any release or introducing independent corroboration. IR-14 nevertheless rejects the human note for lacking a producer, although C2 and C3 remain satisfied.",
+    "remove_fields": {
+      "O-5": [
+        "producer"
+      ]
+    }
+  }
+]
