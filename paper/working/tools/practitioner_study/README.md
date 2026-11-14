@@ -14,6 +14,8 @@ Changed before the first response, 13 November 2026, at the author's direction: 
 
 Changed before the first response, 14 November 2026, at the author's direction: no post carries the form link. A person asks for it, and the author checks that person's public profile against the criteria before sending it, because an open link lets anyone answer. The form, the questions and the answer key did not change.
 
+Changed before the first response, 14 November 2026: the form opens on a fixed date, not when the post goes live. The posts went live on 14 November without the link, and the author opened the form the same day. The close date stays the one the posts state. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -65,7 +67,7 @@ None. The mechanism-link check (S3) and the rulings on the adversarial histories
 
 ## Timeline
 
-The form opens when the author's recruitment post goes live and closes 14 days later. If fewer than six eligible participants who have not read Section 8 or Supplement S6 have answered by then, it stays open once for 14 more days. Every eligible response received before it closes is scored; there is no early stop. Results go into a new subsection of manuscript Section 9 and into S8.
+The form opens on 14 November 2026 at 17:30 UTC and closes on 30 November at 14:00 UTC. If fewer than six eligible participants who have not read Section 8 or Supplement S6 have answered by then, it stays open once for 14 more days. Every eligible response received before it closes is scored; there is no early stop. Results go into a new subsection of manuscript Section 9 and into S8.
 
 Before opening, the author checked the scorer on one test response. It was deleted from the form and from the form's linked workbook, and it is not data.
 
