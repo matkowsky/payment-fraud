@@ -30,8 +30,18 @@ Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 Novembe
 - The chat was closed after reply 2 (author, 15 November, 00:18 Asia/Jerusalem). Prompt 3 was not sent in it.
 - No case has been run through the checker. Checked without running the rules: the file parses; it holds five cases; no case identifier repeats one from reply 1; every existing record a case changes is in the valid history; the records the cases add (DR-3, DR-4, O-8 and Q-5) use new identifiers; and the tier the tester gave each case equals the tier the runner assigns (R05 agent, the rest other).
 
-## Reply 3 (not yet run)
+## Reply 3
 
-- Prompt: `PROMPT_3.md`, 33,522 bytes, SHA-256 `24b0f8b5128c69b7de450b0c5fe18d2e665bf914a106697a15470ae8604ebac0`. It is the packet (21,682 bytes, unchanged), 489 added bytes, `reply_1.json` (3,625 bytes, unchanged) and `reply_2.json` (7,726 bytes, unchanged). The added bytes are a heading, three sentences, two labels, the code fences and the plan's request. See the 15 November change in `PLAN.md`.
-- To be sent whole, as one message, in a third temporary chat with the same model and settings as replies 1 and 2.
-- To record when it runs: the date, the model name shown, the settings, and the whole reply, with anything outside the array.
+- Date: 15 November 2026. The author sent the reply to Claude as an attached file at 00:34 Asia/Jerusalem (22:34Z on 14 November). The plan change for this reply (PR #79) was merged at 22:23:00Z, before Claude received the reply. The time the prompt was sent is not recorded.
+- Prompt: `PROMPT_3.md`, 33,522 bytes, SHA-256 `24b0f8b5128c69b7de450b0c5fe18d2e665bf914a106697a15470ae8604ebac0`. It is the packet (21,682 bytes, unchanged), 489 added bytes, `reply_1.json` (3,625 bytes, unchanged) and `reply_2.json` (7,726 bytes, unchanged). See the 15 November change in `PLAN.md`. The reply numbers its cases R09 to R12 and A03, which continues the earlier numbering.
+- Model and settings: not yet stated for this chat. To be recorded: the model name the chat showed, the settings, and that the prompt went in whole as one message.
+- Reply: `reply_3.json`, saved byte for byte from the attached file. 7,421 bytes, SHA-256 `31226b0428f21ea29a18f2a8f3ea5b8dd9caa68458e3030986fba42047b9e484`. Five cases: four the tester meant to break a requirement (R09, R10 and R12 name C2, R11 names C3) and one the tester meant to be legitimate (A03).
+- Not captured: the attached file began and ended with the array. Whether the reply held a code fence or a sentence outside it is not yet recorded.
+- Checked without running the rules: the file parses; it holds five cases; no case identifier repeats an earlier one; every existing record a case changes is in the valid history; the records the cases add (Q-6, M-2 and O-9) use new identifiers; and the tier the tester gave each case equals the tier the runner assigns (R09 agent, the rest other).
+
+## The fifteen cases
+
+- `CASES.json`: the three replies joined in order and written as round 1's was (`json.dumps` with an indent of 1). 16063 bytes, SHA-256 `f5c5353758f1c066e698f5788a0d7a43a40da34c202519c2069e1b8a2610b8b5`. Its fifteen cases equal the three replies' cases, in order.
+- Twelve cases are meant to break a requirement (R01 to R12: seven name C2, five name C3). Three are meant to be legitimate (A01 to A03).
+- This file and `reply_3.json` were committed before the checker was run on any round 2 case.
+- Frozen files at main `9ec1a3e`, compared with the freeze `58150e8`: the checker, the valid history, the schema and the runner are identical (blobs `4fbc402`, `5d515fe`, `d22b2e4` and `bd0e653`). `apply_patch` in `tools/outcome_conformance.py` is unchanged.
