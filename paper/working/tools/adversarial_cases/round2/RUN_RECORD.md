@@ -20,10 +20,16 @@ Kept as the run goes. Nothing here is a result: no round 2 case has been run thr
 
 Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 November 2026.
 
-## Reply 2 (not yet run)
+## Reply 2
 
-- Prompt: `PROMPT_2.md`, 25,709 bytes, SHA-256 `c17533af5912a12c6cb47b5f930ce49efc2b3856fa85d0589654dd52bb510f9d`. It is the packet (21,682 bytes, unchanged), 402 added bytes, and `reply_1.json` (3,625 bytes, unchanged). The added bytes are a heading, three sentences, a code fence and the plan's request. See the second 14 November change in `PLAN.md`.
-- To be sent whole, as one message, in a new temporary chat with the same settings as reply 1.
-- Planned model and settings: GPT-6 Astra Pro, in a temporary chat with memory off, no project and no web, the same as reply 1 (author, 14 November, 23:36 and 23:37 Asia/Jerusalem). Both are to be confirmed when it runs.
+- Date: 14 November 2026. The author sent the reply to Claude as an attached file at 23:58 Asia/Jerusalem (21:58Z). The plan change for this reply (PR #76) was merged at 21:40:31Z, before Claude received the reply. The time the prompt was sent is not recorded.
+- Prompt: `PROMPT_2.md`, 25,709 bytes, SHA-256 `c17533af5912a12c6cb47b5f930ce49efc2b3856fa85d0589654dd52bb510f9d`. It is the packet (21,682 bytes, unchanged), 402 added bytes, and `reply_1.json` (3,625 bytes, unchanged). The added bytes are a heading, three sentences, a code fence and the plan's request. See the second 14 November change in `PLAN.md`. The reply numbers its cases R05 to R08 and A02, which continues reply 1's numbering.
+- Model and settings, as the author stated them before the run: GPT-6 Astra Pro, in a new temporary chat with memory off, no project and no web (14 November, 23:36 and 23:37 Asia/Jerusalem). Not yet confirmed after the run: the model name the chat showed, the settings, and that the prompt went in whole as one message.
+- Reply: `reply_2.json`, saved byte for byte from the attached file. 7,726 bytes, SHA-256 `22e2da4441e39d5b3e1de073ab7fbb784ba98fea7ea4e3363c1c6e2a3e18a4b5`. Five cases: four the tester meant to break a requirement (R05 and R08 name C2, R06 and R07 name C3) and one the tester meant to be legitimate (A02).
+- Not captured: the attached file began and ended with the array. Whether the reply held a code fence or a sentence outside it is not yet recorded.
+- No case has been run through the checker. Checked without running the rules: the file parses; it holds five cases; no case identifier repeats one from reply 1; every existing record a case changes is in the valid history; the records the cases add (DR-3, DR-4, O-8 and Q-5) use new identifiers; and the tier the tester gave each case equals the tier the runner assigns (R05 agent, the rest other).
+
+## Reply 3 (not yet run)
+
+- Prompt 3 is the plan's request alone, sent in the same chat as reply 2. If that chat closes first, prompt 3 is built the same way as `PROMPT_2.md`, with replies 1 and 2, and recorded as a further change in `PLAN.md`.
 - To record when it runs: the date, the model name shown, the settings, and the whole reply, with anything outside the array.
-- Prompt 3 is the plan's request alone, sent in that same chat. If that chat closes first, prompt 3 is built the same way, with replies 1 and 2.
