@@ -67,6 +67,8 @@ Accepted pull requests:
 - [#72](https://github.com/matkowsky/payment-fraud/pull/72) Practitioner study: the form opens on a fixed date
 - [#73](https://github.com/matkowsky/payment-fraud/pull/73) Fixes from the 14 November review: anonymity check, outcome checker, wording
 - [#74](https://github.com/matkowsky/payment-fraud/pull/74) Practitioner study: the scorer refuses a malformed export
+- [#75](https://github.com/matkowsky/payment-fraud/pull/75) Source ledger: close unread parts of cited sources
+- [#76](https://github.com/matkowsky/payment-fraud/pull/76) Round 2: save reply 1; reply 2 from a new chat that is given reply 1
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|

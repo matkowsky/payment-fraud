@@ -1407,7 +1407,7 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 <div id="ref-Wei2026AMemGuard" class="csl-entry">
 
-\[91\] Q. Wei, T. Yang, Y. Wang, X. Li, L. Li, Z. Yin, Y. Zhan, T. Holz, Z. Lin, and X. Wang. 2025. A-MemGuard: A Proactive Defense Framework for LLM-Based Agent Memory. arXiv preprint 2510.02373v1. ICML 2026 acceptance reported; final proceedings version not established. Cited version: arXiv 2510.02373v1 (29 September 2025). <https://arxiv.org/abs/2510.02373v1>.
+\[91\] Q. Wei, T. Yang, Y. Wang, X. Li, L. Li, Z. Yin, Y. Zhan, T. Holz, Z. Lin, and X. Wang. 2026. A-MemGuard: A Proactive Defense Framework for LLM-Based Agent Memory. *Proceedings of the 43rd International Conference on Machine Learning*, 306, pp. 134176–134202. <https://proceedings.mlr.press/v306/wei26ac.html>.
 
 </div>
 
