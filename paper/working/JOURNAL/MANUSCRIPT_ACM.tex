@@ -1,6 +1,7 @@
 % Pandoc template for the ACM journal build (JOURNAL_BUILD.py). ACM large format, as DTRAP uses.
 % Preprint mode: [acmlarge,nonacm] removes ACM's copyright block and citation footer.
-% Anonymous mode: [acmlarge,review,anonymous] hides the author and adds line numbers for review.
+% Anonymous mode: [acmlarge,review,anonymous] hides the author and adds line numbers for review; the name and
+% email are also left out of the TeX, so the anonymous source names no one.
 \documentclass[acmlarge,nonacm]{acmart}
 \usepackage{longtable,array,calc}
 \usepackage{xurl}
@@ -71,7 +72,7 @@ and agent benefit. The contribution is a joint specification for
 investigation across payment products, built on established methods and
 recent agent-governance designs. It is a synthesis, not a new method.
 The architecture has not been built, no platform data were used, its
-only experiments run the record schemas on synthetic records, and no
+only experiments use synthetic records and one simulation, and no
 practitioner has reviewed it.
 \end{abstract}
 \keywords{payment fraud, abuse investigation, threat intelligence,
@@ -244,13 +245,14 @@ Stripe's public product pages and documentation supply an illustrative
 product scope, not a description of its internal systems. The paper
 synthesizes public evidence and proposes a design. It reports no
 implementation of the architecture and no measurement on platform data;
-its only experiments run the record schemas on synthetic records
-(Sections 8.4 and 8.5). Section 2 relates it to prior work and Section 3
-explains how it was derived. Sections 4 and 5 answer RQ1, with Section
-6.3 and Supplement Table S4.2 adding the agent's analytical
-capabilities; Section 6 answers RQ2 and Section 7 RQ3. Section 8 shows
-the design's consequences in two hypothetical investigations, and
-Section 9 states how its value would be tested.
+its only experiments use synthetic records (Sections 8.4 and 8.5) and
+one simulation of an interval method (Supplement S7.1). Section 2
+relates it to prior work and Section 3 explains how it was derived.
+Sections 4 and 5 answer RQ1, with Section 6.3 and Supplement Table S4.2
+adding the agent's analytical capabilities; Section 6 answers RQ2 and
+Section 7 RQ3. Section 8 shows the design's consequences in two
+hypothetical investigations, and Section 9 states how its value would be
+tested.
 
 \hypertarget{relationship-to-prior-work}{%
 \section{Relationship to prior work}\label{relationship-to-prior-work}}
@@ -1854,8 +1856,9 @@ No two requirements replace the third & Two cross-requirement pairs
 (8.3, S4.4) & That they cover every interaction \\
 Software can check the rules & Two checkers; 15 adversarial histories
 (S4.4) & Every evasion; four stated limits remain \\
-The records are cheap to store and check & Synthetic measurement (8.4) &
-The cost of producing them on a platform \\
+The records were cheap to store and check on one synthetic file &
+Synthetic measurement (8.4) & The cost of producing them on a
+platform \\
 Missing context changes conclusions & Two hypothetical traces (8.1 to
 8.3) & How often; the practitioner study (S8) has not run \\
 The records expose two alleged patterns & Synthetic replays and sweeps
@@ -1951,9 +1954,10 @@ Reproduction scripts check the included counts, lineage and arithmetic
 and rebuild the documents. No private platform data, implementation of
 the proposed architecture or empirical system-evaluation code is
 supplied. External source texts remain with their publishers or authors.
-These files are published with this preprint
-(https://doi.org/10.5281/zenodo.23772005), and the working draft and
-review record are at https://github.com/matkowsky/payment-fraud.
+Version 1.0 of these files is published with the preprint
+(https://doi.org/10.5281/zenodo.23772006); the working draft, with the
+files added since, and the review record are at
+https://github.com/matkowsky/payment-fraud.
 
 \textbf{Funding.} This work received no funding.
 
@@ -1976,8 +1980,9 @@ acknowledgments list the author, then at Microsoft, among participants
 of the OASIS Cyber Threat Intelligence Technical Committee; the paper
 cites the 2021 STIX 2.1 standard.
 
-\textbf{Release status.} This is preprint version 1.0, dated 29 October
-2026. It has not been peer reviewed.
+\textbf{Release status.} This is the working draft for version 1.1. It
+is not a published version and has not been peer reviewed. Version 1.0
+is dated 29 October 2026.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

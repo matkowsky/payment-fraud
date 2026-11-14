@@ -1,6 +1,7 @@
 % Pandoc template for the ACM journal build (JOURNAL_BUILD.py). ACM large format, as DTRAP uses.
 % Preprint mode: [acmlarge,nonacm] removes ACM's copyright block and citation footer.
-% Anonymous mode: [acmlarge,review,anonymous] hides the author and adds line numbers for review.
+% Anonymous mode: [acmlarge,review,anonymous] hides the author and adds line numbers for review; the name and
+% email are also left out of the TeX, so the anonymous source names no one.
 \documentclass[acmlarge,review,anonymous]{acmart}
 \acmJournal{DTRAP}
 \usepackage{longtable,array,calc}
@@ -36,11 +37,10 @@
 \begin{document}
 \title{Threat Analytics Across Payment Products: Evidence Requirements
 for Agent Investigations}
-\author{Jonathan Matkowsky}
+\author{Anonymous}
 % No institution. The title line shows "NAME, USA"; the template's automatic commas would print ",, USA",
 % and its city and state commands remove the space after the comma, so the address note is written out here.
 \affiliation[obeypunctuation=true]{\country{USA}}
-\email{Jonathan@matkowsky.com}
 \begin{abstract}
 Abuse of a payment platform can cross products and accounts, and the
 platform's own protective decisions change which outcomes can later be
@@ -70,7 +70,7 @@ and agent benefit. The contribution is a joint specification for
 investigation across payment products, built on established methods and
 recent agent-governance designs. It is a synthesis, not a new method.
 The architecture has not been built, no platform data were used, its
-only experiments run the record schemas on synthetic records, and no
+only experiments use synthetic records and one simulation, and no
 practitioner has reviewed it.
 \end{abstract}
 \keywords{payment fraud, abuse investigation, threat intelligence,
@@ -240,13 +240,14 @@ Stripe's public product pages and documentation supply an illustrative
 product scope, not a description of its internal systems. The paper
 synthesizes public evidence and proposes a design. It reports no
 implementation of the architecture and no measurement on platform data;
-its only experiments run the record schemas on synthetic records
-(Sections 8.4 and 8.5). Section 2 relates it to prior work and Section 3
-explains how it was derived. Sections 4 and 5 answer RQ1, with Section
-6.3 and Supplement Table S4.2 adding the agent's analytical
-capabilities; Section 6 answers RQ2 and Section 7 RQ3. Section 8 shows
-the design's consequences in two hypothetical investigations, and
-Section 9 states how its value would be tested.
+its only experiments use synthetic records (Sections 8.4 and 8.5) and
+one simulation of an interval method (Supplement S7.1). Section 2
+relates it to prior work and Section 3 explains how it was derived.
+Sections 4 and 5 answer RQ1, with Section 6.3 and Supplement Table S4.2
+adding the agent's analytical capabilities; Section 6 answers RQ2 and
+Section 7 RQ3. Section 8 shows the design's consequences in two
+hypothetical investigations, and Section 9 states how its value would be
+tested.
 
 \hypertarget{relationship-to-prior-work}{%
 \section{Relationship to prior work}\label{relationship-to-prior-work}}
@@ -1850,8 +1851,9 @@ No two requirements replace the third & Two cross-requirement pairs
 (8.3, S4.4) & That they cover every interaction \\
 Software can check the rules & Two checkers; 15 adversarial histories
 (S4.4) & Every evasion; four stated limits remain \\
-The records are cheap to store and check & Synthetic measurement (8.4) &
-The cost of producing them on a platform \\
+The records were cheap to store and check on one synthetic file &
+Synthetic measurement (8.4) & The cost of producing them on a
+platform \\
 Missing context changes conclusions & Two hypothetical traces (8.1 to
 8.3) & How often; the practitioner study (S8) has not run \\
 The records expose two alleged patterns & Synthetic replays and sweeps

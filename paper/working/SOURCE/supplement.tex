@@ -850,10 +850,10 @@ link), and permitted purpose and scope. A shared attribute alone does
 not establish that one person controls both entities. When a decision
 makes an outcome unobservable, the record describes the channel's
 status; it does not invent an outcome report.
-\protect\hyperlink{complete-storage-requirements}{S4.1} gives the
+\protect\hyperlink{s41-complete-storage-requirements}{S4.1} gives the
 complete storage requirements, and
-\protect\hyperlink{outcome-record-schemas}{S4.2} gives field-level
-schemas for the outcome records.
+\protect\hyperlink{s42-field-level-schemas-for-outcome-records}{S4.2}
+gives field-level schemas for the outcome records.
 
 \begin{figure}[tp]
 
@@ -962,9 +962,9 @@ and uncertainty. Recent receipt does not establish recent conduct when
 the event interval is unresolved. Outcome windows instead use each
 channel's declared clock-start event.
 
-\hypertarget{complete-storage-requirements}{%
+\hypertarget{s41-complete-storage-requirements}{%
 \subsubsection{S4.1 Complete storage
-requirements}\label{complete-storage-requirements}}
+requirements}\label{s41-complete-storage-requirements}}
 
 Table S4.1 summarizes this complete storage contract; S3.1 and
 manuscript Section 5.2 give the motivating evidence. Each block groups
@@ -1595,9 +1595,9 @@ determine which legal basis applies in a particular deployment.
   Link each wallet to every party it has allowed to spend its funds.
 \end{itemize}
 
-\hypertarget{outcome-record-schemas}{%
+\hypertarget{s42-field-level-schemas-for-outcome-records}{%
 \subsubsection{S4.2 Field-level schemas for outcome
-records}\label{outcome-record-schemas}}
+records}\label{s42-field-level-schemas-for-outcome-records}}
 
 The
 \href{SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json}{outcome-record
@@ -1691,7 +1691,7 @@ Fourteen rules check records against each other:
   payout that contains the item.
 \item
   \mbox{OR-10}: a reading's channel state is computed only from the
-  transitions the system had learned by the read time.
+  transitions and corrections the system had learned by the read time.
 \item
   \mbox{OR-11}: a reading's report presence matches the reports learned
   by the read time. Presence is unavailable only when query access was
@@ -1732,16 +1732,16 @@ not any network's rules. The schema follows the label-store,
 control-outcome-store and graph-semantics requirements in S4.1 and the
 relations in the entity-relationships file. A schema and passing
 synthetic cases do not show that the records improve investigations.
-\protect\hyperlink{investigation-record-schemas}{S4.4} gives the schemas
-for query runs, which the second requirement needs, and for release
-records. Denominators are outside these records: which payments a
-measure counts, their amounts and their capture or settlement times come
-from the payment ledger, which this section does not specify. Whether a
-denominator read was complete is a query-coverage record.
+\protect\hyperlink{s44-field-level-schemas-for-query-runs-and-release}{S4.4}
+gives the schemas for query runs, which the second requirement needs,
+and for release records. Denominators are outside these records: which
+payments a measure counts, their amounts and their capture or settlement
+times come from the payment ledger, which this section does not specify.
+Whether a denominator read was complete is a query-coverage record.
 
-\hypertarget{outcome-record-cost}{%
+\hypertarget{s43-cost-of-the-outcome-records-on-synthetic-data}{%
 \subsubsection{S4.3 Cost of the outcome records on synthetic
-data}\label{outcome-record-cost}}
+data}\label{s43-cost-of-the-outcome-records-on-synthetic-data}}
 
 \href{tools/outcome_cost.py}{\texttt{tools/outcome\_cost.py}} builds one
 million synthetic payments from the
@@ -1795,9 +1795,11 @@ lines; 79 MB compressed with gzip level 6; 2,559 MB in SQLite 3.53.1,
 storing each record's JSON with one index on item, channel, record type,
 learned time and effective time. On a two-core x86-64 virtual machine
 with Python 3.13.18: 10,000 reads of one payment's fraud-chargeback
-state and report count, at a cutoff after all records, took a median of
-17 microseconds and a 99th percentile of 57; one day's cohort of 11,052
-payments took 0.3 seconds. Loading took 125 seconds and indexing 2.7.
+state and report count, at a cutoff 30 days after the last payment, took
+a median of 17 microseconds and a 99th percentile of 57; one day's
+cohort of 11,052 payments took 0.3 seconds. Every record was loaded, but
+the cutoff admits 12,929 of the 15,372 report events; the other 2,443
+were learned later. Loading took 125 seconds and indexing 2.7.
 
 Limits: template text repeats, so compression overstates what real
 records achieve, and field values are longer than coded production
@@ -1806,9 +1808,9 @@ record per payment. The store is one SQLite file on one machine, not a
 production database. Query runs (C2) and release records (C3) are
 measured in S4.4.
 
-\hypertarget{investigation-record-schemas}{%
+\hypertarget{s44-field-level-schemas-for-query-runs-and-release}{%
 \subsubsection{S4.4 Field-level schemas for query runs and
-release}\label{investigation-record-schemas}}
+release}\label{s44-field-level-schemas-for-query-runs-and-release}}
 
 The
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/investigation_records.schema.json}{investigation-record
@@ -2000,7 +2002,9 @@ release or a later read to it. A release names a person but carries no
 authenticated approval tied to the draft. No record rule can show that
 the person read the draft, and the schema has no class for a fact
 recorded ahead of its effective date. Identifiers, dates and versions in
-the cases are illustrative.
+the cases are illustrative. The schema has no record for a later
+retraction, early expiry or withdrawal (S4.1), so \mbox{IR-13} tests
+only a release's original expiry.
 
 \textbf{Requirements together.} One further rule checks a claim against
 the outcome records of S4.2:
@@ -2933,14 +2937,18 @@ observation or to an earlier conclusion. Two auditors code each case
 independently from the records the case cited and from what the source
 systems held at the time, and record whether the failure would change
 the conclusion. A case the records cannot settle is coded as such, and
-that share is itself a result. The audit reports, for each failure, the
-share of cases in which it occurred and the share in which it changed
-the conclusion, with 95 percent intervals and agreement between
-auditors. With 200 cases, an exact 95 percent interval on any share is
-at most 14.3 points wide. The audit measures how often the targeted
-failures occur; it does not test whether the records prevent them. It
-reviews identifiable staff's work on real case records, so it needs the
-same ethics and privacy review as E1.
+that share is itself a result. For each failure the audit reports three
+counts: cases in which it occurred, cases in which it did not, and cases
+the records cannot settle. The share of cases in which it occurred, and
+the share in which it changed the conclusion, are taken over the settled
+cases, with 95 percent intervals. The audit also gives the range each
+share could take over all sampled cases, counting the unsettled ones
+first as occurrences and then as none, and it reports agreement between
+auditors. With 200 settled cases, an exact 95 percent interval on any
+share is at most 14.3 points wide; with 160, at most 16.0. The audit
+measures how often the targeted failures occur; it does not test whether
+the records prevent them. It reviews identifiable staff's work on real
+case records, so it needs the same ethics and privacy review as E1.
 
 Four rules apply to all nine evaluations. First, each evaluation freezes
 the information each method may use at an as-of cutoff and separates
@@ -3050,9 +3058,11 @@ of overlap populations whose holdout rates fall outside the predicted
 interval. Each interval predicts the observed outcome rate in a held-out
 population, including its sampling variation. Before examining any data,
 specify the estimator, interval construction, intended coverage and
-overlap populations. Intended coverage is the planned share of repeated
-holdout rates the intervals contain. These deployment-specific settings
-are not selected here.
+overlap populations, and state why those populations can be treated as
+independent. If they share records, shocks or a fitted model, calibrate
+the test under the joint design instead. Intended coverage is the
+planned share of repeated holdout rates the intervals contain. These
+deployment-specific settings are not selected here.
 
 \textbf{Failure criteria:} Fails if fewer than 95 percent of randomized
 decisions carry a usable probability, or more overlap populations fall
@@ -3156,14 +3166,15 @@ labels that carry an agent-output link.
 
 \textbf{Failure criteria:} Fails if, for either comparator arm, the
 upper 95 percent bound on the paired difference in error rates, agent
-arm minus that arm, is 2 percentage points or more, or reviewer minutes
-per correct finding are higher. At a 10 percent error rate, 700 cases
-worked in two independent arms would give a half-width of about 3.1
-points, so the pairing must remove much of that variance, or E5 needs
-more cases; it is sized by simulation before it starts. For minutes,
-higher means that the 95 percent interval on the agent arm's ratio to
-the human arm lies wholly above one. Avoiding a failure criterion does
-not by itself establish equal error rates or improved efficiency.
+arm minus that arm, is 2 percentage points or more. At a 10 percent
+error rate, 700 cases in each of two independent arms would give a
+half-width of about 3.1 points, so the pairing must remove much of that
+variance, or E5 needs more cases; it is sized by simulation before it
+starts. E5 also fails if reviewer minutes per correct finding are higher
+than in the person-with-tools arm: the 95 percent interval on the agent
+arm's ratio to that arm lies wholly above one. Avoiding a failure
+criterion does not by itself establish equal error rates or improved
+efficiency.
 
 \hypertarget{e6-tests-the-third-requirement-exploratory.}{%
 \paragraph{E6 (tests the third requirement;
@@ -3214,6 +3225,10 @@ team.
 
 \textbf{Primary measures:} the rate of degraded later investigations,
 the time to reuse, and the planted lessons released and still active.
+Time to reuse runs from a lesson's proposal to its release for reuse.
+The median is taken over genuine lessons that pass testing and review;
+one not yet released when the study ends counts as longer than every
+observed time.
 
 \textbf{Failure criteria:} Fails if a planted poisoned lesson is
 released and still active after its expiry or re-test date. It also
@@ -3257,37 +3272,40 @@ retrieved records that count against a claim, including records that the
 checker's fixed rule marks and records it leaves to the sample
 (manuscript Section 6.4); and drafts whose only support for a material
 claim is a released item or a record linked to one. The mix of planted
-error types is fixed before the study starts. Some planted errors come
-from the agent's own earlier runs and the rest are written
-independently. A lower catch rate on the agent's own errors would
-indicate shared errors, although the two sets may also differ in
-difficulty. As specified, E6 does not separate errors the reviewer
-shares with the agent from other misses. The number of planted false
-exonerations is sized for 93 percent power to show a release rate below
-the tolerable rate, given an assumed true release rate stated in
-advance, and the number of planted drafts is sized so that the complete
-rule, with the catch-rate criterion, reaches that power. The following
-counts illustrate the false-exoneration endpoint under independent
-Bernoulli trials with a common release probability and a fixed sample
-size. They do not account for reviewer or case dependence or the
-separate catch-rate criterion; the actual study must be sized for its
-complete rule under the prespecified clustered design. With none
-released, showing a rate below 1 percent at one-sided 95 percent
-confidence needs at least 299, the smallest \(n\) with \(0.99^n<0.05\).
-If the true rate is 0.1 percent, 93 percent power to show a rate below 1
-percent needs 628, the smallest such number. With 628, two or fewer
-releases show it, because at a true 1 percent rate that many occur with
-probability 4.98 percent; at 0.1 percent they occur with probability
-97.4 percent. If planted false exonerations made up 5 percent of the
-drafts reaching review, 628 of them would take 12,560 drafts, about 628
-days at the 20 drafts a day assumed in manuscript Section 6.4. The plan
-states the tolerable rate, the assumed rate, the prevalence and the
-implied duration together. One site at that volume would need about 21
-months. Sites may pool planted drafts under one protocol, or use a
-group-sequential design that can stop once a bound is met; the choice is
-fixed before the study starts. A site that cannot reach the required
-numbers runs E8 as exploratory and reports catch rates without the pass
-rule.
+error types is fixed before the study starts. Each planted draft carries
+one planted error, so the checker cannot reject a draft for one error
+while another goes unreviewed. Some planted errors come from the agent's
+own earlier runs and the rest are written independently. A lower catch
+rate on the agent's own errors would indicate shared errors, although
+the two sets may also differ in difficulty. As specified, E6 does not
+separate errors the reviewer shares with the agent from other misses.
+The number of planted false exonerations is sized for 93 percent power
+to show a release rate below the tolerable rate, given an assumed true
+release rate stated in advance, and the number of planted drafts is
+sized so that the complete rule, with the catch-rate criterion, reaches
+that power. The following counts illustrate the false-exoneration
+endpoint under independent Bernoulli trials with a common release
+probability and a fixed sample size. They do not account for reviewer or
+case dependence or the separate catch-rate criterion; the actual study
+must be sized for its complete rule under the prespecified clustered
+design. With none released, showing a rate below 1 percent at one-sided
+95 percent confidence needs at least 299, the smallest \(n\) with
+\(0.99^n<0.05\). If the true rate is 0.1 percent, 93 percent power to
+show a rate below 1 percent needs 628, the smallest such number. With
+628, two or fewer releases show it, because at a true 1 percent rate
+that many occur with probability 4.98 percent; at 0.1 percent they occur
+with probability 97.4 percent. If planted false exonerations made up 5
+percent of the drafts reaching review, 628 of them would take 12,560
+drafts, about 628 days at the 20 drafts a day assumed in manuscript
+Section 6.4. The plan states the tolerable rate, the assumed rate, the
+prevalence and the implied duration together. One site at that volume
+would need about 21 months. Sites may pool planted drafts under one
+protocol, or use a group-sequential design that can stop once a bound is
+met; the choice is fixed before the study starts. A group-sequential
+design needs stopping boundaries calibrated to keep the error over all
+looks at 5 percent; the fixed-sample counts above do not apply to it. A
+site that cannot reach the required numbers runs E8 as exploratory and
+reports catch rates without the pass rule.
 
 \textbf{Primary measures:} the catch rate, overall and by error type
 (false exonerations, other wrong claims, omissions of retrieved contrary
@@ -3353,28 +3371,30 @@ excluded, bounded or estimated under a stated delay model, and how
 channels without a defined reporting window enter the holdout
 comparison. \(D\) is also reported under each other handling: exclusion,
 the stated delay model, and bounding with every unlabeled item counted
-first as a positive and then as a negative. The quantity, its
-population, denominator and read times, and the method applied to
-unlabeled items are the same under every reading, so that the comparison
-tests the records, not a change of estimator. In the comparison that
-counts, blocked attempts are outside that population for the pass
-comparator, for C1 and for the reference. How the reference treats items
-whose channel a decision closed or changed in meaning is fixed before
-any data are examined and uses no reading's labels. Each reading is
-compared with a reference for the same quantity and target population
-constructed from the holdout after the longest defined reporting window
-has closed, with report truth reviewed on a random sample. The target is
-the selected metric on matured reported outcomes after that sampled
-truth review. Prespecify how the truth-review sample contributes to the
-reference and its uncertainty. Checking reports does not reveal fraud
-that was never reported; a target of underlying fraud would require a
-separate ascertainment and identification design. Prespecify a joint
-uncertainty procedure for the two readings and the reference that
-preserves pairing, randomization, truth-review sampling and relevant
-clustering. Rule events that reopen a window during follow-up are
-recorded and reported. The main study will be sized for 93 percent power
-for part (b), which carries the pass rule, under stated effect
-assumptions.
+first as a positive and then as a negative. The quantity, its target
+population and read times, and the method applied to unlabeled items are
+the same under every reading, so that the comparison tests the records,
+not a change of estimator. Where that method excludes unlabeled items,
+each reading divides by the items it labels: the readings share a target
+but not a denominator, and the plan states the assumption under which
+the labeled items stand for the target. In the comparison that counts,
+blocked attempts are outside that population for the pass comparator,
+for C1 and for the reference. How the reference treats items whose
+channel a decision closed or changed in meaning is fixed before any data
+are examined and uses no reading's labels. Each reading is compared with
+a reference for the same quantity and target population constructed from
+the holdout after the longest defined reporting window has closed, with
+report truth reviewed on a random sample. The target is the selected
+metric on matured reported outcomes after that sampled truth review.
+Prespecify how the truth-review sample contributes to the reference and
+its uncertainty. Checking reports does not reveal fraud that was never
+reported; a target of underlying fraud would require a separate
+ascertainment and identification design. Prespecify a joint uncertainty
+procedure for the two readings and the reference that preserves pairing,
+randomization, truth-review sampling and relevant clustering. Rule
+events that reopen a window during follow-up are recorded and reported.
+The main study will be sized for 93 percent power for part (b), which
+carries the pass rule, under stated effect assumptions.
 
 \textbf{Primary measures:} (b) the reduction in absolute error against
 the holdout reference, with its 95 percent interval. For pass-comparator
@@ -3413,8 +3433,9 @@ measured error rates and in the ranking of two candidate rules.
 \textbf{Failure criteria:} Fails if the lower 95 percent bound on the
 reduction in reference error is at or below the negligible reduction, a
 named parameter fixed before any data are examined. It also fails if
-\(D\) changes sign between exclusion and the stated delay model. The two
-bounds are reported and do not count toward the rule. Counted as
+\(D\) changes sign between exclusion and the stated delay model. \(D\)
+under the two extreme countings is reported and does not count toward
+the rule; the countings bound the quantity, not \(D\). Counted as
 negatives, the unlabeled items give both readings the same value
 wherever the readings differ only on those items, so \(D\) is zero by
 construction. Counted as positives, they overstate the quantity unless
@@ -3482,19 +3503,24 @@ reported practice, not detection performance. The
 \href{tools/practitioner_study/README.md}{protocol}, the
 \href{tools/practitioner_study/INSTRUMENT.md}{form}, the scoring script
 and the hash of the answer key were committed before the first response.
+The protocol's dated notes record each later change.
 
 Six to ten practitioners with at least two years in fraud or abuse
 investigation, or in building systems for it, from at least three
 organizations, complete one anonymous form of about 35 minutes. The
 author sends the form link only after checking a person's public
-professional profile against these criteria. They read Traces A and B as
-many systems show them and answer eleven questions, then answer them
-again with the coverage, learned-time, attribution, decision-link and
-exposure records added. Eight questions test a requirement; three are
-controls. They then report how often each failure has changed a real
-conclusion, whether each record exists today and how hard it would be to
-add, whether the eleven signals of manuscript Table 2 are available at
-decision time, and, optionally, who owns each responsibility.
+professional profile against these criteria. The form does not ask for
+an employer, so organizations can be counted among the people sent the
+link and among those who email separately for credit, not among the
+scored answers; the results give both counts with their source. They
+read Traces A and B as many systems show them and answer eleven
+questions, then answer them again with the coverage, learned-time,
+attribution, decision-link and exposure records added. Eight questions
+test a requirement; three are controls. They then report how often each
+failure has changed a real conclusion, whether each record exists today
+and how hard it would be to add, whether the eleven signals of
+manuscript Table 2 are available at decision time, and, optionally, who
+owns each responsibility.
 
 Each question has one error the records should prevent. The study
 reports, for each question, how many participants made that error
@@ -4081,9 +4107,10 @@ records cannot fix that.
 \href{tools/replays/ftc_first_data_replay.py}{\texttt{tools/\allowbreak replays/\allowbreak ftc\_first\_data\_replay.py}}
 and
 \href{tools/replays/allied_wallet_replay.py}{\texttt{tools/\allowbreak replays/\allowbreak allied\_wallet\_replay.py}}
-generate synthetic payments, reports, decisions, attributions and links
-as S4.2 records, check them with the conformance rules, and compare what
-different views of the records flag over 1,000 runs. Results are in
+generate synthetic payments, reports, decisions, attributions and links.
+For one run, seed 1, they write them as S4.2 records and check those
+with the conformance rules. Over 1,000 runs they count what different
+views flag, without writing records. Results are in
 \href{SUPPLEMENT/S10_REPLAYS/first_data_results.json}{first\_data\_results.json}
 and
 \href{SUPPLEMENT/S10_REPLAYS/allied_wallet_results.json}{allied\_wallet\_results.json};
@@ -4159,16 +4186,20 @@ against the receiving account's sales \\
 \endgroup
 
 \textbf{Holds by construction.} The eight accounts sit below the floor
-and the alleged fraud ratio is three times the threshold, so those flags
-follow from the parameters; only their timing depends on the assumed
-delays. The 40 legitimate merchants' report rate is set at 1.6 percent,
-above the 1.5 percent threshold, so their flag also follows from the
-parameters. The First Data figures divide by the previous period's
-captures; with the same period's, the two linked-account figures are
-86.0 and 73.7 percent. The refunded share is set to 20 percent.
-Displacement follows from the model, which moves each closed account's
-volume to the remaining account. Verified links are correct by
-assumption.
+and the alleged fraud ratio is three times the threshold, so the account
+view's silence follows from the parameters and the linked view's flag is
+likely under them. The assumed delays change when that flag comes and
+how often it comes within the nine periods: in the delay comparison
+stored with the First Data results, 500 runs each, the linked view flags
+in 98.6 percent of runs with faster reports, 89.4 at the base delays and
+82.8 with slower ones. The 40 legitimate merchants' report rate is set
+at 1.6 percent, above the 1.5 percent threshold, so their flag also
+follows from the parameters. The First Data figures divide by the
+previous period's captures; with the same period's, the two
+linked-account figures are 86.0 and 73.7 percent. The refunded share is
+set to 20 percent. Displacement follows from the model, which moves each
+closed account's volume to the remaining account. Verified links are
+correct by assumption.
 
 \textbf{Sweeps (manuscript Figure 3).}
 \href{tools/replays/sweeps.py}{\texttt{tools/replays/sweeps.py}} varies
@@ -4191,10 +4222,13 @@ from 25 to 8,000. At an assumed legitimate 0.3 percent, the fraud-report
 rule flags in 38.8 to 54.4 percent of runs from 25 to 185 payments a
 month, 17.2 percent at 500, 2.8 percent at 1,000 and none from 2,000.
 The swept account is steady for eight months; the replay's three linked
-accounts are not. A First Data group whose report rate equals the
-threshold flags only by chance: reports arrive over up to four periods
-while the accounts are active for four, so a period's expected monitored
-ratio is 55 to 97 percent of the report rate.
+accounts are not. The Allied Wallet sweep also approximates the replay:
+it draws each report's amount afresh from the ticket-size distribution,
+where the replay uses the reported payment's own amount, so a report's
+dollars are not tied to its payment's. A First Data group whose report
+rate equals the threshold flags only by chance: reports arrive over up
+to four periods while the accounts are active for four, so a period's
+expected monitored ratio is 55 to 97 percent of the report rate.
 
 \textbf{Limits of the records.} Padding sales with self-funded purchases
 is arithmetic, not simulated: with the assumed fees, holding the
@@ -4206,10 +4240,10 @@ store must prevent edits. Accounts with no recorded shared attribute,
 shell companies and dummy websites leave nothing for an outcome record
 to test.
 
-\textbf{Conformance.} The generated records, 144,574 for First Data and
-4,240 for Allied Wallet, pass the schema and rules. A refund recorded as
-also closing the fraud-report channel fails \mbox{OR-08}, and a
-shared-attribute link marked verified fails \mbox{OR-14}.
+\textbf{Conformance.} The records written for seed 1, 144,574 for First
+Data and 4,240 for Allied Wallet, pass the schema and rules. A refund
+recorded as also closing the fraud-report channel fails \mbox{OR-08},
+and a shared-attribute link marked verified fails \mbox{OR-14}.
 
 \FloatBarrier
 
