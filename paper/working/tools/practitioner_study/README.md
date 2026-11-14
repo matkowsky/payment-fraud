@@ -12,6 +12,8 @@ Changed before the first response, 13 November 2026: the form opens when the rec
 
 Changed before the first response, 13 November 2026, at the author's direction: the two volunteer human coders are dropped. They would only repeat checks a model already ran on the paper's own work, and they would draw on the same small pool of volunteers as the form. The paper states that agreement between human coders has not been measured. The form, the questions and the answer key did not change.
 
+Changed before the first response, 14 November 2026, at the author's direction: no post carries the form link. A person asks for it, and the author checks that person's public profile against the criteria before sending it, because an open link lets anyone answer. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -25,7 +27,8 @@ Do the records C1 to C3 require change the conclusions practitioners draw, how o
 ## Participants
 
 - Six to ten people with at least two years investigating fraud or abuse, or building systems for it, at payment companies, banks, fintechs, marketplaces or vendors.
-- Recruited through the author's LinkedIn post and direct invitations. People whose work the paper cites may take part.
+- Recruited through the author's LinkedIn posts and direct invitations. People whose work the paper cites may take part.
+- No post carries the form link. A person asks for it by a private message or by a like on the post, and the author checks that person's public profile against the criteria above before sending it. The post says that a like is public and a message is private.
 - At least three organizations. The form does not ask for the employer. Participants who want credit email the author separately; those emails, never linked to answers, give the count of organizations.
 
 ## Consent and ethics
@@ -34,7 +37,7 @@ The study is not run through any institution and has no funding; the author know
 
 - Adults only, with consent recorded on the form's first page.
 - Minimal risk: professional judgment on hypothetical cases; no personal, employer or confidential information; only the eligibility, consent, Part 1 and case questions are required, each case question allows "Cannot tell", and participants may stop at any time.
-- The form records no name or email address. Results are reported in aggregate. Quotes need the participant's permission and carry no identifying detail.
+- The form records no name or email address. The author knows who received the link, not who answered. Results are reported in aggregate. Quotes need the participant's permission and carry no identifying detail.
 - No published figure or quote may show which organization lacks a record or signal.
 - Responses are deleted at journal publication or after one year, whichever comes first, with every export of them. The consent text, the date of each export and the scored counts are kept as evidence.
 
@@ -54,6 +57,7 @@ The study is not run through any institution and has no funding; the author know
 - Within-person design: Part 3 follows Part 2, so a changed answer may reflect the reveal, not the record.
 - The cases are hypothetical and come from the paper. Practitioners who read it may know the answers (P4 separates them).
 - A small, self-selected sample. Results describe these participants, not the field.
+- Eligibility rests on a public profile and the participant's own confirmation. The form is anonymous, so the author cannot confirm who answered, that a link was not passed on, or that no one answered twice.
 
 ## Human coders
 
