@@ -1,0 +1,234 @@
+{
+ "questions": {
+  "Q1": {
+   "covers": "C1: outcome labels shaped by decisions, in payments and fraud",
+   "from_year": null
+  },
+  "Q2": {
+   "covers": "C1: records that link outcomes to decisions",
+   "from_year": null
+  },
+  "Q3": {
+   "covers": "C2: query coverage and learned time in agent investigations",
+   "from_year": 2022
+  },
+  "Q4": {
+   "covers": "C3: governed memory and reuse for agents",
+   "from_year": 2022
+  },
+  "Q5": {
+   "covers": "Setting: agents investigating fraud, financial crime or threats, with evidence controls",
+   "from_year": 2022
+  },
+  "Q6": {
+   "covers": "C3: reused intelligence and independent corroboration, without agents",
+   "from_year": null
+  }
+ },
+ "runs": [
+  {
+   "run": "Q1-SC",
+   "question": "Q1",
+   "database": "Scopus",
+   "string": "TITLE-ABS-KEY ( fraud* OR chargeback* OR payment* OR \"financial crime*\" OR \"money laundering\" OR \"transaction monitoring\" ) AND TITLE-ABS-KEY ( \"selective label*\" OR \"reject inference\" OR \"delayed feedback\" OR \"delayed label*\" OR \"label delay*\" OR \"verification latency\" OR \"censored label*\" OR \"censored feedback\" OR \"counterfactual evaluation\" OR \"off-policy evaluation\" OR \"bandit feedback\" OR \"sample selection bias\" OR \"label noise\" OR \"noisy label*\" OR \"friendly fraud\" )",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q1-WS",
+   "question": "Q1",
+   "database": "Web of Science",
+   "string": "TS=(fraud* OR chargeback* OR payment* OR \"financial crime*\" OR \"money laundering\" OR \"transaction monitoring\") AND TS=(\"selective label*\" OR \"reject inference\" OR \"delayed feedback\" OR \"delayed label*\" OR \"label delay*\" OR \"verification latency\" OR \"censored label*\" OR \"censored feedback\" OR \"counterfactual evaluation\" OR \"off-policy evaluation\" OR \"bandit feedback\" OR \"sample selection bias\" OR \"label noise\" OR \"noisy label*\" OR \"friendly fraud\")",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q1-IE",
+   "question": "Q1",
+   "database": "IEEE Xplore",
+   "string": "(\"All Metadata\":fraud OR \"All Metadata\":chargeback OR \"All Metadata\":payment) AND (\"All Metadata\":\"selective labels\" OR \"All Metadata\":\"reject inference\" OR \"All Metadata\":\"delayed feedback\" OR \"All Metadata\":\"delayed labels\" OR \"All Metadata\":\"verification latency\" OR \"All Metadata\":\"censored feedback\" OR \"All Metadata\":\"counterfactual evaluation\" OR \"All Metadata\":\"off-policy evaluation\" OR \"All Metadata\":\"bandit feedback\" OR \"All Metadata\":\"label noise\" OR \"All Metadata\":\"friendly fraud\")",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q1-AC",
+   "question": "Q1",
+   "database": "ACM Digital Library",
+   "string": "Abstract:(fraud* OR chargeback* OR payment* OR \"financial crime\" OR \"financial crimes\" OR \"money laundering\" OR \"transaction monitoring\") AND Abstract:(\"selective label\" OR \"selective labels\" OR \"reject inference\" OR \"delayed feedback\" OR \"delayed label\" OR \"delayed labels\" OR \"label delay\" OR \"label delays\" OR \"verification latency\" OR \"censored label\" OR \"censored labels\" OR \"censored feedback\" OR \"counterfactual evaluation\" OR \"off-policy evaluation\" OR \"bandit feedback\" OR \"sample selection bias\" OR \"label noise\" OR \"noisy label\" OR \"noisy labels\" OR \"friendly fraud\")",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q2-SC",
+   "question": "Q2",
+   "database": "Scopus",
+   "string": "TITLE-ABS-KEY ( fraud* OR chargeback* OR dispute* OR payment* ) AND TITLE-ABS-KEY ( \"decision log*\" OR \"decision record*\" OR \"decision provenance\" OR \"decision trace*\" OR \"audit trail*\" OR \"outcome record*\" OR \"label store\" OR \"feedback loop*\" ) AND TITLE-ABS-KEY ( label* OR outcome* OR \"ground truth\" OR feedback )",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q2-WS",
+   "question": "Q2",
+   "database": "Web of Science",
+   "string": "TS=(fraud* OR chargeback* OR dispute* OR payment*) AND TS=(\"decision log*\" OR \"decision record*\" OR \"decision provenance\" OR \"decision trace*\" OR \"audit trail*\" OR \"outcome record*\" OR \"label store\" OR \"feedback loop*\") AND TS=(label* OR outcome* OR \"ground truth\" OR feedback)",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q2-IE",
+   "question": "Q2",
+   "database": "IEEE Xplore",
+   "string": "(\"All Metadata\":fraud OR \"All Metadata\":chargeback OR \"All Metadata\":dispute OR \"All Metadata\":payment) AND (\"All Metadata\":\"decision log\" OR \"All Metadata\":\"decision record\" OR \"All Metadata\":\"decision provenance\" OR \"All Metadata\":\"decision trace\" OR \"All Metadata\":\"audit trail\" OR \"All Metadata\":\"outcome record\" OR \"All Metadata\":\"feedback loop\") AND (\"All Metadata\":label OR \"All Metadata\":outcome OR \"All Metadata\":\"ground truth\" OR \"All Metadata\":feedback)",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q2-AC",
+   "question": "Q2",
+   "database": "ACM Digital Library",
+   "string": "Abstract:(fraud* OR chargeback* OR dispute* OR payment*) AND Abstract:(\"decision log\" OR \"decision logs\" OR \"decision record\" OR \"decision records\" OR \"decision provenance\" OR \"decision trace\" OR \"decision traces\" OR \"audit trail\" OR \"audit trails\" OR \"outcome record\" OR \"outcome records\" OR \"label store\" OR \"feedback loop\" OR \"feedback loops\") AND Abstract:(label* OR outcome* OR \"ground truth\" OR feedback)",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q3-SC",
+   "question": "Q3",
+   "database": "Scopus",
+   "string": "TITLE-ABS-KEY ( \"language model*\" OR LLM* OR \"AI agent*\" OR agentic OR \"autonomous agent*\" ) AND TITLE-ABS-KEY ( investigat* OR forensic* OR \"incident response\" OR \"threat hunting\" OR \"security operations\" OR \"threat intelligence\" OR audit* OR fraud* ) AND TITLE-ABS-KEY ( \"query completeness\" OR \"result completeness\" OR \"partial result*\" OR \"incomplete result*\" OR \"absence of evidence\" OR \"negative evidence\" OR \"data coverage\" OR \"search coverage\" OR bitemporal OR \"valid time\" OR \"transaction time\" OR \"point-in-time\" OR \"temporal leakage\" OR \"data freshness\" OR \"execution trace*\" OR \"audit log*\" OR \"run record*\" OR \"provenance record*\" ) AND PUBYEAR > 2021",
+   "year_limit": "In the string"
+  },
+  {
+   "run": "Q3-WS",
+   "question": "Q3",
+   "database": "Web of Science",
+   "string": "TS=(\"language model*\" OR LLM* OR \"AI agent*\" OR agentic OR \"autonomous agent*\") AND TS=(investigat* OR forensic* OR \"incident response\" OR \"threat hunting\" OR \"security operations\" OR \"threat intelligence\" OR audit* OR fraud*) AND TS=(\"query completeness\" OR \"result completeness\" OR \"partial result*\" OR \"incomplete result*\" OR \"absence of evidence\" OR \"negative evidence\" OR \"data coverage\" OR \"search coverage\" OR bitemporal OR \"valid time\" OR \"transaction time\" OR \"point-in-time\" OR \"temporal leakage\" OR \"data freshness\" OR \"execution trace*\" OR \"audit log*\" OR \"run record*\" OR \"provenance record*\") AND PY=(2022-2026)",
+   "year_limit": "In the string"
+  },
+  {
+   "run": "Q3-IE",
+   "question": "Q3",
+   "database": "IEEE Xplore",
+   "string": "(\"All Metadata\":\"language model\" OR \"All Metadata\":LLM OR \"All Metadata\":\"AI agent\" OR \"All Metadata\":agentic OR \"All Metadata\":\"autonomous agent\") AND (\"All Metadata\":investigation OR \"All Metadata\":forensic OR \"All Metadata\":\"incident response\" OR \"All Metadata\":\"threat hunting\" OR \"All Metadata\":\"security operations\" OR \"All Metadata\":\"threat intelligence\" OR \"All Metadata\":audit OR \"All Metadata\":fraud) AND (\"All Metadata\":\"query completeness\" OR \"All Metadata\":\"partial results\" OR \"All Metadata\":\"incomplete results\" OR \"All Metadata\":\"absence of evidence\" OR \"All Metadata\":\"negative evidence\" OR \"All Metadata\":\"data coverage\" OR \"All Metadata\":bitemporal OR \"All Metadata\":\"valid time\" OR \"All Metadata\":\"point-in-time\" OR \"All Metadata\":\"execution trace\" OR \"All Metadata\":\"audit log\")",
+   "year_limit": "Set 2022 to 2026 in the year filter"
+  },
+  {
+   "run": "Q3-AC",
+   "question": "Q3",
+   "database": "ACM Digital Library",
+   "string": "Abstract:(\"language model\" OR \"language models\" OR LLM* OR \"AI agent\" OR \"AI agents\" OR agentic OR \"autonomous agent\" OR \"autonomous agents\") AND Abstract:(investigat* OR forensic* OR \"incident response\" OR \"threat hunting\" OR \"security operations\" OR \"threat intelligence\" OR audit* OR fraud*) AND Abstract:(\"query completeness\" OR \"result completeness\" OR \"partial result\" OR \"partial results\" OR \"incomplete result\" OR \"incomplete results\" OR \"absence of evidence\" OR \"negative evidence\" OR \"data coverage\" OR \"search coverage\" OR bitemporal OR \"valid time\" OR \"transaction time\" OR \"point-in-time\" OR \"temporal leakage\" OR \"data freshness\" OR \"execution trace\" OR \"execution traces\" OR \"audit log\" OR \"audit logs\" OR \"run record\" OR \"run records\" OR \"provenance record\" OR \"provenance records\")",
+   "year_limit": "Set 2022 to 2026 in Publication Date"
+  },
+  {
+   "run": "Q4-SC",
+   "question": "Q4",
+   "database": "Scopus",
+   "string": "TITLE-ABS-KEY ( \"AI agent*\" OR \"LLM agent*\" OR \"LLM-based agent*\" OR \"language agent*\" OR agentic OR \"autonomous agent*\" ) AND TITLE-ABS-KEY ( memory OR \"knowledge base*\" ) AND TITLE-ABS-KEY ( \"human-in-the-loop\" OR \"human approval\" OR \"human oversight\" OR \"human review\" OR provenance OR \"memory poisoning\" OR \"belief revision\" OR \"truth maintenance\" OR \"circular reporting\" OR \"source independence\" OR \"write gate*\" OR governance ) AND PUBYEAR > 2021",
+   "year_limit": "In the string"
+  },
+  {
+   "run": "Q4-WS",
+   "question": "Q4",
+   "database": "Web of Science",
+   "string": "TS=(\"AI agent*\" OR \"LLM agent*\" OR \"LLM-based agent*\" OR \"language agent*\" OR agentic OR \"autonomous agent*\") AND TS=(memory OR \"knowledge base*\") AND TS=(\"human-in-the-loop\" OR \"human approval\" OR \"human oversight\" OR \"human review\" OR provenance OR \"memory poisoning\" OR \"belief revision\" OR \"truth maintenance\" OR \"circular reporting\" OR \"source independence\" OR \"write gate*\" OR governance) AND PY=(2022-2026)",
+   "year_limit": "In the string"
+  },
+  {
+   "run": "Q4-IE",
+   "question": "Q4",
+   "database": "IEEE Xplore",
+   "string": "(\"All Metadata\":\"AI agent\" OR \"All Metadata\":\"LLM agent\" OR \"All Metadata\":\"language agent\" OR \"All Metadata\":agentic OR \"All Metadata\":\"autonomous agent\") AND (\"All Metadata\":memory OR \"All Metadata\":\"knowledge base\") AND (\"All Metadata\":\"human-in-the-loop\" OR \"All Metadata\":\"human approval\" OR \"All Metadata\":\"human oversight\" OR \"All Metadata\":\"human review\" OR \"All Metadata\":provenance OR \"All Metadata\":\"memory poisoning\" OR \"All Metadata\":\"belief revision\" OR \"All Metadata\":\"truth maintenance\" OR \"All Metadata\":\"circular reporting\" OR \"All Metadata\":governance)",
+   "year_limit": "Set 2022 to 2026 in the year filter"
+  },
+  {
+   "run": "Q4-AC",
+   "question": "Q4",
+   "database": "ACM Digital Library",
+   "string": "Abstract:(\"AI agent\" OR \"AI agents\" OR \"LLM agent\" OR \"LLM agents\" OR \"LLM-based agent\" OR \"LLM-based agents\" OR \"language agent\" OR \"language agents\" OR agentic OR \"autonomous agent\" OR \"autonomous agents\") AND Abstract:(memory OR \"knowledge base\" OR \"knowledge bases\") AND Abstract:(\"human-in-the-loop\" OR \"human approval\" OR \"human oversight\" OR \"human review\" OR provenance OR \"memory poisoning\" OR \"belief revision\" OR \"truth maintenance\" OR \"circular reporting\" OR \"source independence\" OR \"write gate\" OR \"write gates\" OR governance)",
+   "year_limit": "Set 2022 to 2026 in Publication Date"
+  },
+  {
+   "run": "Q5-SC",
+   "question": "Q5",
+   "database": "Scopus",
+   "string": "TITLE-ABS-KEY ( \"language model*\" OR LLM* OR \"AI agent*\" OR agentic OR \"autonomous agent*\" ) AND TITLE-ABS-KEY ( fraud* OR chargeback* OR \"financial crime*\" OR \"money laundering\" OR payment* OR \"threat intelligence\" ) AND TITLE-ABS-KEY ( investigat* OR triage OR \"case management\" OR analyst* ) AND TITLE-ABS-KEY ( evidence OR provenance OR audit* OR accountab* OR oversight OR governance OR \"human-in-the-loop\" ) AND PUBYEAR > 2021",
+   "year_limit": "In the string"
+  },
+  {
+   "run": "Q5-WS",
+   "question": "Q5",
+   "database": "Web of Science",
+   "string": "TS=(\"language model*\" OR LLM* OR \"AI agent*\" OR agentic OR \"autonomous agent*\") AND TS=(fraud* OR chargeback* OR \"financial crime*\" OR \"money laundering\" OR payment* OR \"threat intelligence\") AND TS=(investigat* OR triage OR \"case management\" OR analyst*) AND TS=(evidence OR provenance OR audit* OR accountab* OR oversight OR governance OR \"human-in-the-loop\") AND PY=(2022-2026)",
+   "year_limit": "In the string"
+  },
+  {
+   "run": "Q5-IE",
+   "question": "Q5",
+   "database": "IEEE Xplore",
+   "string": "(\"All Metadata\":\"language model\" OR \"All Metadata\":LLM OR \"All Metadata\":\"AI agent\" OR \"All Metadata\":agentic OR \"All Metadata\":\"autonomous agent\") AND (\"All Metadata\":fraud OR \"All Metadata\":chargeback OR \"All Metadata\":\"financial crime\" OR \"All Metadata\":\"money laundering\" OR \"All Metadata\":payment OR \"All Metadata\":\"threat intelligence\") AND (\"All Metadata\":investigation OR \"All Metadata\":triage OR \"All Metadata\":\"case management\" OR \"All Metadata\":analyst) AND (\"All Metadata\":evidence OR \"All Metadata\":provenance OR \"All Metadata\":audit OR \"All Metadata\":accountability OR \"All Metadata\":oversight OR \"All Metadata\":governance OR \"All Metadata\":\"human-in-the-loop\")",
+   "year_limit": "Set 2022 to 2026 in the year filter"
+  },
+  {
+   "run": "Q5-AC",
+   "question": "Q5",
+   "database": "ACM Digital Library",
+   "string": "Abstract:(\"language model\" OR \"language models\" OR LLM* OR \"AI agent\" OR \"AI agents\" OR agentic OR \"autonomous agent\" OR \"autonomous agents\") AND Abstract:(fraud* OR chargeback* OR \"financial crime\" OR \"financial crimes\" OR \"money laundering\" OR payment* OR \"threat intelligence\") AND Abstract:(investigat* OR triage OR \"case management\" OR analyst*) AND Abstract:(evidence OR provenance OR audit* OR accountab* OR oversight OR governance OR \"human-in-the-loop\")",
+   "year_limit": "Set 2022 to 2026 in Publication Date"
+  },
+  {
+   "run": "Q6-SC",
+   "question": "Q6",
+   "database": "Scopus",
+   "string": "TITLE-ABS-KEY ( \"threat intelligence\" OR \"intelligence analysis\" OR \"fraud intelligence\" OR \"intelligence product*\" ) AND TITLE-ABS-KEY ( \"circular reporting\" OR \"source independence\" OR corroborat* OR \"belief revision\" OR \"analytic standard*\" OR \"information provenance\" OR \"source reliability\" )",
+   "year_limit": "None"
+  },
+  {
+   "run": "Q6-WS",
+   "question": "Q6",
+   "database": "Web of Science",
+   "string": "TS=(\"threat intelligence\" OR \"intelligence analysis\" OR \"fraud intelligence\" OR \"intelligence product*\") AND TS=(\"circular reporting\" OR \"source independence\" OR corroborat* OR \"belief revision\" OR \"analytic standard*\" OR \"information provenance\" OR \"source reliability\")",
+   "year_limit": "None"
+  }
+ ],
+ "cited_by": [
+  {
+   "run": "CB1",
+   "anchor": "Lakkaraju et al. 2017, The Selective Labels Problem",
+   "doi": "10.1145/3097983.3098066",
+   "search_within": "fraud* OR payment* OR chargeback* OR credit"
+  },
+  {
+   "run": "CB2",
+   "anchor": "Dal Pozzolo et al. 2018, Credit Card Fraud Detection: A Realistic Modeling and a Novel Learning Strategy",
+   "doi": "10.1109/TNNLS.2017.2736643",
+   "search_within": "delay* OR latency OR \"selection bias\" OR counterfactual OR censor*"
+  },
+  {
+   "run": "CB3",
+   "anchor": "Chapelle 2014, Modeling Delayed Feedback in Display Advertising",
+   "doi": "10.1145/2623330.2623634",
+   "search_within": "fraud* OR payment* OR chargeback*"
+  },
+  {
+   "run": "CB4",
+   "anchor": "Ehrhardt et al. 2021, Reject Inference Methods in Credit Scoring",
+   "doi": "10.1080/02664763.2021.1929090",
+   "search_within": "(none: export every citing document)"
+  },
+  {
+   "run": "CB5",
+   "anchor": "Razniewski and Nutt 2011, Completeness of Queries over Incomplete Databases",
+   "doi": "10.14778/3402707.3402715",
+   "search_within": "agent* OR investigat* OR audit* OR provenance OR \"language model*\""
+  },
+  {
+   "run": "CB6",
+   "anchor": "Singh et al. 2019, Decision Provenance: Harnessing Data Flow for Accountable Systems",
+   "doi": "10.1109/ACCESS.2018.2887201",
+   "search_within": "agent* OR \"language model*\" OR fraud* OR payment*"
+  },
+  {
+   "run": "CB7",
+   "anchor": "Sakellariou et al. 2022, A Reference Model for Cyber Threat Intelligence (CTI) Systems",
+   "doi": "10.3390/electronics11091401",
+   "search_within": "(none: export every citing document)"
+  },
+  {
+   "run": "CB8",
+   "anchor": "Zhao et al. 2024, ExpeL: LLM Agents Are Experiential Learners",
+   "doi": "10.1609/aaai.v38i17.29936",
+   "search_within": "provenance OR governance OR poisoning OR \"human-in-the-loop\" OR audit*"
+  }
+ ]
+}
