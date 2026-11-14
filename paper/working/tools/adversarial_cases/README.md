@@ -23,3 +23,11 @@ Threat model: worst case. A case of tier "agent" changes only DraftOutput record
 - `PACKET_ROUND1.md` shows the rules as they stood before round 1 (commit `5dd4213`). Do not rebuild it: the builder reads the current supplement, which now holds the revised rules.
 - `round1/` holds the tester's replies, the results before and after the rule changes, the outside check of the rulings and the final rulings (`ADJUDICATION.md`).
 - `run_cases.py --sealed` gives each changed draft its new digest first. `CHECK_CANDIDATE.py` reruns the fifteen cases that way and checks the outcomes.
+
+## State after round 2
+
+- `round2/PLAN.md` fixed the procedure before the tester saw the packet and lists every change made to it, with its reason. The rules and the checker were frozen at main `58150e8` and have not changed since.
+- `round2/` holds the tester's three replies and the two later prompts, the joined cases, the checker's output, Claude's first rulings, the packet and reply of the outside check of those rulings, and the rulings the author confirmed (`ADJUDICATION.md`). `RUN_RECORD.md` gives the order of events and what was not captured.
+- Result: of 12 histories meant to break a requirement, the frozen rules rejected two. Of the 10 that passed, seven are new failures, one does not break a requirement and two are unresolved. Two of three legitimate histories were falsely rejected.
+- No rule was changed after round 2. The failures are stated as gaps in Supplement S4.4, because a fix would be tested only on the histories that prompted it. No third round is planned.
+- `CHECK_CANDIDATE.py` reruns the round 2 cases and checks that the outcomes are those recorded. If a rule is changed later, those outcomes and the text of S4.4 change with it.

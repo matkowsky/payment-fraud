@@ -70,3 +70,10 @@ Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 Novembe
 - Model and settings: as the author stated at 00:53 Asia/Jerusalem, above. That the packet went in whole as one message is not yet stated.
 - The reviewer's rulings, as received: new failure for R01, R04, R05, R06 and R08; not a breach for R09 and R11; cannot tell for R02, R10 and R12; false rejection for A01 and A02; rules stand for A03.
 - Against Claude's first rulings: the same ruling in 7 of 13 cases (R01, R04, R05, R06, R08, A02, A03) and a different one in 6 (R02, R09, R10, R11, R12, A01). No ruling is confirmed. The author confirms every ruling.
+
+## Confirmation of the rulings
+
+- Claude compared the two first sets, checked each of the six differences against the paper at the freeze commit and the checker's code, and recommended a ruling for each (sent to the author at about 23:10Z on 14 November). Two further facts from the frozen checker are in `diagnostics_after_check.py`.
+- The author confirmed the recommended rulings on 15 November 2026 at 01:28 Asia/Jerusalem (23:28Z on 14 November): "Go", in reply to Claude's summary of them. The confirmed rulings are in `ADJUDICATION.md`.
+- Decided with them (author, 01:27 and 01:28): no third rater, no third round, and no rule change. The failures are stated as gaps in Supplement S4.4.
+- Still not recorded: for the reply 2 chat and the check chat, that the prompt went in whole as one message; for all four chats, any text outside the reply's array or lines.
