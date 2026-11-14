@@ -27,9 +27,11 @@ Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 Novembe
 - Model and settings, as the author stated them before the run: GPT-6 Astra Pro, in a new temporary chat with memory off, no project and no web (14 November, 23:36 and 23:37 Asia/Jerusalem). Not yet confirmed after the run: the model name the chat showed, the settings, and that the prompt went in whole as one message.
 - Reply: `reply_2.json`, saved byte for byte from the attached file. 7,726 bytes, SHA-256 `22e2da4441e39d5b3e1de073ab7fbb784ba98fea7ea4e3363c1c6e2a3e18a4b5`. Five cases: four the tester meant to break a requirement (R05 and R08 name C2, R06 and R07 name C3) and one the tester meant to be legitimate (A02).
 - Not captured: the attached file began and ended with the array. Whether the reply held a code fence or a sentence outside it is not yet recorded.
+- The chat was closed after reply 2 (author, 15 November, 00:18 Asia/Jerusalem). Prompt 3 was not sent in it.
 - No case has been run through the checker. Checked without running the rules: the file parses; it holds five cases; no case identifier repeats one from reply 1; every existing record a case changes is in the valid history; the records the cases add (DR-3, DR-4, O-8 and Q-5) use new identifiers; and the tier the tester gave each case equals the tier the runner assigns (R05 agent, the rest other).
 
 ## Reply 3 (not yet run)
 
-- Prompt 3 is the plan's request alone, sent in the same chat as reply 2. If that chat closes first, prompt 3 is built the same way as `PROMPT_2.md`, with replies 1 and 2, and recorded as a further change in `PLAN.md`.
+- Prompt: `PROMPT_3.md`, 33,522 bytes, SHA-256 `24b0f8b5128c69b7de450b0c5fe18d2e665bf914a106697a15470ae8604ebac0`. It is the packet (21,682 bytes, unchanged), 489 added bytes, `reply_1.json` (3,625 bytes, unchanged) and `reply_2.json` (7,726 bytes, unchanged). The added bytes are a heading, three sentences, two labels, the code fences and the plan's request. See the 15 November change in `PLAN.md`.
+- To be sent whole, as one message, in a third temporary chat with the same model and settings as replies 1 and 2.
 - To record when it runs: the date, the model name shown, the settings, and the whole reply, with anything outside the array.
