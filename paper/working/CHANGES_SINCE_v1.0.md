@@ -63,6 +63,7 @@ Accepted pull requests:
 - [#68](https://github.com/matkowsky/payment-fraud/pull/68) Supplement: cut repeated and unneeded words
 - [#69](https://github.com/matkowsky/payment-fraud/pull/69) Manuscript and supplement: sentence pass for directness
 - [#70](https://github.com/matkowsky/payment-fraud/pull/70) Prior-work search: fix the strings before the first run
+- [#71](https://github.com/matkowsky/payment-fraud/pull/71) Practitioner study: send the form link only after a profile check
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
@@ -1706,17 +1707,17 @@ Each evaluation is judged separately, without correction for multiple tests, bec
 
 <ins>This study asks whether the records that C1 to C3 require change the conclusions practitioners draw, how often the failures they target occur, and what the field records today. It measures conclusions and reported practice, not detection performance. The \[protocol\]\(../tools/practitioner\_study/README.md\), the \[form\]\(../tools/practitioner\_study/INSTRUMENT.md\), the scoring script and the hash of the answer key were committed before the first response.</ins>
 
-**Added, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46):**
+**Added, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46), [#71](https://github.com/matkowsky/payment-fraud/pull/71):**
 
-<ins>Six to ten practitioners with at least two years in fraud or abuse investigation, or in building systems for it, from at least three organizations, complete one anonymous form of about 35 minutes. They read Traces A and B as many systems show them and answer eleven questions, then answer them again with the coverage, learned-time, attribution, decision-link and exposure records added. Eight questions test a requirement; three are controls. They then report how often each failure has changed a real conclusion, whether each record exists today and how hard it would be to add, whether the eleven signals of manuscript Table 2 are available at decision time, and, optionally, who owns each responsibility.</ins>
+<ins>Six to ten practitioners with at least two years in fraud or abuse investigation, or in building systems for it, from at least three organizations, complete one anonymous form of about 35 minutes. The author sends the form link only after checking a person's public professional profile against these criteria. They read Traces A and B as many systems show them and answer eleven questions, then answer them again with the coverage, learned-time, attribution, decision-link and exposure records added. Eight questions test a requirement; three are controls. They then report how often each failure has changed a real conclusion, whether each record exists today and how hard it would be to add, whether the eleven signals of manuscript Table 2 are available at decision time, and, optionally, who owns each responsibility.</ins>
 
 **Removed, under "S8. Practitioner review protocol \(not yet run\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46):**
 
 <del>This proposed protocol assesses whether the specification fits investigative practice. It measures availability and perceived usefulness, not detection performance. Recruit six to ten fraud, abuse, risk, trust-and-safety, data-engineering or privacy practitioners from at least three organizations, with consent and required institutional ethics review.</del>
 
-**Added, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46), [#61](https://github.com/matkowsky/payment-fraud/pull/61):**
+**Added, under "S8. Practitioner study \(protocol fixed before the first response\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46), [#61](https://github.com/matkowsky/payment-fraud/pull/61), [#71](https://github.com/matkowsky/payment-fraud/pull/71):**
 
-<ins>Each question has one error the records should prevent. The study reports, for each question, how many participants made that error without and with the records, grouped by requirement, with the controls and participants who had read Section 8 reported separately. It reports counts only, and negative results as prominently as positive ones. Part 3 follows Part 2, so a changed answer may reflect the reveal rather than the record. No added record bears on the three controls, so their counts show how often an answer changes on a second reading alone, and each requirement's counts are read beside them. No published figure or quote shows which organization lacks a record or signal.</ins>
+<ins>Each question has one error the records should prevent. The study reports, for each question, how many participants made that error without and with the records, grouped by requirement, with the controls and participants who had read Section 8 reported separately. It reports counts only, and negative results as prominently as positive ones. Part 3 follows Part 2, so a changed answer may reflect the reveal rather than the record. The form is anonymous, so the author cannot confirm who answered, that a link was not passed on, or that no one answered twice. No added record bears on the three controls, so their counts show how often an answer changes on a second reading alone, and each requirement's counts are read beside them. No published figure or quote shows which organization lacks a record or signal.</ins>
 
 **Removed, under "S8. Practitioner review protocol \(not yet run\)", by [#46](https://github.com/matkowsky/payment-fraud/pull/46):**
 
