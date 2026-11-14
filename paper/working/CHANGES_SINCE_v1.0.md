@@ -62,6 +62,7 @@ Accepted pull requests:
 - [#67](https://github.com/matkowsky/payment-fraud/pull/67) Drop the human coders; S1: six gap pages read
 - [#68](https://github.com/matkowsky/payment-fraud/pull/68) Supplement: cut repeated and unneeded words
 - [#69](https://github.com/matkowsky/payment-fraud/pull/69) Manuscript and supplement: sentence pass for directness
+- [#70](https://github.com/matkowsky/payment-fraud/pull/70) Prior-work search: fix the strings before the first run
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
