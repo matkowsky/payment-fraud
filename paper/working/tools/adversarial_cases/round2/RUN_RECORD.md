@@ -19,3 +19,10 @@ Kept as the run goes. Nothing here is a result: no round 2 case has been run thr
 - `tools/outcome_conformance.py` changed after the freeze (PR #73, rule OR-10). The runner takes only `apply_patch` from that file, and `apply_patch` is unchanged.
 
 Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 November 2026.
+
+## Reply 2 (not yet run)
+
+- Prompt: `PROMPT_2.md`, 25,709 bytes, SHA-256 `c17533af5912a12c6cb47b5f930ce49efc2b3856fa85d0589654dd52bb510f9d`. It is the packet (21,682 bytes, unchanged), 402 added bytes, and `reply_1.json` (3,625 bytes, unchanged). The added bytes are a heading, three sentences, a code fence and the plan's request. See the second 14 November change in `PLAN.md`.
+- To be sent whole, as one message, in a new temporary chat with the same settings as reply 1.
+- To record when it runs: the date, the model name shown, the settings, and the whole reply, with anything outside the array.
+- Prompt 3 is the plan's request alone, sent in that same chat. If that chat closes first, prompt 3 is built the same way, with replies 1 and 2.
