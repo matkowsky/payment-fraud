@@ -7,6 +7,7 @@
 - Project: no project context was provided or used. The model states it cannot verify the interface's project-association status.
 - External sources: no web search, connected files or project materials.
 - The six lines above are the model's own statement, relayed by the author.
+- Model name in full, from the author: GPT-6 Astra Pro. He stated it on 14 November 2026 (23:36 to 23:58 Asia/Jerusalem) for this run and the later ones. The model's own statement above gave "GPT-6" and is left as relayed.
 - The temporary chat was not retained and cannot be reopened. What is kept is the packet as committed, the answers as relayed and the model's statement as relayed. There is no other transcript.
 - Answers: `ANSWERS.txt`, as relayed. Score: `SCORE.txt`, from `score.py`.
 - ChatGPT models also assisted with other parts of the paper. Claude models proposed the mappings being checked.
