@@ -54,3 +54,10 @@ Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 Novembe
 - Output: `RESULTS.md`, SHA-256 `fc15cd94c82590dc712e4c2141927f7c1e5a598ae5c1716ed08706d52bcc71bd`. The same command in a checkout of the freeze commit `58150e8`, with `CASES.json` copied in, gives a byte-identical file.
 - What the checker did, before any ruling: of the twelve cases meant to break a requirement, two are rejected (R03 by the schema, R07 by IR-12) and ten pass (R01, R02, R04, R05, R06, R08, R09, R10, R11, R12). All three cases meant to be legitimate are rejected (A01 by IR-14, A02 by IR-08, A03 by IR-11).
 - Thirteen cases therefore need a ruling against the paper's text. No ruling is recorded here. The author confirms every ruling.
+
+## Rulings
+
+- First rulings: `FIRST_RULINGS_CLAUDE.md`, SHA-256 `e1207ffa44b09deb030824f120ecf347f168c81ca64e52ff38c430b3d7d72bb1`. Written by Claude after the scoring and sent to the author at about 23:15Z on 14 November. Claude wrote the rules, so these rulings are not independent. They are proposals. The author has confirmed none.
+- Outside check, not yet run: `RULINGS_CHECK_PACKET.md`, 47,421 bytes, SHA-256 `046061ec6846207e2df7086cd6280c0be276aeddcbdbbcc1c6cfa33904efa534`, written by `build_check_packet.py`. It holds no ruling by anyone. Its passages are copied whole from the manuscript and supplement at the freeze commit `58150e8`. Its four further facts are reproduced by `diagnostics.py`.
+- The first rulings and the packet are committed before the outside reply exists, so the two sets of rulings can be compared as they were first made.
+- To be sent whole, as one message, in a new temporary chat with the same model and settings. To record when it runs: the date, the model name shown, the settings, and the whole reply, saved unchanged as `RULINGS_CHECK_REPLY.txt`.
