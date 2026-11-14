@@ -62,3 +62,11 @@ Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 Novembe
 - The first rulings and the packet are committed before the outside reply exists, so the two sets of rulings can be compared as they were first made.
 - To be sent whole, as one message, in a new temporary chat with the same model and settings. To record when it runs: the date, the model name shown, the settings, and the whole reply, saved unchanged as `RULINGS_CHECK_REPLY.txt`.
 - Model and settings of the check chat: the author wrote "Same model and settings" on 15 November at 00:53 Asia/Jerusalem (22:53Z on 14 November), after the packet was sent to him and before he had sent Claude any reply. That is: GPT-6 Astra Pro, in a temporary chat with memory off, no project and no web. It is his statement, not a note of what the chat showed.
+
+## Outside check of the rulings
+
+- Date: 15 November 2026. The author sent the reply to Claude as an attached file at 01:06 Asia/Jerusalem (23:06Z on 14 November). The first rulings and the packet were pushed at 22:49:17Z, before it.
+- Reply: `RULINGS_CHECK_REPLY.txt`, saved byte for byte from the attached file. 4,610 bytes, SHA-256 `c05a9fea64e4ed91459dfff6f9a8f51eae4488c30e2cdafa16aee63e2c92e1fd`. Thirteen lines, one per disputed case, in the format the packet asks for. The file began at the first line; whether the reply held a sentence before it is not recorded.
+- Model and settings: as the author stated at 00:53 Asia/Jerusalem, above. That the packet went in whole as one message is not yet stated.
+- The reviewer's rulings, as received: new failure for R01, R04, R05, R06 and R08; not a breach for R09 and R11; cannot tell for R02, R10 and R12; false rejection for A01 and A02; rules stand for A03.
+- Against Claude's first rulings: the same ruling in 7 of 13 cases (R01, R04, R05, R06, R08, A02, A03) and a different one in 6 (R02, R09, R10, R11, R12, A01). No ruling is confirmed. The author confirms every ruling.
