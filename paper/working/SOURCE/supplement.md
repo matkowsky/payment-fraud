@@ -2,7 +2,7 @@
 
 Jonathan Matkowsky
 
-13 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+14 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 This supplement accompanies the [manuscript](../MANUSCRIPT.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 and S8 give the proposed evaluations. S9 extends the comparison with prior work, and S10 replays two FTC complaints on synthetic records. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package's [BibLaTeX references](../REFERENCES.bib).
 
