@@ -259,7 +259,11 @@ def check(records, schema):
                 add('OR-14', el['record_id'], 'a successor link starts from an account with a recorded closure')
 
     def known_transitions(item, channel, at):
-        return [t for t in live if key(t['item']) == item and t['channel_id'] == channel and ts(t['learned_at']) <= at]
+        # As of a read time, a correction counts only once the system had learned it. Until then the record it
+        # corrects is what the system knew, so a later correction cannot erase an earlier state from a past read.
+        superseded = {r['corrects'] for r in records if 'corrects' in r and ts(r['learned_at']) <= at}
+        return [t for t in transitions if t['record_id'] not in superseded and key(t['item']) == item
+                and t['channel_id'] == channel and ts(t['learned_at']) <= at]
 
     def state_at(ts_list, when):
         active = [t for t in ts_list if ts(t['effective_from']) <= when

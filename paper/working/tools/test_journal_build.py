@@ -72,6 +72,29 @@ try:
 finally:
     (jb.B / 'SOURCE' / 'anonymize.txt').write_text(orig, encoding='utf-8')
 
+# A removal entry that no longer matches the source is refused, so a reworded sentence cannot stay in by accident.
+try:
+    (jb.B / 'SOURCE' / 'anonymize.txt').write_text('text: This sentence is not in the source.\n', encoding='utf-8')
+    try:
+        jb.apply_removals(units); raise SystemExit('a removal that matches nothing must be refused')
+    except AssertionError:
+        pass
+finally:
+    (jb.B / 'SOURCE' / 'anonymize.txt').write_text(orig, encoding='utf-8')
+
+# Identifying strings: each sentinel is its DOI as norm() writes it, and the real anonymous copy has none.
+assert jb.FORBIDDEN == ['matkowsky'] + [jb.norm(d) for d in jb.DOIS] and len(jb.DOIS) == 2
+assert all(f == jb.norm(f) and f.startswith('105281zenodo') for f in jb.FORBIDDEN[1:])
+_, anon_units, *_ = jb.text_check(src, 'anonymous')
+assert jb.anonymous_leaks(anon_units) == [], 'the anonymous copy must carry no identifying string'
+# A second mention of either DOI, however it is worded, or of the surname, is caught. The author block is not text.
+for leak, found in (('The data are at https://doi.org/10.5281/zenodo.23772005.', jb.FORBIDDEN[1]),
+                    ('See DOI 10.5281/zenodo.23772006 for version 1.0.', jb.FORBIDDEN[2]),
+                    ('Deposited as 10.5281 / Zenodo. 23772005 last year.', jb.FORBIDDEN[1]),
+                    ('See github.com/matkowsky/payment-fraud.', 'matkowsky')):
+    assert jb.anonymous_leaks(anon_units + [('para', leak)]) == [found], leak
+assert jb.anonymous_leaks([anon_units[0], ('para', 'Jonathan Matkowsky'), ('para', 'Jonathan@matkowsky.com')]) == []
+
 # Anonymous supplement: only the byline and the status line go; a reordered opening is refused.
 manuscript = '# Title\n\nA. Author\n\nCity.\n'
 text, author, status = jb.strip_byline('# Supplement\n\nA. Author\n\n1 January 2026 · Draft\n\nBody text.\n', manuscript)

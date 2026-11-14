@@ -1,6 +1,7 @@
 % Pandoc template for the ACM journal build (JOURNAL_BUILD.py). ACM large format, as DTRAP uses.
 % Preprint mode: [acmlarge,nonacm] removes ACM's copyright block and citation footer.
-% Anonymous mode: [acmlarge,review,anonymous] hides the author and adds line numbers for review.
+% Anonymous mode: [acmlarge,review,anonymous] hides the author and adds line numbers for review; the name and
+% email are also left out of the TeX, so the anonymous source names no one.
 \documentclass[$acm-options$]{acmart}
 $if(acm-anonymous)$
 \acmJournal{DTRAP}
@@ -37,15 +38,19 @@ $endif$
 \setlength{\emergencystretch}{3em} % as in the preprint build: prevents overfull lines
 \begin{document}
 \title{$title$}
+$if(acm-anonymous)$
+\author{Anonymous}
+$else$
 \author{$acm-author$}
+$endif$
 % No institution. The title line shows "NAME, USA"; the template's automatic commas would print ",, USA",
 % and its city and state commands remove the space after the comma, so the address note is written out here.
 \affiliation[obeypunctuation=true]{\country{$acm-country$}}
 $if(acm-anonymous)$
 $else$
 \authorsaddresses{Author's address: $acm-author$, $acm-city$, $acm-state$, $acm-country$, $acm-email$.}
-$endif$
 \email{$acm-email$}
+$endif$
 \begin{abstract}
 $abstract$
 \end{abstract}

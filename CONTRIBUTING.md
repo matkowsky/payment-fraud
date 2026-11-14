@@ -6,13 +6,13 @@ Thank you for reading the preprint. This page explains how to comment, how comme
 
 - **Issue forms** ([New issue](https://github.com/matkowsky/payment-Fraud/issues/new/choose)): a review comment, answers to the practitioner questions, prior work to cite, or an error report.
 - **Line-by-line review** ([review pull request](https://github.com/matkowsky/payment-Fraud/pull/1)): comment directly on a paragraph of the version 1.0 manuscript or supplement. In "Files changed", hover over a line and click the plus sign. Each paragraph is one line.
-- **A link to a passage in an issue:** open the manuscript's [Markdown file](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.md), switch to "Code" view, click a line number, then use "Copy permalink" and paste the link into your issue.
+- **A link to a passage in an issue:** open the manuscript's Markdown file, for [version 1.0](paper/v1.0/MANUSCRIPT_v1.0_2026-10-29.md) or the [working draft](paper/working/MANUSCRIPT.md), switch to "Code" view, click a line number, then use "Copy permalink" and paste the link into your issue. A permalink keeps pointing at the text you read after the draft changes.
 - **Discussions** ([Discussions](https://github.com/matkowsky/payment-Fraud/discussions)): open questions that are not about one passage.
 - **Without a GitHub account:** comment on the LinkedIn post or email Jonathan@matkowsky.com.
 
 ## What helps most
 
-- Name the version 1.0 section, table or file, and quote the sentence when you can.
+- Name the version and the section, table or file, and quote the sentence when you can. Section numbers differ between version 1.0 and the working draft.
 - Say whether the point comes from public sources, published research or general practitioner experience.
 - A short answer is useful. "Our pipeline reopens labels after the dispute window" is enough to start a thread.
 
