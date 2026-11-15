@@ -1,0 +1,246 @@
+[
+  {
+    "case_id": "R09",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "CL-3 now attributes current conduct to ACC-2 even though every supporting observation and the cited query cover only ACC-1. IR-09 requires supporting observations to belong to the claim's entity set and requires at least one qualifying observation, but does not require coverage and independent support for each claimed entity.",
+    "set_fields": {
+      "DR-2": {
+        "version_hash": "edcbc7439ef0d9c8",
+        "claims": [
+          {
+            "claim_id": "CL-3",
+            "claim_type": "current_conduct",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              },
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-2"
+              }
+            ],
+            "interval": {
+              "from": "2026-05-18T00:00:00Z",
+              "to": "2026-05-18T06:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [
+              "O-6"
+            ],
+            "contradicting": [],
+            "query_runs": [
+              "Q-4"
+            ],
+            "context": [
+              "M-1"
+            ],
+            "distinct_roots": 1
+          }
+        ]
+      }
+    }
+  },
+  {
+    "case_id": "R10",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "CL-3 asserts absence using an empty payment-source query and an explicitly unavailable refunds-source query covering the same account, interval and cutoff, treating absence in one source as absence across both. IR-08 requires only one complete empty run and no returned counterexample, so the unavailable source does not prevent the unqualified absence claim.",
+    "set_fields": {
+      "DR-2": {
+        "version_hash": "b70b96ddf2935288",
+        "claims": [
+          {
+            "claim_id": "CL-3",
+            "claim_type": "absence",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-04-01T00:00:00Z",
+              "to": "2026-04-30T00:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [],
+            "contradicting": [],
+            "query_runs": [
+              "Q-2",
+              "Q-6"
+            ],
+            "context": [
+              "M-1"
+            ],
+            "distinct_roots": 0
+          }
+        ]
+      }
+    },
+    "add_records": [
+      {
+        "record_type": "QueryRun",
+        "record_id": "Q-6",
+        "case_id": "K-1",
+        "requested_by": "AG-1",
+        "recorded_by": "GW-1",
+        "issued_at": "2026-05-06T01:15:00Z",
+        "as_of": "2026-05-06T00:00:00Z",
+        "requested_entities": [
+          {
+            "tenant": "T1",
+            "namespace": "account",
+            "id": "ACC-1"
+          }
+        ],
+        "evaluated_entities": [
+          {
+            "tenant": "T1",
+            "namespace": "account",
+            "id": "ACC-1"
+          }
+        ],
+        "requested_interval": {
+          "from": "2026-04-01T00:00:00Z",
+          "to": "2026-04-30T00:00:00Z"
+        },
+        "evaluated_interval": {
+          "from": "2026-04-01T00:00:00Z",
+          "to": "2026-04-30T00:00:00Z"
+        },
+        "sources": [
+          {
+            "source_id": "S-REFUNDS",
+            "schema_version": "refund-events-1",
+            "access": "unavailable",
+            "event_watermark": "2026-05-06T00:00:00Z",
+            "ingestion_watermark": "2026-05-06T00:00:00Z",
+            "retention_horizon": "2025-05-01T00:00:00Z",
+            "known_gaps": [],
+            "sampled": false
+          }
+        ],
+        "access_filter_removed_rows": false,
+        "limits_reached": [],
+        "scope_limited": false,
+        "returned": [],
+        "statuses": [
+          "unavailable"
+        ]
+      }
+    ]
+  },
+  {
+    "case_id": "R11",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "CL-2 first enters organizational memory after RL-1's release authorization has expired, without a renewed human release. IR-12 requires promotion to follow the releasing decision but does not require promotion before its expiry, while IR-13 checks expiry only when memory is read.",
+    "add_records": [
+      {
+        "record_type": "ReleasedItem",
+        "record_id": "M-2",
+        "release_id": "RL-1",
+        "draft_id": "DR-1",
+        "claim_id": "CL-2",
+        "created_at": "2026-08-08T09:05:00Z",
+        "usable_as": "context"
+      }
+    ]
+  },
+  {
+    "case_id": "R12",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "The May 20 draft asserts April absence despite explicitly citing contradictory April evidence learned on May 19; Q-2 legitimately returned nothing because its May 6 cutoff preceded that evidence's learned time. IR-08 checks records returned by cited runs, but does not invalidate a stale absence inference when the draft itself identifies a subsequently learned counterexample.",
+    "set_fields": {
+      "DR-2": {
+        "version_hash": "5069acbc80913746",
+        "claims": [
+          {
+            "claim_id": "CL-3",
+            "claim_type": "absence",
+            "material": true,
+            "entities": [
+              {
+                "tenant": "T1",
+                "namespace": "account",
+                "id": "ACC-1"
+              }
+            ],
+            "interval": {
+              "from": "2026-04-01T00:00:00Z",
+              "to": "2026-04-30T00:00:00Z"
+            },
+            "confidence": "moderate",
+            "supporting": [],
+            "contradicting": [
+              "O-9"
+            ],
+            "query_runs": [
+              "Q-2"
+            ],
+            "context": [
+              "M-1"
+            ],
+            "distinct_roots": 0
+          }
+        ]
+      }
+    },
+    "add_records": [
+      {
+        "record_type": "Observation",
+        "record_id": "O-9",
+        "record_class": "source_observation",
+        "entity": {
+          "tenant": "T1",
+          "namespace": "account",
+          "id": "ACC-1"
+        },
+        "event_interval": {
+          "from": "2026-04-10T00:00:00Z",
+          "to": "2026-04-10T06:00:00Z"
+        },
+        "learned_at": "2026-05-19T06:00:00Z",
+        "root_ids": [
+          "O-9"
+        ],
+        "inputs": [],
+        "agent_output_links": [],
+        "producer": "SRC-1"
+      }
+    ]
+  },
+  {
+    "case_id": "A03",
+    "tier": "other",
+    "expect": "accept",
+    "breaks": "none",
+    "why": "H-2 releases the same exact draft but assigns CL-1 higher reviewer confidence, while coverage, learned times, dependency links and context-only memory use remain unchanged. IR-11 rejects the confidence increase even though neither C2 nor C3 prohibits a human reviewer from expressing greater confidence than the agent.",
+    "set_fields": {
+      "RL-1": {
+        "claims": [
+          {
+            "claim_id": "CL-1",
+            "confidence": "high"
+          },
+          {
+            "claim_id": "CL-2",
+            "confidence": "moderate"
+          }
+        ]
+      }
+    }
+  }
+]
