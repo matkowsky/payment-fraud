@@ -75,6 +75,7 @@ Accepted pull requests:
 - [#80](https://github.com/matkowsky/payment-fraud/pull/80) Source ledger: Souza and Demir in their published versions; reference lists read
 - [#81](https://github.com/matkowsky/payment-fraud/pull/81) Source directory: dated November follow-ups for eleven sources
 - [#82](https://github.com/matkowsky/payment-fraud/pull/82) Round 2 of the adversarial test: cases, checker output, confirmed rulings and the report in S4.4
+- [#83](https://github.com/matkowsky/payment-fraud/pull/83) Round 2 record: GitHub's scanner notes; the sent prompts and packet stay unchanged
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
