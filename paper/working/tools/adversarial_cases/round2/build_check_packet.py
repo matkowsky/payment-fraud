@@ -8,6 +8,11 @@ PACKET_ROUND2.md; further passages of the manuscript and supplement as they stoo
 disputed case with the tester's reason, its patch, what the frozen checker did (from RESULTS.md) and, for four
 cases, a fact from diagnostics.py. Passages are taken whole, by line, so that the choice of sentences does not
 steer the reviewer.
+
+This script is the record of how the packet that was sent was written, so what it writes is not changed. It
+copies the tester's reasons into the packet without marking them as data. Do not reuse it for a new packet
+without marking that text as data and telling the reader not to follow instructions inside it (see
+RUN_RECORD.md, "GitHub's scanner notes").
 """
 import json, subprocess
 from pathlib import Path
