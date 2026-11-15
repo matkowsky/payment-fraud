@@ -1,6 +1,6 @@
 # Round 2 run record
 
-Kept as the run goes. Nothing here is a result: no round 2 case has been run through the checker.
+Kept as the run went, in the order things happened. The results are in `RESULTS.md` and `ADJUDICATION.md`.
 
 ## Reply 1
 
@@ -77,3 +77,15 @@ Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 14 Novembe
 - The author confirmed the recommended rulings on 15 November 2026 at 01:28 Asia/Jerusalem (23:28Z on 14 November): "Go", in reply to Claude's summary of them. The confirmed rulings are in `ADJUDICATION.md`.
 - Decided with them (author, 01:27 and 01:28): no third rater, no third round, and no rule change. The failures are stated as gaps in Supplement S4.4.
 - Still not recorded: for the reply 2 chat and the check chat, that the prompt went in whole as one message; for all four chats, any text outside the reply's array or lines.
+
+## GitHub's scanner notes
+
+- On 14 November 2026 (21:39Z, 22:21Z and 22:51Z) GitHub's code scanner commented on pull requests #76, #79 and #82. It said that `PROMPT_2.md`, `PROMPT_3.md` and `build_check_packet.py` copy the tester's text into a prompt for another chat without marking it as data, so an instruction hidden in that text could steer the reader. It proposed a guard in each file.
+- The prompts and the packet are not changed. They are the bytes that were sent, with the sizes and SHA-256 values above. A guard added now was in no chat, and the files would no longer show what the tester and the reviewer read. No prompt will be sent again: no third round is planned.
+- `build_check_packet.py` now writes only the packet that was sent. It stops, and writes nothing, if what it builds does not have the SHA-256 above. So the only tester text it can copy is the fifteen reasons read below. Run on 15 November with the freeze commit present, it gave that SHA-256. With one word of a reason changed in a scratch copy, it stopped; the earlier script wrote the changed packet.
+- Checked on 15 November whether the risk occurred. The only free text the tester wrote is the `why` field of each of the fifteen cases. Every other string in `CASES.json` is an identifier, a time or a short field value, at most 20 characters long. Claude read the fifteen `why` fields in full. Each describes its case. None addresses the reader, asks for anything or holds a code fence.
+- The saved replies 2 and 3 are each one array of five cases in the packet's format, numbered on from the earlier ones. The check reply is thirteen lines in the format its packet asks for. Text outside the arrays and lines was not captured (above), so it could not be checked.
+- This is Claude's reading, not an independent check. It covers hidden instructions only. The packet shows the reviewer each tester's reason on purpose and labels it as the tester's.
+- For any later run: before a prompt is sent, mark copied model text as data and tell the reader not to follow instructions inside it.
+
+Recorded by Claude (Anthropic) on Jonathan Matkowsky's instruction of 15 November 2026.

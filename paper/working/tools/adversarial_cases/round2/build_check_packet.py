@@ -8,12 +8,18 @@ PACKET_ROUND2.md; further passages of the manuscript and supplement as they stoo
 disputed case with the tester's reason, its patch, what the frozen checker did (from RESULTS.md) and, for four
 cases, a fact from diagnostics.py. Passages are taken whole, by line, so that the choice of sentences does not
 steer the reviewer.
+
+This script only reproduces the packet that was sent. It copies the tester's reasons into the packet without
+marking them as data, so it stops, and writes nothing, if what it builds does not have the SHA-256 of that
+packet. The only tester text it can copy is therefore the fifteen reasons that were read in full (see
+RUN_RECORD.md, "GitHub's scanner notes"). Do not reuse it for a new packet.
 """
-import json, subprocess
+import hashlib, json, subprocess
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 FREEZE = '58150e8'
+SENT_SHA256 = '046061ec6846207e2df7086cd6280c0be276aeddcbdbbcc1c6cfa33904efa534'   # RUN_RECORD.md, "Rulings"
 
 
 def frozen(path):
@@ -127,8 +133,11 @@ def main():
             out.append(f'- A further fact: {FACTS[case_id]}')
         out += ['- Patch:', '', '```json', json.dumps({k: c[k] for k in PATCH_KEYS if k in c}), '```', '']
     assert n == 13
-    (HERE / 'RULINGS_CHECK_PACKET.md').write_text('\n'.join(out).rstrip() + '\n', encoding='utf-8')
-    print(f'wrote RULINGS_CHECK_PACKET.md: {n} cases')
+    packet_bytes = ('\n'.join(out).rstrip() + '\n').encode('utf-8')
+    if hashlib.sha256(packet_bytes).hexdigest() != SENT_SHA256:
+        raise SystemExit('not written: this is not the packet that was sent (SHA-256 differs from RUN_RECORD.md)')
+    (HERE / 'RULINGS_CHECK_PACKET.md').write_bytes(packet_bytes)
+    print(f'wrote RULINGS_CHECK_PACKET.md: {n} cases, the packet as sent')
 
 
 if __name__ == '__main__':
