@@ -4,7 +4,7 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-14 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+15 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 ## Abstract
 
@@ -52,7 +52,7 @@ The contribution is three requirements on the investigation’s records:
 
 The requirements work together. C1 identifies which outcomes the platform’s decisions left observable. C2 establishes what an investigation examined and could have known. C3 prevents the resulting interpretation from returning as independent support for itself. A record can satisfy one requirement and still mislead an investigation through a failure of another (Section 8.3).
 
-Draft schemas, 29 cross-record rules and two checkers make the requirements testable, and every rule has a failing case (Supplement S4). Fifteen histories written by a second model to test the rules exposed eight gaps; after revision on those same histories, the rules reject nine of the 13 meant to break a requirement, and the other four are stated limits. Two hypothetical investigations show which conclusions survive when particular records are missing, and replays of two FTC complaints on synthetic records show what the records expose and miss (Section 8).
+Draft schemas, 29 cross-record rules and two checkers make the requirements testable, and every rule has a failing case (Supplement S4). Fifteen histories written by a second model to test the rules exposed eight gaps; after revision on those same histories, the rules reject nine of the 13 meant to break a requirement, and the other four are stated limits. On 15 further histories, written against the revised and frozen rules, the rules rejected two of the 12 meant to break a requirement, and seven of the 10 that passed are new gaps (Supplement S4.4). Two hypothetical investigations show which conclusions survive when particular records are missing, and replays of two FTC complaints on synthetic records show what the records expose and miss (Section 8).
 
 The intended readers design, audit or evaluate investigation systems. Stripe’s public product pages and documentation supply an illustrative product scope, not a description of its internal systems. The paper synthesizes public evidence and proposes a design. It reports no implementation of the architecture and no measurement on platform data; its only experiments use synthetic records (Sections 8.4 and 8.5) and one simulation of an interval method (Supplement S7.1). Section 2 relates it to prior work and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1, with Section 6.3 and Supplement Table S4.2 adding the agent’s analytical capabilities; Section 6 answers RQ2 and Section 7 RQ3. Section 8 shows the design’s consequences in two hypothetical investigations, and Section 9 states how its value would be tested.
 
@@ -477,17 +477,17 @@ Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, a
 
 **Table 3. Each claim, its evidence and what that evidence does not show.** Supplement S9.6 gives further limits.
 
-| Claim                                                           | Evidence                                              | Not shown                                                |
-|-----------------------------------------------------------------|-------------------------------------------------------|----------------------------------------------------------|
-| Each field group changes what a history supports                | Necessity pairs; failing cases (S4.2, S4.4)           | That the records improve investigations                  |
-| No two requirements replace the third                           | Two cross-requirement pairs (8.3, S4.4)               | That they cover every interaction                        |
-| Software can check the rules                                    | Two checkers; 15 adversarial histories (S4.4)         | Every evasion; four stated limits remain                 |
-| The records were cheap to store and check on one synthetic file | Synthetic measurement (8.4)                           | The cost of producing them on a platform                 |
-| Missing context changes conclusions                             | Two hypothetical traces (8.1 to 8.3)                  | How often; the practitioner study (S8) has not run       |
-| The records expose two alleged patterns                         | Synthetic replays and sweeps (8.5, S10)               | Detection on real data                                   |
-| The signals and responsibilities cover the mechanisms           | The author’s mapping; a model as second rater (3, S3) | Completeness; agreement between human coders             |
-| No source states C1 to C3 together                              | Two searches (2, S9.6)                                | That none exists                                         |
-| C1’s channel fields reflect network rules                       | Stripe’s descriptions (7.1)                           | The networks’ own rules; other rails reviewed less fully |
+| Claim                                                           | Evidence                                                    | Not shown                                                |
+|-----------------------------------------------------------------|-------------------------------------------------------------|----------------------------------------------------------|
+| Each field group changes what a history supports                | Necessity pairs; failing cases (S4.2, S4.4)                 | That the records improve investigations                  |
+| No two requirements replace the third                           | Two cross-requirement pairs (8.3, S4.4)                     | That they cover every interaction                        |
+| Software can check the rules                                    | Two checkers; 30 adversarial histories in two rounds (S4.4) | Resistance to evasion: 10 of 12 new attempts passed      |
+| The records were cheap to store and check on one synthetic file | Synthetic measurement (8.4)                                 | The cost of producing them on a platform                 |
+| Missing context changes conclusions                             | Two hypothetical traces (8.1 to 8.3)                        | How often; the practitioner study (S8) has not run       |
+| The records expose two alleged patterns                         | Synthetic replays and sweeps (8.5, S10)                     | Detection on real data                                   |
+| The signals and responsibilities cover the mechanisms           | The author’s mapping; a model as second rater (3, S3)       | Completeness; agreement between human coders             |
+| No source states C1 to C3 together                              | Two searches (2, S9.6)                                      | That none exists                                         |
+| C1’s channel fields reflect network rules                       | Stripe’s descriptions (7.1)                                 | The networks’ own rules; other rails reviewed less fully |
 
 A crosswalk to MITRE’s Fight Fraud Framework finds that 21 of its 105 in-scope techniques have no retained mechanism; fourteen of them are covered only by candidates outside the signal map (Supplement S2.2) \[[77](#ref-MITRE2026F3)\]. The prior-work comparison supports the specified distinctions, not priority for their individual components.
 
