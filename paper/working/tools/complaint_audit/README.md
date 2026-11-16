@@ -2,7 +2,7 @@
 
 Protocol, fixed before any complaint is coded. Any later change is a new commit that states its reason.
 
-Changed 16 November 2026, before this protocol was merged and before any complaint was read for coding: the scope sentence was tightened, three exclusions were added, a third source was added and the FTC list's date filter was described. Reason: the first two candidate lists showed that the scope sentence did not decide some records, and that the FTC's topic list lacks two cases the scope is meant to cover (Paddle and BlueSnap). The sheet did not change.
+Changed 16 November 2026, before this protocol was merged and before any complaint was read for coding: the scope sentence was tightened, three exclusions were added, a third source and an independent comparison list were added, the FTC list's date filter was described, and the unit was restated. Reasons: the candidate lists showed that the scope sentence did not decide some records; that the FTC's topic list lacks two cases the scope is meant to cover (Paddle and BlueSnap); that one processor was first charged by an amended complaint (Transact Pro, 2019); and that another was charged again in a second forum over conduct first charged in 2017 (Electronic Payment Systems). The sheet's tactics did not change.
 
 ## Question
 
@@ -12,23 +12,22 @@ The audit counts allegations. It does not measure how often these tactics occur 
 
 ## Cases
 
-- Unit: one FTC complaint, as first filed in a federal court or as an administrative complaint, from 1 January 2019 to 16 November 2026. The window starts in the year of the earlier of the two complaints the paper replays and ends on the day this protocol was written.
-- In scope: the complaint charges at least one defendant over payments it processed, or merchant accounts it opened or arranged, for other sellers alleged to have harmed consumers. The defendant provides payment acceptance or acts for a provider: a processor, independent sales organization, sales agent, payment facilitator or merchant of record.
+- Unit: the earliest FTC pleading, in a federal court or an administrative proceeding, that charges an in-scope defendant. It must have been filed from 1 January 2019 to 16 November 2026. An amended complaint that first adds an in-scope defendant is that pleading. A later amendment, or a second complaint over the same conduct, is not a separate unit. The window starts in the year of the earlier of the two complaints the paper replays and ends on the day this protocol was written.
+- In scope: the pleading charges at least one defendant over payments it processed, or merchant accounts it opened or arranged, for other sellers alleged to have harmed consumers. The defendant provides payment acceptance or acts for a provider: a processor, independent sales organization, sales agent, payment facilitator or merchant of record.
 - Out of scope:
-  - defendants charged only over their own sales, even where the complaint alleges that they hid those sales from monitoring;
+  - sellers and their own entities, charged over their own sales, even where the complaint alleges that they hid those sales from monitoring or where one entity is named as a payments company;
   - defendants charged over how they sold processing services to their own merchant customers;
   - money transfers sent by consumers;
   - lenders and servicers of payment plans;
-  - vendors that neither provide payment acceptance nor act for a provider, such as chargeback-dispute services and brokers acting for a seller;
-  - contempt, order-modification and subpoena filings;
-  - amended complaints, because the first filing is the unit.
+  - vendors that neither provide payment acceptance nor act for a provider, such as chargeback-dispute services;
+  - contempt, order-modification and subpoena filings.
 - Three candidate sources, each searched in full:
   1. CourtListener's RECAP archive, full-text search: case name `Federal Trade Commission`; text `"credit card laundering" OR "payment processor" OR "merchant accounts"`; filed in the window. Run on 16 November 2026: 111 dockets. It finds a case only if its filings are in the archive.
   2. The FTC Legal Library's Cases and Proceedings list, Consumer Protection topic "Payments and Billing", dates in the window. Captured on 16 November 2026: 58 records. The list filters by a record's last update, so it also returns older cases; the complaint's filing date decides.
-  3. The same FTC list with no topic, searched for each of `payment processor`, `payment processing`, `credit card laundering` and `merchant account`, dates in the window.
+  3. The same FTC list with no topic, searched for each of `payment processor`, `payment processing`, `credit card laundering` and `merchant account`, dates in the window. Captured on 16 November 2026: 41, 43, 56 and 23 records.
 - The author runs sources 2 and 3 in a browser and saves the result pages, because the site does not allow automated access to filtered lists.
-- Each candidate is marked in or out, with a reason, from its caption, its docket sheet and the FTC's press release or case summary only. The candidates, the decisions and the saved search results are committed as `CASES.csv` before any complaint is coded.
-- Recall check: the three FTC complaints the paper cites (First Data, Allied Wallet and Paddle) and two 2026 actions reported in the press (Humboldt Merchant Services and Nuvei) must each appear among the candidates. A miss is reported, the search that would have found it is added, and the sources are run again. `CASES.csv` also records any other in-scope case that is known and that no source returned.
+- Each candidate is marked in or out, with a reason, from its caption, its docket sheet and the FTC's press release or case summary. Where those do not settle a defendant's role, the pleading's own description of the defendants is read, and nothing else in it. The candidates, the decisions and the saved search results are committed as `CASES.csv` before any complaint is coded.
+- Recall check: the three FTC complaints the paper cites (First Data, Allied Wallet and Paddle) and two 2026 actions reported in the press (Humboldt Merchant Services and Nuvei) must each appear among the candidates. A miss is reported, the search that would have found it is added, and the sources are run again. The candidates are also compared with an independent list, Truth in Advertising's "FTC actions against payment processors" (updated 13 November 2026). `CASES.csv` records any case on that list, or otherwise known, that no source returned.
 - If more than 30 complaints are in scope, the window's start moves forward by whole years until 30 or fewer remain. That is decided from the count alone.
 
 ## Coding
