@@ -77,6 +77,7 @@ Accepted pull requests:
 - [#82](https://github.com/matkowsky/payment-fraud/pull/82) Round 2 of the adversarial test: cases, checker output, confirmed rulings and the report in S4.4
 - [#83](https://github.com/matkowsky/payment-fraud/pull/83) Round 2 record: GitHub's scanner notes; the sent prompts and packet stay unchanged
 - [#84](https://github.com/matkowsky/payment-fraud/pull/84) Source directory: Beluri \(L044\) 19.7% is inactive profiles, an upper bound on blocking
+- [#85](https://github.com/matkowsky/payment-fraud/pull/85) Complaint audit: protocol and coding sheet, fixed before any coding
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
