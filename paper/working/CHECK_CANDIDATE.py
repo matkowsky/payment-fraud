@@ -27,6 +27,10 @@ assert len(d) == len({x['source_id'] for x in d}) == 61
 assert len(j) == len({x['row_id'] for x in j}) == len({(x['mechanism_id'], x['source_id']) for x in j}) == 126
 sid = {x['signal_id'] for x in s}; src = {x['source_id'] for x in d}; joins = {(x['mechanism_id'], x['source_id']) for x in j}
 assert {x['source_id'] for x in j} == src, 'every directory source is joined and every joined source is in the directory'
+# Beluri et al. (L044), Section 8 and Table 8: the 19.7% counts inactive profiles, an upper bound on platform blocking
+l044 = next(x['scope'] for x in d if x['source_id'] == 'L044')
+assert 'inactive profiles 2,259 of 11,457 (19.7%), an upper bound on platform blocking' in l044 and 'platform removal' not in l044
+assert round(100 * 2259 / 11457, 1) == 19.7
 for x in p:
     assert x['signal_id'] in sid
     for k in re.findall(r'L\d+', x['source_ids']): assert (k in src and (x['mechanism'], k) in joins), (x, k)
