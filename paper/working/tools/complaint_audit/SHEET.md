@@ -1,6 +1,6 @@
 # Coding sheet
 
-One row per complaint. Mark each tactic `alleged`, `not alleged` or `unclear`, and give the paragraph numbers that support the mark. Code what the complaint alleges about the sellers, the defendants or both. Do not infer a tactic from an outcome.
+One row per complaint. Mark each tactic `alleged`, `not alleged`, `unclear` or `unavailable`, and give the paragraph numbers that support the mark. Code what the complaint alleges about the sellers, the defendants or both. Do not infer a tactic from an outcome.
 
 ## Tactics
 
@@ -26,7 +26,7 @@ X2. The payment rail: card, bank debit, remotely created check or payment order,
 
 X3. Does the complaint give rates or counts for any account? Yes or no, with paragraph numbers.
 
-X4. Does the complaint allege an attribute shared across the accounts, such as an owner, address, phone number, bank account, website, device or call center? Yes or no, with paragraph numbers.
+X4. Does the complaint allege an attribute shared across accounts, such as an owner, address, phone number, bank account, website, device or call center? Yes or no, with paragraph numbers. If yes: do those paragraphs tie the attribute to the accounts marked under T1 or T2? Yes or no.
 
 ## Open field
 
@@ -36,6 +36,7 @@ O1. Any other tactic alleged to keep a seller out of monitoring, in the complain
 
 - A tactic alleged of any seller the defendant served counts once for the complaint.
 - `unclear` is for wording that could mean the tactic but does not say so. Quote the wording.
+- `unavailable` is for a mark that an unread page prevents. Name the page. It is never used for a complaint read in full.
 - T1 needs more than one account for the same seller or scheme, and a stated or plain link to thresholds or monitoring. Several accounts alone are not T1.
 - T2 is about who the account is said to belong to. T3 is about whose sales run through it. Both can apply.
 - T5 needs the refund, reversal or alert to be tied to avoiding chargebacks or reports. Ordinary refunds do not count.
