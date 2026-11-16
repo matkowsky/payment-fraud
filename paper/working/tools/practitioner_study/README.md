@@ -20,6 +20,8 @@ Changed 14 November 2026, after the form opened; whether a response had arrived 
 
 Changed 14 November 2026, after the form opened; whether a response had arrived was not checked: the report now states where each count of organizations comes from, because the same review noted that neither available count is the count among scored answers. The target of at least three organizations did not change. The form, the questions and the answer key did not change.
 
+Changed 16 November 2026, after the form opened; whether a response had arrived was not checked: the protocol now says what happens if fewer than six eligible participants have answered when the extension ends, because it was silent on that. The study is reported either way. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
@@ -72,7 +74,7 @@ None. The mechanism-link check (S3) and the rulings on the adversarial histories
 
 ## Timeline
 
-The form opens on 14 November 2026 at 17:30 UTC and closes on 30 November at 14:00 UTC. If fewer than six eligible participants who have not read Section 8 or Supplement S6 have answered by then, it stays open once for 14 more days. Every eligible response received before it closes is scored; there is no early stop. Results go into a new subsection of manuscript Section 9 and into S8.
+The form opens on 14 November 2026 at 17:30 UTC and closes on 30 November at 14:00 UTC. If fewer than six eligible participants who have not read Section 8 or Supplement S6 have answered by then, it stays open once for 14 more days. Every eligible response received before it closes is scored; there is no early stop. If fewer than six have answered when the extension ends, the study is still reported, with the shortfall stated as a limit. Results go into a new subsection of manuscript Section 9 and into S8.
 
 Before opening, the author checked the scorer on one test response. It was deleted from the form and from the form's linked workbook, and it is not data.
 
