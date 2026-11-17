@@ -121,28 +121,28 @@ def test_compare_counts_agreement_and_differences():
     assert [(d[0], d[1]) for d in diffs] == [('U01', 'T6'), ('U02', 'X3')]
 
 
-def test_adjudicate_takes_rulings_and_checks_tie():
+def test_adjudicate_settles_disputes_and_bounds():
     a, b = sheet(), sheet()
     a['complaints'][0]['T2'] = entry('alleged', ['5'])
     a['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'yes'}
-    b['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['7'], 'tied_to_T1_or_T2': 'n/a'}
-    rulings = [{'id': 'D01', 'unit': 'U01', 'field': 'T2', 'ruling': {'mark': 'not alleged', 'paragraphs': [], 'quote': ''}},
-               {'id': 'D02', 'unit': 'U01', 'field': 'X4', 'ruling': {'answer': 'yes', 'paragraphs': ['7'], 'tied_to_T1_or_T2': 'n/a'}}]
+    b['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'n/a'}
+    a['complaints'][1]['T6'] = entry('alleged', ['9'])
+    readings = [{'by': 'x', 'mark': 'alleged', 'paragraphs': ['5'], 'quote': ''},
+                {'by': 'y', 'mark': 'unclear', 'paragraphs': ['5'], 'quote': 'q'}]
+    ties = [{'by': 'x', 'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'yes'},
+            {'by': 'y', 'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'n/a'}]
+    rulings = [{'id': 'D01', 'unit': 'U01', 'field': 'T2', 'disputed': True, 'readings': readings},
+               {'id': 'D02', 'unit': 'U01', 'field': 'X4', 'disputed': True, 'readings': ties},
+               {'id': 'D03', 'unit': 'U02', 'field': 'T6', 'ruling': {'mark': 'not alleged', 'paragraphs': [], 'quote': ''}}]
     adj = adjudicate.merge(a, b, rulings)
-    assert adj[0]['T2']['mark'] == 'not alleged' and adj[0]['T2']['source'] == 'D01'
-    assert adj[0]['T1']['source'] == 'agreed'
-    assert adjudicate.problems(adj) == []
-    adj[0]['T2']['mark'] = 'alleged'
-    assert adjudicate.problems(adj)
-    a2, b2 = sheet(), sheet()
-    for s_ in (a2, b2):
-        s_['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'yes'}
-    a2['complaints'][0]['T1'] = entry('alleged', ['5'])
-    b2['complaints'][0]['T1'] = entry('unclear', ['5'], quote='x')
-    adj2 = adjudicate.merge(a2, b2, [{'id': 'D01', 'unit': 'U01', 'field': 'T1', 'ruling': {'mark': 'unclear', 'paragraphs': ['5'], 'quote': 'x'}}])
-    assert adj2[0]['X4']['tied_to_T1_or_T2'] == 'n/a' and adj2[0]['X4']['source'].startswith('rule')
-    c = adjudicate.counts(adj, ['U01', 'U02'])
-    assert sum(c['by_tactic']['T2'].values()) == 2
+    assert adj[0]['T2']['mark'] == 'disputed' and adj[1]['T6']['source'] == 'D03'
+    lo, hi = adjudicate.resolve(adj, 'low'), adjudicate.resolve(adj, 'high')
+    assert lo[0]['T2']['mark'] == 'unclear' and lo[0]['X4']['tied_to_T1_or_T2'] == 'n/a'
+    assert hi[0]['T2']['mark'] == 'alleged' and hi[0]['X4']['tied_to_T1_or_T2'] == 'yes'
+    assert adjudicate.problems(lo) == [] and adjudicate.problems(hi) == []
+    rep = adjudicate.report(adj)['all 14']
+    assert rep['settled, with disputed']['by_tactic']['T2']['disputed'] == 1
+    assert rep['low bound']['by_tactic']['T2']['alleged'] == 0 and rep['high bound']['by_tactic']['T2']['alleged'] == 1
 
 
 if __name__ == '__main__':
