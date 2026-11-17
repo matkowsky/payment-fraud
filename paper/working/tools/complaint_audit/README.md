@@ -12,6 +12,8 @@ Changed 17 November 2026, after both coder sheets were committed and before any 
 
 Changed 17 November 2026, before the second adjudicator's rulings were seen: a second adjudicator, a model from neither coder's company, chosen and run by the author through Johns Hopkins AI, rules on the same 24 items from a self-contained prompt (`sheets/adjudication/ADJUDICATOR_2_PROMPT.txt`). It sees the same blinded items and cited paragraphs as the first, but not the rest of each complaint. Fixed now: where the two adjudicators agree, that ruling stands; where they differ, the author rules against the complaint's text.
 
+Recorded 17 November 2026, 19:03: adjudicator 2 was Meta Llama Maverick (name as given by the author). Its answer as returned and its rulings are in `sheets/adjudication/`. The two agree on 13 items and differ on 11 (`sheets/adjudication/SPLITS.md`). On all 24 items adjudicator 2 took the higher of the two readings or went above both; this is reported with the counts.
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?
