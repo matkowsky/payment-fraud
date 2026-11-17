@@ -44,6 +44,8 @@ jobs:
         working-directory: paper/working
       - run: python3 tools/test_prior_work_search.py
         working-directory: paper/working
+      - run: python3 tools/complaint_audit/test_complaint_audit.py
+        working-directory: paper/working
       - run: python3 CHECK_CANDIDATE.py --sources
         working-directory: paper/working
       - run: python3 tools/revision_status.py check --sources
