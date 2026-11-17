@@ -9,6 +9,7 @@ import build_packet  # noqa: E402
 import check_sheet  # noqa: E402
 import compare_sheets  # noqa: E402
 import adjudicate  # noqa: E402
+import open_field  # noqa: E402
 
 UNITS = ['U01', 'U02']
 INDEX = {'U01': [str(i) for i in range(1, 81)], 'U02': [str(i) for i in range(1, 41)]}
@@ -143,6 +144,20 @@ def test_adjudicate_settles_disputes_and_bounds():
     rep = adjudicate.report(adj)['all 14']
     assert rep['settled, with disputed']['by_tactic']['T2']['disputed'] == 1
     assert rep['low bound']['by_tactic']['T2']['alleged'] == 0 and rep['high bound']['by_tactic']['T2']['alleged'] == 1
+
+
+def test_open_field_file_matches_sheets():
+    import csv
+    import json
+    here = Path(__file__).resolve().parent / 'sheets'
+    a = json.load(open(here / 'CLAUDE_SHEET.json', encoding='utf-8'))
+    b = json.load(open(here / 'CHATGPT_SHEET.json', encoding='utf-8'))
+    rows = list(csv.DictReader(open(here / 'OPEN_FIELD.csv', newline='', encoding='utf-8')))
+    assert open_field.check(a, b, rows) == []
+    rows[0]['tactic'] += ' x'
+    assert open_field.check(a, b, rows)
+    res = open_field.count(rows)
+    assert sum(res['entries'].values()) == len(rows)
 
 
 if __name__ == '__main__':
