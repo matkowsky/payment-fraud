@@ -64,9 +64,10 @@ probe the rules. Public sources supply the design premises, and Stripe's
 public product pages and documentation provide an illustrative product
 scope. Two hypothetical investigations show how missing context changes
 what the same observations can support, replays of two FTC complaints on
-synthetic records show what the records expose and miss, and an
-evaluation plan proposes tests of evidential quality, operational cost
-and agent benefit. The contribution is a joint specification for
+synthetic records show what the records expose and miss, a model-coded
+count across 14 such complaints shows how often each tactic is alleged,
+and an evaluation plan proposes tests of evidential quality, operational
+cost and agent benefit. The contribution is a joint specification for
 investigation across payment products, built on established methods and
 recent agent-governance designs. It is a synthesis, not a new method.
 The architecture has not been built, no platform data were used, its
@@ -234,8 +235,10 @@ are stated limits. On 15 further histories, written against the revised
 and frozen rules, the rules rejected two of the 12 meant to break a
 requirement, and seven of the 10 that passed are new gaps (Supplement
 S4.4). Two hypothetical investigations show which conclusions survive
-when particular records are missing, and replays of two FTC complaints
-on synthetic records show what the records expose and miss (Section 8).
+when particular records are missing, replays of two FTC complaints on
+synthetic records show what the records expose and miss, and a count
+across 14 such complaints shows how often each tactic is alleged
+(Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
@@ -1630,9 +1633,10 @@ claim against its runs took 38 microseconds (Supplement S4.4). These
 figures describe one synthetic file on one machine, not a platform's
 cost. Reviewer time is not measured.
 
-\hypertarget{synthetic-replays-of-two-alleged-patterns}{%
-\subsection{Synthetic replays of two alleged
-patterns}\label{synthetic-replays-of-two-alleged-patterns}}
+\hypertarget{alleged-patterns-two-synthetic-replays-and-a-count-across-14-complaints}{%
+\subsection{Alleged patterns: two synthetic replays and a count across
+14
+complaints}\label{alleged-patterns-two-synthetic-replays-and-a-count-across-14-complaints}}
 
 Two FTC complaints were rebuilt as synthetic outcome records from the
 patterns and rates they allege, with illustrative monitoring rules and
@@ -1694,6 +1698,42 @@ assumed legitimate rate of 0.3 percent in 39 to 54 percent of runs below
 replays a successor account, a switched descriptor, refunds before
 disputes, traffic moved after closures and reports linked only by card
 number and amount.
+
+How often are such tactics alleged? Every FTC pleading filed from 1
+January 2019 to 16 November 2026 that first charges a payment provider
+over processing for other sellers was coded against a sheet of seven
+tactics fixed beforehand: 14 complaints (Supplement S10.1). Two language
+models coded them separately and gave the same mark in 78 of 98 cells.
+Three further models ruled on the differences. A ruling stands only
+where all three agreed; the other marks are reported as disputed, so
+some counts are ranges. No human coded a complaint or ruled on a
+difference.
+
+As alleged, several sellers' sales ran through one merchant account in
+12 to 13 of the 14 complaints. Accounts were opened in the names of
+shells or straw owners, or with false statements about who the seller
+was, in 10 to 12. A descriptor, name or account was changed so that
+history would not follow the seller in 7 to 12. One seller's sales were
+split across accounts to stay under a threshold in 6 to 8, and refunds
+or alerts were used so that chargebacks would not be recorded in 5.
+These are the five tactics the specified records could expose if the
+needed data were recorded; an allegation does not show that a record
+would have exposed the conduct. Of the 10 to 12 complaints that allege
+split volume or front accounts, 9 to 12 tie a shared attribute, such as
+an owner, address or website, to those accounts.
+
+Two results cut the other way. Padding with small or sham sales, which
+no record exposes, is alleged in 4 complaints. And all 14 allege that a
+defendant saw chargeback or fraud-report levels, program notices,
+complaints or warnings about a seller and kept processing. On those
+allegations the evidence was not missing, and no record makes a
+processor act. Enforced cases are a selected set, and the count cannot
+show how far that selection explains the 14. Outside the sheet, the
+coders most often noted a misstated business type or merchant category
+code: both in 6 complaints and at least one in 9. No bearing on the
+records was fixed for it in advance. The sheet was written after three
+of the 14 had been read, and Supplement S10.1 gives every count without
+them.
 
 \hypertarget{evaluating-the-specification}{%
 \section{Evaluating the
@@ -1861,6 +1901,10 @@ Missing context changes conclusions & Two hypothetical traces (8.1 to
 8.3) & How often; the practitioner study (S8) has not run \\
 The records expose two alleged patterns & Synthetic replays and sweeps
 (8.5, S10) & Detection on real data \\
+Each of the five tactics the records could expose is alleged in 5 to 13
+of 14 FTC complaints & Count by two model coders and three model
+adjudicators (8.5, S10.1) & How often the tactics occur; that a record
+would have exposed them; any human check of the coding \\
 The signals and responsibilities cover the mechanisms & The author's
 mapping; a model as second rater (3, S3) & Completeness; agreement
 between human coders \\
