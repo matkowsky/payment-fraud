@@ -14,6 +14,8 @@ Changed 17 November 2026, before the second adjudicator's rulings were seen: a s
 
 Recorded 17 November 2026, 19:03: adjudicator 2 was Meta Llama Maverick (name as given by the author). Its answer as returned and its rulings are in `sheets/adjudication/`. The two agree on 13 items and differ on 11 (`sheets/adjudication/SPLITS.md`). On all 24 items adjudicator 2 took the higher of the two readings or went above both; this is reported with the counts.
 
+Changed 17 November 2026, 19:10, before a third adjudicator's rulings were seen: because adjudicator 2 took the higher reading on every item, gave one-sentence reasons and misstated the text once, the author runs a third adjudicator, from neither coder's company and not Meta, with a tighter prompt (`sheets/adjudication/ADJUDICATOR_3_PROMPT.md`). It adds two instructions: neither reading is presumed right, and each ruling must quote the complaint's deciding words and the sheet's words they meet or fail. The rule for splits is replaced: a ruling stands only where all three adjudicators agree; every other item goes to the author. An added adjudicator can only send more items to the author. All three adjudicators' rulings are reported.
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?
