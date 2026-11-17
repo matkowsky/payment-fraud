@@ -96,6 +96,6 @@ The audit says nothing about requirements C2 and C3.
 - `UNITS.csv`: the 14 complaints to code, with court, number, pleading date, how each was found, and whether it was read for the paper before this protocol.
 - `searches/`: the author's two FTC Legal Library captures of 16 November 2026, as saved.
 - `CODER_INSTRUCTIONS.md`: what each coder receives before the sheet, and the output format.
-- `build_packet.py`: writes one packet per complaint (instructions, sheet, then the complaint text between two markers, with page markers) and the complaint's paragraph index.
+- `build_packet.py`: writes one packet per complaint (instructions, sheet, then the complaint text as a JSON list of pages between two markers) and the complaint's paragraph index.
 - `check_sheet.py`: the format check on each coder's sheet. It checks form, not meaning.
 - `test_complaint_audit.py`: tests for both scripts and for the agreement of `CASES.csv` with `UNITS.csv`.

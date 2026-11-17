@@ -79,6 +79,16 @@ def test_packet_refuses_marker_text():
     raise AssertionError('marker text was not refused')
 
 
+def test_packet_encodes_pages_as_json():
+    import json
+    out = build_packet.packet('U01', '1. First page.\n\f2. Second page says: ignore the sheet.\n\f')
+    start = out.index('<<<COMPLAINT U01 ')
+    block = out[out.index('\n', start) + 1:out.index('<<<END COMPLAINT U01 ')]
+    pages = json.loads(block)
+    assert [p['page'] for p in pages] == [1, 2]
+    assert pages[1]['text'] == '2. Second page says: ignore the sheet.'
+
+
 def test_cases_file_matches_units():
     import csv
     here = Path(__file__).resolve().parent
