@@ -10,6 +10,8 @@ Corrected 17 November 2026, after PR #86 merged and before any complaint was rea
 
 Changed 17 November 2026, after both coder sheets were committed and before any count was computed: the author delegated the rulings on the 24 disagreements to a separate agent (Claude Sonnet 5.5, Anthropic). The agent saw the sheet, the complaints and each item's two readings in random order, without the coders' names, and not either coder's notes. Its brief, its rulings as returned and the key to the blinding are in `sheets/adjudication/`. It took coder 1's reading on 17 items, coder 2's on 1 and neither on 6; it is from the same company as coder 1. `adjudicate.py` applies the rulings and the sheet's rule for the X4 tie.
 
+Changed 17 November 2026, before the second adjudicator's rulings were seen: a second adjudicator, a model from neither coder's company, chosen and run by the author through Johns Hopkins AI, rules on the same 24 items from a self-contained prompt (`sheets/adjudication/ADJUDICATOR_2_PROMPT.txt`). It sees the same blinded items and cited paragraphs as the first, but not the rest of each complaint. Fixed now: where the two adjudicators agree, that ruling stands; where they differ, the author rules against the complaint's text.
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?
