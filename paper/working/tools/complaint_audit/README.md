@@ -8,6 +8,8 @@ Changed 17 November 2026, after the candidates were screened and before any comp
 
 Corrected 17 November 2026, after PR #86 merged and before any complaint was read for coding: U04's court record was wrong. D. Utah 2:19-cv-00996 (23 December 2019) is the FTC's petition to enforce an investigative demand against Complete Merchant Solutions. The complaint is D. Utah 2:20-cv-00864, filed 9 December 2020. The error showed when the complaint PDF was sought. Row 86 is now out and row 256 is in; the count of complaints is unchanged. The other 13 units' numbers and dates were checked again against the docket or the complaint's first page. `UNITS.csv` now names the PDF each coder reads.
 
+Changed 17 November 2026, after both coder sheets were committed and before any count was computed: the author delegated the rulings on the 24 disagreements to a separate agent (Claude Sonnet 5.5, Anthropic). The agent saw the sheet, the complaints and each item's two readings in random order, without the coders' names, and not either coder's notes. Its brief, its rulings as returned and the key to the blinding are in `sheets/adjudication/`. It took coder 1's reading on 17 items, coder 2's on 1 and neither on 6; it is from the same company as coder 1. `adjudicate.py` applies the rulings and the sheet's rule for the X4 tie.
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?

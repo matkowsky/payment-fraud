@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_packet  # noqa: E402
 import check_sheet  # noqa: E402
 import compare_sheets  # noqa: E402
+import adjudicate  # noqa: E402
 
 UNITS = ['U01', 'U02']
 INDEX = {'U01': [str(i) for i in range(1, 81)], 'U02': [str(i) for i in range(1, 41)]}
@@ -118,6 +119,30 @@ def test_compare_counts_agreement_and_differences():
     assert [r for r in rows if r[0] == 'T7'][0][3] is None
     assert pooled[1:3] == (13, 14)
     assert [(d[0], d[1]) for d in diffs] == [('U01', 'T6'), ('U02', 'X3')]
+
+
+def test_adjudicate_takes_rulings_and_checks_tie():
+    a, b = sheet(), sheet()
+    a['complaints'][0]['T2'] = entry('alleged', ['5'])
+    a['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'yes'}
+    b['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['7'], 'tied_to_T1_or_T2': 'n/a'}
+    rulings = [{'id': 'D01', 'unit': 'U01', 'field': 'T2', 'ruling': {'mark': 'not alleged', 'paragraphs': [], 'quote': ''}},
+               {'id': 'D02', 'unit': 'U01', 'field': 'X4', 'ruling': {'answer': 'yes', 'paragraphs': ['7'], 'tied_to_T1_or_T2': 'n/a'}}]
+    adj = adjudicate.merge(a, b, rulings)
+    assert adj[0]['T2']['mark'] == 'not alleged' and adj[0]['T2']['source'] == 'D01'
+    assert adj[0]['T1']['source'] == 'agreed'
+    assert adjudicate.problems(adj) == []
+    adj[0]['T2']['mark'] = 'alleged'
+    assert adjudicate.problems(adj)
+    a2, b2 = sheet(), sheet()
+    for s_ in (a2, b2):
+        s_['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'yes'}
+    a2['complaints'][0]['T1'] = entry('alleged', ['5'])
+    b2['complaints'][0]['T1'] = entry('unclear', ['5'], quote='x')
+    adj2 = adjudicate.merge(a2, b2, [{'id': 'D01', 'unit': 'U01', 'field': 'T1', 'ruling': {'mark': 'unclear', 'paragraphs': ['5'], 'quote': 'x'}}])
+    assert adj2[0]['X4']['tied_to_T1_or_T2'] == 'n/a' and adj2[0]['X4']['source'].startswith('rule')
+    c = adjudicate.counts(adj, ['U01', 'U02'])
+    assert sum(c['by_tactic']['T2'].values()) == 2
 
 
 if __name__ == '__main__':
