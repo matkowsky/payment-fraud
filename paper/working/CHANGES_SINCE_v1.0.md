@@ -83,6 +83,8 @@ Accepted pull requests:
 - [#88](https://github.com/matkowsky/payment-fraud/pull/88) Complaint audit: coder packets for the 14 complaints
 - [#89](https://github.com/matkowsky/payment-fraud/pull/89) Complaint audit: both coder sheets and the disagreement list
 - [#90](https://github.com/matkowsky/payment-fraud/pull/90) Complaint audit: results in Section 8.5 and Supplement S10.1
+- [#91](https://github.com/matkowsky/payment-fraud/pull/91) Agent test \(Track B\): protocol, run sheet and tools, fixed before any run
+- [#92](https://github.com/matkowsky/payment-fraud/pull/92) Practitioner study: no extension if no response arrives by the close
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
