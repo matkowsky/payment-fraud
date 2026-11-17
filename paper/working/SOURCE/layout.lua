@@ -32,6 +32,7 @@ function Table(t)
  local s=pandoc.utils.stringify(t)
  local widths
  if n==10 then widths={.44,.055,.055,.055,.055,.055,.055,.055,.055,.12}
+ elseif n==7 then widths={.26,.255,.085,.075,.09,.085,.145} -- Table S10.1: two text columns and five counts
  elseif n==5 and s:match('SDK file') then widths={.11,.23,.10,.36,.20}
  elseif n==5 then widths={.22,.07,.14,.17,.40}
  elseif n==4 and s:match('^Family') then widths={.47,.11,.23,.19}
@@ -41,7 +42,7 @@ function Table(t)
  elseif n==2 and s:match('^Disposition') then widths={.20,.80}
  elseif n==2 then widths={.25,.75} end
  if widths then for i,w in ipairs(widths) do t.colspecs[i][2]=w end end
- if FORMAT:match('latex') then local sz=(n==10 or s:match('^Requirement') or s:match('^SDK file')) and [[\begingroup\footnotesize]] or [[\begingroup\small]]; if s:match('^Store or shared requirement') then sz=[[\begingroup\small\renewcommand{\arraystretch}{1.04}]] end; return {pandoc.RawBlock('latex',sz),t,pandoc.RawBlock('latex',[[\endgroup]])} end
+ if FORMAT:match('latex') then local sz=(n==10 or n==7 or s:match('^Requirement') or s:match('^SDK file')) and [[\begingroup\footnotesize]] or [[\begingroup\small]]; if s:match('^Store or shared requirement') then sz=[[\begingroup\small\renewcommand{\arraystretch}{1.04}]] end; return {pandoc.RawBlock('latex',sz),t,pandoc.RawBlock('latex',[[\endgroup]])} end
  return t
 end
 local function table_key(text)

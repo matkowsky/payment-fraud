@@ -20,6 +20,8 @@ Recorded 17 November 2026, 19:18: adjudicator 3 was GPT-6 Luna (OpenAI), named b
 
 Changed 17 November 2026, 19:30, at the author's request and before any count was computed: the author does not rule. An item on which the three adjudicators are not unanimous is reported as `disputed`, a fifth category beside the four marks, and its readings are kept. Each count is also given as a range: once with every disputed item at the lowest reading any adjudicator gave, and once at the highest. The order is `not alleged`, `unclear`, `alleged`, and for context items `no`, then `yes`. An X4 tie follows the sheet's rule in each case. Reasons: no rule picks a winner after the readings were seen, the author has a stake in the result, and the range shows how much the disagreement can move each count.
 
+Recorded 17 November 2026, with the pull request that proposes the text: the open-field entries were grouped into kinds by coder 1 after coding (`sheets/OPEN_FIELD.csv`, counted by `open_field.py`). The grouping was not adjudicated. The text reports agreement as counts, as fixed in advance. It does not repeat the limit "most of these cases settle without a finding", because the outcome of each of the 14 cases was not checked.
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?
@@ -95,7 +97,7 @@ The audit says nothing about requirements C2 and C3.
 - A complaint that is silent on a tactic does not show that the tactic was absent.
 - FTC actions only, in the United States.
 - The sheet was written after three in-scope complaints had been read in full for the paper (First Data, Allied Wallet and Paddle) and after press reports of the two 2026 actions had been seen. Their tactics shaped the sheet.
-- Both coders are language models. The author's rulings are the only human check.
+- Both coders are language models. The author's rulings are the only human check. (Changed 17 November 2026: the author did not rule, so no human coded a complaint or ruled on a difference; see the notes above.)
 
 ## Order of work
 
@@ -115,4 +117,8 @@ The audit says nothing about requirements C2 and C3.
 - `CODER_INSTRUCTIONS.md`: what each coder receives before the sheet, and the output format.
 - `build_packet.py`: writes one packet per complaint (instructions, sheet, then the complaint text as a JSON list of pages between two markers) and the complaint's paragraph index.
 - `check_sheet.py`: the format check on each coder's sheet. It checks form, not meaning.
-- `test_complaint_audit.py`: tests for both scripts and for the agreement of `CASES.csv` with `UNITS.csv`.
+- `compare_sheets.py`: agreement between the two sheets for each tactic, and the list of differences.
+- `adjudicate.py`: merges the two sheets with `sheets/adjudication/FINAL_RULINGS.json` and computes the counts, with `disputed` as its own category and with each count at its lowest and highest reading.
+- `open_field.py`: checks `sheets/OPEN_FIELD.csv` against the two sheets and counts the open-field entries by kind.
+- `sheets/`: both coders' sheets as received, with their hashes (`sheets/README.md`); the three adjudicators' prompts and rulings as returned (`sheets/adjudication/`); the merged marks and counts (`ADJUDICATED.json`, `COUNTS.md`); and the open-field entries (`OPEN_FIELD.csv`).
+- `test_complaint_audit.py`: tests for the scripts and for the agreement of `CASES.csv` with `UNITS.csv`.

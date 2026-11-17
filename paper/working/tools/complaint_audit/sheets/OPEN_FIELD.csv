@@ -1,0 +1,45 @@
+unit,coder,entry,kind,tactic,paragraphs
+U01,1,1,own limit raised or not applied,raised the internal refund monitoring threshold from 10% to 25% of sales after it alarmed,143
+U01,1,2,business type or category code misstated,dummy websites submitted to acquirers that misrepresented the merchants' business,66 67 68 102
+U01,2,1,business type or category code misstated,dummy websites masking the true nature of merchant businesses,54 66 69 94 100
+U01,2,2,own limit raised or not applied,raising the internal refund monitoring threshold from 10% to 25%,143
+U02,2,1,other false statement to the acquirer or bank,doctored checks attached to merchant account applications,83 85
+U03,1,1,rail or nested processor outside monitoring,"processed through remotely created payment orders, which escape centralized monitoring and have no chargebacks",53 57 60
+U03,2,1,rail or nested processor outside monitoring,using remotely created payment orders instead of more monitored payment rails,53 57 58 60 61
+U03,2,2,business type or category code misstated,misrepresenting business activities to banks when opening checking accounts,63 64 65 67
+U04,1,1,other,per-account monthly volume caps set so each account's chargebacks stay under the bank's threshold,125 126
+U04,1,2,other false statement to the acquirer or bank,the ISO gave the bank false explanations of the merchant's volume and website to keep accounts open,84 99 100 103
+U04,1,3,other false statement to the acquirer or bank,identical pro forma chargeback reduction plans used to paper the file,128 130
+U04,2,1,other false statement to the acquirer or bank,pro forma chargeback reduction plans,128 129 130
+U05,1,1,business type or category code misstated,"coded call-center charges as software-store sales (MCC 5734) instead of teleservices (MCC 5967), which carries a high-risk chargeback monitoring program",35
+U05,1,2,business type or category code misstated,"moved a call center's rebills to another processor, where their low price point made them look like software",38
+U05,2,1,business type or category code misstated,Misclassifying call-center sales as software sales to hide the true business from the acquirer,35 38
+U06,1,1,other,billing descriptors that hid the merchant's name and showed only an offshore call-center phone number,50
+U06,1,2,other,the ISO's president routed a sales agent's applications around underwriting to be approved without review,74
+U06,1,3,own limit raised or not applied,the processor tripled the ISO's limit for boarding high-risk merchants without prior approval while problems mounted,110
+U06,2,1,business type or category code misstated,False merchant applications and disguised business types,49 51 57 73 74
+U07,1,1,kept off termination lists,the processor kept the merchant off the MATCH list by closing only some of its accounts,130 131 133
+U07,1,2,other false statement to the acquirer or bank,the sales agent understated projected volume so the accounts got lighter underwriting,33 77
+U08,1,1,business type or category code misstated,"falsely denied to processors that the merchant offered debt relief, and removed student-loan language from the service agreement before re-applying",39 41
+U08,2,1,other,Concealing common ownership and links between related merchant applicants,44 45 46 47 48
+U09,1,1,rail or nested processor outside monitoring,"processed through a nested relationship with another processor, so the bank saw that processor rather than the merchant as the client",39 40 41 60
+U09,2,1,rail or nested processor outside monitoring,Nested processing through intermediary processors to obscure the true merchant,39 40 41 46
+U10,1,1,business type or category code misstated,false chargeback remediation plan describing the business as a software store with card-on-file sales,70 71
+U10,1,2,other false statement to the acquirer or bank,told a processor it had stopped processing for a client while it continued,82
+U10,1,3,own limit raised or not applied,applied its own chargeback monitoring program only to new clients,86
+U10,2,1,business type or category code misstated,Misrepresenting telemarketing charges as software store sales in remediation plans,70 71
+U10,2,2,other,Combining low-chargeback and high-chargeback seller volume to dilute reported chargeback rates,81
+U11,1,1,business type or category code misstated,"assigned miscellaneous low-risk merchant category codes instead of outbound telemarketing (MCC 5966), so the account stayed on the standard rather than the high-risk fraud-monitoring timeline",85 88 91 92 93 94
+U11,1,2,kept off termination lists,worked to keep a principal off the MATCH list,101 109
+U11,2,1,business type or category code misstated,Using incorrect low-risk merchant category codes and false remediation plans to evade scrutiny,85 88 91 92 93 94
+U12,1,1,kept off termination lists,did not report a merchant it terminated for cause to the card networks' screening databases,90
+U12,2,1,other,Misrepresenting payment aggregation as resale or merchant-of-record activity,24 25 26 27 137 139
+U13,1,1,business type or category code misstated,"coded the merchant as e-commerce (MCC 5964) and then software store (MCC 5734) instead of outbound telemarketing (MCC 5966), avoiding high-integrity-risk registration and enhanced monitoring",129 131
+U13,1,2,own limit raised or not applied,raised the account's single-purchase limit so telemarketing charges cleared on an account approved for software,130
+U13,1,3,other,filled know-your-customer gaps from old applications instead of sending the questionnaire before an AML review,125
+U13,2,1,business type or category code misstated,Misclassifying telemarketing merchant activity as software sales,127 128 129 130 141 152
+U14,1,1,business type or category code misstated,"coded negative-option merchants under general low-risk MCCs (5499, 5977) instead of MCC 5968 and moved them to an affiliate's lower-risk BIN",61 72 80 81 88
+U14,1,2,business type or category code misstated,accepted 'travel pack' applications and told merchants to replace 'trial' with 'travel' to hide trial billing,71 74 82 83 84
+U14,1,3,own limit raised or not applied,raised the internal per-account chargeback-rate limit from 5% to 9% so long as counts stayed below network thresholds,90
+U14,1,4,other,"shared underwriting decisions with sales partners, helping merchants restructure submissions",59
+U14,2,1,business type or category code misstated,Misclassifying high-risk merchants under lower-risk merchant category codes and routing them through a lower-risk BIN,72 73 74
