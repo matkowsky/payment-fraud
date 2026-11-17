@@ -18,6 +18,8 @@ Changed 17 November 2026, 19:10, before a third adjudicator's rulings were seen:
 
 Recorded 17 November 2026, 19:18: adjudicator 3 was GPT-6 Luna (OpenAI), named by the author. This breaks the condition just above: OpenAI is coder 2's company. It is kept, because under the unanimity rule an adjudicator can only send items to the author, and the three then include one from each coder's company and one from neither. Its answer as returned is in `sheets/adjudication/ADJUDICATOR_3_RAW.txt`. One field did not parse: D06's `decisive_text` held two quoted phrases separated by a semicolon outside the quotes. In `RULINGS_3.json` they are joined into one string; no ruling was changed. All three agree on 10 items. The other 14 go to the author (`sheets/adjudication/FOR_AUTHOR.md`).
 
+Changed 17 November 2026, 19:30, at the author's request and before any count was computed: the author does not rule. An item on which the three adjudicators are not unanimous is reported as `disputed`, a fifth category beside the four marks, and its readings are kept. Each count is also given as a range: once with every disputed item at the lowest reading any adjudicator gave, and once at the highest. The order is `not alleged`, `unclear`, `alleged`, and for context items `no`, then `yes`. An X4 tie follows the sheet's rule in each case. Reasons: no rule picks a winner after the readings were seen, the author has a stake in the result, and the range shows how much the disagreement can move each count.
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?
@@ -75,7 +77,7 @@ The audit says nothing about requirements C2 and C3.
 
 ## Report, fixed in advance
 
-- For each tactic: the number of complaints marked `alleged`, `not alleged`, `unclear` and `unavailable`, after the author's rulings. The four counts sum to the complaints coded. Counts only.
+- For each tactic: the number of complaints marked `alleged`, `not alleged`, `unclear` and `unavailable`, after the author's rulings (changed 17 November 2026: after adjudication, with `disputed` as a fifth category; see the note above). The four counts sum to the complaints coded. Counts only.
 - The same counts in three groups: tactics the specified records could expose if the required data were recorded (T1, T2, T3, T5, T6), the tactic no record exposes (T4), and the one that is not a record gap (T7). An allegation in the first group is not a showing that a record would have exposed it.
 - The number of complaints with no tactic alleged. Only a complaint read in full and marked `not alleged` on all seven counts.
 - Of the complaints that allege T1 or T2, the number whose cited paragraphs tie a shared attribute to the accounts in that tactic (context item X4). A shared attribute alleged elsewhere in the complaint is reported separately, as occurring in the same complaint and nothing more.
