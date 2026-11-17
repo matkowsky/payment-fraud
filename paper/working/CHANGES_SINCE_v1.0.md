@@ -79,6 +79,9 @@ Accepted pull requests:
 - [#84](https://github.com/matkowsky/payment-fraud/pull/84) Source directory: Beluri \(L044\) 19.7% is inactive profiles, an upper bound on blocking
 - [#85](https://github.com/matkowsky/payment-fraud/pull/85) Complaint audit: protocol and coding sheet, fixed before any coding
 - [#86](https://github.com/matkowsky/payment-fraud/pull/86) Complaint audit: case list and coder tools, before any coding
+- [#87](https://github.com/matkowsky/payment-fraud/pull/87) Complaint audit: correct U04 and name each unit's PDF
+- [#88](https://github.com/matkowsky/payment-fraud/pull/88) Complaint audit: coder packets for the 14 complaints
+- [#89](https://github.com/matkowsky/payment-fraud/pull/89) Complaint audit: both coder sheets and the disagreement list
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
