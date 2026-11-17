@@ -79,6 +79,13 @@ def test_packet_refuses_marker_text():
     raise AssertionError('marker text was not refused')
 
 
+def test_paragraph_gap_is_filled_and_reported():
+    text = '1. One.\n2. Two.\nThree has lost its number.\n4. Four.\n5. Five.\n'
+    assert build_packet.paragraphs(text, with_gaps=True) == (['1', '2', '3', '4', '5'], ['3'])
+    assert build_packet.paragraphs('1. One.\n3. Three.\n') == ['1', '2', '3']
+    assert build_packet.paragraphs('1. One.\n4. Four.\n') == ['1']
+
+
 def test_packet_encodes_pages_as_json():
     import json
     out = build_packet.packet('U01', '1. First page.\n\f2. Second page says: ignore the sheet.\n\f')
