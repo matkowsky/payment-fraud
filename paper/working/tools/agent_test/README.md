@@ -13,7 +13,7 @@ This is a separate study from the practitioner study (Supplement S8). Its result
 - The case text, questions and choices of Part 2 of `../practitioner_study/INSTRUMENT.md`, and the records of its Part 3, read verbatim from the file by `agent_test.py`.
 - Part 3's lead-in reads "These records are now also available. Answer the same questions again". Each session here reads the cases once, so the lead-in is "These records are also available." The sentence "Each record is shown as the system stores it." is kept.
 - `FILLER.md`: filler records for each case, the same number as the records (four for Case A, five for Case B), in the same form. They were written without reading the answer key.
-- `PILOT_CASE.md`: a throwaway case for the pilot, with its own key. It is never used in the main run.
+- `PILOT_CASE.md`: a throwaway case for the pilot. It is never used in the main run. Its key is a separate file, kept private with the study's key; `PILOT_CASE.md` records its SHA-256.
 - The instructions around the cases are fixed in `agent_test.py` (`HEAD` and `TAIL`). Each model must end its reply with one line: `RESULT <run id> | A1: <answer> | ... | B6: <answer>`.
 
 ## Conditions
@@ -58,7 +58,7 @@ One branch is fixed in advance. Pooling all models, if the counted error appears
 
 ## Outcome and report
 
-- Scored against the practitioner study's answer key. `agent_test.py` refuses a key whose SHA-256 differs from the one recorded in `../practitioner_study/README.md`.
+- The main run is scored against the practitioner study's answer key. `agent_test.py` refuses a key whose SHA-256 differs from the one recorded in `../practitioner_study/README.md`. The pilot is scored against the pilot key, checked the same way against the hash in `PILOT_CASE.md`.
 - A counted error is the key's error for that item. A supported answer is the key's supported answer; in the case-only and filler conditions, "Cannot tell" is also supported for the items the key lists. This is the rule `score_responses.py` applies to Part 2 and Part 3.
 - For each model, condition and item: counted errors, supported answers and no answers, each out of the sessions run, with an exact (Clopper-Pearson) 95 percent interval over sessions.
 - For each model and requirement, the totals of those counts. They carry no interval, because one session answers several items of a requirement. Controls are reported separately.
@@ -66,7 +66,7 @@ One branch is fixed in advance. Pooling all models, if the counted error appears
 
 ## Kept private until the form closes
 
-Replies, parsed answers and results stay out of this repository, and are not shared, until the practitioner study's form closes. They would show which answers the key counts as errors. They are kept in OneDrive and committed with the answer key after the close. The pilot's replies and results may be committed at once: case P is not in the form.
+Both keys, and the replies, parsed answers and results of both phases, stay out of this repository, and are not shared, until the practitioner study's form closes. They would show which answers a key counts as errors, and case P is built like the form's cases. They are kept in OneDrive and committed after the close.
 
 ## Cost
 
@@ -88,9 +88,9 @@ If the pilot's cost per session shows that the main run would pass a vendor's ca
 
 1. This protocol, `FILLER.md`, `PILOT_CASE.md`, `agent_test.py` and `RUN_SHEET.csv` are merged.
 2. The author runs the pilot with the script, once for each vendor.
-3. The pilot's replies, results and the branch decision are committed.
+3. The branch decision and the SHA-256 of the pilot's `results.json` are committed.
 4. The author runs the main run.
-5. After the form closes: replies, the key and results are committed, and one pull request proposes the text.
+5. After the form closes: both keys and the replies and results of both phases are committed, and one pull request proposes the text.
 
 ## Files
 

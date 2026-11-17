@@ -7,12 +7,12 @@ Run from paper/working:
     python3 tools/agent_test/agent_test.py prompt RUN_ID
     python3 tools/agent_test/agent_test.py run --vendor openai --phase pilot --out DIR     # needs OPENAI_API_KEY
     python3 tools/agent_test/agent_test.py run --vendor anthropic --phase pilot --out DIR  # needs ANTHROPIC_API_KEY
-    python3 tools/agent_test/agent_test.py score --phase pilot --replies DIR ... --out DIR [--key KEY.md]
+    python3 tools/agent_test/agent_test.py score --phase pilot --replies DIR ... --key KEY.md --out DIR
 
 `sheet` writes RUN_SHEET.csv; with --check it only compares. `run` sends the phase's sessions for one vendor,
 saves each raw reply as RUN_ID.json in DIR/PHASE/, skips sessions already saved and stops at the cost cap.
-`score` reads the saved replies and writes results.json and results.md. The main phase needs --key, the
-practitioner study's answer key, checked against its hash.
+`score` reads the saved replies and writes results.json and results.md. --key is the phase's answer key,
+checked against its hash: the pilot key for the pilot, the practitioner study's key for the main phase.
 """
 import argparse
 import csv
@@ -52,6 +52,8 @@ PRICES = {'gpt-6.1-sol': (2.0, 10.0), 'gpt-6.1-terra': (1.0, 5.0), 'gpt-6-luna':
           'claude-opus-5-5': (4.0, 20.0), 'claude-sonnet-5-5': (2.0, 10.0), 'claude-haiku-5-5': (0.10, 0.50)}
 CAP_DOLLARS = 15.0  # for each vendor
 MAX_OUTPUT_TOKENS = 6000
+# The pilot key is kept private until the practitioner study's form closes (README, PILOT_CASE.md).
+PILOT_KEY_SHA256 = 'b709ee4a4336c0a9ba961a42a185586d955dfc4b77e59d564053acf3e8b29c0b'
 
 RECORDS_LEAD = 'These records are also available. Each record is shown as the system stores it.'
 HEAD = ('{lead}\n'
@@ -254,6 +256,13 @@ def main_key(path):
         raise SystemExit('answer key does not match the hash recorded before the first response')
     key, also = sr.parse_key(raw.decode('utf-8'))
     return {i: {**v, 'supported': canon(v['supported']), 'error': canon(v['error'])} for i, v in key.items()}, also
+
+
+def pilot_key(path):
+    raw = Path(path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != PILOT_KEY_SHA256:
+        raise SystemExit('pilot key does not match the hash recorded before the pilot')
+    return parse_key_table(raw.decode('utf-8'), [q['code'] for q in questions('pilot')])
 
 
 def _binom_cdf(k, n, p):
@@ -463,7 +472,7 @@ def main(argv=None):
     s = sub.add_parser('score')
     s.add_argument('--phase', choices=('pilot', 'main'), required=True)
     s.add_argument('--replies', nargs='+', required=True)
-    s.add_argument('--key')
+    s.add_argument('--key', required=True)
     s.add_argument('--out', required=True)
     a = ap.parse_args(argv)
     if a.cmd == 'sheet':
@@ -483,12 +492,7 @@ def main(argv=None):
             raise SystemExit(f"set {VENDORS[a.vendor]['key']} first")
         run_api(a.vendor, a.phase, a.out, api_key, a.model)
     elif a.cmd == 'score':
-        if a.phase == 'main':
-            if not a.key:
-                raise SystemExit('the main phase needs --key')
-            key, also = main_key(a.key)
-        else:
-            key, also = parse_key_table(PILOT.read_text(encoding='utf-8'), [q['code'] for q in questions('pilot')])
+        key, also = main_key(a.key) if a.phase == 'main' else pilot_key(a.key)
         res = score(a.phase, read_sheet(), read_replies(a.replies), key, also)
         out = Path(a.out)
         out.mkdir(parents=True, exist_ok=True)

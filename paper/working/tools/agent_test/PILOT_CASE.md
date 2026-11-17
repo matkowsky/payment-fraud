@@ -1,6 +1,6 @@
 # Pilot case P
 
-A throwaway case for the pilot only. It is not in the form and is never used in the main run, so its key is public.
+A throwaway case for the pilot only. It is not in the form and is never used in the main run.
 
 ## Case
 
@@ -30,10 +30,4 @@ P3. Does the rise from 1 to 6 percent warrant review? Yes / No / Cannot tell
 
 ## Key
 
-| Item | Supported | Counted error | Requirement |
-|---|---|---|---|
-| P1 | Cannot tell | Yes | C2 coverage |
-| P2 | No | Yes | C2 learned time |
-| P3 | Yes | No | Control |
-
-"Cannot tell" is also supported for P2; without the learned time, the record does not show when the link became known.
+Kept private until the practitioner study's form closes, with that study's key. SHA-256 of the key file: `b709ee4a4336c0a9ba961a42a185586d955dfc4b77e59d564053acf3e8b29c0b`. It is published with the results.

@@ -9,6 +9,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import agent_test as at  # noqa: E402
 
 
+# A made-up key for these tests. It is not the pilot's key, which is private until the form closes.
+TEST_KEY = ('| P1 | Yes | No | C2 first |\n| P2 | Yes | No | C2 second |\n| P3 | Yes | No | Control |\n\n'
+            '"Cannot tell" is also supported for P2; made up.\n')
+
+
 def result_line(run_id, answers):
     return f'RESULT {run_id} | ' + ' | '.join(f'{k}: {v}' for k, v in answers.items())
 
@@ -102,16 +107,16 @@ class Scoring(unittest.TestCase):
         for rid, r in sheet.items():
             if r['phase'] != 'pilot':
                 continue
-            ans = {'P1': 'Cannot tell', 'P2': 'No', 'P3': 'Yes'}
+            ans = {'P1': 'Yes', 'P2': 'Yes', 'P3': 'Yes'}
             if r['condition'] == 'case_only':
                 ans['P1'] = case_only_p1
             replies[rid] = {'text': result_line(rid, ans), 'model_shown': r['model'], 'source': 'test'}
         return sheet, replies
 
     def test_pilot_counts_and_branch(self):
-        key, also = at.parse_key_table(at.PILOT.read_text(encoding='utf-8'), ['P1', 'P2', 'P3'])
+        key, also = at.parse_key_table(TEST_KEY, ['P1', 'P2', 'P3'])
         self.assertEqual(also, {'P2'})
-        sheet, replies = self.pilot_replies('Yes')
+        sheet, replies = self.pilot_replies('No')
         res = at.score('pilot', sheet, replies, key, also)
         sol = res['models']['gpt-6.1-sol']['conditions']
         self.assertEqual(sol['case_only']['items']['P1']['errors'], 10)
@@ -120,17 +125,26 @@ class Scoring(unittest.TestCase):
         self.assertEqual(res['branch']['counted_errors'], 60)          # 6 models x 10 sessions, P1 only
         self.assertEqual(res['branch']['case_only_requirement_answers'], 120)
         self.assertEqual(res['branch']['main_run'], 'as fixed')
-        sheet, replies = self.pilot_replies('Cannot tell')
+        sheet, replies = self.pilot_replies('Yes')
         self.assertEqual(at.score('pilot', sheet, replies, key, also)['branch']['main_run'], 'free-text conclusions')
-        self.assertIn('| P1 | C2 coverage |', at.to_markdown(res))
+        self.assertIn('| P1 | C2 first |', at.to_markdown(res))
 
     def test_no_answer_and_stray(self):
-        key, also = at.parse_key_table(at.PILOT.read_text(encoding='utf-8'), ['P1', 'P2', 'P3'])
+        key, also = at.parse_key_table(TEST_KEY, ['P1', 'P2', 'P3'])
         sheet = at.read_sheet()
         res = at.score('pilot', sheet, {'PL-001': {'text': 'I cannot answer.', 'source': 't'}}, key, also)
         self.assertEqual(res['models']['gpt-6-luna']['no_answer'], {'PL-001': 'no RESULT line'})
         with self.assertRaises(ValueError):
             at.score('pilot', sheet, {'MS-001': {'text': '', 'source': 't'}}, key, also)
+
+    def test_pilot_key_hash(self):
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / 'key.md'
+            f.write_text(TEST_KEY, encoding='utf-8')
+            with self.assertRaises(SystemExit):
+                at.pilot_key(f)
+        self.assertNotIn('| P1 |', at.PILOT.read_text(encoding='utf-8'))  # the key is not in the repository
+        self.assertIn(at.PILOT_KEY_SHA256, at.PILOT.read_text(encoding='utf-8'))
 
     def test_main_key_hash(self):
         with tempfile.TemporaryDirectory() as d:
