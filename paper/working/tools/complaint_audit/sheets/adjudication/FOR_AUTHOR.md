@@ -1,6 +1,6 @@
 # Items for the author's ruling (14)
 
-Three blinded adjudicators ruled on the 24 differences. Adjudicator 1: Claude Sonnet 5.5 (Anthropic, coder 1's company). Adjudicator 2: Meta Llama Maverick. Adjudicator 3: GPT-6 Luna (OpenAI, coder 2's company). Adjudicators 2 and 3 were run by the author through Johns Hopkins AI.
+Three blinded adjudicators ruled on the 24 differences. Adjudicator 1: Claude Sonnet 5.5 (Anthropic, coder 1's company). Adjudicator 2: Meta Llama 4 Maverick. Adjudicator 3: GPT-6 Luna (OpenAI, coder 2's company). Adjudicators 2 and 3 were run by the author through Johns Hopkins AI.
 
 Rule fixed before adjudicator 3 answered: a ruling stands only where all three agree. They agree on 10 items. The 14 below go to the author.
 

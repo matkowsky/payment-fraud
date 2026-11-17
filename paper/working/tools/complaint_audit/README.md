@@ -122,3 +122,5 @@ The audit says nothing about requirements C2 and C3.
 - `open_field.py`: checks `sheets/OPEN_FIELD.csv` against the two sheets and counts the open-field entries by kind.
 - `sheets/`: both coders' sheets as received, with their hashes (`sheets/README.md`); the three adjudicators' prompts and rulings as returned (`sheets/adjudication/`); the merged marks and counts (`ADJUDICATED.json`, `COUNTS.md`); and the open-field entries (`OPEN_FIELD.csv`).
 - `test_complaint_audit.py`: tests for the scripts and for the agreement of `CASES.csv` with `UNITS.csv`.
+
+Recorded 17 November 2026, 21:35: the author states that adjudicator 2 was Llama 4 Maverick (Meta). The supplement and `sheets/adjudication/FOR_AUTHOR.md` now say so. No ruling changed. Coder 2's exact ChatGPT model is still unknown (its sheet says GPT-6).
