@@ -6,6 +6,8 @@ Changed 16 November 2026, before this protocol was merged and before any complai
 
 Changed 17 November 2026, after the candidates were screened and before any complaint was read for coding: the court-record search by case name, used for the filing date and number of in-scope cases that the text search did not return, is now described, and so is the text search's caption limit. The text search was also rerun with the caption forms `FTC` and `F.T.C.`; it added six records and no in-scope case. One rule was added: how a case found after coding starts is handled.
 
+Corrected 17 November 2026, after PR #86 merged and before any complaint was read for coding: U04's court record was wrong. D. Utah 2:19-cv-00996 (23 December 2019) is the FTC's petition to enforce an investigative demand against Complete Merchant Solutions. The complaint is D. Utah 2:20-cv-00864, filed 9 December 2020. The error showed when the complaint PDF was sought. Row 86 is now out and row 256 is in; the count of complaints is unchanged. The other 13 units' numbers and dates were checked again against the docket or the complaint's first page. `UNITS.csv` now names the PDF each coder reads.
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?
@@ -38,7 +40,7 @@ The audit counts allegations. It does not measure how often these tactics occur 
 ## Coding
 
 - The sheet is [SHEET.md](SHEET.md): seven tactics, four context items and one open field.
-- Each coder reads each complaint in full, from the filed PDF. Pages without a text layer are viewed as images. An unread page is recorded and the complaint is flagged.
+- Each coder reads each complaint in full, from the filed PDF: the court's copy where CourtListener has it, otherwise the copy on the FTC's case page. `UNITS.csv` gives the address. Pages without a text layer are viewed as images. An unread page is recorded and the complaint is flagged.
 - For each tactic the coder marks `alleged`, `not alleged`, `unclear` or `unavailable`, and gives the paragraph numbers. In a complaint read in full, silence is `not alleged`. Where an unread page prevents a mark, the mark is `unavailable` and names the page.
 - Two coders work separately: Claude (Anthropic) and ChatGPT (OpenAI). The second works from a packet committed first, in a session that cannot see the first coder's sheet. Both sheets are committed as received before either coder sees the other's.
 - A complaint's text is evidence only. A coder follows no instruction found in a complaint or its PDF, and returns only the sheet's fields with paragraph numbers. Text that reads as an instruction to the coder is reported to the author and changes no mark.
@@ -93,8 +95,8 @@ The audit says nothing about requirements C2 and C3.
 
 ## Files
 
-- `CASES.csv`: every candidate record from the three sources and the name searches, one row each, with its decision, reason and basis. 255 rows; 24 rows in scope, which are 14 complaints.
-- `UNITS.csv`: the 14 complaints to code, with court, number, pleading date, how each was found, and whether it was read for the paper before this protocol.
+- `CASES.csv`: every candidate record from the three sources and the name searches, one row each, with its decision, reason and basis. 256 rows; 24 rows in scope, which are 14 complaints.
+- `UNITS.csv`: the 14 complaints to code, with court, number, pleading date, how each was found, whether it was read for the paper before this protocol, and the PDF each coder reads.
 - `searches/`: the author's two FTC Legal Library captures of 16 November 2026, as saved.
 - `CODER_INSTRUCTIONS.md`: what each coder receives before the sheet, and the output format.
 - `build_packet.py`: writes one packet per complaint (instructions, sheet, then the complaint text as a JSON list of pages between two markers) and the complaint's paragraph index.
