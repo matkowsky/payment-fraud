@@ -1,0 +1,360 @@
+[
+ {
+  "id": "D01",
+  "unit": "U02",
+  "field": "T6",
+  "ruling": {
+   "mark": "unclear",
+   "paragraphs": [
+    "87",
+    "101"
+   ],
+   "quote": "Transact Pro was preparing to open merchant accounts for the Apex Defendants at a third bank, Decta Limited"
+  },
+  "reason": "The cited paragraphs show plans to open new accounts, which could imply a change in identity to avoid monitoring."
+ },
+ {
+  "id": "D02",
+  "unit": "U02",
+  "field": "X3",
+  "ruling": {
+   "answer": "yes",
+   "paragraphs": [
+    "71",
+    "87",
+    "92",
+    "95",
+    "97",
+    "99"
+   ]
+  },
+  "reason": "The cited paragraphs provide information on rates and counts for various merchant accounts."
+ },
+ {
+  "id": "D03",
+  "unit": "U03",
+  "field": "T2",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "8",
+    "25",
+    "62",
+    "63",
+    "64",
+    "65",
+    "66",
+    "67"
+   ]
+  },
+  "reason": "The paragraphs cited show that Defendants misrepresented the identity of merchant accounts."
+ },
+ {
+  "id": "D04",
+  "unit": "U03",
+  "field": "T3",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "8",
+    "63",
+    "65",
+    "69"
+   ]
+  },
+  "reason": "The cited paragraphs indicate that Defendants used accounts to process payments for third-party merchants."
+ },
+ {
+  "id": "D05",
+  "unit": "U03",
+  "field": "X4",
+  "ruling": {
+   "answer": "yes",
+   "paragraphs": [
+    "46",
+    "62",
+    "66",
+    "68",
+    "75",
+    "77",
+    "79",
+    "89",
+    "90",
+    "95"
+   ],
+   "tied_to_T1_or_T2": "yes"
+  },
+  "reason": "The paragraphs cited show attributes shared across accounts and tie them to T2."
+ },
+ {
+  "id": "D06",
+  "unit": "U04",
+  "field": "T6",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "71",
+    "72",
+    "74",
+    "76",
+    "78"
+   ]
+  },
+  "reason": "The cited paragraphs show changes in merchant accounts over time, indicating a change in identity."
+ },
+ {
+  "id": "D07",
+  "unit": "U05",
+  "field": "T1",
+  "ruling": {
+   "mark": "unclear",
+   "paragraphs": [
+    "38"
+   ],
+   "quote": "if we move everything off PayPal, we'll send the PayPal account into severe chargeback state which will get reported to Visa"
+  },
+  "reason": "The quote suggests a link between spreading transactions and avoiding chargeback thresholds."
+ },
+ {
+  "id": "D08",
+  "unit": "U06",
+  "field": "T1",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "4",
+    "35",
+    "49",
+    "51",
+    "57"
+   ]
+  },
+  "reason": "The cited paragraphs show that FPS opened multiple accounts for the same business, indicating load balancing."
+ },
+ {
+  "id": "D09",
+  "unit": "U06",
+  "field": "T6",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "61",
+    "75",
+    "91",
+    "113"
+   ]
+  },
+  "reason": "The paragraphs cited show changes in merchant accounts and billing descriptors to evade scrutiny."
+ },
+ {
+  "id": "D10",
+  "unit": "U07",
+  "field": "T1",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "31",
+    "32",
+    "42",
+    "43"
+   ]
+  },
+  "reason": "The cited paragraphs indicate that Qualpay opened multiple accounts for MOBE, spreading transactions to avoid chargeback thresholds."
+ },
+ {
+  "id": "D11",
+  "unit": "U07",
+  "field": "T2",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "28",
+    "35",
+    "39",
+    "112",
+    "140"
+   ]
+  },
+  "reason": "The paragraphs cited show that Qualpay was aware of discrepancies in MOBE's application, indicating false statements about the account identity."
+ },
+ {
+  "id": "D12",
+  "unit": "U07",
+  "field": "T6",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "131",
+    "132",
+    "140",
+    "143",
+    "144",
+    "146"
+   ]
+  },
+  "reason": "The cited paragraphs show changes in account management and transaction routing to avoid detection."
+ },
+ {
+  "id": "D13",
+  "unit": "U09",
+  "field": "T2",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "40",
+    "89"
+   ]
+  },
+  "reason": "The paragraphs cited indicate that AFTS misrepresented the identity of the merchant on whose behalf it was processing payments."
+ },
+ {
+  "id": "D14",
+  "unit": "U09",
+  "field": "T3",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "39",
+    "40",
+    "41"
+   ]
+  },
+  "reason": "The cited paragraphs show that AFTS processed payments for SLG through a nested arrangement, indicating credit card laundering."
+ },
+ {
+  "id": "D15",
+  "unit": "U09",
+  "field": "X4",
+  "ruling": {
+   "answer": "yes",
+   "paragraphs": [
+    "57",
+    "88"
+   ],
+   "tied_to_T1_or_T2": "no"
+  },
+  "reason": "The paragraphs cited show attributes shared across accounts but do not tie them directly to T1 or T2."
+ },
+ {
+  "id": "D16",
+  "unit": "U10",
+  "field": "T6",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "76",
+    "77"
+   ]
+  },
+  "reason": "The cited paragraphs show a change in the payment processor used for Tech Live Connect's credit card charges."
+ },
+ {
+  "id": "D17",
+  "unit": "U11",
+  "field": "T1",
+  "ruling": {
+   "mark": "unclear",
+   "paragraphs": [
+    "110"
+   ],
+   "quote": "We would like to go over a plan to move volume back before starting."
+  },
+  "reason": "The quote suggests planning to move processing volume, potentially indicating load balancing."
+ },
+ {
+  "id": "D18",
+  "unit": "U11",
+  "field": "T5",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "109"
+   ]
+  },
+  "reason": "The cited paragraph shows Dangelmaier advising ACRO owners to issue refunds to avoid chargebacks."
+ },
+ {
+  "id": "D19",
+  "unit": "U12",
+  "field": "T1",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "63",
+    "102"
+   ]
+  },
+  "reason": "The paragraphs cited indicate that Paddle opened multiple accounts for PC Vark and knew they were linked."
+ },
+ {
+  "id": "D20",
+  "unit": "U12",
+  "field": "T2",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "106"
+   ]
+  },
+  "reason": "The cited paragraph shows that Paddle should have discovered that Reimage was registered to straw owners."
+ },
+ {
+  "id": "D21",
+  "unit": "U12",
+  "field": "T6",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "81",
+    "91",
+    "133",
+    "134",
+    "139"
+   ]
+  },
+  "reason": "The paragraphs cited show changes in account information and billing descriptors to avoid detection."
+ },
+ {
+  "id": "D22",
+  "unit": "U12",
+  "field": "X4",
+  "ruling": {
+   "answer": "yes",
+   "paragraphs": [
+    "63"
+   ],
+   "tied_to_T1_or_T2": "yes"
+  },
+  "reason": "The cited paragraph shows an attribute shared across accounts and ties it to T1."
+ },
+ {
+  "id": "D23",
+  "unit": "U13",
+  "field": "T6",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "142",
+    "144"
+   ]
+  },
+  "reason": "The paragraphs cited indicate that Defendants changed their processing practices to avoid detection by Mastercard."
+ },
+ {
+  "id": "D24",
+  "unit": "U14",
+  "field": "T6",
+  "ruling": {
+   "mark": "alleged",
+   "paragraphs": [
+    "8",
+    "73",
+    "86",
+    "87",
+    "88",
+    "103"
+   ]
+  },
+  "reason": "The cited paragraphs show changes in account management practices over time to maintain high-risk business."
+ }
+]

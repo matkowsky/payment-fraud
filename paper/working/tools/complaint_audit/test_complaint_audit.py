@@ -7,6 +7,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_packet  # noqa: E402
 import check_sheet  # noqa: E402
+import compare_sheets  # noqa: E402
+import adjudicate  # noqa: E402
 
 UNITS = ['U01', 'U02']
 INDEX = {'U01': [str(i) for i in range(1, 81)], 'U02': [str(i) for i in range(1, 41)]}
@@ -105,6 +107,42 @@ def test_cases_file_matches_units():
     assert all(r['reason'] for r in rows)
     assert {r['unit'] for r in rows if r['decision'] == 'in'} == set(units)
     assert all(not r['unit'] for r in rows if r['decision'] == 'out')
+
+
+def test_compare_counts_agreement_and_differences():
+    a, b = sheet(), sheet()
+    b['complaints'][0]['T6'] = entry('alleged', ['9'])
+    b['complaints'][1]['X3'] = {'answer': 'yes', 'paragraphs': ['4']}
+    rows, pooled, diffs = compare_sheets.compare(a, b)
+    t6 = [r for r in rows if r[0] == 'T6'][0]
+    assert t6[1:3] == (1, 2) and t6[3] == 0.0
+    assert [r for r in rows if r[0] == 'T7'][0][3] is None
+    assert pooled[1:3] == (13, 14)
+    assert [(d[0], d[1]) for d in diffs] == [('U01', 'T6'), ('U02', 'X3')]
+
+
+def test_adjudicate_settles_disputes_and_bounds():
+    a, b = sheet(), sheet()
+    a['complaints'][0]['T2'] = entry('alleged', ['5'])
+    a['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'yes'}
+    b['complaints'][0]['X4'] = {'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'n/a'}
+    a['complaints'][1]['T6'] = entry('alleged', ['9'])
+    readings = [{'by': 'x', 'mark': 'alleged', 'paragraphs': ['5'], 'quote': ''},
+                {'by': 'y', 'mark': 'unclear', 'paragraphs': ['5'], 'quote': 'q'}]
+    ties = [{'by': 'x', 'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'yes'},
+            {'by': 'y', 'answer': 'yes', 'paragraphs': ['6'], 'tied_to_T1_or_T2': 'n/a'}]
+    rulings = [{'id': 'D01', 'unit': 'U01', 'field': 'T2', 'disputed': True, 'readings': readings},
+               {'id': 'D02', 'unit': 'U01', 'field': 'X4', 'disputed': True, 'readings': ties},
+               {'id': 'D03', 'unit': 'U02', 'field': 'T6', 'ruling': {'mark': 'not alleged', 'paragraphs': [], 'quote': ''}}]
+    adj = adjudicate.merge(a, b, rulings)
+    assert adj[0]['T2']['mark'] == 'disputed' and adj[1]['T6']['source'] == 'D03'
+    lo, hi = adjudicate.resolve(adj, 'low'), adjudicate.resolve(adj, 'high')
+    assert lo[0]['T2']['mark'] == 'unclear' and lo[0]['X4']['tied_to_T1_or_T2'] == 'n/a'
+    assert hi[0]['T2']['mark'] == 'alleged' and hi[0]['X4']['tied_to_T1_or_T2'] == 'yes'
+    assert adjudicate.problems(lo) == [] and adjudicate.problems(hi) == []
+    rep = adjudicate.report(adj)['all 14']
+    assert rep['settled, with disputed']['by_tactic']['T2']['disputed'] == 1
+    assert rep['low bound']['by_tactic']['T2']['alleged'] == 0 and rep['high bound']['by_tactic']['T2']['alleged'] == 1
 
 
 if __name__ == '__main__':

@@ -1,0 +1,315 @@
+```json
+[
+  {
+    "id": "D01",
+    "unit": "U02",
+    "field": "T6",
+    "ruling": {
+      "mark": "not alleged",
+      "paragraphs": ["101"],
+      "quote": ""
+    },
+    "decisive_text": "preparing to open merchant accounts for the Apex Defendants at a third bank, Decta Limited",
+    "rule_text": "T6 needs a change over time.",
+    "reason": "The paragraph describes preparing to open additional accounts, but does not allege a changed descriptor or business name, or that a closed account was replaced so reports and history would not follow the seller."
+  },
+  {
+    "id": "D02",
+    "unit": "U02",
+    "field": "X3",
+    "ruling": {
+      "answer": "no",
+      "paragraphs": []
+    },
+    "decisive_text": "more than forty merchant accounts; nearly all of them were subsequently closed",
+    "rule_text": "X3 asks whether the complaint gives rates or counts for any account.",
+    "reason": "The cited paragraphs describe account totals, thresholds, and instructions for lowering ratios, but give no actual rate or count for any account."
+  },
+  {
+    "id": "D03",
+    "unit": "U03",
+    "field": "T2",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["62", "63", "64", "65", "66", "67"],
+      "quote": ""
+    },
+    "decisive_text": "Defendants file assumed name and trademark or tradename certificates for Madera and B&P ... under the names and dbas of their merchant-clients.",
+    "rule_text": "T2 is about who the account is said to belong to; it includes accounts opened in names of shell companies or with false statements about who the seller is.",
+    "reason": "The complaint alleges accounts were sought and opened under merchant-clients’ names or DBAs, with false descriptions of Madera’s business and its payment-processing activity."
+  },
+  {
+    "id": "D04",
+    "unit": "U03",
+    "field": "T3",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["8", "63", "65", "69"],
+      "quote": ""
+    },
+    "decisive_text": "process consumer payments for third-party merchants via RCPOs",
+    "rule_text": "T3 is about whose sales run through an account: several sellers’ sales run through one merchant account.",
+    "reason": "The complaint says the defendants used business checking accounts to process consumer payments for third-party merchants, and deposited the consumers’ funds into those accounts."
+  },
+  {
+    "id": "D05",
+    "unit": "U03",
+    "field": "X4",
+    "ruling": {
+      "answer": "yes",
+      "paragraphs": ["46"],
+      "tied_to_T1_or_T2": "yes"
+    },
+    "decisive_text": "Madera and B&P share the website echeckprocessing.net, and have both listed the residence of Bruce and Patricia Woods as their business address on applications for bank accounts.",
+    "rule_text": "X4 asks whether an attribute is shared across accounts and, if so, whether the paragraphs tie it to accounts marked under T1 or T2.",
+    "reason": "The paragraph identifies a shared website and address on bank-account applications for Madera and B&P. T2 is alleged, and the shared address is expressly tied to their account applications."
+  },
+  {
+    "id": "D06",
+    "unit": "U04",
+    "field": "T6",
+    "ruling": {
+      "mark": "not alleged",
+      "paragraphs": ["72", "76", "78"],
+      "quote": ""
+    },
+    "decisive_text": "CMS had “restructured” the Supplier Source account"; "they should “re-paper it”",
+    "rule_text": "T6 needs a change over time; a closed account replaced so reports and history do not follow the seller qualifies.",
+    "reason": "The paragraphs describe reopening or re-papering accounts, but do not allege a changed descriptor or business name, or that an account was replaced to prevent reports or history from following the seller."
+  },
+  {
+    "id": "D07",
+    "unit": "U05",
+    "field": "T1",
+    "ruling": {
+      "mark": "unclear",
+      "paragraphs": ["38"],
+      "quote": "if we move everything off PayPal, we'll send the PayPal account into severe chargeback state which will get reported to Visa"
+    },
+    "decisive_text": "move ICE’s new sales and renewal charges to one provider (like WorldPay) and then close down PayPal",
+    "rule_text": "T1 requires sales spread across several accounts, entities, or processors so that each stays under a monitoring threshold.",
+    "reason": "The email could describe moving sales between providers to manage chargebacks, but it does not say sales are spread across accounts to keep each under a threshold."
+  },
+  {
+    "id": "D08",
+    "unit": "U06",
+    "field": "T1",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["35", "49"],
+      "quote": ""
+    },
+    "decisive_text": "a business spreads its transactions among multiple merchant accounts to avoid triggering chargeback thresholds",
+    "rule_text": "T1 requires more than one account for the same seller or scheme, with a stated or plain link to thresholds or monitoring.",
+    "reason": "The complaint expressly describes load balancing as spreading a business’s transactions among multiple accounts to avoid chargeback thresholds, and alleges pairs of identical applications for the same business."
+  },
+  {
+    "id": "D09",
+    "unit": "U06",
+    "field": "T6",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["61", "75", "91"],
+      "quote": ""
+    },
+    "decisive_text": "the billing descriptor for an E.M. Systems merchant account needed to be changed so it could be used to process transactions for a separate business",
+    "rule_text": "T6 covers a statement descriptor, business name, or account changed, or a closed account replaced, so reports and history do not follow the seller.",
+    "reason": "The complaint alleges the billing descriptor was changed for a separate business and says multiple descriptors mask identity or activity and evade scrutiny. It also alleges a new account for the same business after a prior account closed."
+  },
+  {
+    "id": "D10",
+    "unit": "U07",
+    "field": "T1",
+    "ruling": {
+      "mark": "unclear",
+      "paragraphs": ["32", "42", "43"],
+      "quote": "A merchant with ten accounts, for example, could potentially accrue ten times the number of chargebacks"
+    },
+    "decisive_text": "Qualpay decided to structure MOBE’s processing through seven merchant accounts instead of the five that MOBE had requested.",
+    "rule_text": "T1 requires sales spread across several accounts for the same seller, with a stated or plain link to thresholds or monitoring.",
+    "reason": "The accounts could permit more chargebacks before consequences, but the complaint describes accounts organized by product and does not clearly allege that sales were spread among them to stay under a monitoring threshold."
+  },
+  {
+    "id": "D11",
+    "unit": "U07",
+    "field": "T2",
+    "ruling": {
+      "mark": "not alleged",
+      "paragraphs": ["28", "35", "39", "112", "140"],
+      "quote": ""
+    },
+    "decisive_text": "the sole owner on the account is an AU citizen who lives in Malaysia. Susan is listed as a signer on the account, but because she holds no actual ownership",
+    "rule_text": "T2 is about who the account is said to belong to, including accounts opened in the names of straw owners or with false statements about who the seller is.",
+    "reason": "The paragraphs describe questions about ownership and a signer with no ownership, but do not allege that an account was opened in the name of a straw owner or that the account’s stated owner was false."
+  },
+  {
+    "id": "D12",
+    "unit": "U07",
+    "field": "T6",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["140"],
+      "quote": ""
+    },
+    "decisive_text": "The only possible way to take this somewhere else is to present it as new",
+    "rule_text": "T6 includes a closed account replaced so that reports and history do not follow the seller.",
+    "reason": "The email discusses moving accounts rejected by other processors and presenting the business as new. In context, this alleges an effort to replace the closed accounts without carrying forward their history."
+  },
+  {
+    "id": "D13",
+    "unit": "U09",
+    "field": "T2",
+    "ruling": {
+      "mark": "not alleged",
+      "paragraphs": ["40", "89"],
+      "quote": ""
+    },
+    "decisive_text": "SLG ... was not offering student loan debt relief services, but only student “document preparation” services",
+    "rule_text": "T2 is about who the account is said to belong to, not merely a misrepresentation about the seller’s services.",
+    "reason": "The alleged falsehood concerns the services offered. The nested arrangement and pretended client relationship do not allege that an account was opened in the name of a shell company or straw owner."
+  },
+  {
+    "id": "D14",
+    "unit": "U09",
+    "field": "T3",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["39", "40", "41"],
+      "quote": ""
+    },
+    "decisive_text": "AFTS processed more than $13.76 million of ACH debits for SLG through a “nested” relationship with two other payment processors",
+    "rule_text": "T3 is about whose sales run through an account: several sellers’ sales run through one merchant account.",
+    "reason": "The complaint alleges that AFTS processed for SLG through processor relationships and knew SLG was the merchant whose payments it processed. The processor’s contractual relationship with SLG does not make the allegations unclear."
+  },
+  {
+    "id": "D15",
+    "unit": "U09",
+    "field": "X4",
+    "ruling": {
+      "answer": "yes",
+      "paragraphs": ["57", "88"],
+      "tied_to_T1_or_T2": "n/a"
+    },
+    "decisive_text": "They operate with nearly identical website services, from adjacent suites.",
+    "rule_text": "X4 asks whether the complaint alleges an attribute shared across accounts, such as an address, phone number, or website.",
+    "reason": "The complaint identifies shared or similar websites, adjacent locations, and a planned new entity with new contact details. Neither T1 nor T2 is alleged in this complaint, so the tie field is not applicable."
+  },
+  {
+    "id": "D16",
+    "unit": "U10",
+    "field": "T6",
+    "ruling": {
+      "mark": "not alleged",
+      "paragraphs": ["76", "77"],
+      "quote": ""
+    },
+    "decisive_text": "Nexway sent Tech Live Connect’s credit card charges to Ingenico",
+    "rule_text": "T6 needs a change over time in a descriptor, business name, or account, or a closed account replaced so reports and history do not follow the seller.",
+    "reason": "The paragraphs allege that charges were sent to a different processor after Adyen required Nexway to stop, but do not allege an identity or account change to prevent reports or history from following the seller."
+  },
+  {
+    "id": "D17",
+    "unit": "U11",
+    "field": "T1",
+    "ruling": {
+      "mark": "unclear",
+      "paragraphs": ["110"],
+      "quote": "We would like to go over a plan to move volume back before starting."
+    },
+    "decisive_text": "they wanted to coordinate a plan to ensure that their processing would not draw additional scrutiny from Fiserv or the card networks",
+    "rule_text": "T1 requires sales spread across several accounts for the same seller so that each stays under a monitoring threshold.",
+    "reason": "The text connects moving volume and a plan to avoiding scrutiny, but does not clearly allege that volume was spread across multiple accounts to stay under a threshold."
+  },
+  {
+    "id": "D18",
+    "unit": "U11",
+    "field": "T5",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["109"],
+      "quote": ""
+    },
+    "decisive_text": "immediately issue refunds to consumers who complain so that they would not initiate chargebacks",
+    "rule_text": "T5 requires refunds, reversals, or alerts to be tied to avoiding chargebacks or reports.",
+    "reason": "The complaint expressly ties the instructed refunds to preventing chargebacks and keeping chargeback thresholds from becoming too high."
+  },
+  {
+    "id": "D19",
+    "unit": "U12",
+    "field": "T1",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["102"],
+      "quote": ""
+    },
+    "decisive_text": "wanted to open accounts at Paddle to spread Reimage’s sales processing volume across more providers",
+    "rule_text": "T1 requires sales spread across several accounts, entities, or processors for the same seller, with a stated or plain link to thresholds or monitoring.",
+    "reason": "The complaint expressly alleges Reimage wanted to spread the same product’s sales across more providers and identifies this as a tactic used by sellers anticipating termination."
+  },
+  {
+    "id": "D20",
+    "unit": "U12",
+    "field": "T2",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["106"],
+      "quote": ""
+    },
+    "decisive_text": "Restoro Limited and Reimage Limited were registered to straw owners or directors ... and not to the actual owners or principals of Reimage.",
+    "rule_text": "T2 covers merchant accounts opened in the names of straw owners.",
+    "reason": "The complaint expressly alleges that the companies were registered to straw owners or directors rather than Reimage’s actual owners or principals."
+  },
+  {
+    "id": "D21",
+    "unit": "U12",
+    "field": "T6",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["81", "134"],
+      "quote": ""
+    },
+    "decisive_text": "PC Vark was shuffling through different company names (from PC Vark to Innovana Thinklabs and then to Digital Protection Services) in a span of weeks",
+    "rule_text": "T6 covers a business name or statement descriptor changed over time so that reports and history do not follow the seller.",
+    "reason": "The complaint alleges successive company names and says the practice is used when brand names receive negative reviews. It also alleges changed billing descriptors to mask sellers’ chargeback rates."
+  },
+  {
+    "id": "D22",
+    "unit": "U12",
+    "field": "X4",
+    "ruling": {
+      "answer": "yes",
+      "paragraphs": ["63"],
+      "tied_to_T1_or_T2": "yes"
+    },
+    "decisive_text": "they all had the same account representative or account contact information",
+    "rule_text": "X4 asks whether an attribute is shared across accounts and whether it is tied to accounts marked under T1 or T2.",
+    "reason": "The complaint expressly links the accounts to the same account representative or contact information. T1 and T2 are alleged, and the shared attributes are expressly tied to those accounts."
+  },
+  {
+    "id": "D23",
+    "unit": "U13",
+    "field": "T6",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["144"],
+      "quote": ""
+    },
+    "decisive_text": "advised Reimage to modify its credit card billing descriptor so as to avoid “suggest[ing] an unregistered [payfac] relationship”",
+    "rule_text": "T6 covers a statement descriptor changed over time so reports and history do not follow the seller.",
+    "reason": "The complaint alleges an instruction to modify Reimage’s billing descriptor to avoid scrutiny by the card networks. That is a change to a descriptor for the stated purpose of obscuring the relationship."
+  },
+  {
+    "id": "D24",
+    "unit": "U14",
+    "field": "T6",
+    "ruling": {
+      "mark": "alleged",
+      "paragraphs": ["8", "73", "103"],
+      "quote": ""
+    },
+    "decisive_text": "the continuous supply of shell accounts was highly profitable for Humboldt, and it enabled the online scams that used them as fronts to avoid detection",
+    "rule_text": "T6 includes a closed account replaced so that reports and history do not follow the seller.",
+    "reason": "The complaint alleges that accounts were repeatedly closed and that a continuous supply of shell accounts served as fronts to avoid detection. In context, this alleges replacement accounts used to keep the seller’s history from following."
+  }
+]
+```
