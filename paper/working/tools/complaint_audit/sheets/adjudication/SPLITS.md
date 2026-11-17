@@ -1,3 +1,5 @@
+Superseded on 17 Nov 2026 at 19:18 by `FOR_AUTHOR.md` (three adjudicators; a ruling stands only if all three agree).
+
 # Splits between the two adjudicators
 
 Adjudicator 1: Claude Sonnet 5.5 (Anthropic), run by Claude in this session. Adjudicator 2: Meta Llama Maverick (name as given by the author; version not stated), run by the author through Johns Hopkins AI on 17 Nov 2026. Both saw the same blinded items.

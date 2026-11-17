@@ -16,6 +16,8 @@ Recorded 17 November 2026, 19:03: adjudicator 2 was Meta Llama Maverick (name as
 
 Changed 17 November 2026, 19:10, before a third adjudicator's rulings were seen: because adjudicator 2 took the higher reading on every item, gave one-sentence reasons and misstated the text once, the author runs a third adjudicator, from neither coder's company and not Meta, with a tighter prompt (`sheets/adjudication/ADJUDICATOR_3_PROMPT.md`). It adds two instructions: neither reading is presumed right, and each ruling must quote the complaint's deciding words and the sheet's words they meet or fail. The rule for splits is replaced: a ruling stands only where all three adjudicators agree; every other item goes to the author. An added adjudicator can only send more items to the author. All three adjudicators' rulings are reported.
 
+Recorded 17 November 2026, 19:18: adjudicator 3 was GPT-6 Luna (OpenAI), named by the author. This breaks the condition just above: OpenAI is coder 2's company. It is kept, because under the unanimity rule an adjudicator can only send items to the author, and the three then include one from each coder's company and one from neither. Its answer as returned is in `sheets/adjudication/ADJUDICATOR_3_RAW.txt`. One field did not parse: D06's `decisive_text` held two quoted phrases separated by a semicolon outside the quotes. In `RULINGS_3.json` they are joined into one string; no ruling was changed. All three agree on 10 items. The other 14 go to the author (`sheets/adjudication/FOR_AUTHOR.md`).
+
 ## Question
 
 In public FTC complaints against payment processors, how often is each tactic alleged that keeps abuse out of outcome monitoring, and does a record in the specification expose it?
