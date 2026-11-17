@@ -4,7 +4,7 @@ Protocol, fixed before any complaint is coded. Any later change is a new commit 
 
 Changed 16 November 2026, before this protocol was merged and before any complaint was read for coding: the scope sentence was tightened, three exclusions were added, a third source and an independent comparison list were added, the FTC list's date filter was described, and the unit was restated. Reasons: the candidate lists showed that the scope sentence did not decide some records; that the FTC's topic list lacks two cases the scope is meant to cover (Paddle and BlueSnap); that one processor was first charged by an amended complaint (Transact Pro, 2019); and that another was charged again in a second forum over conduct first charged in 2017 (Electronic Payment Systems). The sheet's tactics did not change.
 
-Changed 17 November 2026, after the candidates were screened and before any complaint was read for coding: the court-record search by case name, used for the filing date and number of in-scope cases that the text search did not return, is now described, and so is the text search's caption limit. The text search was also rerun with the caption forms `FTC` and `F.T.C.`; it added six records and no in-scope case. No rule changed.
+Changed 17 November 2026, after the candidates were screened and before any complaint was read for coding: the court-record search by case name, used for the filing date and number of in-scope cases that the text search did not return, is now described, and so is the text search's caption limit. The text search was also rerun with the caption forms `FTC` and `F.T.C.`; it added six records and no in-scope case. One rule was added: how a case found after coding starts is handled.
 
 ## Question
 
@@ -32,6 +32,7 @@ The audit counts allegations. It does not measure how often these tactics occur 
 - The author runs sources 2 and 3 in a browser and saves the result pages, because the site does not allow automated access to filtered lists.
 - Each candidate is marked in or out, with a reason, from its caption, its docket sheet and the FTC's press release or case summary. Where those do not settle a defendant's role, the pleading's own description of the defendants is read, and nothing else in it. The candidates, the decisions and the saved search results are committed as `CASES.csv` before any complaint is coded.
 - Recall check: the three FTC complaints the paper cites (First Data, Allied Wallet and Paddle) and two 2026 actions reported in the press (Humboldt Merchant Services and Nuvei) must each appear among the candidates. A miss is reported, the search that would have found it is added, and the sources are run again. The candidates are also compared with an independent list, Truth in Advertising's "FTC actions against payment processors" (updated 13 November 2026). `CASES.csv` records any case on that list, or otherwise known, that no source returned.
+- A case found after coding starts is coded the same way by both coders, added to `CASES.csv` and `UNITS.csv` with a dated note, and reported. If it is found after the counts are computed, the counts are shown with and without it.
 - If more than 30 complaints are in scope, the window's start moves forward by whole years until 30 or fewer remain. That is decided from the count alone.
 
 ## Coding
