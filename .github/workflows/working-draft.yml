@@ -5,6 +5,7 @@ on:
     paths:
       - 'paper/working/**'
       - '.github/workflows/working-draft.yml'
+      - '.github/scripts/install-paper-build-tools.sh'
   push:
     branches: [main]
     paths:
@@ -83,8 +84,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y -o Acquire::Retries=3 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 pandoc texlive-xetex texlive-latex-extra texlive-fonts-recommended lmodern inkscape
-          # ACM journal template, its fonts and pdftotext, for JOURNAL_BUILD.py
-          sudo apt-get install -y -o Acquire::Retries=3 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 --no-install-recommends texlive-publishers texlive-fonts-extra texlive-plain-generic fonts-linuxlibertine fonts-inconsolata poppler-utils
+          # Keep the standard Ubuntu base; replace the 629 MB fonts-extra bundle
+          # with content-pinned official runtime packages in RUNNER_TEMP.
+          sudo apt-get install -y -o Acquire::Retries=3 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 --no-install-recommends texlive-plain-generic poppler-utils
+          bash .github/scripts/install-paper-build-tools.sh
       - name: Rebuild both documents and the change record, then check
         if: steps.status.outputs.changed == 'true'
         working-directory: paper/working
