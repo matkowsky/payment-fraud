@@ -103,7 +103,7 @@ class MergeGateTests(unittest.TestCase):
 class AcceptTests(unittest.TestCase):
     """accept() with GitHub's API and git mocked: one test for each path."""
 
-    def run_accept(self, responses, state=STATE, earlier=(), credits=None):
+    def run_accept(self, responses, state=STATE, earlier=(), credits=None, head_changes=True, generated=()):
         directory = tempfile.TemporaryDirectory()
         self.addCleanup(directory.cleanup)
         root = Path(directory.name)
@@ -115,6 +115,8 @@ class AcceptTests(unittest.TestCase):
         with patch.dict('os.environ', env), \
                 patch.object(rs, 'current_head', return_value=HEAD), \
                 patch.object(rs, 'earlier_unrecorded', return_value=list(earlier)), \
+                patch.object(rs, 'changes_paper', return_value=head_changes), \
+                patch.object(rs, 'generated_sync', side_effect=lambda sha: sha in generated), \
                 patch.object(rs, 'introduced_credit', side_effect=lambda sha: (credits or {}).get(sha)), \
                 patch.object(rs, 'github_get', side_effect=lambda path: copy.deepcopy(responses[path])) as get:
             try:
@@ -183,7 +185,7 @@ class AcceptTests(unittest.TestCase):
         first, own_commit, third = 'c' * 40, 'd' * 40, 'e' * 40
         recorded = rs.validate_merge({**PR, 'merge_commit_sha': third}, STATE, REPO, third, 'refs/heads/main')
         package, _, output, changed, error, _ = self.run_accept(
-            self.second_merge_responses(first, own_commit), state=recorded, earlier=[first, own_commit])
+            self.second_merge_responses(first, own_commit), state=recorded, earlier=[first, own_commit], generated=[own_commit])
         self.assertIsNone(error)
         self.assertTrue(changed)
         state = json.loads((package / 'REVISION_STATUS.json').read_text())
@@ -201,11 +203,55 @@ class AcceptTests(unittest.TestCase):
                     'drafting_credit': CREDIT}
         package, _, _, _, error, _ = self.run_accept(
             self.second_merge_responses(first, own_commit), state=recorded, earlier=[first, own_commit],
-            credits={first: CREDIT})
+            credits={first: CREDIT}, generated=[own_commit])
         self.assertIsNone(error)
         state = json.loads((package / 'REVISION_STATUS.json').read_text())
         self.assertEqual([e['credit'] for e in state['accepted'][1:]], [CREDIT, 'Recorded in PR #9.'])
         self.assertNotIn('drafting_credit', state)
+
+
+    def test_workflow_head_catches_93_94_without_recording_95(self):
+        base = '9' * 40
+        a, b = 'b' * 40, 'c' * 40
+        state = rs.validate_merge({**PR, 'number': 92, 'merge_commit_sha': base},
+                                 STATE, REPO, base, 'refs/heads/main')
+        responses = {'repos/' + REPO + '/branches/main': {'commit': {'sha': HEAD}}}
+        for number, sha in [(93, a), (94, b)]:
+            pr = {**PR, 'number': number, 'merge_commit_sha': sha}
+            responses['repos/' + REPO + '/commits/' + sha + '/pulls'] = [pr]
+            responses['repos/' + REPO + '/pulls/' + str(number)] = pr
+        package, _, output, changed, error, calls = self.run_accept(
+            responses, state=state, earlier=[a, b], head_changes=False)
+        self.assertIsNone(error)
+        self.assertTrue(changed)
+        self.assertIn('changed=true', output)
+        accepted = json.loads((package / 'REVISION_STATUS.json').read_text())
+        self.assertEqual([e['pr'] for e in accepted['accepted']], [92, 93, 94])
+        self.assertNotIn('repos/' + REPO + '/commits/' + HEAD + '/pulls', calls)
+        package, before, output, changed, error, _ = self.run_accept(
+            {'repos/' + REPO + '/branches/main': {'commit': {'sha': HEAD}}},
+            state=accepted, head_changes=False)
+        self.assertIsNone(error)
+        self.assertFalse(changed)
+        self.assertEqual(snapshot(package), before)
+        self.assertEqual(output, '')
+
+    def test_unmerged_earlier_paper_edit_refuses_without_writes(self):
+        sha = 'e' * 40
+        responses = {'repos/' + REPO + '/branches/main': {'commit': {'sha': HEAD}},
+                     'repos/' + REPO + '/commits/' + sha + '/pulls': []}
+        package, before, output, _, error, _ = self.run_accept(
+            responses, earlier=[sha], head_changes=False)
+        self.assertRegex(str(error), 'refusing unmerged content')
+        self.assertEqual(snapshot(package), before)
+        self.assertEqual(output, '')
+
+    def test_maintenance_head_still_refuses_stale_main(self):
+        responses = {'repos/' + REPO + '/branches/main': {'commit': {'sha': 'b' * 40}}}
+        package, before, output, _, error, _ = self.run_accept(responses, head_changes=False)
+        self.assertRegex(str(error), 'Main advanced')
+        self.assertEqual(snapshot(package), before)
+        self.assertEqual(output, '')
 
 
 class HistoryWalkTests(unittest.TestCase):
@@ -255,7 +301,7 @@ class HistoryWalkTests(unittest.TestCase):
         head = self.merge('paper/working/d.md', 'd')
         self.assertEqual(rs.earlier_unrecorded(head, {older, recorded}), [own_commit, missed])
         self.assertEqual(rs.earlier_unrecorded(head, set()), [])
-        with self.assertRaisesRegex(ValueError, 'No recorded merge is an ancestor'):
+        with self.assertRaisesRegex(ValueError, 'No recorded merge is an ancestor|Cannot establish paper changes'):
             rs.earlier_unrecorded(head, {'f' * 40})
 
     def test_credit_is_read_from_the_merge_that_added_it(self):
@@ -263,6 +309,45 @@ class HistoryWalkTests(unittest.TestCase):
         without = self.merge('paper/working/e.md', 'e')
         self.assertEqual(rs.introduced_credit(with_credit), CREDIT)
         self.assertIsNone(rs.introduced_credit(without))
+
+
+    def test_92_93_94_95_recovery_then_real_paper_topology(self):
+        p92 = self.merge('paper/working/a.md', '92')
+        p93 = self.merge('paper/working/a.md', '93')
+        p94 = self.merge('paper/working/b.md', '94')
+        p95 = self.merge('.github/workflows/working-draft.yml', '95')
+        self.assertFalse(rs.changes_paper(p95))
+        self.assertEqual(rs.earlier_unrecorded(p95, {p92}), [p93, p94])
+        recovery = self.merge('paper/working/tools/revision_status.py', '# recovery')
+        self.assertFalse(rs.changes_paper(recovery))
+        self.assertEqual(rs.earlier_unrecorded(recovery, {p92}), [p93, p94])
+        tests_only = self.merge('paper/working/tools/test_revision_status.py', '# tests')
+        self.assertFalse(rs.changes_paper(tests_only))
+        self.assertEqual(rs.earlier_unrecorded(tests_only, {p94}), [])
+        later = self.merge('paper/working/a.md', 'later substantive paper')
+        self.assertTrue(rs.changes_paper(later))
+        self.assertEqual(rs.earlier_unrecorded(later, {p92}), [p93, p94])
+        self.assertEqual(rs.earlier_unrecorded(later, {p94}), [])
+        # Mixed maintenance and real paper changes must still count.
+        self.run_git('checkout', '--quiet', '-b', 'mixed')
+        self.commit('paper/working/tools/revision_status.py', '# next recovery', 'Maintenance')
+        self.commit('paper/working/a.md', 'mixed substantive paper', 'Paper')
+        self.run_git('checkout', '--quiet', 'main')
+        self.run_git('merge', '--quiet', '--no-ff', '-m', 'Mixed merge', 'mixed')
+        self.assertTrue(rs.changes_paper(self.run_git('rev-parse', 'HEAD')))
+
+    def test_generated_sync_cannot_hide_nonmerge_source_or_tool_edits(self):
+        with patch.dict(self.env, {'GIT_AUTHOR_NAME': 'github-actions[bot]'}):
+            source = 'paper/working/SOURCE/manuscript.md'
+            self.commit(source, '# Title\n8 November 2026 · Accepted working draft for version 1.1 · Not published\nPaper.\n', 'Initial')
+            good = self.commit(source, '# Title\n9 November 2026 · Accepted working draft for version 1.1 · Not published\nPaper.\n', 'Synchronize accepted working draft after merge')
+            self.assertTrue(rs.generated_sync(good))
+            bad = self.commit(source, '# Title\n9 November 2026 · Accepted working draft for version 1.1 · Not published\nChanged claim.\n', 'Synchronize accepted working draft after merge')
+            self.assertFalse(rs.generated_sync(bad))
+            tool = self.commit('paper/working/tools/arbitrary.py', 'changed', 'Synchronize accepted working draft after merge')
+            self.assertFalse(rs.generated_sync(tool))
+        ordinary = self.commit('paper/working/MANUSCRIPT.pdf', 'not a real generated PDF', 'Direct push')
+        self.assertFalse(rs.generated_sync(ordinary))
 
 
 class PackageCheckTests(unittest.TestCase):

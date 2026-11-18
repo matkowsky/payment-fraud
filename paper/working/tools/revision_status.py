@@ -230,6 +230,52 @@ def current_head():
     return subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
 
 
+# Synchronization implementation alone is not a paper acceptance. Mixed changes count.
+SYNC_MAINTENANCE = ('tools/revision_status.py', 'tools/test_revision_status.py')
+
+
+def changes_paper(sha):
+    result = git('diff', '--quiet', sha + '^', sha, '--', '.',
+                 *(':(exclude)' + name for name in SYNC_MAINTENANCE))
+    if result.returncode not in (0, 1):
+        raise ValueError('Cannot establish paper changes: ' + result.stderr.strip())
+    return result.returncode == 1
+
+
+def generated_sync(sha):
+    """Recognize only the workflow's generated-only commit, never arbitrary source edits."""
+    identity = git('show', '-s', '--format=%an%n%s', sha)
+    if identity.returncode or identity.stdout.strip().splitlines() != [
+            'github-actions[bot]', 'Synchronize accepted working draft after merge']:
+        return False
+    result = git('diff', '--name-only', '--relative', sha + '^', sha, '--', '.')
+    if result.returncode:
+        return False
+    generated = {'MANUSCRIPT.md', 'MANUSCRIPT.pdf', 'SUPPLEMENT.md', 'SUPPLEMENT.pdf',
+                 'REVISION_STATUS.json', 'STATUS.md', 'MANIFEST_SHA256.txt', changes_since.OUTPUT,
+                 'JOURNAL/CHECK_REPORT.md'}
+    for name in result.stdout.splitlines():
+        if name in ('SOURCE/manuscript.md', 'SOURCE/supplement.md', 'README.md'):
+            before = git('show', sha + '^:./' + name)
+            after = git('show', sha + ':./' + name)
+            if before.returncode or after.returncode:
+                return False
+            if name == 'README.md':
+                pattern = r'<!-- revision-status -->.*?<!-- /revision-status -->'
+            else:
+                pattern = DATE + ' · ' + STATUS_LINE
+            if re.sub(pattern, '', before.stdout, flags=re.S) != re.sub(pattern, '', after.stdout, flags=re.S):
+                return False
+        elif name not in generated and not (
+                name.startswith('FIGURES/') and name.endswith('.pdf') or
+                name.startswith('JOURNAL/') and Path(name).name in {
+                    'MANUSCRIPT_ACM.pdf', 'MANUSCRIPT_ACM.tex',
+                    'MANUSCRIPT_ACM_ANONYMOUS.pdf', 'MANUSCRIPT_ACM_ANONYMOUS.tex',
+                    'SUPPLEMENT_ANONYMOUS.pdf', 'SUPPLEMENT_ANONYMOUS.tex'}):
+            return False
+    return True
+
+
 def earlier_unrecorded(head, recorded):
     """Commits on main after the last recorded merge and before head that changed this package, oldest first.
 
@@ -245,10 +291,7 @@ def earlier_unrecorded(head, recorded):
     for sha in walk.stdout.split():
         if sha in recorded:
             return found[::-1]
-        changed = git('diff', '--quiet', sha + '^', sha, '--', '.').returncode
-        if changed not in (0, 1):
-            break  # no parent to compare with: the start of the history, or a shallow checkout
-        if changed:
+        if changes_paper(sha):
             found.append(sha)
     raise ValueError('No recorded merge is an ancestor of this commit; the history is incomplete')
 
@@ -281,16 +324,21 @@ def accept(package=PACKAGE):
         raise ValueError('Main advanced; refusing to overwrite newer work')
     state = {k: v for k, v in state.items() if k != 'drafting_credit'}
     numbers = []
-    for sha in [*earlier_unrecorded(head, recorded), head]:
+    for sha in [*earlier_unrecorded(head, recorded), *([head] if changes_paper(head) else [])]:
         pulls = github_get('repos/' + repository + '/commits/' + sha + '/pulls')
-        if sha != head and not any(p.get('merged_at') and p.get('merge_commit_sha') == sha for p in pulls):
-            continue  # this workflow's own commit, or a push whose own run already failed visibly
+        if not any(p.get('merged_at') and p.get('merge_commit_sha') == sha for p in pulls):
+            if generated_sync(sha):
+                continue
+            raise ValueError('No single merged pull request produced paper changes; refusing unmerged content')
         number = find_merged_pr(pulls, sha)
         pr = github_get('repos/' + repository + '/pulls/' + str(number))
         credit = introduced_credit(sha)
         state = validate_merge(pr, {**state, 'drafting_credit': credit} if credit else state,
                                repository, sha, os.environ['GITHUB_REF'])
         numbers.append(number)
+    if not numbers:
+        print('No unrecorded paper merges; no changes')
+        return False
     sync_labels(state, package)
     with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
         output.write('changed=true\n')
