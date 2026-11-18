@@ -336,6 +336,34 @@ class HistoryWalkTests(unittest.TestCase):
         self.run_git('merge', '--quiet', '--no-ff', '-m', 'Mixed merge', 'mixed')
         self.assertTrue(rs.changes_paper(self.run_git('rev-parse', 'HEAD')))
 
+    def test_generated_figure_exports_require_top_level_tracked_svg(self):
+        self.commit('paper/working/FIGURES/figure.svg', '<svg/>', 'Source')
+        with patch.dict(self.env, {'GIT_AUTHOR_NAME': 'github-actions[bot]'}):
+            for extension in ('pdf', 'png'):
+                sha = self.commit('paper/working/FIGURES/figure.' + extension, 'export',
+                                  'Synchronize accepted working draft after merge')
+                self.assertTrue(rs.generated_sync(sha))
+            for name in ('orphan.png', 'nested/figure.png'):
+                sha = self.commit('paper/working/FIGURES/' + name, 'not an export',
+                                  'Synchronize accepted working draft after merge')
+                self.assertFalse(rs.generated_sync(sha))
+
+    def test_generated_source_tex_sync_is_allowed_but_other_tex_is_not(self):
+        recorded = self.merge('paper/working/a.md', 'accepted')
+        with patch.dict(self.env, {'GIT_AUTHOR_NAME': 'github-actions[bot]'}):
+            self.commit('paper/working/SOURCE/manuscript.tex', 'generated manuscript',
+                        'Synchronize accepted working draft after merge')
+            generated = self.commit('paper/working/SOURCE/supplement.tex', 'generated supplement',
+                                    'Synchronize accepted working draft after merge')
+            self.assertTrue(rs.generated_sync(generated))
+            first = self.run_git('rev-parse', generated + '^')
+            self.assertTrue(rs.generated_sync(first))
+            later = self.merge('paper/working/a.md', 'next paper')
+            self.assertEqual(rs.earlier_unrecorded(later, {recorded}), [first, generated])
+            unknown = self.commit('paper/working/SOURCE/arbitrary.tex', 'not generated',
+                                  'Synchronize accepted working draft after merge')
+            self.assertFalse(rs.generated_sync(unknown))
+
     def test_generated_sync_cannot_hide_nonmerge_source_or_tool_edits(self):
         with patch.dict(self.env, {'GIT_AUTHOR_NAME': 'github-actions[bot]'}):
             source = 'paper/working/SOURCE/manuscript.md'

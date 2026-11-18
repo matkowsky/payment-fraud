@@ -253,7 +253,7 @@ def generated_sync(sha):
         return False
     generated = {'MANUSCRIPT.md', 'MANUSCRIPT.pdf', 'SUPPLEMENT.md', 'SUPPLEMENT.pdf',
                  'REVISION_STATUS.json', 'STATUS.md', 'MANIFEST_SHA256.txt', changes_since.OUTPUT,
-                 'JOURNAL/CHECK_REPORT.md'}
+                 'JOURNAL/CHECK_REPORT.md', 'SOURCE/manuscript.tex', 'SOURCE/supplement.tex'}
     for name in result.stdout.splitlines():
         if name in ('SOURCE/manuscript.md', 'SOURCE/supplement.md', 'README.md'):
             before = git('show', sha + '^:./' + name)
@@ -267,7 +267,8 @@ def generated_sync(sha):
             if re.sub(pattern, '', before.stdout, flags=re.S) != re.sub(pattern, '', after.stdout, flags=re.S):
                 return False
         elif name not in generated and not (
-                name.startswith('FIGURES/') and name.endswith('.pdf') or
+                Path(name).parent.as_posix() == 'FIGURES' and Path(name).suffix in ('.pdf', '.png')
+                and git('cat-file', '-e', sha + ':./' + str(Path(name).with_suffix('.svg'))).returncode == 0 or
                 name.startswith('JOURNAL/') and Path(name).name in {
                     'MANUSCRIPT_ACM.pdf', 'MANUSCRIPT_ACM.tex',
                     'MANUSCRIPT_ACM_ANONYMOUS.pdf', 'MANUSCRIPT_ACM_ANONYMOUS.tex',
