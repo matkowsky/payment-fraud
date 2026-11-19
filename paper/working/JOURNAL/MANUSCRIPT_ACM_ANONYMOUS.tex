@@ -63,16 +63,18 @@ requirements testable, and adversarial cases written by a second model
 probe the rules. Public sources supply the design premises, and Stripe's
 public product pages and documentation provide an illustrative product
 scope. Two hypothetical investigations show how missing context changes
-what the same observations can support, replays of two FTC complaints on
-synthetic records show what the records expose and miss, a model-coded
-count across 14 such complaints shows how often each tactic is alleged,
-and an evaluation plan proposes tests of evidential quality, operational
-cost and agent benefit. The contribution is a joint specification for
+what the same observations can support, and eight AI models answering
+written versions erred on chargeback attribution without the specified
+records and not with them. Replays of two FTC complaints on synthetic
+records show what the records expose and miss, a model-coded count
+across 14 such complaints shows how often each tactic is alleged, and an
+evaluation plan proposes tests of evidential quality, operational cost
+and agent benefit. The contribution is a joint specification for
 investigation across payment products, built on established methods and
 recent agent-governance designs. It is a synthesis, not a new method.
 The architecture has not been built, no platform data were used, its
-only experiments use synthetic records and one simulation, and no
-practitioner has reviewed it.
+only experiments use synthetic records, one simulation and written cases
+answered by AI models, and no practitioner has reviewed it.
 \end{abstract}
 \keywords{payment fraud, abuse investigation, threat intelligence,
 selective labels, agent memory, provenance, human oversight}
@@ -235,24 +237,25 @@ are stated limits. On 15 further histories, written against the revised
 and frozen rules, the rules rejected two of the 12 meant to break a
 requirement, and seven of the 10 that passed are new gaps (Supplement
 S4.4). Two hypothetical investigations show which conclusions survive
-when particular records are missing, replays of two FTC complaints on
-synthetic records show what the records expose and miss, and a count
-across 14 such complaints shows how often each tactic is alleged
-(Section 8).
+when particular records are missing, and eight AI models answering
+written versions erred on chargeback attribution without the records and
+not with them. Replays of two FTC complaints on synthetic records show
+what the records expose and miss, and a count across 14 such complaints
+shows how often each tactic is alleged (Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
 product scope, not a description of its internal systems. The paper
 synthesizes public evidence and proposes a design. It reports no
 implementation of the architecture and no measurement on platform data;
-its only experiments use synthetic records (Sections 8.4 and 8.5) and
-one simulation of an interval method (Supplement S7.1). Section 2
-relates it to prior work and Section 3 explains how it was derived.
-Sections 4 and 5 answer RQ1, with Section 6.3 and Supplement Table S4.2
-adding the agent's analytical capabilities; Section 6 answers RQ2 and
-Section 7 RQ3. Section 8 shows the design's consequences in two
-hypothetical investigations, and Section 9 states how its value would be
-tested.
+its only experiments use synthetic records (Sections 8.4 and 8.5), one
+simulation of an interval method (Supplement S7.1) and written cases
+answered by AI models (Section 8.6). Section 2 relates it to prior work
+and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1,
+with Section 6.3 and Supplement Table S4.2 adding the agent's analytical
+capabilities; Section 6 answers RQ2 and Section 7 RQ3. Section 8 shows
+the design's consequences in two hypothetical investigations, and
+Section 9 states how its value would be tested.
 
 \hypertarget{relationship-to-prior-work}{%
 \section{Relationship to prior work}\label{relationship-to-prior-work}}
@@ -1735,6 +1738,40 @@ records was fixed for it in advance. The sheet was written after three
 of the 14 had been read, and Supplement S10.1 gives every count without
 them.
 
+\hypertarget{what-ai-models-conclude-from-the-two-traces}{%
+\subsection{What AI models conclude from the two
+traces}\label{what-ai-models-conclude-from-the-two-traces}}
+
+Traces A and B were also written as two short cases with eleven
+forced-choice questions (Supplement S8). Eight questions each have one
+answer that the added records rule out; three are controls. Eight AI
+models from two vendors answered both cases in 30 new sessions per
+condition: with the cases alone, with each case's C1 to C3 records
+added, or with as many irrelevant records. The irrelevant records
+separate the effect of the records' content from the effect of more
+text. The answer key was fixed before the runs, and the protocol records
+each later change, including two models added after the first six
+models' results were read.
+
+On attribution, every model concluded that account D's chargeback rate
+was lower than the others' in 25 to 30 of 30 sessions without the
+records, and in none with them. The case lists no chargebacks recorded
+at D; the records link two chargebacks recorded at another account to
+D's transactions. With irrelevant records, seven models still erred in
+24 to 30 sessions. Errors on channel state and query coverage were rarer
+and varied by model: up to 30 of 30 sessions without the records, at
+most 1 with them and up to 28 with irrelevant records. The controls drew
+no errors.
+
+Two results limit this. The learned-time question allows the counted
+error for another defensible reason, so it does not measure whether a
+model uses learned time (Supplement S8). And for Claude Fable 5.2,
+irrelevant records also removed most errors, so for that model the
+comparison does not separate content from length. Models, not
+investigators, answered short written cases, and no agent worked on a
+live system. They show that the omitted context changed these models'
+conclusions, not how often such errors occur in practice.
+
 \hypertarget{evaluating-the-specification}{%
 \section{Evaluating the
 specification}\label{evaluating-the-specification}}
@@ -1896,6 +1933,10 @@ Synthetic measurement (8.4) & The cost of producing them on a
 platform \\
 Missing context changes conclusions & Two hypothetical traces (8.1 to
 8.3) & How often \\
+Without the records, AI models drew conclusions the records rule out &
+Eight models, 30 sessions per condition, on written versions of the
+traces (8.6, S8) & Investigators' conclusions; agents on live systems;
+use of learned time \\
 The records expose two alleged patterns & Synthetic replays and sweeps
 (8.5, S10) & Detection on real data \\
 Each of the five tactics the records could expose is alleged in 5 to 13
@@ -1998,9 +2039,7 @@ the MIT License, as THIRD\_PARTY\_NOTICES.md states.
 
 \textbf{Ethics and confidentiality.} No human participants were
 involved. The paper uses only public sources, and no confidential
-information from any current or former employer was used. The
-practitioner study in Supplement S8 follows ACM's policy on research
-involving human participants.
+information from any current or former employer was used.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

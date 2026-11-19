@@ -151,7 +151,8 @@ data}\label{supplement-signals-interfaces-and-worked-example-data}}
 This supplement accompanies the \href{MANUSCRIPT.md}{manuscript}. S1 and
 S2 explain the sources and selection. S3 to S5 specify the signals,
 records and interfaces. S6 supplies the hypothetical investigations and
-their arithmetic; S7 gives the proposed evaluations. S9 extends the
+their arithmetic; S7 gives the proposed evaluations. S8 tests eight AI
+models on written versions of the two investigations. S9 extends the
 comparison with prior work. S10 replays two FTC complaints on synthetic
 records and counts the tactics alleged in 14. The 19 CSV files use
 \mbox{UTF-8} encoding and stable mechanism, source and signal
@@ -3581,6 +3582,155 @@ with no truth review, strata or clustering. It tests the intervals, not
 the full pass rule. It shows that one method can meet the requirement
 above on this example; it does not replace the simulation on a
 platform's own design.
+
+\FloatBarrier
+
+\hypertarget{s8.-ai-models-on-written-versions-of-the-two-investigations}{%
+\subsection{S8. AI models on written versions of the two
+investigations}\label{s8.-ai-models-on-written-versions-of-the-two-investigations}}
+
+\suppressfloats[t]
+
+The \href{tools/agent_test/README.md}{protocol} and
+\href{tools/agent_test/agent_test.py}{script} were committed before the
+runs; their dated notes record each later change. The package holds
+every reply, the
+\href{tools/agent_test/results/main/results.md}{results} and the
+\href{tools/practitioner_study/ANSWER_KEY.md}{answer key}, whose hash
+was recorded before the runs.
+
+\textbf{Cases and questions.} Traces A and B (manuscript Sections 8.1
+and 8.2) are written as two short cases, as many systems would show them
+(\href{tools/practitioner_study/INSTRUMENT.md}{cases}, Part 2). They
+have eleven questions, each allowing ``Cannot tell''. Eight test a
+requirement; A3, A5 and B6 are controls. The key gives each question one
+counted error that the records rule out. Without the records, ``Cannot
+tell'' is also a supported answer to A2, B1, B2, B3 and B4.
+
+\textbf{Conditions.} A session shows both cases in one of three
+conditions: the cases alone; each case followed by its C1 to C3 records
+as a system would store them (four for Case A, five for Case B); or each
+case followed by as many \href{tools/agent_test/FILLER.md}{irrelevant
+records} in the same form, which bear on no question. The irrelevant
+records separate the effect of the records' content from the effect of
+more text. Each session is a new API conversation with no tools or
+memory, at most 6,000 output tokens and the vendor's default reasoning
+setting. It ends with one result line.
+
+\textbf{Models and sessions.} Six models were fixed before the runs:
+OpenAI's \mbox{GPT-6}.1 Sol, \mbox{GPT-6}.1 Terra and \mbox{GPT-6} Luna,
+and Anthropic's Claude Opus 5.5, Sonnet 5.5 and Haiku 5.5.
+\mbox{GPT-6}.2 Astra and Claude Fable 5.2, each vendor's most capable
+API model that day, were added after the six models' results were read,
+with the same prompts and conditions. Each model ran 30 sessions per
+condition on 19 November 2026, in an order fixed in advance. Every
+model's stated training cutoff precedes the cases' publication. A pilot
+on a separate case checked parsing and cost.
+
+\begin{table}[tp]
+\textbf{Table S8.1. Counted errors without the records, with them and
+with irrelevant records, of 30 sessions each.} Questions with no counted
+error in any condition (B2, B5 and the controls) are omitted. Fable 5.2
+gave 25, 30 and 23 usable answers in the three conditions; every other
+model gave 29 or 30. Exact 95 percent intervals are in the results file;
+for 0 of 30 the upper bound is 0.12.\par\smallskip
+{\footnotesize
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.4400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1200}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Question
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Requirement
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6}.1 Sol
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6}.1 Terra
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6} Luna
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Opus 5.5
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Sonnet 5.5
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Haiku 5.5
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6}.2 Astra*
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fable 5.2*
+\end{minipage} \\
+\midrule\noalign{}
+
+B1 & C1 attribution & 30/0/30 & 30/0/30 & 29/0/30 & 30/0/24 & 30/0/30 &
+29/0/30 & 30/0/30 & 25/0/5 \\
+A4 & C1 channel state & 8/0/0 & 30/0/5 & 3/0/5 & 5/0/0 & 0/0/0 & 0/0/0 &
+0/0/0 & 25/0/0 \\
+A1 & C2 coverage & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 16/1/13 & 2/0/0 &
+0/0/0 & 13/0/0 \\
+B3 & C2 coverage & 0/0/0 & 0/0/2 & 29/0/28 & 8/0/0 & 0/0/0 & 0/0/0 &
+0/0/0 & 25/0/0 \\
+A2 & C2 learned time & 0/10/0 & 0/2/0 & 0/27/0 & 0/1/0 & 1/1/0 & 16/3/3
+& 0/0/0 & 25/21/0 \\
+B4 & C3 exposure links & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 &
+0/0/0 & 2/0/0 \\
+
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
+
+* Added after the six models' results were read; exploratory.
+
+On attribution (B1), every model gave the counted error in 25 to 30 of
+30 sessions without the records and in none with them. The case lists no
+chargebacks recorded at account D; the records link two chargebacks
+recorded at another account to D's transactions. With irrelevant
+records, seven models still erred in 24 to 30 sessions.
+
+Errors on channel state (A4) and query coverage (A1, B3) were rarer and
+varied by model. Without the records a model erred in up to 30 of 30
+sessions, with them in at most 1, and with irrelevant records in up to
+28.
+
+Fable 5.2 differs in two ways. Without the records it gave the counted
+error most often: in all 25 answered sessions on A2, A4, B1 and B3. With
+irrelevant records it answered ``Cannot tell'' to six of the eight
+requirement questions, so for this model the irrelevant records do not
+separate content from length. Twelve of its replies reached the token
+limit before a result line, 5 without the records and 7 with irrelevant
+records, and count as no answer; had they all been errors, each 25 would
+be 30. One \mbox{GPT-6} Luna and one Haiku 5.5 reply gave an answer
+outside the choices. No reply was stopped by a vendor's safety system.
+
+\textbf{A2 does not measure the use of learned time.} The case says the
+compromise check scored the account at 30 minutes and did not flag it;
+the records add that its inputs were as of 30 minutes. The key counts
+``Yes'', that the check missed evidence available to it, as the error,
+because the shared-destination link was learned a day later. With the
+records, \mbox{GPT-6} Luna, \mbox{GPT-6}.1 Sol and Fable 5.2 answered
+``Yes'' in 27, 10 and 21 of 30 sessions. Each of Fable 5.2's 21 replies
+sets the late link aside as unavailable and answers ``Yes'' because the
+check saw the 19-minute burst and did not flag it. That reading of
+``missed'' is defensible. The other models' replies give answers without
+reasons. The key was not changed.
+
+\textbf{Limits.} The cases are short and written, with forced choices;
+they are not agents on live systems, and ``Cannot tell'' may make models
+more cautious than open conclusions would. Results hold for two vendors'
+models at the versions and date tested. Repeated sessions sample one
+model at fixed settings, and the intervals describe that sampling only.
+Claude drafted the cases and the irrelevant records, and both vendors'
+tools were used in the research (manuscript Section 3), so no model is
+an independent subject. The runs cost 22.59 dollars.
 
 \FloatBarrier
 
