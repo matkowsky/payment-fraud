@@ -1810,8 +1810,8 @@ release}\label{s44-field-level-schemas-for-query-runs-and-release}}
 
 The
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/investigation_records.schema.json}{investigation-record
-schema} defines the records the second and third requirements need. It
-covers eight record types:
+schema} defines the records C2 and C3 need. It covers eight record
+types:
 
 \begingroup\small
 
@@ -2061,11 +2061,11 @@ and \mbox{XR-01} reject the stalled read. The rules cannot tell whether
 a claim relies on an unreported outcome it does not list, or which
 channels it should cite.
 
-\textbf{Adversarial test (10 and 11 November 2026).} The invalid cases
-were written by the same hand as the rules. To test the rules from
-outside, a tester received the two requirements as the manuscript states
-them, the fourteen rules, the record fields and the valid history, and
-not the checker
+\textbf{Adversarial test (10 and 11 November 2026).} Claude wrote under
+supervision both the rules and the invalid conformance cases. To test
+the rules from outside, a tester received the two requirements as the
+manuscript states them, the fourteen rules, the record fields and the
+valid history, and not the checker
 (\href{tools/adversarial_cases/PACKET_ROUND1.md}{packet}). The tester
 was OpenAI's \mbox{GPT-6} Astra Pro in a session without memory, project
 files or web access. It wrote 15 histories: 13 meant to break a
@@ -2087,14 +2087,13 @@ rejected and the false rejection is gone. The four that still pass are
 the limits stated above: a draft that drops its link to a released item
 it read, a complete run that omitted a matching record, a release whose
 scope excludes its own claim, and a release that names a person who did
-not review. The 15 histories are kept as a regression test and the
-package check reruns them. The rules were revised on these same
-histories; the held-out round that followed is reported below. The test
-assumes a fully compromised agent or record writer. No live model was
-attacked, so it says nothing about how often an agent is subverted.
-Claude wrote the rules and the first rulings. The tester and the
-reviewer of the rulings were separate sessions of the same model, and
-ChatGPT models also assisted with other parts of the paper.
+not review. The rules were revised on these same histories; the held-out
+round that followed is reported below. The test assumes a fully
+compromised agent or record writer. No live model was attacked, so it
+says nothing about how often an agent is subverted. Claude wrote the
+rules and the first rulings. The tester and the reviewer of the rulings
+were separate sessions of the same model, and ChatGPT models also
+assisted with other parts of the paper.
 
 \textbf{Held-out round (14 and 15 November 2026).} A second round tested
 the revised rules on new histories, with the rules and the checker
@@ -2171,18 +2170,18 @@ This reading is an inference from the cases, not a tested result.
 Deriving the rules from a table of every reference and those attributes
 is left as future work, and would need its own held-out test.
 
-The round has limits. The 15 histories came from three sessions, where
-the plan fixed one, because each session closed before the next request;
-each later session was given the earlier histories
+The 15 histories came from three sessions, where the plan fixed one,
+because each session closed before the next request; each later session
+was given the earlier histories
 (\href{tools/adversarial_cases/round2/RUN_RECORD.md}{run record}). The
 model and its settings rest on the author's statements. The tester and
 the reviewer of the rulings are the same model, and the two first sets
 of rulings agreed on only seven of 13 cases. The histories are not a
 sample from a defined population, and the tester read the rules and
-aimed at their gaps. The counts therefore describe these histories. They
-are not a rate at which the rules catch misuse, and no interval is
-given. Both rounds' histories are kept as regression tests, and the
-package check reruns them.
+aimed at their gaps. The counts therefore describe these histories, not
+a rate at which the rules catch misuse, and no interval is given. Both
+rounds' histories are kept as regression tests, and the package check
+reruns them.
 
 \textbf{Cost.}
 \href{tools/investigation_cost.py}{\texttt{tools/investigation\_cost.py}}
