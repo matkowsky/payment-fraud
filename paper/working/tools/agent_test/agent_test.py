@@ -385,15 +385,34 @@ def to_markdown(res):
         out += [f"Pilot branch: {b['counted_errors']} counted errors in {b['case_only_requirement_answers']} case-only "
                 f"answers to P1 and P2. Main run: {b['main_run']}.", '']
     shown = [(k, m) for k, m in res['models'].items() if m['run']]
+
+    def coverage(m, c):
+        """(sessions run, usable answers, other no answers, stopped by the API) for one model and condition."""
+        x = next(iter(m['conditions'][c]['items'].values()))
+        stopped = x.get('stopped', 0)
+        return x['sessions'], x['sessions'] - x['no_answer'], x['no_answer'] - stopped, stopped
+
+    def mark(model):
+        return model + (' †' if model in ADDED else '')
     if len(shown) > 1:
         # One table across models, so the models can be compared; each is still reported apart, nothing pooled.
         first = shown[0][1]['conditions'][CONDITIONS[0]]['items']
-        out += ['Counted errors by model: case only / with records / with filler, each of the sessions run.', '',
-                '| Item | Requirement | ' + ' | '.join(k for k, _ in shown) + ' |',
+        out += ['Counted errors by model: case only / with records / with filler, each of the sessions run. '
+                '"not scored" marks a condition with no usable answer.', '',
+                '| Item | Requirement | ' + ' | '.join(mark(k) for k, _ in shown) + ' |',
                 '|---|---|' + '---|' * len(shown)]
         for i, v in first.items():
             out.append(f"| {i} | {v['requirement']} | " + ' | '.join(
-                '/'.join(str(m['conditions'][c]['items'][i]['errors']) for c in CONDITIONS) for _, m in shown) + ' |')
+                '/'.join(str(m['conditions'][c]['items'][i]['errors']) if coverage(m, c)[1] else 'not scored'
+                         for c in CONDITIONS) for _, m in shown) + ' |')
+        out.append('')
+        if any(k in ADDED for k, _ in shown):
+            out += ['† Added on 19 November 2026, after the main results of the six fixed models were read; '
+                    'exploratory.', '']
+        out += ['Sessions run / usable answers / other no answers / stopped by the API, by model and condition.', '',
+                '| Model | ' + ' | '.join(names[c] for c in CONDITIONS) + ' |', '|---|' + '---|' * len(CONDITIONS)]
+        for k, m in shown:
+            out.append(f'| {mark(k)} | ' + ' | '.join(' / '.join(map(str, coverage(m, c))) for c in CONDITIONS) + ' |')
         out.append('')
     for model, m in res['models'].items():
         out += [f'## {model}', '']
@@ -405,6 +424,9 @@ def to_markdown(res):
             out += ["Stopped by the API's safety system: " + '; '.join(f'{k} ({v})' for k, v in m['stopped'].items()) + '.', '']
         if m['no_answer']:
             out += ['No valid RESULT line: ' + '; '.join(f'{k} ({v})' for k, v in m['no_answer'].items()) + '.', '']
+        if m['run']:
+            out += ['Usable answers: ' + '; '.join(f'{names[c]} {coverage(m, c)[1]} of {coverage(m, c)[0]}'
+                                                   for c in CONDITIONS) + '.', '']
         out += ['| Item | Requirement | ' + ' | '.join(f'Errors, {names[c]} (95% CI)' for c in CONDITIONS) + ' |',
                 '|---|---|' + '---|' * len(CONDITIONS)]
         first = m['conditions'][CONDITIONS[0]]['items']
@@ -413,6 +435,11 @@ def to_markdown(res):
             for c in CONDITIONS:
                 x = m['conditions'][c]['items'][i]
                 ci = x['error_interval']
+                if not coverage(m, c)[1]:
+                    cells.append(f"not scored ({x['sessions']} run, none usable"
+                                 + (f"; 0 to {x['stopped']} if the {x['stopped']} stopped count as errors"
+                                    if x['stopped'] else '') + ')')
+                    continue
                 cells.append(f"{x['errors']} of {x['sessions']}" + (f' ({ci[0]:.2f} to {ci[1]:.2f})' if ci else '')
                              + (f"; {x['errors']} to {x['errors'] + x['stopped']} if the {x['stopped']} stopped count as errors"
                                 if x['stopped'] else ''))
@@ -423,6 +450,9 @@ def to_markdown(res):
             cells = []
             for c in CONDITIONS:
                 x = m['conditions'][c]['by_requirement'][req]
+                if not coverage(m, c)[1]:
+                    cells.append('not scored')
+                    continue
                 cells.append(f"{x['errors']} of {x['item_answers']}"
                              + (f"; {x['errors']} to {x['errors'] + x['stopped']} with stops as errors" if x.get('stopped') else ''))
             out.append(f'| {req} | ' + ' | '.join(cells) + ' |')
