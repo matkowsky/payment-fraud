@@ -43,6 +43,8 @@ Both vendors' tools were used in the research (manuscript Section 3). Claude dra
 
 Each model's stated training cutoff is recorded. A model whose cutoff falls after 11 November 2026, when `INSTRUMENT.md` became public, is reported as possibly exposed to the cases.
 
+Recorded 19 November 2026, from each vendor's model page: OpenAI lists a knowledge cutoff of 30 April 2026 for `gpt-6.1-sol`, 1 June 2026 for `gpt-6.1-terra`, and 18 May 2026 for `gpt-6-luna` and `gpt-6.2-astra`. Anthropic lists a training data cutoff of June 2026 for `claude-opus-5-5`, `claude-sonnet-5-5`, `claude-haiku-5-5` and `claude-fable-5-2`. Every cutoff falls before 11 November 2026, so no model is reported as possibly exposed to the cases.
+
 ## Sessions, fixed now
 
 | Phase | Each of the six models |
@@ -73,6 +75,8 @@ Pilot run, 19 November 2026, 14:20 to 14:31 UTC, through the workflow, at this r
 ## Kept private until the form closes
 
 Both keys, and the replies, parsed answers and results of both phases, stay out of this repository, and are not shared, until the practitioner study's form closes. They would show which answers a key counts as errors, and case P is built like the form's cases. They are kept privately, as the 19 November change says, and committed here after the close.
+
+Committed 19 November 2026, after the form closed early with no responses (`../practitioner_study/README.md`): `PILOT_KEY.md`, `../practitioner_study/ANSWER_KEY.md`, every reply in `runs/pilot` (180) and `runs/main` (720), and `results/pilot` and `results/main`, unchanged from the private repository. Both keys match the hashes recorded above. The six models' main replies were sent on 19 November from 17:07 to 18:02 UTC; the two added models' from 19:06 to 20:06 UTC. The main results were scored at commit `cae2d6e`, after both sends, and rescoring the committed replies with that script gives identical files. SHA-256 of the main `results.json`: `88cab8a24fc7a9eb16db3e5f7ad9e95a7e7182a983819412cd526b22f59d9b81`. The pilot results were scored at commit `d4816db`. Rescoring them with the current script gives the same counts; it labels PN-025 as stopped by the API, where the earlier script reported no result line. Charges over both phases, from the token counts each API reported: 2.89 dollars with OpenAI and 19.70 dollars with Anthropic.
 
 ## Cost
 

@@ -1,0 +1,40 @@
+{
+ "run_id": "PN-013",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "8a371c655bb5fbc74ff457dd372ff3e784f7f53f60027958926310d2f0cc375b",
+ "sent_at": "2026-11-19T14:27:03+00:00",
+ "received_at": "2026-11-19T14:27:06+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSdtxRHL936MMGmuemD",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "P1: The search was requested for 30 days but evaluated only for the last 12 days (status partial). The 120 refunds, all to one country, cover only 12 days, so refunds to other countries in days 13-30 were not checked. We cannot say there were none. Cannot tell.\n\nP2: The link took effect at 09:40 Monday, but the system learned it at 15:00 Monday. The check scored at 10:00, before the system learned of it. So the evidence was not available to the check at scoring time, even though it was effective then. The check did not miss available evidence. Answer: No.\n\nP3: The jump from 1 percent to 6 percent is a sixfold rise in refunds, and the question is whether it warrants review. Review is a low-cost action, and a sixfold spike is a reasonable trigger, particularly since the card is now linked to a closed account. Yes.\n\nRESULT PN-013 | P1: Cannot tell | P2: No | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 561,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 309,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

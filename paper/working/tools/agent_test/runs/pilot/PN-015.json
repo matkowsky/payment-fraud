@@ -1,0 +1,40 @@
+{
+ "run_id": "PN-015",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "752718c567d3abb84788cea37754c912c4bc9280feaf62fc72f3b0a2a968b094",
+ "sent_at": "2026-11-19T14:27:32+00:00",
+ "received_at": "2026-11-19T14:27:34+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSfyzpzzpmiQL6Zf4w2",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "P1: The search covered only the last 12 days of the 30 requested (status partial). Refunds to other countries in the earlier 18 days were not evaluated, so we cannot say none were sent. Cannot tell.\n\nP2: The link took effect at 09:40 Monday, but the system learned of it at 15:00 Monday. The check scored M at 10:00, before the link was known, so the evidence was not available to the check even though it was effective at the time. The check did not miss available evidence. Answer: No.\n\nP3: A rise from 1 to 6 percent in refunds is a sixfold increase in a week. Whether it warrants review is a judgment, but the rise itself is shown and substantial, and the task is to decide whether to review. Yes, it warrants review.\n\nRESULT PN-015 | P1: Cannot tell | P2: No | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 561,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 276,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

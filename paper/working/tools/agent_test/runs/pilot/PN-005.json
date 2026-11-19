@@ -1,0 +1,40 @@
+{
+ "run_id": "PN-005",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "6eb433113e1f0ebe7c0ed55272222a950130f05f77b1e67ca9a071f3464a300f",
+ "sent_at": "2026-11-19T14:25:04+00:00",
+ "received_at": "2026-11-19T14:25:07+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSV7wFzreiifmSfsoco",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "P1: The search was requested for 30 days but evaluated only for the last 12 days (status partial). The 120 refunds therefore cover only 12 days, so refunds to other countries in days 13-30 were never checked. Within the 12 days covered, all refunds went to one country, but the question asks about 30 days. Cannot tell.\n\nP2: The link took effect at 09:40 Monday, but it was learned at 15:00 Monday, after the 10:00 scoring. The evidence was not available to the check when it scored, even though it was effective by then. So the check did not miss available evidence. Answer: No.\n\nP3: The rise from 1% to 6% is a sixfold increase in a week. Whether it warrants review is a judgment call, but the question asks if it warrants review, and the data support it: a sharp spike, a link to a closed account, and a concentrated refund pattern. Yes, it warrants review. The review is a reasonable response to the anomaly and doesn't require proof of wrongdoing.\n\nRESULT PN-005 | P1: Cannot tell | P2: No | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 561,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 355,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

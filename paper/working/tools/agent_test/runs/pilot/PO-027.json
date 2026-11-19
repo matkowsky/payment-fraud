@@ -1,0 +1,45 @@
+{
+ "run_id": "PO-027",
+ "model_requested": "claude-opus-5-5",
+ "prompt_sha256": "b2982b4e54cf70825697bc83b560f5299c75202e5f7067f93092e6a612834a53",
+ "sent_at": "2026-11-19T14:30:32+00:00",
+ "received_at": "2026-11-19T14:30:37+00:00",
+ "response": {
+  "model": "claude-opus-5-5",
+  "id": "msg_011ChCSuG9nkx1FFxKBdBhQV",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "thinking",
+    "thinking": "",
+    "signature": "CAQShgkKEAgUGAI4AUIIdGhpbmtpbmcSDMNqjukJc0k3de9GEBoMtsI7vLvHCVghtm1TIjAVxgJ47lpape6KSjfgzhfOfNwvti41Oqkqi2OJ77SUXQYXu/4VhDG8/ox5xSWCS+4qowiPnCuBWEf8ptdBCXLT/khUB66E2EOPn0UKuSRIcHopMvCpmWBcu0xdm9C5G1wjbaeWY++gYUNPc13QMV5wBrumniA4ZSCJsrhQnN00LyVFB+42u9BcG0g2RgjGV0n643vxMLeHJ6oRWhsdZpdutidqnEBIb8ShUJ+71+4SrCyxe+P7BYJ8euwX2D+pTllY7+6552mmqWsX5YN66wnF5CnzSJnEQ0RYhNPP16tglSGbS7B6s4whi2C6lOt/8QJm4WdwFqKKILjhD6dQ+XM/Y+03MCbbF7JQRW0if9s1zohM5j2YGHcd8kiZfGlwiP6VJwkZlffR9dF10v4thXTjDt5QxMidVK+NFC9lwJEcPBb2Zb3EVFAppAogDhO/qbzO8k08CSmRDd+alr9bjMRBeONgW1QWdi9I/iA62l07JIC1tWUxGJpqzSZi20hlLbFsZuMNckbOPUpFMckNxnc8ms2qlw7tW+bvyT5Vtc9O/NRI86FQq8V6IZV9I0fGfJxO+QD02V3vczOerogcXR6RUAFQteQxXcVusJ574LyHGQvEvvUOpfB0xb+ZULHvDGDXvgN/4CpYzmWPG7KB+bE5UVQ4qBmloWr43sAQqKGLXgIwmpiAhOINPYm0SETtv5BN64KnAmVliw06AsiPovooZIc6tRmawuhOeMt03rvswTtDM3FYtnFS8+k+QVt8w0D8q+3AXyA7WKgBB4A4LBTuaNkcr5eiPgPmBbyDdDAOEqz3NybUIKwVELNayE6gn2ykgjfP4tFKtQNFwTNP1LkNbGwzAG5brCOgMZB7kPI1ypfWY3QJVzSZYrtp9rsk3R1JFrJV9mnWL/sogqn6tbVO5yKFNnnquhq/TLN35bH/EZQ1w/ROwYkhqMykeV87UE1oyX+vnf3Yz9JcFIY9JdiCOFrN5zxuANIk/5VsB9KcYJUwF3aoPVEz4pkdemrFbLOftGGP2kIZ3z7XX9IEWb8n2vYK6NBasixZ6J4HEcdGJfG8LkQvMtr5xZmDaFssRFyriX2x61tYHZ0sxSeXCYnKgv9QCGPe+SS2AJAqMN/xPdNFpAlHFwNGz5i2s6GA2egLVW5oyO6edzZ4XIDniuxndQsfC++WCR+tVrFii5jxkQHavwrcGvJfwCpmYeJdavkhb9OXkTv04gfsGegy+Kmp+dsk5adNfPiDD7BtIvvYFPY0BQwOj8UjSxfa1HDjo/jwEQd1fLYxk0NIqS4hHWR1t6YseMldMDRCa92x3Abl5ScDDfm2eqyje9gD8fLvwUtMxbVcTaKq9Sui5wF93VTrpsKCn/LJ5ylUwg7bndtKfNO0H4dMfyqtQ1wvSUls5mHks4xM504h+v/GSOf/67v52kJTsxH0+7ZRRY81FEPbJ6w2nhxEjulbI7mYUJJgvMB97VOBK5kYAQ=="
+   },
+   {
+    "type": "text",
+    "text": "**P1 \u2014 Cannot tell.** The refund search returned 120 refunds, all to cards from one country. But the only coverage record shown is for the support-ticket search, not the refund search. We don't know whether the refund search covered the full 30 days or completed, so we can't rule out refunds to cards from other countries.\n\n**P2 \u2014 Cannot tell.** The card's link to a closed account took effect at 09:40, before the 10:00 score. However, no learned time is shown for that link. The only learned time given is for the business-address change. The platform may not have recorded the link until after 10:00, so we can't say the evidence was available to the check when it scored M.\n\n**P3 \u2014 Yes.** Refunds rising sixfold in one week, from 1 to 6 percent of sales, is a sharp change. That is enough to justify a review, even if there turns out to be an innocent cause such as a cancelled event.\n\nRESULT PO-027 | P1: Cannot tell | P2: Cannot tell | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 555,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 519,
+   "output_tokens_details": {
+    "thinking_tokens": 196
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

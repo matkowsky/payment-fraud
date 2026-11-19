@@ -1,0 +1,40 @@
+{
+ "run_id": "MN-020",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "fccfa75cfd99fc7e6facc726e398988a6ff67bb6379b9f0144a70f02a43d25d3",
+ "sent_at": "2026-11-19T17:19:22+00:00",
+ "received_at": "2026-11-19T17:19:28+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCfn1za8FPJ4QxkxB86T",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The seven-day search was only evaluated from 2 hours before publication onward, with status partial. The \"only those\" result therefore does not cover the earlier days. Misuse before the 19-minute burst cannot be excluded or confirmed. Cannot tell.\n\nA2. The compromise check used inputs as of 30 minutes after publication. The link between the payout destination and the other two accounts was learned 1 day after publication. It was not available to the check, so the check did not miss it. The burst itself, however, was available (19 minutes in), and the question asks about evidence available to the check. Whether the check should have weighed the burst is not established, and the only specific evidence in the records (the shared destination) was not available. Answer No.\n\nA3. A shared payout destination alone does not show common ownership. No, not by itself.\n\nA4. Both outcome channels have no reporting window defined, so the absence of reports is uninformative. Reports could arrive later, or never be possible. Cannot tell.\n\nA5. Yes. The burst came through a new proxy with a different fingerprint, and it changed the payout destination and schedule.\n\nCase B\n\nB1. The recorded chargebacks are D 0, but 2 chargebacks at account X are linked to D's transactions, verified by transaction identifier. D's rate is therefore 2 of 100, the same as B and C. Chargeback-or-alert counts are A 8, B 8, C 2, D 2. On chargebacks, D is 2, equal to B and C. So no, D is not lower.\n\nB2. The combined figure is (8+8+2+2)/400 = 5%. Accounts A and B are at 8%, above 5%. A combined rate does not show that no account is above 5%. No.\n\nB3. The search was partial and truncated, with one source sampled at 10% and the row limit reached. It cannot show that there are no other accounts. No.\n\nB4. Both notes link to the agent's cluster assessment, so they are not independent. No.\n\nB5. The block was a fraud decision, and its effect on the chargeback channel was closed. The absence of a chargeback is therefore not evidence of a non-fraud transaction. No.\n\nB6. The shared templates, descriptor pattern, and a person linked to a closed account and a rejected application justify investigating together. Yes.\n\nRESULT MN-020 | A1: Cannot tell | A2: No | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: No | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 822,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

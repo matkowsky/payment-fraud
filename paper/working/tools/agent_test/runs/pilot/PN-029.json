@@ -1,0 +1,40 @@
+{
+ "run_id": "PN-029",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "d4c7ba0efa97fdfd3b0b4f15685878fb524530ba7e03f4266c98e4ab0e7145c7",
+ "sent_at": "2026-11-19T14:31:08+00:00",
+ "received_at": "2026-11-19T14:31:11+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSwwfsoJU1oEVNjsxJh",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "P1: The search covered only the last 12 days (evaluated 12 days ago to now) and its status is partial, so the 30-day window was not fully searched. The absence of refunds to other countries cannot be established for days 13-30. Cannot tell.\n\nP2: The link was effective at 09:40 Monday, before the 10:00 scoring, but it was learned at 15:00 Monday. The system could not have known about it at 10:00, so the evidence was not available to the check. The check did not miss available evidence. Answer: No.\n\nP3: A rise from 1% to 6% is a sixfold jump in refund rate in one week. Together with the question of whether M is refunding to its own cards, this warrants review. Yes.\n\nRESULT PN-029 | P1: Cannot tell | P2: No | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 561,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 262,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "run_id": "MN-025",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "b11ad61b28bed8dae798559cd84c0726f440549831a77c64acfb1247217c5813",
+ "sent_at": "2026-11-19T17:22:32+00:00",
+ "received_at": "2026-11-19T17:22:40+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCg223BZmESrnjy7SnPN",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The search covered the past seven days and returned only the earlier requests from the one region, followed by the burst. Within that window the burst is the first anomalous activity. The key was published, and the burst came 19 minutes later. A search of the key's requests would not show use of other keys or use outside that log. \"Only those\" suggests no earlier misuse in the logged requests. But the question asks about the first misuse of this key, and the key's request history over seven days is complete. The earlier requests were from a stable fingerprint, so no misuse appears before the burst. The answer is arguably \"Yes\". Still, the key might have been published earlier than seven days ago, and the earlier requests, though stable, could include someone copying the client fingerprint. The stable fingerprint and single region make that unlikely, so I answer Yes.\n\nA2. The check scored the account 30 minutes after publication. The burst, the payout change, and the webhook creation were all at 19 minutes, so that evidence was available. But I cannot tell whether the check takes those signals as inputs, or whether it flagged them and weighed them lower. \"Missed evidence available to it\" is plausible, but the inputs of the check are not shown. Cannot tell.\n\nA3. A shared payout destination does not by itself show one owner. It could be a shared bank, a payment processor, or an accountant. No, not by itself.\n\nA4. Absence of reports after 30 days is weak evidence at best, since victims may not have noticed or reported. The options are \"Yes, weakly\", \"No\", and \"Cannot tell\". The absence of a victim report or incident finding is not evidence of legitimacy, because no one may have looked. The payout destination was already attached to other accounts, and a changed destination with a faster schedule is a pattern consistent with fraud. I choose No.\n\nA5. Yes. The burst involves a new fingerprint, a proxy, and a payout change after publication.\n\nCase B\n\nB1. D has 0 chargebacks out of 100, against 2 for the others. D's rate is lower in this sample, at 0% versus 2%. Yes.\n\nB2. A combined 5 percent does not rule out an individual account being above 5 percent. Also the combined measure includes alerts, which are not broken out per account. No.\n\nB3. The search found no accounts beyond A and the closed account, but it only covers the data searched, and the person could use other names. Cannot tell.\n\nB4. Two notes by different analysts may not be independent, since they may rely on the same evidence. Cannot tell. The notes do not say that they used different evidence, so they cannot be counted as independent confirmations. I choose No.\n\nB5. A blocked payment has no chargeback because it was blocked, not because it was legitimate. No.\n\nB6. The shared templates, descriptor pattern and control link justify looking at the accounts together. Yes.\n\nRESULT MN-025 | A1: Yes | A2: Cannot tell | A3: No, not by itself | A4: No | A5: Yes | B1: Yes | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1233,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 998,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

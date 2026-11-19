@@ -1,0 +1,40 @@
+{
+ "run_id": "MN-067",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "aa87455e1c2a078769bd5eb566e147af7dff3f7a414ae293a58c419102c98f8e",
+ "sent_at": "2026-11-19T17:47:22+00:00",
+ "received_at": "2026-11-19T17:47:29+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChChurVGd4LRJSnNY66Rt",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search returned only earlier requests, but its coverage record shows it evaluated only from 2 hours before publication, status partial. So \"only those\" cannot rule out earlier misuse. The burst at 19 minutes may not be the first misuse. Cannot tell.\n\nA2: The compromise check scored 30 minutes after publication with inputs as of 30 minutes after publication. The link between the payout destination and the other two accounts was learned 1 day after publication, so it was not available to the check. Its inputs may have included the burst, but the check had no access to the link, so the answer is No: it did not miss evidence available to it. The burst evidence itself (19 minutes) may have been available, but nothing shows the check had it. The question asks whether it missed available evidence, and the shown records do not establish that. The link is the only item clearly flagged as late, and it was not available. The burst occurred before the scoring and the inputs were as of that time, so the burst was probably available, but we can't confirm which inputs were used. Cannot tell is safer. However, the record says inputs as of 30 minutes after publication, which would include the burst at 19 minutes. A check that did not flag it may have missed it, but \"available to it\" is about the inputs' time, which covers the burst. I lean to Yes, but the check could have seen the burst and weighed it low. That is still a miss of evidence. I'll say Yes.\n\nA3: A shared destination alone does not establish one owner. No, not by itself.\n\nA4: The outcome channels have no reporting window defined, so the absence of reports after 30 days cannot be read as an indication of legitimacy. The channels could report later. Cannot tell.\n\nA5: The burst involved a different fingerprint, a residential proxy, a payout destination change and a faster schedule, all after publication. Yes.\n\nCase B\n\nB1: The chargebacks at X are linked to D's transactions, so D has 2 chargebacks, the same as the others. D's rate is not lower. No.\n\nB2: The combined 5 percent hides per-account rates of 8 percent for A and B. No.\n\nB3: The search was partial and truncated, so it does not show that. Cannot tell.\n\nB4: Both notes link to the agent's cluster assessment, so they are not independent. No.\n\nB5: The payment was blocked as suspected fraud, so lacking a chargeback is the effect of the block and not evidence that it was non-fraud. No.\n\nB6: Shared templates and descriptor patterns justify investigating together. Yes.\n\nRESULT MN-067 | A1: Cannot tell | A2: Yes | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 903,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}
