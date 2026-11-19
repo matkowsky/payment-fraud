@@ -3142,10 +3142,13 @@ planned share of repeated holdout rates the intervals contain. These
 deployment-specific settings are not selected here.
 
 \textbf{Failure criteria:} Fails if fewer than 95 percent of randomized
-decisions carry a usable probability, or more overlap populations fall
-outside their predicted intervals than the intended coverage plausibly
-allows: a one-sided binomial test, treating the populations as
-independent, gives p below 0.05.
+decisions carry a usable probability, or if the prespecified one-sided
+calibration test rejects the intended coverage at the 0.05 level. Use
+the binomial test only when the miss indicators are justified as
+independent and have the same prespecified null miss probability.
+Otherwise use the prespecified jointly calibrated rule. If no jointly
+calibrated rule can be specified, observed coverage is reported
+descriptively and E2 claims no calibrated pass.
 
 \hypertarget{e3-tests-report-linkage-which-the-first-requirement-depends-on-together-with-cluster-monitoring-confirmatory.}{%
 \paragraph{E3 (tests report linkage, which the first requirement depends
@@ -3377,12 +3380,15 @@ drafts, about 628 days at the 20 drafts a day assumed in manuscript
 Section 6.4. The plan states the tolerable rate, the assumed rate, the
 prevalence and the implied duration together. One site at that volume
 would need about 21 months. Sites may pool planted drafts under one
-protocol, or use a group-sequential design that can stop once a bound is
-met; the choice is fixed before the study starts. A group-sequential
-design needs stopping boundaries calibrated to keep the error over all
-looks at 5 percent; the fixed-sample counts above do not apply to it. A
-site that cannot reach the required numbers runs E8 as exploratory and
-reports catch rates without the pass rule.
+protocol, or use a group-sequential design that stops for success only
+at a prespecified look where both success boundaries are met in the
+realistic-prevalence arm; the choice is fixed before the study starts. A
+group-sequential design needs its repeated-look rule calibrated to keep
+the error over all looks at 5 percent, and is sized for the complete
+rule under the planned reviewer and case clustering; the fixed-sample
+counts above do not apply to it. A site that cannot reach the required
+numbers runs E8 as exploratory and reports catch rates without the pass
+rule.
 
 \textbf{Primary measures:} the catch rate, overall and by error type
 (false exonerations, other wrong claims, omissions of retrieved contrary
@@ -3471,7 +3477,12 @@ procedure for the two readings and the reference that preserves pairing,
 randomization, truth-review sampling and relevant clustering. Rule
 events that reopen a window during follow-up are recorded and reported.
 The main study will be sized for 93 percent power for part (b), which
-carries the pass rule, under stated effect assumptions.
+carries the pass rule, under stated effect assumptions. For each
+simulated study, apply the full prespecified part (b) rule: count a pass
+only if the lower confidence bound clears the negligible reduction and
+\(D\) under exclusion and under the stated delay model satisfies the
+sign-stability criterion in that same simulated study. Prespecify how an
+estimate of exactly zero is classified.
 
 \textbf{Primary measures:} (b) the reduction in absolute error against
 the holdout reference, with its 95 percent interval. For pass-comparator
@@ -3607,10 +3618,13 @@ counts only, and negative results as prominently as positive ones. Part
 3 follows Part 2, so a changed answer may reflect the reveal rather than
 the record. The form is anonymous, so the author cannot confirm who
 answered, that a link was not passed on, or that no one answered twice.
-No added record bears on the three controls, so their counts show how
-often an answer changes on a second reading alone, and each
-requirement's counts are read beside them. No published figure or quote
-shows which organization lacks a record or signal.
+A scored transition is a move between the supported answer and the
+designated error; other answer changes are not counted. The study
+reports the controls' error counts and scored transitions beside each
+requirement's. Because the questions appear in a fixed order, this
+comparison does not isolate the effect of the added records. No
+published figure or quote shows which organization lacks a record or
+signal.
 
 The study has no institutional sponsor or funding. It follows ACM's
 policy on research involving human participants: adults only, recorded
