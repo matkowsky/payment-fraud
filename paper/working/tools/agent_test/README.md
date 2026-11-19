@@ -8,7 +8,7 @@ Changed 19 November 2026, before any run: the author runs the script through a G
 
 When AI models answer the two cases of the practitioner study, do they give the counted error without the records, and does adding the records remove it? Filler records, matched in number and form but bearing on no question, separate the effect of the records' content from the effect of more text.
 
-This is a separate study from the practitioner study (Supplement S8). Its results are never pooled with participants' answers.
+This is a separate study from the practitioner study, which closed with no responses and is not in the paper (`../practitioner_study/README.md`).
 
 ## Material
 
