@@ -475,8 +475,6 @@ Supplement S7.1 gives each hypothesis, design, primary measure and proposed fail
 
 **E9. Channel states:** Do C1's channel states reduce the absolute error of evaluation results against a mature holdout reference, compared with the best reading without them (each rail's standard window, blocked attempts excluded)? The target is the selected metric on matured reported outcomes after a sampled review of report truth, not underlying fraud that may never be reported. E9 reports the share of items that C1 reclassifies but does not count it as support, because that share follows partly from C1's definitions and the cohort; support requires a reduction in reference error above the prespecified negligible improvement.
 
-Supplement S8 gives a practitioner study, fixed in advance, that measures how practitioners' answers change after they see the added records.
-
 Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, and S7.1 states the tests for all nine. Four rules in S7.1 apply to every evaluation: an as-of cutoff on the information each method may use, outcomes decided blind under rules set in advance, a stated treatment of labels shaped by control decisions, and marking of test records. Of the S7.1 tests, E5 and E8 measure reviewer time, and E5 also compares cost across arms that see the same records. None measures the storage, query work or controlled cross-account access that the added records require. S7 adds collection cost for E1's broader timing study and the safeguards' effect on investigations completed for E6. Passing the S7.1 tests would therefore not show that the added records justify their collection cost. E1, E5 and E8 also measure the work of identifiable staff on real case records, and E8's undisclosed planted drafts require a deception protocol. Each needs ethics and privacy review before it starts.
 
 ### 9.2 What the evidence can support
@@ -489,7 +487,7 @@ Supplement S7 gives the conditions and motivating sources for E1 to E7 and E9, a
 | No two requirements replace the third | Two cross-requirement pairs (8.3, S4.4) | That they cover every interaction |
 | Software can check the rules | Two checkers; 30 adversarial histories in two rounds (S4.4) | Resistance to evasion: 10 of 12 new attempts passed |
 | The records were cheap to store and check on one synthetic file | Synthetic measurement (8.4) | The cost of producing them on a platform |
-| Missing context changes conclusions | Two hypothetical traces (8.1 to 8.3) | How often; no practitioner-study results are reported here |
+| Missing context changes conclusions | Two hypothetical traces (8.1 to 8.3) | How often |
 | The records expose two alleged patterns | Synthetic replays and sweeps (8.5, S10) | Detection on real data |
 | Each of the five tactics the records could expose is alleged in 5 to 13 of 14 FTC complaints | Count by two model coders and three model adjudicators (8.5, S10.1) | How often the tactics occur; that a record would have exposed them; any human check of the coding |
 | The signals and responsibilities cover the mechanisms | The author's mapping; a model as second rater (3, S3) | Completeness; agreement between human coders |
@@ -522,7 +520,7 @@ The next test is operational value. Evaluations must determine whether these rec
 
 **License.** Creative Commons Attribution 4.0 International (CC BY 4.0) applies to the author's text, figures and supplement tables. The Stripe schema-derived components of two supplement tables remain under the MIT License, as THIRD_PARTY_NOTICES.md states.
 
-**Ethics and confidentiality.** No human participants were involved in the results reported here. The paper uses only public sources, and no confidential information from any current or former employer was used. The practitioner study in Supplement S8 follows ACM's policy on research involving human participants.
+**Ethics and confidentiality.** No human participants were involved. The paper uses only public sources, and no confidential information from any current or former employer was used. The practitioner study in Supplement S8 follows ACM's policy on research involving human participants.
 
 **Competing interests.** The author previously worked for Microsoft and is seeking employment in security, fraud prevention, and trust and safety. The author has no current employment or consulting relationship. No company has received a draft of this work. The STIX 2.1 Errata 01 acknowledgments list the author, then at Microsoft, among participants of the OASIS Cyber Threat Intelligence Technical Committee; the paper cites the 2021 STIX 2.1 standard.
 

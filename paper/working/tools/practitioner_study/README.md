@@ -26,6 +26,8 @@ Changed 17 November 2026, after the form opened, at the author's direction; the 
 
 Changed 18 November 2026, after the form opened; whether a response had arrived was not checked, and the private answer key was not read: the report no longer says that the controls show how often an answer changes on a second reading alone. Of the changes of answer between Part 2 and Part 3, the scoring script counts only a move between a supported answer and the item's counted error, in either direction. Because Part 3 always follows Part 2, reading each requirement's counts beside the controls' does not isolate the effect of the added records. Supplement S8 has said so since pull request #93, from the `codex/v1.1-e2-e8-e9-s8` branch, merged by the author on this date. The form, the questions, the answer key and the scoring script did not change.
 
+Changed 19 November 2026, at the author's direction: the author closed the form early, between 20:28 and 20:33 UTC, with no responses. The form's linked workbook holds no response rows. The study is not reported in the paper, and Supplement S8 no longer describes it. This replaces the 16 and 17 November notes that the study is reported, the close on 30 November and the rule that there is no early stop. With no responses, the early close and the removal depend on no participant's answer. The form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
