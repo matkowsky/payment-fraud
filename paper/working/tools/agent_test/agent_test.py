@@ -42,15 +42,21 @@ CONDITIONS = ('case_only', 'records', 'filler')
 # model -> (vendor, letter used in run ids)
 MODELS = {'gpt-6.1-sol': ('openai', 'S'), 'gpt-6.1-terra': ('openai', 'T'), 'gpt-6-luna': ('openai', 'L'),
           'claude-opus-5-5': ('anthropic', 'O'), 'claude-sonnet-5-5': ('anthropic', 'N'),
-          'claude-haiku-5-5': ('anthropic', 'H')}
+          'claude-haiku-5-5': ('anthropic', 'H'),
+          # Added 19 November 2026, after the six models' main results were read: each vendor's most capable
+          # API model on that date (README, "Models"). Main phase only.
+          'gpt-6.2-astra': ('openai', 'A'), 'claude-fable-5-2': ('anthropic', 'F')}
+ADDED = ('gpt-6.2-astra', 'claude-fable-5-2')
 VENDORS = {'openai': {'url': 'https://api.openai.com/v1/responses', 'key': 'OPENAI_API_KEY'},
            'anthropic': {'url': 'https://api.anthropic.com/v1/messages', 'key': 'ANTHROPIC_API_KEY'}}
 SESSIONS_PER_CONDITION = {'pilot': 10, 'main': 30}
 # Dollars per million tokens (input, output). OpenAI: its pricing page, read 16 November 2026.
 # Anthropic: its pricing page, read 17 November 2026 (Haiku: prompts up to 100,000 tokens).
 PRICES = {'gpt-6.1-sol': (2.0, 10.0), 'gpt-6.1-terra': (1.0, 5.0), 'gpt-6-luna': (0.10, 0.50),
-          'claude-opus-5-5': (4.0, 20.0), 'claude-sonnet-5-5': (2.0, 10.0), 'claude-haiku-5-5': (0.10, 0.50)}
-CAP_DOLLARS = 15.0  # for each vendor
+          'claude-opus-5-5': (4.0, 20.0), 'claude-sonnet-5-5': (2.0, 10.0), 'claude-haiku-5-5': (0.10, 0.50),
+          # Added models: OpenAI's model comparison page and Anthropic's pricing page, read 19 November 2026.
+          'gpt-6.2-astra': (8.0, 40.0), 'claude-fable-5-2': (8.0, 40.0)}
+CAP_DOLLARS = 40.0  # for each vendor; raised from 15 on 19 November 2026 for the added models
 MAX_OUTPUT_TOKENS = 6000
 # The pilot key is kept private until the practitioner study's form closes (README, PILOT_CASE.md).
 PILOT_KEY_SHA256 = 'b709ee4a4336c0a9ba961a42a185586d955dfc4b77e59d564053acf3e8b29c0b'
@@ -63,7 +69,7 @@ HEAD = ('{lead}\n'
 TAIL = '\nEnd your reply with the RESULT line described at the top, starting with: RESULT {run_id} |\n'
 QUESTION = re.compile(r'^([A-Z]\d)\. (.+\?) (.+)$')
 RESULT_LINE = re.compile(r'^[\W_]*RESULT\s+(\S+)\s*\|(.*)$', re.M)
-RUN_FILE = re.compile(r'^[PM][STLONH]-\d{3}\.json$')
+RUN_FILE = re.compile(r'^[PM][STLONHAF]-\d{3}\.json$')
 
 
 # ---------- material ----------
@@ -149,6 +155,8 @@ def build_sheet():
     rows = []
     for phase in ('pilot', 'main'):
         for model, (_, letter) in MODELS.items():
+            if phase == 'pilot' and model in ADDED:
+                continue
             n = SESSIONS_PER_CONDITION[phase]
             conds = [c for c in CONDITIONS for _ in range(n)]
             random.Random(f'{SEED}:{phase}:{model}').shuffle(conds)
@@ -312,6 +320,8 @@ def score(phase, sheet, replies, key, also):
     res = {'phase': phase, 'models': {}}
     for model in MODELS:
         rows = [r for r in planned if r['model'] == model]
+        if not rows:   # an added model has no pilot sessions
+            continue
         m = res['models'][model] = {'planned': len(rows), 'run': 0, 'model_shown': {}, 'no_answer': {},
                                     'stopped': {}, 'conditions': {}}
         for cond in CONDITIONS:
@@ -374,8 +384,22 @@ def to_markdown(res):
         b = res['branch']
         out += [f"Pilot branch: {b['counted_errors']} counted errors in {b['case_only_requirement_answers']} case-only "
                 f"answers to P1 and P2. Main run: {b['main_run']}.", '']
+    shown = [(k, m) for k, m in res['models'].items() if m['run']]
+    if len(shown) > 1:
+        # One table across models, so the models can be compared; each is still reported apart, nothing pooled.
+        first = shown[0][1]['conditions'][CONDITIONS[0]]['items']
+        out += ['Counted errors by model: case only / with records / with filler, each of the sessions run.', '',
+                '| Item | Requirement | ' + ' | '.join(k for k, _ in shown) + ' |',
+                '|---|---|' + '---|' * len(shown)]
+        for i, v in first.items():
+            out.append(f"| {i} | {v['requirement']} | " + ' | '.join(
+                '/'.join(str(m['conditions'][c]['items'][i]['errors']) for c in CONDITIONS) for _, m in shown) + ' |')
+        out.append('')
     for model, m in res['models'].items():
-        out += [f'## {model}', '', f"Sessions run: {m['run']} of {m['planned']}. Model shown: "
+        out += [f'## {model}', '']
+        if model in ADDED:
+            out += ["Added on 19 November 2026, after the main results of the six fixed models were read (README, \"Models\").", '']
+        out += [f"Sessions run: {m['run']} of {m['planned']}. Model shown: "
                 + (', '.join(f'{k} ({v})' for k, v in m['model_shown'].items()) or 'none') + '.', '']
         if m.get('stopped'):
             out += ["Stopped by the API's safety system: " + '; '.join(f'{k} ({v})' for k, v in m['stopped'].items()) + '.', '']
