@@ -1,8 +1,8 @@
 # Agent test results, main
 
-Counted errors by model: case only / with records / with filler, each of the sessions run.
+Counted errors by model: case only / with records / with filler, each of the sessions run. "not scored" marks a condition with no usable answer.
 
-| Item | Requirement | gpt-6.1-sol | gpt-6.1-terra | gpt-6-luna | claude-opus-5-5 | claude-sonnet-5-5 | claude-haiku-5-5 | gpt-6.2-astra | claude-fable-5-2 |
+| Item | Requirement | gpt-6.1-sol | gpt-6.1-terra | gpt-6-luna | claude-opus-5-5 | claude-sonnet-5-5 | claude-haiku-5-5 | gpt-6.2-astra † | claude-fable-5-2 † |
 |---|---|---|---|---|---|---|---|---|---|
 | A1 | C2 coverage | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 16/1/13 | 2/0/0 | 0/0/0 | 13/0/0 |
 | A2 | C2 learned time | 0/10/0 | 0/2/0 | 0/27/0 | 0/1/0 | 1/1/0 | 16/3/3 | 0/0/0 | 25/21/0 |
@@ -16,9 +16,26 @@ Counted errors by model: case only / with records / with filler, each of the ses
 | B5 | C1 decision link | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 |
 | B6 | Control | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 |
 
+† Added on 19 November 2026, after the main results of the six fixed models were read; exploratory.
+
+Sessions run / usable answers / other no answers / stopped by the API, by model and condition.
+
+| Model | case only | with records | with filler |
+|---|---|---|---|
+| gpt-6.1-sol | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 |
+| gpt-6.1-terra | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 |
+| gpt-6-luna | 30 / 29 / 1 / 0 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 |
+| claude-opus-5-5 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 |
+| claude-sonnet-5-5 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 |
+| claude-haiku-5-5 | 30 / 29 / 1 / 0 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 |
+| gpt-6.2-astra † | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 | 30 / 30 / 0 / 0 |
+| claude-fable-5-2 † | 30 / 25 / 5 / 0 | 30 / 30 / 0 / 0 | 30 / 23 / 7 / 0 |
+
 ## gpt-6.1-sol
 
 Sessions run: 90 of 90. Model shown: gpt-6.1-sol (90).
+
+Usable answers: case only 30 of 30; with records 30 of 30; with filler 30 of 30.
 
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
@@ -44,6 +61,8 @@ Sessions run: 90 of 90. Model shown: gpt-6.1-sol (90).
 ## gpt-6.1-terra
 
 Sessions run: 90 of 90. Model shown: gpt-6.1-terra (90).
+
+Usable answers: case only 30 of 30; with records 30 of 30; with filler 30 of 30.
 
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
@@ -72,6 +91,8 @@ Sessions run: 90 of 90. Model shown: gpt-6-luna (90).
 
 No valid RESULT line: ML-022 (A3: "Yes, not by itself" is not one of the choices).
 
+Usable answers: case only 29 of 30; with records 30 of 30; with filler 30 of 30.
+
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
 | A1 | C2 coverage | 0 of 30 (0.00 to 0.12) | 0 of 30 (0.00 to 0.12) | 0 of 30 (0.00 to 0.12) |
@@ -97,6 +118,8 @@ No valid RESULT line: ML-022 (A3: "Yes, not by itself" is not one of the choices
 
 Sessions run: 90 of 90. Model shown: claude-opus-5-5 (90).
 
+Usable answers: case only 30 of 30; with records 30 of 30; with filler 30 of 30.
+
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
 | A1 | C2 coverage | 0 of 30 (0.00 to 0.12) | 0 of 30 (0.00 to 0.12) | 0 of 30 (0.00 to 0.12) |
@@ -121,6 +144,8 @@ Sessions run: 90 of 90. Model shown: claude-opus-5-5 (90).
 ## claude-sonnet-5-5
 
 Sessions run: 90 of 90. Model shown: claude-sonnet-5-5 (90).
+
+Usable answers: case only 30 of 30; with records 30 of 30; with filler 30 of 30.
 
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
@@ -149,6 +174,8 @@ Sessions run: 90 of 90. Model shown: claude-haiku-5-5 (90).
 
 No valid RESULT line: MH-059 (B3: "No, not by itself" is not one of the choices).
 
+Usable answers: case only 29 of 30; with records 30 of 30; with filler 30 of 30.
+
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
 | A1 | C2 coverage | 2 of 30 (0.01 to 0.22) | 0 of 30 (0.00 to 0.12) | 0 of 30 (0.00 to 0.12) |
@@ -175,6 +202,8 @@ No valid RESULT line: MH-059 (B3: "No, not by itself" is not one of the choices)
 Added on 19 November 2026, after the main results of the six fixed models were read (README, "Models").
 
 Sessions run: 90 of 90. Model shown: gpt-6.2-astra (90).
+
+Usable answers: case only 30 of 30; with records 30 of 30; with filler 30 of 30.
 
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
@@ -204,6 +233,8 @@ Added on 19 November 2026, after the main results of the six fixed models were r
 Sessions run: 90 of 90. Model shown: claude-fable-5-2 (90).
 
 No valid RESULT line: MF-004 (unreadable part: B6); MF-019 (no RESULT line); MF-028 (no RESULT line); MF-051 (no RESULT line); MF-068 (no RESULT line); MF-005 (no RESULT line); MF-009 (unreadable part: B); MF-014 (no RESULT line); MF-041 (no RESULT line); MF-067 (no RESULT line); MF-081 (no RESULT line); MF-090 (unreadable part: B).
+
+Usable answers: case only 25 of 30; with records 30 of 30; with filler 23 of 30.
 
 | Item | Requirement | Errors, case only (95% CI) | Errors, with records (95% CI) | Errors, with filler (95% CI) |
 |---|---|---|---|---|
