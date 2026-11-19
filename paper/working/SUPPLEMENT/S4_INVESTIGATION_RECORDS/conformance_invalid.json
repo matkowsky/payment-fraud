@@ -1037,6 +1037,115 @@
      "producer"
     ]
    }
+  },
+  {
+   "case_id": "D40",
+   "rule": "IR-10",
+   "description": "A current-conduct claim's only current-period support is a record linked to an agent output, and its unlinked current-period input observes another entity.",
+   "set_fields": {
+    "DR-2": {
+     "claims": [
+      {
+       "claim_id": "CL-3",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-14T18:00:00Z",
+        "to": "2026-05-15T06:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-8",
+        "O-10"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-4"
+       ],
+       "context": [
+        "M-1"
+       ],
+       "distinct_roots": 1
+      }
+     ]
+    }
+   },
+   "add_records": [
+    {
+     "record_type": "Observation",
+     "record_id": "O-8",
+     "record_class": "source_observation",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-1"
+     },
+     "event_interval": {
+      "from": "2026-05-14T00:00:00Z",
+      "to": "2026-05-15T06:00:00Z"
+     },
+     "learned_at": "2026-05-16T06:00:00Z",
+     "root_ids": [
+      "O-8"
+     ],
+     "inputs": [],
+     "agent_output_links": [],
+     "producer": "SRC-1"
+    },
+    {
+     "record_type": "Observation",
+     "record_id": "O-9",
+     "record_class": "source_observation",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-2"
+     },
+     "event_interval": {
+      "from": "2026-05-18T00:00:00Z",
+      "to": "2026-05-18T06:00:00Z"
+     },
+     "learned_at": "2026-05-19T06:00:00Z",
+     "root_ids": [
+      "O-9"
+     ],
+     "inputs": [],
+     "agent_output_links": [],
+     "producer": "SRC-1"
+    },
+    {
+     "record_type": "Observation",
+     "record_id": "O-10",
+     "record_class": "derived_feature",
+     "entity": {
+      "tenant": "T1",
+      "namespace": "account",
+      "id": "ACC-1"
+     },
+     "event_interval": {
+      "from": "2026-05-18T00:00:00Z",
+      "to": "2026-05-18T06:00:00Z"
+     },
+     "learned_at": "2026-05-19T07:00:00Z",
+     "root_ids": [
+      "O-9"
+     ],
+     "inputs": [
+      "O-9"
+     ],
+     "agent_output_links": [
+      "DR-1"
+     ],
+     "producer": "PL-1"
+    }
+   ]
   }
  ]
 }
