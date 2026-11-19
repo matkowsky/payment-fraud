@@ -239,8 +239,11 @@ def read_replies(paths):
         rid = rec['run_id']
         if rid in out:
             raise ValueError(f"run {rid} has two replies ({out[rid]['source']}, {f})")
-        out[rid] = {'text': response_text(rec['response']), 'model_shown': rec['response'].get('model'), 'source': str(f),
-                    'stop': policy_stop(rec['response']), 'resent': 'stopped_reply' in rec}
+        # README, "Pilot": a safety stop is a terminal no answer. A record saved under the earlier resend rule keeps
+        # the first, stopped reply; that reply is the one scored, and the resent reply is not.
+        first = rec['stopped_reply']['response'] if rec.get('stopped_reply') else rec['response']
+        out[rid] = {'text': response_text(first), 'model_shown': first.get('model'), 'source': str(f),
+                    'stop': policy_stop(first), 'resent': 'stopped_reply' in rec}
     return out
 
 
@@ -313,6 +316,7 @@ def score(phase, sheet, replies, key, also):
                                     'stopped': {}, 'conditions': {}}
         for cond in CONDITIONS:
             sessions = []
+            stopped = 0
             for r in (r for r in rows if r['condition'] == cond):
                 rep = replies.get(r['run_id'])
                 if rep is None:
@@ -320,12 +324,17 @@ def score(phase, sheet, replies, key, also):
                 m['run'] += 1
                 shown = rep.get('model_shown') or '(not recorded)'
                 m['model_shown'][shown] = m['model_shown'].get(shown, 0) + 1
-                ans, why = parse_result(rep['text'], r['run_id'], qs)
-                if rep.get('resent') or rep.get('stop'):
-                    m['stopped'][r['run_id']] = (('resent; stopped again' if rep.get('stop') else 'resent; answered')
-                                                 if rep.get('resent') else f"{rep['stop']}; not resent")
-                if ans is None:
-                    m['no_answer'][r['run_id']] = f"stopped by the API ({rep['stop']})" if rep.get('stop') else why
+                if rep.get('stop'):
+                    # A safety stop is a terminal no answer, even if the stopped text holds a valid RESULT line.
+                    ans = None
+                    m['no_answer'][r['run_id']] = f"stopped by the API ({rep['stop']})"
+                    m['stopped'][r['run_id']] = rep['stop'] + ('; resent under the earlier rule, resent reply not scored'
+                                                               if rep.get('resent') else '')
+                    stopped += 1
+                else:
+                    ans, why = parse_result(rep['text'], r['run_id'], qs)
+                    if ans is None:
+                        m['no_answer'][r['run_id']] = why
                 sessions.append(ans)
             n = len(sessions)
             per_item = {}
@@ -335,13 +344,13 @@ def score(phase, sheet, replies, key, also):
                 err = sum(a == k['error'] for a in given)
                 sup = sum(a == k['supported'] or (cond != 'records' and i in also and a == 'cannot tell') for a in given)
                 per_item[i] = {'requirement': k['requirement'], 'sessions': n, 'errors': err, 'supported': sup,
-                               'no_answer': n - len(given), 'error_interval': clopper_pearson(err, n),
+                               'no_answer': n - len(given), 'stopped': stopped, 'error_interval': clopper_pearson(err, n),
                                'answers': dict(Counter(given))}
             by_req = {}
             for i, v in per_item.items():
                 req = 'Control' if v['requirement'] == 'Control' else v['requirement'].split()[0]
                 agg = by_req.setdefault(req, Counter())
-                for f in ('errors', 'supported', 'no_answer'):
+                for f in ('errors', 'supported', 'no_answer', 'stopped'):
                     agg[f] += v[f]
                 agg['item_answers'] += v['sessions']
             m['conditions'][cond] = {'sessions': n, 'items': per_item, 'by_requirement': {k: dict(v) for k, v in by_req.items()}}
@@ -380,13 +389,18 @@ def to_markdown(res):
             for c in CONDITIONS:
                 x = m['conditions'][c]['items'][i]
                 ci = x['error_interval']
-                cells.append(f"{x['errors']} of {x['sessions']}" + (f' ({ci[0]:.2f} to {ci[1]:.2f})' if ci else ''))
+                cells.append(f"{x['errors']} of {x['sessions']}" + (f' ({ci[0]:.2f} to {ci[1]:.2f})' if ci else '')
+                             + (f"; {x['errors']} to {x['errors'] + x['stopped']} if the {x['stopped']} stopped count as errors"
+                                if x['stopped'] else ''))
             out.append(f"| {i} | {v['requirement']} | " + ' | '.join(cells) + ' |')
         out += ['', '| Requirement | ' + ' | '.join(f'Errors, {names[c]}' for c in CONDITIONS) + ' |',
                 '|---|' + '---|' * len(CONDITIONS)]
         for req in sorted(m['conditions'][CONDITIONS[0]]['by_requirement']):
-            cells = [f"{m['conditions'][c]['by_requirement'][req]['errors']} of "
-                     f"{m['conditions'][c]['by_requirement'][req]['item_answers']}" for c in CONDITIONS]
+            cells = []
+            for c in CONDITIONS:
+                x = m['conditions'][c]['by_requirement'][req]
+                cells.append(f"{x['errors']} of {x['item_answers']}"
+                             + (f"; {x['errors']} to {x['errors'] + x['stopped']} with stops as errors" if x.get('stopped') else ''))
             out.append(f'| {req} | ' + ' | '.join(cells) + ' |')
         out.append('')
     return '\n'.join(out) + '\n'
@@ -466,17 +480,7 @@ def run_api(vendor, phase, out_root, api_key, models=None):
         rec = {'run_id': r['run_id'], 'model_requested': r['model'], 'prompt_sha256': r['prompt_sha256'],
                'sent_at': sent, 'received_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
                'response': resp}
-        stop = policy_stop(resp)
-        if stop and phase == 'main':
-            # README, "Pilot": a reply the API's safety system stops is resent once, to the same model.
-            if so_far + cost(r['model'], resp.get('usage') or {}) + worst_next(r['model'], prompt) > CAP_DOLLARS:
-                print(f"{r['run_id']} stopped by the API ({stop}); not resent: the cap")
-            else:
-                rec['stopped_reply'] = {'sent_at': rec['sent_at'], 'received_at': rec['received_at'], 'stop': stop,
-                                        'response': resp}
-                rec['sent_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
-                rec['response'] = resp = call_api(vendor, r['model'], prompt, api_key)
-                rec['received_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+        # README, "Pilot": a reply the API's safety system stops is a terminal no answer; it is not sent again.
         path.write_text(json.dumps(rec, indent=1) + '\n', encoding='utf-8')
         done += 1
         status = resp.get('status') or resp.get('stop_reason')

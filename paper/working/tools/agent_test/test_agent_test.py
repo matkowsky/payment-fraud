@@ -146,19 +146,40 @@ class Scoring(unittest.TestCase):
         self.assertIsNone(at.policy_stop({'stop_reason': 'end_turn'}))
         self.assertIsNone(at.policy_stop({'status': 'completed'}))
 
-    def test_stop_is_reported_apart(self):
+    def test_safety_stop_is_no_answer_even_with_a_result_line(self):
+        # Review of PR #98: a stopped reply's text is never scored, even when it holds a valid RESULT line.
         key, also = at.parse_key_table(TEST_KEY, ['P1', 'P2', 'P3'])
         sheet = at.read_sheet()
-        replies = {'PN-025': {'text': 'reasoning cut off', 'source': 't', 'stop': 'refusal: x', 'resent': False},
+        ok = result_line('PN-025', {'P1': 'Yes', 'P2': 'Yes', 'P3': 'Yes'})
+        replies = {'PN-025': {'text': ok, 'source': 't', 'stop': 'refusal: x', 'resent': False},
                    'PN-026': {'text': result_line('PN-026', {'P1': 'Yes', 'P2': 'Yes', 'P3': 'Yes'}), 'source': 't',
-                              'stop': None, 'resent': True}}
+                              'stop': 'content_filter', 'resent': True}}
         res = at.score('pilot', sheet, replies, key, also)
         m = res['models']['claude-sonnet-5-5']
-        self.assertEqual(m['no_answer'], {'PN-025': 'stopped by the API (refusal: x)'})
-        self.assertEqual(m['stopped'], {'PN-025': 'refusal: x; not resent', 'PN-026': 'resent; answered'})
-        self.assertIn("Stopped by the API's safety system: PN-025", at.to_markdown(res))
+        self.assertEqual(m['no_answer'], {'PN-025': 'stopped by the API (refusal: x)',
+                                          'PN-026': 'stopped by the API (content_filter)'})
+        self.assertEqual(m['stopped'], {'PN-025': 'refusal: x',
+                                        'PN-026': 'content_filter; resent under the earlier rule, resent reply not scored'})
+        cell = m['conditions'][sheet['PN-025']['condition']]['items']['P1']
+        self.assertEqual((cell['errors'], cell['no_answer'], cell['stopped']), (0, 2, 2) if
+                         sheet['PN-026']['condition'] == sheet['PN-025']['condition'] else (0, 1, 1))
+        md = at.to_markdown(res)
+        self.assertIn("Stopped by the API's safety system: PN-025", md)
+        self.assertIn('if the', md)
 
-    def test_resend_once_in_main_only(self):
+    def test_saved_resend_scores_the_first_stopped_reply(self):
+        stopped = {'stop_reason': 'refusal', 'stop_details': {'category': 'x'}, 'content': [], 'usage': {}}
+        answered = {'stop_reason': 'end_turn', 'usage': {},
+                    'content': [{'type': 'text', 'text': result_line('PN-025', {'P1': 'Yes', 'P2': 'Yes', 'P3': 'Yes'})}]}
+        with tempfile.TemporaryDirectory() as d:
+            f = Path(d) / 'PN-025.json'
+            f.write_text(json.dumps({'run_id': 'PN-025', 'model_requested': 'claude-sonnet-5-5', 'response': answered,
+                                     'stopped_reply': {'stop': 'refusal: x', 'response': stopped}}), encoding='utf-8')
+            rep = at.read_replies([d])['PN-025']
+        self.assertEqual((rep['stop'], rep['resent']), ('refusal: x', True))
+        self.assertNotIn('RESULT', rep['text'])
+
+    def test_safety_stop_is_not_resent(self):
         usage = {'input_tokens': 10, 'output_tokens': 10}
         stopped = {'stop_reason': 'refusal', 'stop_details': {'category': 'x'}, 'content': [], 'usage': usage}
         ok = {'stop_reason': 'end_turn', 'content': [{'type': 'text', 'text': 'fine'}], 'usage': usage}
@@ -169,17 +190,11 @@ class Scoring(unittest.TestCase):
             with tempfile.TemporaryDirectory() as d:
                 at.run_api('anthropic', 'main', d, 'k', ['claude-haiku-5-5'])
                 n = sum(1 for r in at.read_sheet().values() if r['phase'] == 'main' and r['model'] == 'claude-haiku-5-5')
-                self.assertEqual(len(calls), n + 1)
+                self.assertEqual(len(calls), n)
                 recs = [json.loads(f.read_text(encoding='utf-8')) for f in (Path(d) / 'main').glob('*.json')]
-                resent = [r for r in recs if 'stopped_reply' in r]
-                self.assertEqual(len(resent), 1)
-                self.assertEqual(resent[0]['stopped_reply']['stop'], 'refusal: x')
-                self.assertEqual(resent[0]['response'], ok)
-                self.assertAlmostEqual(at.spent(d, 'anthropic'), (n + 1) * at.cost('claude-haiku-5-5', usage))
-                self.assertTrue(at.read_replies([d])[resent[0]['run_id']]['resent'])
-                calls.clear()
-                at.run_api('anthropic', 'pilot', d, 'k', ['claude-haiku-5-5'])  # the pilot is not resent
-                self.assertEqual(len(calls), 30)
+                self.assertFalse(any('stopped_reply' in r for r in recs))
+                self.assertEqual(sum(r['response'] == stopped for r in recs), 1)
+                self.assertAlmostEqual(at.spent(d, 'anthropic'), n * at.cost('claude-haiku-5-5', usage))
         finally:
             at.call_api = real
 
