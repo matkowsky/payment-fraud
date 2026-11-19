@@ -2,6 +2,8 @@
 
 Protocol, fixed before any model is run. Any later change is a new commit that states its reason.
 
+Changed 19 November 2026, before any run: the author runs the script through a GitHub Actions workflow in a private repository of his, so that a run can be started from a phone. The workflow checks out this repository at a stated commit and runs `agent_test.py` unchanged. The API keys are that repository's secrets. The raw replies and the results are kept in that private repository, not in OneDrive, until the practitioner study's form closes. Claude wrote the workflow file. Each run is started by the author, or by Claude at his direction. The models, prompts, session counts, seed, scoring and cost cap did not change.
+
 ## Question
 
 When AI models answer the two cases of the practitioner study, do they give the counted error without the records, and does adding the records remove it? Filler records, matched in number and form but bearing on no question, separate the effect of the records' content from the effect of more text.
@@ -66,7 +68,7 @@ One branch is fixed in advance. Pooling all models, if the counted error appears
 
 ## Kept private until the form closes
 
-Both keys, and the replies, parsed answers and results of both phases, stay out of this repository, and are not shared, until the practitioner study's form closes. They would show which answers a key counts as errors, and case P is built like the form's cases. They are kept in OneDrive and committed after the close.
+Both keys, and the replies, parsed answers and results of both phases, stay out of this repository, and are not shared, until the practitioner study's form closes. They would show which answers a key counts as errors, and case P is built like the form's cases. They are kept privately, as the 19 November change says, and committed here after the close.
 
 ## Cost
 
@@ -87,7 +89,7 @@ If the pilot's cost per session shows that the main run would pass a vendor's ca
 ## Order of work
 
 1. This protocol, `FILLER.md`, `PILOT_CASE.md`, `agent_test.py` and `RUN_SHEET.csv` are merged.
-2. The author runs the pilot with the script, once for each vendor.
+2. The author runs the pilot with the script, once for each vendor, through the workflow described in the 19 November change.
 3. The branch decision and the SHA-256 of the pilot's `results.json` are committed.
 4. The author runs the main run.
 5. After the form closes: both keys and the replies and results of both phases are committed, and one pull request proposes the text.
