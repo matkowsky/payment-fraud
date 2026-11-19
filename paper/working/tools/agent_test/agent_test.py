@@ -56,7 +56,7 @@ PRICES = {'gpt-6.1-sol': (2.0, 10.0), 'gpt-6.1-terra': (1.0, 5.0), 'gpt-6-luna':
           'claude-opus-5-5': (4.0, 20.0), 'claude-sonnet-5-5': (2.0, 10.0), 'claude-haiku-5-5': (0.10, 0.50),
           # Added models: OpenAI's model comparison page and Anthropic's pricing page, read 19 November 2026.
           'gpt-6.2-astra': (8.0, 40.0), 'claude-fable-5-2': (8.0, 40.0)}
-CAP_DOLLARS = 30.0  # for each vendor; raised from 15 on 19 November 2026 for the added models
+CAP_DOLLARS = 40.0  # for each vendor; raised from 15 on 19 November 2026 for the added models
 MAX_OUTPUT_TOKENS = 6000
 # The pilot key is kept private until the practitioner study's form closes (README, PILOT_CASE.md).
 PILOT_KEY_SHA256 = 'b709ee4a4336c0a9ba961a42a185586d955dfc4b77e59d564053acf3e8b29c0b'

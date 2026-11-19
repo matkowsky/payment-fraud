@@ -35,7 +35,7 @@ Two vendors, three sizes each, through their APIs, run by the author's script wi
 - OpenAI: `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6-luna`. `store` off.
 - Anthropic: `claude-opus-5-5`, `claude-sonnet-5-5`, `claude-haiku-5-5`.
 
-Added 19 November 2026, at the author's direction, after the main results of these six models were read: `gpt-6.2-astra` and `claude-fable-5-2`, each vendor's most capable API model that day. The list above had left out OpenAI's most capable model (then GPT-6 Astra) to save cost, and had missed Claude Fable 5.2, released on 9 November. GPT-6.2 Astra was released on 17 November. The two run the main phase only, with the same prompts, conditions and 30 sessions per condition; their rows are appended to `RUN_SHEET.csv` and no earlier row changed. They are reported apart from the six, and the report compares all eight model by model, with nothing pooled. The cap is raised to 30 dollars per vendor.
+Added 19 November 2026, at the author's direction, after the main results of these six models were read: `gpt-6.2-astra` and `claude-fable-5-2`, each vendor's most capable API model that day. The list above had left out OpenAI's most capable model (then GPT-6 Astra) to save cost, and had missed Claude Fable 5.2, released on 9 November. GPT-6.2 Astra was released on 17 November. The two run the main phase only, with the same prompts, conditions and 30 sessions per condition; their rows are appended to `RUN_SHEET.csv` and no earlier row changed. They are reported apart from the six, and the report compares all eight model by model, with nothing pooled. The author allows spending past the earlier budget, so the cap is raised to 40 dollars per vendor, above the worst case for the two added models.
 
 Default settings for each; no tools; at most 6,000 output tokens per reply. Each request carries only its prompt. The model name the API returns is recorded with each reply. Reasoning or thinking settings stay at each vendor's default, which may differ between vendors. The prompt lets every model reason in its reply.
 
@@ -76,7 +76,7 @@ Both keys, and the replies, parsed answers and results of both phases, stay out 
 
 ## Cost
 
-The script stops before a request that could take the estimated charge with one vendor past 30 dollars (15 dollars until the 19 November addition). The estimate uses the token counts each API reports and the prices in `agent_test.py`, read from the vendors' pricing pages on 16 and 17 November 2026. Reasoning tokens are counted as output.
+The script stops before a request that could take the estimated charge with one vendor past 40 dollars (15 dollars until the 19 November addition). The estimate uses the token counts each API reports and the prices in `agent_test.py`, read from the vendors' pricing pages on 16 and 17 November 2026. Reasoning tokens are counted as output.
 
 If the pilot's cost per session shows that the main run would pass a vendor's cap, the author raises that cap or drops that vendor's largest model, in a dated commit before the main run.
 

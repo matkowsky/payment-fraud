@@ -270,7 +270,7 @@ class Apis(unittest.TestCase):
                 (Path(d) / 'pilot').mkdir()
                 (Path(d) / 'pilot' / 'PS-099.json').write_text(json.dumps({
                     'run_id': 'PS-099', 'model_requested': 'gpt-6.1-sol',
-                    'response': {'usage': {'input_tokens': 0, 'output_tokens': 2_995_000}}}), encoding='utf-8')
+                    'response': {'usage': {'input_tokens': 0, 'output_tokens': 3_995_000}}}), encoding='utf-8')
                 at.run_api('openai', 'pilot', d, 'k', ['gpt-6.1-sol'])
                 self.assertEqual(calls, [])
                 at.run_api('openai', 'pilot', d, 'k', ['gpt-6-luna'])
