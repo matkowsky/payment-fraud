@@ -24,13 +24,26 @@ class Material(unittest.TestCase):
 
     def test_sheet_counts(self):
         rows = at.build_sheet()
-        self.assertEqual(len(rows), 720)
-        self.assertEqual(len({r['run_id'] for r in rows}), 720)
+        self.assertEqual(len(rows), 900)
+        self.assertEqual(len({r['run_id'] for r in rows}), 900)
         for phase, n in at.SESSIONS_PER_CONDITION.items():
             for model in at.MODELS:
+                if phase == 'pilot' and model in at.ADDED:
+                    self.assertFalse(any(r['phase'] == 'pilot' and r['model'] == model for r in rows))
+                    continue
                 for cond in at.CONDITIONS:
                     got = sum(r['phase'] == phase and r['model'] == model and r['condition'] == cond for r in rows)
                     self.assertEqual(got, n, (phase, model, cond))
+
+    def test_added_models_append_rows_only(self):
+        # The 19 November addition leaves every earlier row as it was and appends 90 main rows per added model.
+        rows = at.build_sheet()
+        before = [r for r in rows if r['model'] not in at.ADDED]
+        self.assertEqual(len(before), 720)
+        self.assertEqual(rows[:720], before)
+        added = rows[720:]
+        self.assertEqual({r['model'] for r in added}, set(at.ADDED))
+        self.assertTrue(all(r['phase'] == 'main' and r['run_id'][:2] in ('MA', 'MF') for r in added))
 
     def test_main_material(self):
         lead, cases = at.load_main()
@@ -257,7 +270,7 @@ class Apis(unittest.TestCase):
                 (Path(d) / 'pilot').mkdir()
                 (Path(d) / 'pilot' / 'PS-099.json').write_text(json.dumps({
                     'run_id': 'PS-099', 'model_requested': 'gpt-6.1-sol',
-                    'response': {'usage': {'input_tokens': 0, 'output_tokens': 1_495_000}}}), encoding='utf-8')
+                    'response': {'usage': {'input_tokens': 0, 'output_tokens': 2_995_000}}}), encoding='utf-8')
                 at.run_api('openai', 'pilot', d, 'k', ['gpt-6.1-sol'])
                 self.assertEqual(calls, [])
                 at.run_api('openai', 'pilot', d, 'k', ['gpt-6-luna'])
