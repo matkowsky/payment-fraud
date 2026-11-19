@@ -150,6 +150,24 @@ class Scoring(unittest.TestCase):
         with self.assertRaises(ValueError):
             at.score('pilot', sheet, {'MS-001': {'text': '', 'source': 't'}}, key, also)
 
+    def test_report_shows_coverage_and_not_scored(self):
+        # Review of PR #105: usable answers, other no answers and stops beside the errors; no bare zero
+        # where nothing was usable; the added models marked in the cross-model table.
+        key, also = at.parse_key_table(TEST_KEY, ['P1', 'P2', 'P3'])
+        sheet, replies = self.pilot_replies('No')
+        for rid, r in sheet.items():
+            if r['phase'] == 'pilot' and r['model'] == 'gpt-6-luna' and r['condition'] == 'filler':
+                replies[rid] = {'text': 'no result', 'source': 't'}
+        res = at.score('pilot', sheet, replies, key, also)
+        md = at.to_markdown(res)
+        self.assertIn('Sessions run / usable answers / other no answers / stopped by the API', md)
+        self.assertIn('| gpt-6-luna | 10 / 10 / 0 / 0 | 10 / 10 / 0 / 0 | 10 / 0 / 10 / 0 |', md)
+        self.assertIn('/not scored', md)
+        self.assertIn('not scored (10 run, none usable)', md)
+        self.assertIn('Usable answers: case only 10 of 10; with records 10 of 10; with filler 0 of 10.', md)
+        res['models']['gpt-6.2-astra'] = res['models']['gpt-6-luna']
+        self.assertIn('| gpt-6.2-astra † |', at.to_markdown(res))
+
     def test_policy_stop(self):
         self.assertEqual(at.policy_stop({'stop_reason': 'refusal', 'stop_details': {'category': 'reasoning_extraction'}}),
                          'refusal: reasoning_extraction')
