@@ -88,6 +88,7 @@ Accepted pull requests:
 - [#93](https://github.com/matkowsky/payment-fraud/pull/93) v1.1: clarify E2, E8, E9 and the practitioner comparison
 - [#94](https://github.com/matkowsky/payment-fraud/pull/94) Practitioner study: dated note for the S8 report wording merged in \#93
 - [#97](https://github.com/matkowsky/payment-fraud/pull/97) Agent test: dated note on where the runs happen
+- [#98](https://github.com/matkowsky/payment-fraud/pull/98) Agent test: pilot branch decision, results hash, and resend rule for API stops
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
