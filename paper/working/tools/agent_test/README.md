@@ -58,6 +58,8 @@ The pilot checks that replies parse, what the run costs and whether the models g
 
 One branch is fixed in advance. Pooling all models, if the counted error appears in at most 20 percent of the case-only answers to the pilot's two requirement items (P1, P2), the main run asks for free-text conclusions scored by a rubric committed before the main run. Otherwise the main run goes as fixed here. Nothing else in the main run changes because of the pilot.
 
+Pilot run, 19 November 2026, 14:20 to 14:31 UTC, through the workflow, at this repository's commit `d4816db`: 180 of 180 sessions sent and saved; one session ended without a result line and counts as no answer. A first Anthropic attempt stopped before sending anything, because the stored key ended with a line break; the workflow now removes spaces and line breaks from the keys. The counted error appeared in more than 20 percent of the case-only answers to P1 and P2, so the main run goes as fixed. SHA-256 of the pilot's `results.json`: `85e001e2f892a9b7df8f7085f345b36c875f3e8937ba14b46fa7f81ab341c477`. Cost: about 0.09 dollars with OpenAI and 0.60 dollars with Anthropic. The replies and results stay private until the form closes.
+
 ## Outcome and report
 
 - The main run is scored against the practitioner study's answer key. `agent_test.py` refuses a key whose SHA-256 differs from the one recorded in `../practitioner_study/README.md`. The pilot is scored against the pilot key, checked the same way against the hash in `PILOT_CASE.md`.
