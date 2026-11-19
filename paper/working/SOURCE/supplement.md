@@ -784,7 +784,7 @@ The [protocol](../tools/agent_test/README.md) and [script](../tools/agent_test/a
 
 **Models and sessions.** Six models were fixed before the runs: OpenAI's GPT-6.1 Sol, GPT-6.1 Terra and GPT-6 Luna, and Anthropic's Claude Opus 5.5, Sonnet 5.5 and Haiku 5.5. GPT-6.2 Astra and Claude Fable 5.2, each vendor's most capable API model that day, were added after the six models' results were read, with the same prompts and conditions. Each model ran 30 sessions per condition on 19 November 2026, in an order fixed in advance. Every model's stated training cutoff precedes the cases' publication. A pilot on a separate case checked parsing and cost.
 
-**Table S8.1. Counted errors without the records, with them and with irrelevant records, of 30 sessions each.** Questions with no counted error in any condition (B2, B5 and the controls) are omitted. Exact 95 percent intervals are in the results file; for 0 of 30 the upper bound is 0.12.
+**Table S8.1. Counted errors without the records, with them and with irrelevant records, of 30 sessions each.** Questions with no counted error in any condition (B2, B5 and the controls) are omitted. Fable 5.2 gave 25, 30 and 23 usable answers in the three conditions; every other model gave 29 or 30. Exact 95 percent intervals are in the results file; for 0 of 30 the upper bound is 0.12.
 
 | Question | Requirement | GPT-6.1 Sol | GPT-6.1 Terra | GPT-6 Luna | Opus 5.5 | Sonnet 5.5 | Haiku 5.5 | GPT-6.2 Astra* | Fable 5.2* |
 |---|---|---|---|---|---|---|---|---|---|
@@ -795,7 +795,7 @@ The [protocol](../tools/agent_test/README.md) and [script](../tools/agent_test/a
 | A2 | C2 learned time | 0/10/0 | 0/2/0 | 0/27/0 | 0/1/0 | 1/1/0 | 16/3/3 | 0/0/0 | 25/21/0 |
 | B4 | C3 exposure links | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 2/0/0 |
 
-\* Added after the six models' results were read.
+\* Added after the six models' results were read; exploratory.
 
 On attribution (B1), every model gave the counted error in 25 to 30 of 30 sessions without the records and in none with them. The case lists no chargebacks recorded at account D; the records link two chargebacks recorded at another account to D's transactions. With irrelevant records, seven models still erred in 24 to 30 sessions.
 
