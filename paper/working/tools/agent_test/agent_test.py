@@ -218,8 +218,18 @@ def response_text(resp):
     return '\n'.join(parts)
 
 
+def policy_stop(resp):
+    """The API's reason when its own safety system stopped the reply, else None."""
+    if resp.get('stop_reason') == 'refusal':  # Anthropic
+        category = (resp.get('stop_details') or {}).get('category')
+        return 'refusal' + (f': {category}' if category else '')
+    if resp.get('status') == 'incomplete' and (resp.get('incomplete_details') or {}).get('reason') == 'content_filter':
+        return 'content_filter'  # OpenAI
+    return None
+
+
 def read_replies(paths):
-    """run_id -> {'text', 'model_shown', 'source'} from the RUN_ID.json files `run` saves."""
+    """run_id -> {'text', 'model_shown', 'source', 'stop', 'resent'} from the RUN_ID.json files `run` saves."""
     out = {}
     files = []
     for p in map(Path, paths):
@@ -229,7 +239,8 @@ def read_replies(paths):
         rid = rec['run_id']
         if rid in out:
             raise ValueError(f"run {rid} has two replies ({out[rid]['source']}, {f})")
-        out[rid] = {'text': response_text(rec['response']), 'model_shown': rec['response'].get('model'), 'source': str(f)}
+        out[rid] = {'text': response_text(rec['response']), 'model_shown': rec['response'].get('model'), 'source': str(f),
+                    'stop': policy_stop(rec['response']), 'resent': 'stopped_reply' in rec}
     return out
 
 
@@ -299,7 +310,7 @@ def score(phase, sheet, replies, key, also):
     for model in MODELS:
         rows = [r for r in planned if r['model'] == model]
         m = res['models'][model] = {'planned': len(rows), 'run': 0, 'model_shown': {}, 'no_answer': {},
-                                    'conditions': {}}
+                                    'stopped': {}, 'conditions': {}}
         for cond in CONDITIONS:
             sessions = []
             for r in (r for r in rows if r['condition'] == cond):
@@ -310,8 +321,11 @@ def score(phase, sheet, replies, key, also):
                 shown = rep.get('model_shown') or '(not recorded)'
                 m['model_shown'][shown] = m['model_shown'].get(shown, 0) + 1
                 ans, why = parse_result(rep['text'], r['run_id'], qs)
+                if rep.get('resent') or rep.get('stop'):
+                    m['stopped'][r['run_id']] = (('resent; stopped again' if rep.get('stop') else 'resent; answered')
+                                                 if rep.get('resent') else f"{rep['stop']}; not resent")
                 if ans is None:
-                    m['no_answer'][r['run_id']] = why
+                    m['no_answer'][r['run_id']] = f"stopped by the API ({rep['stop']})" if rep.get('stop') else why
                 sessions.append(ans)
             n = len(sessions)
             per_item = {}
@@ -354,6 +368,8 @@ def to_markdown(res):
     for model, m in res['models'].items():
         out += [f'## {model}', '', f"Sessions run: {m['run']} of {m['planned']}. Model shown: "
                 + (', '.join(f'{k} ({v})' for k, v in m['model_shown'].items()) or 'none') + '.', '']
+        if m.get('stopped'):
+            out += ["Stopped by the API's safety system: " + '; '.join(f'{k} ({v})' for k, v in m['stopped'].items()) + '.', '']
         if m['no_answer']:
             out += ['No valid RESULT line: ' + '; '.join(f'{k} ({v})' for k, v in m['no_answer'].items()) + '.', '']
         out += ['| Item | Requirement | ' + ' | '.join(f'Errors, {names[c]} (95% CI)' for c in CONDITIONS) + ' |',
@@ -392,6 +408,8 @@ def spent(root, vendor):
         model = rec.get('model_requested')
         if model in MODELS and MODELS[model][0] == vendor:
             total += cost(model, rec['response'].get('usage') or {})
+            if rec.get('stopped_reply'):
+                total += cost(model, rec['stopped_reply']['response'].get('usage') or {})
     return total
 
 
@@ -448,6 +466,17 @@ def run_api(vendor, phase, out_root, api_key, models=None):
         rec = {'run_id': r['run_id'], 'model_requested': r['model'], 'prompt_sha256': r['prompt_sha256'],
                'sent_at': sent, 'received_at': datetime.now(timezone.utc).isoformat(timespec='seconds'),
                'response': resp}
+        stop = policy_stop(resp)
+        if stop and phase == 'main':
+            # README, "Pilot": a reply the API's safety system stops is resent once, to the same model.
+            if so_far + cost(r['model'], resp.get('usage') or {}) + worst_next(r['model'], prompt) > CAP_DOLLARS:
+                print(f"{r['run_id']} stopped by the API ({stop}); not resent: the cap")
+            else:
+                rec['stopped_reply'] = {'sent_at': rec['sent_at'], 'received_at': rec['received_at'], 'stop': stop,
+                                        'response': resp}
+                rec['sent_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
+                rec['response'] = resp = call_api(vendor, r['model'], prompt, api_key)
+                rec['received_at'] = datetime.now(timezone.utc).isoformat(timespec='seconds')
         path.write_text(json.dumps(rec, indent=1) + '\n', encoding='utf-8')
         done += 1
         status = resp.get('status') or resp.get('stop_reason')

@@ -50,13 +50,15 @@ Each model's stated training cutoff is recorded. A model whose cutoff falls afte
 
 `RUN_SHEET.csv` lists every session: run id, phase, model, condition, order and the SHA-256 of its prompt. The order is random from seed 20261117, with conditions mixed, so that a change in a model over the hours of a run does not line up with one condition.
 
-A request that fails before the model replies is sent again. A reply without a valid `RESULT` line is not rerun: it is recorded and reported as no answer.
+A request that fails before the model replies is sent again. In the main run, a reply that the API's own safety system stops (Anthropic stop reason `refusal`; OpenAI status `incomplete` with reason `content_filter`) is sent again once, to the same model (see "Pilot"). Any other reply without a valid `RESULT` line is not rerun: it is recorded and reported as no answer.
 
 ## Pilot
 
 The pilot checks that replies parse, what the run costs and whether the models give the counted error at all.
 
 One branch is fixed in advance. Pooling all models, if the counted error appears in at most 20 percent of the case-only answers to the pilot's two requirement items (P1, P2), the main run asks for free-text conclusions scored by a rubric committed before the main run. Otherwise the main run goes as fixed here. Nothing else in the main run changes because of the pilot.
+
+Pilot run, 19 November 2026, 14:20 to 14:31 UTC, through the workflow, at this repository's commit `d4816db`: 180 of 180 sessions sent and saved; one session ended without a result line and counts as no answer. In that session the model did not decline the task: the API's own safety classifier stopped the reply after 464 output tokens (stop reason `refusal`, category `reasoning_extraction`, which the API explains as suspected breach of its "restrictions on reverse engineering or duplicating model outputs"). That session is not resent; whatever it had answered, the branch decision would be the same. Changed 19 November 2026, before the main run, at the author's direction: in the main run, a reply that the API's own safety system stops is sent again once, to the same model, never to another model. The stop is the API's, not the model's answer, and the protocol already sends again a request that fails before the model replies. Both replies are kept, and their cost counts toward the cap. If the second reply is stopped too, the session counts as no answer. Stops are reported by model, apart from replies that lack a result line for other reasons, and each count that a twice-stopped session affects is also shown with that session counted first as an error and then as not. A first Anthropic attempt stopped before sending anything, because the stored key ended with a line break; the workflow now removes spaces and line breaks from the keys. The counted error appeared in more than 20 percent of the case-only answers to P1 and P2, so the main run goes as fixed. SHA-256 of the pilot's `results.json`: `85e001e2f892a9b7df8f7085f345b36c875f3e8937ba14b46fa7f81ab341c477`. Cost: about 0.09 dollars with OpenAI and 0.60 dollars with Anthropic. The replies and results stay private until the form closes.
 
 ## Outcome and report
 

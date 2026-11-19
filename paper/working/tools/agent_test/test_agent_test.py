@@ -137,6 +137,52 @@ class Scoring(unittest.TestCase):
         with self.assertRaises(ValueError):
             at.score('pilot', sheet, {'MS-001': {'text': '', 'source': 't'}}, key, also)
 
+    def test_policy_stop(self):
+        self.assertEqual(at.policy_stop({'stop_reason': 'refusal', 'stop_details': {'category': 'reasoning_extraction'}}),
+                         'refusal: reasoning_extraction')
+        self.assertEqual(at.policy_stop({'status': 'incomplete', 'incomplete_details': {'reason': 'content_filter'}}),
+                         'content_filter')
+        self.assertIsNone(at.policy_stop({'status': 'incomplete', 'incomplete_details': {'reason': 'max_output_tokens'}}))
+        self.assertIsNone(at.policy_stop({'stop_reason': 'end_turn'}))
+        self.assertIsNone(at.policy_stop({'status': 'completed'}))
+
+    def test_stop_is_reported_apart(self):
+        key, also = at.parse_key_table(TEST_KEY, ['P1', 'P2', 'P3'])
+        sheet = at.read_sheet()
+        replies = {'PN-025': {'text': 'reasoning cut off', 'source': 't', 'stop': 'refusal: x', 'resent': False},
+                   'PN-026': {'text': result_line('PN-026', {'P1': 'Yes', 'P2': 'Yes', 'P3': 'Yes'}), 'source': 't',
+                              'stop': None, 'resent': True}}
+        res = at.score('pilot', sheet, replies, key, also)
+        m = res['models']['claude-sonnet-5-5']
+        self.assertEqual(m['no_answer'], {'PN-025': 'stopped by the API (refusal: x)'})
+        self.assertEqual(m['stopped'], {'PN-025': 'refusal: x; not resent', 'PN-026': 'resent; answered'})
+        self.assertIn("Stopped by the API's safety system: PN-025", at.to_markdown(res))
+
+    def test_resend_once_in_main_only(self):
+        usage = {'input_tokens': 10, 'output_tokens': 10}
+        stopped = {'stop_reason': 'refusal', 'stop_details': {'category': 'x'}, 'content': [], 'usage': usage}
+        ok = {'stop_reason': 'end_turn', 'content': [{'type': 'text', 'text': 'fine'}], 'usage': usage}
+        calls = []
+        real = at.call_api
+        at.call_api = lambda *a, **k: calls.append(a) or (stopped if len(calls) == 1 else ok)
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                at.run_api('anthropic', 'main', d, 'k', ['claude-haiku-5-5'])
+                n = sum(1 for r in at.read_sheet().values() if r['phase'] == 'main' and r['model'] == 'claude-haiku-5-5')
+                self.assertEqual(len(calls), n + 1)
+                recs = [json.loads(f.read_text(encoding='utf-8')) for f in (Path(d) / 'main').glob('*.json')]
+                resent = [r for r in recs if 'stopped_reply' in r]
+                self.assertEqual(len(resent), 1)
+                self.assertEqual(resent[0]['stopped_reply']['stop'], 'refusal: x')
+                self.assertEqual(resent[0]['response'], ok)
+                self.assertAlmostEqual(at.spent(d, 'anthropic'), (n + 1) * at.cost('claude-haiku-5-5', usage))
+                self.assertTrue(at.read_replies([d])[resent[0]['run_id']]['resent'])
+                calls.clear()
+                at.run_api('anthropic', 'pilot', d, 'k', ['claude-haiku-5-5'])  # the pilot is not resent
+                self.assertEqual(len(calls), 30)
+        finally:
+            at.call_api = real
+
     def test_pilot_key_hash(self):
         with tempfile.TemporaryDirectory() as d:
             f = Path(d) / 'key.md'
