@@ -1911,9 +1911,10 @@ Fourteen rules check records against each other:
   support.
 \item
   \mbox{IR-10}: a current-conduct claim cites an observation or derived
-  feature whose event interval falls within the current period. A score
-  or decision does not count, and a record linked to an agent output
-  counts only through an unlinked current-period input.
+  feature of a named entity whose event interval falls within the
+  current period. A score or decision does not count. A record linked to
+  an agent output counts only if its inputs include, for each named
+  entity, an unlinked current-period observation of that entity.
 \item
   \mbox{IR-11}: a draft's version identifier is the digest of its
   claims. A person releases the exact draft version, after the draft was
@@ -1937,7 +1938,7 @@ conformance case} builds one synthetic history: an investigation with
 three query runs, a draft with a current-conduct claim and an absence
 claim, a note written while the draft was open, a release by a second
 person, and a later case that reads the released conclusion as context
-and cites a new observation. Its 25 records pass. Each of the 39
+and cites a new observation. Its 25 records pass. Each of the 40
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json}{invalid
 cases} changes that history in one way and fails exactly one check;
 together they exercise the schema and all fourteen rules. Where a case
@@ -2145,6 +2146,13 @@ fourteen rules do not check:
   an observation that contradicts an absence claim and was learned
   before the draft, unless a cited run returned it.
 \end{itemize}
+
+One rule was changed after round 2, because a review had raised the
+point before the round (19 November 2026). \mbox{IR-10} now counts a
+linked record only if its inputs include an unlinked current-period
+observation of each named entity, as manuscript Section 6.4 states.
+Invalid case D40 tests the change; no outside tester has. It changes no
+outcome in either round.
 
 Two rules reject legitimate histories. \mbox{IR-08} asks for one run
 that covers a whole absence interval, where several complete runs can
