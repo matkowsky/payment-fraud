@@ -92,6 +92,7 @@ Accepted pull requests:
 - [#99](https://github.com/matkowsky/payment-fraud/pull/99) IR-10: a linked record counts only through a current input for each named entity
 - [#100](https://github.com/matkowsky/payment-fraud/pull/100) Sentence pass on S4.4 and the C2 and C3 statements
 - [#101](https://github.com/matkowsky/payment-fraud/pull/101) Agent test: a provider safety stop is a terminal no answer
+- [#102](https://github.com/matkowsky/payment-fraud/pull/102) Agent test: add each vendor's most capable model
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
