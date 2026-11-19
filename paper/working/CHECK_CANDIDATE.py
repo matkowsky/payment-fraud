@@ -259,10 +259,10 @@ assert outcome == {'valid_records': 27, 'invalid_cases': 24, 'rules_exercised': 
 # XR-01 with its two cross-requirement pairs.
 from investigation_conformance import run_conformance as run_investigation
 investigation = run_investigation()
-assert investigation == {'valid_records': 25, 'invalid_cases': 39, 'rules_exercised': 15, 'necessity_pairs': 4,
+assert investigation == {'valid_records': 25, 'invalid_cases': 40, 'rules_exercised': 15, 'necessity_pairs': 4,
                          'joint_records': 4, 'joint_cases': 4, 'joint_pairs': 2}, investigation
 assert 'Its four records pass, and each of four invalid cases fails XR-01 alone.' in sbody and '29 cross-record rules' in body
-assert 'Its 25 records pass. Each of the 39' in sbody
+assert 'Its 25 records pass. Each of the 40' in sbody
 # Adversarial test (Supplement S4.4): the fifteen outside histories give the reported outcomes under the current rules.
 sys.path.insert(0, str(B / 'tools' / 'adversarial_cases'))
 from run_cases import rules_hit

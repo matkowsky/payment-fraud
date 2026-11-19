@@ -254,18 +254,22 @@ def check(records, schema):
                     found.append(('IR-09', cid, 'support must be observations of the named entities, known by the draft, counted once per '
                                                 'root among records that are not dependent, with one such record in the claim interval for a material claim'))
                 elif c['claim_type'] == 'current_conduct':
-                    def current(o):
-                        return o['record_class'] in OBSERVED and within(o['event_interval'], r['current_period'])
+                    def current(o):   # an observation of a named entity, within the current period
+                        return o['record_class'] in OBSERVED and within(o['event_interval'], r['current_period']) \
+                            and ent(o['entity']) in named
                     ok = False
                     for s in (by[x] for x in c['supporting']):
                         if not current(s):
                             continue
-                        if s['agent_output_links'] and not any(
-                                current(by[i]) and not by[i]['agent_output_links'] for i in s['inputs']):
+                        # A linked record counts only if its inputs hold, for each named entity, an unlinked
+                        # current-period observation of that entity (manuscript Section 6.4).
+                        if s['agent_output_links'] and not all(any(
+                                current(by[i]) and not by[i]['agent_output_links'] and ent(by[i]['entity']) == e
+                                for i in s['inputs'] if i in by) for e in named):
                             continue
                         ok = True
                     if not ok:
-                        found.append(('IR-10', cid, 'no current-period observation of the conduct is cited'))
+                        found.append(('IR-10', cid, 'no current-period observation of a named entity is cited'))
         if t == 'ReleaseDecision':
             d = by[r['draft_id']]
             claims = {c['claim_id']: c for c in d.get('claims', [])}
