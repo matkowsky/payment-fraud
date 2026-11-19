@@ -1,0 +1,40 @@
+{
+ "run_id": "PN-027",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "07ab7da56a524f9493f33d3a07a7cb462fc830cc4c8c7aeaa12f33f46760f88e",
+ "sent_at": "2026-11-19T14:30:37+00:00",
+ "received_at": "2026-11-19T14:30:42+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSufoLhqewLhXTy6XDM",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "P1: The search returned 120 refunds, all to cards issued in one country. But the search may not have covered all refunds (e.g., it could be a search with limits or filters). The statement says \"A search of M's refunds over the past 30 days returned 120 refunds\" \u2014 this reads as the search of all M's refunds. If the search is complete, M sent no refunds to other countries. But we can't be sure the search was exhaustive; \"returned 120\" could be capped or filtered. The phrase suggests a trap: the search result doesn't establish completeness. I lean toward Cannot tell.\n\nP2: The link took effect at 09:40, and the check scored at 10:00. The link was in effect before scoring, so the evidence existed. But was it available to the check (data propagation latency)? Unknown. Also whether the check uses such links is unknown. Still, the timing suggests the evidence was in place 20 minutes before. \"Available to it\" is not established, since the check might use data with lag. Cannot tell is plausible, but the timing was placed deliberately to show the link predated the scoring. The link \"took effect\" at 09:40, which is before 10:00, so it was available. I'll go with Yes.\n\nP3: A rise from 1 to 6 percent is a sixfold increase, which warrants review. Yes.\n\nRESULT PN-027 | P1: Cannot tell | P2: Yes | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 452,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 448,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

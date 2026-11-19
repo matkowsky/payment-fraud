@@ -1,0 +1,40 @@
+{
+ "run_id": "PN-014",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "553873c25e7883b1b386e039b22ad96ed7635c4d1b6b614f98c05b0ffa910b01",
+ "sent_at": "2026-11-19T14:27:16+00:00",
+ "received_at": "2026-11-19T14:27:20+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSesCXHTKLGRNkGR2hp",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "P1: The search returned 120 refunds, all to cards issued in one country. That doesn't say whether the search covered all of M's refunds. It might have been a sample or a filtered search. The question asks whether M sent no refunds to cards from other countries, and that can't be established without knowing the search was complete. \"Returned 120 refunds\" over the past 30 days is described as \"a search of M's refunds\", which is ambiguous about completeness. Cannot tell.\n\nP2: The link took effect at 09:40 and the check scored at 10:00, so the link existed before scoring. Whether the evidence was available to the check is not certain, since data propagation or whether the check uses link data is unknown. But the link was in effect 20 minutes before scoring. \"Missed evidence that was available to it\" is still uncertain: the check may not use account links, or the link may not have been visible to it yet. Cannot tell.\n\nP3: A sixfold rise in refund rate warrants review. This is a reasonable judgment, though the question could be seen as needing a threshold. A rise from 1 to 6 percent is a substantial anomaly, so warranting review is reasonable. Yes.\n\nRESULT PN-014 | P1: Cannot tell | P2: Cannot tell | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 452,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 408,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

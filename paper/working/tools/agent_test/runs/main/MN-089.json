@@ -1,0 +1,40 @@
+{
+ "run_id": "MN-089",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "e9a03d5307cde7bdcc99939dae9cdd6ac8b2cc69aea730d13f23a1e6e7e12233",
+ "sent_at": "2026-11-19T17:59:57+00:00",
+ "received_at": "2026-11-19T18:00:03+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCisXa3ozdituis74JYB",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search was only evaluated from 2 hours before publication, so it does not cover the full requested window. Earlier misuse outside the evaluated window cannot be ruled out, and the search is partial. The burst at 19 minutes is therefore not shown to be the first misuse. Cannot tell.\n\nA2: The compromise check scored at 30 minutes, using inputs as of 30 minutes after publication. The link between the payout destination and the two other accounts was learned only 1 day after publication, so it was not available to the check. The check did not miss that evidence. The burst data (webhook, payout change) was available, but whether the check had it as an input is not stated. The question is whether it missed evidence that was available to it. The inputs are as of 30 minutes, which include the burst at 19 minutes. Whether the check used them is not shown, so the answer is Cannot tell.\n\nA3: A shared payout destination does not by itself show a single owner. No, not by itself.\n\nA4: No reporting windows are defined for the outcome channels, so the absence of reports at 30 days says nothing about legitimacy. No.\n\nA5: A different fingerprint, a residential proxy, a new webhook, a payout change and a faster schedule, all after the key was published, warrant investigation. Yes.\n\nCase B\n\nB1: The recorded chargebacks are D 0, but 2 chargebacks recorded at account X are linked to D's transactions. D's rate is then 2 of 100, the same as the others, so it is not lower. No.\n\nB2: The combined measure is 5 percent, but by account A and B are 8 percent. No.\n\nB3: The search was partial and truncated, with sampling at 10 percent for one source. It does not show that there are no other accounts. Cannot tell.\n\nB4: Both notes link to the agent's cluster assessment, so they are not independent. No.\n\nB5: The blocked payment had no chargeback because it was blocked, and the decision closed the chargeback channel. The absence of a chargeback does not make it non-fraud. No.\n\nB6: The shared templates and descriptor pattern justify investigating together. Yes is not among the options for this question; the options are Yes / No / Cannot tell, and Yes is available. Yes.\n\nRESULT MN-089 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 811,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

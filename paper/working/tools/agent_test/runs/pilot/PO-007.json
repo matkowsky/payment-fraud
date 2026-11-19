@@ -1,0 +1,45 @@
+{
+ "run_id": "PO-007",
+ "model_requested": "claude-opus-5-5",
+ "prompt_sha256": "471e4fb3aee2fc6f17a0405769e877980f42ad23d263bbe3cb4bd39bcbf81235",
+ "sent_at": "2026-11-19T14:25:32+00:00",
+ "received_at": "2026-11-19T14:25:37+00:00",
+ "response": {
+  "model": "claude-opus-5-5",
+  "id": "msg_011ChCSX9nh2ff2JDkqStUvA",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "thinking",
+    "thinking": "",
+    "signature": "CAQS8QcKEAgUGAI4AUIIdGhpbmtpbmcSDL+bKc/BFJgnTDOQVhoMC2CFGtSfDQibbhHPIjCJjRvcPAGeAgFm+TBcDwuYy+9Tb3tqsGKLLxE5VSvVzLl/dKGhcZrh2c/01YJaVbMqjgfQ+X/ZyA5FyYlvn2cb8uit3qyLEbWZNPsB8A6Q+BVdkzA2VCQDI41rgR8dU8eGZNYsnUfL714JlJH5fivFD9WzKBDBDs9sbgow0S50TTBQ08bnxsXP1x/D2ibSeX5+snMV0RPuc8QqquY9qcRKU5I7IKDPzjw4ls5TihgsvHmgzEjzatOmPDWx35Y+16GOGPj9n/z16MkP36StvELl64U2Zu+w/BtwHzPtyI/aBERmWgCo2F9AsqSKcJ074DVTQq9g8lMHz0hKMlODGfBxuJeMZGdQqpBHBu7kNF64M+GttZ3TPIx/cXSbxv4Rmj2MhjW9gkV8z4yo1we9MkIuq9YdZwyIgz2aXlsOpWF/UPyvQaQjWW20W3Wpa1BtE1NVQtz/hNMHTva4Z3WYz6DzV0KHB7OsXUMTi7cTHaK+4RhBPMORSmbBnN8spdI2QbVawf10uWaZpaVv1c0g69Pj/H0yWnzU+iRB3a3pCdrh17nb8VY/zxUTYsNIduYJl5JhapCg7JRnntzL8qbVFg+7gTIKHAqQc8l9T3dLE4f+mrQhKb7RctGaumxTsKR9PUC05wbiYHhYbEDhNBD1fwVdp0IShbIAyUqdbLlewBy49z9YrT6rvOdXz5Aepetng7j6jhbcoCOtU6R1hZuMW+3eLkM00gf9KdiQkXtaPEYP99EvsoI3IiB/k7xcKM+/7lwMJWZVDxQiluen7/tJzyFV/2EO8DOqGJZ9ooeF6HYjf/O5RGqEITiQ1ZnziYMYdoSMLgPnoErzF+qHvcM8dwPzjPg5VYW2VIDplVXQMUl4DjmYWYGo01b67CiCxElO5XHxwMiBGpnNjndAXWujhlahozvHyVJCuSHh93OiPh3ERghYmmTXslC8UGac5yK3ek5g1+RNSj49rI1Obg2E7Yibit9zO+0FsBpWS8ZOr2eR1InOtQf8OACANqq3BYjxUHoqOwMyHy98kLaZ1I1KDpFsyqwtElrFLjK0fUiW0kZ3y8XePpjJnrYSoMrsOuNHpRuODZhpPE/JtbJk9hTFwWBSBB6kAar3SvgKC6RMzcKuNwWS+JcgwHAhyVnskgikCzvuuIwdhU5Uj2qlO5ZdgVazV8TBEz6LssXNsHOE6gfQHMNyDaJQYUXQu5Sw4agNP0Qvf5cU7w/Mx6MWXbPL9JCDX6YzlsRjMFb54Tvzju/ZSH9o+AfxRnT4xVvc8J/+sZD/GAE="
+   },
+   {
+    "type": "text",
+    "text": "**P1: Cannot tell.** The search asked for 30 days, but the coverage record shows it only evaluated the last 12 days, with status \"partial.\" The 120 refunds to one country cover only that window. Refunds from 13 to 30 days ago were never examined, so they could include cards from other countries.\n\n**P2: No.** The card's link to the closed account took effect at 09:40 Monday, but the platform did not learn of it until 15:00 Monday. The check scored M at 10:00, before the link was known. The evidence was not available to the check when it scored M, so it did not miss it.\n\n**P3: Yes.** Refunds went from about 1 percent to 6 percent of sales in one week, a roughly sixfold jump. That is enough to justify a review, even though it does not by itself show abuse. Event cancellations, for example, could cause it.\n\nRESULT PO-007 | P1: Cannot tell | P2: No | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 561,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 470,
+   "output_tokens_details": {
+    "thinking_tokens": 165
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

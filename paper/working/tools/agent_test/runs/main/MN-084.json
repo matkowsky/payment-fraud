@@ -1,0 +1,40 @@
+{
+ "run_id": "MN-084",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "fbf97aee4cc69cf77b922624fd64faaefe5aeac6fedc966f858ee319a4723bd4",
+ "sent_at": "2026-11-19T17:57:11+00:00",
+ "received_at": "2026-11-19T17:57:18+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCifFW5JBLyBUkFiYsjN",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "A1. The seven-day search was requested for 7 days before publication but evaluated only from 2 hours before publication, and its status is partial. Earlier requests from the cloud region are therefore visible only in a short window. The burst at 19 minutes cannot be called the first misuse. Earlier misuse is not excluded, though the earlier visible requests look like the normal client. Answer: Cannot tell.\n\nA2. The link between the payout destination and the two other accounts was learned 1 day after publication. It was not available when the check scored at 30 minutes, so the check did not miss it. Answer: No. The check may still have had other available evidence, such as the burst itself, but the inputs are given as of 30 minutes, and the burst was within that window. Whether the check missed available evidence is therefore unclear. The burst occurred at 19 minutes and the inputs were as of 30 minutes, so the burst was available to it, yet the check did not flag. Did it miss evidence? The check not flagging despite the burst arguably is a miss, but we don't know the check's design or whether it used the burst. The shared-destination link was not available. The question is about evidence available to it, and the burst was plausibly available, but we don't know what the check takes as input. Answer: Cannot tell.\n\nA3. A shared destination alone does not establish a single owner. Answer: No, not by itself.\n\nA4. There is no reporting window defined for either outcome channel, so the absence of reports after 30 days says little. It is not clear that it indicates legitimacy, even weakly. Answer: Cannot tell.\n\nA5. The burst involved a new fingerprint, a residential proxy, a payout change and a faster schedule, shortly after publication. Answer: Yes.\n\nB1. The recorded chargebacks show D with 0, but 2 chargebacks recorded at account X link to D's transactions. D's true count is therefore 2, the same as the others. Answer: No.\n\nB2. A combined 5 percent does not bound the individual accounts. By-account measures show A and B at 8 percent. Answer: No.\n\nB3. The search was partial and truncated, with sampling and a row limit. Answer: Cannot tell.\n\nB4. Both notes link to the agent's cluster assessment, so they are not independent. Answer: No.\n\nB5. A blocked payment with no chargeback is not shown to be non-fraud, because the block closed the chargeback channel. Answer: No.\n\nB6. The shared templates and descriptor pattern justify investigating the accounts together. Answer: Yes.\n\nRESULT MN-084 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 911,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

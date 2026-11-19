@@ -1,0 +1,45 @@
+{
+ "run_id": "PN-011",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "b0c8dc3674bfb35a0cd3d27a7853d46915a0d01100a52712eb48d0da171c1f90",
+ "sent_at": "2026-11-19T14:26:34+00:00",
+ "received_at": "2026-11-19T14:26:39+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSbm7KVsiwhgB6CAing",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "thinking",
+    "thinking": "",
+    "signature": "CAQSrgoKEAgUGAI4AUIIdGhpbmtpbmcSDG7TVzeooSfMxVY8gxoMMVr9X46HUmwOQ0RlIjBJeIfA8/SLKrkXB42s1EYNJXGNfkIlfVjKeefFLa6bMZl5oTfmpkl2JlVeP7zi3ngqywmEyO9dxequK89I6wnq42TGP5P0Kj3HMemOKqLrRRpt68AzKYBLXvJgwjXalAsAE9N/YTN+BFdYHjwkAlv9k/yYUQMQOyhXWLeqAruscprF9A+vvS0kV5glRTyok6iZUfGghSzCb+lJBpwGyWQV5rODHpsavi38azL43+luqpKorbA33FVsA5NdwIkYMdHC82f8Rc+DWrpr9CelbXrlUIInLYFF1s5FwVepJPyb/z8dYQHrt4ne05cXypCY7Y1ps5Ns9FzxcIXwbbTeaQx3XUya/Woqz46wP3wjM40gATd/HzLGyyztmeDz2SMRbtdrpgTnKQMMVhiMIRf/B/3G7j7Rd6EVdZ4nPMetRDdkV+ijDLDucxn6MgRLhLYicA5WB3SN5of+6tppDSxiX/iTr/KDzcIQjrWuln+HyoZp8lcyp2CmtpSljzFBIHxHm6kFpVQQ33fASq7gAm4N5S609FrI6IUfPlsdmFSJKTCH3wJ3Uy5U5Du2k5X/h2MAvzG/BMwVPQzauCLU9fCZPKVWIAquuO2kw3eCJo2EnbyYolsn9kfkpj/2mJDND3oyGkDdy8Rjlmnos1bZcVeb19+m2CQtf3e7+kOnLDjSkfXss1oE/QjsUvja7hJxGvbTtwMf+G+FPjPKxFgWw1r4nwU00RHex4KG5sg8gxeWOxmd9tFFB0JtwTCujqFDcip8WbUEsjhoCHdgJfW2g2Vy+HN5/PZcdV6nh3aGQKO5X0YlwWJzPTWBz273hLPI08KuuR5wxxLSyuPUwGvIoX2AvgtoZTIu7Zmwb72oSwRZKPBPBH8AZ+bLTCiBt/acQCajqEwmJsBsQgpVmT75RVH1IN2grh57XpLXRf8gAveidnfhus/brtuONU8inP8Ux7dWpjpiUVoegfC94XfCKgfQmt/AaF/O1eVsQKXjDEvN0U24BK1B7TaVHEYBsRhPtnvqcZ8Oq3ss6nddsPDOOnZjx3K4dGPlDnNAMGyyzFSGCcXBjUzBNzutsRnKu7Vdmij73r6fpCyV+P+6tZW1IzOb0ReeRRQ7NAMeFjsNM2raU4IuTZw7+T4C1yqRqhh5nhUAmAdcCwBCwX+FF2v5kVvteWskVsgolcAcV1S9FMO+LGk+igec3q+RZnJHg33dCA5PyLnlJGviPa6v8EtvimIMGNJu9B0kyFaHpZkOs87CvcvRyq6nDLb6rzrT6DWZzB0zn3xe0o1DopuIOmsRAisQ3TaIP3ltNjaSPTHofVLthxciIa7uPL8dLLkXvyiB/QqU3Y8GAlaEy0zYpgHI7ypPAZB7U+MIgi85Hhfg7ewHT0X+EVkcz8a/Bx+sTNCmzKnDDfv5FKj95vqDF5Lox9VzXHeFcf/UVZbQ7ShilrYNvPY8vFIDp5DJcLEgPISH0DPhgWN9uw5icExG3SoJHA9751u7IDE0HdT+hecdWux8SSfI5xOQUrDzordRxq5grIQMii7Mph9jEMj3qXvnQ9ghs+PULx+a3PQJxGsl1JRRIGDLsFV1HmpF1jVQjChv6iZe9LrS/hvOqEZgJIKMHTQ6iQz2D4dXkqfiE/9TXy7p5/aFD554R2KADnpWbH0dEEEcJvsptdnSlbX90jRLOsi9MpbWE1BLUjsMCJB2ft4c/0UYAQ=="
+   },
+   {
+    "type": "text",
+    "text": "P1: The 30-day refund search returned 120 refunds, all to cards from one country. The only coverage record shown belongs to the search for support tickets, not the refund search. So we cannot confirm the refund search covered everything, and we cannot rule out refunds to other countries.\n\nP2: The card link took effect at 09:40, before the 10:00 scoring. The record shows when the link took effect, not when the system learned of it. The link may not have been available to the check at 10:00, so we cannot say the check missed available evidence.\n\nP3: Refunds rising from about 1 percent to 6 percent of sales in a week is a sixfold jump. That is enough to warrant review whatever the cause.\n\nRESULT PN-011 | P1: Cannot tell | P2: Cannot tell | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 555,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 512,
+   "output_tokens_details": {
+    "thinking_tokens": 254
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

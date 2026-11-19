@@ -1,0 +1,40 @@
+{
+ "run_id": "MN-085",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "e45cd634eed85909df187214d9e5457c8fcc8ba6e53ab80bd16c0a0db0b66109",
+ "sent_at": "2026-11-19T17:57:42+00:00",
+ "received_at": "2026-11-19T17:57:49+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCihZcJVMFoYLU1ygYYW",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search returned only the earlier requests from the stable region. That shows no earlier misuse within seven days. The key may have been published earlier than seven days ago, and the search window is limited. Publication time is given, and the burst came 19 minutes after it. Misuse before publication is unlikely, since the key was only exposed at publication. The seven-day search covers requests, and nothing else was found. But could the burst be the first misuse? The earlier requests had a stable fingerprint, which is consistent with the legitimate owner. Within the shown data, the burst is the first non-owner activity. Still, the \"Yes\" answer depends on the search being complete, and it was stated as returning only those. I'll answer Yes.\n\nA2: The check scored 30 minutes after publication, and the burst was at 19 minutes. The evidence was available in principle, but we don't know what inputs the check used. Cannot tell.\n\nA3: A shared destination shows a link, not necessarily one owner. No, not by itself.\n\nA4: Absence of reports after 30 days is weak evidence at best, but there is no information on whether reports would have been expected or detected. The options are \"Yes, weakly\", \"No\", \"Cannot tell\". Absence of a victim report is not evidence of legitimacy when victims may not notice or report. I'll answer Cannot tell.\n\nA5: The burst involves a new fingerprint, a proxy, a payout destination change and a faster payout schedule soon after publication. It warrants investigation. Yes.\n\nCase B\n\nB1: Each account has 100 transactions. Chargebacks are A 2, B 2, C 2, D 0. D's rate is 0%, lower than the 2% of the others. Yes.\n\nB2: The combined 5% is a chargeback-or-alert measure, which includes alerts. It is an aggregate, so it does not show that no individual account is above 5%. The chargebacks alone sum to 6 of 400 (1.5%), so the 5% must include alerts. Individual accounts could differ on that measure. No.\n\nB3: The search found no accounts beyond A and the closed account, but it only covers the controlling person's name. Other accounts could be under other names. Cannot tell.\n\nB4: The notes were written by different analysts on different days, but they may rest on the same evidence. Independence is not shown. Cannot tell.\n\nB5: A blocked payment is not a completed transaction, and a missing chargeback does not make it non-fraud. No.\n\nB6: Shared templates, descriptor pattern, and a link through a person justify investigating together. Yes.\n\nRESULT MN-085 | A1: Yes | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: Yes | B2: No | B3: Cannot tell | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1233,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 930,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

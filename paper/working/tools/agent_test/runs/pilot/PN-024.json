@@ -1,0 +1,40 @@
+{
+ "run_id": "PN-024",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "0522faaa46b48ae7fad8e62276f8788c88c3644f50a47b669c391fa3395c74d7",
+ "sent_at": "2026-11-19T14:29:52+00:00",
+ "received_at": "2026-11-19T14:29:55+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChCSrKKDSPSeJjdyNJmU5",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "P1: The search covered only 12 of the requested 30 days (status partial). The 120 refunds were all to cards from one country, but days 13\u201330 were not evaluated, so refunds to other countries in that window can't be ruled out. Cannot tell.\n\nP2: The link took effect at 09:40 Monday, but the system learned of it at 15:00 Monday. The check scored M at 10:00, before the link was known, so the evidence was not available to it at scoring time. The link existed in the world but wasn't available to the check. So the check did not miss available evidence. Answer: No.\n\nP3: A rise from 1% to 6% in a week is a sixfold jump in refunds. Whether it warrants review is a judgment call, but this is a substantial anomaly and review is reasonable. Answer: Yes.\n\nRESULT PN-024 | P1: Cannot tell | P2: No | P3: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 561,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 291,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}
