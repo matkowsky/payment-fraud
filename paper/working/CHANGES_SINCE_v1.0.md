@@ -87,6 +87,7 @@ Accepted pull requests:
 - [#92](https://github.com/matkowsky/payment-fraud/pull/92) Practitioner study: no extension if no response arrives by the close
 - [#93](https://github.com/matkowsky/payment-fraud/pull/93) v1.1: clarify E2, E8, E9 and the practitioner comparison
 - [#94](https://github.com/matkowsky/payment-fraud/pull/94) Practitioner study: dated note for the S8 report wording merged in \#93
+- [#97](https://github.com/matkowsky/payment-fraud/pull/97) Agent test: dated note on where the runs happen
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
@@ -97,7 +98,7 @@ Accepted pull requests:
 
 **Changed, under "Threat Analytics Across Payment Products: Evidence Requirements for Agent Investigations", by the automatic status update:**
 
-<del>29</del><ins>18</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>19</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "Abstract", by [#69](https://github.com/matkowsky/payment-fraud/pull/69):**
 
@@ -1000,7 +1001,7 @@ This paper combines those requirements in one specification grounded in public e
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by the automatic status update:**
 
-<del>29</del><ins>18</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>19</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by [#3](https://github.com/matkowsky/payment-fraud/pull/3), [#68](https://github.com/matkowsky/payment-fraud/pull/68), [#90](https://github.com/matkowsky/payment-fraud/pull/90):**
 
