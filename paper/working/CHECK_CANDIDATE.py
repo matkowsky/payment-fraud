@@ -55,10 +55,10 @@ public = collections.Counter('partial' if x['public_representation_label'].start
 assert public == {'partial': 32, 'na': 32, 'unlocated': 7}, public
 
 # Citations, references and numbering
-# All 127 works are cited across the manuscript and supplement pair; each generated bibliography lists the works its text cites.
+# All 126 works are cited across the manuscript and supplement pair; each generated bibliography lists the works its text cites.
 mkeys = set(re.findall(r'(?<!\w)@([\w]+)', body)); skeys = set(re.findall(r'(?<!\w)@([\w]+)', sbody)); refkeys = {x['id'] for x in r}
 keys = mkeys | skeys
-assert len(keys) == 127 and keys == refkeys, sorted(refkeys ^ keys)
+assert len(keys) == 126 and keys == refkeys, sorted(refkeys ^ keys)
 if not SOURCES_ONLY:
     assert set(re.findall(r'<div id="ref-([^"]+)"', t)) == mkeys
     assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
@@ -316,11 +316,20 @@ only = collections.Counter(tuple(sorted({lab.split(';')[-1].strip() for lab in r
                            for x in f3 if x['in_scope'] == 'yes' and x['retained'] == 'no')
 assert only == {('covered',): 2, ('record gap',): 3, ('unreviewed',): 6, ('covered', 'unreviewed'): 3}, only
 assert 'Two of the fourteen rest only on candidates judged covered by existing records' in sbody and 'Three rest only on candidates recorded as record gaps' in sbody
+# Best retained coverage per in-scope F3 row: full, partial or none (S2.2 and Section 9.2).
+def f3_best(x):
+    if x['retained'] in ('no', '') or x['coverage'] == 'none': return 'none'
+    if x['coverage'] == 'full' and (x['retained'] == 'yes' or 'Best retained coverage: partial' not in x['note']): return 'full'
+    return 'partial'
+f3_in = [x for x in f3 if x['in_scope'] == 'yes']
+assert (len(f3), len(f3_in)) == (153, 110) and collections.Counter(map(f3_best, f3_in)) == {'full': 34, 'partial': 55, 'none': 21}
+assert 'maps each of its 153 techniques' in sbody and 'Of the 110 within the product scope, a retained mechanism covers 34 fully and 55 in part' in sbody
+assert '21 of its 110 in-scope techniques have no retained mechanism' in body
 
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),
           'posting_priority': {'candidates': 24, 'tier1': 26, 'tier1_with_posting_topic': 23, 'their_links': 65}, 'functions': 24,
-          'public_counterparts': dict(public), 'cited_works': 127, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 3, 'figures': 3,
+          'public_counterparts': dict(public), 'cited_works': 126, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 3, 'figures': 3,
           'synthetic': {'transactions': 400, 'chargebacks': 8, 'alerts': 14, 'overlap': 2, 'union': 20,
                         'chargeback_ratio': .02, 'broader_report_ratio': .05, 'undeduplicated_sum_rejected': .055,
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
