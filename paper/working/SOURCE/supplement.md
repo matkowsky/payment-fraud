@@ -441,6 +441,8 @@ A store without those fields cannot tell the two histories apart, so no rule app
 
 - XR-01: a claim that relies on an item's outcome not being reported lists the item and cites a channel reading of it taken by the time of the draft. Every cited reading of the item shows a matured absence, and a cited run that is complete and not scope-limited evaluated the item from its clock start to the end of its reporting window and returned nothing about it.
 
+With OR-01 to OR-14 (S4.2) and IR-01 to IR-14 (above), XR-01 makes the 29 cross-record rules that the manuscript counts.
+
 The [joint case](../SUPPLEMENT/S4_INVESTIGATION_RECORDS/joint_case.json) adds a later investigation to the valid histories of S4.2 and this section. A person releases a claim that card attempt PA-3 drew no fraud chargeback. The claim rests on a complete, empty run over the attempt's reporting window and on the reading that shows the window matured. Its four records pass, and each of four invalid cases fails XR-01 alone. Two pairs of histories show that each requirement is needed when the other two hold:
 
 | Requirements that hold | The two histories | What differs |
