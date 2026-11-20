@@ -23,7 +23,7 @@ The paper did not state a linking rule. Claude wrote the rule in `PACKET.md` on 
 
 ## The real run
 
-1. Open a temporary chat with memory off, outside any project, with no connectors or web access.
+1. Open a new session with memory off, outside any project, with no connectors or web access.
 2. Paste the whole of `PACKET.md`.
 3. Save the reply as `ANSWERS.txt`, with the model name and version shown and the date.
 4. Run `python3 tools/second_coder/score.py ANSWERS.txt`.

@@ -1,10 +1,10 @@
 # Round 1 adjudication
 
-Tester: ChatGPT (model: GPT-6 Astra Pro; first recorded as "model shown: GPT-6", fuller name from the author on 14 November 2026, see `RUN_RECORD.md`) in a temporary chat, three replies of five cases each, from `PACKET_ROUND1.md` at commit `5dd4213`. The replies are stored unchanged as `reply_*.json`.
+Tester: ChatGPT (GPT-6 Astra Pro) in one session, three replies of five cases each, from `PACKET_ROUND1.md` at commit `5dd4213`. The replies are stored unchanged as `reply_*.json`.
 
 Three files record what happened, in order:
 1. `RESULTS.md`: the checker's output on the rules as they stood before any change.
-2. `RULINGS_CHECK_REPLY.txt`: a separate session's check of Claude's first rulings, from `RULINGS_CHECK_PACKET.md`, stored as received. Same model and environment as the tester (author, 11 November): ChatGPT, GPT-6 Astra Pro as named above, temporary chat, memory off.
+2. `RULINGS_CHECK_REPLY.txt`: a separate session's check of Claude's first rulings, from `RULINGS_CHECK_PACKET.md`, stored as received. Same model and settings as the tester: ChatGPT, GPT-6 Astra Pro, memory off.
 3. `RESULTS_AFTER_FIX.md`: the checker's output on the revised rules, with each changed draft given its new digest.
 
 Claude wrote the rules and the first rulings, so the first rulings were not independent. The outside check agreed with 12 of 15 rulings and disagreed with 3 (R13, R14, R15). Claude checked each disagreement against the paper and the checker's code and accepted all three. The check also showed that Claude's first fix for R03 would not have closed the gap, and tightened the fixes for R01, R02 and R09.
