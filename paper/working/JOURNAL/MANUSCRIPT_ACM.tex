@@ -403,8 +403,8 @@ establish {[}\protect\hyperlink{ref-Akhtar2026Contestable}{30}{]}. In
 Stripe's agent-assisted fraud modeling, engineers review the agents'
 hypotheses and results and decide what to deploy, and for one fraud
 attack the agents were given results from earlier experiments and
-investigations; the account does not describe a release step for those
-earlier results
+investigations; the account does not say whether those results were
+approved for reuse before the agents received them
 {[}\protect\hyperlink{ref-Drapeau2026ScalingRadar}{31}{]}. A
 threat-detection design comes closest on reuse as evidence. It tags each
 detection compiled from one of its hypotheses and drops tagged
@@ -536,7 +536,7 @@ operations and receives data. Supplement S5 supplies the object, field
 or event supporting each match.
 
 Supplement S1 records the version, relevant passages and use of each of
-the 126 works cited in the manuscript and supplement, and compares 50
+the 127 works cited in the manuscript and supplement, and compares 50
 sources against the three requirements. Supplement S3 lists the 61
 design sources and the depth of each read. These records let readers
 inspect the synthesis; their counts do not measure evidence quality.
@@ -551,20 +551,18 @@ complete map (Supplement S3). Section 9.2 explains the limits this
 focused selection places on coverage and transfer.
 
 The author used Anthropic Claude and OpenAI ChatGPT/Codex in the
-research, across versions that changed during the project; the version
-used for each task is not recorded. Where a result rests on models'
-answers, the supplement names each model and its session conditions (S3,
-S4.4, S8 and S10.1). The models searched for and read the sources,
-proposed the mappings and comparison codes, ran the prior-work search,
-wrote the scripts, synthetic data and figures, and reviewed drafts.
-Every cited work was read in full, or, for a book or standard, the cited
-chapters; Supplement S1 records the version and passages for each and
-names the few parts not read, such as reference pages. The author read
-each cited work to the same depth, and the manuscript and supplement in
-full, more than once before this version was released. A check script
-recomputes the counts, lineage and arithmetic on every proposed change.
-The author decided what entered the paper. Model review is not
-independent human peer review.
+research. Where a result rests on models' answers, the supplement names
+each model and its session conditions (S3, S4.4, S8 and S10.1). The
+models searched for and read the sources, proposed the mappings and
+comparison codes, ran the prior-work search, wrote the scripts,
+synthetic data and figures, and reviewed drafts. Every cited work was
+read in full, or, for a book or standard, the cited chapters; Supplement
+S1 records the version and passages for each and names the few parts not
+read, such as reference pages. The author read each cited work to the
+same depth, and the manuscript and supplement in full, more than once
+before this version was released. A check script recomputes the counts,
+lineage and arithmetic on every proposed change. The author decided what
+entered the paper. Model review is not independent human peer review.
 
 \hypertarget{from-product-activity-to-protective-decisions}{%
 \section{From product activity to protective
@@ -1136,13 +1134,13 @@ interrupt a merchant's integration. Actions are classed by impact as
 none, degraded service or outage; outage-class actions require
 notification and a restoration path.
 
-Human review also creates a capacity limit. At an assumed 20 drafts a
-day and 30 minutes per draft, review alone requires 10 hours daily. The
-system monitors release volume, returned drafts and the oldest queued
-draft. Urgent containment takes priority when the queue is saturated;
-expired drafts are discarded, not released automatically. E5 measures
-whether the agent's contribution justifies this work, and E8 tests the
-gate under realistic volume and error prevalence.
+Human review also creates a capacity limit. At an assumed 30 minutes per
+draft, review alone requires 10 hours daily at 20 drafts and 100 hours
+at 200. The system monitors release volume, returned drafts and the
+oldest queued draft. Urgent containment takes priority when the queue is
+saturated; expired drafts are discarded, not released automatically. E5
+measures whether the agent's contribution justifies this work, and E8
+tests the gate under realistic volume and error prevalence.
 
 \hypertarget{protect-the-investigation-from-its-inputs}{%
 \subsection{Protect the investigation from its
@@ -1364,7 +1362,11 @@ four assumptions and illustrates the distinction with three target
 quantities.
 
 Without further assumptions, outcomes hidden by deterministic blocks
-support ranges, not a recovered comparison.
+support ranges, not a recovered comparison: if \emph{m} of \emph{n}
+attempts were blocked, and \emph{k} allowed attempts are known fraud and
+\emph{u} are unresolved, the share of these \emph{n} that would be fraud
+if allowed lies between \emph{k}/\emph{n} and (\emph{k} + \emph{m} +
+\emph{u})/\emph{n}.
 
 Interference matters most when blocked actors move to sibling accounts
 or other merchants. Links from each report to every decision that may
