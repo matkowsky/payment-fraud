@@ -175,7 +175,7 @@ comparisons}\label{s1.-sources-and-comparisons}}
 
 \href{SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv}{Source notes} identify the
 version, supporting passages, publication status and supported claim for
-each of the 127 cited works. The
+each of the 126 cited works. The
 \href{SUPPLEMENT/S1_REQUIREMENTS_MATRIX.csv}{requirements matrix}
 compares 50 sources against C1 to C3. It codes two parts of C1 and C2
 and three of C3: an outcome linked to its decision, and late,
@@ -479,26 +479,27 @@ validate this integrated design \\
 check}\label{s2.2-external-coverage-check}}
 
 An external check compares the candidates with MITRE's Fight Fraud
-Framework (F3), version 1.2
-{[}\protect\hyperlink{ref-MITRE2026F3}{1}{]}. Mechanism selection used
-version 1.1 (allocation key c:F3); version 1.2 adds 16 techniques and
-removes one. The \href{SUPPLEMENT/S2_F3_CROSSWALK.csv}{F3 crosswalk}
-maps each of its 138 techniques and sub-techniques to the candidate
-mechanisms that cover it, with a reason for each scope decision. Of the
-105 within the product scope, a retained mechanism covers 35 fully and
-49 in part. Of the other 21, fourteen are covered only by candidates
-outside the signal map. Two of the fourteen rest only on candidates
-judged covered by existing records, among them device fingerprint
-spoofing. Three rest only on candidates recorded as record gaps: the
-adversary-in-the-browser technique and two of its sub-techniques, which
-the candidates describe but no record in the inventory covers. Six rest
-only on unreviewed candidates, among them 3-D Secure bypass, and three
-rest on covered and unreviewed candidates together. None rests on a
-screened gap. Seven are covered by no candidate: DLL injection in the
-browser, compromise of point-of-sale systems, coercion, keylogging,
-abuse of accessibility features, theft from password managers and SEO
-poisoning. Scope and coverage are one reviewer's judgments, recorded for
-each row.
+Framework (F3), version 1.3
+{[}\protect\hyperlink{ref-MITRE2026F3}{1}{]}. Its technique list does
+not come from Stripe's materials; the scope judgments still follow the
+product scope. Mechanism selection used version 1.1 (allocation key
+c:F3), which lacked 38 of version 1.3's techniques. The
+\href{SUPPLEMENT/S2_F3_CROSSWALK.csv}{F3 crosswalk} maps each of its 153
+techniques and sub-techniques to the candidate mechanisms that cover it,
+with a reason for each scope decision. Of the 110 within the product
+scope, a retained mechanism covers 34 fully and 55 in part. Of the other
+21, fourteen are covered only by candidates outside the signal map. Two
+of the fourteen rest only on candidates judged covered by existing
+records, among them device fingerprint spoofing. Three rest only on
+candidates recorded as record gaps: the adversary-in-the-browser
+technique and two of its sub-techniques, which the candidates describe
+but no record in the inventory covers. Six rest only on unreviewed
+candidates, among them 3-D Secure bypass, and three rest on covered and
+unreviewed candidates together. None rests on a screened gap. Seven are
+covered by no candidate: DLL injection in the browser, compromise of
+point-of-sale systems, coercion, keylogging, abuse of accessibility
+features, theft from password managers and SEO poisoning. Scope and
+coverage are one reviewer's judgments, recorded for each row.
 
 \FloatBarrier
 
@@ -640,7 +641,7 @@ Keeping these inputs explicit makes the denominator and the distinction
 between measures inspectable.
 
 The \href{SUPPLEMENT/S3_SOURCE_DIRECTORY.csv}{source directory}
-identifies 61 design sources. Of these, 27 are not among the 127 cited
+identifies 61 design sources. Of these, 27 are not among the 126 cited
 works and have no S1 source note. Each source was read in full in
 October 2026. Later reads are dated in the row. For one, a vendor blog
 post (L112), the cited passages were read verbatim and the other
@@ -2024,6 +2025,10 @@ the outcome records of S4.2:
   window and returned nothing about it.
 \end{itemize}
 
+With \mbox{OR-01} to \mbox{OR-14} (S4.2) and \mbox{IR-01} to
+\mbox{IR-14} (above), \mbox{XR-01} makes the 29 cross-record rules that
+the manuscript counts.
+
 The \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/joint_case.json}{joint
 case} adds a later investigation to the valid histories of S4.2 and this
 section. A person releases a claim that card attempt \mbox{PA-3} drew no
@@ -3026,19 +3031,22 @@ ended; and corroboration whose supporting records trace to one root
 observation or to an earlier conclusion. Two auditors code each case
 independently from the records the case cited and from what the source
 systems held at the time, and record whether the failure would change
-the conclusion. A case the records cannot settle is coded as such, and
-that share is itself a result. For each failure the audit reports three
-counts: cases in which it occurred, cases in which it did not, and cases
-the records cannot settle. The share of cases in which it occurred, and
-the share in which it changed the conclusion, are taken over the settled
-cases, with 95 percent intervals. The audit also gives the range each
-share could take over all sampled cases, counting the unsettled ones
-first as occurrences and then as none, and it reports agreement between
-auditors. With 200 settled cases, an exact 95 percent interval on any
-share is at most 14.3 points wide; with 160, at most 16.0. The audit
-measures how often the targeted failures occur; it does not test whether
-the records prevent them. It reviews identifiable staff's work on real
-case records, so it needs the same ethics and privacy review as E1.
+the conclusion. They also record whether the conclusion needed a record
+that the signal inventory lacks, a check on the inventory's
+completeness, not on its value. A case the records cannot settle is
+coded as such, and that share is itself a result. For each failure the
+audit reports three counts: cases in which it occurred, cases in which
+it did not, and cases the records cannot settle. The share of cases in
+which it occurred, and the share in which it changed the conclusion, are
+taken over the settled cases, with 95 percent intervals. The audit also
+gives the range each share could take over all sampled cases, counting
+the unsettled ones first as occurrences and then as none, and it reports
+agreement between auditors. With 200 settled cases, an exact 95 percent
+interval on any share is at most 14.3 points wide; with 160, at most
+16.0. The audit measures how often the targeted failures occur; it does
+not test whether the records prevent them. It reviews identifiable
+staff's work on real case records, so it needs the same ethics and
+privacy review as E1.
 
 Four rules apply to all nine evaluations. First, each evaluation freezes
 the information each method may use at an as-of cutoff and separates
@@ -3712,10 +3720,11 @@ error most often: in all 25 answered sessions on A2, A4, B1 and B3. With
 irrelevant records it answered ``Cannot tell'' to six of the eight
 requirement questions, so for this model the irrelevant records do not
 separate content from length. Twelve of its replies reached the token
-limit before a result line, 5 without the records and 7 with irrelevant
-records, and count as no answer; had they all been errors, each 25 would
-be 30. One \mbox{GPT-6} Luna and one Haiku 5.5 reply gave an answer
-outside the choices. No reply was stopped by a vendor's safety system.
+limit before a complete result line, 5 without the records and 7 with
+irrelevant records, and count as no answer; had they all been errors,
+each 25 would be 30. One \mbox{GPT-6} Luna and one Haiku 5.5 reply gave
+an answer outside the choices. No reply was stopped by a vendor's safety
+system.
 
 \textbf{A2 does not measure the use of learned time.} The case says the
 compromise check scored the account at 30 minutes and did not flag it;
@@ -4633,12 +4642,9 @@ models, and no human checked a mark.
 \begin{CSLReferences}{1}{1}
 \leavevmode\vadjust pre{\hypertarget{ref-MITRE2026F3}{}}%
 {[}1{]} MITRE Center for Threat-Informed Defense. 2026. Fight Fraud
-Framework (F3), version 1.2. GitHub,
-center-for-threat-informed-defense/fight-fraud-framework. Cited version:
-commit e03c3dc (5 November 2026); version 1.2 released 29 September
-2026.
-\url{https://github.com/center-for-threat-informed-defense/fight-fraud-framework/tree/e03c3dc0fd765e782f35a6293cc8bb340aa14842}.
-Accessed 9 November 2026.
+Framework (F3), version 1.3. GitHub. Released 18 November 2026.
+\url{https://github.com/center-for-threat-informed-defense/fight-fraud-framework/tree/d264474}.
+Accessed 20 November 2026.
 
 \leavevmode\vadjust pre{\hypertarget{ref-Meli2019}{}}%
 {[}2{]} M. Meli, M. R. McNiece, and B. Reaves. 2019. How Bad Can It Git?
