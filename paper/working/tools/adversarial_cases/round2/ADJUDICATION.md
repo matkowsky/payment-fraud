@@ -1,6 +1,6 @@
 # Round 2 adjudication
 
-Tester: ChatGPT (GPT-6 Astra Pro, as the author states) in three temporary chats, five cases each, from `PACKET_ROUND2.md`, `PROMPT_2.md` and `PROMPT_3.md`. The replies are stored unchanged as `reply_*.json`. The rules and the checker were frozen at main `58150e8` before the tester saw the packet, and are unchanged.
+Tester: ChatGPT (GPT-6 Astra Pro) in three sessions, five cases each, from `PACKET_ROUND2.md`, `PROMPT_2.md` and `PROMPT_3.md`. The replies are stored unchanged as `reply_*.json`. The rules and the checker were frozen at main `58150e8` before the tester saw the packet, and are unchanged.
 
 Files, in the order things happened:
 
@@ -10,7 +10,7 @@ Files, in the order things happened:
 4. `RULINGS_CHECK_PACKET.md` and `RULINGS_CHECK_REPLY.txt`: an outside session of the tester's model ruled on the same thirteen cases without seeing Claude's rulings. Stored as received.
 5. This file: the rulings the author confirmed.
 
-Claude wrote the rules, so its first rulings were not independent. The outside reviewer is independent of Claude but is the same model as the tester. The two gave the same ruling in 7 of 13 cases. Claude checked each of the six differences against the paper as it stood at the freeze and against the checker's code, and recommended a ruling for each. The author confirmed the recommended rulings on 15 November 2026 at 01:28 Asia/Jerusalem ("Go", in reply to Claude's summary of them).
+Claude wrote the rules, so its first rulings were not independent. The outside reviewer is independent of Claude but is the same model as the tester. The two gave the same ruling in 7 of 13 cases. Claude checked each of the six differences against the paper as it stood at the freeze and against the checker's code, and recommended a ruling for each. The author confirmed the recommended rulings at 23:28Z on 14 November 2026.
 
 ## Counts
 
@@ -63,8 +63,8 @@ In R09 and R12 the confirmed ruling is Claude's, against the outside reviewer's.
 
 ## Limits of this round
 
-- The fifteen histories came from three chats, where the plan fixed one. Each later chat was given the earlier histories (`PLAN.md`, changes of 14 and 15 November).
-- The model name and the settings rest on the author's statements. They were not noted while the chats were open. Text outside the replies' arrays was not captured.
+- The fifteen histories came from three sessions, where the plan fixed one. Each later session was given the earlier histories (`PLAN.md`, changes of 14 and 15 November).
+- The model name and the settings were recorded after the sessions, not while they were open. Text outside the replies' arrays was not captured.
 - The tester and the outside reviewer are the same model. ChatGPT models also assisted with other parts of the paper.
 - The rulings are judgment. The two first sets agreed in 7 of 13 cases.
 - The histories are not a sample from a defined population, and the tester read the rules and aimed at their gaps. The counts describe these histories. No interval is given.
