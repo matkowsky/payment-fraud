@@ -237,11 +237,10 @@ are stated limits. On 15 further histories, written against the revised
 and frozen rules, the rules rejected two of the 12 meant to break a
 requirement, and seven of the 10 that passed are new gaps (Supplement
 S4.4). Two hypothetical investigations show which conclusions survive
-when particular records are missing, and eight AI models answering
-written versions erred on chargeback attribution without the records and
-not with them. Replays of two FTC complaints on synthetic records show
-what the records expose and miss, and a count across 14 such complaints
-shows how often each tactic is alleged (Section 8).
+when particular records are missing, replays of two FTC complaints on
+synthetic records show what the records expose and miss, and a count
+across 14 such complaints shows how often each tactic is alleged
+(Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
@@ -1742,35 +1741,17 @@ them.
 \subsection{What AI models conclude from the two
 traces}\label{what-ai-models-conclude-from-the-two-traces}}
 
-Traces A and B were also written as two short cases with eleven
-forced-choice questions (Supplement S8). Eight questions each have one
-answer that the added records rule out; three are controls. Eight AI
-models from two vendors answered both cases in 30 new sessions per
-condition: with the cases alone, with each case's C1 to C3 records
-added, or with as many irrelevant records. The irrelevant records
-separate the effect of the records' content from the effect of more
-text. The answer key was fixed before the runs, and the protocol records
-each later change, including two models added after the first six
-models' results were read.
-
-On attribution, every model concluded that account D's chargeback rate
-was lower than the others' in 25 to 30 of 30 sessions without the
-records, and in none with them. The case lists no chargebacks recorded
-at D; the records link two chargebacks recorded at another account to
-D's transactions. With irrelevant records, seven models still erred in
-24 to 30 sessions. Errors on channel state and query coverage were rarer
-and varied by model: up to 30 of 30 sessions without the records, at
-most 1 with them and up to 28 with irrelevant records. The controls drew
-no errors.
-
-Two results limit this. The learned-time question allows the counted
-error for another defensible reason, so it does not measure whether a
-model uses learned time (Supplement S8). And for Claude Fable 5.2,
-irrelevant records also removed most errors, so for that model the
-comparison does not separate content from length. Models, not
-investigators, answered short written cases, and no agent worked on a
-live system. They show that the omitted context changed these models'
-conclusions, not how often such errors occur in practice.
+Eight AI models from two vendors answered written versions of Traces A
+and B in 30 new sessions per condition: the cases alone, with their C1
+to C3 records, or with as many irrelevant records (Supplement S8). Two
+of the models were added after the first six had been scored. Without
+the records, every model judged account D's chargeback rate lower than
+the others' in 25 to 30 of 30 sessions; with them, none did, while
+irrelevant records left the error in seven models. Supplement S8 gives
+the other questions and two limits: the learned-time question's wording
+and one model's response to irrelevant records. Models answering short
+written cases show that omitted context can change conclusions, not how
+often such errors occur in practice.
 
 \hypertarget{evaluating-the-specification}{%
 \section{Evaluating the
@@ -1931,12 +1912,9 @@ passed \\
 The records were cheap to store and check on one synthetic file &
 Synthetic measurement (8.4) & The cost of producing them on a
 platform \\
-Missing context changes conclusions & Two hypothetical traces (8.1 to
-8.3) & How often \\
-Without the records, AI models drew conclusions the records rule out &
-Eight models, 30 sessions per condition, on written versions of the
-traces (8.6, S8) & Investigators' conclusions; agents on live systems;
-use of learned time \\
+Missing context changes conclusions & Two hypothetical traces; eight AI
+models answering written versions (8.1 to 8.3, 8.6, S8) & How often;
+investigators' conclusions; use of learned time \\
 The records expose two alleged patterns & Synthetic replays and sweeps
 (8.5, S10) & Detection on real data \\
 Each of the five tactics the records could expose is alleged in 5 to 13
