@@ -1629,11 +1629,11 @@ channels each were built from the schema's valid conformance case
 and attribution records may already exist, and its two channel-state
 records are new. The records took 1.7 GB per million payments as JSON
 and 2.6 GB in a single-file SQLite store, and reading one payment's
-channel state and reports took a median of 17 microseconds. A query
-run's coverage record took about 900 bytes, and checking an absence
-claim against its runs took 38 microseconds (Supplement S4.4). These
-figures describe one synthetic file on one machine, not a platform's
-cost. Reviewer time is not measured.
+fraud-chargeback state and counting its reports took a median of 17
+microseconds. A query run's coverage record took about 900 bytes, and
+checking an absence claim against its runs took 38 microseconds
+(Supplement S4.4). These figures describe one synthetic file on one
+machine, not a platform's cost. Reviewer time is not measured.
 
 \hypertarget{alleged-patterns-two-synthetic-replays-and-a-count-across-14-complaints}{%
 \subsection{Alleged patterns: two synthetic replays and a count across
@@ -1701,15 +1701,15 @@ replays a successor account, a switched descriptor, refunds before
 disputes, traffic moved after closures and reports linked only by card
 number and amount.
 
-How often are such tactics alleged? Every FTC pleading filed from 1
-January 2019 to 16 November 2026 that first charges a payment provider
-over processing for other sellers was coded against a sheet of seven
-tactics fixed beforehand: 14 complaints (Supplement S10.1). Two language
-models coded them separately and gave the same mark in 78 of 98 cells.
-Three further models ruled on the differences. A ruling stands only
-where all three agreed; the other marks are reported as disputed, so
-some counts are ranges. No human coded a complaint or ruled on a
-difference.
+How often are such tactics alleged? Three searches found 14 FTC
+pleadings, filed 1 January 2019 to 16 November 2026, that first charge a
+payment provider over processing for other sellers; each was coded
+against a sheet of seven tactics fixed beforehand (Supplement S10.1).
+Two language models coded them separately and gave the same mark in 78
+of 98 cells. Three further models ruled on the differences. A ruling
+stands only where all three agreed; the other marks are reported as
+disputed, so some counts are ranges. No human coded a complaint or ruled
+on a difference.
 
 As alleged, several sellers' sales ran through one merchant account in
 12 to 13 of the 14 complaints. Accounts were opened in the names of
@@ -1725,28 +1725,25 @@ split volume or front accounts, 9 to 12 tie a shared attribute, such as
 an owner, address or website, to those accounts.
 
 Two results cut the other way. Padding with small or sham sales, which
-no record exposes, is alleged in 4 complaints. And all 14 allege that a
-defendant saw chargeback or fraud-report levels, program notices,
-complaints or warnings about a seller and kept processing. On those
-allegations the evidence was not missing, and no record makes a
-processor act. Enforced cases are a selected set, and the count cannot
-show how far that selection explains the 14. Outside the sheet, the
-coders most often noted a misstated business type or merchant category
-code: both in 6 complaints and at least one in 9. No bearing on the
-records was fixed for it in advance. The sheet was written after three
-of the 14 had been read, and Supplement S10.1 gives every count without
-them.
+the specified records cannot expose, is alleged in 4 complaints. And all
+14 allege that a defendant saw chargeback or fraud-report levels,
+program notices, complaints or warnings about a seller and kept
+processing. On those allegations the evidence was not missing, and no
+record makes a processor act. Enforced cases are a selected set, and the
+count cannot show how far that selection explains the 14. The sheet was
+written after three of the 14 had been read, and Supplement S10.1 gives
+every count without them.
 
 \hypertarget{what-ai-models-conclude-from-the-two-traces}{%
 \subsection{What AI models conclude from the two
 traces}\label{what-ai-models-conclude-from-the-two-traces}}
 
 Eight AI models from two vendors answered written versions of Traces A
-and B in 30 new sessions per condition: the cases alone, with their C1
-to C3 records, or with as many irrelevant records (Supplement S8). Two
-of the models were added after the first six had been scored. Without
-the records, every model judged account D's chargeback rate lower than
-the others' in 25 to 30 of 30 sessions; with them, none did, while
+and B in 30 sessions per model and condition: the cases alone, with
+their C1 to C3 records, or with as many irrelevant records (Supplement
+S8; two models were added after six had been scored). Without the
+records, every model judged account D's chargeback rate lower than the
+others' in 25 to 30 of 30 sessions; with them, none did, while
 irrelevant records left the error in seven models. Supplement S8 gives
 the other questions and two limits: the learned-time question's wording
 and one model's response to irrelevant records. Models answering short
@@ -1909,9 +1906,8 @@ No two requirements replace the third & Two cross-requirement pairs
 Software can check the rules & Two checkers; 30 adversarial histories in
 two rounds (S4.4) & Resistance to evasion: 10 of 12 new attempts
 passed \\
-The records were cheap to store and check on one synthetic file &
-Synthetic measurement (8.4) & The cost of producing them on a
-platform \\
+Storage and lookup costs were measured on one synthetic file & Synthetic
+measurement (8.4) & The cost of producing them on a platform \\
 Missing context changes conclusions & Two hypothetical traces; eight AI
 models answering written versions (8.1 to 8.3, 8.6, S8) & How often;
 investigators' conclusions; use of learned time \\
