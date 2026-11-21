@@ -12,7 +12,7 @@ Run from paper/working:
 `sheet` writes RUN_SHEET.csv; with --check it only compares. `run` sends the phase's sessions for one vendor,
 saves each raw reply as RUN_ID.json in DIR/PHASE/, skips sessions already saved and stops at the cost cap.
 `score` reads the saved replies and writes results.json and results.md. --key is the phase's answer key,
-checked against its hash: the pilot key for the pilot, the practitioner study's key for the main phase.
+checked against its hash: the pilot key for the pilot, the practitioner study's key for the main and practice phases.
 """
 import argparse
 import csv
@@ -35,10 +35,20 @@ HERE = Path(__file__).resolve().parent
 INSTRUMENT = HERE.parent / 'practitioner_study' / 'INSTRUMENT.md'
 FILLER = HERE / 'FILLER.md'
 PILOT = HERE / 'PILOT_CASE.md'
+PRACTICE = HERE / 'PRACTICE.md'
 SHEET = HERE / 'RUN_SHEET.csv'
 
 SEED = 20261117
 CONDITIONS = ('case_only', 'records', 'filler')
+# Added 21 November 2026, before any run of this phase (README, "Practice phase"): a third phase that repeats case only
+# and with records beside records a platform already keeps.
+PHASES = ('pilot', 'main', 'practice')
+PHASE_CONDITIONS = {'pilot': CONDITIONS, 'main': CONDITIONS, 'practice': ('case_only', 'records', 'practice')}
+PHASE_PREFIX = {'pilot': 'P', 'main': 'M', 'practice': 'C'}
+# Items whose current-practice record lacks the field C1 or C2 adds; the practice phase's planned comparison.
+PRACTICE_PRIMARY = ('A1', 'A2', 'A4', 'B3')
+# The current-practice record for B1 gives the dispute-to-payment link, so "Cannot tell" is not supported there.
+PRACTICE_NOT_CANNOT_TELL = ('B1',)
 # model -> (vendor, letter used in run ids)
 MODELS = {'gpt-6.1-sol': ('openai', 'S'), 'gpt-6.1-terra': ('openai', 'T'), 'gpt-6-luna': ('openai', 'L'),
           'claude-opus-5-5': ('anthropic', 'O'), 'claude-sonnet-5-5': ('anthropic', 'N'),
@@ -49,7 +59,7 @@ MODELS = {'gpt-6.1-sol': ('openai', 'S'), 'gpt-6.1-terra': ('openai', 'T'), 'gpt
 ADDED = ('gpt-6.2-astra', 'claude-fable-5-2')
 VENDORS = {'openai': {'url': 'https://api.openai.com/v1/responses', 'key': 'OPENAI_API_KEY'},
            'anthropic': {'url': 'https://api.anthropic.com/v1/messages', 'key': 'ANTHROPIC_API_KEY'}}
-SESSIONS_PER_CONDITION = {'pilot': 10, 'main': 30}
+SESSIONS_PER_CONDITION = {'pilot': 10, 'main': 30, 'practice': 30}
 # Dollars per million tokens (input, output). OpenAI: its pricing page, read 16 November 2026.
 # Anthropic: its pricing page, read 17 November 2026 (Haiku: prompts up to 100,000 tokens).
 PRICES = {'gpt-6.1-sol': (2.0, 10.0), 'gpt-6.1-terra': (1.0, 5.0), 'gpt-6-luna': (0.10, 0.50),
@@ -69,7 +79,7 @@ HEAD = ('{lead}\n'
 TAIL = '\nEnd your reply with the RESULT line described at the top, starting with: RESULT {run_id} |\n'
 QUESTION = re.compile(r'^([A-Z]\d)\. (.+\?) (.+)$')
 RESULT_LINE = re.compile(r'^[\W_]*RESULT\s+(\S+)\s*\|(.*)$', re.M)
-RUN_FILE = re.compile(r'^[PM][STLONHAF]-\d{3}\.json$')
+RUN_FILE = re.compile(r'^[PMC][STLONHAF]-\d{3}\.json$')
 
 
 # ---------- material ----------
@@ -108,11 +118,13 @@ def load_main():
     part3 = _section(text, '## Part 3', '## Part 4')
     lead = [ln for ln in part2.splitlines()[1:] if ln.strip()][0]
     filler = FILLER.read_text(encoding='utf-8')
+    practice = PRACTICE.read_text(encoding='utf-8')
     cases = []
     for letter, nxt in (('A', '### Case B'), ('B', None)):
         c = _case(f'### Case {letter}' + _section(part2, f'### Case {letter}', nxt))
         c['records'] = _bullets(_section(part3, f'### Case {letter}: added records', '### Case B' if letter == 'A' else None))
         c['filler'] = _bullets(_section(filler, f'## Case {letter}', '## Case B' if letter == 'A' else None))
+        c['practice'] = _bullets(_section(practice, f'## Case {letter}', '## Case B' if letter == 'A' else None))
         cases.append(c)
     return lead, cases
 
@@ -142,7 +154,7 @@ def build_prompt(phase, condition, run_id):
     out = [HEAD.format(lead=lead, template=template)]
     for c in cases:
         out += ['', c['title'], ''] + c['body']
-        added = {'records': c['records'], 'filler': c['filler']}.get(condition)
+        added = {'records': c['records'], 'filler': c['filler'], 'practice': c.get('practice')}.get(condition)
         if added:
             out += ['', RECORDS_LEAD, ''] + added
         for q in c['questions']:
@@ -153,15 +165,15 @@ def build_prompt(phase, condition, run_id):
 
 def build_sheet():
     rows = []
-    for phase in ('pilot', 'main'):
+    for phase in PHASES:
         for model, (_, letter) in MODELS.items():
             if phase == 'pilot' and model in ADDED:
                 continue
             n = SESSIONS_PER_CONDITION[phase]
-            conds = [c for c in CONDITIONS for _ in range(n)]
+            conds = [c for c in PHASE_CONDITIONS[phase] for _ in range(n)]
             random.Random(f'{SEED}:{phase}:{model}').shuffle(conds)
             for i, cond in enumerate(conds, 1):
-                run_id = f"{'P' if phase == 'pilot' else 'M'}{letter}-{i:03d}"
+                run_id = f'{PHASE_PREFIX[phase]}{letter}-{i:03d}'
                 prompt = build_prompt(phase, cond, run_id)
                 rows.append({'run_id': run_id, 'phase': phase, 'model': model, 'condition': cond, 'order': i,
                              'prompt_sha256': hashlib.sha256(prompt.encode('utf-8')).hexdigest()})
@@ -310,6 +322,54 @@ def clopper_pearson(k, n, alpha=0.05):
     return [round(lower, 4), round(upper, 4)]
 
 
+def fisher_exact(a, b, c, d):
+    """Two-sided Fisher exact p for the table [[a, b], [c, d]]: the sum of the probabilities of all tables with the
+    same margins that are no more probable than the one observed."""
+    r1, c1, n = a + b, a + c, a + b + c + d
+    if n == 0:
+        return 1.0
+    def prob(x):
+        return math.comb(c1, x) * math.comb(n - c1, r1 - x) / math.comb(n, r1)
+    p_obs = prob(a)
+    lo, hi = max(0, r1 + c1 - n), min(r1, c1)
+    return min(1.0, sum(prob(x) for x in range(lo, hi + 1) if prob(x) <= p_obs * (1 + 1e-7)))
+
+
+def holm(pvalues):
+    """Holm-adjusted p values, in the input's order."""
+    order = sorted(range(len(pvalues)), key=lambda i: pvalues[i])
+    adj, running = [0.0] * len(pvalues), 0.0
+    for rank, i in enumerate(order):
+        running = max(running, min(1.0, (len(pvalues) - rank) * pvalues[i]))
+        adj[i] = running
+    return adj
+
+
+def practice_comparisons(res):
+    """README, "Practice phase": per model and primary item, counted errors among usable answers, current practice
+    against with records; Fisher's exact test, two-sided, Holm-adjusted over every model and primary item."""
+    rows = []
+    for model, m in res['models'].items():
+        for i in PRACTICE_PRIMARY:
+            p, r = m['conditions']['practice']['items'][i], m['conditions']['records']['items'][i]
+            up, ur = p['sessions'] - p['no_answer'], r['sessions'] - r['no_answer']
+            rows.append({'model': model, 'item': i, 'requirement': p['requirement'],
+                         'practice_errors': p['errors'], 'practice_usable': up,
+                         'records_errors': r['errors'], 'records_usable': ur,
+                         'p': fisher_exact(p['errors'], up - p['errors'], r['errors'], ur - r['errors'])})
+    for row, a in zip(rows, holm([r['p'] for r in rows])):
+        row['p_holm'] = a
+        if not row['practice_errors'] and not row['records_errors']:
+            row['reading'] = 'no error in either condition; tests nothing'
+        elif a < 0.05 and row['practice_errors'] / row['practice_usable'] > row['records_errors'] / row['records_usable']:
+            row['reading'] = 'more errors with current practice'
+        elif a < 0.05:
+            row['reading'] = 'more errors with the records'
+        else:
+            row['reading'] = 'no difference shown'
+    return rows
+
+
 def score(phase, sheet, replies, key, also):
     qs = questions(phase)
     items = [q['code'] for q in qs]
@@ -324,7 +384,9 @@ def score(phase, sheet, replies, key, also):
             continue
         m = res['models'][model] = {'planned': len(rows), 'run': 0, 'model_shown': {}, 'no_answer': {},
                                     'stopped': {}, 'conditions': {}}
-        for cond in CONDITIONS:
+        for cond in PHASE_CONDITIONS[phase]:
+            cannot_tell = set() if cond == 'records' else set(also) - (
+                set(PRACTICE_NOT_CANNOT_TELL) if cond == 'practice' else set())
             sessions = []
             stopped = 0
             for r in (r for r in rows if r['condition'] == cond):
@@ -352,7 +414,7 @@ def score(phase, sheet, replies, key, also):
                 k = key[i]
                 given = [canon(a[i]) for a in sessions if a]
                 err = sum(a == k['error'] for a in given)
-                sup = sum(a == k['supported'] or (cond != 'records' and i in also and a == 'cannot tell') for a in given)
+                sup = sum(a == k['supported'] or (i in cannot_tell and a == 'cannot tell') for a in given)
                 per_item[i] = {'requirement': k['requirement'], 'sessions': n, 'errors': err, 'supported': sup,
                                'no_answer': n - len(given), 'stopped': stopped, 'error_interval': clopper_pearson(err, n),
                                'answers': dict(Counter(given))}
@@ -374,11 +436,15 @@ def score(phase, sheet, replies, key, also):
                 n += c['items'][i]['sessions'] - c['items'][i]['no_answer']
         res['branch'] = {'case_only_requirement_answers': n, 'counted_errors': e,
                          'main_run': 'free-text conclusions' if n and e <= 0.2 * n else ('as fixed' if n else 'not decided')}
+    if phase == 'practice':
+        res['comparisons'] = practice_comparisons(res)
     return res
 
 
 def to_markdown(res):
-    names = {'case_only': 'case only', 'records': 'with records', 'filler': 'with filler'}
+    names = {'case_only': 'case only', 'records': 'with records', 'filler': 'with filler',
+             'practice': 'current practice'}
+    conds = PHASE_CONDITIONS[res['phase']]
     out = [f"# Agent test results, {res['phase']}", '']
     if 'branch' in res:
         b = res['branch']
@@ -392,31 +458,44 @@ def to_markdown(res):
         stopped = x.get('stopped', 0)
         return x['sessions'], x['sessions'] - x['no_answer'], x['no_answer'] - stopped, stopped
 
+    added = () if res['phase'] == 'practice' else ADDED  # in the practice phase all eight models were fixed in advance
+
     def mark(model):
-        return model + (' †' if model in ADDED else '')
+        return model + (' †' if model in added else '')
     if len(shown) > 1:
         # One table across models, so the models can be compared; each is still reported apart, nothing pooled.
-        first = shown[0][1]['conditions'][CONDITIONS[0]]['items']
-        out += ['Counted errors by model: case only / with records / with filler, each of the sessions run. '
+        first = shown[0][1]['conditions'][conds[0]]['items']
+        out += ['Counted errors by model: ' + ' / '.join(names[c] for c in conds) + ', each of the sessions run. '
                 '"not scored" marks a condition with no usable answer.', '',
                 '| Item | Requirement | ' + ' | '.join(mark(k) for k, _ in shown) + ' |',
                 '|---|---|' + '---|' * len(shown)]
         for i, v in first.items():
             out.append(f"| {i} | {v['requirement']} | " + ' | '.join(
                 '/'.join(str(m['conditions'][c]['items'][i]['errors']) if coverage(m, c)[1] else 'not scored'
-                         for c in CONDITIONS) for _, m in shown) + ' |')
+                         for c in conds) for _, m in shown) + ' |')
         out.append('')
-        if any(k in ADDED for k, _ in shown):
+        if any(k in added for k, _ in shown):
             out += ['† Added on 19 November 2026, after the main results of the six fixed models were read; '
                     'exploratory.', '']
         out += ['Sessions run / usable answers / other no answers / stopped by the API, by model and condition.', '',
-                '| Model | ' + ' | '.join(names[c] for c in CONDITIONS) + ' |', '|---|' + '---|' * len(CONDITIONS)]
+                '| Model | ' + ' | '.join(names[c] for c in conds) + ' |', '|---|' + '---|' * len(conds)]
         for k, m in shown:
-            out.append(f'| {mark(k)} | ' + ' | '.join(' / '.join(map(str, coverage(m, c))) for c in CONDITIONS) + ' |')
+            out.append(f'| {mark(k)} | ' + ' | '.join(' / '.join(map(str, coverage(m, c))) for c in conds) + ' |')
+        out.append('')
+    if res.get('comparisons'):
+        out += ['Planned comparison (README, "Practice phase"): counted errors among usable answers, current practice '
+                'against with records, on the items whose current-practice record lacks the field C1 or C2 adds. '
+                "Fisher's exact test, two-sided; p adjusted by Holm's method over all rows.", '',
+                '| Model | Item | Requirement | Current practice | With records | p | Holm p | Reading |',
+                '|---|---|---|---|---|---|---|---|']
+        for r in res['comparisons']:
+            out.append(f"| {r['model']} | {r['item']} | {r['requirement']} | {r['practice_errors']} of "
+                       f"{r['practice_usable']} | {r['records_errors']} of {r['records_usable']} | {r['p']:.3g} | "
+                       f"{r['p_holm']:.3g} | {r['reading']} |")
         out.append('')
     for model, m in res['models'].items():
         out += [f'## {model}', '']
-        if model in ADDED:
+        if model in added:
             out += ["Added on 19 November 2026, after the main results of the six fixed models were read (README, \"Models\").", '']
         out += [f"Sessions run: {m['run']} of {m['planned']}. Model shown: "
                 + (', '.join(f'{k} ({v})' for k, v in m['model_shown'].items()) or 'none') + '.', '']
@@ -426,13 +505,13 @@ def to_markdown(res):
             out += ['No valid RESULT line: ' + '; '.join(f'{k} ({v})' for k, v in m['no_answer'].items()) + '.', '']
         if m['run']:
             out += ['Usable answers: ' + '; '.join(f'{names[c]} {coverage(m, c)[1]} of {coverage(m, c)[0]}'
-                                                   for c in CONDITIONS) + '.', '']
-        out += ['| Item | Requirement | ' + ' | '.join(f'Errors, {names[c]} (95% CI)' for c in CONDITIONS) + ' |',
-                '|---|---|' + '---|' * len(CONDITIONS)]
-        first = m['conditions'][CONDITIONS[0]]['items']
+                                                   for c in conds) + '.', '']
+        out += ['| Item | Requirement | ' + ' | '.join(f'Errors, {names[c]} (95% CI)' for c in conds) + ' |',
+                '|---|---|' + '---|' * len(conds)]
+        first = m['conditions'][conds[0]]['items']
         for i, v in first.items():
             cells = []
-            for c in CONDITIONS:
+            for c in conds:
                 x = m['conditions'][c]['items'][i]
                 ci = x['error_interval']
                 if not coverage(m, c)[1]:
@@ -444,11 +523,11 @@ def to_markdown(res):
                              + (f"; {x['errors']} to {x['errors'] + x['stopped']} if the {x['stopped']} stopped count as errors"
                                 if x['stopped'] else ''))
             out.append(f"| {i} | {v['requirement']} | " + ' | '.join(cells) + ' |')
-        out += ['', '| Requirement | ' + ' | '.join(f'Errors, {names[c]}' for c in CONDITIONS) + ' |',
-                '|---|' + '---|' * len(CONDITIONS)]
-        for req in sorted(m['conditions'][CONDITIONS[0]]['by_requirement']):
+        out += ['', '| Requirement | ' + ' | '.join(f'Errors, {names[c]}' for c in conds) + ' |',
+                '|---|' + '---|' * len(conds)]
+        for req in sorted(m['conditions'][conds[0]]['by_requirement']):
             cells = []
-            for c in CONDITIONS:
+            for c in conds:
                 x = m['conditions'][c]['by_requirement'][req]
                 if not coverage(m, c)[1]:
                     cells.append('not scored')
@@ -467,9 +546,11 @@ def cost(model, usage):
     return (usage.get('input_tokens', 0) * pin + usage.get('output_tokens', 0) * pout) / 1e6
 
 
-def spent(root, vendor):
+def spent(root, vendor, phase=None):
+    """Charges with one vendor over the replies saved under root. For the practice phase, only that phase's folder
+    counts: its cap is its own (README, "Practice phase")."""
     total = 0.0
-    for f in Path(root).rglob('*.json'):
+    for f in (Path(root) / 'practice' if phase == 'practice' else Path(root)).rglob('*.json'):
         if not RUN_FILE.match(f.name):
             continue
         rec = json.loads(f.read_text(encoding='utf-8'))
@@ -525,7 +606,7 @@ def run_api(vendor, phase, out_root, api_key, models=None):
         prompt = build_prompt(phase, r['condition'], r['run_id'])
         if hashlib.sha256(prompt.encode('utf-8')).hexdigest() != r['prompt_sha256']:
             raise SystemExit(f"prompt for {r['run_id']} differs from RUN_SHEET.csv; the material has changed")
-        so_far = spent(out_root, vendor)
+        so_far = spent(out_root, vendor, phase)
         if so_far + worst_next(r['model'], prompt) > CAP_DOLLARS:
             print(f'stopped at the cap: about {so_far:.2f} dollars spent with {vendor}; {r["run_id"]} not sent')
             return
@@ -539,7 +620,7 @@ def run_api(vendor, phase, out_root, api_key, models=None):
         done += 1
         status = resp.get('status') or resp.get('stop_reason')
         print(f"{r['run_id']} {r['model']} {status} {cost(r['model'], resp.get('usage') or {}):.4f} dollars")
-    print(f'done: {done} sent; about {spent(out_root, vendor):.2f} dollars spent with {vendor} in all')
+    print(f'done: {done} sent; about {spent(out_root, vendor, phase):.2f} dollars spent with {vendor} in all')
 
 
 # ---------- command line ----------
@@ -553,11 +634,11 @@ def main(argv=None):
     s.add_argument('run_id')
     s = sub.add_parser('run')
     s.add_argument('--vendor', choices=list(VENDORS), required=True)
-    s.add_argument('--phase', choices=('pilot', 'main'), required=True)
+    s.add_argument('--phase', choices=PHASES, required=True)
     s.add_argument('--out', required=True)
     s.add_argument('--model', action='append', choices=list(MODELS))
     s = sub.add_parser('score')
-    s.add_argument('--phase', choices=('pilot', 'main'), required=True)
+    s.add_argument('--phase', choices=PHASES, required=True)
     s.add_argument('--replies', nargs='+', required=True)
     s.add_argument('--key', required=True)
     s.add_argument('--out', required=True)
@@ -579,7 +660,7 @@ def main(argv=None):
             raise SystemExit(f"set {VENDORS[a.vendor]['key']} first")
         run_api(a.vendor, a.phase, a.out, api_key, a.model)
     elif a.cmd == 'score':
-        key, also = main_key(a.key) if a.phase == 'main' else pilot_key(a.key)
+        key, also = pilot_key(a.key) if a.phase == 'pilot' else main_key(a.key)
         res = score(a.phase, read_sheet(), read_replies(a.replies), key, also)
         out = Path(a.out)
         out.mkdir(parents=True, exist_ok=True)

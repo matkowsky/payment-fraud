@@ -102,9 +102,35 @@ If the pilot's cost per session shows that the main run would pass a vendor's ca
 4. The author runs the main run.
 5. After the form closes: both keys and the replies and results of both phases are committed, and one pull request proposes the text.
 
+## Practice phase
+
+Fixed 21 November 2026, before any run of this phase. Nothing in the pilot or main phase changes.
+
+**Question.** Platforms already join disputes to payments, so B1's record gives an answer a platform may already hold. Do the fields C1 to C3 add change answers beyond what a platform already stores?
+
+**Conditions.** Three, 30 sessions each, for all eight models, in one run with the order random from seed 20261117 (phase `practice`, run ids starting with C):
+
+1. Case only.
+2. With records: Part 3, as in the main phase.
+3. Current practice: `PRACTICE.md`. Each record keeps what manuscript Section 2.4 reports that providers' public documentation already shows, and leaves out the field C1 to C3 add. Same number, form and order as Part 3.
+
+Case only and with records repeat the main phase, so all three conditions are compared within one run. The two models added on 19 November are fixed in advance here.
+
+**Planned comparison.** For each model, on A1 (coverage), A2 (learned time), A4 (channel state) and B3 (coverage), whose current-practice records lack the C1 or C2 field: counted errors among usable answers, current practice against with records. Fisher's exact test, two-sided, with p adjusted by Holm's method over all 32 model-item pairs. A pair reads "more errors with current practice" only if its adjusted p is below 0.05 and its error rate is higher under current practice. A pair with no error in either condition tests nothing. The paper says C1 to C3 add to current practice only for pairs that read so.
+
+**Expected:** more errors with current practice on those four items. **Reported, not tested:** B1, where both conditions give the dispute-to-payment link, so no difference is expected; B2, B4, B5 and the controls; case only against current practice; and this run's case-only and with-records counts beside the main phase's.
+
+**Scoring.** The practitioner study's key, as in the main phase. Under current practice, "Cannot tell" is also supported for the key's items except B1, whose record gives the link.
+
+**Cost.** The main phase cost about 22.60 dollars for 720 sessions; this phase also has 720. The cap is 40 dollars per vendor and counts only this phase's replies.
+
+**Limits added.** Claude wrote `PRACTICE.md` after the key and the main results had been read. What current practice keeps is the paper's reading of public documentation (Section 2.4), not a survey of platforms. Claude models are among the subjects.
+
+**Order of work.** (1) This protocol, `PRACTICE.md`, the script change and the appended rows of `RUN_SHEET.csv` are merged. (2) The author runs `run --phase practice` once for each vendor, through the workflow. (3) The replies and results are committed in `runs/practice` and `results/practice`. (4) One pull request proposes the text.
+
 ## Files
 
 - `agent_test.py`: builds the prompts and run sheet, runs the sessions, parses replies and scores them. Python standard library only.
-- `RUN_SHEET.csv`: every session, fixed before any run.
-- `FILLER.md`, `PILOT_CASE.md`: material described above.
+- `RUN_SHEET.csv`: every session, fixed before any run of its phase.
+- `FILLER.md`, `PILOT_CASE.md`, `PRACTICE.md`: material described above.
 - `test_agent_test.py`: tests.

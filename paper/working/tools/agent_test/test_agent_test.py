@@ -24,24 +24,24 @@ class Material(unittest.TestCase):
 
     def test_sheet_counts(self):
         rows = at.build_sheet()
-        self.assertEqual(len(rows), 900)
-        self.assertEqual(len({r['run_id'] for r in rows}), 900)
+        self.assertEqual(len(rows), 1620)
+        self.assertEqual(len({r['run_id'] for r in rows}), 1620)
         for phase, n in at.SESSIONS_PER_CONDITION.items():
             for model in at.MODELS:
                 if phase == 'pilot' and model in at.ADDED:
                     self.assertFalse(any(r['phase'] == 'pilot' and r['model'] == model for r in rows))
                     continue
-                for cond in at.CONDITIONS:
+                for cond in at.PHASE_CONDITIONS[phase]:
                     got = sum(r['phase'] == phase and r['model'] == model and r['condition'] == cond for r in rows)
                     self.assertEqual(got, n, (phase, model, cond))
 
     def test_added_models_append_rows_only(self):
         # The 19 November addition leaves every earlier row as it was and appends 90 main rows per added model.
         rows = at.build_sheet()
-        before = [r for r in rows if r['model'] not in at.ADDED]
+        before = [r for r in rows if r['model'] not in at.ADDED and r['phase'] != 'practice']
         self.assertEqual(len(before), 720)
         self.assertEqual(rows[:720], before)
-        added = rows[720:]
+        added = rows[720:900]
         self.assertEqual({r['model'] for r in added}, set(at.ADDED))
         self.assertTrue(all(r['phase'] == 'main' and r['run_id'][:2] in ('MA', 'MF') for r in added))
 
@@ -77,6 +77,48 @@ class Material(unittest.TestCase):
         self.assertTrue(all(r in p['filler'] for r in filler))
         self.assertFalse(any(r in p['filler'] for r in records))
         self.assertFalse(any(r in p['case_only'] for r in records + filler))
+
+    def test_practice_phase(self):
+        # Added 21 November 2026: the practice phase appends 720 rows and changes no earlier row.
+        rows = at.build_sheet()
+        self.assertTrue(all(r['phase'] != 'practice' for r in rows[:900]))
+        practice = rows[900:]
+        self.assertEqual(len(practice), 720)
+        self.assertTrue(all(r['phase'] == 'practice' and r['run_id'][0] == 'C' for r in practice))
+        self.assertEqual({r['model'] for r in practice}, set(at.MODELS))
+        _, cases = at.load_main()
+        self.assertEqual([len(c['practice']) for c in cases], [4, 5])
+        p = {c: at.build_prompt('practice', c, 'CX-001') for c in at.PHASE_CONDITIONS['practice']}
+        cur = [r for c in cases for r in c['practice']]
+        records = [r for c in cases for r in c['records']]
+        self.assertTrue(all(r in p['practice'] for r in cur))
+        self.assertFalse(any(r in p['practice'] for r in records))
+        self.assertFalse(any(r in p['records'] for r in cur))
+        self.assertEqual(at.build_prompt('practice', 'records', 'CX-001'), at.build_prompt('main', 'records', 'CX-001'))
+
+    def test_practice_scoring(self):
+        # B1's current-practice record gives the link, so "Cannot tell" is not supported there; A2 keeps it.
+        key = {i: {'supported': 'no', 'error': 'yes', 'requirement': 'C2 x' if i in at.PRACTICE_PRIMARY else 'Control'}
+               for i in [q['code'] for q in at.questions('main')]}
+        sheet = {r['run_id']: r for r in at.build_sheet() if r['phase'] == 'practice' and r['model'] == 'gpt-6-luna'}
+        reps = {}
+        for rid, r in sheet.items():
+            ans = {i: 'Cannot tell' for i in key}
+            if r['condition'] == 'practice':
+                ans['A1'] = 'Yes'
+            reps[rid] = {'text': result_line(rid, ans), 'stop': None}
+        res = at.score('practice', sheet, reps, key, {'A2', 'B1'})
+        c = res['models']['gpt-6-luna']['conditions']
+        self.assertEqual(c['practice']['items']['A2']['supported'], 30)
+        self.assertEqual(c['practice']['items']['B1']['supported'], 0)
+        self.assertEqual(c['case_only']['items']['B1']['supported'], 30)
+        self.assertEqual(c['records']['items']['A2']['supported'], 0)
+        row = next(r for r in res['comparisons'] if r['model'] == 'gpt-6-luna' and r['item'] == 'A1')
+        self.assertEqual((row['practice_errors'], row['records_errors']), (30, 0))
+        self.assertEqual(row['reading'], 'more errors with current practice')
+        self.assertEqual(len(res['comparisons']), len(at.PRACTICE_PRIMARY))
+        self.assertIn('Planned comparison', at.to_markdown(res))
+        self.assertNotIn('†', at.to_markdown(res))
 
 
 class Parsing(unittest.TestCase):
@@ -298,6 +340,29 @@ class Apis(unittest.TestCase):
                 self.assertTrue(all(c[0] == 'anthropic' for c in calls[30:]))
         finally:
             at.call_api = real
+
+    def test_practice_cap_counts_only_its_phase(self):
+        calls = []
+        real = at.call_api
+        at.call_api = lambda *a, **k: calls.append(a) or {'status': 'completed', 'usage': {}}
+        try:
+            with tempfile.TemporaryDirectory() as d:
+                (Path(d) / 'main').mkdir()
+                (Path(d) / 'main' / 'MS-099.json').write_text(json.dumps({
+                    'run_id': 'MS-099', 'model_requested': 'gpt-6.1-sol',
+                    'response': {'usage': {'input_tokens': 0, 'output_tokens': 3_995_000}}}), encoding='utf-8')
+                self.assertGreater(at.spent(d, 'openai'), at.CAP_DOLLARS - 1)
+                self.assertEqual(at.spent(d, 'openai', 'practice'), 0)
+                at.run_api('openai', 'practice', d, 'k', ['gpt-6-luna'])
+                self.assertEqual(len(calls), 90)
+        finally:
+            at.call_api = real
+
+    def test_fisher_and_holm(self):
+        self.assertAlmostEqual(at.fisher_exact(3, 1, 1, 3), 0.485714, places=5)
+        self.assertAlmostEqual(at.fisher_exact(10, 20, 0, 30), 0.000797, places=6)
+        self.assertEqual(at.fisher_exact(0, 30, 0, 30), 1.0)
+        self.assertEqual(at.holm([0.01, 0.04, 0.03, 0.2]), [0.04, 0.09, 0.09, 0.2])
 
 
 if __name__ == '__main__':
