@@ -793,6 +793,22 @@
       "merged_at": "2026-11-20T23:22:05Z",
       "merged_by": "matkowsky",
       "credit": "Recorded in PR #112."
+    },
+    {
+      "pr": 113,
+      "title": "Verify the full histories in the S4.4 release example",
+      "merge_commit_sha": "249077fb30deea57fe19454535595a343bde7e39",
+      "merged_at": "2026-11-21T22:34:31Z",
+      "merged_by": "matkowsky",
+      "credit": "Jonathan Matkowsky requested this revision. ChatGPT/Codex drafted the text and code. A separate ChatGPT/Codex review session checked the exact source, ran both conformance suites, and tested the unrelated-record negative control."
+    },
+    {
+      "pr": 114,
+      "title": "S4.4: name the release decision; say what each necessity pair checks",
+      "merge_commit_sha": "a66e83265e2d8fe45489523ab1ec31ce2dd2fedc",
+      "merged_at": "2026-11-21T22:34:44Z",
+      "merged_by": "matkowsky",
+      "credit": "ChatGPT found both points in its review of #113. Claude checked them against the checker and drafted the wording."
     }
   ]
 }

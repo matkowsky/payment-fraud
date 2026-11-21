@@ -103,6 +103,8 @@ Accepted pull requests:
 - [#110](https://github.com/matkowsky/payment-fraud/pull/110) S4.4: say how the 29 cross-record rules add up
 - [#111](https://github.com/matkowsky/payment-fraud/pull/111) F3 v1.3 crosswalk; MITRE as the check outside Stripe; review items
 - [#112](https://github.com/matkowsky/payment-fraud/pull/112) Held items: 7.1 bounds, 6.4 review load, 2.3 wording, PaySeqGen in S7; run records
+- [#113](https://github.com/matkowsky/payment-fraud/pull/113) Verify the full histories in the S4.4 release example
+- [#114](https://github.com/matkowsky/payment-fraud/pull/114) S4.4: name the release decision; say what each necessity pair checks
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
@@ -113,7 +115,7 @@ Accepted pull requests:
 
 **Changed, under "Threat Analytics Across Payment Products: Evidence Requirements for Agent Investigations", by the automatic status update:**
 
-<del>29</del><ins>20</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>21</ins> <del>October</del><ins>November</ins> 2026 · <del>Preprint,</del><ins>Accepted working draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "Abstract", by [#69](https://github.com/matkowsky/payment-fraud/pull/69):**
 
@@ -1024,7 +1026,7 @@ This paper combines those requirements in one specification grounded in public e
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by the automatic status update:**
 
-<del>29</del><ins>20</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
+<del>29</del><ins>21</ins> <del>October</del><ins>November</ins> 2026 · <del>Supplement</del><ins>Accepted</ins> <del>to</del><ins>working</ins> <del>preprint</del><ins>draft for</ins> version <del>1.0</del><ins>1.1 · Not published</ins> · Not peer reviewed
 
 **Changed, under "Supplement: signals, interfaces and worked-example data", by [#3](https://github.com/matkowsky/payment-fraud/pull/3), [#68](https://github.com/matkowsky/payment-fraud/pull/68), [#90](https://github.com/matkowsky/payment-fraud/pull/90), [#103](https://github.com/matkowsky/payment-fraud/pull/103), [#106](https://github.com/matkowsky/payment-fraud/pull/106):**
 
@@ -1386,17 +1388,17 @@ The \[draft schema\]\(../SUPPLEMENT/S4\_DRAFT\_SCHEMA.csv\) supplies the fields 
 
 <ins>The \[valid conformance case\]\(../SUPPLEMENT/S4\_INVESTIGATION\_RECORDS/conformance\_valid.json\) builds one synthetic history: an investigation with three query runs, a draft with a current-conduct claim and an absence claim, a note written while the draft was open, a release by a second person, and a later case that reads the released conclusion as context and cites a new observation. Its 25 records pass. Each of the 40 \[invalid cases\]\(../SUPPLEMENT/S4\_INVESTIGATION\_RECORDS/conformance\_invalid.json\) changes that history in one way and fails exactly one check; together they exercise the schema and all fourteen rules. Where a case changes a draft's claims, the draft is first given its new digest, so that only the intended check fails. Run \[\`tools/investigation\_conformance.py\`\]\(../tools/investigation\_conformance.py\) to repeat the checks.</ins>
 
-**Added, under "S4.4 Field-level schemas for query runs and release {\#s44-field-level-schemas-for-query-runs-and-release}", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
+**Added, under "S4.4 Field-level schemas for query runs and release {\#s44-field-level-schemas-for-query-runs-and-release}", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#114](https://github.com/matkowsky/payment-fraud/pull/114):**
 
-<ins>The same script checks four necessity pairs. Each pair is two histories that permit different conclusions but are identical once one group of fields is removed. In the first three pairs both histories pass the rules; in the fourth, the rules reject the history with no release decision.</ins>
+<ins>The same script checks four necessity pairs. Each pair is two histories that permit different conclusions but are identical once one group of fields is removed. For coverage and learned time, the script compares two versions of one record in a fixed context. Both roots-and-inputs histories pass the rules. In the release pair, the rules reject the history with no release decision.</ins>
 
-**Added, under "S4.4 Field-level schemas for query runs and release {\#s44-field-level-schemas-for-query-runs-and-release}", by [#38](https://github.com/matkowsky/payment-fraud/pull/38):**
+**Added, under "S4.4 Field-level schemas for query runs and release {\#s44-field-level-schemas-for-query-runs-and-release}", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#113](https://github.com/matkowsky/payment-fraud/pull/113), [#114](https://github.com/matkowsky/payment-fraud/pull/114):**
 
-<ins>\| Fields removed \| The two histories \| What differs \|<br>\|---\|---\|---\|<br>\| Query coverage \(C2\) \| The same empty result, from a complete run and from a run reaching past its source's event watermark \| Whether absence is supported \|<br>\| Learned time \(C2\) \| The same observation, learned before a run's cutoff and after it \| Whether the fact was known at the cutoff \|<br>\| Roots and inputs \(C3\) \| A second supporting record derived from a different observation, and one derived from the first \| Two root observations or one \|<br>\| Release decision \(C3\) \| The same stored conclusion, with a person's release decision and with none \| Whether reuse is permitted \|</ins>
+<ins>\| Fields removed \| The two histories \| What differs \|<br>\|---\|---\|---\|<br>\| Query coverage \(C2\) \| The same empty result, from a complete run and from a run reaching past its source's event watermark \| Whether absence is supported \|<br>\| Learned time \(C2\) \| The same observation, learned before a run's cutoff and after it \| Whether the fact was known at the cutoff \|<br>\| Roots and inputs \(C3\) \| A second supporting record derived from a different observation, and one derived from the first \| Two root observations or one \|<br>\| Release decision and its link from the stored conclusion \(C3\) \| The same stored conclusion, with a person's release decision and with none \| Whether reuse is permitted \|</ins>
 
-**Added, under "S4.4 Field-level schemas for query runs and release {\#s44-field-level-schemas-for-query-runs-and-release}", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#42](https://github.com/matkowsky/payment-fraud/pull/42), [#73](https://github.com/matkowsky/payment-fraud/pull/73):**
+**Added, under "S4.4 Field-level schemas for query runs and release {\#s44-field-level-schemas-for-query-runs-and-release}", by [#38](https://github.com/matkowsky/payment-fraud/pull/38), [#42](https://github.com/matkowsky/payment-fraud/pull/42), [#73](https://github.com/matkowsky/payment-fraud/pull/73), [#113](https://github.com/matkowsky/payment-fraud/pull/113), [#114](https://github.com/matkowsky/payment-fraud/pull/114):**
 
-<ins>A store without those fields cannot tell the two histories apart, so no rule applied to it can be right in both. The pairs show that each field group is needed; they do not show that the records are sufficient or that they improve investigations. The rules do not check released-item links on records written after a memory read, or whether a returned record bears on a claim. They compare a source's ingestion watermark with the requested interval, not with the run's cutoff. Three further gaps need fields the schema lacks. A query run does not record what was asked, so the rules cannot tell whether a complete run returned every matching record. Release scope is free text, so the rules cannot hold a release or a later read to it. A release names a person but carries no authenticated approval tied to the draft. No record rule can show that the person read the draft, and the schema has no class for a fact recorded ahead of its effective date. Identifiers, dates and versions in the cases are illustrative. The schema has no record for a later retraction, early expiry or withdrawal \(S4.1\), so IR-13 tests only a release's original expiry.</ins>
+<ins>Removing the release decision and its link from the stored conclusion leaves the two release histories identical. A reviewer with only the remaining records cannot determine whether a person released the conclusion for reuse. Each pair shows what information is needed to distinguish its two histories. The pairs do not show that the records are sufficient or that they improve investigations. The rules do not check released-item links on records written after a memory read, or whether a returned record bears on a claim. They compare a source's ingestion watermark with the requested interval, not with the run's cutoff. Three further gaps need fields the schema lacks. A query run does not record what was asked, so the rules cannot tell whether a complete run returned every matching record. Release scope is free text, so the rules cannot hold a release or a later read to it. A release names a person but carries no authenticated approval tied to the draft. No record rule can show that the person read the draft, and the schema has no class for a fact recorded ahead of its effective date. Identifiers, dates and versions in the cases are illustrative. The schema has no record for a later retraction, early expiry or withdrawal \(S4.1\), so IR-13 tests only a release's original expiry.</ins>
 
 **Added, under "S4.4 Field-level schemas for query runs and release {\#s44-field-level-schemas-for-query-runs-and-release}", by [#52](https://github.com/matkowsky/payment-fraud/pull/52):**
 
