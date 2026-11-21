@@ -105,6 +105,8 @@ Accepted pull requests:
 - [#112](https://github.com/matkowsky/payment-fraud/pull/112) Held items: 7.1 bounds, 6.4 review load, 2.3 wording, PaySeqGen in S7; run records
 - [#113](https://github.com/matkowsky/payment-fraud/pull/113) Verify the full histories in the S4.4 release example
 - [#114](https://github.com/matkowsky/payment-fraud/pull/114) S4.4: name the release decision; say what each necessity pair checks
+- [#115](https://github.com/matkowsky/payment-fraud/pull/115) Adversarial test README: IR-10 changed after round 2; drop a stale case count
+- [#116](https://github.com/matkowsky/payment-fraud/pull/116) Agent test: current-practice phase, fixed before any run
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
