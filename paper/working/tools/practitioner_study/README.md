@@ -28,6 +28,8 @@ Changed 18 November 2026, after the form opened; whether a response had arrived 
 
 Changed 19 November 2026, at the author's direction: the author closed the form early, between 20:28 and 20:33 UTC, with no responses. The form's linked workbook holds no response rows. The study is not reported in the paper, and Supplement S8 no longer describes it. This replaces the 16 and 17 November notes that the study is reported, the close on 30 November and the rule that there is no early stop. With no responses, the early close and the removal depend on no participant's answer. The form, the questions and the answer key did not change.
 
+Changed 21 November 2026: Supplement S8 now says in one sentence that the cases, questions and key were written for this study, and that it opened on 14 November and closed on 19 November with no responses. This replaces "The study is not reported in the paper" in the 19 November note. Nothing else about the study is reported, and the form, the questions and the answer key did not change.
+
 ## Question
 
 Do the records C1 to C3 require change the conclusions practitioners draw, how often do the failures they target occur in practice, and what does the field record today?
