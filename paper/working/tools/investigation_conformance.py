@@ -381,10 +381,17 @@ def necessity_pairs(valid, schema):
     # C3 release: the same stored conclusion, released by a person in one history and never released in the other.
     item = next(r for r in valid if r['record_type'] == 'ReleasedItem')
     orphan = dict(copy.deepcopy(item), release_id='RL-NONE')
-    assert strip([item], ('release_id',)) == strip([orphan], ('release_id',))
+    without = [orphan if r is item else r for r in valid if r['record_id'] != item['release_id']]
     assert not check(valid, schema)
-    without = [orphan if r is item else r for r in valid if r['record_type'] != 'ReleaseDecision']
     assert {f[0] for f in check(without, schema)} == {'IR-02'}
+
+    def hide_release_evidence(history):
+        remaining = [r.copy() for r in history if r['record_id'] != item['release_id']]
+        stored = next(r for r in remaining if r['record_id'] == item['record_id'])
+        del stored['release_id']
+        return remaining
+
+    assert hide_release_evidence(valid) == hide_release_evidence(without)
     out['C3 release'] = 'reuse permitted in one history only'
     return out
 
