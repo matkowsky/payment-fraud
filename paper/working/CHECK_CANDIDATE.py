@@ -303,6 +303,12 @@ import hashlib
 packet3 = (B / 'tools/adversarial_cases/PACKET_ROUND3.md').read_bytes()
 plan3 = (B / 'tools/adversarial_cases/round3/PLAN.md').read_text(encoding='utf-8')
 assert hashlib.sha256(packet3).hexdigest() in plan3 and f'{len(packet3):,} bytes' in plan3
+# The plan lists the frozen files by git blob hash. Until round 3 is closed, none of them may change.
+frozen3 = re.findall(r'^  - `([^`]+)`: `([0-9a-f]{40})`$', plan3, re.M)
+assert len(frozen3) == 8, frozen3
+for frozen_path, blob in frozen3:
+    data = (B / frozen_path).read_bytes()
+    assert hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest() == blob, frozen_path
 assert 'seven are new failures of the rules, one does not break a requirement, and two are unresolved' in sbody
 assert 'the round 1 rules had rejected three of 13' in sbody and 'the two agreed on seven' in sbody
 assert 'the rules rejected two of the 12 meant to break a requirement, and seven of the 10 that passed were new gaps; the fix awaits a third round' in body

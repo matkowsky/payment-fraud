@@ -9,7 +9,17 @@ The rules were revised on 22 November 2026 from a table of every reference betwe
 ## Frozen rules
 
 - Rules IR-01 to IR-14 and XR-01 as stated in Supplement S4.4 and implemented in `tools/investigation_conformance.py`, with the two schemas and the joint history, at the commit on main that merges this plan.
-- That commit's hash and the blob hashes of the checker, the runner, the two schemas and the three history files are written to `RUN_RECORD.md` before the packet is sent.
+- The frozen files, with their git blob hashes:
+  - `tools/investigation_conformance.py`: `2c8076ddf2417fa06791dfdfe5ef52a42c73112d`
+  - `tools/outcome_conformance.py`: `3519cb1617f8dce216faaa2e2c34544d2722893e`
+  - `tools/adversarial_cases/run_cases.py`: `058258b00cd3af8092ccf109c6f377cd4da3280d`
+  - `SUPPLEMENT/S4_INVESTIGATION_RECORDS/investigation_records.schema.json`: `069de356c17b8eeb7b429ad5de12e495da760d1a`
+  - `SUPPLEMENT/S4_OUTCOME_RECORDS/outcome_records.schema.json`: `fe3e2e1317f280a68b64facf0d147b55cb9ec034`
+  - `SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json`: `ca86f6b7aa20db03ace55229699f6690c5fac4f5`
+  - `SUPPLEMENT/S4_INVESTIGATION_RECORDS/joint_case.json`: `a176b5fad4e97e72599c24a10130837ee1628522`
+  - `SUPPLEMENT/S4_OUTCOME_RECORDS/conformance_valid.json`: `0cf70a48842c85aad63e9fab77c7391805c70178`
+- The package check compares these hashes with the files, so a change to any of them fails until the round is closed.
+- The freeze commit's hash is written to `RUN_RECORD.md` with the first reply.
 - No rule, schema or checker change until every round 3 case is scored and ruled on. A fix found in round 3 is reported as a round 3 miss first.
 - Rules OR-01 to OR-14 are not under test. The runner applies them, so a history that only they reject is listed apart.
 
