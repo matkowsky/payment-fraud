@@ -61,4 +61,14 @@ Kept as the run went, in the order things happened. The results are in `RESULTS.
 - Still not recorded: the model version as shown, the session's settings (new session, memory, project, web access), whether one session wrote all three replies, and when the packet was sent.
 - The reviewer for the rulings check must therefore be a model from a developer other than Meta and other than Anthropic.
 
+Added 22 November 2026, 15:25Z:
+
+- The author stated the settings on 22 November 2026, after the scoring and the first rulings. His words, with the time each was given:
+  - 06:53Z: "Temp chats and running it now in astra pro model".
+  - 06:56Z, asked whether web search was on in the tester's chat and in the reviewer's: "No web search".
+  - 15:21Z, asked whether one chat wrote all three replies: "One llama chat did".
+- As read: the tester ran in one temporary chat, which wrote all three replies, with web search off. "Temp chats" and "No web search" are read as covering the reviewer's chat as well. He did not say so in those words.
+- Still not recorded: the model version as shown, the two later prompts as sent, when the packet was sent and whether it went in whole as one message.
+- The reviewer he names, "astra pro", is read as GPT-6 Astra Pro, the OpenAI model named in the plan. OpenAI is neither Meta nor Anthropic, so the plan's condition on the reviewer's developer is met. Its reply had not been received when this was written.
+
 Recorded by Claude (Anthropic), 22 November 2026.
