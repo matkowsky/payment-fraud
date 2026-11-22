@@ -34,6 +34,7 @@ function Table(t)
  if n==10 and s:match('^Question') then widths={.085,.155,.095,.095,.095,.095,.095,.095,.095,.095} -- Tables S8.1 and S8.2: eight model columns
  elseif n==10 then widths={.44,.055,.055,.055,.055,.055,.055,.055,.055,.12}
  elseif n==7 then widths={.26,.255,.085,.075,.09,.085,.145} -- Table S10.1: two text columns and five counts
+ elseif n==6 and s:match('^Reference') then widths={.19,.20,.13,.16,.21,.11} -- S4.4 reference table
  elseif n==5 and s:match('SDK file') then widths={.11,.23,.10,.36,.20}
  elseif n==5 then widths={.22,.07,.14,.17,.40}
  elseif n==4 and s:match('^Family') then widths={.47,.11,.23,.19}

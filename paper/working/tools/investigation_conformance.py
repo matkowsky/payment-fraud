@@ -27,7 +27,24 @@ HERE = Path(__file__).resolve().parent.parent / 'SUPPLEMENT' / 'S4_INVESTIGATION
 SCHEMA = HERE / 'investigation_records.schema.json'
 VALID = HERE / 'conformance_valid.json'
 INVALID = HERE / 'conformance_invalid.json'
+ACCEPT = HERE / 'conformance_accept.json'
 JOINT = HERE / 'joint_case.json'
+# Every reference one record makes to another, and the record types its target may have (the reference table of Supplement S4.4).
+REFERENCES = {
+    ('QueryRun', 'requested_by'): {'Actor'}, ('QueryRun', 'recorded_by'): {'Actor'}, ('QueryRun', 'returned'): {'Observation'},
+    ('Observation', 'producer'): {'Actor'}, ('Observation', 'inputs'): {'Observation'}, ('Observation', 'root_ids'): {'Observation'},
+    ('Observation', 'agent_output_links'): {'DraftOutput'}, ('DraftOutput', 'agent'): {'Actor'},
+    ('claim', 'supporting'): {'Observation'}, ('claim', 'contradicting'): {'Observation'}, ('claim', 'query_runs'): {'QueryRun'},
+    ('claim', 'context'): {'Observation', 'ReleasedItem'},
+    ('OutputExposure', 'output_id'): {'DraftOutput'}, ('OutputExposure', 'viewer'): {'Actor'},
+    ('ReleaseDecision', 'draft_id'): {'DraftOutput'}, ('ReleaseDecision', 'decided_by'): {'Actor'},
+    ('ReleasedItem', 'release_id'): {'ReleaseDecision'}, ('ReleasedItem', 'draft_id'): {'DraftOutput'},
+    ('MemoryRead', 'reader'): {'Actor'}, ('MemoryRead', 'item_id'): {'ReleasedItem'},
+}
+# The references whose target must be, or must not be, one kind of actor.
+ACTOR_KINDS = {('QueryRun', 'requested_by'): ('not', 'gateway'), ('QueryRun', 'recorded_by'): ('is', 'gateway'),
+               ('DraftOutput', 'agent'): ('is', 'agent'), ('OutputExposure', 'viewer'): ('is', 'human'),
+               ('ReleaseDecision', 'decided_by'): ('is', 'human')}
 C1_TYPES = ('ControlAction', 'ChannelStateTransition', 'ChannelStatusReading')
 OBSERVED = {'source_observation', 'normalized_observation', 'derived_feature'}
 RANK = {'low': 0, 'moderate': 1, 'high': 2}
@@ -91,11 +108,27 @@ def derive_statuses(run):
     return sorted(out) or ['complete']
 
 
-def supports_absence(run, claim):
-    """A run supports an absence claim only if it is complete, unfiltered, returned nothing and covers the claim."""
-    return (run['statuses'] == ['complete'] and not run['scope_limited'] and not run['returned']
-            and {ent(e) for e in claim['entities']} <= {ent(e) for e in run['evaluated_entities']}
-            and within(claim['interval'], run['evaluated_interval']))
+def supports_absence(runs, claim):
+    """Cited runs support an absence claim if the claim names its sources and, for each named entity in each named
+    source, the runs that are complete, not scope-limited and empty and that evaluated that entity in that source
+    cover the claim's interval between them."""
+    if not claim.get('sources'):
+        return False
+    start, end = ts(claim['interval']['from']), ts(claim['interval']['to'])
+    for e in claim['entities']:
+        for s in claim['sources']:
+            spans = sorted((ts(q['evaluated_interval']['from']), ts(q['evaluated_interval']['to'])) for q in runs
+                           if q['statuses'] == ['complete'] and not q['scope_limited'] and not q['returned']
+                           and ent(e) in {ent(v) for v in q['evaluated_entities']}
+                           and s in {x['source_id'] for x in q['sources']})
+            reach = None
+            for a, b in spans:
+                if a > (start if reach is None else reach):
+                    break
+                reach = b if reach is None else max(reach, b)
+            if reach is None or reach < end:
+                return False
+    return True
 
 
 def claims_digest(claims):
@@ -143,6 +176,12 @@ def check(records, schema):
     by = {r['record_id']: r for r in records}
     kind = {r['record_id']: r['kind'] for r in records if r['record_type'] == 'Actor'}
 
+    def agent_made(o):   # C3: what an agent produced is a record of what the agent did, not evidence of the activity
+        return kind.get(o.get('producer')) == 'agent'
+
+    def plain(o):   # names a producer that is not an agent, and carries no link to an agent output
+        return 'producer' in o and not agent_made(o) and not o['agent_output_links']
+
     def refs(r):
         t = r['record_type']
         if t == 'QueryRun':
@@ -174,6 +213,22 @@ def check(records, schema):
                     found.append(('IR-02', r['record_id'], f'cites {q} as a query run'))
         if r['record_type'] == 'Observation' and r.get('producer') in by and by[r['producer']]['record_type'] != 'Actor':
             found.append(('IR-02', r['record_id'], f'names {r["producer"]} as its producer'))
+        # A reference whose target can be of one type only, or one kind of actor only, is checked here.
+        t, rid = r['record_type'], r['record_id']
+        if t == 'Observation':
+            for x in r['agent_output_links']:
+                if x in by and by[x]['record_type'] != 'DraftOutput':
+                    found.append(('IR-02', rid, f'links to {x} as an agent output'))
+        if t == 'DraftOutput' and r['agent'] in by and kind.get(r['agent']) != 'agent':
+            found.append(('IR-02', rid, f'names {r["agent"]} as the agent that wrote it'))
+        if t == 'OutputExposure':
+            if r['output_id'] in by and by[r['output_id']]['record_type'] != 'DraftOutput':
+                found.append(('IR-02', rid, f'names {r["output_id"]} as the agent output that was open'))
+            if r['viewer'] in by and kind.get(r['viewer']) != 'human':
+                found.append(('IR-02', rid, f'names {r["viewer"]} as the person who had the output open'))
+        for f in {'QueryRun': ('requested_by', 'recorded_by'), 'MemoryRead': ('reader',)}.get(t, ()):
+            if r[f] in by and r[f] not in kind:
+                found.append(('IR-02', rid, f'names {r[f]} as an actor'))
     if found:
         return found
 
@@ -190,8 +245,10 @@ def check(records, schema):
             for x in r['returned']:
                 o = by[x]
                 if o['record_type'] != 'Observation' or ts(o['learned_at']) > ts(r['as_of']) \
-                        or not overlaps(o['event_interval'], r['evaluated_interval']):
-                    found.append(('IR-06', rid, f'{x} was not learned by the cutoff or lies outside the evaluated interval'))
+                        or not overlaps(o['event_interval'], r['evaluated_interval']) \
+                        or ent(o['entity']) not in {ent(e) for e in r['evaluated_entities']}:
+                    found.append(('IR-06', rid, f'{x} was not learned by the cutoff, lies outside the evaluated interval '
+                                                'or concerns an entity the run did not evaluate'))
         if t == 'Observation':
             ins = [by[i] for i in r['inputs']]
             if any(i['record_type'] != 'Observation' for i in ins):
@@ -208,14 +265,17 @@ def check(records, schema):
             elif r['record_class'] == 'source_observation' and ts(r['learned_at']) < ts(r['event_interval']['from']):
                 found.append(('IR-07', rid, 'a source observation cannot be learned before its event began'))
             owed = {x for i in ins for x in i['agent_output_links']}
-            for x in records:
-                if x['record_type'] == 'OutputExposure' and x['viewer'] == r.get('producer') and ent(x['entity']) == ent(r['entity']) \
+            for x in records:   # whatever entity the record concerns (manuscript Section 4.2: the writer's session)
+                if x['record_type'] == 'OutputExposure' and x['viewer'] == r.get('producer') \
                         and ts(x['opened_at']) <= ts(r['learned_at']) <= ts(x['closed_at']):
                     owed.add(x['output_id'])
-            if r['record_class'] == 'human_note' and 'producer' not in r:
-                found.append(('IR-14', rid, 'a note must name its producer'))
-            elif not owed <= set(r['agent_output_links']):
+            if not owed <= set(r['agent_output_links']):
                 found.append(('IR-14', rid, f'missing link to agent output {sorted(owed - set(r["agent_output_links"]))}'))
+            elif any(ts(by[x]['created_at']) > ts(r['learned_at']) for x in r['agent_output_links']):
+                found.append(('IR-14', rid, 'a linked agent output was written after the record was learned'))
+        if t == 'OutputExposure':
+            if ts(r['opened_at']) < ts(by[r['output_id']]['created_at']) or ts(r['closed_at']) < ts(r['opened_at']):
+                found.append(('IR-14', rid, 'an agent output is open only after it was written, and closes after it opens'))
         if t == 'DraftOutput':
             if r['version_hash'] != claims_digest(r['claims']):
                 found.append(('IR-11', rid, "the draft's version identifier is not the digest of its claims"))
@@ -223,11 +283,18 @@ def check(records, schema):
                 cid = f'{rid}/{c["claim_id"]}'
                 named = {ent(e) for e in c['entities']}
                 runs = [by[q] for q in c['query_runs']]
+
+                def counter(x):   # an observation of a named entity inside the claim's interval
+                    o = by[x]
+                    return o['record_type'] == 'Observation' and ent(o['entity']) in named \
+                        and overlaps(o['event_interval'], c['interval'])
+                # A cited run over none of the claim's sources does not bear on it, for or against.
+                bearing = [q for q in runs if set(c.get('sources', [])) & {s['source_id'] for s in q['sources']}]
                 if c['claim_type'] == 'absence' and (
-                        not any(supports_absence(q, c) for q in runs)
-                        or any(by[x]['record_type'] == 'Observation' and ent(by[x]['entity']) in named
-                               and overlaps(by[x]['event_interval'], c['interval']) for q in runs for x in q['returned'])):
-                    found.append(('IR-08', cid, 'an absence claim needs a complete, empty run that covers it, and no cited run that returned a matching record'))
+                        not supports_absence(runs, c) or any(counter(x) for q in bearing for x in q['returned'])
+                        or any(counter(x) for x in c['supporting'] + c['contradicting'])):
+                    found.append(('IR-08', cid, 'an absence claim names its sources and needs complete, empty runs that cover it '
+                                                'in each, with no matching record returned by such a run or listed by the claim'))
 
                 def existed(x):   # when a cited record came to exist
                     o = by[x]
@@ -238,8 +305,7 @@ def check(records, schema):
                 # through the inputs, so a derived record adds only the roots reachable through records that are
                 # not dependent.
                 def countable(o, seen=()):
-                    if o['record_type'] != 'Observation' or o['agent_output_links'] or 'producer' not in o \
-                            or o['record_id'] in seen:
+                    if o['record_type'] != 'Observation' or not plain(o) or o['record_id'] in seen:
                         return set()
                     if o['record_class'] == 'source_observation':
                         return set(o['root_ids'])
@@ -247,12 +313,16 @@ def check(records, schema):
                 free = [o for o in sup if countable(o)]
                 cited = c['supporting'] + c['contradicting'] + c['context'] + c['query_runs']
                 if any(o['record_type'] != 'Observation' or ent(o['entity']) not in named for o in sup) \
+                        or any(by[x]['record_type'] != 'Observation' for x in c['contradicting']) \
+                        or any(by[x]['record_type'] not in ('Observation', 'ReleasedItem') for x in c['context']) \
                         or any(existed(x) > ts(r['created_at']) for x in cited) \
                         or c['distinct_roots'] != len(set().union(*(countable(o) for o in sup))) \
-                        or (c['material'] and c['claim_type'] != 'absence'
-                            and not any(overlaps(o['event_interval'], c['interval']) for o in free)):
-                    found.append(('IR-09', cid, 'support must be observations of the named entities, known by the draft, counted once per '
-                                                'root among records that are not dependent, with one such record in the claim interval for a material claim'))
+                        or (c['material'] and c['claim_type'] != 'absence' and not all(
+                            any(ent(o['entity']) == e and overlaps(o['event_interval'], c['interval']) for o in free)
+                            for e in named)):
+                    found.append(('IR-09', cid, 'support and contradiction must be observations, support of the named entities; context an '
+                                                'observation or a released item; all known by the draft; roots counted once among records that '
+                                                'are not dependent, with one such record in the claim interval for each entity of a material claim'))
                 elif c['claim_type'] == 'current_conduct':
                     def current(o):   # an observation of a named entity, within the current period
                         return o['record_class'] in OBSERVED and within(o['event_interval'], r['current_period']) \
@@ -261,15 +331,25 @@ def check(records, schema):
                     for s in (by[x] for x in c['supporting']):
                         if not current(s):
                             continue
-                        # A linked record counts only if its inputs hold, for each named entity, an unlinked
-                        # current-period observation of that entity (manuscript Section 6.4).
-                        if s['agent_output_links'] and not all(any(
-                                current(by[i]) and not by[i]['agent_output_links'] and ent(by[i]['entity']) == e
+                        # A record that is linked to an agent output, was produced by an agent or names no producer
+                        # counts only if its inputs hold, for each named entity, a current-period observation of that
+                        # entity that is none of these (manuscript Section 6.4).
+                        if not plain(s) and not all(any(
+                                current(by[i]) and plain(by[i]) and ent(by[i]['entity']) == e
                                 for i in s['inputs'] if i in by) for e in named):
                             continue
                         ok = True
                     if not ok:
                         found.append(('IR-10', cid, 'no current-period observation of a named entity is cited'))
+                for x in c['context']:
+                    if by[x]['record_type'] != 'ReleasedItem':
+                        continue
+                    release = by.get(by[x].get('release_id'), {})
+                    if not any(m['record_type'] == 'MemoryRead' and m['item_id'] == x and m['case_id'] == r['case_id']
+                               and ts(m['read_at']) <= ts(r['created_at']) for m in records) \
+                            or ts(r['created_at']) >= ts(release.get('expires_at', r['created_at'])):
+                        found.append(('IR-13', cid, f'cites released item {x} with no read of it in this case by the time of the draft, '
+                                                    'or after its release expired'))
         if t == 'ReleaseDecision':
             d = by[r['draft_id']]
             claims = {c['claim_id']: c for c in d.get('claims', [])}
@@ -293,10 +373,11 @@ def check(records, schema):
 
 
 def check_joint(records, outcomes):
-    """XR-01: a claim that relies on items' outcomes not being reported lists the items and cites, for each, a channel
-    reading taken by the time of the draft. Every cited reading of a listed item shows a matured absence, and a cited
-    complete run evaluated the item from its clock start through the end of its reporting window and returned nothing
-    about it."""
+    """XR-01: a claim that states or relies on items' outcomes not being reported lists the items, says which of the
+    two it does, and cites for each item a channel reading taken by the time of the draft. Every cited reading of a
+    listed item was made with full access and shows that no report had arrived. Where the claim reads the absence as
+    a negative, every cited reading also shows a matured absence, and a cited complete run evaluated the item from
+    its clock start through the end of its reporting window and returned nothing about it."""
     found = []
     by = {r['record_id']: r for r in records}
     out = {r['record_id']: r for r in outcomes}
@@ -304,9 +385,14 @@ def check_joint(records, outcomes):
                for r in outcomes if r['record_type'] == 'OutcomeChannel'}
     for d in records:
         for c in d['claims'] if d['record_type'] == 'DraftOutput' else []:
-            if not c.get('outcome_items'):
-                continue
             cid = f'{d["record_id"]}/{c["claim_id"]}'
+            if not c.get('outcome_items'):
+                if c.get('outcome_readings') or 'outcome_use' in c:
+                    found.append(('XR-01', cid, 'cites readings or names a use but lists no outcome item'))
+                continue
+            if c.get('outcome_use') not in ('status', 'negative'):
+                found.append(('XR-01', cid, 'does not say whether it states that no report arrived or reads that as a negative'))
+                continue
             readings = [out.get(x) for x in c.get('outcome_readings', [])]
             if any(x is None or x['record_type'] != 'ChannelStatusReading' or ts(x['read_time']) > ts(d['created_at'])
                    for x in readings):
@@ -315,8 +401,13 @@ def check_joint(records, outcomes):
             runs = [by[q] for q in c['query_runs'] if by.get(q, {}).get('record_type') == 'QueryRun']
             for e in c['outcome_items']:
                 mine = [x for x in readings if (x['item']['item_type'], x['item']['item_id']) == (e['namespace'], e['id'])]
-                if not mine or any(x['no_report_status'] != 'matured_absent' for x in mine):
-                    found.append(('XR-01', cid, f'{e["id"]}: no cited reading, or one that is not a matured absence'))
+                if not mine or any(x['report_presence'] != 'none_arrived' or x['query_access'] != 'full' for x in mine):
+                    found.append(('XR-01', cid, f'{e["id"]}: no cited reading, or one that does not show with full access that no report arrived'))
+                    continue
+                if c['outcome_use'] == 'status':   # the statement is true whatever the channel's state; no negative is read
+                    continue
+                if any(x['no_report_status'] != 'matured_absent' for x in mine):
+                    found.append(('XR-01', cid, f'{e["id"]}: a cited reading is not a matured absence'))
                     continue
                 for x in mine:
                     w = windows.get((x['channel_id'], x.get('matured_under_rule_version')), {})
@@ -359,7 +450,7 @@ def necessity_pairs(valid, schema):
     b['statuses'] = derive_statuses(b)
     claim = next(c for c in by['DR-1']['claims'] if c['claim_type'] == 'absence')
     assert strip([a], COVERAGE_FIELDS) == strip([b], COVERAGE_FIELDS) and a['returned'] == b['returned'] == []
-    assert supports_absence(a, claim) and not supports_absence(b, claim)
+    assert supports_absence([a], claim) and not supports_absence([b], claim)
     out['C2 coverage'] = 'absence supported in one history only'
     # C2 learned time: the same observation, learned before the cutoff in one history and after it in the other.
     run = by['Q-1']
@@ -418,6 +509,50 @@ def joint_pairs(records, outcomes, schema, outcome_schema):
     return out
 
 
+def reference_sweep(records, schema):
+    """Point every reference in a passing history at a record of each type it may not have, and at an actor of each
+    kind it may not have. The rules must reject every such history. Returns the two counts."""
+    assert not check(records, schema)
+    first = {}
+    for r in records:
+        first.setdefault(r['record_type'], r['record_id'])
+    actors = {}
+    for r in records:
+        if r['record_type'] == 'Actor':
+            actors.setdefault(r['kind'], r['record_id'])
+    spare = {'record_type': 'Actor', 'record_id': 'SWEEP-RULE', 'kind': 'rule'}
+    actors.setdefault('rule', spare['record_id'])
+
+    def holders(history):   # (record type or 'claim', the object that holds the field)
+        for r in history:
+            yield r['record_type'], r
+            for c in r['claims'] if r['record_type'] == 'DraftOutput' else []:
+                yield 'claim', c
+
+    def mutated(index, field, target):
+        history = copy.deepcopy(records) + [copy.deepcopy(spare)]
+        holder = list(holders(history))[index][1]
+        holder[field] = holder[field] + [target] if isinstance(holder[field], list) else target
+        return seal(history)
+
+    wrong_type = wrong_kind = 0
+    for index, (where, holder) in enumerate(holders(records)):
+        for (kind_of_holder, field), allowed in REFERENCES.items():
+            if kind_of_holder != where or field not in holder:
+                continue
+            for record_type, target in first.items():
+                if record_type not in allowed:
+                    assert check(mutated(index, field, target), schema), (holder.get('record_id', holder.get('claim_id')), field, target)
+                    wrong_type += 1
+            if (where, field) in ACTOR_KINDS:
+                sense, named = ACTOR_KINDS[(where, field)]
+                for actor_kind, target in actors.items():
+                    if (actor_kind == named) != (sense == 'is'):
+                        assert check(mutated(index, field, target), schema), (holder['record_id'], field, target)
+                        wrong_kind += 1
+    return wrong_type, wrong_kind
+
+
 def run_conformance():
     schema = json.loads(SCHEMA.read_text(encoding='utf-8'))
     valid = json.loads(VALID.read_text(encoding='utf-8'))['records']
@@ -440,8 +575,18 @@ def run_conformance():
                                         apply_patch(outcomes, case.get('outcome', {})), schema, outcome_schema)}
         assert got == {case['rule']}, (case['case_id'], case['rule'], sorted(got))
     joint = joint_pairs(records, outcomes, schema, outcome_schema)
+    accept = json.loads(ACCEPT.read_text(encoding='utf-8'))['cases']
+    for case in accept:   # changes the requirements allow must still pass
+        if 'investigation' in case or 'outcome' in case:
+            got = check_both(seal(apply_patch(records, case.get('investigation', {}))),
+                             apply_patch(outcomes, case.get('outcome', {})), schema, outcome_schema)
+        else:
+            got = check(seal(apply_patch(valid, case)), schema)
+        assert not got, (case['case_id'], got)
+    wrong_type, wrong_kind = reference_sweep(records, schema)
     return {'valid_records': len(valid), 'invalid_cases': len(cases), 'rules_exercised': len(rules), 'necessity_pairs': len(pairs),
-            'joint_records': len(records) - len(valid), 'joint_cases': len(joint_cases), 'joint_pairs': len(joint)}
+            'joint_records': len(records) - len(valid), 'joint_cases': len(joint_cases), 'joint_pairs': len(joint),
+            'accept_cases': len(accept), 'wrong_type_references': wrong_type, 'wrong_kind_references': wrong_kind}
 
 
 if __name__ == '__main__':
@@ -451,6 +596,9 @@ if __name__ == '__main__':
         found = check(records, schema)
         if len(sys.argv) > 2:
             found += check_joint(records, json.loads(Path(sys.argv[2]).read_text(encoding='utf-8'))['records'])
+        elif any(c.get('outcome_items') or c.get('outcome_readings') or 'outcome_use' in c
+                 for r in records if r.get('record_type') == 'DraftOutput' for c in r.get('claims', [])):
+            found.append(('XR-01', '-', 'a claim lists outcome items: give the outcome records as a second file'))
         for f in found:
             print(*f, sep='\t')
         sys.exit(1 if found else 0)

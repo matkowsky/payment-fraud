@@ -290,7 +290,7 @@
    "record_id": "DR-1",
    "case_id": "K-1",
    "agent": "AG-1",
-   "version_hash": "61df043906f1e5cc",
+   "version_hash": "b708d55fbe24a024",
    "created_at": "2026-05-06T02:00:00Z",
    "expires_at": "2026-05-13T02:00:00Z",
    "current_period": {
@@ -300,6 +300,7 @@
    "claims": [
     {
      "claim_id": "CL-1",
+     "claim_text": "Account ACC-1 carried on the activity under review from 1 to 3 May 2026.",
      "claim_type": "current_conduct",
      "material": true,
      "entities": [
@@ -328,6 +329,7 @@
     },
     {
      "claim_id": "CL-2",
+     "claim_text": "The payments source held no record of that activity for ACC-1 in April 2026.",
      "claim_type": "absence",
      "material": true,
      "entities": [
@@ -336,6 +338,9 @@
        "namespace": "account",
        "id": "ACC-1"
       }
+     ],
+     "sources": [
+      "S-PAY"
      ],
      "interval": {
       "from": "2026-04-01T00:00:00Z",
@@ -394,7 +399,7 @@
    "record_type": "ReleaseDecision",
    "record_id": "RL-1",
    "draft_id": "DR-1",
-   "version_hash": "61df043906f1e5cc",
+   "version_hash": "b708d55fbe24a024",
    "decided_by": "H-2",
    "decided_at": "2026-05-07T09:00:00Z",
    "decision": "released",
@@ -531,7 +536,7 @@
    "record_id": "DR-2",
    "case_id": "K-2",
    "agent": "AG-1",
-   "version_hash": "07fe77e6ff6868d1",
+   "version_hash": "e487a706f44ceed4",
    "created_at": "2026-05-20T11:00:00Z",
    "expires_at": "2026-05-27T11:00:00Z",
    "current_period": {
@@ -541,6 +546,7 @@
    "claims": [
     {
      "claim_id": "CL-3",
+     "claim_text": "Account ACC-1 carried on the activity under review on 18 May 2026.",
      "claim_type": "current_conduct",
      "material": true,
      "entities": [

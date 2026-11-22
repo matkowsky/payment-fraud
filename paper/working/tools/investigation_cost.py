@@ -7,7 +7,8 @@ Usage:
   python3 tools/investigation_cost.py --out FILE.json    also write the results
 
 Each investigation is a copy of the valid conformance case (two linked cases: four query runs, seven stored
-records, two drafts, one release and one memory read) with identifiers replaced. A sample is checked against
+records, two drafts, one release and one memory read, and the analyst who had the first draft open) with
+identifiers replaced. A sample is checked against
 the schema and rules IR-01 to IR-14 before measuring. Standard library only. Timings depend on the machine
 and engine; they give an order of magnitude.
 """
@@ -41,8 +42,10 @@ def rename(obj, suffix, keep):
 
 def generate(n, emit):
     valid = json.loads(ic.VALID.read_text(encoding='utf-8'))['records']
-    actors = [r for r in valid if r['record_type'] == 'Actor']
-    rest = [r for r in valid if r['record_type'] != 'Actor']
+    # Each copy gets its own analyst (H-1): rule IR-14 links a record to every agent output open to its writer at
+    # that time, so one analyst shared by all copies would owe every note a link to every copy's draft.
+    actors = [r for r in valid if r['record_type'] == 'Actor' and r['record_id'] != 'H-1']
+    rest = [r for r in valid if r['record_type'] != 'Actor' or r['record_id'] == 'H-1']
     keep = {r['record_id'] for r in rest} | {'K-1', 'K-2', 'ACC-1'}
     for a in actors:
         emit(a)
@@ -94,7 +97,8 @@ def measure(n):
         t = time.perf_counter()
         draft = get(f'DR-1-{i}')
         claim = next(c for c in draft['claims'] if c['claim_type'] == 'absence')
-        ok = all(ic.derive_statuses(q) == q['statuses'] and ic.supports_absence(q, claim) for q in map(get, claim['query_runs']))
+        runs = [get(q) for q in claim['query_runs']]
+        ok = all(ic.derive_statuses(q) == q['statuses'] for q in runs) and ic.supports_absence(runs, claim)
         absence.append((time.perf_counter() - t) * 1e6)
         assert ok
         t = time.perf_counter()

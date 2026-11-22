@@ -1,0 +1,377 @@
+{
+ "description": "Each case changes the synthetic valid case, or the joint case, in a way the requirements allow. The checker must report nothing.",
+ "cases": [
+  {
+   "case_id": "P01",
+   "description": "A note linked to the draft names no producer. It counts as dependent and adds no root (manuscript Section 6.4).",
+   "remove_fields": {
+    "O-5": [
+     "producer"
+    ]
+   }
+  },
+  {
+   "case_id": "P02",
+   "description": "Two complete, empty runs cover an absence claim's interval together.",
+   "add_records": [
+    {
+     "record_type": "QueryRun",
+     "record_id": "Q-8",
+     "case_id": "K-1",
+     "requested_by": "AG-1",
+     "recorded_by": "GW-1",
+     "issued_at": "2026-05-06T01:10:00Z",
+     "as_of": "2026-05-06T00:00:00Z",
+     "requested_entities": [
+      {
+       "tenant": "T1",
+       "namespace": "account",
+       "id": "ACC-1"
+      }
+     ],
+     "evaluated_entities": [
+      {
+       "tenant": "T1",
+       "namespace": "account",
+       "id": "ACC-1"
+      }
+     ],
+     "requested_interval": {
+      "from": "2026-04-29T00:00:00Z",
+      "to": "2026-04-30T12:00:00Z"
+     },
+     "evaluated_interval": {
+      "from": "2026-04-29T00:00:00Z",
+      "to": "2026-04-30T12:00:00Z"
+     },
+     "sources": [
+      {
+       "source_id": "S-PAY",
+       "schema_version": "pay-events-7",
+       "access": "evaluated",
+       "event_watermark": "2026-05-06T00:00:00Z",
+       "ingestion_watermark": "2026-05-06T00:00:00Z",
+       "retention_horizon": "2025-05-01T00:00:00Z",
+       "known_gaps": [],
+       "sampled": false
+      }
+     ],
+     "access_filter_removed_rows": false,
+     "limits_reached": [],
+     "scope_limited": false,
+     "returned": [],
+     "statuses": [
+      "complete"
+     ]
+    }
+   ],
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_text": "Account ACC-1 carried on the activity under review from 1 to 3 May 2026.",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_text": "The payments source held no record of that activity for ACC-1 in April 2026.",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "sources": [
+        "S-PAY"
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2",
+        "Q-8"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "P03",
+   "description": "An absence claim about the payments source also cites a run over a refunds source that was unavailable. The claim does not name that source, so the run does not bear on it.",
+   "add_records": [
+    {
+     "record_type": "QueryRun",
+     "record_id": "Q-9",
+     "case_id": "K-1",
+     "requested_by": "AG-1",
+     "recorded_by": "GW-1",
+     "issued_at": "2026-05-06T01:10:00Z",
+     "as_of": "2026-05-06T00:00:00Z",
+     "requested_entities": [
+      {
+       "tenant": "T1",
+       "namespace": "account",
+       "id": "ACC-1"
+      }
+     ],
+     "evaluated_entities": [
+      {
+       "tenant": "T1",
+       "namespace": "account",
+       "id": "ACC-1"
+      }
+     ],
+     "requested_interval": {
+      "from": "2026-04-01T00:00:00Z",
+      "to": "2026-04-30T00:00:00Z"
+     },
+     "evaluated_interval": {
+      "from": "2026-04-01T00:00:00Z",
+      "to": "2026-04-30T00:00:00Z"
+     },
+     "sources": [
+      {
+       "source_id": "S-REFUNDS",
+       "schema_version": "refund-events-1",
+       "access": "unavailable",
+       "event_watermark": "2026-05-06T00:00:00Z",
+       "ingestion_watermark": "2026-05-06T00:00:00Z",
+       "retention_horizon": "2025-05-01T00:00:00Z",
+       "known_gaps": [],
+       "sampled": false
+      }
+     ],
+     "access_filter_removed_rows": false,
+     "limits_reached": [],
+     "scope_limited": false,
+     "returned": [],
+     "statuses": [
+      "unavailable"
+     ]
+    }
+   ],
+   "set_fields": {
+    "DR-1": {
+     "claims": [
+      {
+       "claim_id": "CL-1",
+       "claim_text": "Account ACC-1 carried on the activity under review from 1 to 3 May 2026.",
+       "claim_type": "current_conduct",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "interval": {
+        "from": "2026-05-01T00:00:00Z",
+        "to": "2026-05-03T12:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [
+        "O-1",
+        "O-2",
+        "O-3"
+       ],
+       "contradicting": [],
+       "query_runs": [
+        "Q-1"
+       ],
+       "context": [],
+       "distinct_roots": 2
+      },
+      {
+       "claim_id": "CL-2",
+       "claim_text": "The payments source held no record of that activity for ACC-1 in April 2026.",
+       "claim_type": "absence",
+       "material": true,
+       "entities": [
+        {
+         "tenant": "T1",
+         "namespace": "account",
+         "id": "ACC-1"
+        }
+       ],
+       "sources": [
+        "S-PAY"
+       ],
+       "interval": {
+        "from": "2026-04-01T00:00:00Z",
+        "to": "2026-04-30T00:00:00Z"
+       },
+       "confidence": "moderate",
+       "supporting": [],
+       "contradicting": [],
+       "query_runs": [
+        "Q-2",
+        "Q-9"
+       ],
+       "context": [],
+       "distinct_roots": 0
+      }
+     ]
+    }
+   }
+  },
+  {
+   "case_id": "P04",
+   "description": "The platform blocked PA-3 (the outcome records of joint case J01). The claim only states that no report had arrived by the reading, which is true of a blocked attempt, and reads no negative from it.",
+   "outcome": {
+    "set_fields": {
+     "D-4-rec": {
+      "decision_kind": "block",
+      "channel_effects": [
+       {
+        "channel_id": "CH-CB-FRAUD",
+        "effect": "closed"
+       },
+       {
+        "channel_id": "CH-EFW",
+        "effect": "closed"
+       }
+      ]
+     },
+     "T-4": {
+      "state": "closed",
+      "effective_from": "2026-02-03T09:00:01Z",
+      "cause": {
+       "kind": "decision",
+       "decision_id": "D-4"
+      },
+      "clock_start": {
+       "status": "unknown",
+       "reason": "the attempt was never processed"
+      },
+      "learned_at": "2026-02-03T09:00:01Z"
+     },
+     "T-5": {
+      "state": "closed",
+      "effective_from": "2026-02-03T09:00:01Z",
+      "cause": {
+       "kind": "decision",
+       "decision_id": "D-4"
+      },
+      "clock_start": {
+       "status": "unknown",
+       "reason": "the attempt was never processed"
+      },
+      "learned_at": "2026-02-03T09:00:01Z"
+     },
+     "RD-2": {
+      "channel_state": "closed",
+      "no_report_status": "channel_closed",
+      "clock_start": {
+       "status": "unknown",
+       "reason": "the attempt was never processed"
+      }
+     },
+     "RD-3": {
+      "channel_state": "closed",
+      "no_report_status": "channel_closed",
+      "clock_start": {
+       "status": "unknown",
+       "reason": "the attempt was never processed"
+      }
+     },
+     "RD-4": {
+      "channel_state": "closed",
+      "no_report_status": "channel_closed",
+      "clock_start": {
+       "status": "unknown",
+       "reason": "the attempt was never processed"
+      }
+     }
+    },
+    "remove_fields": {
+     "RD-3": [
+      "matured_under_rule_version"
+     ]
+    }
+   },
+   "investigation": {
+    "set_fields": {
+     "DR-3": {
+      "claims": [
+       {
+        "claim_id": "CL-5",
+        "claim_text": "No fraud chargeback had arrived for card attempt PA-3 by the 15 June 2026 reading; the block had closed its channel.",
+        "claim_type": "absence",
+        "material": true,
+        "entities": [
+         {
+          "tenant": "T1",
+          "namespace": "payment_attempt",
+          "id": "PA-3"
+         }
+        ],
+        "sources": [
+         "S-LABEL"
+        ],
+        "interval": {
+         "from": "2026-02-04T00:00:00Z",
+         "to": "2026-06-04T00:00:00Z"
+        },
+        "confidence": "moderate",
+        "supporting": [],
+        "contradicting": [],
+        "query_runs": [
+         "Q-5"
+        ],
+        "context": [],
+        "distinct_roots": 0,
+        "outcome_items": [
+         {
+          "tenant": "T1",
+          "namespace": "payment_attempt",
+          "id": "PA-3"
+         }
+        ],
+        "outcome_use": "status",
+        "outcome_readings": [
+         "RD-3"
+        ]
+       }
+      ]
+     }
+    }
+   }
+  }
+ ]
+}
