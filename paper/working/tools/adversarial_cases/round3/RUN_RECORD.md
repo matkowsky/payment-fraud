@@ -71,4 +71,17 @@ Added 22 November 2026, 15:25Z:
 - Still not recorded: the model version as shown, the two later prompts as sent, when the packet was sent and whether it went in whole as one message.
 - The reviewer he names, "astra pro", is read as GPT-6 Astra Pro, the OpenAI model named in the plan. OpenAI is neither Meta nor Anthropic, so the plan's condition on the reviewer's developer is met. Its reply had not been received when this was written.
 
+## Rulings check, as received
+
+Added 22 November 2026, 15:41Z:
+
+- The reviewer's reply reached Claude at 15:39Z on 22 November 2026, as pasted text in a message from the author with no other words. It is saved as `RULINGS_CHECK_REPLY.txt`, copied out of the message by Claude: 1,355 bytes, SHA-256 `058e1a94dc02b5cd1cbb36ab8179d25b4d369d25f449434ac6ddbd1e8a1451df`. Its bytes are a copy of text shown in a chat message, so spacing and line ends may differ from what the reviewer wrote.
+- The reply holds four lines in the answer format and nothing else. No line says that the reviewer recognized the project.
+- The author did not name the model in that message. At 06:53Z he had said he was running the check "in astra pro model" (above), and the reply is read as that model's. The model version as shown is not recorded.
+- GPT-6 Astra Pro comes from a developer other than the rule writer's and the tester's. It also wrote the histories of rounds 1 and 2 and checked their rulings (`PLAN.md`).
+- The reviewer's rulings: R02 rules stand; R05 stated limit; R13 rules stand; R14 rules reject, naming IR-06. It gives severity none to each.
+- Claude's first rulings are the same four. They were pushed at 06:38Z in commit `897a991`, and the packet the reviewer read holds no ruling.
+- One label differs. Claude called the fault in the checker's code that R14 exposed minor. The reviewer's format gives a severity only to a new failure or a false rejection, and its reason calls the error a defect of the implementation, not a gap in the stated rules.
+- No case is unresolved between the two sets. The author has not yet confirmed the rulings.
+
 Recorded by Claude (Anthropic), 22 November 2026.
