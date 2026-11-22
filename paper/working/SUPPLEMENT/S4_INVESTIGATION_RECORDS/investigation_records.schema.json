@@ -129,6 +129,7 @@
    "additionalProperties": false,
    "required": [
     "claim_id",
+    "claim_text",
     "claim_type",
     "material",
     "entities",
@@ -143,6 +144,11 @@
    "properties": {
     "claim_id": {
      "$ref": "#/$defs/id"
+    },
+    "claim_text": {
+     "description": "The claim as written: the sentence a reviewer and a releaser read. The draft's version identifier covers it.",
+     "type": "string",
+     "minLength": 1
     },
     "claim_type": {
      "enum": [
@@ -159,6 +165,13 @@
      "minItems": 1,
      "items": {
       "$ref": "#/$defs/entity"
+     }
+    },
+    "sources": {
+     "description": "For an absence claim, the sources in which the claim says nothing was found. Rule IR-08 requires at least one.",
+     "type": "array",
+     "items": {
+      "$ref": "#/$defs/id"
      }
     },
     "interval": {
@@ -205,6 +218,13 @@
      "items": {
       "$ref": "#/$defs/entity"
      }
+    },
+    "outcome_use": {
+     "description": "For a claim that lists outcome items: status if it only states that no report had arrived by the cited readings, negative if it reads that absence as a negative.",
+     "enum": [
+      "status",
+      "negative"
+     ]
     },
     "outcome_readings": {
      "description": "Channel status readings (Supplement S4.2) the claim cites for those items.",
