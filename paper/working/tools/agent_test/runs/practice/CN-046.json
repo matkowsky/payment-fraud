@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-046",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "2fc9dda7c88a9161fae36e614753d14be83159a20ed23fa48412a69db5a42964",
+ "sent_at": "2026-11-22T00:52:37+00:00",
+ "received_at": "2026-11-22T00:52:45+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH3xTz7eMJtnKFPbLd8j",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search covered 7 days before publication to now, was current, and returned only the earlier regional requests. So the burst at 19 minutes was not preceded by other anomalous requests within that window. The question is whether it was the first misuse. The earlier requests share one region and fingerprint, which suggests the owner. The search window is only 7 days, but misuse before publication is not really the concern. Within the window, nothing else appeared, so the burst was the first misuse. Strictly, the earlier requests could be misuse from the same region, but nothing indicates that. The answer is Yes, though a Cannot tell could be argued. The key was published, and the earlier requests came from a stable fingerprint. I choose Yes.\n\nA2: We know the check scored 30 minutes after publication and did not flag. We do not know which evidence the check had access to or whether data from the burst was available to it. Cannot tell.\n\nA3: A shared payout destination across three accounts does not show one owner by itself. No, not by itself.\n\nA4: With zero reports after 30 days, the absence could reflect no detection. The records do not say whether anyone was looking or whether reporting would reach this record. It is not evidence of legitimacy, so the answer is Cannot tell. The option \"Yes, weakly\" is available, but absence of reports is only weakly informative if reporting would be expected. Nothing shows that it would be, so Cannot tell.\n\nA5: The burst changed the payout destination, created a webhook, and sped up payouts, using a different fingerprint and a residential proxy. This warrants investigation. Yes.\n\nCase B\n\nB1: Account D has 0 chargebacks recorded at the account, but the dispute records show two chargebacks at account X that dispute payments that are transactions of account D. So D likely has 2 chargebacks attributed to the wrong account. D's rate is therefore not lower. No.\n\nB2: A combined 5 percent is an aggregate and does not show that no individual account is above 5 percent. Also, the measure includes alerts. Per-account chargebacks are 2 percent each. The combined figure does not show that no account is above 5 percent on the measure. The answer is No.\n\nB3: The search covered 3 account sources. We do not know whether those were all merchant account sources. Cannot tell.\n\nB4: The notes are by different analysts on different days, but the second may have read the first. Nothing shows independence. Cannot tell.\n\nB5: A blocked payment never settled, so no chargeback is expected. It should not count as non-fraud. No.\n\nB6: Shared templates, descriptor pattern, and a person linked to A and to a closed account and a rejected application justify investigating together. Yes.\n\nRESULT CN-046 | A1: Yes | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1585,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 965,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

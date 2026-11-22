@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-019",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "4db769e5a7f71c5d413e10b02c9baa5243a8eefe3bb4c6debe8b8f2e64fc737c",
+ "sent_at": "2026-11-22T00:16:11+00:00",
+ "received_at": "2026-11-22T00:16:19+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH1BNzzQmosk3GqVtTgG",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search covered 7 days before publication to now, with data current as of the search, and returned only the earlier region requests. The burst at 19 minutes was therefore not preceded by other unusual requests in that window. The window is only seven days, though, so the log does not show whether the key was misused earlier than that. However, the key was published, and the question is whether the burst was the first misuse after publication. The search covers the whole period from publication to now, and only the earlier-fingerprint requests plus the burst appear. So the burst is the first misuse within the window. The \"Yes\" answer fits. Still, the search results are described as \"only those\" earlier requests, which means the first different-fingerprint activity was the burst. Yes.\n\nA2: The check scored 30 minutes after publication. The burst at 19 minutes and the shared destination (effective before publication) were both available then. The shared link record is \"effective before publication\", so it was available. The burst was also 11 minutes earlier. Whether the check had access to those inputs is not shown, so \"available to it\" is uncertain. Cannot tell.\n\nA3: A shared destination alone does not show one owner. No, not by itself.\n\nA4: With zero reports after 30 days, absence of reports is weak evidence at best, and it could simply mean no one has looked. The record shows \"victim reports 0; incident findings 0\", which does not show that anyone checked. The options are \"Yes, weakly\", \"No\" or \"Cannot tell\". Absence of recorded findings is not evidence of legitimacy when no detection process is shown. Cannot tell.\n\nA5: Yes. The new fingerprint, the payout change and the faster schedule warrant investigation.\n\nCase B\n\nB1: D has 0 chargebacks on its own account, but the dispute records show 2 chargebacks recorded at account X that dispute payments that are transactions of D. So D's chargebacks may effectively be 2, since the recorded ones were misattributed to X. D's rate is therefore not shown to be lower. No.\n\nB2: A combined 5 percent is an average and does not show that no single account is above 5 percent. No. The measure also includes alerts, and the per-account alert counts are not given.\n\nB3: The search covered 3 account sources, and it is not shown whether those cover all merchant accounts. Cannot tell.\n\nB4: The notes were written by different analysts on different days, but whether they were independent is not shown, since the second may have read the first. Cannot tell.\n\nB5: No chargeback on a blocked payment does not make it non-fraud. No.\n\nB6: Yes, the shared infrastructure justifies a joint investigation.\n\nRESULT CN-019 | A1: Yes | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1585,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 939,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

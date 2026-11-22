@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-042",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "0b6c5c5e8e4294da78b0eeba20ba780d308756145032d21f482fdcbe16f5fb83",
+ "sent_at": "2026-11-22T00:46:39+00:00",
+ "received_at": "2026-11-22T00:46:47+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH3W6KPeZMVN87mucddj",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: Searching the past seven days returned only the earlier requests from the one region with the stable fingerprint. Nothing earlier shows misuse, and the key was published before the burst. Requests in the window between publication and 19 minutes are not described, though the search covers seven days and returned only the earlier ones. So the burst appears to be the first requests that differ from the baseline. But the search may have been limited to requests with this key and logged ones. The statement says the search \"returned only those\", meaning the earlier ones, so the burst at 19 minutes is presumably the first anomalous use. The answer is Yes, though one could argue Cannot tell, since the search might be incomplete. I'll go with Yes.\n\nA2: The check scored the account 30 minutes after publication, and the burst at 19 minutes had already occurred, with the webhook, payout change and schedule change. The evidence was available in principle, but we don't know what inputs the check uses. Cannot tell.\n\nA3: A shared payout destination does not by itself show one owner. No, not by itself.\n\nA4: Absence of reports after 30 days: the payouts may still be fraudulent but unreported, and no finding was recorded, which is not the same as being investigated. It is weak at best, and the options are \"Yes, weakly\", \"No\", or \"Cannot tell\". The absence of reports is not evidence of legitimacy when no one has looked. Cannot tell may fit, since we don't know whether anyone was positioned to report. I'll choose Cannot tell.\n\nA5: Yes, the burst warrants investigation.\n\nCase B\n\nB1: Account D has 0 chargebacks against 2 for the others, each on 100 transactions. Its recorded rate is lower (0% vs 2%). Yes.\n\nB2: A combined 5 percent does not show that no individual account is above 5 percent. The measure is chargeback-or-alert, and the individual figures for it are not given. No.\n\nB3: The search found no accounts beyond A and the closed account, but it only covers the accounts the search could see under that identity, so it doesn't show that no others exist. Cannot tell.\n\nB4: The two notes are by different analysts on different days, but we don't know whether they worked independently or from the same data. Cannot tell.\n\nB5: A blocked payment is not a non-fraud transaction just because no chargeback exists, since it was blocked before it could produce one. No.\n\nB6: Shared templates and the descriptor pattern, together with the person link, justify investigating them together. Yes.\n\nRESULT CN-042 | A1: Yes | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: Yes | B2: No | B3: Cannot tell | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1233,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 903,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

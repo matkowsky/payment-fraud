@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-009",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "f306c38e5d39bba7a07dd874dfe67909dfb95bd838bdc30a286439fc318984c1",
+ "sent_at": "2026-11-22T00:04:27+00:00",
+ "received_at": "2026-11-22T00:04:33+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChGzHS849fFS7o2dk2Me1",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The seven-day search was requested from 7 days before publication, but it was evaluated only from 2 hours before publication, and its status is partial. Earlier requests before that window were not checked, so the 19-minute burst cannot be confirmed as the first misuse. Answer: Cannot tell.\n\nA2. The compromise check scored at 30 minutes using inputs as of 30 minutes. The link between the payout destination and the two other accounts was learned 1 day after publication. Although the link was effective before publication, it was not available to the check when it scored. So the check did not miss available evidence. Answer: No.\n\nA3. A shared payout destination alone does not show common ownership. Answer: No, not by itself.\n\nA4. No outcome channel has a reporting window defined, so the absence of reports after 30 days says little about legitimacy. The question offers \"Yes, weakly\", \"No\", and \"Cannot tell\". Without a defined window, silence is uninformative, so I choose Cannot tell.\n\nA5. The burst includes a new fingerprint, a residential proxy, a payout destination change, and a faster payout schedule. This warrants investigation. Answer: Yes.\n\nCase B\n\nB1. The recorded chargebacks for D are 0, but 2 chargebacks at account X are linked to D's transactions. That gives D 2, the same as the others. Answer: No.\n\nB2. The combined measure is 5 percent, but by account the rates are A 8, B 8, C 2, D 2. So A and B are above 5 percent, and the combined figure hides this. Answer: No.\n\nB3. The search was partial and truncated, with one source sampled at 10 percent and the row limit reached. It cannot show that no other accounts exist. Answer: Cannot tell.\n\nB4. Both notes link to the agent's cluster assessment, which was open in the case when each note was written. They are not independent. Answer: No.\n\nB5. The block decision closed the chargeback channel for that payment, so having no chargeback means nothing. It should not count as non-fraud on that basis. Answer: No.\n\nB6. The shared templates, the descriptor pattern, and the person linked to A, the closed account, and the rejected application justify investigating the accounts together. Answer: Yes.\n\nRESULT CN-009 | A1: Cannot tell | A2: No | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 815,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

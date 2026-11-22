@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-075",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "a2b4f4c79cd930c1beeca0100bad8eb66384b6b454b1799035766f3c791b75b3",
+ "sent_at": "2026-11-22T01:29:23+00:00",
+ "received_at": "2026-11-22T01:29:30+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH6m6ws9akefMusvNNHQ",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The seven-day search was requested from 7 days before publication but evaluated only from 2 hours before publication, and its status is partial. Earlier misuse outside that window can't be excluded. The 19-minute burst is the first misuse seen, but the data can't show it was the first. Cannot tell.\n\nA2. The link between the payout destination and the other two accounts was learned 1 day after publication, though it was effective earlier. The check's inputs were as of 30 minutes after publication, so that information wasn't available to it. The check did not miss available evidence. Answer: No. The burst itself was available, but the check may not have weighted it. Strictly, \"missed evidence available\" is not shown, since the shared-destination link was not available. The burst was available to the check, and it did not flag the account, but whether that counts as missing evidence is a judgment call. The best-supported answer is Cannot tell, since we don't know what the check's inputs included. The record says only \"inputs as of 30 minutes after publication\", which could include the burst, so Cannot tell.\n\nA3. A shared payout destination alone doesn't show common ownership. Answer: No, not by itself.\n\nA4. Neither outcome channel has a defined reporting window, so absence of reports can't indicate legitimacy. Answer: No. \"Yes, weakly\" is possible, but with no window defined the silence is uninformative.\n\nA5. The burst involved a new fingerprint, a residential proxy, and payout changes soon after publication. Yes.\n\nCase B\n\nB1. The recorded chargebacks are A 2, B 2, C 2, D 0. But 2 chargebacks recorded at account X link to D's transactions, so D's true count is 2, the same as the others. Answer: No.\n\nB2. The combined 5 percent is an aggregate. By account, A and B are 8 percent, so accounts are above 5 percent. Answer: No.\n\nB3. The search was partial and truncated, with one source sampled at 10 percent and the row limit reached. It doesn't show there are no other accounts. Answer: No.\n\nB4. Both notes link to the agent's cluster assessment, so they are not independent. Answer: No.\n\nB5. A blocked payment never had the chance to produce a chargeback, so the lack of one says nothing about whether it was fraud. Answer: No.\n\nB6. The shared templates, descriptor pattern, and the person link justify investigating together. Yes.\n\nRESULT CN-075 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: No | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 865,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

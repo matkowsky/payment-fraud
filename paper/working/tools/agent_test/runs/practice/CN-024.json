@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-024",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "f02170beca100bccfd0521ed77d433fd2fe20a445a62f189600d56cd7a064a4d",
+ "sent_at": "2026-11-22T00:23:06+00:00",
+ "received_at": "2026-11-22T00:23:13+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH1hxWwKpKC3siH68Noc",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The seven-day search returned only the earlier requests from the stable region. That shows no earlier misuse in the past seven days. The key was published earlier than that window may reach, and the key could have been copied before the burst. The burst at 19 minutes is the first one we can see, but we can't say it was the first. Cannot tell.\n\nA2. The compromise check scored the account at 30 minutes, after the burst. The burst evidence (new fingerprint, payout change) was available. We don't know what the check looks at, though. Missing evidence it could see isn't established. Cannot tell.\n\nA3. A shared destination does not by itself show one owner. Answer: No, not by itself.\n\nA4. Absence of reports after 30 days is weak evidence of legitimacy, but payouts to a destination shared with other accounts may not generate reports even if fraudulent. Nothing shows that anyone would have reported them. The options are \"Yes, weakly\", \"No\", or \"Cannot tell\". The lack of a recorded report is weak evidence at best, and it is uninformative if no one would be positioned to report. I'll say Cannot tell.\n\nA5. The burst warrants investigation: a different fingerprint, a residential proxy, a payout change and a faster schedule right after publication. Yes.\n\nCase B\n\nB1. Each account has 100 transactions. D has 0 chargebacks against 2 for the others. D's recorded rate is lower (0% vs 2%). Yes.\n\nB2. A combined 5 percent is an aggregate, so it does not rule out that an individual account is above 5 percent on that measure. Chargebacks alone are 6 of 400 = 1.5%, so the 5 percent measure includes alerts. Per-account alert counts are unknown, so one could be above 5 percent. The answer is No: the combined figure does not show that.\n\nB3. The search covered the merchant accounts we have, and found no more. It does not show the person has no other accounts, since they could be under other names or on other platforms. No.\n\nB4. The notes were written by different analysts on different days, but we don't know whether they worked independently or from the same data. Cannot tell.\n\nB5. A blocked payment with no chargeback is not shown to be non-fraud, because the block prevented the chargeback. No.\n\nB6. Shared templates and descriptor patterns, plus the person tied to a closed account and a rejected application, justify a joint investigation. Yes.\n\nRESULT CN-024 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: Yes | B2: No | B3: No | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1233,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 876,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

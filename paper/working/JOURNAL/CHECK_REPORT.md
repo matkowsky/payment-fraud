@@ -34,5 +34,5 @@ For review, upload only `MANUSCRIPT_ACM_ANONYMOUS.pdf` and `SUPPLEMENT_ANONYMOUS
 - Removed: the byline and the status line. The author property is not set.
 - TeX check: pass. The anonymous TeX equals the supplement's except for those 4 lines; the surname and the preprint's DOIs are not in its source.
 - The author's surname and the preprint's DOIs appear nowhere in the PDF text or document properties.
-- Pages: 65.
+- Pages: 66.
 

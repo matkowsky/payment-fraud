@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-085",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "54e83882310e0ae225999461188e118a336210af8282c4cde05f0d5d2f51dc17",
+ "sent_at": "2026-11-22T01:41:30+00:00",
+ "received_at": "2026-11-22T01:41:37+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH7ghcvajAfFjEYCkSzM",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search was requested for 7 days before publication, but only evaluated from 2 hours before publication, and its status is partial. So the earlier-use claim (only requests from the one region) rests on a window that did not cover the full period. Earlier misuse before the 2-hour mark can't be excluded, and the burst at 19 minutes may or may not be the first misuse. Cannot tell.\n\nA2: The link between the payout destination and the two other accounts was learned 1 day after publication, so it was not available to the check at 30 minutes. The check's inputs were as of 30 minutes after publication. The check therefore did not miss evidence available to it. Answer: No.\n\nA3: A shared payout destination does not by itself show one owner. Answer: No, not by itself.\n\nA4: The outcome channels have no reporting window defined, and no report or finding has been recorded. Absence of reports is not informative without a window or a mechanism for reports to arrive. The options are \"Yes, weakly\", \"No\" or \"Cannot tell\". The channels exist but have no defined window, so silence is not evidence of legitimacy. I choose Cannot tell, because the absence may simply mean no report was ever going to arrive.\n\nA5: The burst involved a new fingerprint, a residential proxy, a payout destination change and a faster payout schedule, all shortly after publication. This warrants investigation. Answer: Yes.\n\nCase B\n\nB1: The raw chargebacks recorded at D are 0, but 2 chargebacks recorded at account X are linked to D's transactions. So D's rate is 2 of 100, equal to C's and B's. Answer: No.\n\nB2: The combined measure is 5 percent, yet by account A and B are at 8 percent. A combined figure does not show that no account is above 5 percent. Answer: No.\n\nB3: The search was partial and truncated, with one source sampled at 10 percent and the row limit reached. It does not show that there are no other accounts. Answer: No.\n\nB4: Both notes link to the agent's cluster assessment, which was open when each was written. So they are not independent of it. Answer: No.\n\nB5: The blocked payment had no chargeback because it was blocked, and the decision record says the block closed the chargeback channel. The lack of a chargeback therefore says nothing about whether it was fraud. Answer: No.\n\nB6: The shared templates and descriptor pattern, together with the person linked to A, justify looking at the accounts together. Answer: Yes.\n\nRESULT CN-085 | A1: Cannot tell | A2: No | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: No | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 889,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

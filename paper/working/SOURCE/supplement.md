@@ -778,7 +778,7 @@ The release gate has a cost that E8 measures. If a system produced 20 drafts a d
 
 ## S8. AI models on written versions of the two investigations
 
-The [protocol](../tools/agent_test/README.md) and [script](../tools/agent_test/agent_test.py) were committed before the runs; their dated notes record each later change. The package holds every reply, the [results](../tools/agent_test/results/main/results.md) and the [answer key](../tools/practitioner_study/ANSWER_KEY.md), whose hash was recorded before the runs.
+The [protocol](../tools/agent_test/README.md) and [script](../tools/agent_test/agent_test.py) were committed before the runs; their dated notes record each later change. The package holds every reply, the results of the [first](../tools/agent_test/results/main/results.md) and [second](../tools/agent_test/results/practice/results.md) runs, and the [answer key](../tools/practitioner_study/ANSWER_KEY.md), whose hash was recorded before the runs.
 
 **Cases and questions.** Traces A and B (manuscript Sections 8.1 and 8.2) are written as two short cases, as many systems would show them ([cases](../tools/practitioner_study/INSTRUMENT.md), Part 2). The cases, questions and key were written for a practitioner study that opened on 14 November 2026 and closed on 19 November with no responses ([record](../tools/practitioner_study/README.md)); no practitioner has answered them. They have eleven questions, each allowing "Cannot tell". Eight test a requirement; A3, A5 and B6 are controls. The key gives each question one counted error that the records rule out. Without the records, "Cannot tell" is also a supported answer to A2, B1, B2, B3 and B4.
 
@@ -811,7 +811,33 @@ Fable 5.2 differs in two ways. Without the records it gave the counted error mos
 
 **A2 does not measure the use of learned time.** The case says the compromise check scored the account at 30 minutes and did not flag it; the records add that its inputs were as of 30 minutes. The key counts "Yes", that the check missed evidence available to it, as the error, because the shared-destination link was learned a day later. With the records, GPT-6 Luna, GPT-6.1 Sol and Fable 5.2 answered "Yes" in 27, 10 and 21 of 30 sessions. Each of Fable 5.2's 21 replies sets the late link aside as unavailable and answers "Yes" because the check saw the 19-minute burst and did not flag it. That reading of "missed" is defensible. The other models' replies give answers without reasons. The key was not changed.
 
-**Limits.** The cases are short and written, with forced choices; they are not agents on live systems, and "Cannot tell" may make models more cautious than open conclusions would. Results hold for two vendors' models at the versions and date tested. Repeated sessions sample one model at fixed settings, and the intervals describe that sampling only. Claude drafted the cases and the irrelevant records, and both vendors' tools were used in the research (manuscript Section 3), so no model is an independent subject. The runs cost 22.59 dollars.
+**Second run: current-practice records.** One provider's dashboard already shows which allowed transactions later drew a chargeback (manuscript Section 2.4), so B1's record may give an answer a platform already holds. A second run asks whether the fields C1 to C3 add change answers beyond that. Its conditions, comparison and test were [fixed](../tools/agent_test/README.md) on 21 November 2026, before it was sent. All eight models ran 30 sessions in each of three conditions on 21 and 22 November: the cases alone, with the C1 to C3 records, and with as many [current-practice records](../tools/agent_test/PRACTICE.md) in the same form and order. Each current-practice record stands in for one C1 to C3 record and leaves out the field the requirement adds. Where providers' public documentation shows what platforms keep (manuscript Section 2.4), the record follows it: disputes joined to payments, blocked payments listed apart and the as-of time of a query. The search log says "data current as of the search; results returned" and gives no coverage. The reports record says "victim reports 0; incident findings 0" and gives no reporting window. The B1 record keeps the link: each dispute stores the payment it disputes.
+
+**Table S8.2. Second run: counted errors without records, with the C1 to C3 records and with current-practice records, of 30 sessions each.** B2, B5 and the three controls drew no counted error in any condition and are omitted. Fable 5.2 gave 26, 30 and 17 usable answers in the three conditions; every other model gave 30.
+
+| Question | Requirement | GPT-6.1 Sol | GPT-6.1 Terra | GPT-6 Luna | Opus 5.5 | Sonnet 5.5 | Haiku 5.5 | GPT-6.2 Astra | Fable 5.2 |
+|---|---|---|---|---|---|---|---|---|---|
+| B1 | C1 attribution | 30/0/0 | 30/0/0 | 30/0/0 | 30/0/0 | 30/0/0 | 30/0/0 | 30/0/0 | 26/0/0 |
+| A4 | C1 channel state | 5/0/0 | 30/0/29 | 4/0/8 | 7/0/4 | 2/0/1 | 0/0/0 | 0/0/0 | 26/0/16 |
+| A1 | C2 coverage | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/8 | 20/0/27 | 2/0/3 | 0/0/0 | 9/0/16 |
+| B3 | C2 coverage | 0/0/0 | 0/0/0 | 30/0/9 | 9/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 25/0/5 |
+| A2 | C2 learned time | 0/12/0 | 0/1/0 | 2/25/0 | 0/0/0 | 0/0/7 | 10/0/6 | 0/0/0 | 22/27/13 |
+| B4 | C3 exposure links | 0/0/0 | 0/0/0 | 0/0/5 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/0 | 0/0/3 |
+
+The two repeated conditions gave the first run's pattern: no count differs from Table S8.1's by more than 6 sessions. On B1, no model gave the counted answer with either kind of record. The current-practice records removed it as fully as the C1 to C3 records, so B1 does not show what the specification adds to current practice.
+
+The protocol fixed one comparison: for each model, counted errors among usable answers with current-practice records against the C1 to C3 records, on A1, A2, A4 and B3, whose current-practice records lack the C1 or C2 field. It uses Fisher's exact test, two-sided, with Holm's adjustment over the 32 model-question pairs; a pair counts only if its adjusted p is below 0.05.
+
+- Four pairs had more counted errors with current-practice records: GPT-6.1 Terra on A4 (29 of 30 against 0 of 30), Sonnet 5.5 on A1 (27 of 30 against 0 of 30), and Fable 5.2 on A1 and on A4 (each 16 of 17 against 0 of 30).
+- Two had more with the C1 to C3 records, both on A2: GPT-6 Luna (25 of 30 against 0 of 30) and GPT-6.1 Sol (12 of 30 against 0 of 30). This repeats the first run, and A2 does not measure the use of learned time (above).
+- Eleven had counted errors but no difference at that threshold. The closest was GPT-6 Luna on B3 (9 of 30 against 0 of 30; adjusted p 0.0503).
+- Fifteen had no counted error in either condition and test nothing. GPT-6.2 Astra gave none on the four questions in any condition.
+
+With the C1 to C3 records, no model gave a counted error on A1, A4 or B3. Fable 5.2's 17 unanswered sessions, 4 without records and 13 with current-practice records, reached the token limit before a complete result line. The comparison uses usable answers, as fixed. If those 13 are counted as no error, both Fable 5.2 pairs stand and two join: Fable 5.2 on A2, with more errors with the C1 to C3 records, and GPT-6 Luna on B3, with more errors with current-practice records. If they are counted as errors, Fable 5.2 on B3 and GPT-6 Luna on B3 join the pairs with more errors with current-practice records. No reply was stopped by a vendor's safety system.
+
+The second run has limits of its own. Claude wrote the current-practice records after the key and the first run's results had been read, and Claude models are among the subjects. The records are this paper's reading of public documentation, not a survey of what platforms keep. A current-practice record can itself suggest the counted answer: with the search log's "results returned", Sonnet 5.5, Opus 5.5 and Fable 5.2 answered "Yes" to A1 in 27 of 30, 8 of 30 and 16 of 17 sessions, against 20 of 30, 0 of 30 and 9 of 26 with the case alone. A log with no coverage field can read as complete, but another wording might not.
+
+**Limits.** The cases are short and written, with forced choices; they are not agents on live systems, and "Cannot tell" may make models more cautious than open conclusions would. Results hold for two vendors' models at the versions and dates tested. Repeated sessions sample one model at fixed settings, and the intervals describe that sampling only. Claude drafted the cases and the irrelevant records, and both vendors' tools were used in the research (manuscript Section 3), so no model is an independent subject. The first run and its pilot cost 22.59 dollars; the second run cost 22.93.
 
 ## S9. Extended comparison with prior work
 

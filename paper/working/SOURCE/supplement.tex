@@ -3627,10 +3627,11 @@ investigations}\label{s8.-ai-models-on-written-versions-of-the-two-investigation
 The \href{tools/agent_test/README.md}{protocol} and
 \href{tools/agent_test/agent_test.py}{script} were committed before the
 runs; their dated notes record each later change. The package holds
-every reply, the
-\href{tools/agent_test/results/main/results.md}{results} and the
-\href{tools/practitioner_study/ANSWER_KEY.md}{answer key}, whose hash
-was recorded before the runs.
+every reply, the results of the
+\href{tools/agent_test/results/main/results.md}{first} and
+\href{tools/agent_test/results/practice/results.md}{second} runs, and
+the \href{tools/practitioner_study/ANSWER_KEY.md}{answer key}, whose
+hash was recorded before the runs.
 
 \textbf{Cases and questions.} Traces A and B (manuscript Sections 8.1
 and 8.2) are written as two short cases, as many systems would show them
@@ -3677,16 +3678,16 @@ drew no counted error in any condition, are omitted. Fable 5.2 gave 25,
 30 the upper bound is 0.12.\par\smallskip
 {\footnotesize
 \begin{tabular}{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.4400}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0550}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1200}}@{}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0850}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Question
@@ -3782,14 +3783,149 @@ check saw the 19-minute burst and did not flag it. That reading of
 ``missed'' is defensible. The other models' replies give answers without
 reasons. The key was not changed.
 
+\textbf{Second run: current-practice records.} One provider's dashboard
+already shows which allowed transactions later drew a chargeback
+(manuscript Section 2.4), so B1's record may give an answer a platform
+already holds. A second run asks whether the fields C1 to C3 add change
+answers beyond that. Its conditions, comparison and test were
+\href{tools/agent_test/README.md}{fixed} on 21 November 2026, before it
+was sent. All eight models ran 30 sessions in each of three conditions
+on 21 and 22 November: the cases alone, with the C1 to C3 records, and
+with as many \href{tools/agent_test/PRACTICE.md}{current-practice
+records} in the same form and order. Each current-practice record stands
+in for one C1 to C3 record and leaves out the field the requirement
+adds. Where providers' public documentation shows what platforms keep
+(manuscript Section 2.4), the record follows it: disputes joined to
+payments, blocked payments listed apart and the as-of time of a query.
+The search log says ``data current as of the search; results returned''
+and gives no coverage. The reports record says ``victim reports 0;
+incident findings 0'' and gives no reporting window. The B1 record keeps
+the link: each dispute stores the payment it disputes.
+
+\begin{table}[tp]
+\textbf{Table S8.2. Second run: counted errors without records, with the
+C1 to C3 records and with current-practice records, of 30 sessions
+each.} B2, B5 and the three controls drew no counted error in any
+condition and are omitted. Fable 5.2 gave 26, 30 and 17 usable answers
+in the three conditions; every other model gave 30.\par\smallskip
+{\footnotesize
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0850}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1550}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.0950}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Question
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Requirement
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6}.1 Sol
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6}.1 Terra
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6} Luna
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Opus 5.5
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Sonnet 5.5
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Haiku 5.5
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\mbox{GPT-6}.2 Astra
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Fable 5.2
+\end{minipage} \\
+\midrule\noalign{}
+
+B1 & C1 attribution & 30/0/0 & 30/0/0 & 30/0/0 & 30/0/0 & 30/0/0 &
+30/0/0 & 30/0/0 & 26/0/0 \\
+A4 & C1 channel state & 5/0/0 & 30/0/29 & 4/0/8 & 7/0/4 & 2/0/1 & 0/0/0
+& 0/0/0 & 26/0/16 \\
+A1 & C2 coverage & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/8 & 20/0/27 & 2/0/3 &
+0/0/0 & 9/0/16 \\
+B3 & C2 coverage & 0/0/0 & 0/0/0 & 30/0/9 & 9/0/0 & 0/0/0 & 0/0/0 &
+0/0/0 & 25/0/5 \\
+A2 & C2 learned time & 0/12/0 & 0/1/0 & 2/25/0 & 0/0/0 & 0/0/7 & 10/0/6
+& 0/0/0 & 22/27/13 \\
+B4 & C3 exposure links & 0/0/0 & 0/0/0 & 0/0/5 & 0/0/0 & 0/0/0 & 0/0/0 &
+0/0/0 & 0/0/3 \\
+
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
+
+The two repeated conditions gave the first run's pattern: no count
+differs from Table S8.1's by more than 6 sessions. On B1, no model gave
+the counted answer with either kind of record. The current-practice
+records removed it as fully as the C1 to C3 records, so B1 does not show
+what the specification adds to current practice.
+
+The protocol fixed one comparison: for each model, counted errors among
+usable answers with current-practice records against the C1 to C3
+records, on A1, A2, A4 and B3, whose current-practice records lack the
+C1 or C2 field. It uses Fisher's exact test, two-sided, with Holm's
+adjustment over the 32 model-question pairs; a pair counts only if its
+adjusted p is below 0.05.
+
+\begin{itemize}
+\tightlist
+\item
+  Four pairs had more counted errors with current-practice records:
+  \mbox{GPT-6}.1 Terra on A4 (29 of 30 against 0 of 30), Sonnet 5.5 on
+  A1 (27 of 30 against 0 of 30), and Fable 5.2 on A1 and on A4 (each 16
+  of 17 against 0 of 30).
+\item
+  Two had more with the C1 to C3 records, both on A2: \mbox{GPT-6} Luna
+  (25 of 30 against 0 of 30) and \mbox{GPT-6}.1 Sol (12 of 30 against 0
+  of 30). This repeats the first run, and A2 does not measure the use of
+  learned time (above).
+\item
+  Eleven had counted errors but no difference at that threshold. The
+  closest was \mbox{GPT-6} Luna on B3 (9 of 30 against 0 of 30; adjusted
+  p 0.0503).
+\item
+  Fifteen had no counted error in either condition and test nothing.
+  \mbox{GPT-6}.2 Astra gave none on the four questions in any condition.
+\end{itemize}
+
+With the C1 to C3 records, no model gave a counted error on A1, A4 or
+B3. Fable 5.2's 17 unanswered sessions, 4 without records and 13 with
+current-practice records, reached the token limit before a complete
+result line. The comparison uses usable answers, as fixed. If those 13
+are counted as no error, both Fable 5.2 pairs stand and two join: Fable
+5.2 on A2, with more errors with the C1 to C3 records, and \mbox{GPT-6}
+Luna on B3, with more errors with current-practice records. If they are
+counted as errors, Fable 5.2 on B3 and \mbox{GPT-6} Luna on B3 join the
+pairs with more errors with current-practice records. No reply was
+stopped by a vendor's safety system.
+
+The second run has limits of its own. Claude wrote the current-practice
+records after the key and the first run's results had been read, and
+Claude models are among the subjects. The records are this paper's
+reading of public documentation, not a survey of what platforms keep. A
+current-practice record can itself suggest the counted answer: with the
+search log's ``results returned'', Sonnet 5.5, Opus 5.5 and Fable 5.2
+answered ``Yes'' to A1 in 27 of 30, 8 of 30 and 16 of 17 sessions,
+against 20 of 30, 0 of 30 and 9 of 26 with the case alone. A log with no
+coverage field can read as complete, but another wording might not.
+
 \textbf{Limits.} The cases are short and written, with forced choices;
 they are not agents on live systems, and ``Cannot tell'' may make models
 more cautious than open conclusions would. Results hold for two vendors'
-models at the versions and date tested. Repeated sessions sample one
+models at the versions and dates tested. Repeated sessions sample one
 model at fixed settings, and the intervals describe that sampling only.
 Claude drafted the cases and the irrelevant records, and both vendors'
 tools were used in the research (manuscript Section 3), so no model is
-an independent subject. The runs cost 22.59 dollars.
+an independent subject. The first run and its pilot cost 22.59 dollars;
+the second run cost 22.93.
 
 \FloatBarrier
 

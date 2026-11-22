@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-051",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "7bb62ef7bd6020c5be87aaf3e73d616fef9b5e66ca31f4be21239e44fb57127c",
+ "sent_at": "2026-11-22T00:59:22+00:00",
+ "received_at": "2026-11-22T00:59:29+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH4ULsZayR8h1DX9BDYf",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "**Case A**\n\nA1. The seven-day search was only evaluated from 2 hours before publication to now, although 7 days were requested, and its status is partial. Earlier misuse before that window cannot be excluded. Also, the earlier requests were from a stable fingerprint, but the search was partial. The 19-minute burst falls within the evaluated window, but misuse before the evaluated window is not covered. The answer is Cannot tell.\n\nA2. The link between the payout destination and the two other accounts was learned 1 day after publication, so it was not available when the check scored the account at 30 minutes. The check's inputs were as of 30 minutes. The shared-destination evidence was effective earlier but not known then, so it was not available to the check. The answer is No. The burst itself, however, was available, and the check did not flag it. That does not mean it missed available evidence in the sense of the question, since the check scored and a non-flag could be a judgment. The question asks whether it missed evidence that was available. The burst evidence was available, but whether \"missed\" applies is a judgment call. The shared destination, the strong evidence, was not available. I answer No.\n\nA3. A shared destination does not by itself show one owner. The answer is No, not by itself.\n\nA4. The outcome channels have no reporting window defined, so absence of reports after 30 days is not informative. The answer is Cannot tell. The options are \"Yes, weakly\", \"No\", or \"Cannot tell\". With no window defined, the silence cannot be interpreted, so Cannot tell.\n\nA5. Yes. A different fingerprint, a residential proxy, a new webhook, a changed payout destination and a faster schedule all warrant investigation.\n\n**Case B**\n\nB1. The chargebacks at X are linked to D's transactions, so D has 2 chargebacks, the same as the others. The answer is No.\n\nB2. By account, the measure is A 8%, B 8%, C 2%, D 2%. A and B are above 5%, so the combined 5% does not show that no account is above 5%. The answer is No.\n\nB3. The search was partial and truncated, with one source sampled at 10%. The answer is Cannot tell.\n\nB4. Both notes link to the agent's cluster assessment, so they are not independent. The answer is No.\n\nB5. The blocked payment's decision block closed the chargeback channel, so no chargeback is expected. It cannot count as non-fraud. The answer is No.\n\nB6. Shared templates and descriptor pattern justify investigating together. The answer is Yes.\n\nRESULT CN-051 | A1: Cannot tell | A2: No | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 900,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}
