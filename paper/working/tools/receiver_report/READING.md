@@ -61,6 +61,12 @@ From its motion to dismiss, Document 104. These are the motion's statements, not
 
 The court denied the motion on 16 September 2019 (docket entry 123). On 15 January 2020 it entered a stipulated order (Document 142). In it the processor neither admits nor denies the complaint's allegations, and judgment of 3.5 million dollars is entered. The order requires chargeback rates to be calculated for each of a high-risk client's accounts and in the aggregate (Section VI.C), and chargeback and refund totals to be kept by amount and by number (Section XII.D).
 
+## The three results fixed in advance as counting against the records (added)
+
+1. A processor had the information and kept processing. Occurred, for the foreign processor: it held the fraud figures and the list tying the companies and terminals to one client, wrote that four terminals would keep working and later offered new accounts (X15 59-63, 69). The same emails show the bank stopping Visa and then Mastercard for the four companies.
+2. No record named, or no attribute a processor could have seen across accounts. Partly met. For the front accounts the report names no shared attribute that a domestic processor held. It does show one on the seller's side, a single server hosting its websites (R 5:8-9), and does not say whether a processor could see it.
+3. An account closed by ordinary monitoring, without the specified records. Not settled. The report says a spate of domestic accounts was cancelled for chargebacks (R 12:10-12) and that accounts closed for excessive chargebacks, "as they all were" (R 14:19-21). The same page says five newer domestic accounts were still processing (R 14:23-26). The report does not say what any processor monitored.
+
 ## Steps listed before any text went in the paper (closed)
 
 1. Read Document 104 and give the foreign processor's position. Done, above.
