@@ -71,3 +71,7 @@ Whatever the sheet shows goes in the supplement. Results against the records are
 22 November 2026 (UTC), later. The text above is unchanged.
 
 - All 14 dockets were then searched the same way, under `DOCKET_CHECK.md`. "The other 12 dockets were not checked" describes how the case was chosen, not the present state. Result: this docket is the only one of the 14 in which the archive holds a receiver's report or a decision in which the court states facts.
+
+22 November 2026, 22:01Z. The text above is unchanged.
+
+- A second case was read: the receiver's reports in U03, which the archive lists and does not hold. Its protocol note, sheet and reading record are in `madera/`. The protocol above applies to it unchanged; `madera/README.md` fixes what differs.

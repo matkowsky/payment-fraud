@@ -55,10 +55,10 @@ public = collections.Counter('partial' if x['public_representation_label'].start
 assert public == {'partial': 32, 'na': 32, 'unlocated': 7}, public
 
 # Citations, references and numbering
-# All 132 works are cited across the manuscript and supplement pair; each generated bibliography lists the works its text cites.
+# All 134 works are cited across the manuscript and supplement pair; each generated bibliography lists the works its text cites.
 mkeys = set(re.findall(r'(?<!\w)@([\w]+)', body)); skeys = set(re.findall(r'(?<!\w)@([\w]+)', sbody)); refkeys = {x['id'] for x in r}
 keys = mkeys | skeys
-assert len(keys) == 132 and keys == refkeys, sorted(refkeys ^ keys)
+assert len(keys) == 134 and keys == refkeys, sorted(refkeys ^ keys)
 if not SOURCES_ONLY:
     assert set(re.findall(r'<div id="ref-([^"]+)"', t)) == mkeys
     assert set(re.findall(r'<div id="ref-([^"]+)"', ts)) == skeys
@@ -354,7 +354,28 @@ assert [r['unit'] for r in dockets if r['counted'] != 'none'] == ['U02']
 assert sorted(r['unit'] for r in dockets if r['listed_not_held'] != 'none') == ['U02', 'U03']
 assert sum(1 for r in dockets if r['counted'] == 'none' and r['listed_not_held'] == 'none') == 12
 assert ('All 14 were then put to the same two searches' in sbody and 'no such entry in the other 12' in sbody
-        and 'A second docket lists a receiver' in sbody)
+        and 'A second docket lists a receiver' in sbody and "S10.4 reads both from the court's copies" in sbody)
+# Second case (Supplement S10.4): the findings sheet, the transcribed list of institutions and the text agree.
+M = B / 'tools/receiver_report/madera'
+found = {r['tactic'].split()[0]: r for r in csv.DictReader((M / 'FINDINGS.csv').open(encoding='utf-8'))}
+assert [found[t]['stated'] for t in ('T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7')] == ['unclear', 'yes', 'unclear', 'no', 'no', 'yes', 'unclear']
+assert all(found[t]['locator'].startswith('R ') for t in ('T1', 'T2', 'T3', 'T5', 'T6', 'T7', 'P1', 'O1', 'X4'))
+u03 = next(x for x in json.loads((B / 'tools/complaint_audit/sheets/ADJUDICATED.json').read_text(encoding='utf-8'))['complaints'] if x['unit'] == 'U03')
+assert [t for t in ('T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7') if u03[t]['mark'] == 'alleged'] == ['T2', 'T3', 'T6', 'T7']
+banks = list(csv.DictReader((M / 'APPENDIX_B.csv').open(encoding='utf-8')))
+notes = collections.Counter(r['note'] for r in banks)
+assert len(banks) == 45 and len({r['institution'] for r in banks}) == 45
+assert notes == {'Paid': 12, 'No funds': 16, 'No accounts located': 5, 'No response': 5, 'Accounts closed': 4, 'Over Drawn amount': 2, '': 1}
+assert sum(notes[k] for k in ('Paid', 'No funds', 'Accounts closed', 'Over Drawn amount')) == 34 and 35 + 14 == 49
+for said in ('the report states two of the seven tactics as fact, and both are the processor\'s own acts',
+             'at least 49 trade names on file with the state', 'The receiver wrote to 45 financial institutions, and 34 are marked',
+             'S10.1 marks this complaint as alleging T2, T3, T6 and T7', 'Three marks are unclear.',
+             'All three results fixed in advance as counting against the records occur here, at least in part.',
+             'One result fits the records, by analogy only.'):
+    assert said in sbody, said
+assert 'in three case records a processor had the information (Supplement S10.2 to S10.4)' in body
+madera_note = (M / 'README.md').read_text(encoding='utf-8')
+assert madera_note.index('## Changes after the protocol') > madera_note.index('Recorded by Claude (Anthropic), 22 November 2026.')
 # Second-rater check of the links (Supplement S3): the stored answers reproduce the reported counts.
 sys.path.insert(0, str(B / 'tools' / 'second_coder'))
 from score import tally as rater_tally, kappa as rater_kappa
@@ -395,7 +416,7 @@ assert '21 of its 110 in-scope techniques have no retained mechanism' in body
 result = {'signals': 71, 'families': 12, 'pairs': 163, 'explicit_inference_pairs': 9, 'lineage': 'valid and acyclic',
           'source_directory': 61, 'source_join_rows': 126, 'allocation': dict(counts),
           'posting_priority': {'candidates': 24, 'tier1': 26, 'tier1_with_posting_topic': 23, 'their_links': 65}, 'functions': 24,
-          'public_counterparts': dict(public), 'cited_works': 132, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 3, 'figures': 3,
+          'public_counterparts': dict(public), 'cited_works': 134, 'cited_in_manuscript': len(mkeys), 'cited_in_supplement': len(skeys), 'tables': 3, 'figures': 3,
           'synthetic': {'transactions': 400, 'chargebacks': 8, 'alerts': 14, 'overlap': 2, 'union': 20,
                         'chargeback_ratio': .02, 'broader_report_ratio': .05, 'undeduplicated_sum_rejected': .055,
                         'D_by_recording_account': by_recording['D'], 'D_by_transaction_attribution': by_attribution['D'],
