@@ -151,7 +151,7 @@ data}\label{supplement-signals-interfaces-and-worked-example-data}}
 
 Jonathan Matkowsky
 
-21 November 2026 · Accepted working draft for version 1.1 · Not
+22 November 2026 · Accepted working draft for version 1.1 · Not
 published · Not peer reviewed
 
 This supplement accompanies the \href{MANUSCRIPT.md}{manuscript}. S1 and
@@ -2075,7 +2075,16 @@ stores pass their own rules; only the channel records differ, and
 \mbox{XR-01} rejects the blocked attempt. In the second, \mbox{IR-08}
 and \mbox{XR-01} reject the stalled read. The rules cannot tell whether
 a claim relies on an unreported outcome it does not list, or which
-channels it should cite.
+channels it should cite. The executable schema does not hold the claim
+as written (\texttt{claim\_text} in the
+\href{SUPPLEMENT/S4_DRAFT_SCHEMA.csv}{draft schema}), so a draft's
+version identifier is a digest of each claim's structured fields, such
+as its type, entities, interval, confidence and citations, not of the
+sentence a releaser reads. \mbox{XR-01} is also stricter than manuscript
+Section 6.4. It holds a claim that only states that no report arrived to
+the matured-absence rule, so it rejects that statement for a blocked
+attempt, where the statement is true and only its use as a negative is
+barred. No claim field says which of the two a claim does.
 
 \textbf{Adversarial test (10 and 11 November 2026).} Claude wrote under
 supervision both the rules and the invalid conformance cases. To test
@@ -3625,21 +3634,29 @@ was recorded before the runs.
 
 \textbf{Cases and questions.} Traces A and B (manuscript Sections 8.1
 and 8.2) are written as two short cases, as many systems would show them
-(\href{tools/practitioner_study/INSTRUMENT.md}{cases}, Part 2). They
-have eleven questions, each allowing ``Cannot tell''. Eight test a
-requirement; A3, A5 and B6 are controls. The key gives each question one
-counted error that the records rule out. Without the records, ``Cannot
-tell'' is also a supported answer to A2, B1, B2, B3 and B4.
+(\href{tools/practitioner_study/INSTRUMENT.md}{cases}, Part 2). The
+cases, questions and key were written for a practitioner study that
+opened on 14 November 2026 and closed on 19 November with no responses
+(\href{tools/practitioner_study/README.md}{record}); no practitioner has
+answered them. They have eleven questions, each allowing ``Cannot
+tell''. Eight test a requirement; A3, A5 and B6 are controls. The key
+gives each question one counted error that the records rule out. Without
+the records, ``Cannot tell'' is also a supported answer to A2, B1, B2,
+B3 and B4.
 
 \textbf{Conditions.} A session shows both cases in one of three
 conditions: the cases alone; each case followed by its C1 to C3 records
 as a system would store them (four for Case A, five for Case B); or each
 case followed by as many \href{tools/agent_test/FILLER.md}{irrelevant
-records} in the same form, which bear on no question. The irrelevant
-records separate the effect of the records' content from the effect of
-more text. Each session is a new API conversation with no tools or
-memory, at most 6,000 output tokens and the vendor's default reasoning
-setting. It ends with one result line.
+records} in the same form, which were meant to bear on no question. The
+irrelevant records separate the effect of the records' content from the
+effect of more text. One of them is itself a verified
+report-to-transaction link, for a refund request at account A, so it
+resembles the record that answers B1; at least one reply cites it as a
+reason for ``Cannot tell'' (session \mbox{MF-011}). Each session is a
+new API conversation with no tools or memory, at most 6,000 output
+tokens and the vendor's default reasoning setting. It ends with one
+result line.
 
 \textbf{Models and sessions.} Six models were fixed before the runs:
 OpenAI's \mbox{GPT-6}.1 Sol, \mbox{GPT-6}.1 Terra and \mbox{GPT-6} Luna,
@@ -3653,11 +3670,11 @@ on a separate case checked parsing and cost.
 
 \begin{table}[tp]
 \textbf{Table S8.1. Counted errors without the records, with them and
-with irrelevant records, of 30 sessions each.} Questions with no counted
-error in any condition (B2, B5 and the controls) are omitted. Fable 5.2
-gave 25, 30 and 23 usable answers in the three conditions; every other
-model gave 29 or 30. Exact 95 percent intervals are in the results file;
-for 0 of 30 the upper bound is 0.12.\par\smallskip
+with irrelevant records, of 30 sessions each.} The three controls, which
+drew no counted error in any condition, are omitted. Fable 5.2 gave 25,
+30 and 23 usable answers in the three conditions; every other model gave
+29 or 30. Exact 95 percent intervals are in the results file; for 0 of
+30 the upper bound is 0.12.\par\smallskip
 {\footnotesize
 \begin{tabular}{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.4400}}
@@ -3706,6 +3723,10 @@ A2 & C2 learned time & 0/10/0 & 0/2/0 & 0/27/0 & 0/1/0 & 1/1/0 & 16/3/3
 & 0/0/0 & 25/21/0 \\
 B4 & C3 exposure links & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 &
 0/0/0 & 2/0/0 \\
+B2 & C1 per-account outcome & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 &
+0/0/0 & 0/0/0 & 0/0/0 \\
+B5 & C1 decision link & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 & 0/0/0 &
+0/0/0 & 0/0/0 \\
 
 \bottomrule\noalign{}
 \end{tabular}
@@ -3718,7 +3739,20 @@ On attribution (B1), every model gave the counted error in 25 to 30 of
 30 sessions without the records and in none with them. The case lists no
 chargebacks recorded at account D; the records link two chargebacks
 recorded at another account to D's transactions. With irrelevant
-records, seven models still erred in 24 to 30 sessions.
+records, seven models still gave it in 24 to 30 sessions, and Fable 5.2
+in 5 of its 23 usable answers.
+
+\textbf{B1 has a correct reading that the key counts as the error.} B1
+asks whether D's chargeback rate is lower straight after the counts
+recorded at each account, and the case does not mention the fifth
+account. On the recorded counts, ``Yes'' is correct, and at least one
+reply says so (``lower as recorded'', session \mbox{MF-003}). The key
+counts ``Yes'' as the error because the linked chargebacks make D's rate
+equal to the others' on its own transactions. The result therefore shows
+that the models used the link when the records stated it. It does not
+show that they misread the case, or that this record design is needed to
+supply the link. B2, B4 and B5 drew almost no counted errors in any
+condition, so they show no effect of the records.
 
 Errors on channel state (A4) and query coverage (A1, B3) were rarer and
 varied by model. Without the records a model erred in up to 30 of 30
@@ -4317,7 +4351,10 @@ Cal.), ECF 24 {[}\protect\hyperlink{ref-FTC2020FirstData}{14},
 allegation, the data are synthetic and the parameters are assumptions,
 so the percentages describe constructed cases, not detection rates. Both
 complaints also allege that the processor saw evidence and did not act;
-records cannot fix that.
+records cannot fix that. In First Data, as alleged, the processor's own
+June 2014 risk report had already grouped the eight related accounts
+(complaint paragraph 84a), so the replay shows what a linked view
+displays, not that the processor lacked one.
 
 \textbf{Method.}
 \href{tools/replays/ftc_first_data_replay.py}{\texttt{tools/\allowbreak replays/\allowbreak ftc\_first\_data\_replay.py}}
@@ -4340,9 +4377,15 @@ of captures; a 120-day dispute window with reports spread across it.
 Allied Wallet: chargebacks of at least 100 a month and 1 percent of
 sales transactions; fraud reports of at least \$75,000 a month or 1
 percent of sales dollars; three accounts of 185 payments a month each,
-linked by one payout beneficiary; a 3.14 percent fraud-report rate, the
-mean of the four monthly ratios the complaint gives. Volumes, ticket
-sizes, delays and fees are assumptions.
+linked by one payout beneficiary; a 3.14 percent chance that a payment
+draws a fraud report, set to the mean of the four monthly fraud ratios
+the complaint gives. The complaint describes Visa's ratio by dollar
+value. That ratio is the report probability times the mean reported
+amount over the mean amount of all payments, so the two agree in
+expectation only if reported payments have the same amounts as the
+others, as the replay assumes; the 1 percent rule is still met in
+expectation while reported payments average at least 32 percent of the
+others' amounts. Volumes, ticket sizes, delays and fees are assumptions.
 
 \textbf{Findings.}
 
@@ -4354,7 +4397,7 @@ sizes, delays and fees are assumptions.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-Alleged pattern
+Pattern, alleged unless marked
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Without the record
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -4380,19 +4423,19 @@ the descriptor shows the account view and, in 53.7 percent of runs,
 flags the new descriptor before the switch & Per-payment descriptors
 rebuild the monitored unit; 95.7 reports a run reach a unit with no
 denominator and are reported separately \\
-Reports linked only by card number and amount (First Data) & Counting
-every link flags a clean account near the floor in 7.8 to 37.0 percent
-of runs as unverified links rise from 10 to 50 percent & Counting only
-verified links gives no wrong flag and leaves the account inconclusive
-in 40.0 to 100 percent of runs \\
+Reports linked only by card number and amount (First Data; assumed, not
+alleged) & Counting every link flags a clean account near the floor in
+7.8 to 37.0 percent of runs as unverified links rise from 10 to 50
+percent & Counting only verified links gives no wrong flag and leaves
+the account inconclusive in 40.0 to 100 percent of runs \\
 A merchant below the chargeback floor (Allied Wallet) & The chargeback
 rule never flags an account or the group: no account exceeds 24
 chargebacks in a month & The fraud-report rule by value flags each
 account in at least 99.8 percent of runs. It needs the separate channel
 and each report's amount \\
-Refunds before disputes (Allied Wallet) & A chargeback-only store reads
-the refunded fifth of reported payments as unreported & The fraud report
-is kept as its own record \\
+Refunds before disputes (Allied Wallet; assumed, not alleged) & A
+chargeback-only store reads the refunded fifth of reported payments as
+unreported & The fraud report is kept as its own record \\
 Traffic moved after closures (Allied Wallet) & On average 13.5 fraud
 reports a run arrive on closed accounts in months with no sales, which
 the account view cannot test & The payout-linked group counts them
@@ -4459,7 +4502,10 @@ to test.
 \textbf{Conformance.} The records written for seed 1, 144,574 for First
 Data and 4,240 for Allied Wallet, pass the schema and rules. A refund
 recorded as also closing the fraud-report channel fails \mbox{OR-08},
-and a shared-attribute link marked verified fails \mbox{OR-14}.
+and a shared-attribute link marked verified fails \mbox{OR-14}. Neither
+replay writes a report-to-decision link record, so the replays exercise
+C1's channels, control actions, channel states, attributions and entity
+links, not its links from reports to decisions.
 
 \hypertarget{s10.1-tactics-alleged-in-14-ftc-complaints}{%
 \subsubsection{S10.1 Tactics alleged in 14 FTC
@@ -4503,30 +4549,33 @@ second sheet back to its coder.
 \textbf{Agreement.} Before adjudication the coders gave the same mark in
 78 of 98 tactic cells: 9 of 14 complaints for T1, 10 for T2, 12 for T3,
 14 for T4, 13 for T5, 6 for T6 and 14 for T7. They differed on 20 tactic
-marks and 4 context answers.
+marks and 4 context answers. Pooled over the 98 cells, kappa is 0.60; by
+tactic it is 0.44, 0.36, 0.54, 1.00, 0.84 and 0.12 for T1 to T6, and
+undefined for T7, which both coders marked alleged in every complaint.
 
 \textbf{Adjudication.} The protocol had the author rule on each
-difference. He did not: he delegated the rulings to a model and then,
-when three models disagreed, chose to report their disagreement. The
-protocol's dated notes record each change. The second and third
-adjudicators' prompts were each committed before that adjudicator
-answered, and the rule that a ruling needs all three was committed
-before the third answered. The rule for reporting disputed items was set
-after all three had answered and before any count was computed. Three
-language models ruled on the 24 differences, each seeing the two
-readings in random order without the coders' names: Claude Sonnet 5.5
-(Anthropic), Llama 4 Maverick (Meta) and \mbox{GPT-6} Luna (OpenAI). The
-first could read the complaints; the other two saw only the paragraphs
-either coder cited. A ruling stands only where all three agree, as they
-do on 10 items. The other 14 are reported as disputed: 11 tactic marks,
-six of them T6, and 3 context answers. Each count is also given as a
-range, with every disputed item at the lowest and then the highest
-reading any adjudicator gave. The adjudicators are not independent of
-the coders. The first shares a company with coder 1 and took coder 1's
-reading on 17 items and coder 2's on 1. The third shares a company with
-coder 2 and took coder 1's reading on 16 and coder 2's on 6. The second
-never took the lower of two tactic marks. No human coded a complaint or
-ruled on a difference.
+difference. The author did not: the rulings went to a model and then,
+when three models disagreed, the disagreement was reported. A ruling by
+the author after seeing both readings would have picked a winner, and
+the author has a stake in the result. The protocol's dated notes record
+each change. The second and third adjudicators' prompts were each
+committed before that adjudicator answered, and the rule that a ruling
+needs all three was committed before the third answered. The rule for
+reporting disputed items was set after all three had answered and before
+any count was computed. Three language models ruled on the 24
+differences, each seeing the two readings in random order without the
+coders' names: Claude Sonnet 5.5 (Anthropic), Llama 4 Maverick (Meta)
+and \mbox{GPT-6} Luna (OpenAI). The first could read the complaints; the
+other two saw only the paragraphs either coder cited. A ruling stands
+only where all three agree, as they do on 10 items. The other 14 are
+reported as disputed: 11 tactic marks, six of them T6, and 3 context
+answers. Each count is also given as a range, with every disputed item
+at the lowest and then the highest reading any adjudicator gave. The
+adjudicators are not independent of the coders. The first shares a
+company with coder 1 and took coder 1's reading on 17 items and coder
+2's on 1. The third shares a company with coder 2 and took coder 1's
+reading on 16 and coder 2's on 6. The second never took the lower of two
+tactic marks. No human coded a complaint or ruled on a difference.
 
 \begin{table}[tp]
 \textbf{Table S10.1. Complaints alleging each tactic.} Marks after
@@ -4639,7 +4688,12 @@ of the 14 had been read for the paper
 {[}\protect\hyperlink{ref-FTC2020FirstData}{14}--\protect\hyperlink{ref-FTC2019Allied}{16}{]}
 and after press reports of the two 2026 actions had been seen, so their
 tactics shaped it. Both coders and all three adjudicators are language
-models, and no human checked a mark.
+models, and no human checked a mark. Marks on which both coders agreed
+were not rechecked, so the ranges cannot show an error both made. One
+agreed mark was later questioned: for Apex (T3), the cited paragraphs
+describe one operation's sales run through merchant accounts opened in
+shell companies' names, which the complaint calls credit card
+laundering, not several sellers sharing one account.
 
 \FloatBarrier
 

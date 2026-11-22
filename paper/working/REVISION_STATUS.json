@@ -825,6 +825,14 @@
       "merged_at": "2026-11-21T23:52:07Z",
       "merged_by": "matkowsky",
       "credit": "Recorded in PR #116."
+    },
+    {
+      "pr": 117,
+      "title": "Correct the replay and model-test text; narrow claims found too strong in review",
+      "merge_commit_sha": "dc52f7e1ee90b4bf3f49f6cfaa778d90eaec643e",
+      "merged_at": "2026-11-22T01:00:44Z",
+      "merged_by": "matkowsky",
+      "credit": "findings from four simulated journal reviews (three Claude subagents; GPT-6 Astra Pro, run by Jonathan Matkowsky); each finding checked against the files, and the text drafted, by Claude (Anthropic)."
     }
   ]
 }
