@@ -391,7 +391,18 @@ for said in ('the report states two of the seven tactics as fact, and both are t
              'One result fits the records, by analogy only.'):
     assert said in sbody, said
 assert 'Three court records were then read against the specification (Supplement S10.2 to S10.4)' in body
-assert 'Court records from three FTC cases mostly show limits' in body and '| Three court records mostly show limits |' in body
+assert 'Three court records state most of those tactics as fact and mark a limit' in body and '| Court records state tactics as fact |' in body
+# Section 8.5's figures for the court records, against the first case's sheet and transcribed tables.
+apex = {r['tactic'].split()[0]: r['stated'] for r in csv.DictReader((B / 'tools/receiver_report/FINDINGS.csv').open(encoding='utf-8'))}
+stated_fact = {t for t in ('T1', 'T2', 'T3', 'T5', 'T6') if apex[t].startswith('yes') or found[t]['stated'] == 'yes'}
+assert stated_fact == {'T1', 'T2', 'T5', 'T6'} and 'they state four of the five tactics as fact' in body
+all_seven = {t for t in ('T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7') if apex[t].startswith('yes') or found[t]['stated'] == 'yes'}
+assert len(all_seven) == 5  # "most of those tactics" in the abstract and Section 1
+for said in ('57 nominee companies', 'refunds of 12.7 percent of sales beside chargebacks of 14.6', 'losses unseen for 17 months'):
+    assert said in body, said
+for said in ('57 nominee companies with 68 bank accounts', 'chargebacks of 14.6 percent of 2015 to 2018 sales and refunds of 12.7 percent',
+             'The losses went undiscovered from August 2011 to January 2013'):
+    assert said in sbody, said
 assert 'with the kit of Supplement S7.1' in body and 'under the protocol of Supplement S10.3' in body
 madera_note = (M / 'README.md').read_text(encoding='utf-8')
 assert madera_note.index('## Changes after the protocol') > madera_note.index('Recorded by Claude (Anthropic), 22 November 2026.')
