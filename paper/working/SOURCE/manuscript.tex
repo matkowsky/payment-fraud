@@ -176,18 +176,19 @@ adversarial histories written by a second model. Public sources supply
 the design premises, and Stripe's public product pages and documentation
 provide an illustrative product scope. Two hypothetical investigations
 show how missing context changes what the same observations can support;
-as an illustration, AI models given written versions answered a
-chargeback-attribution question differently when the records supplied a
-link the case omitted. Replays of two FTC complaints on synthetic
-records show what the records expose and miss, a model-coded count
-across 14 such complaints shows how often each tactic is alleged, and an
-evaluation plan proposes tests of evidential quality, operational cost
-and agent benefit. The contribution is a joint specification for
-investigation across payment products, built on established methods and
-recent agent-governance designs. It is a synthesis, not a new method.
-The architecture has not been built, no platform data were used, its
-only experiments use synthetic records, one simulation and written cases
-answered by AI models, and no practitioner has reviewed it.
+AI models given written versions made more counted errors with records
+modeled on providers' documentation than with the specified records in 4
+of 32 planned comparisons, and fewer in 2. Replays of two FTC complaints
+on synthetic records show what the records expose and miss, a
+model-coded count across 14 such complaints shows how often each tactic
+is alleged, and an evaluation plan proposes tests of evidential quality,
+operational cost and agent benefit. The contribution is a joint
+specification for investigation across payment products, built on
+established methods and recent agent-governance designs. It is a
+synthesis, not a new method. The architecture has not been built, no
+platform data were used, its only experiments use synthetic records, one
+simulation and written cases answered by AI models, and no practitioner
+has reviewed it.
 
 \textbf{Keywords:} payment fraud, abuse investigation, threat
 intelligence, selective labels, agent memory, provenance, human
@@ -1866,18 +1867,20 @@ every count without them.
 traces}\label{what-ai-models-conclude-from-the-two-traces}}
 
 Eight AI models from two vendors answered written versions of Traces A
-and B in 30 sessions per model and condition: the cases alone, with
-their C1 to C3 records, or with as many irrelevant records (Supplement
-S8; two models were added after six had been scored). Without the
-records, every model judged account D's chargeback rate lower than the
-others' in 25 to 30 of 30 sessions; with them, none did; with irrelevant
-records, seven still did in 24 to 30 sessions and the eighth in 5. On
-the counts the case lists, that answer is correct; the records add the
-link to D's transactions. The result shows that models use a link they
-are given, not that this record design is needed or how often such
-errors occur in practice. Three other requirement questions drew at most
-two counted errors in any condition, and on the learned-time question
-the records raised counted errors in four models (Supplement S8).
+and B in two runs of 30 sessions per model and condition (Supplement S8;
+two models were added to the first after six had been scored). Given the
+cases alone, every model judged account D's chargeback rate lower than
+the others' in at least 25 sessions; given the C1 to C3 records, none
+did. That answer is correct on the counts the case lists. In the second
+run, fixed in advance, records modeled on what providers already
+document (Section 2.4) removed it as fully, so this question does not
+show what the specification adds. That run set such current-practice
+records against the C1 to C3 records in 32 planned comparisons: each
+model on two coverage questions, channel state and learned time. After
+correction for multiple tests, counted errors were more frequent with
+current-practice records in 4, less frequent in 2, both on learned time,
+and not shown to differ in 26. The models are not investigators, and the
+cases do not show how often such errors occur.
 
 \FloatBarrier
 
