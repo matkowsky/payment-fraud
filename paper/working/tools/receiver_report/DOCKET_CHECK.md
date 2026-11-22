@@ -59,7 +59,7 @@ If the search returns nothing, a second search confirms that the archive has the
 
 ## Changes after the protocol
 
-22 November 2026, 16:30Z, after the fixed search had run on all 14 dockets and before any second search. The text above is unchanged.
+22 November 2026, 16:29Z, after the fixed search had run on all 14 dockets and before any second search. The text above is unchanged.
 
 - Result of the fixed search: it returned entries for one docket, U02, and nothing for the other 13.
 - A second search is added and put to all 14 dockets. Reason: the fixed search asks for particular entry labels, and courts label entries differently, so a report or decision under another label would be missed. The second search reads entry descriptions alone:
@@ -70,5 +70,32 @@ description:(receiver OR monitor OR "special master" OR "summary judgment"
 ```
 
 - What counts, what is only listed and what follows are unchanged. Both searches' results are recorded for every docket.
+
+## Result
+
+Searches run 22 November 2026, 16:22Z to 16:39Z. `DOCKET_CHECK.csv` has one row for each docket.
+
+- Counted: one document, in one docket of 14. It is the receiver's preliminary report in U02, which Supplement S10.3 already reads.
+- Listed, not counted, because the archive does not hold them:
+  - U03: a notice of the receiver's interim report (Document 34, 23 March 2020) and a motion to approve the receiver's final report (Document 43, 21 April 2021).
+  - U02: six later status reports by the receiver, and a court of appeals memorandum of 14 December 2023. CourtListener's opinion search does not hold that memorandum either.
+- The other 12 dockets: no entry of kind (a) or (b) under either search. Their latest entries are judgments, injunctions, consent or stipulated orders, or orders on motions.
+- Neither search returned a decision on summary judgment, a decision on a contested preliminary injunction, findings after trial or a magistrate judge's report in any docket.
+
+## Judgments made in applying the protocol
+
+- An ex parte restraining order is not counted, though it has a section headed findings. It rests on one party's showing. U02's is held (Document 16).
+- An order on a motion to dismiss is not counted. It takes the complaint's allegations as true and states no facts. U02 lists two, neither held.
+- U01's receiver was a liquidating receiver. Its filings concern the sale of real property and a final accounting, which the protocol does not count.
+- For U02 the second search was run with an added filter on entry labels, to limit output. Every other docket got the search as fixed.
+- For U13 and U14 every entry the archive lists was also read, four and six entries.
+
+## What was not done
+
+- Nothing was bought from PACER. The two U03 filings may be there. The U03 complaint charges the two companies as payment processors. The FTC's posted copy of the stipulated preliminary injunction says the court appointed a temporary receiver over them; that was seen as a search excerpt and the order was not read in full. If so, these would be a receiver's account from inside a processor, which the one report read is not.
+- Party exhibits were not searched.
+- The count of documents the archive indexes was not taken for U02 and U06.
+
+Corrected in this commit: the time of the change above read 16:30Z; the commit that recorded it was made at 16:29Z.
 
 Recorded by Claude (Anthropic), 22 November 2026.

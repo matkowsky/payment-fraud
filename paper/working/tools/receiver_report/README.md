@@ -67,3 +67,7 @@ Whatever the sheet shows goes in the supplement. Results against the records are
 - Figures are in `EXHIBIT15_FRAUD_TABLE.csv` and `EXHIBIT19_INCOME.csv`. No `FIGURES.csv` was made. Reason: every figure used comes from one of two exhibit tables, and each table is kept whole as transcribed.
 - A check of the terminal websites in Exhibit 15 against the domain list in Exhibit 18 was planned in `READING.md` and dropped. Reason: the processor's own list already ties the terminals to one client, so the check could change no finding. Exhibit 18 stays unread and is not cited.
 - The stipulated order between the Commission and the processor (Document 142) was read in full. Reason: the supplement gives the processor's position, so it also gives how the claims against it ended.
+
+22 November 2026 (UTC), later. The text above is unchanged.
+
+- All 14 dockets were then searched the same way, under `DOCKET_CHECK.md`. "The other 12 dockets were not checked" describes how the case was chosen, not the present state. Result: this docket is the only one of the 14 in which the archive holds a receiver's report or a decision in which the court states facts.

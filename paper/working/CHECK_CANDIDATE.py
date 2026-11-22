@@ -346,6 +346,15 @@ assert ('10 of its next 12 histories meant to break a requirement passed, seven 
 assert 'two of 12 adversarial histories from a second model and, after revision, 11 of 13 from a third' in body
 assert ('46 adversarial histories in three rounds (S4.4) | Resistance to evasion: 10 of 12 attempts passed in round 2, and '
         "round 3's tester differed") in body and len(outside) + len(held) + len(third) == 46
+# Docket check (Supplement S10.3): all 14 dockets of the count were searched; one holds a counted document.
+dockets = list(csv.DictReader((B / 'tools/receiver_report/DOCKET_CHECK.csv').open(encoding='utf-8')))
+units14 = [r['unit'] for r in csv.DictReader((B / 'tools/complaint_audit/UNITS.csv').open(encoding='utf-8'))]
+assert sorted(r['unit'] for r in dockets) == sorted(units14) and len(dockets) == 14
+assert [r['unit'] for r in dockets if r['counted'] != 'none'] == ['U02']
+assert sorted(r['unit'] for r in dockets if r['listed_not_held'] != 'none') == ['U02', 'U03']
+assert sum(1 for r in dockets if r['counted'] == 'none' and r['listed_not_held'] == 'none') == 12
+assert ('All 14 were then put to the same two searches' in sbody and 'no such entry in the other 12' in sbody
+        and 'A second docket lists a receiver' in sbody)
 # Second-rater check of the links (Supplement S3): the stored answers reproduce the reported counts.
 sys.path.insert(0, str(B / 'tools' / 'second_coder'))
 from score import tally as rater_tally, kappa as rater_kappa
