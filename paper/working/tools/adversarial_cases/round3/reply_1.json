@@ -1,0 +1,142 @@
+```json
+[
+  {
+    "case_id": "R01",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C1",
+    "why": "The absence claim CL-5 cites a reading RD-3 that was taken before the reporting window closed, breaking C1 by not linking the outcome to the decision that shaped it.",
+    "investigation": {
+      "set_fields": {
+        "DR-3": {
+          "claims": [
+            {
+              "claim_id": "CL-5",
+              "claim_text": "Card attempt PA-3 drew no fraud chargeback: its reporting window closed on 4 June 2026 with no report.",
+              "claim_type": "absence",
+              "material": true,
+              "entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "sources": ["S-LABEL"],
+              "interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+              "confidence": "moderate",
+              "supporting": [],
+              "contradicting": [],
+              "query_runs": ["Q-5"],
+              "context": [],
+              "distinct_roots": 0,
+              "outcome_items": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "outcome_use": "negative",
+              "outcome_readings": ["RD-2"]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R02",
+    "tier": "agent",
+    "expect": "accept",
+    "breaks": "none",
+    "why": "The draft DR-3 is changed to have a claim that cites a released conclusion as support, which is not allowed by IR-09.",
+    "investigation": {
+      "set_fields": {
+        "DR-3": {
+          "claims": [
+            {
+              "claim_id": "CL-5",
+              "claim_text": "Card attempt PA-3 drew no fraud chargeback: its reporting window closed on 4 June 2026 with no report.",
+              "claim_type": "absence",
+              "material": true,
+              "entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "sources": ["S-LABEL"],
+              "interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+              "confidence": "moderate",
+              "supporting": ["M-1"],
+              "contradicting": [],
+              "query_runs": ["Q-5"],
+              "context": [],
+              "distinct_roots": 0,
+              "outcome_items": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "outcome_use": "negative",
+              "outcome_readings": ["RD-3"]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R03",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "The query run Q-5 is changed to have a sampled source, breaking C2 by not recording query coverage and learned time.",
+    "investigation": {
+      "set_fields": {
+        "Q-5": {
+          "sources": [
+            {
+              "source_id": "S-LABEL",
+              "schema_version": "label-events-3",
+              "access": "evaluated",
+              "event_watermark": "2026-08-01T00:00:00Z",
+              "ingestion_watermark": "2026-08-01T12:00:00Z",
+              "retention_horizon": "2025-01-01T00:00:00Z",
+              "known_gaps": [],
+              "sampled": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R04",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The release decision RL-3 is changed to release the claim before the draft was written, breaking C3 by not requiring human release before promotion into organizational memory.",
+    "investigation": {
+      "set_fields": {
+        "RL-3": {
+          "decided_at": "2026-08-01T09:00:00Z"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R05",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C1",
+    "why": "The absence claim CL-5 is changed to read the absence as a status, but the sentence still draws a negative, breaking C1 by not linking the outcome to the decision that shaped it.",
+    "investigation": {
+      "set_fields": {
+        "DR-3": {
+          "claims": [
+            {
+              "claim_id": "CL-5",
+              "claim_text": "Card attempt PA-3 drew a fraud chargeback: its reporting window closed on 4 June 2026 with no report.",
+              "claim_type": "absence",
+              "material": true,
+              "entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "sources": ["S-LABEL"],
+              "interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+              "confidence": "moderate",
+              "supporting": [],
+              "contradicting": [],
+              "query_runs": ["Q-5"],
+              "context": [],
+              "distinct_roots": 0,
+              "outcome_items": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "outcome_use": "status",
+              "outcome_readings": ["RD-3"]
+            }
+          ]
+        }
+      }
+    }
+  }
+]
+```
