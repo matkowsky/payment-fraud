@@ -873,6 +873,22 @@
       "merged_at": "2026-11-22T06:28:07Z",
       "merged_by": "matkowsky",
       "credit": "rule design, code, cases and text by Claude (Anthropic)."
+    },
+    {
+      "pr": 123,
+      "title": "Adversarial round 3: records, report in the paper, and the fix for the fault it found",
+      "merge_commit_sha": "a90448e7b8af7da07a934e3921a25d3301462883",
+      "merged_at": "2026-11-22T15:57:07Z",
+      "merged_by": "matkowsky",
+      "credit": "the tester's cases by Llama 4 Maverick (Meta); the rulings check by GPT-6 Astra Pro (OpenAI); scoring, records, first rulings, report and fix by Claude (Anthropic)."
+    },
+    {
+      "pr": 124,
+      "title": "9.1 E8: state the draft volume behind \"about 21 months\"",
+      "merge_commit_sha": "1c89b527692c2a20607144b1565ed8b9613fe815",
+      "merged_at": "2026-11-22T15:57:27Z",
+      "merged_by": "matkowsky",
+      "credit": "ChatGPT found the point in its review of #117 and suggested the wording. Claude (Anthropic) checked the arithmetic and the page count and drafted the change."
     }
   ]
 }

@@ -59,24 +59,24 @@ conclusion serves only as a hypothesis or context, and any record an
 agent output informed links back to that output.
 
 Draft schemas, 29 cross-record rules and two reference checkers make the
-requirements testable; the frozen rules rejected two of 12 new
-adversarial histories written by a second model. Public sources supply
-the design premises, and Stripe's public product pages and documentation
-provide an illustrative product scope. Two hypothetical investigations
-show how missing context changes what the same observations can support;
-AI models given written versions made more counted errors with records
-modeled on providers' documentation than with the specified records in 4
-of 32 planned comparisons, and fewer in 2. Replays of two FTC complaints
-on synthetic records show what the records expose and miss, a
-model-coded count across 14 such complaints shows how often each tactic
-is alleged, and an evaluation plan proposes tests of evidential quality,
-operational cost and agent benefit. The contribution is a joint
-specification for investigation across payment products, built on
-established methods and recent agent-governance designs. It is a
-synthesis, not a new method. The architecture has not been built, no
-private platform data were used, its only experiments use synthetic
-records, one simulation and written cases answered by AI models, and no
-practitioner has reviewed it.
+requirements testable; frozen rules rejected two of 12 adversarial
+histories from a second model and, after revision, 11 of 13 from a
+third. Public sources supply the design premises, and Stripe's public
+product pages and documentation provide an illustrative product scope.
+Two hypothetical investigations show how missing context changes what
+the same observations can support; AI models given written versions made
+more counted errors with records modeled on providers' documentation
+than with the specified records in 4 of 32 planned comparisons, and
+fewer in 2. Replays of two FTC complaints on synthetic records show what
+the records expose and miss, a model-coded count across 14 such
+complaints shows how often each tactic is alleged, and an evaluation
+plan proposes tests of evidential quality, operational cost and agent
+benefit. The contribution is a joint specification for investigation
+across payment products, built on established methods and recent
+agent-governance designs. It is a synthesis, not a new method. The
+architecture has not been built, no private platform data were used, its
+only experiments use synthetic records, one simulation and written cases
+answered by AI models, and no practitioner has reviewed it.
 \end{abstract}
 \keywords{payment fraud, abuse investigation, threat intelligence,
 selective labels, agent memory, provenance, human oversight}
@@ -233,16 +233,17 @@ through a failure of another (Section 8.3).
 Draft schemas, 29 cross-record rules and two checkers make the
 requirements testable, and every rule has a failing case (Supplement
 S4). Fifteen histories written by a second model to test the rules
-exposed eight gaps; after revision on those same histories, the rules
-reject nine of the 13 meant to break a requirement, and the other four
-are stated limits. On 15 further histories, written against the revised
-and frozen rules, the rules rejected two of the 12 meant to break a
-requirement, and seven of the 10 that passed were new gaps; the fix
-awaits a third round (Supplement S4.4). Two hypothetical investigations
-show which conclusions survive when particular records are missing,
-replays of two FTC complaints on synthetic records show what the records
-expose and miss, and a count across 14 such complaints shows how often
-each tactic is alleged (Section 8).
+exposed eight gaps, and the rules were revised on them. Against those
+revised and frozen rules, 10 of its next 12 histories meant to break a
+requirement passed, seven through new gaps. Revised again and frozen,
+the rules rejected 11 of 13 such histories from a third model; one
+passed under a stated limit, and one exposed a fault in a checker, since
+fixed. The testers differ, so this gain cannot be credited to the
+revision alone (Supplement S4.4). Two hypothetical investigations show
+which conclusions survive when particular records are missing, replays
+of two FTC complaints on synthetic records show what the records expose
+and miss, and a count across 14 such complaints shows how often each
+tactic is alleged (Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
@@ -1844,9 +1845,9 @@ a released item or on records linked to one, which tests C3's rule that
 such support adds no independent corroboration. Its criteria set no
 limit on correct drafts that the gate returns or lets expire. Passing E8
 would show that the gate catches errors, not that it releases correct
-work at an acceptable rate; E5 bears on that cost. One site would need
-about 21 months, so in practice E8 pools sites or runs as exploratory
-(Supplement S7.1).
+work at an acceptable rate; E5 bears on that cost. At 20 drafts every
+calendar day, one site would need about 21 months, so in practice E8
+pools sites or runs as exploratory (Supplement S7.1).
 
 \textbf{E9. Channel states:} Do C1's channel states reduce the absolute
 error of evaluation results against a mature holdout reference, compared
@@ -1913,9 +1914,9 @@ by construction); failing cases (S4.2, S4.4) & That the records improve
 investigations \\
 No two requirements replace the third & Two cross-requirement pairs
 (8.3, S4.4) & That they cover every interaction \\
-Reference checkers apply the rules & Two checkers; 30 adversarial
-histories in two rounds (S4.4) & Resistance to evasion: 10 of 12 new
-attempts passed \\
+Reference checkers apply the rules & Two checkers; 46 adversarial
+histories in three rounds (S4.4) & Resistance to evasion: 10 of 12
+attempts passed in round 2, and round 3's tester differed \\
 Storage and lookup costs were measured on one synthetic file & Synthetic
 measurement (8.4) & The cost of producing them on a platform \\
 Missing context changes conclusions & Two hypothetical traces; eight AI

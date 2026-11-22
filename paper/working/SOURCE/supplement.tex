@@ -2039,10 +2039,11 @@ and the release's expiry & \mbox{IR-13} \\
 
 The checker generates a test from this table. In the joint history
 described below, it points each reference at a record of every type the
-table does not allow, and each reference that requires a kind of actor
-at an actor of every other kind. The rules reject all 514 histories of
-the first sort and all 82 of the second. Named invalid cases test the
-entity and time columns.
+table does not allow and at a record that does not exist, and each
+reference that requires a kind of actor at an actor of every other kind.
+All 29 rules run on each history. They reject all 514 histories of the
+first sort, all 74 of the second and all 82 of the third. Named invalid
+cases test the entity and time columns.
 
 The
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json}{valid
@@ -2066,10 +2067,10 @@ to repeat the checks.
 
 The same script checks four necessity pairs. Each pair is two histories
 that permit different conclusions but are identical once one group of
-fields is removed. For coverage and learned time, the script compares
-two versions of one record in a fixed context. Both roots-and-inputs
-histories pass the rules. In the release pair, the rules reject the
-history with no release decision.
+fields, or one record and its link, is removed. For coverage and learned
+time, the script compares two versions of one record in a fixed context.
+Both roots-and-inputs histories pass the rules. In the release pair, the
+rules reject the history with no release decision.
 
 \begingroup\small
 
@@ -2079,7 +2080,7 @@ history with no release decision.
   >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
-Fields removed
+Removed
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 The two histories
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -2313,6 +2314,19 @@ its entity or its time. The seventh, the note about another entity, was
 a rule that matched two records more narrowly than the manuscript does.
 This reading is an inference from the cases, not a tested result.
 
+Round 2's 15 histories came from three sessions, where the plan fixed
+one, because each session closed before the next request; each later
+session was given the earlier histories
+(\href{tools/adversarial_cases/round2/RUN_RECORD.md}{run record}). The
+model and its settings rest on the author's statements. The tester and
+the reviewer of the rulings are the same model, and the two first sets
+of rulings agreed on only seven of 13 cases. The histories are not a
+sample from a defined population, and the tester read the rules and
+aimed at their gaps. The counts therefore describe these histories, not
+a rate at which the rules catch misuse, and no interval is given. Both
+rounds' histories are kept as regression tests, and the package check
+reruns them.
+
 \textbf{Revision after the held-out round (22 November 2026).} The rules
 above are revised from a table of every reference and those four
 attributes (the reference table above), not case by case. The revision
@@ -2345,26 +2359,71 @@ its claim is given both sources. The history that cites a later
 observation as an outcome reading is rejected by \mbox{XR-01}, which the
 rerun applies and the round 2 command did not.
 
-A third round, held out again, is fixed in a
-\href{tools/adversarial_cases/round3/PLAN.md}{plan} and has not been
-run. Its tester is to come from outside the two model families that
-wrote the rules and the earlier histories. Its
-\href{tools/adversarial_cases/PACKET_ROUND3.md}{packet} covers the joint
-case and \mbox{XR-01}, which the first two rounds did not. Until it is
-run, no outside test supports the revised rules.
+\textbf{Third round (22 November 2026).} A third round tested the rules
+as revised above, frozen beforehand with both checkers
+(\href{tools/adversarial_cases/round3/PLAN.md}{plan}). The tester was
+Meta's Llama 4 Maverick, from outside the two model families that wrote
+the rules and the earlier histories, in one temporary chat with web
+search off. Its \href{tools/adversarial_cases/PACKET_ROUND3.md}{packet}
+covers the joint case and \mbox{XR-01}, which the first two rounds did
+not. It wrote 16 histories where the plan asked for 15, and all are
+scored: 13 meant to break a requirement and still pass, and three meant
+to be legitimate and still be rejected.
 
-The 15 histories came from three sessions, where the plan fixed one,
-because each session closed before the next request; each later session
-was given the earlier histories
-(\href{tools/adversarial_cases/round2/RUN_RECORD.md}{run record}). The
-model and its settings rest on the author's statements. The tester and
-the reviewer of the rulings are the same model, and the two first sets
-of rulings agreed on only seven of 13 cases. The histories are not a
-sample from a defined population, and the tester read the rules and
-aimed at their gaps. The counts therefore describe these histories, not
-a rate at which the rules catch misuse, and no interval is given. Both
-rounds' histories are kept as regression tests, and the package check
-reruns them.
+The frozen checkers rejected 11 of the 13. The investigation rules or
+\mbox{XR-01} rejected seven. The schema rejected two, each of which
+gives a draft a link field that drafts do not have, so neither reached a
+rule. Outcome rules alone rejected two, and this round did not test
+those rules. One history passed. It marks a claim as a status while its
+sentence says the attempt drew a chargeback, and no rule reads the
+sentence, a limit the packet stated. One history stopped the checker
+with an error. In it a query run lists a draft among the records it
+returned. \mbox{IR-06} as stated rejects that, and the fourteen rules
+run alone report it, but the code for \mbox{XR-01} read the entity of
+every returned record and failed on the draft before anything was
+reported. The runner reported the error as a malformed case, which the
+plan does not count as a test; it is counted here as a fault in the
+checker. Of the three histories meant to be legitimate, one passed and
+two were rejected. One of the two cites a released conclusion as
+support. The other makes its claim about an item that no cited run or
+reading covers.
+
+Claude ruled first on the four histories that needed a ruling, and a
+reviewer then ruled on each from a packet that held no ruling. The
+reviewer was \mbox{GPT-6} Astra Pro, which comes from a developer other
+than the rule writer's and this tester's but wrote the histories of the
+first two rounds. The two agreed on all four, and the author confirmed
+them (\href{tools/adversarial_cases/round3/ADJUDICATION.md}{rulings}).
+The pass falls under the stated limit. Both rejections stand: C3 gives a
+released conclusion the role of a hypothesis or context, and C2 and
+manuscript Section 6.4 tie an absence claim to the items its runs and
+readings cover. The rules as stated reject the history that stopped the
+checker. Under either set of rulings, the round found no new failure of
+the rules and no false rejection, and it found one fault in the
+checker's code.
+
+The fault is fixed. The code for \mbox{XR-01} now reads an entity only
+from a returned observation. The generated reference test had run the
+fourteen rules without \mbox{XR-01}, which is why it missed the fault;
+it now runs every history through all 29 rules and adds references that
+name no record. Under the fixed checker the history is rejected by
+\mbox{IR-06} and \mbox{IR-08}, and no other outcome in any round
+changes. The 16 histories are kept as regression tests with the earlier
+rounds'.
+
+This is weak support for the revised rules. Round 2's tester got 10 of
+12 histories past the rules of its day and this tester got one of 13
+past the revised rules, but the two testers are different models, so the
+gain cannot be credited to the revision alone. Thirteen of the 16
+histories change one record, and the other three add one and change one.
+Only one changes a claim's reading from negative to status. In both
+rejected histories that the tester marked legitimate, its own reason
+describes a fault in the history. The model and its settings rest on the
+author's statements, which were recorded after the replies were read,
+where the plan asked for them before
+(\href{tools/adversarial_cases/round3/RUN_RECORD.md}{run record}). As
+before, the histories are not a sample from a defined population, so no
+rate and no interval is given.
 
 \textbf{Cost.}
 \href{tools/investigation_cost.py}{\texttt{tools/investigation\_cost.py}}
