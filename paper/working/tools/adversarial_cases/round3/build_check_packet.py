@@ -13,6 +13,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 NEED = ('R02', 'R05', 'R13', 'R14')
+SENT_SHA256 = 'b7144671c471f8db5f2aefa8a0989556af75947369074396e23cc3b99d36da1d'   # RUN_RECORD.md, "Rulings"
 
 HEAD = """# Independent rulings: adversarial test of record rules, round 3
 
@@ -103,6 +104,10 @@ MORE = {
 
 
 def main():
+    sent = HERE / 'RULINGS_CHECK_PACKET.md'
+    if sent.exists() and hashlib.sha256(sent.read_bytes()).hexdigest() == SENT_SHA256:
+        raise SystemExit('not rebuilt: RULINGS_CHECK_PACKET.md is the packet as sent. It was built at the freeze commit '
+                         '562745b, and the checker has changed since.')
     diag = subprocess.run([sys.executable, str(HERE / 'diagnostics.py')], capture_output=True, text=True, check=True,
                           cwd=HERE.parents[2]).stdout.splitlines()
     for lines in FACTS.values():   # every fact quoted below is a line the diagnostics print now

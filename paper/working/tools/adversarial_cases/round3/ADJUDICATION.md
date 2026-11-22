@@ -60,8 +60,15 @@ At first exposure, the round 1 rules rejected 3 of 13 and the round 2 rules 2 of
 - The model and its settings rest on the author's statements. They were recorded after the replies were read, where the plan asked for them before. The model version as shown, the two later prompts as sent and the time the packet was sent are not recorded.
 - The tester wrote 16 cases where the plan asked for 15. All are scored.
 - Thirteen of the 16 histories change one record. The other three add one record and change one.
-- In the two rejected histories that the tester marked legitimate, the tester's own reason describes a breach.
+- In the two rejected histories that the tester marked legitimate, the tester's own reason describes a fault in the history.
 - Only one history changes a claim's reading. The packet asked each reply for at least one.
 - The histories are not a sample from a defined population. No rate and no interval is given.
+
+## After the round
+
+- The fault is fixed in the commit that follows this file's. The code for XR-01 reads an entity only from a returned observation.
+- The generated reference test now runs every history through all 29 rules, and adds references that name no record. It had run the fourteen rules without XR-01, which is why it missed the fault.
+- The runner now reports an error raised by the checker as a checker error, not as a malformed case. `RESULTS.md` is the frozen runner's output and is not regenerated.
+- Under the fixed checker R14 is rejected by IR-06 and IR-08. No other outcome in any round changes. The package check reruns the 16 histories.
 
 Recorded by Claude (Anthropic), 22 November 2026.

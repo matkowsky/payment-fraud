@@ -17,7 +17,7 @@ Threat model: worst case. A case of tier "agent" changes only DraftOutput record
 2. The cases are saved unchanged and run. Each disagreement is adjudicated against the paper's text: the rules are wrong, or the tester is.
 3. Round 2, held out: a fresh tester gets `PACKET_ROUND2.md` (the revised rules and every stated limit, not the round 1 cases) and writes 15 cases against rules frozen until they are scored. `round2/PLAN.md` fixes the procedure.
 4. Every case and outcome is kept in this folder. Each confirmed miss is either fixed by a rule change or stated as a limit in Supplement S4.4.
-5. Round 3, held out: a tester from outside the two model families used so far writes 15 cases against the rules as revised after round 2. `round3/PLAN.md` fixes the procedure.
+5. Round 3, held out: a tester from outside the two model families used so far writes cases against the rules as revised after round 2. `round3/PLAN.md` fixes the procedure.
 
 ## State after round 1
 
@@ -39,9 +39,14 @@ Threat model: worst case. A case of tier "agent" changes only DraftOutput record
 - Three claim fields are new: the sentence (`claim_text`), which the version digest now covers; the sources an absence claim speaks for (`sources`); and whether a claim that lists outcome items states their status or reads a negative (`outcome_use`).
 - Two questions the text had left open are settled by decision: a released conclusion is cited as context only, and an absence claim speaks for the sources it names.
 - In sample, under the revised rules: 11 of round 2's 12 histories meant to break a requirement are rejected, and the twelfth was ruled not a breach. Both false rejections are gone. Round 1 is unchanged at nine of 13. `CHECK_CANDIDATE.py` reruns both rounds and checks these outcomes.
-- These counts say nothing about new histories. Round 3 is the test.
+- These counts say nothing about new histories. Round 3 was the test.
 
 ## Round 3
 
-- `round3/PLAN.md` fixes the tester, the packet, the scoring, the rulings and what is reported. `PACKET_ROUND3.md` is built. The round has not been run.
-- The rules, the checker, the runner, the schemas and the histories are frozen from the merge of the plan until every round 3 case is ruled on.
+- `round3/PLAN.md` fixes the tester, the packet, the scoring, the rulings and what is reported. `PACKET_ROUND3.md` is the packet as sent and is not rebuilt.
+- Run on 22 November 2026. The tester was Llama 4 Maverick (Meta), as the author states. It wrote 16 cases; the plan asked for 15, and all are scored. `round3/RUN_RECORD.md` gives the order of events and what was not recorded.
+- The rules, the checkers, the runner, the schemas and the histories were frozen from the merge of the plan until every case was ruled on.
+- What the frozen checkers did (`round3/RESULTS.md`): of 13 histories meant to break a requirement, 11 rejected, one passes, and one stopped the checker with an error. Seven were rejected by the investigation rules or XR-01, two by the schema and two only by outcome rules, which the round did not test. Of three meant to be legitimate, one passes and two are rejected.
+- Rulings (`round3/ADJUDICATION.md`): Claude ruled first on four cases, an outside reviewer (GPT-6 Astra Pro) ruled on each without seeing those rulings, the two agreed on all four, and the author confirmed them. The pass is a stated limit. Both rejections stand. The rules as stated reject the history that stopped the checker, so that case is one fault in the checker's code.
+- After the round the fault was fixed: the code for XR-01 reads an entity only from a returned observation. The generated reference test now runs all 29 rules. `run_cases.py` reports an error raised by the checker as a checker error, not as a malformed case. `CHECK_CANDIDATE.py` reruns the 16 cases.
+- The round is weak support. Its tester differs from the tester of rounds 1 and 2, and 13 of its 16 cases change one record.

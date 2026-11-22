@@ -2,7 +2,9 @@
 
   python3 tools/adversarial_cases/round3/diagnostics.py     (from paper/working)
 
-Each line says what the checker does with a history. The rulings packet quotes these lines.
+Each line says what the checker does with a history. The rulings packet quotes these lines as the frozen checker
+printed them at commit 562745b. The fault that R14 exposed was fixed after the round, so the two R14 lines differ
+under the current checker: the fourteen rules still report IR-06 and IR-08, and all 29 rules now report the same.
 """
 import copy, json, sys, traceback
 from pathlib import Path

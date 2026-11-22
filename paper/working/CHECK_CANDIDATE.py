@@ -261,11 +261,11 @@ from investigation_conformance import run_conformance as run_investigation
 investigation = run_investigation()
 assert investigation == {'valid_records': 25, 'invalid_cases': 60, 'rules_exercised': 15, 'necessity_pairs': 4,
                          'joint_records': 4, 'joint_cases': 6, 'joint_pairs': 2, 'accept_cases': 4,
-                         'wrong_type_references': 514, 'wrong_kind_references': 82}, investigation
+                         'wrong_type_references': 514, 'missing_references': 74, 'wrong_kind_references': 82}, investigation
 assert 'Its four records pass, and each of six invalid cases fails XR-01 alone.' in sbody and '29 cross-record rules' in body
 assert 'Its 25 records pass. Each of the 60' in sbody and 'Three [further cases]' in sbody and 'A fourth passing case' in sbody
 # The reference table of S4.4 and the generated test built from it.
-assert 'The rules reject all 514 histories of the first sort and all 82 of the second.' in sbody
+assert 'They reject all 514 histories of the first sort, all 74 of the second and all 82 of the third.' in sbody
 from investigation_conformance import REFERENCES
 table_rows = [line for line in sbody.split('**References between records.**')[1].split('The checker generates')[0].splitlines() if line.startswith('| ')][1:]   # drop the header row
 assert len(table_rows) == len(REFERENCES) + 1, (len(table_rows), len(REFERENCES))   # the readings live in the outcome store
@@ -297,22 +297,53 @@ assert 'The frozen rules rejected two of the 12, and all three legitimate histor
 assert ('Under the revised rules, 11 of the 12 round 2 histories meant to break a requirement are rejected, and the twelfth '
         'is the one ruled not a breach. Both false rejections are gone, and the intended rejection stands. Round 1 is unchanged '
         'at nine of 13.') in sbody
-assert 'has not been run' in sbody
 # Round 3's plan names the packet by its digest; the packet must be the file the plan names.
 import hashlib
 packet3 = (B / 'tools/adversarial_cases/PACKET_ROUND3.md').read_bytes()
 plan3 = (B / 'tools/adversarial_cases/round3/PLAN.md').read_text(encoding='utf-8')
 assert hashlib.sha256(packet3).hexdigest() in plan3 and f'{len(packet3):,} bytes' in plan3
-# The plan lists the frozen files by git blob hash. Until round 3 is closed, none of them may change.
-frozen3 = re.findall(r'^  - `([^`]+)`: `([0-9a-f]{40})`$', plan3, re.M)
-assert len(frozen3) == 8, frozen3
-for frozen_path, blob in frozen3:
-    data = (B / frozen_path).read_bytes()
-    assert hashlib.sha1(b'blob ' + str(len(data)).encode() + b'\0' + data).hexdigest() == blob, frozen_path
+# Round 3 (Supplement S4.4) is closed. What the frozen checkers did is in round3/RESULTS.md, a saved record; the run
+# record names each saved file by its digest. The plan's freeze ended with the author's confirmation of the rulings.
+R3 = B / 'tools/adversarial_cases/round3'
+record3 = (R3 / 'RUN_RECORD.md').read_text(encoding='utf-8')
+for saved in ('reply_1.json', 'reply_2.json', 'reply_3.json', 'CASES.json', 'RESULTS.md', 'FIRST_RULINGS_CLAUDE.md',
+              'RULINGS_CHECK_PACKET.md', 'RULINGS_CHECK_REPLY.txt'):
+    assert hashlib.sha256((R3 / saved).read_bytes()).hexdigest() in record3, saved
+assert '"Confirm all four"' in record3
+res3 = (R3 / 'RESULTS.md').read_text(encoding='utf-8')
+assert res3.startswith('Sealed run. Cases: 16. ADJUDICATE: 3; accepted, as the tester expected: 1; caught by a rule: 9; '
+                       'caught by the schema: 2; not a test: 1.')
+row3 = {r.split('|')[1].strip(): [x.strip() for x in r.split('|')] for r in res3.splitlines() if re.match(r'\| R\d\d \|', r)}
+break3 = [k for k, r in row3.items() if r[3] == 'reject']; legit3 = [k for k, r in row3.items() if r[3] == 'accept']
+frozen_rules3 = {k: set(re.findall(r'[IOX]R-\d\d', r[4])) | ({'SCHEMA'} if 'schema' in r[4] else set()) for k, r in row3.items()}
+assert len(row3) == 16 and len(break3) == 13 and len(legit3) == 3
+assert sum(1 for k in break3 if frozen_rules3[k]) == 11 and [k for k in break3 if row3[k][4] == 'passes'] == ['R05']
+assert [k for k in break3 if row3[k][4] == 'malformed'] == ['R14']
+assert sorted(k for k in break3 if frozen_rules3[k] == {'SCHEMA'}) == ['R08', 'R15']
+assert sorted(k for k in break3 if frozen_rules3[k] and all(x.startswith('OR') for x in frozen_rules3[k])) == ['R12', 'R16']
+assert sum(1 for k in break3 if any(x.startswith(('IR', 'XR')) for x in frozen_rules3[k])) == 7
+assert [k for k in legit3 if frozen_rules3[k]] == ['R02', 'R13'] and [k for k in legit3 if row3[k][4] == 'passes'] == ['R07']
+# Under the current checker the sixteen histories give the same outcomes, except that R14 is rejected where the frozen
+# checker raised an error.
+third = json.loads((R3 / 'CASES.json').read_text(encoding='utf-8'))
+third_hit = {x['case_id']: rules_hit(x, joint=True) for x in third}
+assert third_hit == {**{k: v for k, v in frozen_rules3.items() if k != 'R14'}, 'R14': {'IR-06', 'IR-08'}}, third_hit
+shape3 = [sum(len(x.get(side, {}).get(key, [])) for side in ('investigation', 'outcome') for key in ('set_fields', 'add_records'))
+          for x in third]
+assert shape3.count(1) == 13 and shape3.count(2) == 3
+for said in ('It wrote 16 histories where the plan asked for 15', 'The frozen checkers rejected 11 of the 13.',
+             'The investigation rules or XR-01 rejected seven.', 'The schema rejected two,', 'Outcome rules alone rejected two,',
+             'One history passed.', 'One history stopped the checker with an error.', 'one passed and two were rejected',
+             'The two agreed on all four, and the author confirmed them', 'the history is rejected by IR-06 and IR-08',
+             'this tester got one of 13 past the revised rules', 'Thirteen of the 16 histories change one record'):
+    assert said in sbody, said
 assert 'seven are new failures of the rules, one does not break a requirement, and two are unresolved' in sbody
 assert 'the round 1 rules had rejected three of 13' in sbody and 'the two agreed on seven' in sbody
-assert 'the rules rejected two of the 12 meant to break a requirement, and seven of the 10 that passed were new gaps; the fix awaits a third round' in body
-assert '30 adversarial histories in two rounds (S4.4) | Resistance to evasion: 10 of 12 new attempts passed' in body
+assert ('10 of its next 12 histories meant to break a requirement passed, seven through new gaps. Revised again and frozen, '
+        'the rules rejected 11 of 13 such histories from a third model') in body
+assert 'two of 12 adversarial histories from a second model and, after revision, 11 of 13 from a third' in body
+assert ('46 adversarial histories in three rounds (S4.4) | Resistance to evasion: 10 of 12 attempts passed in round 2, and '
+        "round 3's tester differed") in body and len(outside) + len(held) + len(third) == 46
 # Second-rater check of the links (Supplement S3): the stored answers reproduce the reported counts.
 sys.path.insert(0, str(B / 'tools' / 'second_coder'))
 from score import tally as rater_tally, kappa as rater_kappa

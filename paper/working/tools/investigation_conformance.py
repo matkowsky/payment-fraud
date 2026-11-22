@@ -416,7 +416,8 @@ def check_joint(records, outcomes):
                     if not any(q['statuses'] == ['complete'] and not q['scope_limited']
                                and ent(e) in {ent(v) for v in q['evaluated_entities']}
                                and ts(q['evaluated_interval']['from']) <= start <= end <= ts(q['evaluated_interval']['to'])
-                               and not any(ent(by[i]['entity']) == ent(e) for i in q['returned'] if i in by)
+                               and not any(ent(by[i]['entity']) == ent(e) for i in q['returned']
+                                           if by.get(i, {}).get('record_type') == 'Observation')
                                for q in runs):
                         found.append(('XR-01', cid, f'{e["id"]}: no cited complete run covers its reporting window'))
     return found
@@ -509,10 +510,17 @@ def joint_pairs(records, outcomes, schema, outcome_schema):
     return out
 
 
-def reference_sweep(records, schema):
-    """Point every reference in a passing history at a record of each type it may not have, and at an actor of each
-    kind it may not have. The rules must reject every such history. Returns the two counts."""
-    assert not check(records, schema)
+def reference_sweep(records, schema, outcomes=None, outcome_schema=None):
+    """Point every reference in a passing history at a record of each type it may not have, at a record that does not
+    exist, and at an actor of each kind it may not have. The rules must reject every such history. Returns the three
+    counts. With the outcome records given, every history goes through all 29 rules, so the code for XR-01 meets each
+    wrong reference as well."""
+    def rejects(history):
+        if outcomes is None:
+            return check(history, schema)
+        return check_both(history, outcomes, schema, outcome_schema)
+
+    assert not rejects(records)
     first = {}
     for r in records:
         first.setdefault(r['record_type'], r['record_id'])
@@ -535,22 +543,24 @@ def reference_sweep(records, schema):
         holder[field] = holder[field] + [target] if isinstance(holder[field], list) else target
         return seal(history)
 
-    wrong_type = wrong_kind = 0
+    wrong_type = wrong_kind = missing = 0
     for index, (where, holder) in enumerate(holders(records)):
         for (kind_of_holder, field), allowed in REFERENCES.items():
             if kind_of_holder != where or field not in holder:
                 continue
+            assert rejects(mutated(index, field, 'SWEEP-NO-SUCH-RECORD')), (holder.get('record_id', holder.get('claim_id')), field)
+            missing += 1
             for record_type, target in first.items():
                 if record_type not in allowed:
-                    assert check(mutated(index, field, target), schema), (holder.get('record_id', holder.get('claim_id')), field, target)
+                    assert rejects(mutated(index, field, target)), (holder.get('record_id', holder.get('claim_id')), field, target)
                     wrong_type += 1
             if (where, field) in ACTOR_KINDS:
                 sense, named = ACTOR_KINDS[(where, field)]
                 for actor_kind, target in actors.items():
                     if (actor_kind == named) != (sense == 'is'):
-                        assert check(mutated(index, field, target), schema), (holder['record_id'], field, target)
+                        assert rejects(mutated(index, field, target)), (holder['record_id'], field, target)
                         wrong_kind += 1
-    return wrong_type, wrong_kind
+    return wrong_type, missing, wrong_kind
 
 
 def run_conformance():
@@ -583,10 +593,11 @@ def run_conformance():
         else:
             got = check(seal(apply_patch(valid, case)), schema)
         assert not got, (case['case_id'], got)
-    wrong_type, wrong_kind = reference_sweep(records, schema)
+    wrong_type, missing, wrong_kind = reference_sweep(records, schema, outcomes, outcome_schema)
     return {'valid_records': len(valid), 'invalid_cases': len(cases), 'rules_exercised': len(rules), 'necessity_pairs': len(pairs),
             'joint_records': len(records) - len(valid), 'joint_cases': len(joint_cases), 'joint_pairs': len(joint),
-            'accept_cases': len(accept), 'wrong_type_references': wrong_type, 'wrong_kind_references': wrong_kind}
+            'accept_cases': len(accept), 'wrong_type_references': wrong_type, 'missing_references': missing,
+            'wrong_kind_references': wrong_kind}
 
 
 if __name__ == '__main__':
