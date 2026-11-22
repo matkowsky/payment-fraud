@@ -43,3 +43,13 @@ The docket check found it. Of the 14 dockets it is the only other one that lists
 - Every recorded statement carries its page and line. Every page is checked for extracted text, and a page with little or none is viewed as an image.
 
 Recorded by Claude (Anthropic), 22 November 2026.
+
+## Changes after the protocol
+
+22 November 2026, 21:58Z, after the three files were read. The text above is unchanged.
+
+- Every page of the three files is a scan. No page has extracted text beyond the court's header stamp. The rule above, to view as an image any page with little or no extracted text, would then mean viewing all 73 pages. What was done instead: each page was read through optical character recognition, and a page image was viewed for every page of Documents 34 and 43 with under 100 recognized words and for every page a recorded statement rests on. `READING.md` lists the pages read only as recognized text. Reason: the recognized text is clean on the typed pages, and each quoted passage was compared with its page image.
+- Locators give the page and the paragraph, numbered item or footnote, not the line. Reason: the report has no line numbers.
+- One file was added: `APPENDIX_B.csv`, the institutions and notes of the report's Appendix B, transcribed from the page image. Reason: the count of institutions is used, and the table has no recognized text that can be relied on. Contact names and telephone numbers were left out.
+- Document 43 is used only for how the case ended and for the fact that it holds no further account of the business.
+- The stipulated orders were not read. Reason: the supplement says only that the case ended in one, from Document 43's chronology, and does not say what the defendants admitted or denied.
