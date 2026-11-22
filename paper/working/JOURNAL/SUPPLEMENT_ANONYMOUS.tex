@@ -169,7 +169,7 @@ comparisons}\label{s1.-sources-and-comparisons}}
 
 \href{SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv}{Source notes} identify the
 version, supporting passages, publication status and supported claim for
-each of the 132 cited works. The
+each of the 134 cited works. The
 \href{SUPPLEMENT/S1_REQUIREMENTS_MATRIX.csv}{requirements matrix}
 compares 50 sources against C1 to C3. It codes two parts of C1 and C2
 and three of C3: an outcome linked to its decision, and late,
@@ -635,7 +635,7 @@ Keeping these inputs explicit makes the denominator and the distinction
 between measures inspectable.
 
 The \href{SUPPLEMENT/S3_SOURCE_DIRECTORY.csv}{source directory}
-identifies 61 design sources. Of these, 27 are not among the 132 cited
+identifies 61 design sources. Of these, 27 are not among the 134 cited
 works and have no S1 source note. Each source was read in full in
 October 2026. Later reads are dated in the row. For one, a vendor blog
 post (L112), the cited passages were read verbatim and the other
@@ -3279,7 +3279,10 @@ interval on any share is at most 14.3 points wide; with 160, at most
 16.0. The audit measures how often the targeted failures occur; it does
 not test whether the records prevent them. It reviews identifiable
 staff's work on real case records, so it needs the same ethics and
-privacy review as E1.
+privacy review as E1. A \href{tools/closed_case_audit/README.md}{kit}
+holds the coding sheet, a results form that carries counts only, a
+script for the shares, intervals and ranges, and the terms on which an
+organization may share its form, named or not.
 
 Four rules apply to all nine evaluations. First, each evaluation freezes
 the information each method may use at an as-of cutoff and separates
@@ -5158,12 +5161,12 @@ public archive (\href{tools/receiver_report/DOCKET_CHECK.md}{docket
 check}). This is the only docket in which the archive holds a receiver's
 report or a decision in which the court states facts. A second docket
 lists a receiver's interim report and a motion to approve its final
-report, neither held by the archive, and the searches returned no such
-entry in the other 12. The case is therefore the only one of the 14 that
-could be read this way, not a sample. One model read and coded it, and
-no human checked the reading. The
-\href{tools/receiver_report/FINDINGS.csv}{findings sheet} gives a page
-and line for each statement, and the
+report, neither held by the archive; S10.4 reads both from the court's
+copies. The searches returned no such entry in the other 12. The two
+cases are therefore the only ones of the 14 that could be read this way,
+not a sample. One model read and coded it, and no human checked the
+reading. The \href{tools/receiver_report/FINDINGS.csv}{findings sheet}
+gives a page and line for each statement, and the
 \href{tools/receiver_report/READING.md}{reading record} lists what was
 not read.
 
@@ -5301,6 +5304,154 @@ second replay, cannot be checked from counts. One case, read once by one
 model, from a preliminary report written from the seller's side, shows
 neither how often these happen nor what any processor's systems
 recorded.
+
+\hypertarget{s10.4-a-second-receivers-report-from-inside-a-processor}{%
+\subsubsection{S10.4 A second receiver's report, from inside a
+processor}\label{s10.4-a-second-receivers-report-from-inside-a-processor}}
+
+\textbf{Why it is here.} The docket check of S10.3 listed one more
+receiver's report among the 14 cases, in FTC and State of Ohio v. Madera
+Merchant Services, LLC, No.~3:19-cv-00195 (W.D. Tex.). The public
+archive does not hold it, and the author obtained it from PACER, the
+federal courts' records system. It was read under the protocol of S10.3,
+with a \href{tools/receiver_report/madera/README.md}{note} fixed
+beforehand on how this case differs. Here the court appointed the
+receiver over the processor itself: two companies that turned merchants'
+orders into remotely created payment orders, which are unsigned checks,
+and deposited them. The receiver's interim report was filed eight months
+later {[}\protect\hyperlink{ref-MaderaReceiver2020Report}{106}{]}. It
+rests on interviews with the companies' three managers, on the papers
+and equipment taken from their office, and on banks' replies to the
+receiver's letters. It is not a finding of the court: the report says
+the court had held no hearing and that the later orders were stipulated.
+The managers are defendants, and the receiver writes that some of what
+they said was incorrect or incomplete and was later corrected. After a
+password change the receiver could not open the companies' programs, so
+the report is not written from their processing records. The case ended
+in June 2020 in a stipulated order for permanent injunction and monetary
+judgment, which was not read. The receiver's 2021 motion to approve a
+final report holds an accounting and adds nothing about the business
+{[}\protect\hyperlink{ref-MaderaReceiver2021Final}{107}{]}. Every page
+is a scan. The pages were read through optical character recognition,
+and the image was viewed for each page of the report that a statement
+here rests on. One model read and coded the report, from the same
+developer as one of the complaint's two coders, and no human checked the
+reading. The \href{tools/receiver_report/madera/FINDINGS.csv}{findings
+sheet} gives a page and paragraph for each statement, and the
+\href{tools/receiver_report/madera/READING.md}{reading record} lists
+what was read and how.
+
+\textbf{What the report states.} Read against the sheet of S10.1, the
+report states two of the seven tactics as fact, and both are the
+processor's own acts. It filed a trade name for each merchant and
+deposited that merchant's payment orders in a bank account held in its
+own name under the trade name, so that the merchant's name appeared on
+the check. The two companies had at least 49 trade names on file with
+the state. The receiver believes, on the information obtained by then,
+that the accounts were opened by giving banks false or misleading
+information about the type of business (T2). Names and accounts also
+changed over time. The processor first served one telemarketer and then
+switched to a second name that, the receiver was told, is the same
+company. One trade name was abandoned under one company and filed six
+months later under the other. And as banks rejected its applications or
+closed its accounts, a manager went from one bank to the next, which the
+report gives as a reason many accounts were opened and closed quickly
+(T6). The report does not say that any of these changes was meant to
+keep history from following a merchant. Three marks are unclear. The
+receiver wrote to 45 financial institutions, and 34 are marked as paid,
+without funds, closed or overdrawn; the report ties the number of banks
+to their refusals, at least in part, and not to a threshold (T1). A
+manager said that three online pharmacies with many websites had all
+their payments processed under one name; the report does not say whether
+the three are separate sellers, and its inventory lists deposit slips
+under two of the names (T3). When the processor got notice of a returned
+payment, it charged the amount against that merchant's settlement, and a
+manager said the merchants took no card or ACH payments because those
+are too strictly regulated. But the report gives no return rate,
+complaint or warning (T7). It does not mention padding (T4) or refunds
+used to avoid returns (T5). S10.1 marks this complaint as alleging T2,
+T3, T6 and T7. So the report states two of the four alleged tactics and
+leaves the other two open.
+
+\textbf{The managers' account.} As the report gives it, a commissioned
+sales representative found and vetted the merchants and negotiated their
+agreements. A merchant was asked for an application, bank and processing
+statements, proof of a business address and proof of authorization to
+debit consumers. The trade name was for the consumer to identify the
+transaction. And the processor had ended its direct dealings with the
+telemarketer and, in 2018, its processing for one large merchant. The
+receiver adds that the managers did not themselves check the merchants,
+and that for each order the processor received a routing number, an
+account number, a name and an address, and nothing about the order
+itself.
+
+\begin{table}[tp]
+\textbf{Table S10.4. Three conclusions in the case and whether the
+specified records bear on them.} The last column is a reading of the
+report, not a test.\par\smallskip
+{\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Conclusion at the time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evidence then available, and who held it
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Do the records bear on it?
+\end{minipage} \\
+\midrule\noalign{}
+
+A bank opens a processing account for the processor under a merchant's
+trade name & The account holder's name, the trade name and whatever the
+processor said of its business. The trade names were on public registers
+under the two companies. The receiver believes the banks were told
+something false or misleading; the report does not say what any bank was
+told or checked & Only within one institution. The accounts shared an
+attribute, the account holder, but they were spread over many banks, and
+no one bank's records join them. The specified records describe one
+platform's own data \\
+A bank rejects the processor's application or closes its account & Not
+stated, except that one account was blocked for an extended overdraft.
+The report says banks were routinely doing both & No.~The banks acted by
+their own means, without the specified records. That did not end the
+business: a manager went to the next bank, and the companies were
+processing on the day the receiver took control \\
+The processor keeps processing for a merchant & Its managers knew what
+the merchants sold and that they took no card or ACH payments. Notices
+of returned payments reached the processor, which charged them to the
+merchant. The report states no return rate & No.~The processor was the
+actor, so no record of its own was the gap \\
+
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
+
+\textbf{Reading.} All three results fixed in advance as counting against
+the records occur here, at least in part. First, the party that would
+keep the records ran the conduct: the processor filed the trade names,
+opened the accounts and moved from bank to bank. The note fixed one more
+test, whether the processor tracked returns by merchant and kept
+processing. That stays open: returns were charged to each merchant, and
+the report states no rate. Second, a shared attribute existed, the
+account holder's name on each account and on public filings, but the
+accounts were at many banks, and the specified records are for one
+platform's own data. Third, banks refused applications and closed
+accounts by ordinary means, and the business went on. The report gives a
+reason once, an extended overdraft. One result fits the records, by
+analogy only. A manager said processing for one merchant ended in 2018.
+The receiver found signs of deposits tied to that merchant in 2019 and
+could not tell released reserves from new payments. A payment record
+that keeps its seller and date would tell them apart; what the
+companies' programs recorded is unknown. The payments were unsigned
+checks, outside the card networks' monitoring for which the sheet was
+written, so each mark reads a tactic in substance. One interim report,
+drawn from interviews with the defendants and followed by no fuller one
+in the filings read, read once by one model from scans, shows neither
+how often these happen nor what any bank recorded.
 
 \FloatBarrier
 
@@ -5957,6 +6108,31 @@ Transact Pro defendants). ECF 142, FTC v. Apex Capital Group, LLC, No.
 2:18-cv-09573 (C.D. Cal.). Consent order; the settling defendants
 neither admit nor deny the complaint\textquotesingle s allegations.
 \url{https://www.courtlistener.com/docket/8438203/142/federal-trade-commission-v-apex-capital-group-llc/}.
+Accessed 22 November 2026.
+
+\leavevmode\vadjust pre{\hypertarget{ref-MaderaReceiver2020Report}{}}%
+{[}106{]} Temporary Receiver for Madera Merchant Services, LLC and B \&
+P Enterprises, LLC. 2020. Receiver's interim report. ECF 34, FTC and
+State of Ohio v. Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D.
+Tex.). US District Court, Western District of Texas. A
+receiver\textquotesingle s interim report to the court, with Appendices
+A to F; not a finding of the court. The docket at this address lists the
+filing, the public archive does not hold it, and it was read in the copy
+from PACER.
+\url{https://www.courtlistener.com/docket/15975614/federal-trade-commission-v-madera-merchant-services-llc/}.
+Accessed 22 November 2026.
+
+\leavevmode\vadjust pre{\hypertarget{ref-MaderaReceiver2021Final}{}}%
+{[}107{]} Receiver for Madera Merchant Services, LLC and B \& P
+Enterprises, LLC. 2021. Unopposed motion for order approving the
+receiver's final report and accounting. ECF 43, FTC and State of Ohio v.
+Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D. Tex.). US
+District Court, Western District of Texas. The
+receiver\textquotesingle s motion, with a declaration, a final
+accounting and an inventory; a party\textquotesingle s filing, not a
+finding. The docket at this address lists the filing, the public archive
+does not hold it, and it was read in the copy from PACER.
+\url{https://www.courtlistener.com/docket/15975614/federal-trade-commission-v-madera-merchant-services-llc/}.
 Accessed 22 November 2026.
 
 \end{CSLReferences}

@@ -159,36 +159,37 @@ platform's own protective decisions change which outcomes can later be
 observed. A blocked payment cannot produce a chargeback; an incomplete
 search cannot establish absence; a reused conclusion cannot corroborate
 itself. This paper specifies the records an AI agent needs to
-investigate such cases under human authority. The specification rests on
-three requirements. First, each outcome record links to the control
-decision that may have shaped it, with separate fields for reporting
-delay, outcomes the decision made unobservable, and false reports.
-Second, a gateway outside the agent records what each query actually
-covered, and every fact keeps when it happened and when the system
-learned it. Third, a person must release a conclusion before it enters
-organizational memory for reuse by later investigations; a released
-conclusion serves only as a hypothesis or context, and any record an
-agent output informed links back to that output.
+investigate such cases under human authority, in three requirements.
+First, each outcome record links to the control decision that may have
+shaped it, with separate fields for reporting delay, outcomes the
+decision made unobservable, and false reports. Second, a gateway outside
+the agent records what each query actually covered, and every fact keeps
+when it happened and when the system learned it. Third, a person must
+release a conclusion before it enters organizational memory for reuse; a
+released conclusion serves only as a hypothesis or context, and any
+record an agent output informed links back to that output.
 
 Draft schemas, 29 cross-record rules and two reference checkers make the
 requirements testable; frozen rules rejected two of 12 adversarial
 histories from a second model and, after revision, 11 of 13 from a
-third. Public sources supply the design premises, and Stripe's public
-product pages and documentation provide an illustrative product scope.
-Two hypothetical investigations show how missing context changes what
-the same observations can support; AI models given written versions made
-more counted errors with records modeled on providers' documentation
-than with the specified records in 4 of 32 planned comparisons, and
-fewer in 2. Replays of two FTC complaints on synthetic records show what
-the records expose and miss, a model-coded count across 14 such
-complaints shows how often each tactic is alleged, and an evaluation
-plan proposes tests of evidential quality, operational cost and agent
-benefit. The contribution is a joint specification for investigation
-across payment products, built on established methods and recent
-agent-governance designs. It is a synthesis, not a new method. The
-architecture has not been built, no private platform data were used, its
-only experiments use synthetic records, one simulation and written cases
-answered by AI models, and no practitioner has reviewed it.
+third. Public sources supply the premises, and Stripe's public pages and
+documentation an illustrative product scope. Two hypothetical
+investigations show how missing context changes what the same
+observations can support; AI models given written versions made more
+counted errors with records modeled on providers' documentation than
+with the specified records in 4 of 32 planned comparisons, and fewer in
+2. Replays of two FTC complaints on synthetic records show what the
+records expose and miss, and a model-coded count across 14 such
+complaints shows how often each tactic is alleged. Court records from
+three FTC cases mostly show limits: in each, a processor had the
+information or ran the conduct. The contribution is a joint
+specification for investigation across payment products, built on
+established methods and recent agent-governance designs. It is a
+synthesis, not a new method. The architecture has not been built, no
+private platform data were used, its only experiments use synthetic
+records, one simulation and written cases answered by AI models, and no
+practitioner has reviewed it. An evaluation plan and a kit for auditing
+closed cases invite field studies.
 
 \textbf{Keywords:} payment fraud, abuse investigation, threat
 intelligence, selective labels, agent memory, provenance, human
@@ -350,21 +351,21 @@ revision alone (Supplement S4.4). Two hypothetical investigations show
 which conclusions survive when particular records are missing, replays
 of two FTC complaints on synthetic records show what the records expose
 and miss, and a count across 14 such complaints shows how often each
-tactic is alleged (Section 8).
+tactic is alleged. Court records from three FTC cases mostly show limits
+(Section 8).
 
 The intended readers design, audit or evaluate investigation systems.
 Stripe's public product pages and documentation supply an illustrative
 product scope, not a description of its internal systems. The paper
-synthesizes public evidence and proposes a design. It reports no
-implementation of the architecture and no measurement on platform data;
-its only experiments use synthetic records (Sections 8.4 and 8.5), one
-simulation of an interval method (Supplement S7.1) and written cases
-answered by AI models (Section 8.6). Section 2 relates it to prior work
-and Section 3 explains how it was derived. Sections 4 and 5 answer RQ1,
-with Section 6.3 and Supplement Table S4.2 adding the agent's analytical
-capabilities; Section 6 answers RQ2 and Section 7 RQ3. Section 8 shows
-the design's consequences in two hypothetical investigations, and
-Section 9 states how its value would be tested.
+reports no implementation of the architecture and no measurement on
+platform data; its only experiments use synthetic records (Sections 8.4
+and 8.5), one simulation of an interval method (Supplement S7.1) and
+written cases answered by AI models (Section 8.6). Sections 2 and 3 give
+the prior work and the derivation. Sections 4 and 5 answer RQ1, with
+Section 6.3 and Supplement Table S4.2 adding the agent's analytical
+capabilities; Section 6 answers RQ2 and Section 7 RQ3. Section 8 applies
+the design to hypothetical and public cases, and Section 9 states how
+its value would be tested.
 
 \FloatBarrier
 
@@ -647,7 +648,7 @@ operations and receives data. Supplement S5 supplies the object, field
 or event supporting each match.
 
 Supplement S1 records the version, relevant passages and use of each of
-the 132 works cited in the manuscript and supplement, and compares 50
+the 134 works cited in the manuscript and supplement, and compares 50
 sources against the three requirements. Supplement S3 lists the 61
 design sources and the depth of each read. These records let readers
 inspect the synthesis; their counts do not measure evidence quality.
@@ -1615,18 +1616,17 @@ suspected activity occurred in the current case.
 
 \FloatBarrier
 
-\hypertarget{two-hypothetical-investigations}{%
-\subsection{8. Two hypothetical
-investigations}\label{two-hypothetical-investigations}}
+\hypertarget{hypothetical-investigations-and-public-cases}{%
+\subsection{8. Hypothetical investigations and public
+cases}\label{hypothetical-investigations-and-public-cases}}
 
 \suppressfloats[t]
 
 Two traces apply the specification to fixed hypothetical observations.
 Each asks what happened, which explanations remain plausible, and what
-further test would distinguish them. They expose the consequences of
-missing context; Table 2 gives what the recorded context changes.
-Supplement S6 gives each trace's reasoning and outputs, the synthetic
-transaction records and reproducible arithmetic.
+further test would distinguish them. Table 2 gives what the recorded
+context changes. Supplement S6 gives each trace's reasoning and outputs,
+the synthetic transaction records and reproducible arithmetic.
 
 \hypertarget{trace-a-an-exposed-key-and-a-changed-payout-destination}{%
 \subsubsection{8.1 Trace A: an exposed key and a changed payout
@@ -1761,10 +1761,10 @@ checking an absence claim against its runs took 38 microseconds
 (Supplement S4.4). These figures describe one synthetic file on one
 machine, not a platform's cost. Reviewer time is not measured.
 
-\hypertarget{alleged-patterns-two-synthetic-replays-and-a-count-across-14-complaints}{%
-\subsubsection{8.5 Alleged patterns: two synthetic replays and a count
-across 14
-complaints}\label{alleged-patterns-two-synthetic-replays-and-a-count-across-14-complaints}}
+\hypertarget{public-cases-two-replays-14-complaints-and-three-court-records}{%
+\subsubsection{8.5 Public cases: two replays, 14 complaints and three
+court
+records}\label{public-cases-two-replays-14-complaints-and-three-court-records}}
 
 Two FTC complaints were rebuilt as synthetic outcome records from the
 patterns and rates they allege, with illustrative monitoring rules and
@@ -1775,17 +1775,13 @@ allegation; the replays test record design, not detection, and whether a
 view flags follows from the chosen parameters. The records have limits:
 padded sales look like clean payments, a record rewritten in place
 passes every rule, so the store must prevent edits, and accounts with no
-recorded shared attribute cannot be linked.
-
-Network programs compute monthly ratios by the month a report is
-received, apply minimum counts, and in one program count early fraud
-warnings and exclude disputes resolved through pre-dispute products
+recorded shared attribute cannot be linked. Network programs compute
+monthly ratios by the month a report is received, apply minimum counts,
+and in one program count early fraud warnings and exclude disputes
+resolved through pre-dispute products
 {[}\protect\hyperlink{ref-Stripe2026MonitoringPrograms}{50}{]};
 Supplement S6 gives the rules as read and where Visa's own overview
-differs {[}\protect\hyperlink{ref-Visa2025VAMP}{75}{]}. Splitting
-activity can also keep accounts below a count threshold even when their
-ratios are identical. Detecting that pattern requires cluster-level
-counts, not merely a pooled cohort ratio.
+differs {[}\protect\hyperlink{ref-Visa2025VAMP}{75}{]}.
 
 \begin{figure}[tp]
 
@@ -1796,73 +1792,74 @@ captures each in B, and 40 merchants assumed legitimate, at 300 each;
 the dotted line is the 1.5 percent ratio. Any flag of the legitimate
 merchants is false by assumption. (C) Allied Wallet replay: one account
 drawing fraud reports at 3.14 percent, the mean of the complaint's
-monthly fraud ratios, or at 0.3 percent. Supplement S10 gives the
-assumptions.
+monthly fraud ratios, or at 0.3 percent.
 
 \includegraphics[width=0.86\textwidth,height=\textheight]{FIGURES/FIG3_REPLAY_SWEEPS.pdf}
 
 \end{figure}
 
 In the first replay, the account view flags only when each account alone
-reaches the floor, at about 2,500 captures a period (Figure 3A). A view
-over recorded links flags the group from about 350. At 250 and below,
-neither view flags in more than 1 percent of runs; at 300 the linked
-view flags in 27.6 percent. The linked view also flags legitimate groups
-(Figure 3B). The 40 merchants have enough volume that the ratio, not the
-floor, decides. Between report rates of 1.75 and 3 percent, the linked
-view flags them in at least 98 percent of runs and the smaller related
-group in at most 2.2 percent. A linked view belongs beside the account
-view, not in its place.
+reaches the floor, at about 2,500 captures a period; a view over
+recorded links flags the group from about 350 (Figure 3A). The linked
+view also flags legitimate groups, in at least 98 percent of runs at
+report rates of 1.75 to 3 percent (Figure 3B), so it belongs beside the
+account view, not in its place. In the second replay, one account
+reaches the chargeback rule's 100 chargebacks a month only at about
+4,000 payments a month, if a fifth of reported payments are refunded
+before a dispute; the modeled accounts had 185 (Figure 3C). The rule the
+complaint attributes to Visa, fraud reports at \$75,000 a month or 1
+percent of sales by value
+{[}\protect\hyperlink{ref-FTC2019Allied}{68}{]}, flags in at least 98
+percent of runs at every volume swept; it needs the separate
+fraud-report channel and each report's amount. With no count floor it
+also flags an account at an assumed legitimate rate of 0.3 percent in 39
+to 54 percent of runs below 200 payments a month.
 
-In the second replay, the chargeback rule needs 100 chargebacks a month.
-With an assumed fifth of reported payments refunded before a dispute,
-one account needs about 4,000 payments a month to reach it; the modeled
-accounts had 185 (Figure 3C). The complaint says Visa flags fraud
-reports at either \$75,000 a month or 1 percent of sales by value
-{[}\protect\hyperlink{ref-FTC2019Allied}{68}{]}. Counted that way, fraud
-reports flag in at least 98 percent of runs at every volume swept, from
-25 a month; that rule needs the separate fraud-report channel and each
-report's amount. With no count floor, it also flags an account at an
-assumed legitimate rate of 0.3 percent in 39 to 54 percent of runs below
-200 payments a month, and in none from 2,000. Supplement S10 also
-replays a successor account, a switched descriptor and traffic moved
-after closures, and two assumed patterns: refunds before disputes and
-reports linked only by card number and amount.
-
-How often are such tactics alleged? Three searches found 14 FTC
-pleadings, filed 1 January 2019 to 16 November 2026, that first charge a
-payment provider over processing for other sellers; each was coded
-against a sheet of seven tactics fixed beforehand (Supplement S10.1).
-Two language models coded them separately and gave the same mark in 78
-of 98 cells (pooled kappa 0.60). Three further models ruled on the
-differences. A ruling stands only where all three agreed; the other
-marks are reported as disputed, so some counts are ranges. No human
-coded a complaint or ruled on a difference, and agreed marks were not
-rechecked.
+Three searches found 14 FTC pleadings, filed 1 January 2019 to 16
+November 2026, that first charge a payment provider over processing for
+other sellers; each was coded against a sheet of seven tactics fixed
+beforehand (Supplement S10.1). Two language models coded them separately
+and gave the same mark in 78 of 98 cells (pooled kappa 0.60). Three
+further models ruled on the differences; a ruling stands only where all
+three agreed, and the other marks are disputed, so some counts are
+ranges. No human coded a complaint or ruled on a difference, and agreed
+marks were not rechecked.
 
 As alleged, several sellers' sales ran through one merchant account in
-12 to 13 of the 14 complaints. Accounts were opened in the names of
-shells or straw owners, or with false statements about who the seller
-was, in 10 to 12. A descriptor, name or account was changed so that
-history would not follow the seller in 7 to 12. One seller's sales were
-split across accounts to stay under a threshold in 6 to 8, and refunds
-or alerts were used so that chargebacks would not be recorded in 5.
-These are the five tactics the specified records could expose if the
-needed data were recorded; an allegation does not show that a record
-would have exposed the conduct. Of the 10 to 12 complaints that allege
-split volume or front accounts, 9 to 12 tie a shared attribute, such as
-an owner, address or website, to those accounts.
+12 to 13 of the 14 complaints. Accounts were opened under shells or
+straw owners, or with false statements about who the seller was, in 10
+to 12. A descriptor, name or account was changed so that history would
+not follow the seller in 7 to 12. One seller's sales were split across
+accounts to stay under a threshold in 6 to 8, and refunds or alerts were
+used so that chargebacks would not be recorded in 5. These are the five
+tactics the specified records could expose if the needed data were
+recorded; an allegation does not show that a record would have exposed
+the conduct. Of the 10 to 12 alleging split volume or front accounts, 9
+to 12 tie a shared attribute, such as an owner, address or website, to
+those accounts.
 
 Two results cut the other way. Padding with small or sham sales, which
-the specified records cannot expose, is alleged in 4 complaints. And all
-14 allege that a defendant saw chargeback or fraud-report levels,
-program notices, complaints or warnings about a seller and kept
-processing. On those allegations the evidence was not missing, and no
-record makes a processor act; in two case records a processor had the
-information (Supplement S10.2, S10.3). Enforced cases are a selected
-set, and the count cannot show how far selection explains the 14. The
-sheet was written after three of the 14 had been read; Supplement S10.1
-gives every count without them.
+the records cannot expose, is alleged in 4 complaints. And all 14 allege
+that a defendant saw chargeback or fraud-report levels, program notices,
+complaints or warnings about a seller and kept processing. On those
+allegations the evidence was not missing, and no record makes a
+processor act. Enforced cases are selected, and the count cannot show
+how far that explains the 14. The sheet was written after three of the
+14 had been read; Supplement S10.1 gives every count without them.
+
+Three court records were then read against the specification (Supplement
+S10.2 to S10.4): an appeals opinion with a processor's draft internal
+report and, under a protocol that fixed in advance what would count
+against the records, two receivers' reports. In each, a processor had
+the information or ran the conduct: a president approved a second
+account after the first drew heavy chargebacks; a foreign processor held
+the fraud figures and the list tying four companies to one client, and
+offered new accounts; a processor filed a trade name for each merchant
+and moved on as banks closed its accounts. The records bear on less:
+refunds about as large as chargebacks, and a fraud rate nearly three
+times as high by value as by count; two further fits are by analogy
+only. Three records, read once by one model, show neither frequency nor
+what any platform recorded.
 
 \hypertarget{what-ai-models-conclude-from-the-two-traces}{%
 \subsubsection{8.6 What AI models conclude from the two
@@ -1901,8 +1898,7 @@ improve investigation enough to justify their cost. The evaluation plan
 separates the records from the agent: C1 and C2 do not need one, E1, E3
 and E9 test them without it, and E5 tests the agent's benefit. A
 platform can start within a quarter with E9(a) and an audit of closed
-cases that measures how often each targeted failure occurs (Supplement
-S7.1).
+cases (Supplement S7.1).
 
 Supplement S7.1 gives each hypothesis, design, primary measure and
 proposed failure criteria. E1, E3, E8 and E9 are confirmatory; the
@@ -1958,8 +1954,8 @@ no agent?
 
 \textbf{E6. Safeguards:} How well do the agent's safeguards, covering
 prompt injection, approvals, its memory and the data it sends out, hold
-up against attackers who adapt to them? How much do they reduce
-investigations completed?
+up against adaptive attackers? How much do they reduce investigations
+completed?
 
 \textbf{E7. Learning:} How quickly do useful lessons become available
 for reuse? How do testing against counterexamples, scoped promotion and
@@ -1997,13 +1993,12 @@ set in advance, a stated treatment of labels shaped by control
 decisions, and marking of test records. Of the S7.1 tests, E5 and E8
 measure reviewer time, and E5 also compares cost across arms that see
 the same records. None measures the storage, query work or controlled
-cross-account access that the added records require. S7 adds collection
-cost for E1's broader timing study and the safeguards' effect on
-investigations completed for E6. Passing the S7.1 tests would therefore
-not show that the added records justify their collection cost. E1, E5
-and E8 also measure the work of identifiable staff on real case records,
-and E8's undisclosed planted drafts require a deception protocol. Each
-needs ethics and privacy review before it starts.
+cross-account access that the added records require. Passing the S7.1
+tests would therefore not show that the added records justify their
+collection cost. E1, E5 and E8 also measure the work of identifiable
+staff on real case records, and E8's undisclosed planted drafts require
+a deception protocol. Each needs ethics and privacy review before it
+starts.
 
 \hypertarget{what-the-evidence-can-support}{%
 \subsubsection{9.2 What the evidence can
@@ -2035,17 +2030,19 @@ No two requirements replace the third & Two cross-requirement pairs
 Reference checkers apply the rules & Two checkers; 46 adversarial
 histories in three rounds (S4.4) & Resistance to evasion: 10 of 12
 attempts passed in round 2, and round 3's tester differed \\
-Storage and lookup costs were measured on one synthetic file & Synthetic
-measurement (8.4) & The cost of producing them on a platform \\
-Missing context changes conclusions & Two hypothetical traces; eight AI
-models answering written versions (8.1 to 8.3, 8.6, S8) & How often;
-investigators' conclusions; use of learned time \\
+Record costs on one synthetic file & Synthetic measurement (8.4) & The
+cost of producing them on a platform \\
+Missing context changes conclusions & Two traces; eight AI models on
+written versions (8.1 to 8.3, 8.6, S8) & How often; investigators'
+conclusions; use of learned time \\
 The records expose two alleged patterns & Synthetic replays and sweeps
 (8.5, S10) & Detection on real data \\
 Each of the five tactics the records could expose is alleged in 5 to 13
 of 14 FTC complaints & Count by two model coders and three model
 adjudicators (8.5, S10.1) & How often the tactics occur; that a record
 would have exposed them; any human check of the coding \\
+Three court records mostly show limits & One model's reading (8.5, S10.2
+to S10.4) & Frequency; what any platform recorded \\
 The signals and responsibilities cover the mechanisms & The author's
 mapping; a model as second rater; an F3 crosswalk (3, S2.2, S3) &
 Completeness; agreement between human coders \\
@@ -2091,36 +2088,29 @@ It must preserve why an outcome could be observed, what was available to
 a query, and whether apparent support comes from an earlier conclusion.
 
 This paper combines those requirements in one specification grounded in
-public evidence. The specification proposes answers to the three
-research questions. For RQ1, records keep their meaning across products
-through the seven record classes, the store contract and C2's coverage
-and learned-time records, which bound what an investigation could have
-established. Each analytical capability carries the limit on what its
-results can show. For RQ2, the agent tests explanations without
-operational authority. It works through governed queries whose coverage
-it cannot alter, and its drafts pass a checker, independent quality
-review and the human release of C3. Release authorizes reuse of a
-conclusion from organizational memory, while the conclusion keeps its
-status as context and its dependence on earlier agent outputs. For RQ3,
-feedback informs later work without concealing control effects or
-recycling conclusions. It rests on the decision-linked outcome channels
-of C1, which keep missing reports from silently becoming negatives, and
-on lessons that are tested, reviewed and released for a defined scope
-before reuse, monitored during it and, when they exonerate, re-tested at
-expiry. Decisions about accounts, payments and controls stay with
-authorized humans or accountable operational systems.
+public evidence, and proposes answers to the three research questions.
+For RQ1, records keep their meaning across products through the seven
+record classes, the store contract and C2's coverage and learned-time
+records, which bound what an investigation could have established; each
+analytical capability carries the limit on what its results can show.
+For RQ2, the agent tests explanations without operational authority: its
+queries pass a gateway whose coverage records it cannot alter, and its
+drafts pass a checker, independent quality review and the human release
+of C3. A released conclusion stays context and keeps its dependence on
+earlier agent outputs. For RQ3, feedback rests on C1's decision-linked
+outcome channels, which keep missing reports from silently becoming
+negatives, and on lessons that are tested, reviewed and released for a
+defined scope before reuse, monitored during it and, when they
+exonerate, re-tested at expiry.
 
-For a platform that already logs decisions, queries and disputes, the
-specification states what those records and their joins must preserve.
-For designers and auditors of investigation systems, it places an
-agent's access, its evidential claims and its reuse of conclusions in
-one inspectable design.
-
-The next test is operational value. Evaluations must determine whether
-these records improve conclusions, whether the release gate works under
-realistic demand, and whether the agent saves more work than review
-consumes. The specification supplies a concrete basis for those tests
-without presuming their result.
+The next test is operational value: whether these records improve
+conclusions, whether the release gate works under realistic demand, and
+whether the agent saves more work than review consumes. That needs data
+this paper lacks. A platform or bank can audit a sample of its closed
+cases for the three failures and share counts only, with the kit of
+Supplement S7.1, and anyone can read a further court record under the
+protocol of Supplement S10.3. Results against the records are as useful
+as results for them.
 
 \FloatBarrier
 
