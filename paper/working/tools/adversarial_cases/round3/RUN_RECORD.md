@@ -32,4 +32,26 @@ Kept as the run went, in the order things happened. The results are in `RESULTS.
 - The packet asked each reply for at least one case that turns on the status and negative readings. One case changes `outcome_use`: R05, in the first reply.
 - `CASES.json`: the three arrays joined in order and written as the earlier rounds' were (`json.dumps` with an indent of 1). 13,560 bytes, SHA-256 `85d7722e8338b710d937639f40a39ff44c5b4bff43a0a64fbc6ea6639bfd8531`.
 
+## Scoring
+
+- The replies, the joined cases and this record up to here were committed and pushed first: commit `8337b8a`, pushed at 06:35:21Z on 22 November 2026.
+- Command, run from `paper/working` on a branch at main `2847ee1`: `python3 tools/adversarial_cases/run_cases.py --sealed --joint tools/adversarial_cases/round3/CASES.json tools/adversarial_cases/round3/RESULTS.md`.
+- Output: `RESULTS.md`, SHA-256 `b06c0e8ac78ae7b8296ef1ed4b33a22a7b93e9bfdee136f9ffd5e53a112d8ca8`. The same command in a checkout of the freeze commit `562745b`, with `CASES.json` copied in, gives a byte-identical file.
+- What the checker did with the thirteen cases meant to break a requirement, before any ruling:
+  - Nine are rejected by the rules under test: R01 (XR-01), R03 (IR-05), R04 (IR-11), R06 (IR-05, IR-08, XR-01), R08 (schema), R09 (XR-01, and OR-12), R10 (IR-04), R11 (IR-09, IR-13) and R15 (schema).
+  - Two are rejected only by the outcome rules, which are not under test: R12 (OR-04) and R16 (OR-10).
+  - One passes: R05.
+  - One stops the checker: R14. The runner prints it as malformed, but the patch applies and its records are well formed. The checker raises a KeyError in the code for XR-01 and reports nothing (`diagnostics.py`).
+- What it did with the three meant to be legitimate: R07 passes. R02 (IR-09) and R13 (IR-08, XR-01) are rejected.
+- R08 and R15 are rejected by the schema for reasons other than the one the tester gives. Each adds a draft with no claim and a version identifier the schema does not allow. R08 also sets a field a draft does not have (`agent_output`); R15 sets `agent_output_links`, which belongs to observations.
+- Four cases need a ruling: R02, R05, R13 and R14.
+
+## Rulings
+
+- First rulings: `FIRST_RULINGS_CLAUDE.md`, SHA-256 `dd96936ffef4d2661d03f7867c4e9cc824ea90a221de659d83bae88f93a94571`. Written by Claude after the scoring. Claude wrote the rules, so they are proposals. The author has confirmed none.
+- Outside check, not yet run: `RULINGS_CHECK_PACKET.md`, 56,361 bytes, SHA-256 `b7144671c471f8db5f2aefa8a0989556af75947369074396e23cc3b99d36da1d`, written by `build_check_packet.py`. It holds no ruling by anyone. It holds what the tester's packet held, the four cases and facts that `diagnostics.py` reproduces.
+- Everything the tester wrote stands in that packet between marker lines and is called data. Claude read the sixteen reasons and every claim sentence the tester wrote. None addresses the reader, asks for anything or holds a code fence.
+- The first rulings and the packet are committed and pushed before any outside reply exists.
+- The reviewer is to be a model from a developer other than the tester's and other than Anthropic. To record when it runs: the date, the model name shown, the settings and the whole reply, saved unchanged as `RULINGS_CHECK_REPLY.txt`.
+
 Recorded by Claude (Anthropic), 22 November 2026.
