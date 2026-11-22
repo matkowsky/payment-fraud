@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-008",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "fc2d38dd9408a9f7b4614006f30e17de1fa352440bd5af2346d4d93006b80cf7",
+ "sent_at": "2026-11-22T00:02:44+00:00",
+ "received_at": "2026-11-22T00:02:51+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChGz9rBS67oLas6QbmxfT",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The search of the key's requests was partial: it was evaluated only from 2 hours before publication, though 7 days were requested. Earlier misuse outside that window can't be excluded. The earlier requests that were seen came from a stable fingerprint, and the burst at 19 minutes looks like the first misuse within the evaluated window. Whether it was the first misuse overall can't be told, and the key was public before the burst, so misuse could have come earlier. Answer: Cannot tell.\n\nA2. The link between the new payout destination and the two other accounts was learned 1 day after publication. It was not available at scoring, which was 30 minutes after publication with inputs as of that time. The check therefore did not miss it. The burst's own evidence (the fingerprint change and the payout change) was available, but whether the check had access to it isn't shown. The question asks about evidence \"available to it\", and the known late-learned link wasn't available. Other evidence is unclear, so the answer is Cannot tell. The record only shows inputs as of 30 minutes, and the burst was at 19 minutes, so those events were probably in the inputs. But what the check actually used is not shown. Answer: Cannot tell.\n\nA3. A shared payout destination alone doesn't show a single owner. Answer: No, not by itself.\n\nA4. No reporting window is defined for either outcome channel, so absence of reports is uninformative. Answer: No.\n\nA5. The burst involved a new fingerprint, a webhook, a payout change and a faster schedule. It warrants investigation. Answer: Yes.\n\nCase B\n\nB1. Raw chargebacks recorded at D are 0, but 2 chargebacks recorded at account X are linked to D's transactions. D's rate is therefore 2 of 100, the same as the others' 2 each. Answer: No.\n\nB2. The combined measure is 5 percent, but by account A and B are 8 of 100, so they are above 5 percent. Answer: No.\n\nB3. The search was partial and truncated, so it doesn't show that. Answer: No.\n\nB4. Both notes link to the agent's cluster assessment, so they are not independent. Answer: No.\n\nB5. The block was a decision with an effect on the chargeback channel of closed, so no chargeback could arise. Absence of a chargeback says nothing about fraud. Answer: No.\n\nB6. Shared templates and descriptor patterns, plus the person link, justify investigating together. Answer: Yes.\n\nRESULT CN-008 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: No | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 883,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

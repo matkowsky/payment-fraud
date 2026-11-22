@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-034",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "abdefe11c8c7ab41a4c17fc8f649496874654ea6028d4f21badf25df11cd1ee8",
+ "sent_at": "2026-11-22T00:36:09+00:00",
+ "received_at": "2026-11-22T00:36:16+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH2hh58idEUr5Ts5Sezb",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The seven-day search was requested from 7 days before publication but only evaluated from 2 hours before publication, and its status is partial. So \"only those earlier requests\" does not rule out earlier misuse, and the 19-minute burst cannot be confirmed as the first misuse. Cannot tell.\n\nA2. The compromise check used inputs as of 30 minutes after publication. The link between the payout destination and the other two accounts was only learned 1 day after publication. That link was not available to the check when it scored, so the check did not miss it. Answer: No.\n\nA3. A shared payout destination does not by itself show a single owner. Answer: No, not by itself.\n\nA4. The outcome channels have no reporting window defined, so absence of reports after 30 days is not informative. Also, no victim report is expected in any case if the account holder is the actor. Answer: No. The option \"Yes, weakly\" is the alternative, but with no defined window and no coverage shown, the silence carries no weight.\n\nA5. The burst has a new fingerprint, a residential proxy, and a payout destination change, all within 19 minutes of publication. That warrants investigation. Answer: Yes.\n\nCase B\n\nB1. Recorded chargebacks show D with 0, but 2 chargebacks recorded at account X are linked to D's transactions. That makes D 2 of 100, the same as the others. Answer: No. D is not lower than C. Compared with A and B, which have 2 each in the recorded chargebacks, D is equal after the links. So D is not lower.\n\nB2. The combined 5 percent is an aggregate. By account, A and B are at 8 of 100, which is above 5. So the aggregate does not show that no account is above 5 percent. Answer: No.\n\nB3. The search was partial and truncated, with one source sampled at 10 percent and the row limit reached. It cannot show that there are no other accounts. Answer: Cannot tell.\n\nB4. Both notes link to the agent's cluster assessment, so they are not independent. Answer: No.\n\nB5. A blocked payment never reached the chargeback channel, so the absence of a chargeback says nothing about fraud. Answer: No.\n\nB6. Shared templates, descriptor pattern, and a person linked to A and a rejected application justify investigating together. Answer: Yes.\n\nRESULT CN-034 | A1: Cannot tell | A2: No | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 832,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

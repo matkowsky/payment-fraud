@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-082",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "80607542aeac83dc7312c3dbdffdae9bfec41ac4722fa3c55664387ff3ddb9fd",
+ "sent_at": "2026-11-22T01:37:18+00:00",
+ "received_at": "2026-11-22T01:37:26+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH7N6vMS7cBGd5zLFpdG",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The seven-day search was partial: it was evaluated only from 2 hours before publication onward, though 7 days were requested. Earlier requests before that window were not checked, so we cannot say the burst at 19 minutes was the first misuse. Cannot tell.\n\nA2. The compromise check scored 30 minutes after publication using inputs as of that time. The link between the payout destination and the two other accounts was effective before publication but only learned 1 day after. It was not available to the check, so the check did not miss available evidence. The burst itself, at 19 minutes, was available, and the check did not flag it. Whether that counts as missing evidence is unclear, but the question asks about evidence available to it. The burst of requests, with its changes, was available at 30 minutes. Yet we don't know what the check weighs, so it is hard to say it \"missed\" it. The shared-destination link was not available. Given the ambiguity, the intended answer is probably No, since the record shows the inputs as of 30 minutes and the link was learned later. However, the burst was in the inputs, so the answer is uncertain. I'll go with Cannot tell, because we don't know whether the check's inputs included the burst's activity.\n\nA3. A shared payout destination alone does not show one owner. No, not by itself.\n\nA4. There are no reporting windows defined for either outcome channel, and none have a reporting window. Absence of reports is therefore not informative about legitimacy. No.\n\nA5. The burst involved a changed fingerprint, a residential proxy, a new webhook, a payout destination change and a faster payout schedule. This warrants investigation. Yes.\n\nCase B\n\nB1. Recorded chargebacks at D are 0, but 2 chargebacks recorded at account X are linked to D's transactions. So D's real count is 2, the same as the others. The answer is No.\n\nB2. The combined measure of 5 percent is an average. By-account figures show A 8 and B 8, which are above 5 percent. So the answer is No.\n\nB3. The search was partial and truncated, so it does not show that. No.\n\nB4. Both notes link to the agent's cluster assessment, so they are not independent. No.\n\nB5. A missing chargeback does not make a blocked payment non-fraud. The blocked payment was stopped, so no chargeback could arise. No.\n\nB6. Shared templates, a descriptor pattern and a person linked to a closed account and a rejected application justify investigating together. Yes.\n\nRESULT CN-082 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: No | B4: No | B5: No | B6: Yes\n\nCorrection on A4: the channels have no defined reporting window, so the absence of reports carries no information about legitimacy. Cannot tell versus No: the answer choices are \"Yes, weakly / No / Cannot tell\". Since silence is uninformative rather than evidence of legitimacy, the answer is No.\n\nRESULT CN-082 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: No | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 1065,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

@@ -128,6 +128,16 @@ Case only and with records repeat the main phase, so all three conditions are co
 
 **Order of work.** (1) This protocol, `PRACTICE.md`, the script change and the appended rows of `RUN_SHEET.csv` are merged. (2) The author runs `run --phase practice` once for each vendor, through the workflow. (3) The replies and results are committed in `runs/practice` and `results/practice`. (4) One pull request proposes the text.
 
+**Run and results, committed 22 November 2026.** Run through the workflow at this repository's commit `20224d0`, the merge of this protocol. The private workflow changed only to accept the phase `practice` and to score it with the study's key. All 720 sessions were sent and saved: OpenAI's on 21 November from 23:54 UTC to 00:52 UTC on 22 November, Anthropic's from 23:54 to 01:48 UTC. `runs/practice` holds every reply and `results/practice` the results, unchanged from the private repository; rescoring the committed replies with the current script gives both files. SHA-256 of `results.json`: `76d5edfaf8299bc492e4ca8a8489578c940fb8f63192c4eb1636aacdb442022d`.
+
+- No reply was stopped by a vendor's safety system. Seventeen `claude-fable-5-2` replies reached the 6,000-token limit before a complete result line and count as no answer: 4 case only and 13 under current practice. Every other session gave a usable answer.
+- Planned comparison, 32 model-item pairs. More errors with current practice, 4: `gpt-6.1-terra` on A4, `claude-sonnet-5-5` on A1, `claude-fable-5-2` on A1 and on A4. More errors with the records, 2: `gpt-6-luna` and `gpt-6.1-sol`, both on A2. No difference shown, 11. No error in either condition, 15.
+- B1, as expected: no model gave the counted error with either kind of record.
+- Not in the protocol: the comparison with `claude-fable-5-2`'s 13 unanswered current-practice sessions counted first as no error and then as errors. Supplement S8 reports both.
+- Charges, from the token counts each API reported: 2.77 dollars with OpenAI and 20.15 dollars with Anthropic (22.93 together, summed before rounding).
+
+Corrected 22 November 2026: "Cost" above gives 22.60 dollars for the main phase. That was the pilot and main phases together (22.59 dollars); the main phase alone cost about 21.90 dollars.
+
 ## Files
 
 - `agent_test.py`: builds the prompts and run sheet, runs the sessions, parses replies and scores them. Python standard library only.

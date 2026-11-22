@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-014",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "917909cf21430cb5306a08494d54b728b60b3d6c1b6e7b7dc932f83ef2765b4c",
+ "sent_at": "2026-11-22T00:10:12+00:00",
+ "received_at": "2026-11-22T00:10:19+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChGziuDRXHBRtBipgr4ov",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search was only evaluated from 2 hours before publication, so the earlier requests were not fully checked. The burst at 19 minutes is not shown to be the first misuse, but nothing shows earlier misuse either. Cannot tell.\n\nA2: The compromise check used inputs as of 30 minutes after publication. The link between the payout destination and the other accounts was learned 1 day after publication, so the check could not have used it. It could still have seen the burst, but the burst is not shown to be something it missed in the sense of available evidence. The question asks about evidence available to it. The burst (19 min) was available. The check did not flag it, but missing evidence is different from weighing it differently. The record does not show what it saw of the burst beyond the input time, so Cannot tell. The shared-destination link was not available. The burst was in the inputs window, but whether the check had it is not stated. Cannot tell.\n\nA3: A shared payout destination alone does not establish one owner. No, not by itself.\n\nA4: No outcome channel has a defined reporting window, so absence of reports means little. The answer is No (it doesn't indicate legitimacy).\n\nA5: The burst through a different proxy, with a new payout destination and a faster payout schedule, warrants investigation. Yes.\n\nCase B\n\nB1: The recorded chargebacks for D are 0, but 2 chargebacks at account X are verifiably linked to D's transactions. D's rate is therefore 2 per 100, the same as the others. No.\n\nB2: The combined 5 percent is an average. By account, A and B are at 8 percent, above 5. No.\n\nB3: The search was partial and truncated, with one source sampled at 10 percent. It does not show that there are no other accounts. No.\n\nB4: Both notes link to the agent's cluster assessment, so they are not independent. No.\n\nB5: The blocked payment never had a chance to produce a chargeback, because the block closed that channel. It should not be counted as non-fraud on that basis. No.\n\nB6: Shared templates and descriptor patterns, together with the person link, justify investigating the accounts together. Yes.\n\nRESULT CN-014 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: No | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 770,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

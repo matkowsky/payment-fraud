@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-074",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "ca84e199cb3f54b670ab2202a448850460483e4cbb20a893b2b30c346719267e",
+ "sent_at": "2026-11-22T01:27:55+00:00",
+ "received_at": "2026-11-22T01:28:00+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH6ec6NXk8vw1uGjFXpd",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search was only partially evaluated, from 2 hours before publication onward, so earlier misuse is not ruled out. Also, \"first misuse\" cannot be established from this. The key's earlier requests all came from the stable client, but coverage was partial. The answer is Cannot tell.\n\nA2: The link between the payout destination and the two other accounts was learned 1 day after publication, though it was effective earlier. The check's inputs were as of 30 minutes after publication. The question is whether that evidence was available to it. It was not known until a day later, so the check did not have it. The answer is No.\n\nA3: A shared payout destination does not show one owner by itself. The answer is No, not by itself.\n\nA4: The outcome channels have no reporting window defined, and no report is not evidence of legitimacy. The absence of reports does not indicate legitimacy, so the answer is No.\n\nA5: The burst involved a new fingerprint, a residential proxy, and payout changes shortly after publication. Investigation is warranted, so the answer is Yes.\n\nCase B\n\nB1: The recorded chargebacks at D are 0, but 2 chargebacks recorded at account X are verified as linked to D's transactions. That makes D's rate 2 of 100, the same as the others rather than lower. The answer is No.\n\nB2: The combined 5 percent is an average. By account, A and B are at 8 percent, so the answer is No.\n\nB3: The search was partial and truncated, so the answer is Cannot tell.\n\nB4: Both notes link to the agent's cluster assessment, so they are not independent. The answer is No.\n\nB5: The block closed the chargeback channel, so having no chargeback says nothing about fraud. The answer is No.\n\nB6: The shared templates and descriptor pattern, together with the person linked to A, justify investigating the accounts together. The answer is Yes.\n\nRESULT CN-074 | A1: Cannot tell | A2: No | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 688,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

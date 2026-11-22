@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-003",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "14d9635742166e8b202c368b2d67ab0eeaf9587a3bbfde834389dbc64d59beef",
+ "sent_at": "2026-11-21T23:57:40+00:00",
+ "received_at": "2026-11-21T23:57:48+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChGymVaad72gnPDX6LfqQ",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search covered only the period from 2 hours before publication onward, even though 7 days were requested, and its status is partial. The claim that earlier requests were only from one region rests on that search. The burst at 19 minutes may still be the first misuse, but misuse in the unevaluated window cannot be excluded. Answer: Cannot tell.\n\nA2: The link between the payout destination and the two other accounts was learned 1 day after publication, so the compromise check could not have used it at 30 minutes. The check's inputs were as of its scoring time. The evidence was not available to it, so it did not miss available evidence. Answer: No.\n\nA3: A shared payout destination does not by itself show one owner. Answer: No, not by itself.\n\nA4: The outcome channels have no reporting window defined, so the absence of reports after 30 days is not informative about legitimacy. Answer: No. The \"Yes, weakly\" option would imply some evidential value, but without a defined window the silence has none.\n\nA5: The burst used a different fingerprint through a residential proxy and created a webhook, changed the payout destination and sped up payouts. This warrants investigation. Answer: Yes.\n\nCase B\n\nB1: The recorded chargebacks are A 2, B 2, C 2, D 0. But 2 chargebacks recorded at account X are linked to D's transactions, which gives D 2. Its rate is therefore 2 percent, the same as the others, so it is not lower. Answer: No.\n\nB2: The combined measure is 5 percent, but by account A is 8 of 100, B is 8 of 100, C is 2 of 100 and D is 2 of 100. That averages 20/400 = 5 percent, while A and B are at 8 percent, above 5. A combined figure does not show that no account is above 5 percent. Answer: No.\n\nB3: The search was partial and truncated, with one source sampled at 10 percent and the row limit reached. Its finding of no other accounts is not reliable. Answer: Cannot tell.\n\nB4: Both notes link to the agent's cluster assessment, which was open in the case when they were written. They are therefore not independent. Answer: No.\n\nB5: The payment was blocked as suspected fraud, and the block closed the chargeback channel. The lack of a chargeback therefore says nothing about whether it was fraud. Answer: No.\n\nB6: Shared templates, a descriptor pattern, and a person linked to A who also appears on a closed account and a rejected application justify investigating the accounts together. Answer: Yes.\n\nRESULT CN-003 | A1: Cannot tell | A2: No | A3: No, not by itself | A4: No | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: No | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1690,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 908,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}
