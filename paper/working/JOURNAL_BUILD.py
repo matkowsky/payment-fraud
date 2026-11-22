@@ -6,7 +6,7 @@ Same source as BUILD.py (SOURCE/manuscript.md); only the layout differs.
 
 Copies, both in ACM's large format (acmlarge), which DTRAP uses:
   preprint   [acmlarge,nonacm]            author, acknowledgments and links kept; no ACM copyright block
-  anonymous  [acmlarge,review,anonymous]  SOURCE/anonymize.txt removals applied; author hidden; line numbers
+  anonymous  [acmlarge,review,anonymous,nonacm]  anonymize.txt removals; author hidden; line numbers; no journal footer
 
 The supplement gets an anonymous copy too, in its own layout (the same Pandoc and XeLaTeX settings as
 BUILD.py): JOURNAL/SUPPLEMENT_ANONYMOUS.pdf is the supplement without its byline and status line.
@@ -232,7 +232,7 @@ def fragments(unit):
 
 def typeset(mode):
     stem = 'MANUSCRIPT_ACM' + ('_ANONYMOUS' if mode == 'anonymous' else '')
-    opts = 'acmlarge,review,anonymous' if mode == 'anonymous' else 'acmlarge,nonacm'
+    opts = 'acmlarge,review,anonymous,nonacm' if mode == 'anonymous' else 'acmlarge,nonacm'
     tex = W / (stem + '.tex')
     tmp = W / 'input.md'; tmp.write_text(source_text(), encoding='utf-8')
     # References use the same CSL style and data as the preprint build, so the list is identical.
