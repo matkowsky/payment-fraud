@@ -169,7 +169,7 @@ comparisons}\label{s1.-sources-and-comparisons}}
 
 \href{SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv}{Source notes} identify the
 version, supporting passages, publication status and supported claim for
-each of the 127 cited works. The
+each of the 129 cited works. The
 \href{SUPPLEMENT/S1_REQUIREMENTS_MATRIX.csv}{requirements matrix}
 compares 50 sources against C1 to C3. It codes two parts of C1 and C2
 and three of C3: an outcome linked to its decision, and late,
@@ -635,7 +635,7 @@ Keeping these inputs explicit makes the denominator and the distinction
 between measures inspectable.
 
 The \href{SUPPLEMENT/S3_SOURCE_DIRECTORY.csv}{source directory}
-identifies 61 design sources. Of these, 27 are not among the 127 cited
+identifies 61 design sources. Of these, 27 are not among the 129 cited
 works and have no S1 source note. Each source was read in full in
 October 2026. Later reads are dated in the row. For one, a vendor blog
 post (L112), the cited passages were read verbatim and the other
@@ -4825,6 +4825,95 @@ describe one operation's sales run through merchant accounts opened in
 shell companies' names, which the complaint calls credit card
 laundering, not several sellers sharing one account.
 
+\hypertarget{s10.2-one-litigated-case-and-the-processors-draft-report}{%
+\subsubsection{S10.2 One litigated case and the processor's draft
+report}\label{s10.2-one-litigated-case-and-the-processors-draft-report}}
+
+\textbf{Why it is here.} S10 and S10.1 rest on allegations. One earlier
+FTC case against a processor ended in summary judgment, and the
+processor appealed only the remedy: FTC v. WV Universal Management, LLC,
+877 F.3d 1234 (11th Cir. 2017)
+{[}\protect\hyperlink{ref-EleventhCir2017Universal}{101}{]}. The opinion
+takes its facts from the district court's summary judgment order and
+notes that neither party disputed them. The case was filed in 2012,
+before the count's window, and was not coded.
+
+\textbf{What the opinion states.} The processor's president personally
+reviewed the merchant applications one sales agent brought in. He
+approved a telemarketing operation's first merchant account although
+both owners had serious credit delinquencies. The account drew
+chargebacks heavy enough that Mastercard took notice of the merchant as
+a potential fraud risk, and he then approved a second account. The
+district court found that the processor, through him, knew or
+consciously avoided knowing of the fraud. The opinion gives no
+chargeback counts and does not describe the processor's monitoring.
+
+\textbf{What the draft report says.} The FTC filed a draft report of the
+processor's internal investigation, dated 21 January 2013 (ECF 110-1)
+{[}\protect\hyperlink{ref-Universal2013FindingReport}{102}{]}. It is
+unsigned, carries tracked changes and a reviewer's open comments, and is
+one party's account, not a finding. It covers the accounts that sales
+agent had referred as a group and does not name the telemarketing
+operation. According to it, the chief operating officer and the vice
+president for risk repeatedly declined the agent's accounts and the
+president approved them; later the agent's new accounts no longer went
+to them. Chargebacks on those accounts appeared on the chargeback
+report, and the risk department recognized them. The president then had
+them charged to a merchant reserve at a sponsor bank, which held other
+merchants' holdbacks and which accounting did not reconcile. The losses
+went undiscovered from August 2011 to January 2013, and \$1.255 million
+was transferred to replenish the reserve. The controls the report lists
+as lacking include reconciling that reserve and reporting each
+merchant's status in it. The chief operating officer called the matter a
+management issue, not a reporting, accounting or reserve issue. In an
+attached statement the president says he acted in the company's
+interest.
+
+\begin{table}[tp]
+\textbf{Table S10.2. Three conclusions in the case and whether the
+specified records bear on them.} The last column is a reading of the two
+documents, not a test.\par\smallskip
+{\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Conclusion at the time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evidence then available, and its source
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Do the records bear on it?
+\end{minipage} \\
+\midrule\noalign{}
+
+The president approves the two accounts & The owners' credit
+delinquencies, then the first account's chargebacks and Mastercard's
+notice (opinion) & No.~The evidence reached the person who decided \\
+Two officers decline the agent's accounts & Ordinary underwriting and
+the chargeback report (draft report) & No.~They judged the risk without
+such records and were overruled \\
+The account that accounting reconciled shows none of these losses for 17
+months & The chargebacks were charged to a reserve that accounting did
+not reconcile and that had no report of each merchant's status (draft
+report) & By analogy only. A report that keeps its attributed account
+(C1) and a check that states which ledgers it covered (C2) would leave
+this absence unverified, not read as no loss. Neither stops a person
+from redirecting a charge \\
+
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
+
+\textbf{Reading.} The case mostly supports Section 8.5's caution: staff
+saw the risk without linked records, and no record makes a president
+follow them. Only the third conclusion turned on where an outcome was
+recorded, and there the comparison is to an accounting ledger, not to an
+agent's query. One case, with the approver inside the processor, does
+not show how often either happens.
+
 \FloatBarrier
 
 \hypertarget{references}{%
@@ -5434,6 +5523,24 @@ on e-Science}, pp. 467--473.
 Mining: Formulation, Detection, and Avoidance. \emph{Proceedings of the
 17th ACM SIGKDD International Conference on Knowledge Discovery and Data
 Mining}, pp. 556--563. \url{https://doi.org/10.1145/2020408.2020496}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-EleventhCir2017Universal}{}}%
+{[}101{]} US Court of Appeals for the Eleventh Circuit. 2017. FTC v. WV
+Universal Management, LLC, No. 16-17727, 877 F.3d 1234 (11th Cir.).
+Published opinion; facts taken from the district court\textquotesingle s
+summary judgment order and not disputed on appeal.
+\url{https://www.courtlistener.com/opinion/4450999/federal-trade-commissioner-v-universal-processing-services-of-wisconsin/}.
+Accessed 22 November 2026.
+
+\leavevmode\vadjust pre{\hypertarget{ref-Universal2013FindingReport}{}}%
+{[}102{]} Universal Processing Services of Wisconsin, LLC. 2013. Finding
+report: Reserve account issues, UPS Wisconsin. Exhibit 1, ECF 110-1, FTC
+v. WV Universal Management, LLC, No. 6:12-cv-01618 (M.D. Fla.). US
+District Court, Middle District of Florida. Unsigned draft of an
+internal investigation report, filed by the FTC as an exhibit; one
+party\textquotesingle s account, not a finding.
+\url{https://www.courtlistener.com/docket/4226610/110/1/federal-trade-commission-v-wv-universal-management-llc/}.
+Accessed 22 November 2026.
 
 \end{CSLReferences}
 
