@@ -57,4 +57,18 @@ If the search returns nothing, a second search confirms that the archive has the
 - Party exhibits are not searched. Some hold a processor's own records, as in Supplement S10.2.
 - Three of the 14 cases were filed in 2025 or 2026 and may have no decision yet.
 
+## Changes after the protocol
+
+22 November 2026, 16:30Z, after the fixed search had run on all 14 dockets and before any second search. The text above is unchanged.
+
+- Result of the fixed search: it returned entries for one docket, U02, and nothing for the other 13.
+- A second search is added and put to all 14 dockets. Reason: the fixed search asks for particular entry labels, and courts label entries differently, so a report or decision under another label would be missed. The second search reads entry descriptions alone:
+
+```
+description:(receiver OR monitor OR "special master" OR "summary judgment"
+   OR "motion to dismiss" OR "preliminary injunction" OR findings OR opinion)
+```
+
+- What counts, what is only listed and what follows are unchanged. Both searches' results are recorded for every docket.
+
 Recorded by Claude (Anthropic), 22 November 2026.
