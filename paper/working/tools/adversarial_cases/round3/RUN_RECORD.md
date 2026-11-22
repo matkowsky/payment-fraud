@@ -54,4 +54,11 @@ Kept as the run went, in the order things happened. The results are in `RESULTS.
 - The first rulings and the packet are committed and pushed before any outside reply exists.
 - The reviewer is to be a model from a developer other than the tester's and other than Anthropic. To record when it runs: the date, the model name shown, the settings and the whole reply, saved unchanged as `RULINGS_CHECK_REPLY.txt`.
 
+## Tester
+
+- The author named the tester at 06:42Z on 22 November 2026, after the scoring and the first rulings. His words: "Llama 4 maverick".
+- Llama 4 Maverick is an open-weight model that Meta released in April 2025. The author did not name the developer; Claude checked it. Meta is neither OpenAI nor Anthropic, so the plan's condition on the tester's developer is met.
+- Still not recorded: the model version as shown, the session's settings (new session, memory, project, web access), whether one session wrote all three replies, and when the packet was sent.
+- The reviewer for the rulings check must therefore be a model from a developer other than Meta and other than Anthropic.
+
 Recorded by Claude (Anthropic), 22 November 2026.
