@@ -63,7 +63,7 @@ def report():
     uk_s = sum(f['Sales']['total'] for f in uk)
     uk_b = sum(-f['Chargebacks']['total'] - f['Refunds']['total'] for f in uk)
     uk_cb = sum(-f['Chargebacks']['total'] for f in uk)
-    out.append(f'U.K. files, pounds counted as dollars: refunds and chargebacks {uk_b:,.2f} of {uk_s:,.2f} sales, {100 * uk_b / uk_s:.1f}%; chargebacks alone {100 * uk_cb / uk_s:.1f}%')
+    out.append(f'U.K. files, pounds counted as dollars: refunds and chargebacks {uk_b:,.2f} of {uk_s:,.2f} sales, {100 * uk_b / uk_s:.1f}%; chargebacks alone {100 * uk_cb / uk_s:.1f}%; refunds alone {100 * (uk_b - uk_cb) / uk_s:.1f}%')
     out.append(f'All three files: refunds and chargebacks {both:,.2f} of {gross:,.2f} sales, {100 * both / gross:.1f}%')
     net = sum(f['Total']['total'] for f in files.values())
     out.append(f'Net sales, three files: {net:,.2f}')
@@ -73,6 +73,9 @@ def report():
         fa, fc = sum(float(r['fa_amt_vs']) for r in m), sum(int(r['fa_cnt_vs']) for r in m)
         out.append(f'{month}, four merchants pooled: fraud {100 * fa / ta:.2f}% by amount, {100 * fc / tc:.2f}% by count; '
                    f'average payment {ta / tc:.2f}, average reported payment {fa / fc:.2f}')
+        pa = [float(r['fa_amt_pct_vs']) for r in m]
+        pc = [float(r['fa_cnt_pct_vs']) for r in m]
+        out.append(f'  by merchant, as the exhibit gives them: {min(pa):.2f} to {max(pa):.2f}% by amount, {min(pc):.2f} to {max(pc):.2f}% by count; {tc} payments')
     return out
 
 

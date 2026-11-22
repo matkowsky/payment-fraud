@@ -59,3 +59,11 @@ Such findings are reported with the same weight as the others.
 ## Report
 
 Whatever the sheet shows goes in the supplement. Results against the records are given the same prominence as results for them.
+
+## Changes after the protocol
+
+22 November 2026 (UTC), after the reading. The text above is unchanged.
+
+- Figures are in `EXHIBIT15_FRAUD_TABLE.csv` and `EXHIBIT19_INCOME.csv`. No `FIGURES.csv` was made. Reason: every figure used comes from one of two exhibit tables, and each table is kept whole as transcribed.
+- A check of the terminal websites in Exhibit 15 against the domain list in Exhibit 18 was planned in `READING.md` and dropped. Reason: the processor's own list already ties the terminals to one client, so the check could change no finding. Exhibit 18 stays unread and is not cited.
+- The stipulated order between the Commission and the processor (Document 142) was read in full. Reason: the supplement gives the processor's position, so it also gives how the claims against it ended.
