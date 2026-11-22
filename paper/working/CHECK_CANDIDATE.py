@@ -120,6 +120,23 @@ for n_audit, width in ((200, 14.3), (160, 16.0)):
     l, u = clopper_pearson(n_audit // 2, n_audit)
     assert round(100 * (u - l), 1) == width, (n_audit, l, u)
 assert 'With 200 settled cases, an exact 95 percent interval on any share is at most 14.3 points wide; with 160, at most 16.0.' in sbody
+# Closed-case audit kit (Supplement S7.1): the script reproduces those widths, the example form adds up, and the blank form asks the same items.
+sys.path.insert(0, str(B / 'tools' / 'closed_case_audit'))
+import summarize as audit_kit  # noqa: E402
+K = B / 'tools/closed_case_audit'
+for n_audit, width in ((200, 14.3), (160, 16.0)):
+    l, u = audit_kit.exact_interval(n_audit // 2, n_audit)
+    assert round(100 * (u - l), 1) == width
+kit = audit_kit.summarize(audit_kit.read_form(K / 'EXAMPLE_FORM.csv'))
+assert kit['cases_sampled'] == 200 and [kit[f]['settled'] for f in audit_kit.FAILURES] == [182, 189, 188]
+assert kit['F1']['occurred_of_settled'] == {'count': 22, 'of': 182, 'percent': 12.1, 'interval_95': [7.7, 17.7]}
+assert kit['F3']['occurred_of_settled']['interval_95'] == [0.0, 1.9] and kit['F3']['occurred_of_all_range_percent'] == [0.0, 6.0]
+assert kit['F1']['changed_of_all_range_percent'] == [4.5, 13.5]
+blank_form = list(csv.DictReader((K / 'RESULTS_FORM.csv').open(encoding='utf-8')))
+example_form = list(csv.DictReader((K / 'EXAMPLE_FORM.csv').open(encoding='utf-8')))
+assert [(r['item'], r['what_to_enter']) for r in blank_form] == [(r['item'], r['what_to_enter']) for r in example_form]
+assert all(r['value'] == '' for r in blank_form) and len(blank_form) == 22
+assert 'invented' in (K / 'README.md').read_text(encoding='utf-8') and '../tools/closed_case_audit/README.md' in sbody
 # Supplement S10: the linked view's flag rate under faster, base and slower report delays, as stored.
 lag = json.loads((S / 'S10_REPLAYS' / 'first_data_results.json').read_text(encoding='utf-8'))['sweep_lag']
 assert [lag[k]['A_cell']['SYN-MON-1:cluster'] for k in ('fast', 'base', 'slow')] == [0.986, 0.894, 0.828]
@@ -373,7 +390,9 @@ for said in ('the report states two of the seven tactics as fact, and both are t
              'All three results fixed in advance as counting against the records occur here, at least in part.',
              'One result fits the records, by analogy only.'):
     assert said in sbody, said
-assert 'in three case records a processor had the information (Supplement S10.2 to S10.4)' in body
+assert 'Three court records were then read against the specification (Supplement S10.2 to S10.4)' in body
+assert 'Court records from three FTC cases mostly show limits' in body and '| Three court records mostly show limits |' in body
+assert 'with the kit of Supplement S7.1' in body and 'under the protocol of Supplement S10.3' in body
 madera_note = (M / 'README.md').read_text(encoding='utf-8')
 assert madera_note.index('## Changes after the protocol') > madera_note.index('Recorded by Claude (Anthropic), 22 November 2026.')
 # Second-rater check of the links (Supplement S3): the stored answers reproduce the reported counts.
