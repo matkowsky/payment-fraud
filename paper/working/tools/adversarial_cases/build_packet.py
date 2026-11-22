@@ -303,4 +303,6 @@ if __name__ == '__main__':
         sys.exit('PACKET_ROUND1.md is kept as used at commit 5dd4213; rebuilding it would show the revised rules')
     if n == 2:
         sys.exit('PACKET_ROUND2.md is kept as sent (21,682 bytes); rebuilding it would show the rules as revised after round 2')
+    if n == 3:
+        sys.exit('PACKET_ROUND3.md is kept as sent (52,199 bytes); rebuilding it would show the text as changed after round 3')
     main3()

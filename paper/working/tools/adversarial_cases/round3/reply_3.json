@@ -1,0 +1,106 @@
+```json
+[
+  {
+    "case_id": "R12",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C1",
+    "why": "The LabelEvent LE-3 is changed to have an earlier arrived time than reported time, breaking C1 by not having correct times.",
+    "outcome": {
+      "set_fields": {
+        "LE-3": {
+          "arrived_at": "2026-04-13T07:00:00Z"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R13",
+    "tier": "agent",
+    "expect": "accept",
+    "breaks": "none",
+    "why": "The draft DR-3 is changed to have a claim with a non-existent entity, which is not caught by IR-09.",
+    "investigation": {
+      "set_fields": {
+        "DR-3": {
+          "claims": [
+            {
+              "claim_id": "CL-5",
+              "claim_text": "Card attempt PA-4 drew no fraud chargeback: its reporting window closed on 4 June 2026 with no report.",
+              "claim_type": "absence",
+              "material": true,
+              "entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-4"}],
+              "sources": ["S-LABEL"],
+              "interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+              "confidence": "moderate",
+              "supporting": [],
+              "contradicting": [],
+              "query_runs": ["Q-5"],
+              "context": [],
+              "distinct_roots": 0,
+              "outcome_items": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-4"}],
+              "outcome_use": "negative",
+              "outcome_readings": ["RD-3"]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R14",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "The QueryRun Q-5 is changed to have a returned record that is not an observation, breaking C2 by not recording query coverage and learned time.",
+    "investigation": {
+      "set_fields": {
+        "Q-5": {
+          "returned": ["DR-1"]
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R15",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The draft DR-3 is changed to link to a draft output that is not yet written, breaking C3 by not requiring human release before promotion into organizational memory.",
+    "investigation": {
+      "set_fields": {
+        "DR-3": {
+          "agent_output_links": ["DR-5"]
+        }
+      },
+      "add_records": [
+        {
+          "record_type": "DraftOutput",
+          "record_id": "DR-5",
+          "case_id": "K-3",
+          "agent": "AG-1",
+          "version_hash": " dummy-hash",
+          "created_at": "2026-08-04T02:00:00Z",
+          "expires_at": "2026-08-11T02:00:00Z",
+          "current_period": {"from": "2026-07-26T00:00:00Z", "to": "2026-08-04T00:00:00Z"},
+          "claims": []
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "R16",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C1",
+    "why": "The ChannelStatusReading RD-3 is changed to have a different channel state than the ChannelStateTransition T-4, breaking C1 by not having correct channel state.",
+    "outcome": {
+      "set_fields": {
+        "RD-3": {
+          "channel_state": "delayed_or_not_opened"
+        }
+      }
+    }
+  }
+]
+```

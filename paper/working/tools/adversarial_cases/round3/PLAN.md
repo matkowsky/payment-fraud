@@ -65,4 +65,4 @@ The rules were revised on 22 November 2026 from a table of every reference betwe
 
 ## Changes
 
-None yet.
+- 22 November 2026, with the three replies saved and no case run through the checker: sixteen cases are scored, not fifteen. The second reply held six cases. Reason: leaving one out would be a choice made after the cases were read. Claude had read the replies when this entry was written. The frozen rules, the packet, the scoring command and what is reported are unchanged.

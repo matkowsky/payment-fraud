@@ -1,0 +1,171 @@
+```json
+[
+  {
+    "case_id": "R06",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "The draft DR-3 is changed to cite a query run that is not complete, breaking C2 by not recording query coverage and learned time.",
+    "investigation": {
+      "add_records": [
+        {
+          "record_type": "QueryRun",
+          "record_id": "Q-6",
+          "case_id": "K-3",
+          "requested_by": "AG-1",
+          "recorded_by": "GW-1",
+          "issued_at": "2026-08-02T01:00:00Z",
+          "as_of": "2026-08-02T00:00:00Z",
+          "requested_entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+          "evaluated_entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+          "requested_interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+          "evaluated_interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+          "sources": [
+            {
+              "source_id": "S-LABEL",
+              "schema_version": "label-events-3",
+              "access": "evaluated",
+              "event_watermark": "2026-08-01T00:00:00Z",
+              "ingestion_watermark": "2026-08-01T12:00:00Z",
+              "retention_horizon": "2025-01-01T00:00:00Z",
+              "known_gaps": [],
+              "sampled": false
+            }
+          ],
+          "access_filter_removed_rows": false,
+          "limits_reached": [],
+          "scope_limited": false,
+          "returned": [],
+          "statuses": ["partial"]
+        }
+      ],
+      "set_fields": {
+        "DR-3": {
+          "claims": [
+            {
+              "claim_id": "CL-5",
+              "claim_text": "Card attempt PA-3 drew no fraud chargeback: its reporting window closed on 4 June 2026 with no report.",
+              "claim_type": "absence",
+              "material": true,
+              "entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "sources": ["S-LABEL"],
+              "interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+              "confidence": "moderate",
+              "supporting": [],
+              "contradicting": [],
+              "query_runs": ["Q-6"],
+              "context": [],
+              "distinct_roots": 0,
+              "outcome_items": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "outcome_use": "negative",
+              "outcome_readings": ["RD-3"]
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R07",
+    "tier": "other",
+    "expect": "accept",
+    "breaks": "none",
+    "why": "The release decision RL-3 is changed to have an earlier expiry, which is not caught by IR-13 because it only checks the original expiry.",
+    "investigation": {
+      "set_fields": {
+        "RL-3": {
+          "expires_at": "2026-09-03T09:00:00Z"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R08",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The draft DR-3 is changed to link to an agent output that is not yet written, breaking C3 by not requiring human release before promotion into organizational memory.",
+    "investigation": {
+      "add_records": [
+        {
+          "record_type": "DraftOutput",
+          "record_id": "DR-4",
+          "case_id": "K-3",
+          "agent": "AG-1",
+          "version_hash": " dummy-hash",
+          "created_at": "2026-08-03T02:00:00Z",
+          "expires_at": "2026-08-10T02:00:00Z",
+          "current_period": {"from": "2026-07-26T00:00:00Z", "to": "2026-08-03T00:00:00Z"},
+          "claims": []
+        }
+      ],
+      "set_fields": {
+        "DR-3": {
+          "agent_output": "DR-4"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R09",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C1",
+    "why": "The ChannelStatusReading RD-3 is changed to show a non-matured absence, breaking C1 by not linking the outcome to the decision that shaped it.",
+    "outcome": {
+      "set_fields": {
+        "RD-3": {
+          "no_report_status": "pending"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R10",
+    "tier": "other",
+    "expect": "reject",
+    "breaks": "C2",
+    "why": "The QueryRun Q-5 is changed to have a different as-of cutoff than the ChannelStatusReading RD-3, breaking C2 by not recording query coverage and learned time.",
+    "investigation": {
+      "set_fields": {
+        "Q-5": {
+          "as_of": "2026-08-03T00:00:00Z"
+        }
+      }
+    }
+  },
+  {
+    "case_id": "R11",
+    "tier": "agent",
+    "expect": "reject",
+    "breaks": "C3",
+    "why": "The draft DR-3 is changed to link to a released conclusion that is not yet read, breaking C3 by not requiring human release before promotion into organizational memory.",
+    "investigation": {
+      "set_fields": {
+        "DR-3": {
+          "claims": [
+            {
+              "claim_id": "CL-5",
+              "claim_text": "Card attempt PA-3 drew no fraud chargeback: its reporting window closed on 4 June 2026 with no report.",
+              "claim_type": "absence",
+              "material": true,
+              "entities": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "sources": ["S-LABEL"],
+              "interval": {"from": "2026-02-04T00:00:00Z", "to": "2026-06-04T00:00:00Z"},
+              "confidence": "moderate",
+              "supporting": [],
+              "contradicting": [],
+              "query_runs": ["Q-5"],
+              "context": ["M-3"],
+              "distinct_roots": 0,
+              "outcome_items": [{"tenant": "T1", "namespace": "payment_attempt", "id": "PA-3"}],
+              "outcome_use": "negative",
+              "outcome_readings": ["RD-3"]
+            }
+          ]
+        }
+      }
+    }
+  }
+]
+```

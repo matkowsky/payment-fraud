@@ -53,18 +53,30 @@ def upgrade(records):
     return records
 
 
+class Malformed(Exception):
+    """The case's patch could not be applied, so there is no history to check."""
+
+
 def findings(case, sealed=True, joint=False):
-    """Apply one case and return the checker's findings. Raises if the patch cannot be applied."""
+    """Apply one case and return the checker's findings. Raises Malformed if the patch cannot be applied. An error
+    raised by the checker itself is not caught here: it is a fault in the checker, not in the case."""
     schema = json.loads(SCHEMA.read_text(encoding='utf-8'))
+    try:
+        if joint:
+            records, outcomes, _ = joint_history()
+            inv = case.get('investigation', {k: case[k] for k in PATCH_KEYS if k in case})
+            records = apply_patch(records, inv)
+            outcomes = apply_patch(outcomes, case.get('outcome', {}))
+            records = seal(records) if sealed else records
+        else:
+            valid = json.loads(VALID.read_text(encoding='utf-8'))['records']
+            records = upgrade(apply_patch(valid, case))
+            sealed_records = seal(records) if sealed else records
+    except (KeyError, TypeError, ValueError, AttributeError) as e:
+        raise Malformed(f'{type(e).__name__} {e}') from e
     if joint:
-        records, outcomes, _ = joint_history()
-        inv = case.get('investigation', {k: case[k] for k in PATCH_KEYS if k in case})
-        records = apply_patch(records, inv)
-        outcomes = apply_patch(outcomes, case.get('outcome', {}))
-        return check_both(seal(records) if sealed else records, outcomes, schema, json.loads(oc.SCHEMA.read_text(encoding='utf-8')))
-    valid = json.loads(VALID.read_text(encoding='utf-8'))['records']
-    records = upgrade(apply_patch(valid, case))
-    found = check(seal(records) if sealed else records, schema)
+        return check_both(records, outcomes, schema, json.loads(oc.SCHEMA.read_text(encoding='utf-8')))
+    found = check(sealed_records, schema)
     if any(c.get('outcome_items') for r in records if r.get('record_type') == 'DraftOutput' for c in r.get('claims', [])):
         found = found + check_joint(records, json.loads(oc.VALID.read_text(encoding='utf-8'))['records'])
     return found
@@ -87,10 +99,11 @@ def touched_types(case, base_types):
 
 
 def rules_hit(case, sealed=True, joint=False):
-    """The set of checks a case fails: empty if it passes, {'MALFORMED'} if the patch cannot be applied."""
+    """The set of checks a case fails: empty if it passes, {'MALFORMED'} if the patch cannot be applied. An error in the
+    checker itself is raised, not hidden."""
     try:
         return {f[0] for f in findings(case, sealed, joint)}
-    except (KeyError, TypeError, ValueError, AttributeError):
+    except Malformed:
         return {'MALFORMED'}
 
 
@@ -115,8 +128,10 @@ def main():
         else:
             try:
                 found = findings(c, sealed, joint)
-            except (KeyError, TypeError, ValueError, AttributeError) as e:
-                found, result, detail = None, 'malformed', f'patch or record could not be applied: {type(e).__name__} {e}'
+            except Malformed as e:
+                found, result, detail = None, 'malformed', f'patch could not be applied: {e}'
+            except (KeyError, TypeError, ValueError, AttributeError) as e:   # the checker failed on a history it was given
+                found, result, detail = None, 'checker error', f'the checker raised {type(e).__name__} {e}'
             if found is not None:
                 rules = sorted({f[0] for f in found})
                 if not found:
@@ -127,6 +142,8 @@ def main():
                     result, detail = 'rejected by ' + ', '.join(rules), '; '.join(sorted({f[2] for f in found}))[:160]
         if result == 'malformed':
             outcome = 'not a test: malformed'
+        elif result == 'checker error':
+            outcome = 'ADJUDICATE: the checker raised an error'
         elif expect == 'reject':
             if result == 'passes':
                 outcome = 'ADJUDICATE: passes, tester says it breaks ' + str(c.get('breaks'))
