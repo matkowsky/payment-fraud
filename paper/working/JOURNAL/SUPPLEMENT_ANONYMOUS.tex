@@ -169,7 +169,7 @@ comparisons}\label{s1.-sources-and-comparisons}}
 
 \href{SUPPLEMENT/S1_CITED_SOURCE_NOTES.csv}{Source notes} identify the
 version, supporting passages, publication status and supported claim for
-each of the 129 cited works. The
+each of the 132 cited works. The
 \href{SUPPLEMENT/S1_REQUIREMENTS_MATRIX.csv}{requirements matrix}
 compares 50 sources against C1 to C3. It codes two parts of C1 and C2
 and three of C3: an outcome linked to its decision, and late,
@@ -635,7 +635,7 @@ Keeping these inputs explicit makes the denominator and the distinction
 between measures inspectable.
 
 The \href{SUPPLEMENT/S3_SOURCE_DIRECTORY.csv}{source directory}
-identifies 61 design sources. Of these, 27 are not among the 129 cited
+identifies 61 design sources. Of these, 27 are not among the 132 cited
 works and have no S1 source note. Each source was read in full in
 October 2026. Later reads are dated in the row. For one, a vendor blog
 post (L112), the cited passages were read verbatim and the other
@@ -1841,9 +1841,11 @@ Observation & A stored record with its class, event interval, learned
 time, producer, root observations, inputs and links to any agent output
 that informed it \\
 DraftOutput & An agent draft: its exact version, expiry, the task's
-current period, and each claim with its supporting and contradicting
-records, query runs, context, and any items whose unreported outcome it
-relies on, with their channel readings \\
+current period, and each claim with its sentence, its supporting and
+contradicting records, query runs and context. An absence claim names
+its sources. A claim that states or relies on an unreported outcome
+lists the items and their channel readings and says which of the two it
+does \\
 OutputExposure & A period in which a person had an agent output open
 about an entity \\
 ReleaseDecision & A person's decision on one exact draft version: the
@@ -1864,8 +1866,11 @@ Fourteen rules check records against each other:
 \item
   \mbox{IR-01}: a record identifier is used once.
 \item
-  \mbox{IR-02}: every record a record cites exists, a cited query run is
-  a query run, and a producer is an actor.
+  \mbox{IR-02}: every record a record cites exists and has a type its
+  reference allows (the reference table below). A cited query run is a
+  query run. A producer, requester, recorder and reader are actors, a
+  draft's writer is an agent, an exposure names a draft and a person,
+  and a link to an agent output names a draft.
 \item
   \mbox{IR-03}: a gateway that is not the requester records a query
   run's coverage.
@@ -1884,55 +1889,154 @@ Fourteen rules check records against each other:
   source gives that status. A run is complete only when nothing else
   applies.
 \item
-  \mbox{IR-06}: a run returns only records learned by its as-of cutoff
-  whose event intervals overlap the evaluated interval.
+  \mbox{IR-06}: a run returns only records about the entities it
+  evaluated, learned by its as-of cutoff, whose event intervals overlap
+  the evaluated interval.
 \item
   \mbox{IR-07}: a derived record is learned no earlier than its inputs,
   and its root observations are exactly its inputs' roots. Only a source
   observation, score or decision can be its own root. A source
   observation is not learned before its event began.
 \item
-  \mbox{IR-08}: an absence claim cites at least one query run that is
-  complete, not scope-limited, returned nothing and covers the claim's
-  entities and interval. No cited run returned a record about those
-  entities in that interval. A cited run that does not bear on that
-  interval does not count against the claim.
+  \mbox{IR-08}: an absence claim names the sources it speaks for. For
+  each named entity in each named source, the cited runs that are
+  complete, not scope-limited and empty, and that evaluated that entity
+  in that source, cover the claim's interval, alone or together. No
+  cited run over a named source returned a record about those entities
+  in that interval, and the claim lists no such record as support or
+  against itself. A cited run over no named source, or one that does not
+  bear on that interval, does not count for or against the claim.
 \item
-  \mbox{IR-09}: a claim's support consists of observation records about
-  the claim's entities. Every record a claim cites, as support,
-  contradiction, context or query run, exists by the time the draft was
-  written. A supporting record is dependent, and adds no root, if it is
-  linked to an agent output, names no producer, or lists no inputs and
-  is not a source observation. The restriction runs through inputs: a
-  derived record adds only the roots reachable through records that are
-  not dependent. The claim's count of distinct roots equals the number
-  of distinct root observations its supporting records add. A material
-  presence or current-conduct claim cites at least one supporting
-  observation that is not dependent and whose event interval overlaps
-  the claim's interval. A released conclusion or a draft is never
-  support.
+  \mbox{IR-09}: a claim's support and the records it lists against
+  itself are observation records, and its support concerns the claim's
+  entities. Its context is an observation or a released conclusion.
+  Every record a claim cites, as support, contradiction, context or
+  query run, exists by the time the draft was written. A supporting
+  record is dependent, and adds no root, if it is linked to an agent
+  output, was produced by an agent, names no producer, or lists no
+  inputs and is not a source observation. The restriction runs through
+  inputs: a derived record adds only the roots reachable through records
+  that are not dependent. The claim's count of distinct roots equals the
+  number of distinct root observations its supporting records add. A
+  material presence or current-conduct claim cites, for each entity it
+  names, at least one supporting observation of that entity that is not
+  dependent and whose event interval overlaps the claim's interval. A
+  released conclusion is never support or contradiction, and no claim
+  cites a draft.
 \item
   \mbox{IR-10}: a current-conduct claim cites an observation or derived
   feature of a named entity whose event interval falls within the
-  current period. A score or decision does not count. A record linked to
-  an agent output counts only if its inputs include, for each named
-  entity, an unlinked current-period observation of that entity.
+  current period. A score or decision does not count. A record that is
+  linked to an agent output, was produced by an agent or names no
+  producer counts only if its inputs include, for each named entity, a
+  current-period observation of that entity that is none of these.
 \item
   \mbox{IR-11}: a draft's version identifier is the digest of its
-  claims. A person releases the exact draft version, after the draft was
-  written and before it expires, without raising any claim's confidence.
+  claims, each with its sentence. A person releases the exact draft
+  version, after the draft was written and before it expires, without
+  raising any claim's confidence.
 \item
   \mbox{IR-12}: a conclusion enters memory only after a decision that
   released that claim.
 \item
   \mbox{IR-13}: memory is read only from a released item, between its
-  creation and its release's expiry.
+  creation and its release's expiry. A claim cites a released conclusion
+  as context only if the draft's case holds a read of it made by the
+  time the draft was written, and the draft is written before that
+  release expires.
 \item
-  \mbox{IR-14}: a note names its producer. A record its producer wrote
-  about an entity while an agent output about that entity was open links
-  to that output, and a record derived from a linked record keeps the
-  link.
+  \mbox{IR-14}: a record its producer wrote while an agent output was
+  open to that producer links to that output, whatever entity the record
+  concerns, and a record derived from a linked record keeps the link. A
+  linked output is a draft that existed when the record was learned, and
+  an output is open only after it was written.
 \end{enumerate}
+
+\textbf{References between records.} The table lists every reference one
+record makes to another and what the rules check about its target.
+``None'' means the rules set no condition.
+
+\begingroup\small
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1900}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1300}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1600}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.2100}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 10\tabcolsep) * \real{0.1100}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Reference
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Target is
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Kind of actor
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Entity
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Rule
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Query run: requester & An actor & Not the gateway & None & None &
+\mbox{IR-02}, \mbox{IR-03} \\
+Query run: recorder & An actor & A gateway & None & None & \mbox{IR-02},
+\mbox{IR-03} \\
+Query run: returned records & Observations & None & An evaluated entity
+& Learned by the cutoff; event overlaps the evaluated interval &
+\mbox{IR-06} \\
+Observation: producer & An actor & An agent makes the record dependent &
+None & None & \mbox{IR-02}, \mbox{IR-09}, \mbox{IR-10} \\
+Observation: inputs & Observations & None & None & Learned no later than
+the record & \mbox{IR-07} \\
+Observation: root observations & Its inputs' roots, or itself & None &
+None & None & \mbox{IR-07} \\
+Observation: links to agent outputs & Drafts & None & None & Written by
+the time the record was learned & \mbox{IR-02}, \mbox{IR-14} \\
+Draft: writer & An actor & An agent & None & None & \mbox{IR-02} \\
+Claim: support & Observations & Through each record's producer & A named
+entity; every named entity of a material claim & Exists by the draft;
+inside the claim's interval for a material claim & \mbox{IR-09} \\
+Claim: records against it & Observations & None & None & Exists by the
+draft & \mbox{IR-09}; \mbox{IR-08} for an absence claim \\
+Claim: query runs & Query runs & None & For an absence claim, the named
+entities and sources & Exists by the draft & \mbox{IR-02}, \mbox{IR-08},
+\mbox{IR-09} \\
+Claim: context & Observations or released conclusions & None & None &
+Exists by the draft; a released conclusion was read in the case first
+and has not expired & \mbox{IR-09}, \mbox{IR-13} \\
+Claim: channel readings & Channel readings in the outcome store & None &
+A listed item & Taken by the draft & \mbox{XR-01} \\
+Exposure: output & A draft & None & None & Opened after the draft was
+written & \mbox{IR-02}, \mbox{IR-14} \\
+Exposure: viewer & An actor & A person & None & None & \mbox{IR-02} \\
+Release decision: draft & A draft, at the named version & None & None &
+Decided between its writing and its expiry & \mbox{IR-11} \\
+Release decision: releaser & An actor & A person & None & None &
+\mbox{IR-11} \\
+Released item: release decision & A decision that released that claim of
+that draft & None & None & Created no earlier than the decision &
+\mbox{IR-12} \\
+Released item: draft & The release decision's draft & None & None & None
+& \mbox{IR-12} \\
+Memory read: reader & An actor & None & None & None & \mbox{IR-02} \\
+Memory read: item & A released item & None & None & Between its creation
+and the release's expiry & \mbox{IR-13} \\
+\end{longtable}
+
+\endgroup
+
+The checker generates a test from this table. In the joint history
+described below, it points each reference at a record of every type the
+table does not allow, and each reference that requires a kind of actor
+at an actor of every other kind. The rules reject all 514 histories of
+the first sort and all 82 of the second. Named invalid cases test the
+entity and time columns.
 
 The
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_valid.json}{valid
@@ -1940,12 +2044,17 @@ conformance case} builds one synthetic history: an investigation with
 three query runs, a draft with a current-conduct claim and an absence
 claim, a note written while the draft was open, a release by a second
 person, and a later case that reads the released conclusion as context
-and cites a new observation. Its 25 records pass. Each of the 40
+and cites a new observation. Its 25 records pass. Each of the 60
 \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_invalid.json}{invalid
 cases} changes that history in one way and fails exactly one check;
-together they exercise the schema and all fourteen rules. Where a case
-changes a draft's claims, the draft is first given its new digest, so
-that only the intended check fails. Run
+together they exercise the schema and all fourteen rules. Three
+\href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/conformance_accept.json}{further
+cases} change it in ways the requirements allow and still pass: a linked
+note that names no producer, two runs that cover an absence interval
+together, and an absence claim that also cites an unavailable run over a
+source it does not name. Where a case changes a draft's claims, the
+draft is first given its new digest, so that only the intended check
+fails. Run
 \href{tools/investigation_conformance.py}{\texttt{tools/\allowbreak investigation\_conformance.py}}
 to repeat the checks.
 
@@ -2004,10 +2113,18 @@ complete run returned every matching record. Release scope is free text,
 so the rules cannot hold a release or a later read to it. A release
 names a person but carries no authenticated approval tied to the draft.
 No record rule can show that the person read the draft, and the schema
-has no class for a fact recorded ahead of its effective date.
-Identifiers, dates and versions in the cases are illustrative. The
-schema has no record for a later retraction, early expiry or withdrawal
-(S4.1), so \mbox{IR-13} tests only a release's original expiry.
+has no class for a fact recorded ahead of its effective date. An
+observation does not name its source, so \mbox{IR-08} counts against an
+absence claim any such record of a named entity in the interval,
+whatever its source. Runs joined to cover an interval may have different
+cutoffs, and the absence then holds only as of the earliest. No rule
+compares a claim's sentence with its structured fields. The schema
+records no session, so \mbox{IR-14} treats every agent output open to a
+person at a given time as open in that person's session, whatever case
+it belongs to. Identifiers, dates and versions in the cases are
+illustrative. The schema has no record for a later retraction, early
+expiry or withdrawal (S4.1), so \mbox{IR-13} tests only a release's
+original expiry.
 
 \textbf{Requirements together.} One further rule checks a claim against
 the outcome records of S4.2:
@@ -2015,12 +2132,15 @@ the outcome records of S4.2:
 \begin{itemize}
 \tightlist
 \item
-  \mbox{XR-01}: a claim that relies on an item's outcome not being
-  reported lists the item and cites a channel reading of it taken by the
-  time of the draft. Every cited reading of the item shows a matured
-  absence, and a cited run that is complete and not scope-limited
-  evaluated the item from its clock start to the end of its reporting
-  window and returned nothing about it.
+  \mbox{XR-01}: a claim that states or relies on an item's outcome not
+  being reported lists the item, says which of the two it does, and
+  cites a channel reading of the item taken by the time of the draft.
+  Every cited reading of the item was made with full access and shows
+  that no report had arrived. Where the claim reads the absence as a
+  negative, every cited reading also shows a matured absence, and a
+  cited run that is complete and not scope-limited evaluated the item
+  from its clock start to the end of its reporting window and returned
+  nothing about it.
 \end{itemize}
 
 With \mbox{OR-01} to \mbox{OR-14} (S4.2) and \mbox{IR-01} to
@@ -2030,11 +2150,11 @@ the manuscript counts.
 The \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/joint_case.json}{joint
 case} adds a later investigation to the valid histories of S4.2 and this
 section. A person releases a claim that card attempt \mbox{PA-3} drew no
-fraud chargeback. The claim rests on a complete, empty run over the
-attempt's reporting window and on the reading that shows the window
-matured. Its four records pass, and each of four invalid cases fails
-\mbox{XR-01} alone. Two pairs of histories show that each requirement is
-needed when the other two hold:
+fraud chargeback, which reads the absence as a negative. The claim rests
+on a complete, empty run over the attempt's reporting window and on the
+reading that shows the window matured. Its four records pass, and each
+of six invalid cases fails \mbox{XR-01} alone. Two pairs of histories
+show that each requirement is needed when the other two hold:
 
 \begingroup\footnotesize
 
@@ -2067,18 +2187,20 @@ absence is a negative \\
 In the first pair every investigation record is the same, and both
 stores pass their own rules; only the channel records differ, and
 \mbox{XR-01} rejects the blocked attempt. In the second, \mbox{IR-08}
-and \mbox{XR-01} reject the stalled read. The rules cannot tell whether
-a claim relies on an unreported outcome it does not list, or which
-channels it should cite. The executable schema does not hold the claim
-as written (\texttt{claim\_text} in the
-\href{SUPPLEMENT/S4_DRAFT_SCHEMA.csv}{draft schema}), so a draft's
-version identifier is a digest of each claim's structured fields, such
-as its type, entities, interval, confidence and citations, not of the
-sentence a releaser reads. \mbox{XR-01} is also stricter than manuscript
-Section 6.4. It holds a claim that only states that no report arrived to
-the matured-absence rule, so it rejects that statement for a blocked
-attempt, where the statement is true and only its use as a negative is
-barred. No claim field says which of the two a claim does.
+and \mbox{XR-01} reject the stalled read. A fourth passing case blocks
+the attempt and changes the claim to one that only states that no report
+had arrived by the reading. \mbox{XR-01} accepts it: the statement is
+true of a blocked attempt, and only its use as a negative is barred
+(manuscript Section 6.4). Until 22 November 2026 no claim field told the
+two apart, and \mbox{XR-01} rejected both. Since that date each claim
+also holds its sentence (\texttt{claim\_text}, as the
+\href{SUPPLEMENT/S4_DRAFT_SCHEMA.csv}{draft schema} requires), and a
+draft's version identifier is a digest of its claims with their
+sentences, so a release names the sentence the releaser read. The rules
+cannot tell whether a claim relies on an unreported outcome it does not
+list, or which channels it should cite. They cannot read the sentence
+either: a claim marked as a status whose sentence draws a negative
+passes, and a reviewer has to catch it.
 
 \textbf{Adversarial test (10 and 11 November 2026).} Claude wrote under
 supervision both the rules and the invalid conformance cases. To test
@@ -2139,9 +2261,7 @@ Claude's first rulings, all 10. Of the three rejections, two are false
 and one is intended, because release preserves the assessment's
 uncertainty (manuscript Section 6.4).
 
-The failures are stated here as gaps and are not fixed, because a fix
-would again be tested only on the histories that prompted it. The
-fourteen rules do not check:
+At that round the fourteen rules did not check:
 
 \begin{itemize}
 \tightlist
@@ -2154,8 +2274,8 @@ fourteen rules do not check:
   a claim's outcome readings, which only \mbox{XR-01} checks;
 \item
   a note about another entity written while an agent output was open to
-  its writer, because \mbox{IR-14} matches by entity where manuscript
-  Section 4.2 matches by the writer's case or session;
+  its writer, because \mbox{IR-14} then matched by entity where
+  manuscript Section 4.2 matches by the writer's case or session;
 \item
   that a linked agent output existed when the record was learned;
 \item
@@ -2172,22 +2292,60 @@ observation of each named entity, as manuscript Section 6.4 states.
 Invalid case D40 tests the change; no outside tester has. It changes no
 outcome in either round.
 
-Two rules reject legitimate histories. \mbox{IR-08} asks for one run
+Two rules rejected legitimate histories. \mbox{IR-08} asked for one run
 that covers a whole absence interval, where several complete runs can
-cover it together. \mbox{IR-14} rejects a linked note that names no
+cover it together. \mbox{IR-14} rejected a linked note that names no
 producer, which manuscript Section 6.4 would count as dependent. The
-text leaves two questions open: whether a released conclusion may be
+text left two questions open: whether a released conclusion may be
 listed against a claim, and whether an unavailable run on another source
-defeats an absence claim that a complete run supports. A claim records
+defeats an absence claim that a complete run supports. A claim recorded
 no sources.
 
 Six of the seven failures share a form. One record refers to another,
-and no rule checks the kind of actor behind the other record, its type,
-its entity or its time. The seventh, the note about another entity, is a
-rule that matches two records more narrowly than the manuscript does.
+and no rule checked the kind of actor behind the other record, its type,
+its entity or its time. The seventh, the note about another entity, was
+a rule that matched two records more narrowly than the manuscript does.
 This reading is an inference from the cases, not a tested result.
-Deriving the rules from a table of every reference and those attributes
-is left as future work, and would need its own held-out test.
+
+\textbf{Revision after the held-out round (22 November 2026).} The rules
+above are revised from a table of every reference and those four
+attributes (the reference table above), not case by case. The revision
+closes the seven failures and the two false rejections. It also adds
+checks no tester had prompted, among them the type of a draft's writer,
+of an exposure's output and viewer and of a link's target, the time an
+exposure opens, and an unexpired release and a read behind every
+released conclusion cited as context. Three fields are new. A claim
+holds its sentence, an absence claim names its sources, and a claim that
+lists outcome items says whether it states their status or reads a
+negative. Two decisions settle the questions the text left open. A
+released conclusion is cited as context only, never against a claim,
+because C3 gives it the role of a hypothesis or context. An absence
+claim speaks for the sources it names, so an unavailable run over
+another source does not bear on it.
+
+Under the revised rules, 11 of the 12 round 2 histories meant to break a
+requirement are rejected, and the twelfth is the one ruled not a breach.
+Both false rejections are gone, and the intended rejection stands. Round
+1 is unchanged at nine of 13. These counts are measured on the histories
+the rules were revised on, as round 1's nine of 13 was. They show that
+the revision does what it was written to do, and nothing about new
+histories. The round 1 and 2 histories were written before the three
+fields existed. To rerun them, each claim that lacks them is given a
+placeholder sentence, the sources of every run it cites and the negative
+reading (\href{tools/adversarial_cases/run_cases.py}{runner}); the saved
+histories are not changed. Two of the 11 rejections depend on how the
+rerun is done. The history with the unavailable run is rejected because
+its claim is given both sources. The history that cites a later
+observation as an outcome reading is rejected by \mbox{XR-01}, which the
+rerun applies and the round 2 command did not.
+
+A third round, held out again, is fixed in a
+\href{tools/adversarial_cases/round3/PLAN.md}{plan} and has not been
+run. Its tester is to come from outside the two model families that
+wrote the rules and the earlier histories. Its
+\href{tools/adversarial_cases/PACKET_ROUND3.md}{packet} covers the joint
+case and \mbox{XR-01}, which the first two rounds did not. Until it is
+run, no outside test supports the revised rules.
 
 The 15 histories came from three sessions, where the plan fixed one,
 because each session closed before the next request; each later session
@@ -2204,17 +2362,20 @@ reruns them.
 
 \textbf{Cost.}
 \href{tools/investigation_cost.py}{\texttt{tools/investigation\_cost.py}}
-copies the valid case 100,000 times, each copy with its four query runs,
-seven stored records, two drafts, one exposure, one release decision,
-one released item and one memory read, and checks a sample against the
-rules. Per copy, the records take 8.6 KB as JSON: 3.5 KB for query runs,
-about 900 bytes each, and 2.6 KB for drafts, release and memory records.
-A thousand copies take 0.30 MB compressed and 9.8 MB in SQLite; repeated
-text makes the compressed figure a best case. On the two-core machine of
-S4.3, checking that an absence claim's runs are complete and cover it
-took a median of 38 microseconds (99th percentile 91), and checking that
-a memory read used a released, unexpired item took 30 (78).
-\href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json}{The
+copies the valid case 100,000 times, each copy with its own analyst,
+four query runs, seven stored records, two drafts, one exposure, one
+release decision, one released item and one memory read, and checks a
+sample against the rules. Per copy, the records take 8.9 KB as JSON: 3.5
+KB for query runs, about 900 bytes each, and 2.9 KB for drafts, release
+and memory records. A thousand copies take 0.31 MB compressed and 13.6
+MB in SQLite; repeated text makes the compressed figure a best case. The
+SQLite figure was 9.8 MB before each claim held its sentence: the longer
+of the two drafts, about 1,200 bytes, now exceeds what this table stores
+inline, about 1,000 bytes, and takes an overflow page. On the two-core
+machine of S4.3, checking that an absence claim's runs are complete and
+cover it took a median of 59 microseconds (99th percentile 144), and
+checking that a memory read used a released, unexpired item took 33
+(79). \href{SUPPLEMENT/S4_INVESTIGATION_RECORDS/cost_results.json}{The
 results} come from one run. Real coverage records list more sources per
 run, and reviewer time is not measured.
 
@@ -4889,8 +5050,10 @@ Do the records bear on it?
 \midrule\noalign{}
 
 The president approves the two accounts & The owners' credit
-delinquencies, then the first account's chargebacks and Mastercard's
-notice (opinion) & No.~The evidence reached the person who decided \\
+delinquencies, then the first account's chargebacks, heavy enough that
+Mastercard took notice of the merchant (opinion) & No.~The district
+court found that the processor, through him, knew or consciously avoided
+knowing \\
 Two officers decline the agent's accounts & Ordinary underwriting and
 the chargeback report (draft report) & No.~They judged the risk without
 such records and were overruled \\
@@ -4913,6 +5076,165 @@ follow them. Only the third conclusion turned on where an outcome was
 recorded, and there the comparison is to an accounting ledger, not to an
 agent's query. One case, with the approver inside the processor, does
 not show how often either happens.
+
+\hypertarget{s10.3-one-receivers-report-and-a-processors-emails}{%
+\subsubsection{S10.3 One receiver's report and a processor's
+emails}\label{s10.3-one-receivers-report-and-a-processors-emails}}
+
+\textbf{Why it is here.} S10.1 counts allegations. In one of its 14
+cases, FTC v. Apex Capital Group, LLC, No.~2:18-cv-09573 (C.D. Cal.),
+the court appointed a receiver over the seller. Twelve days later the
+receiver reported to the court from the seller's offices, files and two
+staff interviews
+{[}\protect\hyperlink{ref-ApexReceiver2018Report}{103}{]}. The report
+attaches a foreign processor's emails to the seller (Exhibit 15) and an
+accountant's review of the seller's books (Exhibit 19). It is
+preliminary and is not a finding of the court, and the review is limited
+to what the seller entered in its books. The
+\href{tools/receiver_report/README.md}{protocol} was fixed before the
+report was read in full, including what would count against the records.
+Two of the 14 dockets were checked for such filings and only this one
+had a report, so the case is not a sample. One model read and coded it,
+and no human checked the reading. The
+\href{tools/receiver_report/FINDINGS.csv}{findings sheet} gives a page
+and line for each statement, and the
+\href{tools/receiver_report/READING.md}{reading record} lists what was
+not read.
+
+\textbf{What the report states.} Read against the sheet of S10.1, the
+report states four of the seven tactics as fact. One operation sold
+through 57 nominee companies with 68 bank accounts; the report ties the
+number of accounts to processors' monthly volume caps and to closures
+when chargebacks passed 3 percent of sales (T1). Paid signers who were
+not on the terminated-merchant list fronted the companies, and false
+websites went in with the applications (T2). Every day, staff refunded
+the orders that alert vendors flagged as likely chargebacks, to avoid
+closures (T5). New nominees replaced closed accounts (T6). The report
+does not describe several sellers in one account (T3) or padding (T4).
+S10.1 marks this complaint as alleging T1 to T4 and T7 and not T5, with
+T6 disputed. So the report states one tactic the complaint does not
+allege and is silent on two it does. The receiver calls the finance
+officer generally credible and the employee who issued the refunds not
+entirely so.
+
+\textbf{The seller's books.} For the 25 U.K. companies, the books record
+chargebacks of 14.6 percent of 2015 to 2018 sales and refunds of 12.7
+percent, with pounds counted as dollars as the exhibit does. The report
+does not say what share of the refunds followed an alert, or that any
+processor received the alerts. For the U.S. companies the exhibit's
+table has one refunds line of 13.9 percent and no chargeback figure, and
+its text calls that line refunds and chargebacks; the split is unknown.
+\href{tools/receiver_report/check_figures.py}{\texttt{check\_figures.py}}
+recomputes every figure here from the two transcribed tables.
+
+\textbf{The processor's emails.} The report says the seller moved its
+processing to a Latvian processor, SIA Transact Pro, in early 2016 after
+domestic accounts were cancelled for chargebacks, and that it first
+appealed to the seller as more lenient on chargebacks than domestic
+banks. Exhibit 15 holds that processor's emails to the seller. On 27
+April 2018 it sent Visa fraud figures for four of the U.K. companies and
+wrote that the bank would stop taking Visa cards for them ``due to the
+high fraud amount, count and \% of fraud amount''. By amount, fraud was
+6.06 to 10.62 percent of Visa sales in each of the eight
+merchant-months. By count it was 2.46 to 3.15 percent in March and 3.28
+to 15.23 percent in April. March had five times April's payments at
+about a quarter of the average amount; pooled over the four companies,
+its rate was 7.5 percent by amount and 2.6 percent by count. The sheet
+bars inferring a tactic from an outcome, so this does not mark T4. The
+processor's list ties the four companies to 36 terminals, each with its
+website. It wrote that four of them, which it acquired directly, would
+keep working unchanged, and wrote so again on 24 May, when the bank was
+also to stop Mastercard. In October 2018 it wrote that its regulator's
+tighter requirements forced it to close the accounts but that it could
+still keep the seller's processing. It offered merchant accounts in the
+name of one of the seller's companies, for the current websites of four
+others or for new ones, paid out through another processor.
+
+\textbf{The processor's position and the outcome.} The processor moved
+to dismiss {[}\protect\hyperlink{ref-TransactPro2019Motion}{104}{]}. Its
+motion does not discuss these emails. It says the processor is licensed
+in Latvia, served the U.K. companies through two Latvian banks and acted
+only in Latvia. It disputes the laundering claim and calls unfounded the
+claims that it helped lower chargeback ratios through microtransactions
+and higher volume limits; it says its staff sent the commands for those
+microtransactions and does not concede their purpose. It says several
+merchant accounts for one client are a common practice that the card
+networks encourage, and that it terminated its negative-option accounts
+as of November 2018, as its regulator had suggested. The court denied
+the motion; that order is not in the public archive and was read only as
+docket entry 123. In January 2020 the court entered a stipulated order
+with a \$3.5 million judgment, in which the processor neither admits nor
+denies the allegations
+{[}\protect\hyperlink{ref-CDCal2020TransactProOrder}{105}{]}. The order
+requires it to calculate chargeback rates for each of a high-risk
+client's accounts and in the aggregate (Section VI.C), and to keep
+chargeback and refund totals by amount and by number (Section XII.D).
+
+\begin{table}[tp]
+\textbf{Table S10.3. Three conclusions in the case and whether the
+specified records bear on them.} The last column is a reading of the
+report and its two exhibits, not a test.\par\smallskip
+{\small
+\begin{tabular}{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3400}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3600}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Conclusion at the time
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evidence then available, and who held it
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Do the records bear on it?
+\end{minipage} \\
+\midrule\noalign{}
+
+A domestic processor opens an account for a new nominee company & The
+application: a signer not on the terminated-merchant list, a new
+company, its bank account and a website made for the application
+(report). The seller's websites ran on its own server; the report does
+not say any processor compared hosting & Only where a shared attribute
+is recorded. The report shows none that a processor held. This is the
+stated limit for front accounts \\
+A domestic processor reads an account's chargebacks & That account's
+chargebacks. Staff refunded flagged orders every day to keep them down
+(report). In the U.K. books refunds were about as large as chargebacks
+(Exhibit 19) & Yes, in kind. An alert kept as its own record, with the
+refund it led to (C1), shows outcomes the chargeback count omits. Not
+shown: that a processor received the alerts. The report says the earlier
+accounts were all closed for excessive chargebacks anyway; five newer
+ones were still processing \\
+The foreign processor writes that four terminals will keep working, then
+offers new accounts & Its own fraud figures for each company and its own
+list tying the companies and terminals to one client (Exhibit 15) &
+No.~It held the figures and the link \\
+
+\bottomrule\noalign{}
+\end{tabular}
+}
+\end{table}
+
+\textbf{Reading.} The protocol fixed three results in advance as
+counting against the records. The first occurred: a processor held the
+figures and the link and offered to keep processing (T7). The second is
+partly met. For the front accounts the report names no shared attribute
+that a domestic processor held; it does show one on the seller's side, a
+single server hosting its websites, and does not say whether a processor
+could see it. The third, an account closed by ordinary monitoring
+without the specified records, is not settled. The report says the
+earlier accounts were all closed for excessive chargebacks and that five
+newer domestic accounts were still processing, and it does not say what
+any processor monitored. Closure did not end the operation, because new
+nominees replaced closed accounts; the gap the report describes is at
+account opening. Two results fit the records. The books record refunds
+about as large as chargebacks, and the report says refunds were used to
+pre-empt chargebacks, which is the case for keeping the channels apart
+(C1). And one month's fraud rate was nearly three times as high by
+amount as by count, so a rule stated by value, like the one in the
+second replay, cannot be checked from counts. One case, read once by one
+model, from a preliminary report written from the seller's side, shows
+neither how often these happen nor what any processor's systems
+recorded.
 
 \FloatBarrier
 
@@ -5540,6 +5862,35 @@ District Court, Middle District of Florida. Unsigned draft of an
 internal investigation report, filed by the FTC as an exhibit; one
 party\textquotesingle s account, not a finding.
 \url{https://www.courtlistener.com/docket/4226610/110/1/federal-trade-commission-v-wv-universal-management-llc/}.
+Accessed 22 November 2026.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ApexReceiver2018Report}{}}%
+{[}103{]} Temporary Receiver for Apex Capital Group, LLC. 2018.
+Preliminary report of temporary receiver. ECF 31, FTC v. Apex Capital
+Group, LLC, No. 2:18-cv-09573 (C.D. Cal.). US District Court, Central
+District of California. A receiver\textquotesingle s preliminary report
+to the court, with Exhibit 15 (a processor\textquotesingle s emails) and
+Exhibit 19 (an accountant\textquotesingle s review of the
+seller\textquotesingle s books) in ECF 31-3; not a finding of the court.
+\url{https://www.courtlistener.com/docket/8438203/31/federal-trade-commission-v-apex-capital-group-llc/}.
+Accessed 22 November 2026.
+
+\leavevmode\vadjust pre{\hypertarget{ref-TransactPro2019Motion}{}}%
+{[}104{]} SIA Transact Pro. 2019. Notice of motion and motion to
+dismiss. ECF 104, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573
+(C.D. Cal.). US District Court, Central District of California. A
+defendant\textquotesingle s motion; one party\textquotesingle s
+position, not a finding. The court denied it (ECF 123).
+\url{https://www.courtlistener.com/docket/8438203/104/federal-trade-commission-v-apex-capital-group-llc/}.
+Accessed 22 November 2026.
+
+\leavevmode\vadjust pre{\hypertarget{ref-CDCal2020TransactProOrder}{}}%
+{[}105{]} US District Court, Central District of California. 2020.
+Stipulated order for permanent injunction and monetary judgment (SIA
+Transact Pro defendants). ECF 142, FTC v. Apex Capital Group, LLC, No.
+2:18-cv-09573 (C.D. Cal.). Consent order; the settling defendants
+neither admit nor deny the complaint\textquotesingle s allegations.
+\url{https://www.courtlistener.com/docket/8438203/142/federal-trade-commission-v-apex-capital-group-llc/}.
 Accessed 22 November 2026.
 
 \end{CSLReferences}
