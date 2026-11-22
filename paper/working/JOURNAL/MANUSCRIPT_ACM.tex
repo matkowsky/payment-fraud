@@ -1,6 +1,6 @@
 % Pandoc template for the ACM journal build (JOURNAL_BUILD.py). ACM large format, as DTRAP uses.
 % Preprint mode: [acmlarge,nonacm] removes ACM's copyright block and citation footer.
-% Anonymous mode: [acmlarge,review,anonymous] hides the author and adds line numbers for review; the name and
+% Anonymous mode: [acmlarge,review,anonymous,nonacm] hides the author, adds line numbers and drops the journal footer; the name and
 % email are also left out of the TeX, so the anonymous source names no one.
 \documentclass[acmlarge,nonacm]{acmart}
 \usepackage{longtable,array,calc}
@@ -62,24 +62,21 @@ record an agent output informed links back to that output.
 Draft schemas, 29 cross-record rules and two reference checkers make the
 requirements testable; frozen rules rejected two of 12 adversarial
 histories from a second model and, after revision, 11 of 13 from a
-third. Public sources supply the premises, and Stripe's public pages and
-documentation an illustrative product scope. Two hypothetical
-investigations show how missing context changes what the same
-observations can support; AI models given written versions made more
-counted errors with records modeled on providers' documentation than
-with the specified records in 4 of 32 planned comparisons, and fewer in
-2. Replays of two FTC complaints on synthetic records show what the
-records expose and miss, and a model-coded count across 14 such
-complaints shows how often each tactic is alleged. Three court records
-state most of those tactics as fact and mark a limit: in each, a
-processor had the information or ran the conduct. The contribution is a
-joint specification for investigation across payment products, built on
-established methods and recent agent-governance designs. It is a
-synthesis, not a new method. The architecture has not been built, no
-private platform data were used, its only experiments use synthetic
-records, one simulation and written cases answered by AI models, and no
-practitioner has reviewed it. An evaluation plan and a closed-case audit
-kit invite field studies.
+third. A model-coded count across 14 FTC complaints shows how often each
+tactic is alleged. Three court records state most of those tactics as
+fact and mark a limit: in each, a processor had the information or ran
+the conduct. Synthetic replays of two complaints show what the records
+expose and miss. In two hypothetical investigations, AI models given
+written versions made more counted errors with records modeled on
+providers' documentation than with the specified records in 4 of 32
+planned comparisons, and fewer in 2. Public sources supply the premises,
+and Stripe's documentation an illustrative product scope. The
+specification is a synthesis of established methods and recent
+agent-governance designs, not a new method. The architecture has not
+been built, no private platform data were used, its only experiments use
+synthetic records, one simulation and written cases answered by AI
+models, and no practitioner has reviewed it. The supplement provides the
+schemas, checkers and a closed-case audit kit for field studies.
 \end{abstract}
 \keywords{payment fraud, abuse investigation, threat intelligence,
 selective labels, agent memory, provenance, human oversight}
@@ -653,8 +650,8 @@ Common control is an inference. A released report retaining that
 qualified inference becomes organizational memory; retrieving it creates
 no new observation. An investigator may follow its lineage to cite the
 original observations at their original times and sources. A
-threat-intelligence reference model likewise traces the creator and
-modifiers of each intelligence product
+threat-intelligence reference model traces each intelligence product's
+creator and modifiers
 {[}\protect\hyperlink{ref-Sakellariou2022CTIReferenceModel}{47}{]}.
 
 Dependence must also survive indirect reuse. A human label, assessment,
@@ -711,9 +708,8 @@ from}\label{records-an-investigator-can-reason-from}}
 This section answers the records part of RQ1 in four steps: record
 classes that state what each record can establish (5.1), the abuse
 mechanisms that motivate particular records (5.2), the properties each
-store must preserve (5.3), and what published schemas already supply and
-privacy obligations permit (5.4 and 5.5). Section 6.3 adds the
-capabilities.
+store must preserve (5.3), and what public schemas supply and privacy
+obligations permit (5.4 and 5.5). Section 6.3 adds the capabilities.
 
 \hypertarget{separate-observations-from-conclusions}{%
 \subsection{Separate observations from
@@ -1023,8 +1019,8 @@ coverage record. The agent sees only information allowed by its scope,
 including counts only when disclosure is authorized. A scope-limited
 flag identifies when authorized scope is narrower than the task's named
 entities, without disclosing outside records. The checker restricts
-absence claims accordingly. An unassessable hypothesis remains distinct
-from a query's status.
+absence claims accordingly. An unassessable hypothesis differs from a
+query's status.
 
 \hypertarget{capabilities-and-their-boundaries}{%
 \subsection{Capabilities and their
@@ -1207,9 +1203,9 @@ decisions}\label{interpreting-feedback-after-protective-decisions}}
 
 This section answers RQ3. Of the three feedback loops in Section 4.2, it
 concerns the two that leave the case: protective feedback, which changes
-the platform and therefore the evidence available afterwards (Sections
-7.1 and 7.2), and organizational-learning feedback, which carries
-conclusions and procedures into later cases (Section 7.3).
+the platform and so the evidence available afterwards (Sections 7.1 and
+7.2), and organizational-learning feedback, which carries conclusions
+and procedures into later cases (Section 7.3).
 
 \hypertarget{separate-delay-observability-and-report-truth}{%
 \subsection{Separate delay, observability and report
@@ -1277,10 +1273,10 @@ Stripe's dispute guide says card networks typically allow cardholders to
 dispute within 120 days of the original payment, sometimes longer, and
 that for a future event or service the window generally starts on the
 event date {[}\protect\hyperlink{ref-Stripe2026Disputes}{48}{]}. Rules
-vary by network and version. The records therefore distinguish
-authorization, capture and processing times and use the clock-start
-event specified by the applicable channel rule. Missing rules or
-timestamps leave maturity unknown.
+vary by network and version. The records distinguish authorization,
+capture and processing times and use the clock-start event of the
+applicable channel rule. Missing rules or timestamps leave maturity
+unknown.
 
 Capture may also gate possible-fraud reporting. Stripe's monitoring
 guide says issuers must report possible fraud on captured payments, even
@@ -1628,7 +1624,9 @@ with the records behind Table 2: each decision's effect on each outcome
 channel and each channel's state for each payment (C1), a gateway record
 of what each query covered and when each fact became known (C2), and a
 release step before an agent conclusion enters reusable memory (C3).
-Stripe already exposes parts of the first two (Section 2.4).
+Stripe already exposes parts of the first two (Section 2.4). Engineers
+can run Supplement S4's schemas, rules and checkers on a platform's
+records mapped to the schemas.
 
 To estimate C1's cost, one million synthetic payments with two outcome
 channels each were built from the schema's valid conformance case
@@ -1715,7 +1713,7 @@ tactics the specified records could expose if the needed data were
 recorded; an allegation does not show that a record would have exposed
 the conduct. Of the 10 to 12 alleging split volume or front accounts, 9
 to 12 tie a shared attribute, such as an owner, address or website, to
-those accounts.
+them.
 
 Two results cut the other way. Padding with small or sham sales, which
 the records cannot expose, is alleged in 4 complaints. And all 14 allege
@@ -1798,9 +1796,8 @@ false reports; E4 bears on the decision links. Passing E1, E3, E8 and E9
 would therefore not establish the value of each of those links and
 fields on its own. E8 tests C3's release gate. The exploratory E6 checks
 that required links back to agent outputs exist. No evaluation tests the
-urgent-containment route in Section 6.4. The rate at which later review
-reverses its actions, and the service those actions interrupt, remain
-unmeasured.
+urgent-containment route in Section 6.4, so its reversal rate and the
+service it interrupts remain unmeasured.
 
 \textbf{E1. Coverage and learned time:} Do these records reduce
 unsupported conclusions in cases with incomplete history or links
@@ -1928,7 +1925,7 @@ The records expose two alleged patterns & Synthetic replays and sweeps
 Each of the five tactics the records could expose is alleged in 5 to 13
 of 14 FTC complaints & Count by two model coders and three model
 adjudicators (8.5, S10.1) & How often the tactics occur; that a record
-would have exposed them; any human check of the coding \\
+would have exposed them; any human coding \\
 Court records state tactics as fact & One model's reading (8.5, S10.2 to
 S10.4) & Frequency; that a record would have helped \\
 The signals and responsibilities cover the mechanisms & The author's
@@ -1962,28 +1959,37 @@ Estimating a decision's effect still requires identifying assumptions
 complaints motivate alleged mechanisms; vendor accounts support
 attributed observations within their stated settings.
 
+\textbf{Rigor.} For internal validity, rules and checkers were frozen
+before the second and third adversarial rounds, and the second model
+run, the complaint sheet and the receivers' reading protocol were fixed
+before use. External validity is the main limit: synthetic records,
+model respondents and enforcement-selected cases. For containment, no
+payment system, account or private data was touched. For transparency,
+the supplement links the packets, plans, run records, rulings and
+scripts behind each model result, and results against the specification
+are reported.
+
 \hypertarget{conclusion}{%
 \section{Conclusion}\label{conclusion}}
 
 An investigation across payment products needs more than joined records.
-It must preserve why an outcome could be observed, what was available to
-a query, and whether apparent support comes from an earlier conclusion.
+It must preserve why an outcome could be observed, what a query could
+see and whether apparent support comes from an earlier conclusion.
 
 This paper combines those requirements in one specification grounded in
-public evidence, and proposes answers to the three research questions.
-For RQ1, records keep their meaning across products through the seven
-record classes, the store contract and C2's coverage and learned-time
-records, which bound what an investigation could have established; each
-analytical capability carries the limit on what its results can show.
-For RQ2, the agent tests explanations without operational authority: its
-queries pass a gateway whose coverage records it cannot alter, and its
-drafts pass a checker, independent quality review and the human release
-of C3. A released conclusion stays context and keeps its dependence on
-earlier agent outputs. For RQ3, feedback rests on C1's decision-linked
-outcome channels, which keep missing reports from silently becoming
-negatives, and on lessons that are tested, reviewed and released for a
-defined scope before reuse, monitored during it and, when they
-exonerate, re-tested at expiry.
+public evidence. For RQ1, records keep their meaning across products
+through the seven record classes, the store contract and C2's coverage
+and learned-time records, which bound what an investigation could have
+established; each analytical capability carries the limit on what its
+results can show. For RQ2, the agent tests explanations without
+operational authority: its queries pass a gateway whose coverage records
+it cannot alter, and its drafts pass a checker, independent quality
+review and the human release of C3. A released conclusion stays context
+and keeps its dependence on earlier agent outputs. For RQ3, feedback
+rests on C1's decision-linked outcome channels, which keep missing
+reports from silently becoming negatives, and on lessons that are
+tested, reviewed and released for a defined scope before reuse,
+monitored during it and, when they exonerate, re-tested at expiry.
 
 The next test is operational value: whether these records improve
 conclusions, whether the release gate works under realistic demand, and
