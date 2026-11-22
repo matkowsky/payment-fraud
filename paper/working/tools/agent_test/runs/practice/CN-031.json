@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-031",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "1f8132e3e29f4ee9208ef7117bd5a1c413ca91b8a0a3a08137fbd10425fc9905",
+ "sent_at": "2026-11-22T00:32:17+00:00",
+ "received_at": "2026-11-22T00:32:24+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH2QXmZ8y28Wgc6nM7Zh",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. Past seven days of requests returned only the earlier pattern, so nothing shows earlier misuse in that window. But the key was published, and we only know of requests in the seven days. Was the burst the first misuse? The search covered seven days, and publication was presumably within it. The burst at 19 minutes is the first anomalous activity in the record, but misuse could have occurred in the 19 minutes before, and the search would have shown it. The search returned only the earlier stable requests, so no misuse is seen between publication and the burst. The answer is \"Yes\", with the caveat that the key's requests are logged. The one possibility is that the search is incomplete, but we take it as shown.\n\nA2. The check did not flag the account. Whether evidence was available to it is not stated, so we cannot tell.\n\nA3. A shared payout destination alone doesn't show one owner: No, not by itself.\n\nA4. Absence of reports after 30 days: the payouts may not yet have been noticed, and no finding has been recorded. It is weak at best, but \"No\" is better since absence of a recorded report does not show legitimacy. Whether to choose \"Yes, weakly\" or \"No\": the absence of any recorded report is weakly consistent with legitimacy, but it is not an indication given that no one may be looking, and the burst itself is suspicious. I'll choose Cannot tell, since we don't know whether anyone would have reported.\n\nA5. Yes, it warrants investigation.\n\nCase B\n\nB1. D has 0 chargebacks versus 2 for the others at 100 transactions each, so D's rate is lower: Yes.\n\nB2. A combined 5 percent does not show that no account is above 5 percent. The chargeback-or-alert measure is also different from the chargebacks recorded, so No.\n\nB3. The search found no other accounts, but it covered the merchant accounts for this person only. It doesn't rule out accounts under other names: No.\n\nB4. Two notes from different analysts on different days might be independent, but they could be based on the same data. Cannot tell.\n\nB5. A blocked payment with no chargeback isn't a non-fraud transaction: No.\n\nB6. Yes, shared templates and descriptor patterns justify investigating together.\n\nRESULT CN-031 | A1: Yes | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: Yes | B2: No | B3: No | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1233,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 807,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

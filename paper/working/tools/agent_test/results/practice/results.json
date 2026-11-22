@@ -1,0 +1,5371 @@
+{
+ "phase": "practice",
+ "models": {
+  "gpt-6.1-sol": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "gpt-6.1-sol": 90
+   },
+   "no_answer": {},
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 5,
+       "supported": 13,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0564,
+        0.3472
+       ],
+       "answers": {
+        "yes weakly": 5,
+        "no": 13,
+        "cannot tell": 12
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 27,
+        "cannot tell": 3
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 29,
+        "no": 1
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 35,
+       "supported": 73,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 12,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.2266,
+        0.594
+       ],
+       "answers": {
+        "cannot tell": 18,
+        "yes": 12
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 29,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 29,
+        "cannot tell": 1
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 12,
+       "supported": 59,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 120,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 1,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 29,
+        "no": 1
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 24,
+        "no": 6
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 91,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  },
+  "gpt-6.1-terra": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "gpt-6.1-terra": 90
+   },
+   "no_answer": {},
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes weakly": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 29,
+        "cannot tell": 1
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 60,
+       "supported": 60,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 1,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0008,
+        0.1722
+       ],
+       "answers": {
+        "cannot tell": 29,
+        "yes": 1
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 28,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 2,
+        "no": 28
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 1,
+       "supported": 60,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 118,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 29,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8278,
+        0.9992
+       ],
+       "answers": {
+        "yes weakly": 29,
+        "cannot tell": 1
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 26,
+        "cannot tell": 4
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 25,
+        "cannot tell": 5
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 29,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  },
+  "gpt-6-luna": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "gpt-6-luna": 90
+   },
+   "no_answer": {},
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 2,
+       "supported": 28,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0082,
+        0.2207
+       ],
+       "answers": {
+        "yes": 2,
+        "cannot tell": 28
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 4,
+       "supported": 24,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0376,
+        0.3072
+       ],
+       "answers": {
+        "yes weakly": 4,
+        "no": 24,
+        "cannot tell": 2
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 28,
+        "cannot tell": 2
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 32,
+       "supported": 58,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 34,
+       "supported": 84,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 25,
+       "supported": 1,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.6528,
+        0.9436
+       ],
+       "answers": {
+        "no": 1,
+        "yes": 25,
+        "cannot tell": 4
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 17,
+        "cannot tell": 13
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 4,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 26,
+        "no": 4
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 25,
+       "supported": 35,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 107,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 8,
+       "supported": 19,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.1228,
+        0.4589
+       ],
+       "answers": {
+        "no": 19,
+        "yes weakly": 8,
+        "cannot tell": 3
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 9,
+       "supported": 21,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.1473,
+        0.494
+       ],
+       "answers": {
+        "cannot tell": 21,
+        "yes": 9
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 5,
+       "supported": 25,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0564,
+        0.3472
+       ],
+       "answers": {
+        "cannot tell": 24,
+        "yes": 5,
+        "no": 1
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 9,
+       "supported": 81,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 8,
+       "supported": 109,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 5,
+       "supported": 25,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  },
+  "claude-opus-5-5": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "claude-opus-5-5": 90
+   },
+   "no_answer": {},
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 7,
+       "supported": 23,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0993,
+        0.4228
+       ],
+       "answers": {
+        "yes weakly": 7,
+        "no": 23
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 9,
+       "supported": 21,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.1473,
+        0.494
+       ],
+       "answers": {
+        "no": 21,
+        "yes": 9
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 15,
+        "no": 15
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 9,
+       "supported": 81,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 37,
+       "supported": 83,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 15,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 15,
+        "cannot tell": 15
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 75,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 120,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 8,
+       "supported": 22,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.1228,
+        0.4589
+       ],
+       "answers": {
+        "cannot tell": 22,
+        "yes": 8
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 4,
+       "supported": 26,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0376,
+        0.3072
+       ],
+       "answers": {
+        "no": 26,
+        "yes weakly": 4
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 29,
+        "no": 1
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 8,
+       "supported": 82,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 4,
+       "supported": 116,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  },
+  "claude-sonnet-5-5": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "claude-sonnet-5-5": 90
+   },
+   "no_answer": {},
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 20,
+       "supported": 10,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.4719,
+        0.8271
+       ],
+       "answers": {
+        "cannot tell": 10,
+        "yes": 20
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 2,
+       "supported": 7,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0082,
+        0.2207
+       ],
+       "answers": {
+        "no": 7,
+        "cannot tell": 21,
+        "yes weakly": 2
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 14,
+        "cannot tell": 16
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 24,
+        "no": 6
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 20,
+       "supported": 70,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 32,
+       "supported": 67,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 14,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 14,
+        "cannot tell": 16
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 17,
+        "cannot tell": 13
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 14,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 16,
+        "no": 14
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 58,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 107,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 27,
+       "supported": 1,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.7347,
+        0.9789
+       ],
+       "answers": {
+        "yes": 27,
+        "cannot tell": 1,
+        "no": 2
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 7,
+       "supported": 23,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0993,
+        0.4228
+       ],
+       "answers": {
+        "cannot tell": 23,
+        "yes": 7
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 1,
+       "supported": 4,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0008,
+        0.1722
+       ],
+       "answers": {
+        "no": 4,
+        "cannot tell": 25,
+        "yes weakly": 1
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 34,
+       "supported": 54,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 1,
+       "supported": 94,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  },
+  "claude-haiku-5-5": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "claude-haiku-5-5": 90
+   },
+   "no_answer": {},
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 2,
+       "supported": 28,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0082,
+        0.2207
+       ],
+       "answers": {
+        "cannot tell": 28,
+        "yes": 2
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 10,
+       "supported": 20,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.1729,
+        0.5281
+       ],
+       "answers": {
+        "cannot tell": 20,
+        "yes": 10
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 6,
+        "no": 24
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 26,
+        "cannot tell": 4
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 17,
+        "no": 13
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 12,
+       "supported": 78,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 30,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 27,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 27,
+        "cannot tell": 3
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 25,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 25,
+        "cannot tell": 5
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 28,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 2,
+        "no": 28
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 22,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 22,
+        "cannot tell": 8
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 79,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 113,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 3,
+       "supported": 27,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0211,
+        0.2653
+       ],
+       "answers": {
+        "cannot tell": 27,
+        "yes": 3
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 6,
+       "supported": 24,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0771,
+        0.3857
+       ],
+       "answers": {
+        "cannot tell": 24,
+        "yes": 6
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 26,
+        "cannot tell": 4
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 25,
+        "cannot tell": 5
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 9,
+       "supported": 81,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 120,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  },
+  "gpt-6.2-astra": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "gpt-6.2-astra": 90
+   },
+   "no_answer": {},
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 30,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.8843,
+        1.0
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 30,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 0,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 60,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 120,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 19,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 19,
+        "cannot tell": 11
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 26,
+        "cannot tell": 4
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 25,
+        "no": 5
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 109,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  },
+  "claude-fable-5-2": {
+   "planned": 90,
+   "run": 90,
+   "model_shown": {
+    "claude-fable-5-2": 90
+   },
+   "no_answer": {
+    "CF-036": "no RESULT line",
+    "CF-042": "no RESULT line",
+    "CF-059": "no RESULT line",
+    "CF-082": "no RESULT line",
+    "CF-008": "no RESULT line",
+    "CF-009": "no RESULT line",
+    "CF-015": "no RESULT line",
+    "CF-017": "no RESULT line",
+    "CF-020": "no RESULT line",
+    "CF-022": "no RESULT line",
+    "CF-023": "no RESULT line",
+    "CF-027": "no RESULT line",
+    "CF-029": "no RESULT line",
+    "CF-032": "no RESULT line",
+    "CF-054": "no RESULT line",
+    "CF-057": "no RESULT line",
+    "CF-076": "no RESULT line"
+   },
+   "stopped": {},
+   "conditions": {
+    "case_only": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 9,
+       "supported": 17,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.1473,
+        0.494
+       ],
+       "answers": {
+        "cannot tell": 17,
+        "yes": 9
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 22,
+       "supported": 4,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.5411,
+        0.8772
+       ],
+       "answers": {
+        "yes": 22,
+        "cannot tell": 4
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 26,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 26
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 26,
+       "supported": 0,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.6928,
+        0.9624
+       ],
+       "answers": {
+        "yes weakly": 26
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 26,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 26
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 26,
+       "supported": 0,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.6928,
+        0.9624
+       ],
+       "answers": {
+        "yes": 26
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 26,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 26
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 25,
+       "supported": 1,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.6528,
+        0.9436
+       ],
+       "answers": {
+        "yes": 25,
+        "no": 1
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 26,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 24,
+        "no": 2
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 26,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 26
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 26,
+       "no_answer": 4,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 26
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 56,
+       "supported": 22,
+       "no_answer": 12,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 78,
+       "no_answer": 12,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 52,
+       "supported": 52,
+       "no_answer": 16,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 26,
+       "no_answer": 4,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "records": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "cannot tell": 30
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 27,
+       "supported": 3,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.7347,
+        0.9789
+       ],
+       "answers": {
+        "yes": 27,
+        "no": 3
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 30
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 23,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 23,
+        "cannot tell": 7
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 30
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 30
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 27,
+       "supported": 56,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 90,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 0,
+       "supported": 120,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 0,
+       "supported": 30,
+       "no_answer": 0,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    },
+    "practice": {
+     "sessions": 30,
+     "items": {
+      "A1": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 16,
+       "supported": 1,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.3433,
+        0.7166
+       ],
+       "answers": {
+        "yes": 16,
+        "cannot tell": 1
+       }
+      },
+      "A2": {
+       "requirement": "C2 learned time",
+       "sessions": 30,
+       "errors": 13,
+       "supported": 4,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.2546,
+        0.6257
+       ],
+       "answers": {
+        "yes": 13,
+        "cannot tell": 4
+       }
+      },
+      "A3": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no not by itself": 17
+       }
+      },
+      "A4": {
+       "requirement": "C1 channel state",
+       "sessions": 30,
+       "errors": 16,
+       "supported": 1,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.3433,
+        0.7166
+       ],
+       "answers": {
+        "yes weakly": 16,
+        "no": 1
+       }
+      },
+      "A5": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 17
+       }
+      },
+      "B1": {
+       "requirement": "C1 attribution",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 17
+       }
+      },
+      "B2": {
+       "requirement": "C1 per-account outcome",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 17
+       }
+      },
+      "B3": {
+       "requirement": "C2 coverage",
+       "sessions": 30,
+       "errors": 5,
+       "supported": 12,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0564,
+        0.3472
+       ],
+       "answers": {
+        "yes": 5,
+        "cannot tell": 12
+       }
+      },
+      "B4": {
+       "requirement": "C3 exposure links",
+       "sessions": 30,
+       "errors": 3,
+       "supported": 14,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0211,
+        0.2653
+       ],
+       "answers": {
+        "yes": 3,
+        "cannot tell": 14
+       }
+      },
+      "B5": {
+       "requirement": "C1 decision link",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "no": 17
+       }
+      },
+      "B6": {
+       "requirement": "Control",
+       "sessions": 30,
+       "errors": 0,
+       "supported": 17,
+       "no_answer": 13,
+       "stopped": 0,
+       "error_interval": [
+        0.0,
+        0.1157
+       ],
+       "answers": {
+        "yes": 17
+       }
+      }
+     },
+     "by_requirement": {
+      "C2": {
+       "errors": 34,
+       "supported": 17,
+       "no_answer": 39,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "Control": {
+       "errors": 0,
+       "supported": 51,
+       "no_answer": 39,
+       "stopped": 0,
+       "item_answers": 90
+      },
+      "C1": {
+       "errors": 16,
+       "supported": 52,
+       "no_answer": 52,
+       "stopped": 0,
+       "item_answers": 120
+      },
+      "C3": {
+       "errors": 3,
+       "supported": 14,
+       "no_answer": 13,
+       "stopped": 0,
+       "item_answers": 30
+      }
+     }
+    }
+   }
+  }
+ },
+ "comparisons": [
+  {
+   "model": "gpt-6.1-sol",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.1-sol",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 12,
+   "records_usable": 30,
+   "p": 0.0001236183632391236,
+   "p_holm": 0.0033376958074563374,
+   "reading": "more errors with the records"
+  },
+  {
+   "model": "gpt-6.1-sol",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.1-sol",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.1-terra",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.1-terra",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 1,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "gpt-6.1-terra",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 29,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 5.242482506564868e-16,
+   "p_holm": 1.6775944021007578e-14,
+   "reading": "more errors with current practice"
+  },
+  {
+   "model": "gpt-6.1-terra",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6-luna",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6-luna",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 25,
+   "records_usable": 30,
+   "p": 5.48992768087473e-12,
+   "p_holm": 1.646978304262419e-10,
+   "reading": "more errors with the records"
+  },
+  {
+   "model": "gpt-6-luna",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 8,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.004575062390691967,
+   "p_holm": 0.10980149737660722,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "gpt-6-luna",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 9,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.001935603319138909,
+   "p_holm": 0.05032568629761164,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-opus-5-5",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 8,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.004575062390691967,
+   "p_holm": 0.10980149737660722,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-opus-5-5",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "claude-opus-5-5",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 4,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.11239964317573595,
+   "p_holm": 1.0,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-opus-5-5",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "claude-sonnet-5-5",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 27,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 9.226769211554167e-14,
+   "p_holm": 2.860298455581792e-12,
+   "reading": "more errors with current practice"
+  },
+  {
+   "model": "claude-sonnet-5-5",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 7,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.010542535074203227,
+   "p_holm": 0.231935771632471,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-sonnet-5-5",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 1,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-sonnet-5-5",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "claude-haiku-5-5",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 3,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.23728813559322035,
+   "p_holm": 1.0,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-haiku-5-5",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 6,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.023720703916957263,
+   "p_holm": 0.4981347822561025,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-haiku-5-5",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "claude-haiku-5-5",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "gpt-6.2-astra",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 0,
+   "practice_usable": 30,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "reading": "no error in either condition; tests nothing"
+  },
+  {
+   "model": "claude-fable-5-2",
+   "item": "A1",
+   "requirement": "C2 coverage",
+   "practice_errors": 16,
+   "practice_usable": 17,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.1308961698349987e-11,
+   "p_holm": 3.279598892521496e-10,
+   "reading": "more errors with current practice"
+  },
+  {
+   "model": "claude-fable-5-2",
+   "item": "A2",
+   "requirement": "C2 learned time",
+   "practice_errors": 13,
+   "practice_usable": 17,
+   "records_errors": 27,
+   "records_usable": 30,
+   "p": 0.23502553182903144,
+   "p_holm": 1.0,
+   "reading": "no difference shown"
+  },
+  {
+   "model": "claude-fable-5-2",
+   "item": "A4",
+   "requirement": "C1 channel state",
+   "practice_errors": 16,
+   "practice_usable": 17,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 1.1308961698349987e-11,
+   "p_holm": 3.279598892521496e-10,
+   "reading": "more errors with current practice"
+  },
+  {
+   "model": "claude-fable-5-2",
+   "item": "B3",
+   "requirement": "C2 coverage",
+   "practice_errors": 5,
+   "practice_usable": 17,
+   "records_errors": 0,
+   "records_usable": 30,
+   "p": 0.00403405872071836,
+   "p_holm": 0.100851468017959,
+   "reading": "no difference shown"
+  }
+ ]
+}

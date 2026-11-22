@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-002",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "818f59aacb911a12885dc29d14ff99eab1fdef6eb641c0d3e4a3a7c2973bec8f",
+ "sent_at": "2026-11-21T23:55:56+00:00",
+ "received_at": "2026-11-21T23:56:05+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChGydndHTBpgnzTm4aVNm",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1: The seven-day search covered 7 days before publication to now and returned only the earlier region-based requests, with data current as of the search. The key was therefore not used in a different way in that window before the burst. Because the key was published at time 0 and the burst came 19 minutes after, no earlier misuse appears in the window. \"Requests arrived through a residential proxy 19 minutes after publication\" is the first non-matching activity. The search returned only the earlier requests, which means nothing else appeared between publication and 19 minutes. Still, the search's \"returned only those\" statement conflicts with the burst, since the burst is within the window. The search presumably returned only the earlier, matching requests, so something is off: the burst should have appeared. Whether the search was complete is unclear, so it cannot be said that the burst was the first misuse. Cannot tell.\n\nA2: The link record shows the destination was linked to two other accounts effective before publication, so the data was available. The check scored 30 minutes after publication, and the link was in place earlier. But whether the check had access to or used that link data is unknown. Cannot tell.\n\nA3: Sharing a destination does not by itself show one owner. No, not by itself.\n\nA4: The absence of reports after 30 days is weak evidence at most, but no report or finding is not the same as legitimacy, since the reports may not have been looked for or filed. The options are \"Yes, weakly\", \"No\" and \"Cannot tell\". The absence of reports is weakly consistent with legitimacy, but could just reflect no detection. I choose Cannot tell... Weighing it, absence of reports with a 30-day window is a weak signal, but the question asks whether it \"indicates\" legitimacy. Given the records show only counts of 0, with no information about whether reporting would have occurred, Cannot tell.\n\nA5: The burst involved a new fingerprint, a payout change and a faster schedule shortly after publication, so it warrants investigation. Yes.\n\nCase B\n\nB1: Chargebacks at D are 0 in the summary, but the dispute records show 2 chargebacks at account X whose disputed payments are transactions of D. These are likely misattributed to X, so D's real count may be 2. No, D's rate is not shown as lower. The answer is No.\n\nB2: A combined 5 percent does not rule out an individual account above 5 percent. Per-account chargebacks are 2 of 100, which is 2 percent, but the measure includes alerts, which are 12 across the accounts and are not split by account. So an account could be above 5 percent. No.\n\nB3: The search covered 3 account sources, which may not be all of them. Cannot tell.\n\nB4: The notes were written by different analysts on different days, but independence is unknown, since the second may have read the first. Cannot tell.\n\nB5: A blocked payment with no chargeback does not mean it was non-fraud, since it was blocked before a dispute could occur. No.\n\nB6: Shared templates and descriptor patterns justify investigating together. Yes.\n\nRESULT CN-002 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: No | B2: No | B3: Cannot tell | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1585,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 1065,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "run_id": "CN-072",
+ "model_requested": "claude-sonnet-5-5",
+ "prompt_sha256": "2a009c8fad8d30ff91940432f11e2dab63ce29421df4e1222488451281433748",
+ "sent_at": "2026-11-22T01:25:15+00:00",
+ "received_at": "2026-11-22T01:25:22+00:00",
+ "response": {
+  "model": "claude-sonnet-5-5",
+  "id": "msg_011ChH6Sq2f4rqPx82HC3N5K",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+   {
+    "type": "text",
+    "text": "Case A\n\nA1. The search covered only the past seven days and returned only the earlier regional requests. Because misuse could predate that window, and an earlier request from the same region and fingerprint could also have been misuse, this is not settled. The burst at 19 minutes is the first evidence of anomalous use in what was searched, but the answer is \"Cannot tell.\" The search covers the key's requests, and the earlier ones were stable and consistent with the legitimate owner. Publication time is also not shown to be the earliest possible access, since the key could have been exposed before that. So \"Cannot tell.\"\n\nA2. The check scored the account at 30 minutes, after the burst at 19 minutes. The burst was available evidence, but we don't know what inputs the check uses or whether it should have flagged it. Not flagging does not show it missed available evidence. \"Cannot tell.\"\n\nA3. A shared destination is consistent with one owner but does not prove it. It could be a shared bank account, a payment processor or a service provider. \"No, not by itself.\"\n\nA4. Absence of reports at 30 days is weak evidence at best, since victims may not report and no investigation may have happened. The options are \"Yes, weakly,\" \"No,\" and \"Cannot tell.\" The absence of a recorded finding is weakly consistent with legitimacy, but without knowing whether anyone looked, it is hard to say. \"Cannot tell\" fits best.\n\nA5. The burst involved a new fingerprint, a residential proxy, and sensitive changes within 19 minutes of publication, so it warrants investigation. \"Yes.\"\n\nCase B\n\nB1. D has 0 chargebacks out of 100 while the others have 2 each, so D's rate is lower. \"Yes.\"\n\nB2. The combined measure is 5 percent, but individual accounts could differ. The chargeback counts are 2 percent each, but the measure includes alerts, which are not broken down by account. A combined 5 percent could hide an account above 5. \"No.\"\n\nB3. The search found no accounts beyond A and the closed account, but it only covers the person as identified. Other accounts could be under different names. \"No.\"\n\nB4. The notes were written by different analysts on different days, but we don't know whether they worked independently or from the same data. \"Cannot tell.\"\n\nB5. A blocked payment with no chargeback is not shown to be legitimate, since the block prevented the chargeback. \"No.\"\n\nB6. Shared templates, a descriptor pattern, and a common person justify investigating together. \"Yes.\"\n\nRESULT CN-072 | A1: Cannot tell | A2: Cannot tell | A3: No, not by itself | A4: Cannot tell | A5: Yes | B1: Yes | B2: No | B3: No | B4: Cannot tell | B5: No | B6: Yes"
+   }
+  ],
+  "container": null,
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "stop_details": null,
+  "usage": {
+   "input_tokens": 1233,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0,
+   "cache_creation": {
+    "ephemeral_5m_input_tokens": 0,
+    "ephemeral_1h_input_tokens": 0
+   },
+   "output_tokens": 892,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "service_tier": "standard",
+   "inference_geo": "global",
+   "speed": "standard"
+  },
+  "diagnostics": null
+ }
+}
