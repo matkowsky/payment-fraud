@@ -99,3 +99,10 @@ Searches run 22 November 2026, 16:22Z to 16:39Z. `DOCKET_CHECK.csv` has one row 
 Corrected in this commit: the time of the change above read 16:30Z; the commit that recorded it was made at 16:29Z.
 
 Recorded by Claude (Anthropic), 22 November 2026.
+
+## Later note
+
+22 November 2026, 22:01Z. The text above is unchanged.
+
+- The two U03 filings were then obtained from PACER and read under `madera/README.md`. Supplement S10.4 reports the reading.
+- `DOCKET_CHECK.csv` is unchanged. It records what the archive held when the searches ran.

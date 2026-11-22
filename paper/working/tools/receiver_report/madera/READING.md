@@ -11,7 +11,7 @@ The report calls its attachments Appendix A to F. Their tab stamps say Exhibit A
 | Part | Pages | How |
 |---|---|---|
 | Document 34: notice | 1 and 2 | OCR text |
-| Document 34: the receiver's interim report | 3 to 21, all | OCR text. Page images viewed for 4, 5, 8 to 14 and 16 to 21 |
+| Document 34: the receiver's interim report | 3 to 21, all | OCR text. Page images viewed for 4 to 14 and 16 to 21 |
 | Appendix A, inventory of what the receiver took | 22 to 28, all | OCR text. Page images viewed for 22, 23 and 28 |
 | Appendix B, institutions the receiver wrote to | 29 | Page image. Transcribed to `APPENDIX_B.csv` |
 | Appendix C, the receiver's payments | 30 to 38, all | OCR text and page images for 30 to 32 and 35 to 37. They are checks, receipts and mail receipts |
@@ -25,11 +25,12 @@ The report calls its attachments Appendix A to F. Their tab stamps say Exhibit A
 - Every page of the three files is a scanned image. The only extracted text on any page is the court's ten-word header stamp.
 - Each page was rendered at 200 dots per inch and read by optical character recognition (Tesseract 5.3.4). The recognized text has 28 to 485 words a page for Document 34 and 10 to 543 for Document 43.
 - A page image was viewed for every page of Documents 34 and 43 with under 100 recognized words, and for every page that a statement in `FINDINGS.csv` or in the supplement rests on. On each of those pages the quoted words were compared with the image. No difference was found that changes a word quoted here.
-- Pages read only as recognized text, with no image viewed: Document 34 pages 1 to 3, 6, 7, 15, 24 to 27, 33, 34, 38 and 41; Document 43 pages 1 to 6, 8, 9, 12, 13, 15, 16, 18 and 22 to 26; Document 43-1. Nothing recorded rests on them, apart from the description of what Document 43 holds.
+- Pages read only as recognized text, with no image viewed: Document 34 pages 1 to 3, 15, 24 to 27, 33, 34, 38 and 41; Document 43 pages 1 to 6, 8, 9, 12, 13, 15, 16, 18 and 22 to 26; Document 43-1. Nothing recorded rests on them, apart from the description of what Document 43 holds.
 
 ## Appendix B
 
 - 45 institutions. Notes column: Paid 12, No funds 16, No accounts located 5, No response 5, Accounts closed 4, Over Drawn amount 2, and one blank. The notes sit low in their cells, so each was assigned by the cell borders.
+- The notes are the institutions' responses to the receiver's letters, which told each to close its accounts and send the balance (R 7 para 1). So a note of Accounts closed may describe what followed the letter.
 - The 34 with a note of Paid, No funds, Accounts closed or Over Drawn amount are counted as having had an account. The appendix does not say so in those words, and the report says some frozen accounts may have been personal ones (R 17 para 2).
 - A conflict in the source. The report's text names two banks left with negative balances (R 17 top). The appendix marks one of them as over drawn and the other as No funds, and marks a third bank as over drawn. Not resolved. No figure rests on it.
 - Contact names and telephone numbers in the appendix were not transcribed.
@@ -60,9 +61,9 @@ These are statements the report attributes to the managers. The docket holds no 
 
 ## The three results fixed in advance as counting against the records
 
-1. A processor or bank had the information and kept processing. Occurred, in a stronger form than in the first case. The processor was the actor: it filed the trade names, opened the accounts and moved between banks (T2, T6), and its managers knew what the merchants sold and why they took no cards or ACH payments. The item the protocol note added, returns tracked by merchant, is open: each return was charged to a merchant, and no rate is stated (row P1).
+1. A processor or bank had the information and kept processing. Occurred, in a stronger form than in the first case. The processor was the actor: it filed the trade names, opened the accounts and moved between banks (T2, T6), and its managers knew what the merchants sold and why they took no cards or ACH payments. The item the protocol note added, returns tracked by merchant, is open: a return the processor was told of was charged to the merchant, and no rate is stated (row P1).
 2. No record named, or no attribute a processor could have seen across accounts. Partly met, in a different way. A shared attribute existed and was visible: the account holder's name on each account and on the public trade-name filings. But the accounts were at many institutions, and no one bank's records join them. The specified records describe one platform's own data.
-3. An account closed by ordinary monitoring, without the specified records. Occurred in part. Banks "were routinely rejecting the Receivership Defendants' application to open an account or they were closing accounts" (R 14 para 1). The report gives no reason for any refusal or closure. Two accounts were closed in September 2018 and one was blocked for extended overdraft on 1 July 2019 (R 17 notes 4 to 6). This did not end the business: a manager went to the next bank, and the companies were processing on the day the receiver took control (R 20 para 2).
+3. An account closed by ordinary monitoring, without the specified records. Occurred in part. Banks "were routinely rejecting the Receivership Defendants' application to open an account or they were closing accounts" (R 14 para 1). The report gives no reason for the refusals and closures, apart from one account blocked for extended overdraft on 1 July 2019. Two accounts were closed in September 2018 (R 17 notes 4 to 6). This did not end the business: a manager went to the next bank, and the companies were processing on the day the receiver took control (R 20 para 2).
 
 ## What fits the records, and how far
 
