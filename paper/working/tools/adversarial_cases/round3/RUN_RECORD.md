@@ -84,4 +84,12 @@ Added 22 November 2026, 15:41Z:
 - One label differs. Claude called the fault in the checker's code that R14 exposed minor. The reviewer's format gives a severity only to a new failure or a false rejection, and its reason calls the error a defect of the implementation, not a gap in the stated rules.
 - No case is unresolved between the two sets. The author has not yet confirmed the rulings.
 
+## Confirmation
+
+Added 22 November 2026, 15:47Z:
+
+- Claude asked the author whether he confirms the four rulings and listed them: R02 rules stand, R05 stated limit, R13 rules stand, R14 rejected by the rules as written, with the error a fault in the code. His answer, by 15:43Z on 22 November 2026: "Confirm all four".
+- The confirmed rulings and the counts are in `ADJUDICATION.md`.
+- Every case is scored and ruled on, so the round is closed and the freeze ends. The fault that R14 exposed is fixed after this entry, not before.
+
 Recorded by Claude (Anthropic), 22 November 2026.
