@@ -1,0 +1,23 @@
+item,what_to_enter,value
+identified_as,"How the organization is identified: a name, a description you write, or blank for not at all",a payment processor (invented example)
+sampling_frame,"Which closed cases the sample was drawn from, in one line",Closed merchant-risk cases (invented example)
+period,When the sampled cases were closed,January to June of one year (invented example)
+fixed_in_advance,"Were the frame, the sample size and the auditors fixed before any case was opened? yes or no",yes
+cases_sampled,Number of cases sampled,200
+F1_occurred,"F1, final codes: cases in which it occurred",22
+F1_not_occurred,F1: cases in which it did not occur,160
+F1_unsettled,F1: cases the records cannot settle,18
+F1_changed,"F1: of the cases in which it occurred, those in which the conclusion would change",9
+F1_first_codes_agree,F1: cases in which the two auditors gave the same first code,171
+F2_occurred,"F2, final codes: cases in which it occurred",14
+F2_not_occurred,F2: cases in which it did not occur,175
+F2_unsettled,F2: cases the records cannot settle,11
+F2_changed,"F2: of the cases in which it occurred, those in which the conclusion would change",6
+F2_first_codes_agree,F2: cases in which the two auditors gave the same first code,183
+F3_occurred,"F3, final codes: cases in which it occurred",0
+F3_not_occurred,F3: cases in which it did not occur,188
+F3_unsettled,F3: cases the records cannot settle,12
+F3_changed,"F3: of the cases in which it occurred, those in which the conclusion would change",0
+F3_first_codes_agree,F3: cases in which the two auditors gave the same first code,190
+I1_yes,I1: cases whose conclusion needed a record the inventory lacks,3
+I1_kinds,"I1: the kinds of record named, separated by semicolons, with no case detail",courier tracking events; device repair history (invented example)
