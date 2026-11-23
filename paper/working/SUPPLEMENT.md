@@ -2,9 +2,9 @@
 
 Jonathan Matkowsky
 
-22 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+23 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
-This supplement accompanies the [manuscript](MANUSCRIPT.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 gives the proposed evaluations. S8 tests eight AI models on written versions of the two investigations. S9 extends the comparison with prior work. S10 replays two FTC complaints on synthetic records and counts the tactics alleged in 14. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package’s [BibLaTeX references](REFERENCES.bib).
+This supplement accompanies the [manuscript](MANUSCRIPT.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 gives the proposed evaluations. S8 tests eight AI models on written versions of the two investigations. S9 extends the comparison with prior work. S10 replays two FTC complaints on synthetic records and counts the tactics alleged in 14. S11 gives specification detail that the manuscript summarizes. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package’s [BibLaTeX references](REFERENCES.bib).
 
 ## S1. Sources and comparisons
 
@@ -657,6 +657,30 @@ Manuscript Table 2 uses eleven signals: SIG-04, SIG-15, SIG-16, SIG-18, SIG-20, 
 
 These conditions explain the scope and comparisons behind the tests in S7.1. E8’s release-gate test appears there alongside the other eight.
 
+**The nine questions as stated (manuscript Section 9.1).**
+
+S7.1 gives each hypothesis, design, primary measure and proposed failure criteria. E1, E3, E8 and E9 are confirmatory; the others are exploratory. None tests the signal inventory or the responsibilities as a whole, which would need a platform that collects every signal and assigns every role. The closed-case audit checks only whether cases needed records the inventory lacks. E3 tests the report-to-transaction links on which C1’s outcome records depend, together with cluster-level monitoring. Its pass rule compares linked clusters with accounts as their reports are recorded, so a lead from clustering alone can pass it; only the third arm, which applies the rule to each account after linking, shows whether linkage contributes. E9 exercises C1’s links from outcomes to control decisions, and its separation of late from unobservable outcomes, only jointly through the channel-state reading. No confirmatory evaluation tests the separate field for false reports or the decision links’ other uses, such as estimating outcomes under other decisions. The exploratory E2 bears on the decision links and, through its sensitivity analysis, on late and false reports; E4 bears on the decision links. Passing E1, E3, E8 and E9 would therefore not establish the value of each of those links and fields on its own. E8 tests C3’s release gate. The exploratory E6 checks that required links back to agent outputs exist. No evaluation tests the urgent-containment route in Section 6.4, so its reversal rate and the service it interrupts remain unmeasured.
+
+**Common rules (manuscript Section 9.1).** This section gives the conditions and motivating sources for E1 to E7 and E9. Four rules in S7.1 apply to every evaluation: an as-of cutoff on the information each method may use, outcomes decided blind under rules set in advance, a stated treatment of labels shaped by control decisions, and marking of test records. Of the S7.1 tests, E5 and E8 measure reviewer time, and E5 also compares cost across arms that see the same records. None measures the storage, query work or controlled cross-account access that the added records require. Passing the S7.1 tests would therefore not show that the added records justify their collection cost. E1, E5 and E8 also measure the work of identifiable staff on real case records, and E8’s undisclosed planted drafts require a deception protocol. Each needs ethics and privacy review before it starts.
+
+**E1. Coverage and learned time:** Do these records reduce unsupported conclusions in cases with incomplete history or links learned late, without reducing the correct, supported conclusions investigators reach in those cases or in cases with complete history?
+
+**E2. Unobserved outcomes:** For a defined outcome and population, which identifying assumptions (the assumptions needed to estimate outcomes that could not be observed) are defensible? Where is overlap (manuscript Section 7.1) absent? How sensitive are estimates to late, mistaken or deliberately false reports?
+
+**E3. Report linkage and cluster monitoring:** Does linking reports to transactions and applying the network’s monthly rule, its ratio, its minimum count and any minimum value, to each cluster flag evasion earlier than account-level monitoring? A broader measure, such as Section 8.2’s, needs a separate evaluation.
+
+**E4. Measuring user harm:** Can the records support a rate and interval for harm to legitimate users after a control change?
+
+**E5. Agent benefit:** When all have the same information, does the agent with human review match or improve on the confirmed findings per reviewer hour of well-equipped human investigators, without materially more errors than those investigators or suitable decision rules that use no agent?
+
+**E6. Safeguards:** How well do the agent’s safeguards, covering prompt injection, approvals, its memory and the data it sends out, hold up against adaptive attackers? How much do they reduce investigations completed?
+
+**E7. Learning:** How quickly do useful lessons become available for reuse? How do testing against counterexamples, scoped promotion and withdrawal affect negative transfer (a reused lesson degrading later investigations)? How do they affect poisoning (attackers deliberately causing false lessons)?
+
+**E8. Release gate:** Does the release gate catch planted wrong drafts under realistic volume and error prevalence, when reviewers and releasers do not know which drafts are planted, and how much reviewer time does it require? Some planted drafts rest a material claim only on a released item or on records linked to one, which tests C3’s rule that such support adds no independent corroboration. Its criteria set no limit on correct drafts that the gate returns or lets expire. Passing E8 would show that the gate catches errors, not that it releases correct work at an acceptable rate; E5 bears on that cost. At 20 drafts every calendar day, one site would need about 21 months, so in practice E8 pools sites or runs as exploratory (S7.1).
+
+**E9. Channel states:** Do C1’s channel states reduce the absolute error of evaluation results against a mature holdout reference, compared with the best reading without them (each rail’s standard window, blocked attempts excluded)? The target is the selected metric on matured reported outcomes after a sampled review of report truth, not underlying fraud that may never be reported. E9 reports the share of items that C1 reclassifies but does not count it as support, because that share follows partly from C1’s definitions and the cohort; support requires a reduction in reference error above the prespecified negligible improvement.
+
 **Table S7.1. Requirements for interpreting feedback.**
 
 | \#  | Problem                                                                                                                                 | Evidence basis                                                                                                                                                                                                           | Required response                                                                                                                                                                |
@@ -896,45 +920,49 @@ Manuscript Section 2 develops the closest precedents for C1 to C3. This section 
 
 Payment engineering already connects records, investigation and protective decisions. Stripe describes similarity clustering for investigators \[[76](#ref-Tausz2020)\]. It also describes a retraining cycle for card-testing models: labels are derived partly through manual expert review, and retrained models are evaluated on offline data and compared with the old model in blue-green tests before deployment \[[77](#ref-Drapeau2024)\]. These vendor accounts establish publicly described practices in their stated settings. They do not measure the proposed specification’s effectiveness.
 
-Outcome-aware evaluation also predates this work. Consumer credit met the same problem earlier as reject inference: a lender observes repayment only for the applicants it financed and asks whether, and under what assumptions, the outcomes of rejected applicants can be inferred. A review of common reject-inference methods finds their assumptions mostly implicit. Without financing applicants who would otherwise be rejected, the methods cannot be compared by standard model selection, and no method is uniformly better \[[47](#ref-Ehrhardt2021RejectInference)\]. Payment practitioners have described estimating outcomes under decisions that were not taken (Table S9.1) \[[49](#ref-Egg2025AdyenOPE), [50](#ref-Tocker2022VirtualControl), [54](#ref-Manapat2015Counterfactual)\]; Adyen’s evaluation targets authorization rates, not fraud. A payment-processing patent application describes adding a treatment result, such as the outcome of an authentication step, to the feedback on a transaction, labeling transactions canceled after the treatment as canceled, and notes that fraud can be reported up to 100 days later \[[78](#ref-Erdbrink2023TreatmentPatent)\]. These approaches motivate retaining the decision and the conditions under which its outcome became observable. They do not make an unreported outcome known.
+Payment research makes the reporting problem concrete. TitAnt trains on delayed user fraud reports \[[78](#ref-Cao2019TitAnt)\]. Dal Pozzolo and colleagues distinguish prompt investigator feedback from later labels and show how alert-driven review biases training data \[[79](#ref-DalPozzolo2017Fraud)\]. An e-commerce research agenda separates suspicion on blocked transactions from outcome labels \[[80](#ref-Tax2021Fraud)\]. A theoretical payments preprint models authorization, whether fraud is reported, whether the report has arrived by training time, and label corruption, for one reporting channel \[[33](#ref-Dhama2026Causal)\]. Related preprints examine delayed, incomplete or incorrect feedback \[[48](#ref-Dhama2026Limits), [81](#ref-HeLoh2026Grab)\]. Chapelle’s advertising model is a precedent for treating a click with no conversion yet as unlabeled rather than negative \[[30](#ref-Chapelle2014Delayed)\].
+
+Outcome-aware evaluation also predates this work. Consumer credit met the same problem earlier as reject inference: a lender observes repayment only for the applicants it financed and asks whether, and under what assumptions, the outcomes of rejected applicants can be inferred. A review of common reject-inference methods finds their assumptions mostly implicit. Without financing applicants who would otherwise be rejected, the methods cannot be compared by standard model selection, and no method is uniformly better \[[47](#ref-Ehrhardt2021RejectInference)\]. Payment practitioners have described estimating outcomes under decisions that were not taken (Table S9.1) \[[49](#ref-Egg2025AdyenOPE), [50](#ref-Tocker2022VirtualControl), [54](#ref-Manapat2015Counterfactual)\]; Adyen’s evaluation targets authorization rates, not fraud. A payment-processing patent application describes adding a treatment result, such as the outcome of an authentication step, to the feedback on a transaction, labeling transactions canceled after the treatment as canceled, and notes that fraud can be reported up to 100 days later \[[82](#ref-Erdbrink2023TreatmentPatent)\]. These approaches motivate retaining the decision and the conditions under which its outcome became observable. They do not make an unreported outcome known.
 
 Two recent proposals in Table S9.1 connect evaluation evidence to operational authority \[[51](#ref-Deng2026FCAC), [52](#ref-Solozobov2026DecisionTrace)\]; Solozobov’s schema also seals each decision record and types the links between decisions. C1 applies that linkage to several outcome channels. Its contribution is this payment-investigation record contract, not a new estimator of missing outcomes.
 
 ### S9.2 Intelligence production and investigation
 
-STIX is a structured language for representing and exchanging cyber threat intelligence \[[65](#ref-OASIS2021STIX)\]. Such representations make analysis reusable. STIX already separates observed data from intelligence assertions and opinions, but it does not address how opinions should be interpreted \[[65](#ref-OASIS2021STIX)\]. C3 supplies a rule for what a reused conclusion can establish in this specification. A threat-intelligence reference model supplies analysis, quality-control and feedback functions for intelligence products, and traces who created and modified each product \[[79](#ref-Sakellariou2022CTIReferenceModel)\]. Threat-intelligence lifecycle research likewise lets an entity that receives intelligence enrich it as a new version or retract it \[[80](#ref-Dimitriadis2025)\].
+STIX is a structured language for representing and exchanging cyber threat intelligence \[[65](#ref-OASIS2021STIX)\]. Such representations make analysis reusable. STIX already separates observed data from intelligence assertions and opinions, but it does not address how opinions should be interpreted \[[65](#ref-OASIS2021STIX)\]. C3 supplies a rule for what a reused conclusion can establish in this specification. A threat-intelligence reference model supplies analysis, quality-control and feedback functions for intelligence products, and traces who created and modified each product \[[83](#ref-Sakellariou2022CTIReferenceModel)\]. Threat-intelligence lifecycle research likewise lets an entity that receives intelligence enrich it as a new version or retract it \[[84](#ref-Dimitriadis2025)\].
 
-ExCyTIn-Bench evaluates agents on multi-step questions over security logs \[[81](#ref-Wu2026ExCyTIn)\]. This benchmark establishes relevant investigative tasks and a way to evaluate particular capabilities. This specification adds requirements for interpreting the inputs to such tasks and preserving the status of their outputs across payment products.
+ExCyTIn-Bench evaluates agents on multi-step questions over security logs \[[85](#ref-Wu2026ExCyTIn)\]. This benchmark establishes relevant investigative tasks and a way to evaluate particular capabilities. This specification adds requirements for interpreting the inputs to such tasks and preserving the status of their outputs across payment products.
 
-**SR-Fraud’s reported comparisons (manuscript Section 2.4).** With one of the three language models it reports, its point estimates also exceed those of static and periodically retrained CatBoost classifiers; with the other two, some fall below the periodically retrained classifier. For that model, against the periodically retrained classifier at that classifier’s 5 percent operating point, its recall and dollar-weighted recall gains are significant, but when both block the same number of transactions none of the differences is significant. Its point-estimate gains grow with users’ prior history. On the 64 percent of transactions with any prior history, its recall, F1 and dollar-weighted recall gains are significant at that classifier’s 5 percent operating point, where SR-Fraud blocks 6.08 percent of all transactions; matched results are not reported by history. At the matched block count, its recall in the week-8 fraud burst is about 24 percentage points higher, without an interval \[[82](#ref-Tan2026SRFraud)\].
+**SR-Fraud’s reported comparisons (manuscript Section 2.4).** With one of the three language models it reports, its point estimates also exceed those of static and periodically retrained CatBoost classifiers; with the other two, some fall below the periodically retrained classifier. For that model, against the periodically retrained classifier at that classifier’s 5 percent operating point, its recall and dollar-weighted recall gains are significant, but when both block the same number of transactions none of the differences is significant. Its point-estimate gains grow with users’ prior history. On the 64 percent of transactions with any prior history, its recall, F1 and dollar-weighted recall gains are significant at that classifier’s 5 percent operating point, where SR-Fraud blocks 6.08 percent of all transactions; matched results are not reported by history. At the matched block count, its recall in the week-8 fraud burst is about 24 percentage points higher, without an interval \[[86](#ref-Tan2026SRFraud)\].
 
-PROVSEEK is close to the requirement that a claim remain checkable. Its agent cites audit-event identifiers for claims and reports searched-for artifacts it did not find \[[83](#ref-Mukherjee2025PROVSEEK)\]. C2 also requires a gateway outside the agent to record query coverage. A missing artifact then has a recorded search scope, not just the agent’s account of what it searched.
+PROVSEEK is close to the requirement that a claim remain checkable. Its agent cites audit-event identifiers for claims and reports searched-for artifacts it did not find \[[87](#ref-Mukherjee2025PROVSEEK)\]. C2 also requires a gateway outside the agent to record query coverage. A missing artifact then has a recorded search scope, not just the agent’s account of what it searched.
 
 ### S9.3 Permission to act and authority to reuse
 
 Recent proposals bind authority to particular artifacts or actions. MAP-Graph represents memories, claims and actions in a provenance graph and records each action-gate decision with its supporting memories; the gate can return an AskUser decision for some high-risk actions \[[70](#ref-Wang2026MAPGraph)\]. Li and colleagues relate an execution attempt and its artifact to a downstream-use authorization state, checked at publication \[[71](#ref-Li2026EvidenceToEffect)\]. Agile-V binds evidence to an exact artifact and links effects to authorization records; its governing profile can require human authority \[[74](#ref-Koch2026AgileV)\]. AgenticCyOps provides analyst oversight and an audited memory-write path, without specifying human release for every reused item \[[75](#ref-Mitra2026AgenticCyOps)\]. A threat-intelligence architecture requires human approval before operational action or dissemination, but does not state that analyses kept in its institutional-memory store pass that gate \[[69](#ref-AlbarrakJagtap2026Industry4CTI)\]. These are concrete precedents for authorization records. C3 makes a narrower, stronger choice for organizational memory: a person releases every conclusion, and the released conclusion remains context or hypothesis.
 
-Vendor architectures draw related lines. One keeps an append-only event record, a maintained fact record and a decision record that binds selected evidence and facts to policy, approval, action and outcome, with human or automated approval \[[84](#ref-Alten2026DecisionRecords)\]. Another states that agent-generated summaries are not treated as authoritative business records \[[85](#ref-Talamadupula2026AgentMemory)\]. Neither defines outcome channels, query coverage or a release rule for reusing conclusions.
+Vendor architectures draw related lines. One keeps an append-only event record, a maintained fact record and a decision record that binds selected evidence and facts to policy, approval, action and outcome, with human or automated approval \[[88](#ref-Alten2026DecisionRecords)\]. Another states that agent-generated summaries are not treated as authoritative business records \[[89](#ref-Talamadupula2026AgentMemory)\]. Neither defines outcome channels, query coverage or a release rule for reusing conclusions.
 
-A survey of persistent agents calls for records tying actions to the state that justified them \[[86](#ref-Ding2026AlwaysOn)\]. EDDOps links versioned evaluation records to the agent changes they prompt \[[87](#ref-Xia2024EDDOps)\]. Both motivate preserving the connection between an output and its later effects, which C3’s links back to agent outputs and released items keep (Table S9.1). Human release does not erase this dependence or turn the output into independent evidence.
+A survey of persistent agents calls for records tying actions to the state that justified them \[[90](#ref-Ding2026AlwaysOn)\]. EDDOps links versioned evaluation records to the agent changes they prompt \[[91](#ref-Xia2024EDDOps)\]. Both motivate preserving the connection between an output and its later effects, which C3’s links back to agent outputs and released items keep (Table S9.1). Human release does not erase this dependence or turn the output into independent evidence.
 
-**Financial-sector and audit guidance (manuscript Section 2.4).** An AI risk-management handbook from Project MindForge, an industry initiative led by the Monetary Authority of Singapore, treats traceability of individual agent decisions as part of explainability, suggests searchable logging, stresses human review for certain risky actions, names injection into shared agent memory as a threat and describes agentic governance as nascent. It also notes that real-time human oversight may not be feasible for fraud detection engines \[[88](#ref-MindForge2026Operationalisation)\]; C3’s release gates entry into memory, not each real-time decision. A white paper on runtime safeguards for agentic finance proposes a check before a consequential agent action or output is executed or relied on, and an append-only audit log of every governance decision. Where feasible, the agent’s account of its steps should be checked against system-generated records of its tool calls and data access; a gateway variant wraps an agent’s outbound calls without changing its code. In its investigation example, agents investigate flagged transactions and propose whether to file a suspicious transaction report. Controls for each alert type set mandatory steps and the minimum evidence for each conclusion, and dispositions with missing steps or insufficient evidence are denied and returned to the queue. Filing needs a compliance officer’s approval, while low-risk cases with complete evidence close as false flags, subject to quality-assurance sampling \[[89](#ref-MAS2026SAFR)\]. Guidelines from India’s computer emergency response team for auditing AI systems require auditors to identify evidence they could not access and assess its effect on coverage; lack of access is not automatically evidence of conformity. When auditors use their own AI tools, the tools’ analysis is a working aid, not by itself evidence that a control works; a competent auditor must validate all AI-assisted findings, and original evidence must be kept separate from AI-derived material. Organizations must periodically assess whether human review is effective, including reviewer agreement and inappropriate automatic acceptance of AI outputs \[[90](#ref-CERTIn2026AIAudit)\]. These provisions partly parallel C2 (independent records of tool calls and data access), C3 (AI analysis is not by itself evidence) and E8 (measuring whether review works).
+**Financial-sector and audit guidance (manuscript Section 2.4).** An AI risk-management handbook from Project MindForge, an industry initiative led by the Monetary Authority of Singapore, treats traceability of individual agent decisions as part of explainability, suggests searchable logging, stresses human review for certain risky actions, names injection into shared agent memory as a threat and describes agentic governance as nascent. It also notes that real-time human oversight may not be feasible for fraud detection engines \[[92](#ref-MindForge2026Operationalisation)\]; C3’s release gates entry into memory, not each real-time decision. A white paper on runtime safeguards for agentic finance proposes a check before a consequential agent action or output is executed or relied on, and an append-only audit log of every governance decision. Where feasible, the agent’s account of its steps should be checked against system-generated records of its tool calls and data access; a gateway variant wraps an agent’s outbound calls without changing its code. In its investigation example, agents investigate flagged transactions and propose whether to file a suspicious transaction report. Controls for each alert type set mandatory steps and the minimum evidence for each conclusion, and dispositions with missing steps or insufficient evidence are denied and returned to the queue. Filing needs a compliance officer’s approval, while low-risk cases with complete evidence close as false flags, subject to quality-assurance sampling \[[93](#ref-MAS2026SAFR)\]. Guidelines from India’s computer emergency response team for auditing AI systems require auditors to identify evidence they could not access and assess its effect on coverage; lack of access is not automatically evidence of conformity. When auditors use their own AI tools, the tools’ analysis is a working aid, not by itself evidence that a control works; a competent auditor must validate all AI-assisted findings, and original evidence must be kept separate from AI-derived material. Organizations must periodically assess whether human review is effective, including reviewer agreement and inappropriate automatic acceptance of AI outputs \[[94](#ref-CERTIn2026AIAudit)\]. These provisions partly parallel C2 (independent records of tool calls and data access), C3 (AI analysis is not by itself evidence) and E8 (measuring whether review works).
 
 ### S9.4 Memory, dependence and revision
 
-Agents can learn reusable lessons from experience. ExpeL extracts lessons, which it calls insights, from its successes and failures on training tasks, adds them to the prompt for later tasks and retrieves similar successful trajectories as examples \[[91](#ref-Zhao2024ExpeL)\]. This capability explains the value of reuse, but reuse can propagate an earlier mistake. A-MemGuard checks memory-derived reasoning during use, consulting lessons from stored failures \[[92](#ref-Wei2026AMemGuard)\]. Manuscript Section 7 proposes testing new lessons against counterexamples before reuse, then testing their effects in E7. This proposed control has no measured payment-platform benefit here.
+Agents can learn reusable lessons from experience. ExpeL extracts lessons, which it calls insights, from its successes and failures on training tasks, adds them to the prompt for later tasks and retrieves similar successful trajectories as examples \[[95](#ref-Zhao2024ExpeL)\]. This capability explains the value of reuse, but reuse can propagate an earlier mistake. A-MemGuard checks memory-derived reasoning during use, consulting lessons from stored failures \[[96](#ref-Wei2026AMemGuard)\]. Manuscript Section 7 proposes testing new lessons against counterexamples before reuse, then testing their effects in E7. This proposed control has no measured payment-platform benefit here.
 
-The choice of memory structure depends on purpose. An investigative system needs to know whether a retrieved item is an observation or a conclusion. Studies of memory consolidation show that it can erase a claim’s source; external source records restore much of the lost control in their test settings \[[93](#ref-Zhan2026AuthMemBench), [94](#ref-Xu2026PPMF)\]. Those settings used synthetic customer-service histories and benchmark attacks, not payment investigations.
+The choice of memory structure depends on purpose. An investigative system needs to know whether a retrieved item is an observation or a conclusion. Studies of memory consolidation show that it can erase a claim’s source; external source records restore much of the lost control in their test settings \[[97](#ref-Zhan2026AuthMemBench), [98](#ref-Xu2026PPMF)\]. Those settings used synthetic customer-service histories and benchmark attacks, not payment investigations.
 
-Belief-revision work on threat intelligence asks that intelligence state its source and its chain of modifications \[[95](#ref-Hettema2021Rationality)\]. A recent agent-memory design keeps an immutable raw log beneath its summaries and links each summary to the raw pages that support it \[[96](#ref-Zhu2026TierMem)\]. SSGM separates an append-only observation log from derived memory and checks updates against protected facts \[[97](#ref-Lam2026SSGM)\]. A shared-memory service records writers, derivation links and supersession; its authors evaluate it without a baseline \[[98](#ref-Margalit2026GovernedMemory)\]. PROV-AGENT extends provenance records to prompts, responses and decisions, linking them to downstream outcomes \[[99](#ref-Souza2025ProvAgent)\]. These precedents support typed records and traceable revision. C3 does not claim to invent them.
+Belief-revision work on threat intelligence asks that intelligence state its source and its chain of modifications \[[99](#ref-Hettema2021Rationality)\]. A recent agent-memory design keeps an immutable raw log beneath its summaries and links each summary to the raw pages that support it \[[100](#ref-Zhu2026TierMem)\]. SSGM separates an append-only observation log from derived memory and checks updates against protected facts \[[101](#ref-Lam2026SSGM)\]. A shared-memory service records writers, derivation links and supersession; its authors evaluate it without a baseline \[[102](#ref-Margalit2026GovernedMemory)\]. PROV-AGENT extends provenance records to prompts, responses and decisions, linking them to downstream outcomes \[[103](#ref-Souza2025ProvAgent)\]. These precedents support typed records and traceable revision. C3 does not claim to invent them.
 
 Source ancestry is necessary but not sufficient to establish independent support. The formal study in Table S9.1 \[[72](#ref-Bara2026EpistemicSybil)\] shows that no rule that sees only report content can, in general, tell replication from independent corroboration. In its experiments, with one small language model reading synthetic documents, repeated extractions from one document had correlated errors (estimated correlation 0.72, in an exploratory analysis), and a deduplication method that clustered reports by text similarity tracked how they were worded far more than their ancestry. C3 follows the same concern: several agents repeating one report do not create several independent observations. Records therefore carry their roots, their producer and links to the agent outputs that informed them, and a record without a producer, or without inputs unless it is a source observation, adds no root (manuscript Section 6.4). The specification does not estimate how strong the dependence is; quality review judges that from these records. A released conclusion can guide the next query, but evidence for that conclusion must remain traceable to the underlying records.
 
 Two recent designs bear directly on C3. A data-governance preprint commits no agent-proposed metadata decision before a steward reviews it. It proposes a promotion gate that admits only verified records as precedent, records each promotion and lets a reviewer demote a record, flagging the decisions that relied on it. It does not say who authorizes promotion or what a retrieved precedent may establish \[[68](#ref-Akhtar2026Contestable)\]. A threat-detection design tags every detection compiled from one of its hypotheses and drops tagged observations at ingest, so its own conclusions cannot re-enter as fresh evidence. It leaves as a residual risk an analyst who writes such an alert into a report that is later ingested, and its reference implementation does not yet exercise the rule \[[73](#ref-Evron2026AdversaryBrains)\]. C3 keeps released conclusions as context, not evidence, and its interface-written links cover records a person writes with an agent output open in the case.
 
+In Stripe’s agent-assisted fraud modeling, engineers review the agents’ hypotheses and results and decide what to deploy, and for one fraud attack the agents were given results from earlier experiments and investigations; the account does not say whether those results were approved for reuse before the agents received them \[[104](#ref-Drapeau2026ScalingRadar)\].
+
 ### S9.5 Time and coverage
 
-Timing matters when it changes which information a decision could use. Dataflow addresses out-of-order streams, where the system cannot assume that all events have arrived \[[57](#ref-Akidau2015Dataflow)\]. Leakage research identifies information about a target that should not legitimately be available to a model \[[100](#ref-Kaufman2011Leakage)\]. C2 uses these concerns to distinguish when a fact held from when it became queryable. A relationship learned tomorrow cannot support a decision frozen today merely because the relationship existed yesterday.
+Timing matters when it changes which information a decision could use. Dataflow addresses out-of-order streams, where the system cannot assume that all events have arrived \[[57](#ref-Akidau2015Dataflow)\]. Leakage research identifies information about a target that should not legitimately be available to a model \[[105](#ref-Kaufman2011Leakage)\]. C2 uses these concerns to distinguish when a fact held from when it became queryable. A relationship learned tomorrow cannot support a decision frozen today merely because the relationship existed yesterday.
 
 Recent designs combine timing with governance: Quipu and Wu’s coverage model (Table S9.1) \[[53](#ref-Wu2026EvidenceCoverage), [61](#ref-Brown2026Quipu)\]. C2 applies these ideas to a query contract that records scope, coverage and availability outside the investigating agent.
 
@@ -1014,11 +1042,11 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 ### S10.2 One litigated case and the processor’s draft report
 
-**Why it is here.** S10 and S10.1 rest on allegations. One earlier FTC case against a processor ended in summary judgment, and the processor appealed only the remedy: FTC v. WV Universal Management, LLC, 877 F.3d 1234 (11th Cir. 2017) \[[101](#ref-EleventhCir2017Universal)\]. The opinion takes its facts from the district court’s summary judgment order and notes that neither party disputed them. The case was filed in 2012, before the count’s window, and was not coded.
+**Why it is here.** S10 and S10.1 rest on allegations. One earlier FTC case against a processor ended in summary judgment, and the processor appealed only the remedy: FTC v. WV Universal Management, LLC, 877 F.3d 1234 (11th Cir. 2017) \[[106](#ref-EleventhCir2017Universal)\]. The opinion takes its facts from the district court’s summary judgment order and notes that neither party disputed them. The case was filed in 2012, before the count’s window, and was not coded.
 
 **What the opinion states.** The processor’s president personally reviewed the merchant applications one sales agent brought in. He approved a telemarketing operation’s first merchant account although both owners had serious credit delinquencies. The account drew chargebacks heavy enough that Mastercard took notice of the merchant as a potential fraud risk, and he then approved a second account. The district court found that the processor, through him, knew or consciously avoided knowing of the fraud. The opinion gives no chargeback counts and does not describe the processor’s monitoring.
 
-**What the draft report says.** The FTC filed a draft report of the processor’s internal investigation, dated 21 January 2013 (ECF 110-1) \[[102](#ref-Universal2013FindingReport)\]. It is unsigned, carries tracked changes and a reviewer’s open comments, and is one party’s account, not a finding. It covers the accounts that sales agent had referred as a group and does not name the telemarketing operation. According to it, the chief operating officer and the vice president for risk repeatedly declined the agent’s accounts and the president approved them; later the agent’s new accounts no longer went to them. Chargebacks on those accounts appeared on the chargeback report, and the risk department recognized them. The president then had them charged to a merchant reserve at a sponsor bank, which held other merchants’ holdbacks and which accounting did not reconcile. The losses went undiscovered from August 2011 to January 2013, and \$1.255 million was transferred to replenish the reserve. The controls the report lists as lacking include reconciling that reserve and reporting each merchant’s status in it. The chief operating officer called the matter a management issue, not a reporting, accounting or reserve issue. In an attached statement the president says he acted in the company’s interest.
+**What the draft report says.** The FTC filed a draft report of the processor’s internal investigation, dated 21 January 2013 (ECF 110-1) \[[107](#ref-Universal2013FindingReport)\]. It is unsigned, carries tracked changes and a reviewer’s open comments, and is one party’s account, not a finding. It covers the accounts that sales agent had referred as a group and does not name the telemarketing operation. According to it, the chief operating officer and the vice president for risk repeatedly declined the agent’s accounts and the president approved them; later the agent’s new accounts no longer went to them. Chargebacks on those accounts appeared on the chargeback report, and the risk department recognized them. The president then had them charged to a merchant reserve at a sponsor bank, which held other merchants’ holdbacks and which accounting did not reconcile. The losses went undiscovered from August 2011 to January 2013, and \$1.255 million was transferred to replenish the reserve. The controls the report lists as lacking include reconciling that reserve and reporting each merchant’s status in it. The chief operating officer called the matter a management issue, not a reporting, accounting or reserve issue. In an attached statement the president says he acted in the company’s interest.
 
 **Table S10.2. Three conclusions in the case and whether the specified records bear on them.** The last column is a reading of the two documents, not a test.
 
@@ -1032,7 +1060,7 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 ### S10.3 One receiver’s report and a processor’s emails
 
-**Why it is here.** S10.1 counts allegations. In one of its 14 cases, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.), the court appointed a receiver over the seller. Twelve days later the receiver reported to the court from the seller’s offices, files and two staff interviews \[[103](#ref-ApexReceiver2018Report)\]. The report attaches a foreign processor’s emails to the seller (Exhibit 15) and an accountant’s review of the seller’s books (Exhibit 19). It is preliminary and is not a finding of the court, and the review is limited to what the seller entered in its books. The [protocol](tools/receiver_report/README.md) was fixed before the report was read in full, including what would count against the records. When the case was chosen, two of the 14 dockets had been checked for such filings. All 14 were then put to the same two searches of the public archive ([docket check](tools/receiver_report/DOCKET_CHECK.md)). This is the only docket in which the archive holds a receiver’s report or a decision in which the court states facts. A second docket lists a receiver’s interim report and a motion to approve its final report, neither held by the archive; S10.4 reads both from the court’s copies. The searches returned no such entry in the other 12. The two cases are therefore the only ones of the 14 that could be read this way, not a sample. One model read and coded it, and no human checked the reading. The [findings sheet](tools/receiver_report/FINDINGS.csv) gives a page and line for each statement, and the [reading record](tools/receiver_report/READING.md) lists what was not read.
+**Why it is here.** S10.1 counts allegations. In one of its 14 cases, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.), the court appointed a receiver over the seller. Twelve days later the receiver reported to the court from the seller’s offices, files and two staff interviews \[[108](#ref-ApexReceiver2018Report)\]. The report attaches a foreign processor’s emails to the seller (Exhibit 15) and an accountant’s review of the seller’s books (Exhibit 19). It is preliminary and is not a finding of the court, and the review is limited to what the seller entered in its books. The [protocol](tools/receiver_report/README.md) was fixed before the report was read in full, including what would count against the records. When the case was chosen, two of the 14 dockets had been checked for such filings. All 14 were then put to the same two searches of the public archive ([docket check](tools/receiver_report/DOCKET_CHECK.md)). This is the only docket in which the archive holds a receiver’s report or a decision in which the court states facts. A second docket lists a receiver’s interim report and a motion to approve its final report, neither held by the archive; S10.4 reads both from the court’s copies. The searches returned no such entry in the other 12. The two cases are therefore the only ones of the 14 that could be read this way, not a sample. One model read and coded it, and no human checked the reading. The [findings sheet](tools/receiver_report/FINDINGS.csv) gives a page and line for each statement, and the [reading record](tools/receiver_report/READING.md) lists what was not read.
 
 **What the report states.** Read against the sheet of S10.1, the report states four of the seven tactics as fact. One operation sold through 57 nominee companies with 68 bank accounts; the report ties the number of accounts to processors’ monthly volume caps and to closures when chargebacks passed 3 percent of sales (T1). Paid signers who were not on the terminated-merchant list fronted the companies, and false websites went in with the applications (T2). Every day, staff refunded the orders that alert vendors flagged as likely chargebacks, to avoid closures (T5). New nominees replaced closed accounts (T6). The report does not describe several sellers in one account (T3) or padding (T4). S10.1 marks this complaint as alleging T1 to T4 and T7 and not T5, with T6 disputed. So the report states one tactic the complaint does not allege and is silent on two it does. The receiver calls the finance officer generally credible and the employee who issued the refunds not entirely so.
 
@@ -1040,7 +1068,7 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 **The processor’s emails.** The report says the seller moved its processing to a Latvian processor, SIA Transact Pro, in early 2016 after domestic accounts were cancelled for chargebacks, and that it first appealed to the seller as more lenient on chargebacks than domestic banks. Exhibit 15 holds that processor’s emails to the seller. On 27 April 2018 it sent Visa fraud figures for four of the U.K. companies and wrote that the bank would stop taking Visa cards for them “due to the high fraud amount, count and % of fraud amount”. By amount, fraud was 6.06 to 10.62 percent of Visa sales in each of the eight merchant-months. By count it was 2.46 to 3.15 percent in March and 3.28 to 15.23 percent in April. March had five times April’s payments at about a quarter of the average amount; pooled over the four companies, its rate was 7.5 percent by amount and 2.6 percent by count. The sheet bars inferring a tactic from an outcome, so this does not mark T4. The processor’s list ties the four companies to 36 terminals, each with its website. It wrote that four of them, which it acquired directly, would keep working unchanged, and wrote so again on 24 May, when the bank was also to stop Mastercard. In October 2018 it wrote that its regulator’s tighter requirements forced it to close the accounts but that it could still keep the seller’s processing. It offered merchant accounts in the name of one of the seller’s companies, for the current websites of four others or for new ones, paid out through another processor.
 
-**The processor’s position and the outcome.** The processor moved to dismiss \[[104](#ref-TransactPro2019Motion)\]. Its motion does not discuss these emails. It says the processor is licensed in Latvia, served the U.K. companies through two Latvian banks and acted only in Latvia. It disputes the laundering claim and calls unfounded the claims that it helped lower chargeback ratios through microtransactions and higher volume limits; it says its staff sent the commands for those microtransactions and does not concede their purpose. It says several merchant accounts for one client are a common practice that the card networks encourage, and that it terminated its negative-option accounts as of November 2018, as its regulator had suggested. The court denied the motion; that order is not in the public archive and was read only as docket entry 123. In January 2020 the court entered a stipulated order with a \$3.5 million judgment, in which the processor neither admits nor denies the allegations \[[105](#ref-CDCal2020TransactProOrder)\]. The order requires it to calculate chargeback rates for each of a high-risk client’s accounts and in the aggregate (Section VI.C), and to keep chargeback and refund totals by amount and by number (Section XII.D).
+**The processor’s position and the outcome.** The processor moved to dismiss \[[109](#ref-TransactPro2019Motion)\]. Its motion does not discuss these emails. It says the processor is licensed in Latvia, served the U.K. companies through two Latvian banks and acted only in Latvia. It disputes the laundering claim and calls unfounded the claims that it helped lower chargeback ratios through microtransactions and higher volume limits; it says its staff sent the commands for those microtransactions and does not concede their purpose. It says several merchant accounts for one client are a common practice that the card networks encourage, and that it terminated its negative-option accounts as of November 2018, as its regulator had suggested. The court denied the motion; that order is not in the public archive and was read only as docket entry 123. In January 2020 the court entered a stipulated order with a \$3.5 million judgment, in which the processor neither admits nor denies the allegations \[[110](#ref-CDCal2020TransactProOrder)\]. The order requires it to calculate chargeback rates for each of a high-risk client’s accounts and in the aggregate (Section VI.C), and to keep chargeback and refund totals by amount and by number (Section XII.D).
 
 **Table S10.3. Three conclusions in the case and whether the specified records bear on them.** The last column is a reading of the report and its two exhibits, not a test.
 
@@ -1054,7 +1082,7 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 ### S10.4 A second receiver’s report, from inside a processor
 
-**Why it is here.** The docket check of S10.3 listed one more receiver’s report among the 14 cases, in FTC and State of Ohio v. Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D. Tex.). The public archive does not hold it, and the author obtained it from PACER, the federal courts’ records system. It was read under the protocol of S10.3, with a [note](tools/receiver_report/madera/README.md) fixed beforehand on how this case differs. Here the court appointed the receiver over the processor itself: two companies that turned merchants’ orders into remotely created payment orders, which are unsigned checks, and deposited them. The receiver’s interim report was filed eight months later \[[106](#ref-MaderaReceiver2020Report)\]. It rests on interviews with the companies’ three managers, on the papers and equipment taken from their office, and on banks’ replies to the receiver’s letters. It is not a finding of the court: the report says the court had held no hearing and that the later orders were stipulated. The managers are defendants, and the receiver writes that some of what they said was incorrect or incomplete and was later corrected. After a password change the receiver could not open the companies’ programs, so the report is not written from their processing records. The case ended in June 2020 in a stipulated order for permanent injunction and monetary judgment, which was not read. The receiver’s 2021 motion to approve a final report holds an accounting and adds nothing about the business \[[107](#ref-MaderaReceiver2021Final)\]. Every page is a scan. The pages were read through optical character recognition, and the image was viewed for each page of the report that a statement here rests on. One model read and coded the report, from the same developer as one of the complaint’s two coders, and no human checked the reading. The [findings sheet](tools/receiver_report/madera/FINDINGS.csv) gives a page and paragraph for each statement, and the [reading record](tools/receiver_report/madera/READING.md) lists what was read and how.
+**Why it is here.** The docket check of S10.3 listed one more receiver’s report among the 14 cases, in FTC and State of Ohio v. Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D. Tex.). The public archive does not hold it, and the author obtained it from PACER, the federal courts’ records system. It was read under the protocol of S10.3, with a [note](tools/receiver_report/madera/README.md) fixed beforehand on how this case differs. Here the court appointed the receiver over the processor itself: two companies that turned merchants’ orders into remotely created payment orders, which are unsigned checks, and deposited them. The receiver’s interim report was filed eight months later \[[111](#ref-MaderaReceiver2020Report)\]. It rests on interviews with the companies’ three managers, on the papers and equipment taken from their office, and on banks’ replies to the receiver’s letters. It is not a finding of the court: the report says the court had held no hearing and that the later orders were stipulated. The managers are defendants, and the receiver writes that some of what they said was incorrect or incomplete and was later corrected. After a password change the receiver could not open the companies’ programs, so the report is not written from their processing records. The case ended in June 2020 in a stipulated order for permanent injunction and monetary judgment, which was not read. The receiver’s 2021 motion to approve a final report holds an accounting and adds nothing about the business \[[112](#ref-MaderaReceiver2021Final)\]. Every page is a scan. The pages were read through optical character recognition, and the image was viewed for each page of the report that a statement here rests on. One model read and coded the report, from the same developer as one of the complaint’s two coders, and no human checked the reading. The [findings sheet](tools/receiver_report/madera/FINDINGS.csv) gives a page and paragraph for each statement, and the [reading record](tools/receiver_report/madera/READING.md) lists what was read and how.
 
 **What the report states.** Read against the sheet of S10.1, the report states two of the seven tactics as fact, and both are the processor’s own acts. It filed a trade name for each merchant and deposited that merchant’s payment orders in a bank account held in its own name under the trade name, so that the merchant’s name appeared on the check. The two companies had at least 49 trade names on file with the state. The receiver believes, on the information obtained by then, that the accounts were opened by giving banks false or misleading information about the type of business (T2). Names and accounts also changed over time. The processor first served one telemarketer and then switched to a second name that, the receiver was told, is the same company. One trade name was abandoned under one company and filed six months later under the other. And as banks rejected its applications or closed its accounts, a manager went from one bank to the next, which the report gives as a reason many accounts were opened and closed quickly (T6). The report does not say that any of these changes was meant to keep history from following a merchant. Three marks are unclear. The receiver wrote to 45 financial institutions, and 34 are marked as paid, without funds, closed or overdrawn; the report ties the number of banks to their refusals, at least in part, and not to a threshold (T1). A manager said that three online pharmacies with many websites had all their payments processed under one name; the report does not say whether the three are separate sellers, and its inventory lists deposit slips under two of the names (T3). When the processor got notice of a returned payment, it charged the amount against that merchant’s settlement, and a manager said the merchants took no card or ACH payments because those are too strictly regulated. But the report gives no return rate, complaint or warning (T7). It does not mention padding (T4) or refunds used to avoid returns (T5). S10.1 marks this complaint as alleging T2, T3, T6 and T7. So the report states two of the four alleged tactics and leaves the other two open.
 
@@ -1069,6 +1097,54 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 | The processor keeps processing for a merchant                                     | Its managers knew what the merchants sold and that they took no card or ACH payments. Notices of returned payments reached the processor, which charged them to the merchant. The report states no return rate                                                                                  | No. The processor was the actor, so no record of its own was the gap                                                                                                                                                 |
 
 **Reading.** All three results fixed in advance as counting against the records occur here, at least in part. First, the party that would keep the records ran the conduct: the processor filed the trade names, opened the accounts and moved from bank to bank. The note fixed one more test, whether the processor tracked returns by merchant and kept processing. That stays open: returns were charged to each merchant, and the report states no rate. Second, a shared attribute existed, the account holder’s name on each account and on public filings, but the accounts were at many banks, and the specified records are for one platform’s own data. Third, banks refused applications and closed accounts by ordinary means, and the business went on. The report gives a reason once, an extended overdraft. One result fits the records, by analogy only. A manager said processing for one merchant ended in 2018. The receiver found signs of deposits tied to that merchant in 2019 and could not tell released reserves from new payments. A payment record that keeps its seller and date would tell them apart; what the companies’ programs recorded is unknown. The payments were unsigned checks, outside the card networks’ monitoring for which the sheet was written, so each mark reads a tactic in substance. One interim report, drawn from interviews with the defendants and followed by no fuller one in the filings read, read once by one model from scans, shows neither how often these happen nor what any bank recorded.
+
+## S11. Specification detail
+
+Each subsection gives the detail that the named manuscript section summarizes.
+
+### S11.1 Outcome reports and channel states (manuscript Sections 5.2 and 5.3)
+
+Each report retains its type, source, lag and attributed transaction or entity. It keeps three times: when the reported outcome occurred, where known; when the report was made at its source; and when it arrived at the platform. Its channel supplies a reporting window and clock-start event. The evaluation separately records its chosen maturity period, how long it waits before reading a missing report as a negative. A period shorter than the channel’s window, or any period for a channel without one, rests on a delay model (manuscript Section 7.1). Every decision that may have shaped the report remains linked, and there can be several. A dispute can follow a blocked attempt, a retry and an approval, and one account restriction can affect many payments. Each link therefore states the decision’s role. The report’s later status, such as withdrawn, reversed, won or lost, has its own history, which records whether each won or lost status followed adjudication. A status change or correction is a new record that references the earlier one, so what the platform believed at each time can be reconstructed. Some channels never adjudicate a report, yet a provider may still record it as lost: Stripe’s dispute guide says disputes that network rules or local regulations make unchallengeable are closed as lost when they open \[[22](#ref-Stripe2026Disputes)\] (manuscript Section 7.1).
+
+**Channel state differs from report presence and access.** For each affected item, channel and read time, the records distinguish an open channel, a temporary delay, a permanent closure and unknown state. A missing report matures only after a defined window that remained open and was fully covered. If a decision changed the channel’s meaning, as a liability shift after successful authentication does (manuscript Section 7.1), a matured absence is read under that changed meaning and does not by itself support a negative for the original outcome. A channel without a defined window never supports a negative by maturity alone. A matured absence is provisional. Network and bank rules can reopen or extend a window after it has elapsed, as when a monitoring program lets issuers submit fraud disputes past the standard deadline \[[21](#ref-Stripe2026MonitoringPrograms)\] or banks accept a late return \[[24](#ref-Stripe2026ACHTerms)\]. Each such rule event is recorded as a channel-state transition with its source, rule version and learned time, although no platform decision caused it. A decision’s effect on each channel is fixed when the decision is recorded; later transitions are separate records that never edit it. Inaccessible records remain unavailable without erasing a known channel state or an earlier report. S4.1 specifies the clock-start and transition fields, with further rules on program status, revised negatives and reopened reports.
+
+### S11.2 Query coverage, claim rules and urgent containment (manuscript Sections 6.2 and 6.4)
+
+The gateway that enforces the agent’s scope (manuscript Section 6.5) also attaches the coverage record, independently of the agent. It records the requested and evaluated entities, with their tenant and identifier namespaces, the requested and evaluated event intervals, source and schema versions and any sampling. It also records the as-of cutoff, which limits the query to facts the system had learned by that time. For each source it records the event and ingestion watermarks (how far event time and loading have progressed), known gaps and the retention horizon. A requested interval that extends past a source’s event watermark, begins before its retention horizon or overlaps a known gap leaves that source’s result partial, as does sampling of that source. It also records whether access filtering removed rows or row, time or cost limits were reached.
+
+A draft separates material claims from context. A claim is material when its falsity would change a recommendation, detection candidate or released statement about named entities. Each material claim cites supporting records with their classes, event intervals and root observations, reached through lineage. It also lists the retrieved records that count against it, and quality review adds any it finds. The checker also identifies every record that the case’s query runs returned within the claim’s scope but that the draft neither cites nor lists against it; S4 gives how these records are shown and sampled. A claim that something is absent also cites the query runs whose coverage records support it. A claim that states or relies on an outcome that was not reported also cites, for each affected item, the state of each relevant outcome channel at the read time. The absence counts as a negative only where the channel matured with no report under its original meaning, and that negative remains provisional (manuscript Section 5.3). Claims about current conduct cite at least one source observation, normalized observation or derived feature whose event interval falls entirely within the task’s current period. A score or control decision from that period does not meet this rule by itself, because it records an assessment or an action, not the conduct. A derived feature that carries an agent-output or released-item link does not meet the rule by itself either; its inputs must include, for each named entity, a current-period observation without such a link.
+
+Urgent containment has a narrower route. A recommendation for a reversible action, such as a payout pause or API-key restriction, goes to an authorized on-call human with a decision target in minutes. Quality review follows within a set period, and an authorized human or accountable system decides whether to reverse the action. The draft does not enter organizational memory through this exception. Existing automatic controls remain in place.
+
+Reversibility does not imply low impact. An API-key restriction may interrupt a merchant’s integration. Actions are classed by impact as none, degraded service or outage; outage-class actions require notification and a restoration path.
+
+### S11.3 Approvals, memory and outbound traffic (manuscript Section 6.5)
+
+**Approval binds to the operation actually reviewed.** It identifies the exact payload, target, task, tenant, tool and tool-manifest version, plus expiry and permitted reuse. At execution, the gateway checks both the match and current permission. This addresses altered operations and changed tool descriptions \[[113](#ref-Kumar2026), [114](#ref-InvariantLabs2025)\]. Approval of an investigative operation cannot grant the agent authority over accounts, payments or controls.
+
+**Memory and outbound traffic have separate controls.** Proposed lessons remain outside organizational memory until testing, quality review and human release. This responds to documented memory-poisoning routes \[[42](#ref-Dash2026)\]. Traffic restrictions respond to demonstrated exfiltration, in which injected instructions passed user data to an attacker through search queries or links \[[115](#ref-Greshake2023)\]. Testing includes adaptive attackers because fixed-test success can overstate resistance \[[40](#ref-Nasr2025)\].
+
+### S11.4 Channel rules and measured ratios (manuscript Section 7.1)
+
+Stripe’s dispute guide says card networks typically allow cardholders to dispute within 120 days of the original payment, sometimes longer, and that for a future event or service the window generally starts on the event date \[[22](#ref-Stripe2026Disputes)\]. Rules vary by network and version. The records distinguish authorization, capture and processing times and use the clock-start event of the applicable channel rule. Missing rules or timestamps leave maturity unknown.
+
+Capture may also gate possible-fraud reporting. Stripe’s monitoring guide says issuers must report possible fraud on captured payments, even after refund, but are not required to report it on authorizations. It adds that an authorization reversed before capture is not reported \[[21](#ref-Stripe2026MonitoringPrograms)\]. Stripe’s dispute guide adds that a refund processed as a reversal, which usually happens within about 2 hours of capture, can also prevent a fraud report \[[22](#ref-Stripe2026Disputes)\]. Capture alone therefore does not fix that channel’s state: a review ending in reversal can close it while other incident reports remain possible.
+
+A control can change a channel’s meaning without closing it. Stripe’s 3-D Secure guide says liability for eligible fraud disputes can be expected to shift to the issuer after successful authentication, but is not guaranteed. It adds that an early fraud warning, a network report of suspected fraud, may still arrive \[[116](#ref-Stripe2026ThreeDS)\]. Authentication result, reported liability status and each channel’s state must therefore remain separate.
+
+Payout timing is recorded against the relevant reporting windows because funds may leave before reports arrive. The effect is recorded per channel: closed, delayed, changed in meaning, none or unknown.
+
+These channel properties come from card-network rules, and other rails differ. On Stripe’s bank-debit rails, a payer’s dispute or return inside the rail’s no-questions window is honored without adjudication or appeal \[[23](#ref-Stripe2026SEPADebit), [24](#ref-Stripe2026ACHTerms)\]; S4.1 gives the windows and rules read. A report honored without question is never adjudicated, so any won or lost status recorded for it says nothing about its truth, which rests entirely on a separate assessment. Each channel record therefore names its rail, the attributes its window depends on and whether the channel adjudicates report truth.
+
+Account structure affects where a report is recorded and which transactions a ratio describes. FTC complaints allege pooling or spreading activity to evade monitoring \[[14](#ref-FTC2020FirstData), [15](#ref-FTC2025Paddle)\]. These allegations motivate transaction links and cluster-level measures, without establishing erroneous attribution in a new case.
+
+Comparing account and cluster ratios requires the same outcome definition, cohort and window; manuscript Section 8.2 shows what pooling can conceal.
+
+Sales can also be inflated or moved. One FTC complaint alleges plans to add stored-value card “purchases” to a merchant’s sales, and continued processing of a merchant’s transactions through a linked account after its account was closed \[[16](#ref-FTC2019Allied)\]. Payments known to be funded by instruments the business or platform controls are therefore kept out of a ratio’s denominator and counted separately, and a closure’s effect is measured across linked accounts.
+
+Resolution also changes what becomes a chargeback. One FTC complaint alleges refunding on pre-dispute alerts to avoid chargeback recording; the resulting order was stipulated \[[15](#ref-FTC2025Paddle)\]. Stripe’s dispute guide says a business can proactively refund a payment flagged by an early fraud warning to prevent a dispute, while advising against refunding every flagged payment. It adds that such a refund does not affect the fraud warning \[[22](#ref-Stripe2026Disputes)\]. A lower chargeback ratio after alert resolution therefore does not establish less abuse.
+
+The records retain each alert, its resolution and any later chargeback. Transaction links allow a defined measure to count each affected transaction once. Table S7.1 summarizes the resulting requirements.
 
 ## References
 
@@ -1536,183 +1612,237 @@ The focused search and author-assigned mappings do not establish exhaustive cove
 
 </div>
 
+<div id="ref-Cao2019TitAnt" class="csl-entry">
+
+\[78\] S. Cao, X. Yang, C. Chen, J. Zhou, X. Li, and Y. Qi. 2019. TitAnt: Online Real-time Transaction Fraud Detection in Ant Financial. *Proceedings of the VLDB Endowment*, 12(12), pp. 2082–2093. <https://doi.org/10.14778/3352063.3352126>.
+
+</div>
+
+<div id="ref-DalPozzolo2017Fraud" class="csl-entry">
+
+\[79\] A. Dal Pozzolo, G. Boracchi, O. Caelen, C. Alippi, and G. Bontempi. 2018. Credit Card Fraud Detection: A Realistic Modeling and a Novel Learning Strategy. *IEEE Transactions on Neural Networks and Learning Systems*, 29(8), pp. 3784–3797. <https://doi.org/10.1109/TNNLS.2017.2736643>.
+
+</div>
+
+<div id="ref-Tax2021Fraud" class="csl-entry">
+
+\[80\] N. Tax, K. J. de Vries, M. de Jong, N. Dosoula, B. van den Akker, J. Smith, O. Thuong, and L. Bernardi. 2021. Machine Learning for Fraud Detection in E-Commerce: A Research Agenda. arXiv preprint 2107.01979v1. <https://arxiv.org/abs/2107.01979v1>.
+
+</div>
+
+<div id="ref-HeLoh2026Grab" class="csl-entry">
+
+\[81\] M. He and J. L. Loh. 2026. Combating Organized Platform Abuse: Amplifying Weak Risk Signals with Structural Information. arXiv preprint 2605.07383v2. <https://arxiv.org/abs/2605.07383v2>.
+
+</div>
+
 <div id="ref-Erdbrink2023TreatmentPatent" class="csl-entry">
 
-\[78\] C. Erdbrink and L. Ellis. 2023. Analyzing a Transaction in a Payment Processing System. US patent application publication, US20230298028A1, Fidelity Information Services, LLC. <https://patents.google.com/patent/US20230298028A1/en>.
+\[82\] C. Erdbrink and L. Ellis. 2023. Analyzing a Transaction in a Payment Processing System. US patent application publication, US20230298028A1, Fidelity Information Services, LLC. <https://patents.google.com/patent/US20230298028A1/en>.
 
 </div>
 
 <div id="ref-Sakellariou2022CTIReferenceModel" class="csl-entry">
 
-\[79\] G. Sakellariou, P. Fouliras, I. Mavridis, and P. Sarigiannidis. 2022. A Reference Model for Cyber Threat Intelligence (CTI) Systems. *Electronics*, 11(9), Article 1401. <https://doi.org/10.3390/electronics11091401>.
+\[83\] G. Sakellariou, P. Fouliras, I. Mavridis, and P. Sarigiannidis. 2022. A Reference Model for Cyber Threat Intelligence (CTI) Systems. *Electronics*, 11(9), Article 1401. <https://doi.org/10.3390/electronics11091401>.
 
 </div>
 
 <div id="ref-Dimitriadis2025" class="csl-entry">
 
-\[80\] A. Dimitriadis, A. Papoutsis, D. Kavalieros, T. Tsikrika, S. Vrochidis, and I. Kompatsiaris. 2025. EVACTI: Evaluating the Actionability of Cyber Threat Intelligence. *International Journal of Information Security*, 24, Article 123. <https://doi.org/10.1007/s10207-025-01033-z>.
+\[84\] A. Dimitriadis, A. Papoutsis, D. Kavalieros, T. Tsikrika, S. Vrochidis, and I. Kompatsiaris. 2025. EVACTI: Evaluating the Actionability of Cyber Threat Intelligence. *International Journal of Information Security*, 24, Article 123. <https://doi.org/10.1007/s10207-025-01033-z>.
 
 </div>
 
 <div id="ref-Wu2026ExCyTIn" class="csl-entry">
 
-\[81\] Y. Wu, M. Velazco, A. Zhao, M. R. Meléndez Luján, S. Movva, Y. K. Roy, Q. Nguyen, R. Rodriguez, Q. Wu, M. Albada, J. Kiseleva, and A. Mudgerikar. 2026. ExCyTIn-Bench: Evaluating LLM agents on Cyber Threat Investigation. arXiv preprint 2507.14201v3. Accepted at ICML 2026; final proceedings pagination not established. Cited version: arXiv 2507.14201v3 (1 May 2026). <https://arxiv.org/abs/2507.14201v3>.
+\[85\] Y. Wu, M. Velazco, A. Zhao, M. R. Meléndez Luján, S. Movva, Y. K. Roy, Q. Nguyen, R. Rodriguez, Q. Wu, M. Albada, J. Kiseleva, and A. Mudgerikar. 2026. ExCyTIn-Bench: Evaluating LLM agents on Cyber Threat Investigation. arXiv preprint 2507.14201v3. Accepted at ICML 2026; final proceedings pagination not established. Cited version: arXiv 2507.14201v3 (1 May 2026). <https://arxiv.org/abs/2507.14201v3>.
 
 </div>
 
 <div id="ref-Tan2026SRFraud" class="csl-entry">
 
-\[82\] X. Tan, Y. Ma, and X. Zhang. 2026. SR-Fraud: An Outcome-Supervised Reflective LLM Agent Framework for Non-Stationary Payment Fraud Detection. arXiv preprint 2609.27287v1. <https://arxiv.org/abs/2609.27287v1>.
+\[86\] X. Tan, Y. Ma, and X. Zhang. 2026. SR-Fraud: An Outcome-Supervised Reflective LLM Agent Framework for Non-Stationary Payment Fraud Detection. arXiv preprint 2609.27287v1. <https://arxiv.org/abs/2609.27287v1>.
 
 </div>
 
 <div id="ref-Mukherjee2025PROVSEEK" class="csl-entry">
 
-\[83\] K. Mukherjee and M. Kantarcioglu. 2025. LLM-driven Provenance Forensics for Threat Investigation and Detection. arXiv preprint 2508.21323v2. The v2 PDF title page reads “LLM-driven Provenance Forensics for Threat Intelligence and Detection” instead. <https://arxiv.org/abs/2508.21323v2>.
+\[87\] K. Mukherjee and M. Kantarcioglu. 2025. LLM-driven Provenance Forensics for Threat Investigation and Detection. arXiv preprint 2508.21323v2. The v2 PDF title page reads “LLM-driven Provenance Forensics for Threat Intelligence and Detection” instead. <https://arxiv.org/abs/2508.21323v2>.
 
 </div>
 
 <div id="ref-Alten2026DecisionRecords" class="csl-entry">
 
-\[84\] A. Alten. 2026. When Does Persistent Agent Memory Become Accountable? Scalytics blog. <https://www.scalytics.io/blog/agent-memory-governance-decision-records>. Accessed 26 October 2026.
+\[88\] A. Alten. 2026. When Does Persistent Agent Memory Become Accountable? Scalytics blog. <https://www.scalytics.io/blog/agent-memory-governance-decision-records>. Accessed 26 October 2026.
 
 </div>
 
 <div id="ref-Talamadupula2026AgentMemory" class="csl-entry">
 
-\[85\] K. Talamadupula. 2026. Oracle AI Agent Memory Brings Persistent Enterprise Context to NVIDIA OpenShell. Oracle Database blog. <https://blogs.oracle.com/database/oracle-ai-agent-memory-brings-persistent-enterprise-context-to-nvidia-openshell>. Accessed 26 October 2026.
+\[89\] K. Talamadupula. 2026. Oracle AI Agent Memory Brings Persistent Enterprise Context to NVIDIA OpenShell. Oracle Database blog. <https://blogs.oracle.com/database/oracle-ai-agent-memory-brings-persistent-enterprise-context-to-nvidia-openshell>. Accessed 26 October 2026.
 
 </div>
 
 <div id="ref-Ding2026AlwaysOn" class="csl-entry">
 
-\[86\] T. Ding, A. Nannapaneni, B. Liu, and L. Zhang. 2026. Always-On Agents: A Survey of Persistent Memory, State, and Governance in LLM Agents. arXiv preprint 2606.30306v1. <https://arxiv.org/abs/2606.30306v1>.
+\[90\] T. Ding, A. Nannapaneni, B. Liu, and L. Zhang. 2026. Always-On Agents: A Survey of Persistent Memory, State, and Governance in LLM Agents. arXiv preprint 2606.30306v1. <https://arxiv.org/abs/2606.30306v1>.
 
 </div>
 
 <div id="ref-Xia2024EDDOps" class="csl-entry">
 
-\[87\] B. Xia, Q. Lu, L. Zhu, Z. Xing, D. Zhao, and H. Zhang. 2025. Evaluation-Driven Development and Operations of LLM Agents: A Process Model and Reference Architecture. arXiv preprint 2411.13768v3. <https://arxiv.org/abs/2411.13768v3>.
+\[91\] B. Xia, Q. Lu, L. Zhu, Z. Xing, D. Zhao, and H. Zhang. 2025. Evaluation-Driven Development and Operations of LLM Agents: A Process Model and Reference Architecture. arXiv preprint 2411.13768v3. <https://arxiv.org/abs/2411.13768v3>.
 
 </div>
 
 <div id="ref-MindForge2026Operationalisation" class="csl-entry">
 
-\[88\] MindForge Consortium. 2026. AI Risk Management: Operationalisation Handbook. Handbook, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/schemes-and-initiatives/ftig/project-mindforge/mindforge-ai-risk-management-operationalisation-handbook.pdf>.
+\[92\] MindForge Consortium. 2026. AI Risk Management: Operationalisation Handbook. Handbook, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/schemes-and-initiatives/ftig/project-mindforge/mindforge-ai-risk-management-operationalisation-handbook.pdf>.
 
 </div>
 
 <div id="ref-MAS2026SAFR" class="csl-entry">
 
-\[89\] Monetary Authority of Singapore. 2026. Safeguards for Agentic Finance at Runtime (SAFR). White paper, version 1.1, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf>.
+\[93\] Monetary Authority of Singapore. 2026. Safeguards for Agentic Finance at Runtime (SAFR). White paper, version 1.1, Monetary Authority of Singapore. <https://www.mas.gov.sg/-/media/mas-media-library/development/fintech/ai-safr/safr-v1-1.pdf>.
 
 </div>
 
 <div id="ref-CERTIn2026AIAudit" class="csl-entry">
 
-\[90\] Indian Computer Emergency Response Team. 2026. AI Security Auditing Guidelines. Guidelines, version 1.0, CERT-In. <https://www.cert-in.org.in/PDF/AI_Security_Auditing_Guidelines.pdf>.
+\[94\] Indian Computer Emergency Response Team. 2026. AI Security Auditing Guidelines. Guidelines, version 1.0, CERT-In. <https://www.cert-in.org.in/PDF/AI_Security_Auditing_Guidelines.pdf>.
 
 </div>
 
 <div id="ref-Zhao2024ExpeL" class="csl-entry">
 
-\[91\] A. Zhao, D. Huang, Q. Xu, M. Lin, Y.-J. Liu, and G. Huang. 2024. ExpeL: LLM Agents Are Experiential Learners. *Proceedings of the AAAI Conference on Artificial Intelligence*, 38(17), pp. 19632–19642. <https://doi.org/10.1609/aaai.v38i17.29936>.
+\[95\] A. Zhao, D. Huang, Q. Xu, M. Lin, Y.-J. Liu, and G. Huang. 2024. ExpeL: LLM Agents Are Experiential Learners. *Proceedings of the AAAI Conference on Artificial Intelligence*, 38(17), pp. 19632–19642. <https://doi.org/10.1609/aaai.v38i17.29936>.
 
 </div>
 
 <div id="ref-Wei2026AMemGuard" class="csl-entry">
 
-\[92\] Q. Wei, T. Yang, Y. Wang, X. Li, L. Li, Z. Yin, Y. Zhan, T. Holz, Z. Lin, and X. Wang. 2026. A-MemGuard: A Proactive Defense Framework for LLM-Based Agent Memory. *Proceedings of the 43rd International Conference on Machine Learning*, 306, pp. 134176–134202. <https://proceedings.mlr.press/v306/wei26ac.html>.
+\[96\] Q. Wei, T. Yang, Y. Wang, X. Li, L. Li, Z. Yin, Y. Zhan, T. Holz, Z. Lin, and X. Wang. 2026. A-MemGuard: A Proactive Defense Framework for LLM-Based Agent Memory. *Proceedings of the 43rd International Conference on Machine Learning*, 306, pp. 134176–134202. <https://proceedings.mlr.press/v306/wei26ac.html>.
 
 </div>
 
 <div id="ref-Zhan2026AuthMemBench" class="csl-entry">
 
-\[93\] Q. Zhan, R. Zhang, S. Guo, L. Zhao, and Z. Liu. 2026. When Memory Becomes Authority: Benchmarking Authority Collapse at the Memory Consolidation Boundary. arXiv preprint 2608.01679v2. <https://arxiv.org/abs/2608.01679v2>.
+\[97\] Q. Zhan, R. Zhang, S. Guo, L. Zhao, and Z. Liu. 2026. When Memory Becomes Authority: Benchmarking Authority Collapse at the Memory Consolidation Boundary. arXiv preprint 2608.01679v2. <https://arxiv.org/abs/2608.01679v2>.
 
 </div>
 
 <div id="ref-Xu2026PPMF" class="csl-entry">
 
-\[94\] J. Xu, Y. Xiao, W. Shao, H. Liu, and X. Li. 2026. Memory Provenance Laundering in LLM Agents: A Non-Amplification Firewall for Persistent Memory. arXiv preprint 2607.29167v1. <https://arxiv.org/abs/2607.29167v1>.
+\[98\] J. Xu, Y. Xiao, W. Shao, H. Liu, and X. Li. 2026. Memory Provenance Laundering in LLM Agents: A Non-Amplification Firewall for Persistent Memory. arXiv preprint 2607.29167v1. <https://arxiv.org/abs/2607.29167v1>.
 
 </div>
 
 <div id="ref-Hettema2021Rationality" class="csl-entry">
 
-\[95\] H. Hettema. 2021. Rationality Constraints in Cyber Defense: Incident Handling, Attribution and Cyber Threat Intelligence. *Computers & Security*, 109, Article 102396. <https://doi.org/10.1016/j.cose.2021.102396>.
+\[99\] H. Hettema. 2021. Rationality Constraints in Cyber Defense: Incident Handling, Attribution and Cyber Threat Intelligence. *Computers & Security*, 109, Article 102396. <https://doi.org/10.1016/j.cose.2021.102396>.
 
 </div>
 
 <div id="ref-Zhu2026TierMem" class="csl-entry">
 
-\[96\] Q. Zhu, S. Chen, R. Yu, Z. Wu, and B. Wang. 2026. From Lossy to Verified: A Provenance-Aware Tiered Memory for Agents. arXiv preprint 2602.17913v1. Also presented as a poster at the ICLR 2026 Workshop on Memory for LLM-Based Agentic Systems (MemAgents). Cited version: arXiv 2602.17913v1 (20 February 2026). <https://arxiv.org/abs/2602.17913v1>.
+\[100\] Q. Zhu, S. Chen, R. Yu, Z. Wu, and B. Wang. 2026. From Lossy to Verified: A Provenance-Aware Tiered Memory for Agents. arXiv preprint 2602.17913v1. Also presented as a poster at the ICLR 2026 Workshop on Memory for LLM-Based Agentic Systems (MemAgents). Cited version: arXiv 2602.17913v1 (20 February 2026). <https://arxiv.org/abs/2602.17913v1>.
 
 </div>
 
 <div id="ref-Lam2026SSGM" class="csl-entry">
 
-\[97\] C. Lam, J. Li, L. Zhang, and K. Zhao. 2026. Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework. arXiv preprint 2603.11768v2. <https://arxiv.org/abs/2603.11768v2>.
+\[101\] C. Lam, J. Li, L. Zhang, and K. Zhao. 2026. Governing Evolving Memory in LLM Agents: Risks, Mechanisms, and the Stability and Safety Governed Memory (SSGM) Framework. arXiv preprint 2603.11768v2. <https://arxiv.org/abs/2603.11768v2>.
 
 </div>
 
 <div id="ref-Margalit2026GovernedMemory" class="csl-entry">
 
-\[98\] Y. Margalit, N. Cohen-Inger, E. Avram, R. Taig, and O. Margalit. 2026. Governed Shared Memory for Multi-Agent LLM Systems. arXiv preprint 2606.24535v1. <https://arxiv.org/abs/2606.24535v1>.
+\[102\] Y. Margalit, N. Cohen-Inger, E. Avram, R. Taig, and O. Margalit. 2026. Governed Shared Memory for Multi-Agent LLM Systems. arXiv preprint 2606.24535v1. <https://arxiv.org/abs/2606.24535v1>.
 
 </div>
 
 <div id="ref-Souza2025ProvAgent" class="csl-entry">
 
-\[99\] R. Souza, A. Gueroudji, S. DeWitt, D. Rosendo, T. Ghosal, R. Ross, P. Balaprakash, and R. Ferreira da Silva. 2025. PROV-AGENT: Unified Provenance for Tracking AI Agent Interactions in Agentic Workflows. *Proceedings of the 21st IEEE International Conference on e-Science*, pp. 467–473. <https://doi.org/10.1109/eScience65000.2025.00093>.
+\[103\] R. Souza, A. Gueroudji, S. DeWitt, D. Rosendo, T. Ghosal, R. Ross, P. Balaprakash, and R. Ferreira da Silva. 2025. PROV-AGENT: Unified Provenance for Tracking AI Agent Interactions in Agentic Workflows. *Proceedings of the 21st IEEE International Conference on e-Science*, pp. 467–473. <https://doi.org/10.1109/eScience65000.2025.00093>.
+
+</div>
+
+<div id="ref-Drapeau2026ScalingRadar" class="csl-entry">
+
+\[104\] R. Drapeau and S. Samant. 2026. Scaling Radar: Fighting fraud with agent-assisted machine learning. Stripe developer blog. <https://stripe.dev/blog/scaling-radar-fighting-fraud-with-agent-assisted-machine-learning>. Accessed 26 October 2026.
 
 </div>
 
 <div id="ref-Kaufman2011Leakage" class="csl-entry">
 
-\[100\] S. Kaufman, S. Rosset, and C. Perlich. 2011. Leakage in Data Mining: Formulation, Detection, and Avoidance. *Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, pp. 556–563. <https://doi.org/10.1145/2020408.2020496>.
+\[105\] S. Kaufman, S. Rosset, and C. Perlich. 2011. Leakage in Data Mining: Formulation, Detection, and Avoidance. *Proceedings of the 17th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining*, pp. 556–563. <https://doi.org/10.1145/2020408.2020496>.
 
 </div>
 
 <div id="ref-EleventhCir2017Universal" class="csl-entry">
 
-\[101\] US Court of Appeals for the Eleventh Circuit. 2017. FTC v. WV Universal Management, LLC, No. 16-17727, 877 F.3d 1234 (11th Cir.). Published opinion; facts taken from the district court's summary judgment order and not disputed on appeal. <https://www.courtlistener.com/opinion/4450999/federal-trade-commissioner-v-universal-processing-services-of-wisconsin/>. Accessed 22 November 2026.
+\[106\] US Court of Appeals for the Eleventh Circuit. 2017. FTC v. WV Universal Management, LLC, No. 16-17727, 877 F.3d 1234 (11th Cir.). Published opinion; facts taken from the district court's summary judgment order and not disputed on appeal. <https://www.courtlistener.com/opinion/4450999/federal-trade-commissioner-v-universal-processing-services-of-wisconsin/>. Accessed 22 November 2026.
 
 </div>
 
 <div id="ref-Universal2013FindingReport" class="csl-entry">
 
-\[102\] Universal Processing Services of Wisconsin, LLC. 2013. Finding report: Reserve account issues, UPS Wisconsin. Exhibit 1, ECF 110-1, FTC v. WV Universal Management, LLC, No. 6:12-cv-01618 (M.D. Fla.). US District Court, Middle District of Florida. Unsigned draft of an internal investigation report, filed by the FTC as an exhibit; one party's account, not a finding. <https://www.courtlistener.com/docket/4226610/110/1/federal-trade-commission-v-wv-universal-management-llc/>. Accessed 22 November 2026.
+\[107\] Universal Processing Services of Wisconsin, LLC. 2013. Finding report: Reserve account issues, UPS Wisconsin. Exhibit 1, ECF 110-1, FTC v. WV Universal Management, LLC, No. 6:12-cv-01618 (M.D. Fla.). US District Court, Middle District of Florida. Unsigned draft of an internal investigation report, filed by the FTC as an exhibit; one party's account, not a finding. <https://www.courtlistener.com/docket/4226610/110/1/federal-trade-commission-v-wv-universal-management-llc/>. Accessed 22 November 2026.
 
 </div>
 
 <div id="ref-ApexReceiver2018Report" class="csl-entry">
 
-\[103\] Temporary Receiver for Apex Capital Group, LLC. 2018. Preliminary report of temporary receiver. ECF 31, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.). US District Court, Central District of California. A receiver's preliminary report to the court, with Exhibit 15 (a processor's emails) and Exhibit 19 (an accountant's review of the seller's books) in ECF 31-3; not a finding of the court. <https://www.courtlistener.com/docket/8438203/31/federal-trade-commission-v-apex-capital-group-llc/>. Accessed 22 November 2026.
+\[108\] Temporary Receiver for Apex Capital Group, LLC. 2018. Preliminary report of temporary receiver. ECF 31, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.). US District Court, Central District of California. A receiver's preliminary report to the court, with Exhibit 15 (a processor's emails) and Exhibit 19 (an accountant's review of the seller's books) in ECF 31-3; not a finding of the court. <https://www.courtlistener.com/docket/8438203/31/federal-trade-commission-v-apex-capital-group-llc/>. Accessed 22 November 2026.
 
 </div>
 
 <div id="ref-TransactPro2019Motion" class="csl-entry">
 
-\[104\] SIA Transact Pro. 2019. Notice of motion and motion to dismiss. ECF 104, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.). US District Court, Central District of California. A defendant's motion; one party's position, not a finding. The court denied it (ECF 123). <https://www.courtlistener.com/docket/8438203/104/federal-trade-commission-v-apex-capital-group-llc/>. Accessed 22 November 2026.
+\[109\] SIA Transact Pro. 2019. Notice of motion and motion to dismiss. ECF 104, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.). US District Court, Central District of California. A defendant's motion; one party's position, not a finding. The court denied it (ECF 123). <https://www.courtlistener.com/docket/8438203/104/federal-trade-commission-v-apex-capital-group-llc/>. Accessed 22 November 2026.
 
 </div>
 
 <div id="ref-CDCal2020TransactProOrder" class="csl-entry">
 
-\[105\] US District Court, Central District of California. 2020. Stipulated order for permanent injunction and monetary judgment (SIA Transact Pro defendants). ECF 142, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.). Consent order; the settling defendants neither admit nor deny the complaint's allegations. <https://www.courtlistener.com/docket/8438203/142/federal-trade-commission-v-apex-capital-group-llc/>. Accessed 22 November 2026.
+\[110\] US District Court, Central District of California. 2020. Stipulated order for permanent injunction and monetary judgment (SIA Transact Pro defendants). ECF 142, FTC v. Apex Capital Group, LLC, No. 2:18-cv-09573 (C.D. Cal.). Consent order; the settling defendants neither admit nor deny the complaint's allegations. <https://www.courtlistener.com/docket/8438203/142/federal-trade-commission-v-apex-capital-group-llc/>. Accessed 22 November 2026.
 
 </div>
 
 <div id="ref-MaderaReceiver2020Report" class="csl-entry">
 
-\[106\] Temporary Receiver for Madera Merchant Services, LLC and B & P Enterprises, LLC. 2020. Receiver’s interim report. ECF 34, FTC and State of Ohio v. Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D. Tex.). US District Court, Western District of Texas. A receiver's interim report to the court, with Appendices A to F; not a finding of the court. The docket at this address lists the filing, the public archive does not hold it, and it was read in the copy from PACER. <https://www.courtlistener.com/docket/15975614/federal-trade-commission-v-madera-merchant-services-llc/>. Accessed 22 November 2026.
+\[111\] Temporary Receiver for Madera Merchant Services, LLC and B & P Enterprises, LLC. 2020. Receiver’s interim report. ECF 34, FTC and State of Ohio v. Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D. Tex.). US District Court, Western District of Texas. A receiver's interim report to the court, with Appendices A to F; not a finding of the court. The docket at this address lists the filing, the public archive does not hold it, and it was read in the copy from PACER. <https://www.courtlistener.com/docket/15975614/federal-trade-commission-v-madera-merchant-services-llc/>. Accessed 22 November 2026.
 
 </div>
 
 <div id="ref-MaderaReceiver2021Final" class="csl-entry">
 
-\[107\] Receiver for Madera Merchant Services, LLC and B & P Enterprises, LLC. 2021. Unopposed motion for order approving the receiver’s final report and accounting. ECF 43, FTC and State of Ohio v. Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D. Tex.). US District Court, Western District of Texas. The receiver's motion, with a declaration, a final accounting and an inventory; a party's filing, not a finding. The docket at this address lists the filing, the public archive does not hold it, and it was read in the copy from PACER. <https://www.courtlistener.com/docket/15975614/federal-trade-commission-v-madera-merchant-services-llc/>. Accessed 22 November 2026.
+\[112\] Receiver for Madera Merchant Services, LLC and B & P Enterprises, LLC. 2021. Unopposed motion for order approving the receiver’s final report and accounting. ECF 43, FTC and State of Ohio v. Madera Merchant Services, LLC, No. 3:19-cv-00195 (W.D. Tex.). US District Court, Western District of Texas. The receiver's motion, with a declaration, a final accounting and an inventory; a party's filing, not a finding. The docket at this address lists the filing, the public archive does not hold it, and it was read in the copy from PACER. <https://www.courtlistener.com/docket/15975614/federal-trade-commission-v-madera-merchant-services-llc/>. Accessed 22 November 2026.
+
+</div>
+
+<div id="ref-Kumar2026" class="csl-entry">
+
+\[113\] A. A. Kumar. 2026. Loopjacking: Hijacking Human-in-the-Loop Approval. arXiv preprint 2609.21081v1. <https://arxiv.org/abs/2609.21081v1>.
+
+</div>
+
+<div id="ref-InvariantLabs2025" class="csl-entry">
+
+\[114\] L. Beurer-Kellner and M. Fischer. 2025. MCP Security Notification: Tool Poisoning Attacks. Invariant Labs. <https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks>. Accessed 19 October 2026.
+
+</div>
+
+<div id="ref-Greshake2023" class="csl-entry">
+
+\[115\] K. Greshake, S. Abdelnabi, S. Mishra, C. Endres, T. Holz, and M. Fritz. 2023. Not What You’ve Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection. *Proceedings of the 16th ACM Workshop on Artificial Intelligence and Security*, pp. 79–90. Cited version: arXiv 2302.12173v2 (5 May 2023). <https://doi.org/10.1145/3605764.3623985>.
+
+</div>
+
+<div id="ref-Stripe2026ThreeDS" class="csl-entry">
+
+\[116\] Stripe. 2026. Authenticate with 3D Secure. Stripe documentation. <https://docs.stripe.com/payments/3d-secure/authentication-flow>. Accessed 19 October 2026.
 
 </div>
 

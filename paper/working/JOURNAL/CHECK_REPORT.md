@@ -6,33 +6,33 @@ For review, upload only `MANUSCRIPT_ACM_ANONYMOUS.pdf` and `SUPPLEMENT_ANONYMOUS
 
 ## Preprint copy
 
-- Text check: pass. 324 headings, paragraphs, list items, captions, table cells and images compared with the source, in order.
+- Text check: pass. 314 headings, paragraphs, list items, captions, table cells and images compared with the source, in order.
 - Numbering check: pass. 10 sections, 28 subsections, 3 tables and 3 figures print the numbers typed in the source.
 - Citation keys in the text: 76.
 - Supplied by the template, not the source: the country "USA" in the author block (ACM requires a country), and ACM's own labels, such as "Additional Key Words and Phrases" for the keywords line.
-- PDF check: pass. 324 of 324 text fragments found in the PDF; all citations resolved.
-- Pages: 27.
+- PDF check: pass. 301 of 301 text fragments found in the PDF; all citations resolved.
+- Pages: 25.
 
 ## Anonymous copy
 
-- Text check: pass. 320 headings, paragraphs, list items, captions, table cells and images compared with the source, in order.
+- Text check: pass. 310 headings, paragraphs, list items, captions, table cells and images compared with the source, in order.
 - Numbering check: pass. 10 sections, 28 subsections, 3 tables and 3 figures print the numbers typed in the source.
 - Citation keys in the text: 76.
 - Removed for anonymous review (5 entries in `SOURCE/anonymize.txt`, each matched once):
-  - status: 22 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+  - status: 23 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
   - block: Acknowledgments. Thanks to Humza Akhtar (Section 2.3), Marc Bara (Section 6.4), Jiahong Dai (Sections 2.2 and 6.2), Brian Freeman (Section 2.3), Oleg Solozobov …
   - text: Version 1.0 of these files is published with the preprint (https://doi.org/10.5281/zenodo.23772006); the working draft, with the files added since, and the revi…
   - block: Competing interests. The author previously worked for Microsoft and is seeking employment in security, fraud prevention, and trust and safety. The author has no…
   - block: Release status. This is the working draft for version 1.1. It is not a published version and has not been peer reviewed. Version 1.0 is dated 29 October 2026.
 - Supplied by the template, not the source: the country "USA" in the author block (ACM requires a country), and ACM's own labels, such as "Additional Key Words and Phrases" for the keywords line.
-- PDF check: pass. 320 of 320 text fragments found in the PDF; all citations resolved.
+- PDF check: pass. 297 of 297 text fragments found in the PDF; all citations resolved.
 - The author's surname and the preprint's DOIs appear nowhere in the TeX, the PDF text or the document properties.
-- Pages: 27.
+- Pages: 25.
 
 ## Anonymous supplement
 
 - Removed: the byline and the status line. The author property is not set.
 - TeX check: pass. The anonymous TeX equals the supplement's except for those 4 lines; the surname and the preprint's DOIs are not in its source.
 - The author's surname and the preprint's DOIs appear nowhere in the PDF text or document properties.
-- Pages: 75.
+- Pages: 80.
 
