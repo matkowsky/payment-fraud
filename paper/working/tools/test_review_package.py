@@ -1,7 +1,8 @@
 """Test the anonymous review package: it builds, names no author and keeps the supplement's layout. The builder
 must stop when it cannot read a PDF, and must find a forbidden string in PDF text, in a link target inside a
 compressed object stream and in a PDF inside the finished package. It must also stop when the anonymous supplement
-is missing, and fail the check when the finished package lacks it."""
+is missing, and fail the check when the finished package lacks it. With --require-tools a missing PDF tool fails the test
+instead of skipping the PDF checks."""
 import os
 import pathlib
 import shutil
@@ -72,8 +73,16 @@ with tempfile.TemporaryDirectory() as d:
     pkg.B = REAL
 
     if not all(shutil.which(t) for t in ('pdftotext', 'pdfinfo', 'qpdf')):
+        if '--require-tools' in sys.argv:
+            sys.exit('FAIL: pdftotext, pdfinfo or qpdf is missing, so the PDF checks cannot run. Install poppler-utils and qpdf.')
         print('review package: stop check ok; pdftotext, pdfinfo or qpdf missing, other checks skipped')
         sys.exit(0)
+
+    # --require-tools makes a missing PDF tool a failure instead of a skip. The pull-request job passes it.
+    for flag, code in (('--require-tools', 1), (None, 0)):
+        r = subprocess.run([sys.executable, __file__] + ([flag] if flag else []), env={'PATH': str(d / 'none')},
+                           capture_output=True)
+        assert r.returncode == code, (flag, r.returncode, r.stdout, r.stderr)
 
     assert pkg.leaks(leak, 'x/leak.pdf', BAD) == [BAD[0]]
     clean = d / 'clean.pdf'; clean.write_bytes(make_pdf('Prepared by the author'))

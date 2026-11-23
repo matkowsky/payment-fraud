@@ -49,7 +49,11 @@ jobs:
         working-directory: paper/working
       - run: python3 tools/agent_test/test_agent_test.py
         working-directory: paper/working
-      - run: python3 tools/test_review_package.py
+      - name: Install the PDF tools the review package test needs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y -o Acquire::Retries=3 -o Acquire::http::Timeout=60 -o Acquire::https::Timeout=60 poppler-utils qpdf
+      - run: python3 tools/test_review_package.py --require-tools
         working-directory: paper/working
       - run: python3 CHECK_CANDIDATE.py --sources
         working-directory: paper/working
