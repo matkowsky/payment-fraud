@@ -1,6 +1,7 @@
 """Test the anonymous review package: it builds, names no author and keeps the supplement's layout. The builder
 must stop when it cannot read a PDF, and must find a forbidden string in PDF text, in a link target inside a
-compressed object stream and in a PDF inside the finished package."""
+compressed object stream and in a PDF inside the finished package. It must also stop when the anonymous supplement
+is missing, and fail the check when the finished package lacks it."""
 import os
 import pathlib
 import shutil
@@ -13,6 +14,7 @@ import zlib
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import build_review_package as pkg
 
+REAL = pkg.B
 BAD = pkg.forbidden()
 NAME = BAD[0].capitalize()  # read at run time, so this file carries no forbidden string
 
@@ -36,6 +38,15 @@ def make_pdf(text, uri=None):
     return bytes(out)
 
 
+def tree(root, supplement=None):
+    """A small repository: the folders the builder reads, the forbidden list, and optionally the anonymous supplement."""
+    for rel, data in (('SUPPLEMENT/a.csv', b'x\n'), ('FIGURES/f.txt', b'x\n'), ('tools/t.py', b'x = 1\n'),
+                      ('JOURNAL_BUILD.py', (REAL / 'JOURNAL_BUILD.py').read_bytes()), ('JOURNAL/SUPPLEMENT_ANONYMOUS.pdf', supplement),
+                      ('JOURNAL/MANUSCRIPT_ACM_ANONYMOUS.pdf', make_pdf('Anonymous manuscript'))):
+        if data is not None:
+            (root / rel).parent.mkdir(parents=True, exist_ok=True); (root / rel).write_bytes(data)
+
+
 def stops(fn):
     try:
         fn()
@@ -54,6 +65,11 @@ with tempfile.TemporaryDirectory() as d:
     os.environ['PATH'] = str(d / 'none')
     assert stops(lambda: pkg.leaks(leak, 'x/leak.pdf', BAD))
     os.environ['PATH'] = path
+
+    # A missing anonymous supplement: the build stops before it reads any PDF, so this runs without the PDF tools.
+    pkg.B = d / 'no_supplement'; tree(pkg.B)
+    assert stops(lambda: pkg.build(d / 'ns.zip')) and not (d / 'ns.zip').exists()
+    pkg.B = REAL
 
     if not all(shutil.which(t) for t in ('pdftotext', 'pdfinfo', 'qpdf')):
         print('review package: stop check ok; pdftotext, pdfinfo or qpdf missing, other checks skipped')
@@ -76,6 +92,20 @@ with tempfile.TemporaryDirectory() as d:
     with zipfile.ZipFile(z, 'w', zipfile.ZIP_DEFLATED) as f:
         f.writestr('JOURNAL/leak.pdf', leak.read_bytes()); f.writestr('README_PACKAGE.md', 'x\n')
     assert [p for p in pkg.check(z) if p.startswith('JOURNAL/leak.pdf')]
+
+    # A package without the anonymous supplement fails the check, and with it the check passes.
+    pkg.B = d / 'with_supplement'; tree(pkg.B, make_pdf('Anonymous supplement'))
+    ok = d / 'ok.zip'; pkg.build(ok)
+    assert pkg.check(ok) == [] and 'JOURNAL/SUPPLEMENT_ANONYMOUS.pdf' in zipfile.ZipFile(ok).namelist()
+    lacks = d / 'lacks.zip'
+    with zipfile.ZipFile(lacks, 'w') as f:
+        f.writestr('README_PACKAGE.md', 'x\n'); f.writestr('SUPPLEMENT/a.csv', 'x\n')
+    assert [p for p in pkg.check(lacks) if p.startswith('JOURNAL/SUPPLEMENT_ANONYMOUS.pdf')]
+    # A supplement that names the author is left out, and the check then fails for the missing file.
+    (pkg.B / 'JOURNAL/SUPPLEMENT_ANONYMOUS.pdf').write_bytes(make_pdf('Prepared by J. ' + NAME))
+    gone = d / 'gone.zip'; kept, left = pkg.build(gone)
+    assert 'JOURNAL/SUPPLEMENT_ANONYMOUS.pdf' in left and pkg.check(gone)
+    pkg.B = REAL
 
     # The real package.
     out = d / 'REVIEW_PACKAGE.zip'
