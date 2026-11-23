@@ -7,9 +7,11 @@ Default output: build/review_package/REVIEW_PACKAGE.zip. The package keeps the r
 resolve when it is opened from the package's JOURNAL folder.
 
 A file is left out when its path or contents contain a string that JOURNAL_BUILD.py forbids in the anonymous
-copies (the author's surname and the preprint's DOIs), or when it is a compiled Python cache. PDF text and
-document properties are read with pdftotext and pdfinfo. README_PACKAGE.md in the package lists every file
-left out. Repository files are only read.
+copies (the author's surname and the preprint's DOIs), or when it is a compiled Python cache. A PDF is also read
+with pdftotext (text), pdfinfo (properties) and qpdf (every object decompressed, so link targets count). The
+build stops if any of the three is missing or fails. README_PACKAGE.md in the package lists every file left out.
+After the build, every entry of the finished package, PDFs read the same way, and the anonymous manuscript are
+checked again. Repository files are only read.
 """
 import ast
 import pathlib
@@ -17,12 +19,14 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import unicodedata
 import zipfile
 
 B = pathlib.Path(__file__).resolve().parent.parent
 FOLDERS = ('SUPPLEMENT', 'FIGURES', 'tools')
 EXTRA = ('JOURNAL/SUPPLEMENT_ANONYMOUS.pdf',)
+UPLOADS = ('JOURNAL/MANUSCRIPT_ACM_ANONYMOUS.pdf',)  # uploaded beside the package, not in it
 STAMP = (2026, 1, 1, 0, 0, 0)
 
 
@@ -39,10 +43,16 @@ def forbidden():
 
 
 def pdf_text(path):
+    """Text, properties and decompressed objects of a PDF. Stops the build if a tool is missing or fails."""
     out = []
-    for tool in (['pdftotext', '-q', str(path), '-'], ['pdfinfo', str(path)]):
-        if shutil.which(tool[0]):
-            out.append(subprocess.run(tool, capture_output=True, text=True, errors='replace').stdout)
+    for tool, ok in ((['pdftotext', '-q', str(path), '-'], (0,)), (['pdfinfo', str(path)], (0,)),
+                     (['qpdf', '--qdf', '--object-streams=disable', str(path), '-'], (0, 3))):  # qpdf: 3 = warnings
+        if not shutil.which(tool[0]):
+            sys.exit(f'STOP: {tool[0]} is missing, so {path} cannot be checked. Install poppler-utils and qpdf.')
+        r = subprocess.run(tool, capture_output=True)
+        if r.returncode not in ok:
+            sys.exit(f'STOP: {tool[0]} failed on {path} (exit {r.returncode}), so it cannot be checked.')
+        out.append(r.stdout.decode('latin-1'))
     return '\n'.join(out)
 
 
@@ -96,15 +106,22 @@ def build(out):
 
 
 def check(out):
-    """Reopen the package and confirm no entry names the author or cites the preprint."""
+    """Reopen the package and confirm no entry, and no uploaded PDF, names the author or cites the preprint."""
     bad = forbidden()
     problems = []
-    with zipfile.ZipFile(out) as z:
-        for name in z.namelist():
-            data = z.read(name).decode('latin-1')
-            found = [f for f in bad if f in norm(name + '\n' + data)]
+    with zipfile.ZipFile(out) as z, tempfile.TemporaryDirectory() as tmp:
+        for i, name in enumerate(z.namelist()):
+            path = pathlib.Path(tmp) / (str(i) + pathlib.PurePosixPath(name).suffix)
+            path.write_bytes(z.read(name))
+            found = leaks(path, name, bad)
             if found:
                 problems.append(f'{name}: {found}')
+    for rel in UPLOADS:
+        if not (B / rel).is_file():
+            sys.exit(f'STOP: {rel} is missing; build it with JOURNAL_BUILD.py first.')
+        found = leaks(B / rel, rel, bad)
+        if found:
+            problems.append(f'{rel}: {found}')
     return problems
 
 
