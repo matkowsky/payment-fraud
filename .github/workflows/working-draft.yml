@@ -49,6 +49,8 @@ jobs:
         working-directory: paper/working
       - run: python3 tools/agent_test/test_agent_test.py
         working-directory: paper/working
+      - run: python3 tools/test_review_package.py
+        working-directory: paper/working
       - run: python3 CHECK_CANDIDATE.py --sources
         working-directory: paper/working
       - run: python3 tools/revision_status.py check --sources
