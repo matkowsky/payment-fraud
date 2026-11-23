@@ -200,7 +200,7 @@ assert n_pow == 628 and all(e8_power(m, 0.001) >= 0.93 for m in range(n_pow, n_p
 e8_drafts = round(n_pow / 0.05); e8_days = e8_drafts // 20
 assert e8_drafts == 12560 and e8_days == 628 and 'needs 628' in sbody and '12,560 drafts, about 628 days' in sbody
 assert round(e8_days / (365.25 / 12)) == 21 and 'One site at that volume would need about 21 months.' in sbody \
-    and 'At 20 drafts every calendar day, one site would need about 21 months' in body  # 628 calendar days
+    and 'At 20 drafts every calendar day, one site would need about 21 months' in sbody  # 628 calendar days; the full E8 question is in S7
 assert round(100 * binom_cdf(2, 628, 0.01), 2) == 4.98 and binom_cdf(3, 628, 0.01) > 0.05 and round(100 * binom_cdf(2, 628, 0.001), 1) == 97.4
 assert 'two or fewer releases show it' in sbody and 'probability 4.98 percent' in sbody and 'probability 97.4 percent' in sbody
 assert round(100 * 0.93 ** 4) == 75 and 'about 75 percent if their results are independent' in sbody
