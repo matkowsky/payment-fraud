@@ -10,8 +10,9 @@ A file is left out when its path or contents contain a string that JOURNAL_BUILD
 copies (the author's surname and the preprint's DOIs), or when it is a compiled Python cache. A PDF is also read
 with pdftotext (text), pdfinfo (properties) and qpdf (every object decompressed, so link targets count). The
 build stops if any of the three is missing or fails. README_PACKAGE.md in the package lists every file left out.
-After the build, every entry of the finished package, PDFs read the same way, and the anonymous manuscript are
-checked again. Repository files are only read.
+The build also stops if the anonymous supplement is missing. After the build, every entry of the finished
+package, PDFs read the same way, and the anonymous manuscript are checked again, and the check fails if the
+anonymous supplement is not in the package. Repository files are only read.
 """
 import ast
 import pathlib
@@ -76,6 +77,9 @@ def candidates():
 
 
 def build(out):
+    for rel in EXTRA:
+        if not (B / rel).is_file():
+            sys.exit(f'STOP: {rel} is missing; build it with JOURNAL_BUILD.py first.')
     bad = forbidden()
     kept, left = [], []
     for p in candidates():
@@ -110,7 +114,9 @@ def check(out):
     bad = forbidden()
     problems = []
     with zipfile.ZipFile(out) as z, tempfile.TemporaryDirectory() as tmp:
-        for i, name in enumerate(z.namelist()):
+        names = z.namelist()
+        problems += [f'{rel}: required file is not in the package' for rel in EXTRA if rel not in names]
+        for i, name in enumerate(names):
             path = pathlib.Path(tmp) / (str(i) + pathlib.PurePosixPath(name).suffix)
             path.write_bytes(z.read(name))
             found = leaks(path, name, bad)
