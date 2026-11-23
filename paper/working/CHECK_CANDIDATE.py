@@ -370,8 +370,12 @@ assert sorted(r['unit'] for r in dockets) == sorted(units14) and len(dockets) ==
 assert [r['unit'] for r in dockets if r['counted'] != 'none'] == ['U02']
 assert sorted(r['unit'] for r in dockets if r['listed_not_held'] != 'none') == ['U02', 'U03']
 assert sum(1 for r in dockets if r['counted'] == 'none' and r['listed_not_held'] == 'none') == 12
-assert ('All 14 were then put to the same two searches' in sbody and 'no such entry in the other 12' in sbody
-        and 'A second docket lists a receiver' in sbody and "S10.4 reads both from the court's copies" in sbody)
+assert ('All 14 were then put to two searches' in sbody and 'added entry-label filter on the second search for this docket' in sbody
+        and 'can miss a record filed under another label' in sbody
+        and 'They located one qualifying document that the archive holds in full' in sbody
+        and 'No qualifying entry surfaced in the other 12 under those searches' in sbody
+        and 'A second docket lists a receiver' in sbody and "S10.4 reads both from the court's copies" in sbody
+        and 'same two searches' not in sbody and 'that could be read this way' not in sbody)
 # Second case (Supplement S10.4): the findings sheet, the transcribed list of institutions and the text agree.
 M = B / 'tools/receiver_report/madera'
 found = {r['tactic'].split()[0]: r for r in csv.DictReader((M / 'FINDINGS.csv').open(encoding='utf-8'))}

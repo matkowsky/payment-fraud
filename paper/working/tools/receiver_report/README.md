@@ -75,3 +75,7 @@ Whatever the sheet shows goes in the supplement. Results against the records are
 22 November 2026, 22:01Z. The text above is unchanged.
 
 - A second case was read: the receiver's reports in U03, which the archive lists and does not hold. Its protocol note, sheet and reading record are in `madera/`. The protocol above applies to it unchanged; `madera/README.md` fixes what differs.
+
+23 November 2026 (UTC). The text above is unchanged.
+
+- The note of 22 November, "All 14 dockets were then searched the same way", should read as follows. All 14 dockets were put to two searches under `DOCKET_CHECK.md`. For this docket the second search carried an added entry-label filter. The searches read entry descriptions and can miss a record filed under another label. Under them, this docket is the only one of the 14 whose archive copy holds a receiver's report or a decision in which the court states facts. This is not a full inventory of the 14.
