@@ -4,7 +4,7 @@ Jonathan Matkowsky
 
 New York, New York. Correspondence: Jonathan@matkowsky.com
 
-23 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+24 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 ## Abstract
 
@@ -669,7 +669,7 @@ The next test is operational value: whether these records improve conclusions, w
 
 <div id="ref-Qi2026GovMem" class="csl-entry">
 
-\[28\] Y. Qi, X. Xu, and Y. Li. 2026. When Not to Write Memory: Governing False Promotion from Correlated Agent Traces. arXiv preprint 2607.02579v1. <https://arxiv.org/abs/2607.02579v1>.
+\[28\] Y. Qi, X. Xu, and Y. Li. 2026. When Not to Write Memory: Governing False Promotion from Correlated Agent Traces. *2026 6th International Conference on Machine Learning and Intelligent Systems Engineering (MLISE)*, pp. 228–234. <https://doi.org/10.1109/MLISE70044.2026.11607557>.
 
 </div>
 

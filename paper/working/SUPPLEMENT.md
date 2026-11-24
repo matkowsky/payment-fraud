@@ -2,7 +2,7 @@
 
 Jonathan Matkowsky
 
-23 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
+24 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
 
 This supplement accompanies the [manuscript](MANUSCRIPT.md). S1 and S2 explain the sources and selection. S3 to S5 specify the signals, records and interfaces. S6 supplies the hypothetical investigations and their arithmetic; S7 gives the proposed evaluations. S8 tests eight AI models on written versions of the two investigations. S9 extends the comparison with prior work. S10 replays two FTC complaints on synthetic records and counts the tactics alleged in 14. S11 gives specification detail that the manuscript summarizes. The 19 CSV files use UTF-8 encoding and stable mechanism, source and signal identifiers. Citation labels match the package’s [BibLaTeX references](REFERENCES.bib).
 
@@ -1548,7 +1548,7 @@ The records retain each alert, its resolution and any later chargeback. Transact
 
 <div id="ref-Qi2026GovMem" class="csl-entry">
 
-\[67\] Y. Qi, X. Xu, and Y. Li. 2026. When Not to Write Memory: Governing False Promotion from Correlated Agent Traces. arXiv preprint 2607.02579v1. <https://arxiv.org/abs/2607.02579v1>.
+\[67\] Y. Qi, X. Xu, and Y. Li. 2026. When Not to Write Memory: Governing False Promotion from Correlated Agent Traces. *2026 6th International Conference on Machine Learning and Intelligent Systems Engineering (MLISE)*, pp. 228–234. <https://doi.org/10.1109/MLISE70044.2026.11607557>.
 
 </div>
 
