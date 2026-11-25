@@ -435,7 +435,7 @@ Eight AI models from two vendors answered written versions of Traces A and B in 
 
 ### 9.1 Questions, comparisons and failure criteria
 
-The specification is worthwhile only if its added records and safeguards improve investigation enough to justify their cost. The evaluation plan separates the records from the agent: C1 and C2 do not need one, E1, E3 and E9 test them without it, and E5 tests the agent’s benefit. A platform can start within a quarter with E9(a) and an audit of closed cases (Supplement S7.1).
+The specification is worthwhile only if its added records and safeguards improve investigation enough to justify their cost. The evaluation plan separates the records from the agent. C1 and C2 do not need one: E3 and E9 test relevant records without it, as does E1 when people investigate without the agent. E5 tests the agent’s benefit. A platform can start within a quarter with E9(a) and an audit of closed cases (Supplement S7.1).
 
 Supplement S7.1 gives each hypothesis, design, primary measure and proposed failure criteria. E1, E3, E8 and E9 are confirmatory; the others are exploratory. Passing them would not establish the value of each field on its own: no confirmatory test isolates the field for false reports, E3 can pass on clustering alone, and no evaluation tests the urgent-containment route (Supplement S7).
 
