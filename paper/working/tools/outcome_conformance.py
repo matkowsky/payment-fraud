@@ -104,6 +104,22 @@ def key(item):
     return (item['item_type'], item['item_id'])
 
 
+def known_transitions(records, transitions, item, channel, at):
+    """Return the item's channel transitions known at the reading, before later corrections."""
+    superseded = {r['corrects'] for r in records if 'corrects' in r and ts(r['learned_at']) <= at}
+    return [t for t in transitions if t['record_id'] not in superseded and key(t['item']) == item
+            and t['channel_id'] == channel and ts(t['learned_at']) <= at]
+
+
+def effective_window_end(start, days, transitions):
+    """Apply all known extensions without shortening the nominal reporting window."""
+    end = start + timedelta(days=days)
+    for t in transitions:
+        if t['state'] == 'reopened_or_extended' and 'effective_to' in t:
+            end = max(end, ts(t['effective_to']))
+    return end
+
+
 def check(records, schema):
     """Return a sorted list of (rule, record_id, message) findings."""
     findings = []
@@ -258,13 +274,6 @@ def check(records, schema):
                     ts(closure['learned_at']) > ts(el['learned_at']):
                 add('OR-14', el['record_id'], 'a successor link starts from an account with a recorded closure')
 
-    def known_transitions(item, channel, at):
-        # As of a read time, a correction counts only once the system had learned it. Until then the record it
-        # corrects is what the system knew, so a later correction cannot erase an earlier state from a past read.
-        superseded = {r['corrects'] for r in records if 'corrects' in r and ts(r['learned_at']) <= at}
-        return [t for t in transitions if t['record_id'] not in superseded and key(t['item']) == item
-                and t['channel_id'] == channel and ts(t['learned_at']) <= at]
-
     def state_at(ts_list, when):
         active = [t for t in ts_list if ts(t['effective_from']) <= when
                   and ('effective_to' not in t or when < ts(t['effective_to']))]
@@ -272,7 +281,7 @@ def check(records, schema):
 
     for rd in by_type.get('ChannelStatusReading', []):
         at, item, ch = ts(rd['read_time']), key(rd['item']), rd['channel_id']
-        known = known_transitions(item, ch, at)
+        known = known_transitions(records, transitions, item, ch, at)
         if rd['channel_state'] != state_at(known, at):  # OR-10 as-of reading
             add('OR-10', rd['record_id'], f'state as of read time is {state_at(known, at)!r}')
         arrived = any(key(le['item']) == item and le['channel_id'] == ch and ts(le['learned_at']) <= at
@@ -298,10 +307,7 @@ def check(records, schema):
         elif window['status'] == 'unknown' or cs_lo is None or cs_lo != cs_hi:
             expected = 'unknown'
         else:
-            end = cs_lo + timedelta(days=window['days'])
-            for t in known:
-                if t['state'] == 'reopened_or_extended' and 'effective_to' in t:
-                    end = max(end, ts(t['effective_to']))
+            end = effective_window_end(cs_lo, window['days'], known)
             if at < end:
                 expected = 'pending'
             else:

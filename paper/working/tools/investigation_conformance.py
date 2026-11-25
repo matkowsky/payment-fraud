@@ -16,7 +16,6 @@ import json
 import re
 from datetime import datetime
 import sys
-from datetime import timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -383,6 +382,7 @@ def check_joint(records, outcomes):
     out = {r['record_id']: r for r in outcomes}
     windows = {(r['channel_id'], r['reporting_window'].get('rule_version')): r['reporting_window']
                for r in outcomes if r['record_type'] == 'OutcomeChannel'}
+    transitions = [r for r in outcomes if r['record_type'] == 'ChannelStateTransition']
     for d in records:
         for c in d['claims'] if d['record_type'] == 'DraftOutput' else []:
             cid = f'{d["record_id"]}/{c["claim_id"]}'
@@ -412,7 +412,9 @@ def check_joint(records, outcomes):
                 for x in mine:
                     w = windows.get((x['channel_id'], x.get('matured_under_rule_version')), {})
                     start = ts(x['clock_start']['value'])
-                    end = start + timedelta(days=w.get('days', 0))
+                    known = oc.known_transitions(outcomes, transitions, oc.key(x['item']), x['channel_id'],
+                                                 ts(x['read_time']))
+                    end = oc.effective_window_end(start, w.get('days', 0), known)
                     if not any(q['statuses'] == ['complete'] and not q['scope_limited']
                                and ent(e) in {ent(v) for v in q['evaluated_entities']}
                                and ts(q['evaluated_interval']['from']) <= start <= end <= ts(q['evaluated_interval']['to'])
@@ -563,6 +565,38 @@ def reference_sweep(records, schema, outcomes=None, outcome_schema=None):
     return wrong_type, missing, wrong_kind
 
 
+def check_extended_reporting_window(records, outcomes, schema, outcome_schema):
+    """XR-01 uses the cited reading's effective window, not today's state or the nominal duration."""
+    extension = copy.deepcopy(next(r for r in outcomes if r['record_id'] == 'T-4'))
+    extension.update(record_id='T-6', state='reopened_or_extended',
+                     effective_from='2026-06-01T00:00:00Z', effective_to='2026-06-12T00:00:00Z',
+                     learned_at='2026-06-01T00:00:00Z')
+    extended = outcomes + [extension]
+    assert not oc.check(extended, outcome_schema)
+    assert {f[0] for f in check_both(records, extended, schema, outcome_schema)} == {'XR-01'}
+
+    full = copy.deepcopy(records)
+    query = next(r for r in full if r['record_id'] == 'Q-5')
+    for field in ('requested_interval', 'evaluated_interval'):
+        query[field]['to'] = extension['effective_to']
+    assert not check_both(full, extended, schema, outcome_schema)
+
+    status = copy.deepcopy(records)
+    for record in status:
+        for claim in record.get('claims', []):
+            if claim.get('outcome_use') == 'negative':
+                claim['outcome_use'] = 'status'
+    assert not check_both(seal(status), extended, schema, outcome_schema)
+
+    correction = dict(extension, record_id='T-7', corrects='T-6', effective_to='2026-06-04T00:00:00Z',
+                      learned_at='2026-06-13T00:00:00Z')
+    assert not check_both(records, extended + [correction], schema, outcome_schema)
+    later = dict(correction, learned_at='2026-06-16T00:00:00Z')
+    assert {f[0] for f in check_both(records, extended + [later], schema, outcome_schema)} == {'XR-01'}
+    later_extension = dict(extension, learned_at='2026-06-16T00:00:00Z')
+    assert not check_both(records, outcomes + [later_extension], schema, outcome_schema)
+
+
 def check_current_period_coverage(valid, schema):
     """One in-period entity cannot carry a multi-entity current-conduct claim."""
     records = copy.deepcopy(valid)
@@ -605,6 +639,7 @@ def run_conformance():
                                         apply_patch(outcomes, case.get('outcome', {})), schema, outcome_schema)}
         assert got == {case['rule']}, (case['case_id'], case['rule'], sorted(got))
     joint = joint_pairs(records, outcomes, schema, outcome_schema)
+    check_extended_reporting_window(records, outcomes, schema, outcome_schema)
     accept = json.loads(ACCEPT.read_text(encoding='utf-8'))['cases']
     for case in accept:   # changes the requirements allow must still pass
         if 'investigation' in case or 'outcome' in case:
