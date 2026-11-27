@@ -3,8 +3,8 @@
     python3 tools/build_review_package.py [OUTPUT.zip]
 
 Default output: build/review_package/REVIEW_PACKAGE.zip. The package keeps the repository layout
-(SUPPLEMENT/, FIGURES/, tools/ and JOURNAL/SUPPLEMENT_ANONYMOUS.pdf), so the anonymous supplement's links
-resolve when it is opened from the package's JOURNAL folder.
+(SUPPLEMENT/, FIGURES/ and tools/). The anonymous supplement goes at the package root as SUPPLEMENT_ANONYMOUS.pdf,
+because its links are relative to the folder that holds SUPPLEMENT/, so they resolve when it is opened there.
 
 A file is left out when its path or contents contain a string that JOURNAL_BUILD.py forbids in the anonymous
 copies (the author's surname and the preprint's DOIs), or when it is a compiled Python cache. A PDF is also read
@@ -27,6 +27,7 @@ import zipfile
 B = pathlib.Path(__file__).resolve().parent.parent
 FOLDERS = ('SUPPLEMENT', 'FIGURES', 'tools')
 EXTRA = ('JOURNAL/SUPPLEMENT_ANONYMOUS.pdf',)
+PACKED = {'JOURNAL/SUPPLEMENT_ANONYMOUS.pdf': 'SUPPLEMENT_ANONYMOUS.pdf'}  # name inside the package
 UPLOADS = ('JOURNAL/MANUSCRIPT_ACM_ANONYMOUS.pdf',)  # uploaded beside the package, not in it
 STAMP = (2026, 1, 1, 0, 0, 0)
 
@@ -90,7 +91,7 @@ def build(out):
         (left if found else kept).append(rel)
     readme = ['# Review package', '',
               'This package holds the data, figures and scripts that the supplement links to, in the same layout.',
-              "Open JOURNAL/SUPPLEMENT_ANONYMOUS.pdf from this folder so that its links resolve.", '',
+              'Open SUPPLEMENT_ANONYMOUS.pdf in this folder, so that its links resolve.', '',
               '- SUPPLEMENT/: the CSV tables and record schemas.',
               '- FIGURES/: the figures.',
               '- tools/: scripts, prompts, packets, run records, rulings and results.', '',
@@ -103,7 +104,7 @@ def build(out):
         info = zipfile.ZipInfo('README_PACKAGE.md', STAMP)
         z.writestr(info, '\n'.join(readme) + '\n', zipfile.ZIP_DEFLATED)
         for rel in kept:
-            info = zipfile.ZipInfo(rel, STAMP)
+            info = zipfile.ZipInfo(PACKED.get(rel, rel), STAMP)
             info.external_attr = ((B / rel).stat().st_mode & 0o777) << 16
             z.writestr(info, (B / rel).read_bytes(), zipfile.ZIP_DEFLATED)
     return kept, left
@@ -115,7 +116,7 @@ def check(out):
     problems = []
     with zipfile.ZipFile(out) as z, tempfile.TemporaryDirectory() as tmp:
         names = z.namelist()
-        problems += [f'{rel}: required file is not in the package' for rel in EXTRA if rel not in names]
+        problems += [f'{rel}: required file is not in the package' for rel in EXTRA if PACKED.get(rel, rel) not in names]
         for i, name in enumerate(names):
             path = pathlib.Path(tmp) / (str(i) + pathlib.PurePosixPath(name).suffix)
             path.write_bytes(z.read(name))
