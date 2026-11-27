@@ -21,6 +21,7 @@ Each run used its string from STRINGS.md unchanged.
 | CB2-SC | 2026-11-27 | 103 | 103 | 27 | 0 |
 | CB3-SC | 2026-11-27 | 10 | 10 | 1 | 0 |
 | CB4-SC | 2026-11-27 | 15 | 15 | 7 | 0 |
+| CB5-SC | 2026-11-27 | 15 | 15 | 6 | 0 |
 
 Q1-SC: all 400 hits were exported and screened, above the 300 cap. No record the cap would keep was dropped.
 
@@ -47,6 +48,8 @@ CB2-SC: citing documents of Dal Pozzolo et al. 2018, searched within for the CB2
 CB3-SC: citing documents of Chapelle 2014, searched within for the CB3 terms. Nine are about online advertising, mostly matched by "payment" or "fraud" in passing. The tenth, a nonpayment model at Meta with delayed labels (doi:10.1145/3711896.3737247), was already screened in Q1-SC.
 
 CB4-SC: every citing document of Ehrhardt et al. 2021, with no terms. The export failed, so the 15 results were recorded from the results page, with titles and abstracts; record numbers and DOIs are given only for the two already screened (CB1-SC, Q1-SC). 7 abstracts read, none critical. All are reject-inference or credit-risk methods. Closest: a 2027 study (Scarone and Baeza-Yates, LNCS 16941) showing that retraining on accepted loans raises accuracy while rejection quality falls, remedied by approving a small share of rejects. That is exploration, not a record requirement.
+
+CB5-SC: citing documents of Razniewski and Nutt 2011, searched within for the CB5 terms. Recorded from the results page, with titles and abstracts. 6 abstracts read, none critical. All are database theory on query completeness. Closest: a check of query completeness when data reach the database after the real-world event (Razniewski, Montali and Nutt 2013, LNCS 8094), and RDF answers that carry completeness statements (Darari et al. 2018, ACM Transactions on the Web 12(3)). Neither places a coverage record outside an agent in an investigation.
 
 ## Critical sources
 
