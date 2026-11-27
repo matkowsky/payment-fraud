@@ -1,5 +1,5 @@
 # Removals for the anonymous review copy only (JOURNAL_BUILD.py --anonymous). The preprint keeps them.
-# DTRAP review is double-anonymous: no acknowledgments, contributor credits, competing-interest details,
+# Review is anonymous: no acknowledgments, contributor credits, competing-interest details,
 # repository or DOI links, or citation of the preprint. Initial list; the author confirms it before submission.
 # "status:" removes the dated status line under the byline (its date changes with each rebuild).
 # "block:" removes the paragraph whose text starts with the entry. "text:" removes that exact text.
@@ -10,3 +10,4 @@ block: Acknowledgments.
 text: Version 1.0 of these files is published with the preprint (https://doi.org/10.5281/zenodo.23772006); the working draft, with the files added since, and the review record are at https://github.com/matkowsky/payment-fraud.
 block: Competing interests.
 block: Release status.
+text: Reproduction scripts check the included counts, lineage and arithmetic and rebuild the documents.

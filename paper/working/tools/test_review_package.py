@@ -105,7 +105,7 @@ with tempfile.TemporaryDirectory() as d:
     # A package without the anonymous supplement fails the check, and with it the check passes.
     pkg.B = d / 'with_supplement'; tree(pkg.B, make_pdf('Anonymous supplement'))
     ok = d / 'ok.zip'; pkg.build(ok)
-    assert pkg.check(ok) == [] and 'JOURNAL/SUPPLEMENT_ANONYMOUS.pdf' in zipfile.ZipFile(ok).namelist()
+    assert pkg.check(ok) == [] and 'SUPPLEMENT_ANONYMOUS.pdf' in zipfile.ZipFile(ok).namelist()
     lacks = d / 'lacks.zip'
     with zipfile.ZipFile(lacks, 'w') as f:
         f.writestr('README_PACKAGE.md', 'x\n'); f.writestr('SUPPLEMENT/a.csv', 'x\n')
