@@ -395,11 +395,12 @@ for said in ('the report states two of the seven tactics as fact, and both are t
              'One result fits the records, by analogy only.'):
     assert said in sbody, said
 assert 'Three court records were then read against the specification (Supplement S10.2 to S10.4)' in body
-assert 'Three court records state most of those tactics as fact and mark a limit' in body and '| Court records state tactics as fact |' in body
+assert body.count('Three court records describe most of those tactics and mark a limit') == 2 and '| Court records describe most tactics |' in body
+assert 'tactics as fact' not in body  # the reports are not court findings
 # Section 8.5's figures for the court records, against the first case's sheet and transcribed tables.
 apex = {r['tactic'].split()[0]: r['stated'] for r in csv.DictReader((B / 'tools/receiver_report/FINDINGS.csv').open(encoding='utf-8'))}
-stated_fact = {t for t in ('T1', 'T2', 'T3', 'T5', 'T6') if apex[t].startswith('yes') or found[t]['stated'] == 'yes'}
-assert stated_fact == {'T1', 'T2', 'T5', 'T6'} and 'they state four of the five tactics as fact' in body
+stated_fact = {t for t in ('T1', 'T2', 'T3', 'T5', 'T6') if apex[t].startswith('yes')}
+assert stated_fact == {'T1', 'T2', 'T5', 'T6'} and "One receiver's preliminary report describes four of the five tactics" in body
 all_seven = {t for t in ('T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7') if apex[t].startswith('yes') or found[t]['stated'] == 'yes'}
 assert len(all_seven) == 5  # "most of those tactics" in the abstract and Section 1
 for said in ('57 nominee companies', 'refunds of 12.7 percent of sales beside chargebacks of 14.6', 'losses unseen for 17 months'):
