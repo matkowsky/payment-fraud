@@ -18,12 +18,13 @@ For review, upload only `MANUSCRIPT_ACM_ANONYMOUS.pdf` and `SUPPLEMENT_ANONYMOUS
 - Text check: pass. 310 headings, paragraphs, list items, captions, table cells and images compared with the source, in order.
 - Numbering check: pass. 10 sections, 28 subsections, 3 tables and 3 figures print the numbers typed in the source.
 - Citation keys in the text: 76.
-- Removed for anonymous review (5 entries in `SOURCE/anonymize.txt`, each matched once):
+- Removed for anonymous review (6 entries in `SOURCE/anonymize.txt`, each matched once):
   - status: 27 November 2026 · Accepted working draft for version 1.1 · Not published · Not peer reviewed
   - block: Acknowledgments. Thanks to Humza Akhtar (Section 2.3), Marc Bara (Section 6.4), Jiahong Dai (Sections 2.2 and 6.2), Brian Freeman (Section 2.3), Oleg Solozobov …
   - text: Version 1.0 of these files is published with the preprint (https://doi.org/10.5281/zenodo.23772006); the working draft, with the files added since, and the revi…
   - block: Competing interests. The author previously worked for Microsoft and is seeking employment in security, fraud prevention, and trust and safety. The author has no…
   - block: Release status. This is the working draft for version 1.1. It is not a published version and has not been peer reviewed. Version 1.0 is dated 29 October 2026.
+  - text: Reproduction scripts check the included counts, lineage and arithmetic and rebuild the documents.
 - Supplied by the template, not the source: the country "USA" in the author block (ACM requires a country), and ACM's own labels, such as "Additional Key Words and Phrases" for the keywords line.
 - PDF check: pass. 297 of 297 text fragments found in the PDF; all citations resolved.
 - The author's surname and the preprint's DOIs appear nowhere in the TeX, the PDF text or the document properties.

@@ -129,6 +129,7 @@ Accepted pull requests:
 - [#136](https://github.com/matkowsky/payment-fraud/pull/136) IR-10: require current-period support for each named entity
 - [#137](https://github.com/matkowsky/payment-fraud/pull/137) E1: qualify when the records are tested without an agent
 - [#138](https://github.com/matkowsky/payment-fraud/pull/138) Distinguish court findings from draft and receiver accounts
+- [#140](https://github.com/matkowsky/payment-fraud/pull/140) Review package: supplement links resolve; anonymous copy drops the rebuild claim
 
 | Document | Read the current version | Paragraphs changed | Added | Removed | Moved between documents |
 |---|---|---|---|---|---|
