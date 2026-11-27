@@ -18,6 +18,7 @@ Each run used its string from STRINGS.md unchanged.
 | Q5-SC | 2026-11-24 | 87 | 87 | 85 | 0 |
 | Q6-SC | 2026-11-24 | 26 | 26 | 24 | 0 |
 | CB1-SC | 2026-11-27 | 45 | 45 | 20 | 0 |
+| CB2-SC | 2026-11-27 | 103 | 103 | 27 | 0 |
 
 Q1-SC: all 400 hits were exported and screened, above the 300 cap. No record the cap would keep was dropped.
 
@@ -38,6 +39,8 @@ Q5-SC: 2 records were already screened. All 85 other abstracts read, none critic
 Q6-SC: 24 abstracts read, none critical; one record had no abstract and was excluded by title. Hettema 2021 is already cited. Closest: an analysis of IP indicator overlap across 49 threat-intelligence providers (doi:10.1109/ICCCN69946.2026.11662535), which treats overlap as independent corroboration, the opposite of C3's caution; it states no rule.
 
 CB1-SC: citing documents of Lakkaraju et al. 2017, searched within for the CB1 terms. All 45 hits were exported. Two were already screened in Q1-SC, and rank 23 repeats rank 17. 20 abstracts read, none critical. Most are fairness or method papers on selective labels in lending, criminal justice or health. Closest: a lending data-trust framework (doi:10.1057/s41261-026-00364-8) that records claim-specific evidence status and separates selective repayment labels and temporal leakage, and a review (doi:10.1016/j.giq.2024.101976) that names past decisions shaping data in fraud detection. Neither states outcome records by channel, query coverage or release before reuse.
+
+CB2-SC: citing documents of Dal Pozzolo et al. 2018, searched within for the CB2 terms. 11 records were already screened in earlier runs. 27 abstracts read, none critical. Most are fraud classifiers that handle imbalance, drift or verification latency. Closest: an insurance study (doi:10.1007/s11634-023-00568-0) in which labels depend on investigators' efforts, an active-learning study (doi:10.1007/s41060-018-0116-z) in which labels come from investigators' daily checks, and a review (doi:10.3390/encyclopedia6100233) noting that chargeback labels arrive months later. All are methods; none states a record requirement.
 
 ## Critical sources
 
