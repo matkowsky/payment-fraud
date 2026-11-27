@@ -1924,8 +1924,8 @@ Fourteen rules check records against each other:
   released conclusion is never support or contradiction, and no claim
   cites a draft.
 \item
-  \mbox{IR-10}: a current-conduct claim cites an observation or derived
-  feature of a named entity whose event interval falls within the
+  \mbox{IR-10}: a current-conduct claim cites, for each named entity, an
+  observation or derived feature whose event interval falls within the
   current period. A score or decision does not count. A record that is
   linked to an agent output, was produced by an agent or names no
   producer counts only if its inputs include, for each named entity, a
@@ -2418,6 +2418,14 @@ where the plan asked for them before
 (\href{tools/adversarial_cases/round3/RUN_RECORD.md}{run record}). As
 before, the histories are not a sample from a defined population, so no
 rate and no interval is given.
+
+After round 3, the live \mbox{IR-10} checker was aligned with Section
+6.4: a multi-entity claim needs current-period support for every named
+entity. The conformance check accepts a matched positive control and
+rejects a copy in which one observation falls outside the period. The
+saved rounds and their rulings are unchanged; rerunning all three sets
+with this change produced the same results. This is a conformance check,
+not a new held-out test.
 
 \textbf{Cost.}
 \href{tools/investigation_cost.py}{\texttt{tools/investigation\_cost.py}}
@@ -3352,8 +3360,9 @@ section does not set them. A platform may change them before it starts,
 if it records the change before examining any data. No data have been
 collected, and whoever runs the plan can register it with a time stamp.
 
-C1 and C2 do not need the agent: E1, E3 and E9 test them without one,
-and E9(a) needs only records a platform already holds.
+C1 and C2 do not need the agent. E3 and E9 test relevant records without
+one, as does E1 when people investigate without the agent. E9(a) needs
+only records a platform already holds.
 
 \textbf{A first study within a quarter.} Before or beside E9(a), a
 platform can audit a random sample of closed cases for the three
