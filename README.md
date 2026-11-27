@@ -16,7 +16,7 @@ When an AI agent investigates abuse across a payment platform's products, three 
 2. **What each search actually covered, and when the system learned each fact.** An incomplete search cannot establish absence.
 3. **Human release before a conclusion is reused, with every record it informed linked back to it.** A reused conclusion cannot corroborate itself.
 
-The paper is a synthesis and specification built from public sources: 71 signals, 24 responsibilities, two hypothetical investigations and an evaluation plan. The [version 1.1 working draft](paper/working/MANUSCRIPT.md) reports checks on synthetic histories and two trials in which eight AI models answered written cases. These tests do not establish how the specification performs on a live payment platform or with practitioners. This repository is open for review.
+The paper is a synthesis and specification built from public sources: 71 signals, 24 responsibilities, two hypothetical investigations and an evaluation plan. The [version 1.1 working draft](paper/working/MANUSCRIPT.md) reports checks on synthetic histories and two runs in which eight AI models answered written cases. These tests do not establish how the specification performs on a live payment platform or with practitioners. This repository is open for review.
 
 ## How to comment
 
