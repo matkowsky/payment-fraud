@@ -20,6 +20,7 @@ Each run used its string from STRINGS.md unchanged.
 | CB1-SC | 2026-11-27 | 45 | 45 | 20 | 0 |
 | CB2-SC | 2026-11-27 | 103 | 103 | 27 | 0 |
 | CB3-SC | 2026-11-27 | 10 | 10 | 1 | 0 |
+| CB4-SC | 2026-11-27 | 15 | 15 | 7 | 0 |
 
 Q1-SC: all 400 hits were exported and screened, above the 300 cap. No record the cap would keep was dropped.
 
@@ -44,6 +45,8 @@ CB1-SC: citing documents of Lakkaraju et al. 2017, searched within for the CB1 t
 CB2-SC: citing documents of Dal Pozzolo et al. 2018, searched within for the CB2 terms. 11 records were already screened in earlier runs. 27 abstracts read, none critical. Most are fraud classifiers that handle imbalance, drift or verification latency. Closest: an insurance study (doi:10.1007/s11634-023-00568-0) in which labels depend on investigators' efforts, an active-learning study (doi:10.1007/s41060-018-0116-z) in which labels come from investigators' daily checks, and a review (doi:10.3390/encyclopedia6100233) noting that chargeback labels arrive months later. All are methods; none states a record requirement.
 
 CB3-SC: citing documents of Chapelle 2014, searched within for the CB3 terms. Nine are about online advertising, mostly matched by "payment" or "fraud" in passing. The tenth, a nonpayment model at Meta with delayed labels (doi:10.1145/3711896.3737247), was already screened in Q1-SC.
+
+CB4-SC: every citing document of Ehrhardt et al. 2021, with no terms. The export failed, so the 15 results were recorded from the results page, with titles and abstracts; record numbers and DOIs are given only for the two already screened (CB1-SC, Q1-SC). 7 abstracts read, none critical. All are reject-inference or credit-risk methods. Closest: a 2027 study (Scarone and Baeza-Yates, LNCS 16941) showing that retraining on accepted loans raises accuracy while rejection quality falls, remedied by approving a small share of rejects. That is exploration, not a record requirement.
 
 ## Critical sources
 
