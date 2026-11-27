@@ -326,7 +326,7 @@ def check(records, schema):
                     def current(o):   # an observation of a named entity, within the current period
                         return o['record_class'] in OBSERVED and within(o['event_interval'], r['current_period']) \
                             and ent(o['entity']) in named
-                    ok = False
+                    current_entities = set()
                     for s in (by[x] for x in c['supporting']):
                         if not current(s):
                             continue
@@ -337,9 +337,9 @@ def check(records, schema):
                                 current(by[i]) and plain(by[i]) and ent(by[i]['entity']) == e
                                 for i in s['inputs'] if i in by) for e in named):
                             continue
-                        ok = True
-                    if not ok:
-                        found.append(('IR-10', cid, 'no current-period observation of a named entity is cited'))
+                        current_entities.update({ent(s['entity'])} if plain(s) else named)
+                    if not named <= current_entities:
+                        found.append(('IR-10', cid, 'current-period observations do not support every named entity'))
                 for x in c['context']:
                     if by[x]['record_type'] != 'ReleasedItem':
                         continue
@@ -597,12 +597,32 @@ def check_extended_reporting_window(records, outcomes, schema, outcome_schema):
     assert not check_both(records, outcomes + [later_extension], schema, outcome_schema)
 
 
+def check_current_period_coverage(valid, schema):
+    """One in-period entity cannot carry a multi-entity current-conduct claim."""
+    records = copy.deepcopy(valid)
+    draft = next(r for r in records if r['record_id'] == 'DR-1')
+    claim = next(c for c in draft['claims'] if c['claim_id'] == 'CL-1')
+    second = copy.deepcopy(next(r for r in records if r['record_id'] == 'O-1'))
+    second.update(record_id='O-SECOND', root_ids=['O-SECOND'])
+    second['entity']['id'] = 'ACC-SECOND'
+    records.insert(0, second)
+    claim['entities'].append(second['entity'])
+    claim['supporting'].append(second['record_id'])
+    claim['distinct_roots'] += 1
+    # Both named entities have qualifying observations with the original period.
+    assert not check(seal(records), schema)
+    # Move only the period start: only the original entity now has in-period support.
+    draft['current_period']['from'] = '2026-05-02T00:00:00Z'
+    assert {f[0] for f in check(seal(records), schema)} == {'IR-10'}
+
+
 def run_conformance():
     schema = json.loads(SCHEMA.read_text(encoding='utf-8'))
     valid = json.loads(VALID.read_text(encoding='utf-8'))['records']
     cases = json.loads(INVALID.read_text(encoding='utf-8'))['cases']
     base = check(valid, schema)
     assert not base, ('valid case fails', base)
+    check_current_period_coverage(valid, schema)
     rules = set()
     for case in cases:
         got = {f[0] for f in check(seal(apply_patch(valid, case)), schema)}
